@@ -19,7 +19,7 @@ import {
   type VillageRoll,
 } from '@/lib/village/generate'
 import { generateOwnersForVillage } from '@/lib/village/ownersGenerate'
-import { countVillageEstablishments } from '@/lib/village/resolveDisplay'
+import { countVillageOwnerSlots } from '@/lib/village/resolveDisplay'
 import { decodeVillageRaceParam } from '@/lib/village/villageRaceCodec'
 import {
   decodeVillageRollParam,
@@ -54,7 +54,7 @@ export function VillageGeneratorClient() {
 
   const ownersDecoded = useMemo(() => {
     if (!roll || !ownersEncoded) return null
-    const n = countVillageEstablishments(roll)
+    const n = countVillageOwnerSlots(roll)
     const list = decodeVillageOwnersParam(ownersEncoded)
     if (!list || list.length !== n) return null
     return list

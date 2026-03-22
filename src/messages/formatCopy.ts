@@ -6,7 +6,10 @@ import {
 } from '@/lib/character/generate'
 import { genderCompactSymbol } from '@/lib/character/genderSymbols'
 import type { VillageRoll } from '@/lib/village/generate'
-import { resolveVillageDisplay } from '@/lib/village/resolveDisplay'
+import {
+  ownerSlotIndexByEstablishmentIndex,
+  resolveVillageDisplay,
+} from '@/lib/village/resolveDisplay'
 import { copy } from './fr'
 
 /** One-line share text: `♀ Ada (Bruja), Adolescent·e Amical·e (https://…)`. */
@@ -55,6 +58,7 @@ export function formatVillageCopyOneLiner(
   options?: VillageCopyFormatOptions,
 ): string {
   const { traits, establishments } = resolveVillageDisplay(roll)
+  const ownerSlots = ownerSlotIndexByEstablishmentIndex(establishments)
   const sections: string[] = []
 
   if (traits.length > 0) {
@@ -62,18 +66,21 @@ export function formatVillageCopyOneLiner(
     sections.push(`${copy.village.sectionTraits}\n${lines.join('\n')}`)
   }
 
-  const ownersOk = owners && owners.length === establishments.length
+  const ownersOk =
+    owners &&
+    owners.length === ownerSlots.filter((s): s is number => s !== null).length
   const establishmentLines = establishments.map((row, i) => {
-    if (ownersOk && options?.characterShareUrl) {
-      const owner = owners[i]!
+    const ownerIdx = ownerSlots[i]!
+    if (ownersOk && ownerIdx !== null && options?.characterShareUrl) {
+      const owner = owners[ownerIdx]!
       const oneLiner = formatCharacterCopyOneLiner(
         owner,
         options.characterShareUrl(owner),
       )
       return `- ${row.text}\n  - ${copy.village.ownerLabel} : ${oneLiner}`
     }
-    if (ownersOk) {
-      const owner = owners[i]!
+    if (ownersOk && ownerIdx !== null) {
+      const owner = owners[ownerIdx]!
       const age = getAgeBand(owner)
       const personality = getPersonality(owner)
       const g = genderCompactSymbol(owner.gender)

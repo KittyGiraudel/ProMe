@@ -129,6 +129,26 @@ describe("formatCopy", () => {
       expect(out).not.toContain("https://char/");
     });
 
+    it("skips proprietor lines for Ruines (rank 10) while keeping other owners aligned", () => {
+      const primary = toVillagePrimaryTuple([
+        card("10", "spades"),
+        card("2", "hearts"),
+        card("3", "clubs"),
+        card("4", "diamonds"),
+        card("5", "spades"),
+      ])!;
+      const roll = { primary, expansion: [] };
+      const owners = [
+        makeRoll({ name: "AfterRuin", gender: "woman" }),
+        makeRoll({ name: "Second", gender: "man" }),
+        makeRoll({ name: "Third", gender: "woman" }),
+        makeRoll({ name: "Fourth", gender: "man" }),
+      ];
+      const out = formatVillageCopyOneLiner(roll, "https://v", owners);
+      expect(out).toContain("AfterRuin");
+      expect(out.match(/Propriétaire/g)?.length).toBe(4);
+    });
+
     it("includes trait bullets with bold markers stripped", () => {
       const primary = toVillagePrimaryTuple([
         card("J", "clubs"),

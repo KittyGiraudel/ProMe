@@ -84,7 +84,35 @@ export function resolveVillageDisplay(roll: VillageRoll): {
   return { traits, establishments };
 }
 
-/** Number of establishment rows in resolution order (one owner each; merges share co-owners). */
+/** Ruines (rank 10) have no proprietor in the generator. */
+export function establishmentRowHasOwner(row: VillageEstablishmentRow): boolean {
+  return row.card.rank !== "10";
+}
+
+/**
+ * For each establishment row in display order, the index into `owners[]`, or null when
+ * the row is Ruines (no owner).
+ */
+export function ownerSlotIndexByEstablishmentIndex(
+  establishments: readonly VillageEstablishmentRow[],
+): (number | null)[] {
+  let slot = 0;
+  return establishments.map((row) => {
+    if (!establishmentRowHasOwner(row)) return null;
+    const i = slot;
+    slot += 1;
+    return i;
+  });
+}
+
+/** Number of establishment rows in resolution order. */
 export function countVillageEstablishments(roll: VillageRoll): number {
   return resolveVillageDisplay(roll).establishments.length;
+}
+
+/** How many proprietor rolls the village URL holds (all numbered establishments except Ruines). */
+export function countVillageOwnerSlots(roll: VillageRoll): number {
+  return resolveVillageDisplay(roll).establishments.filter(
+    establishmentRowHasOwner,
+  ).length;
 }

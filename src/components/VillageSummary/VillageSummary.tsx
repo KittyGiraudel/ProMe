@@ -14,7 +14,10 @@ import { mergeEstablishmentSizeTiers } from '@/lib/village/mergeEstablishmentSiz
 import type { VillageRoll } from '@/lib/village/generate'
 import type { CharacterRoll } from '@/lib/character/generate'
 import type { VillageEstablishmentRow } from '@/lib/village/resolveDisplay'
-import { resolveVillageDisplay } from '@/lib/village/resolveDisplay'
+import {
+  ownerSlotIndexByEstablishmentIndex,
+  resolveVillageDisplay,
+} from '@/lib/village/resolveDisplay'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { RichText } from '@/components/RichText/RichText'
 import { copy } from '@/messages/fr'
@@ -111,27 +114,43 @@ export function VillageSummary({
     [roll]
   )
 
+  const ownerSlotByEstIndex = useMemo(
+    () =>
+      display
+        ? ownerSlotIndexByEstablishmentIndex(display.establishments)
+        : null,
+    [display]
+  )
+
   const ownersOk =
-    owners && display && owners.length === display.establishments.length
+    owners &&
+    display &&
+    ownerSlotByEstIndex &&
+    owners.length === ownerSlotByEstIndex.filter(s => s !== null).length
 
   const establishmentBlocks = useMemo(() => {
-    if (!display) return null
+    if (!display || !ownerSlotByEstIndex) return null
     if (!grouped) {
-      return display.establishments.map((row, i) => (
-        <VillageEstablishmentLine
-          key={`${encodePlayingCard(row.card)}-${i}`}
-          lineNumber={i + 1}
-          title={row.text}
-          card={row.card}
-          rulebookPages={[row.rulebookPage]}
-          rerollPrimarySlot={row.rerollPrimarySlot ?? null}
-          onRerollPrimarySlot={onRerollPrimarySlot}
-          ownerEntries={
-            ownersOk ? [{ roll: owners![i]!, ownerIndex: i }] : undefined
-          }
-          onRerollOwner={onRerollOwner}
-        />
-      ))
+      return display.establishments.map((row, i) => {
+        const ownerSlot = ownerSlotByEstIndex[i]!
+        return (
+          <VillageEstablishmentLine
+            key={`${encodePlayingCard(row.card)}-${i}`}
+            lineNumber={i + 1}
+            title={row.text}
+            card={row.card}
+            rulebookPages={[row.rulebookPage]}
+            rerollPrimarySlot={row.rerollPrimarySlot ?? null}
+            onRerollPrimarySlot={onRerollPrimarySlot}
+            ownerEntries={
+              ownersOk && ownerSlot !== null
+                ? [{ roll: owners![ownerSlot]!, ownerIndex: ownerSlot }]
+                : undefined
+            }
+            onRerollOwner={onRerollOwner}
+          />
+        )
+      })
     }
     return groupEstablishments(display.establishments).map((g, i) => (
       <VillageEstablishmentLine
@@ -144,16 +163,30 @@ export function VillageSummary({
         onRerollPrimarySlot={onRerollPrimarySlot}
         ownerEntries={
           ownersOk
-            ? g.ownerIndices.map(idx => ({
-                roll: owners![idx]!,
-                ownerIndex: idx,
-              }))
+            ? g.ownerIndices.flatMap(estIdx => {
+                const ownerSlot = ownerSlotByEstIndex[estIdx]!
+                if (ownerSlot === null) return []
+                return [
+                  {
+                    roll: owners![ownerSlot]!,
+                    ownerIndex: ownerSlot,
+                  },
+                ]
+              })
             : undefined
         }
         onRerollOwner={onRerollOwner}
       />
     ))
-  }, [display, grouped, onRerollOwner, onRerollPrimarySlot, owners, ownersOk])
+  }, [
+    display,
+    grouped,
+    onRerollOwner,
+    onRerollPrimarySlot,
+    ownerSlotByEstIndex,
+    owners,
+    ownersOk,
+  ])
 
   const villageFootnote = (
     <Typography.Text type='secondary' className='generator-rulebook-footnote'>

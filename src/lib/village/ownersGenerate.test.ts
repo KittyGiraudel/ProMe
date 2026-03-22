@@ -23,4 +23,17 @@ describe("ownersGenerate", () => {
       expect(o.race).toBe("mousseron");
     }
   });
+
+  it("does not generate an owner for Ruines (rank 10)", () => {
+    const primary = toVillagePrimaryTuple([
+      c("10", "spades"),
+      c("2", "hearts"),
+      c("3", "clubs"),
+      c("4", "diamonds"),
+      c("5", "spades"),
+    ])!;
+    const roll = { primary, expansion: [] };
+    const owners = generateOwnersForVillage(roll, "bruja", () => 0.5);
+    expect(owners).toHaveLength(4);
+  });
 });

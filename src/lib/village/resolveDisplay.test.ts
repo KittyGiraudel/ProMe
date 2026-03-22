@@ -3,6 +3,7 @@ import type { PlayingCard } from "../types";
 import type { VillageRoll } from "./generate";
 import {
   countVillageEstablishments,
+  countVillageOwnerSlots,
   resolveVillageDisplay,
 } from "./resolveDisplay";
 import { toVillagePrimaryTuple } from "./primaryTuple";
@@ -114,5 +115,20 @@ describe("resolveVillageDisplay", () => {
     expect(countVillageEstablishments(r)).toBe(
       resolveVillageDisplay(r).establishments.length,
     );
+  });
+
+  it("countVillageOwnerSlots excludes Ruines (rank 10)", () => {
+    const r = roll(
+      [
+        card("10", "hearts"),
+        card("2", "clubs"),
+        card("3", "diamonds"),
+        card("4", "spades"),
+        card("5", "hearts"),
+      ],
+      [],
+    );
+    expect(resolveVillageDisplay(r).establishments).toHaveLength(5);
+    expect(countVillageOwnerSlots(r)).toBe(4);
   });
 });
