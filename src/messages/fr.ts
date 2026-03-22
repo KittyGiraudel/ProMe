@@ -77,8 +77,9 @@ export const copy = {
     rerollOwner: "Regénérer cet habitant",
     duplicateRuleHint:
       "Si vous tirez deux fois le même établissement : soit **deux** lieux du même type, soit **un seul** plus grand et imposant — à trancher à la table.",
-    groupedToggle:
-      "Regrouper les doublons (petite + petite → grande, grande + grande → immense, mixte → grande)",
+    groupedToggle: "Regrouper les doublons",
+    groupedToggleTooltip:
+      "petite + petite → grande, grande + grande → immense, mixte → grande",
     mergedEstablishmentLabel: "Immense",
     rerollCard: "Relancer cette carte",
     copyOneLiner: "Copier le résumé",

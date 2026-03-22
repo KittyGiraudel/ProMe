@@ -48,4 +48,8 @@ describe("codec/cards", () => {
     expect(decodePlayingCardString("H")).toBeNull();
     expect(decodePlayingCardString("H2C")).toBeNull();
   });
+
+  it("decodePlayingCardString rejects an invalid pair inside the string", () => {
+    expect(decodePlayingCardString("H2XZ")).toBeNull();
+  });
 });

@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { isFaceRank } from "./types";
 import {
+  defaultRng,
+  randomCard,
   randomInt,
   randomNumberedCard,
   roll2D6,
@@ -35,6 +37,22 @@ describe("rng", () => {
     let i = 0;
     const rng = () => seq[i++]!;
     expect(roll2D6(rng)).toEqual([1, 6]);
+  });
+
+  it("defaultRng returns a 0–1 float producer", () => {
+    const rng = defaultRng();
+    const x = rng();
+    expect(x).toBeGreaterThanOrEqual(0);
+    expect(x).toBeLessThan(1);
+  });
+
+  it("randomCard returns a valid suit and rank", () => {
+    const seq = [0, 0.1, 0.2, 0.3];
+    let i = 0;
+    const rng = () => seq[i++ % seq.length]!;
+    const c = randomCard(rng);
+    expect(["hearts", "diamonds", "clubs", "spades"]).toContain(c.suit);
+    expect(c.rank).toBeTruthy();
   });
 
   it("randomNumberedCard never returns a face rank", () => {

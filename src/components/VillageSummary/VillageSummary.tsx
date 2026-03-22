@@ -2,7 +2,7 @@
 
 import { RedoOutlined } from '@ant-design/icons'
 import { useMemo, useState } from 'react'
-import { Button, Card, Checkbox, Typography } from 'antd'
+import { Button, Card, Checkbox, Tooltip, Typography } from 'antd'
 import { encodePlayingCard } from '@/lib/codec/cards'
 import type { PlayingCard } from '@/lib/types'
 import { suitIsRed } from '@/lib/suitGlyphs'
@@ -251,11 +251,15 @@ export function VillageSummary({
               text={copy.village.duplicateRuleHint}
             />
             <div className='village-summary__dupes-toggle'>
-              <Checkbox
-                checked={grouped}
-                onChange={e => setGrouped(e.target.checked)}>
-                {copy.village.groupedToggle}
-              </Checkbox>
+              <Tooltip title={copy.village.groupedToggleTooltip}>
+                <span className='village-summary__dupes-toggle-tooltip-target'>
+                  <Checkbox
+                    checked={grouped}
+                    onChange={e => setGrouped(e.target.checked)}>
+                    {copy.village.groupedToggle}
+                  </Checkbox>
+                </span>
+              </Tooltip>
             </div>
           </div>
         </div>

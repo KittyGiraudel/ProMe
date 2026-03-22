@@ -1,6 +1,6 @@
 'use client'
 
-import { miniMarkdown } from '@/lib/miniMarkdown'
+import { miniMarkdown } from '@/messages/miniMarkdown'
 import type { ElementType } from 'react'
 import './RichText.css'
 
