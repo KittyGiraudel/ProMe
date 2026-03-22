@@ -1,17 +1,9 @@
 'use client'
 
 import { RedoOutlined } from '@ant-design/icons'
-import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { Button, Card, Checkbox, Typography } from 'antd'
-import { encodeCharacterRoll } from '@/lib/lsdp/character/characterUrlCodec'
-import {
-  getAgeBand,
-  getPersonality,
-  type CharacterRoll,
-} from '@/lib/lsdp/character/generate'
 import { encodePlayingCard } from '@/lib/lsdp/playingCardCodec'
-import { genderCompactSymbol } from '@/lib/lsdp/genderSymbols'
 import type { PlayingCard } from '@/lib/lsdp/types'
 import { suitIsRed } from '@/lib/lsdp/suitGlyphs'
 import {
@@ -21,6 +13,7 @@ import {
 import { VILLAGE_RULEBOOK_PAGES_FR } from '@/lib/lsdp/village/data/establishmentPages'
 import { mergePetiteGrandeTiers } from '@/lib/lsdp/village/mergePetiteGrandeTiers'
 import type { VillageRoll } from '@/lib/lsdp/village/generate'
+import type { CharacterRoll } from '@/lib/lsdp/character/generate'
 import type { VillageEstablishmentRow } from '@/lib/lsdp/village/resolveDisplay'
 import { resolveVillageDisplay } from '@/lib/lsdp/village/resolveDisplay'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
@@ -30,6 +23,7 @@ import {
   fr,
   villageRulebookRefsNoteFr,
 } from '@/messages/fr'
+import { VillageEstablishmentLine } from './VillageEstablishmentLine'
 import './VillageSummary.css'
 
 type VillageSummaryProps = {
@@ -37,81 +31,6 @@ type VillageSummaryProps = {
   owners: CharacterRoll[] | null
   onRerollPrimarySlot?: (slotIndex: number) => void
   onRerollOwner?: (ownerIndex: number) => void
-}
-
-type OwnerEntry = { roll: CharacterRoll; ownerIndex: number }
-
-function VillageEstablishmentOwners({
-  entries,
-  onRerollOwner,
-}: {
-  entries: OwnerEntry[] | undefined
-  onRerollOwner?: (ownerIndex: number) => void
-}) {
-  if (!entries?.length) return null
-  const multi = entries.length > 1
-
-  const renderRow = (e: OwnerEntry) => {
-    const age = getAgeBand(e.roll)
-    const personality = getPersonality(e.roll)
-    const c = encodeURIComponent(encodeCharacterRoll(e.roll))
-    return (
-      <div className='village-summary__owner-row'>
-        <span className='village-summary__owner-main'>
-          <span className='village-summary__owner-line-start'>
-            {genderCompactSymbol(e.roll.gender)}{' '}
-            <Link
-              href={`/generators/character?c=${c}`}
-              className='village-summary__owner-name-link'
-              aria-label={fr.village.openInCharacterBuilder}>
-              {e.roll.name}
-            </Link>
-            {` (${fr.races[e.roll.race]})`}
-          </span>
-          <span className='village-summary__owner-sep'> — </span>
-          <span className='village-summary__owner-age-personality'>
-            {fr.ageBands[age]}, {fr.personalities[personality]}
-          </span>
-        </span>
-        <span className='village-summary__owner-actions'>
-          {onRerollOwner ? (
-            <Button
-              type='text'
-              size='small'
-              icon={<RedoOutlined />}
-              aria-label={fr.village.rerollOwner}
-              onClick={() => onRerollOwner(e.ownerIndex)}
-              className='village-summary__owner-reroll'
-            />
-          ) : null}
-        </span>
-      </div>
-    )
-  }
-
-  return (
-    <div className='village-summary__owners'>
-      <Typography.Text
-        type='secondary'
-        className='village-summary__owners-heading'>
-        {multi ? fr.village.coOwnersLabel : fr.village.ownerLabel}
-        {' :'}
-      </Typography.Text>
-      {multi ? (
-        <ul className='village-summary__owners-list'>
-          {entries.map(e => (
-            <li key={e.ownerIndex} className='village-summary__owners-item'>
-              {renderRow(e)}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <div className='village-summary__owners-one'>
-          {renderRow(entries[0]!)}
-        </div>
-      )}
-    </div>
-  )
 }
 
 function groupEstablishments(rows: VillageEstablishmentRow[]): {
@@ -203,92 +122,40 @@ export function VillageSummary({
     if (!display) return null
     if (!grouped) {
       return display.establishments.map((row, i) => (
-        <div
+        <VillageEstablishmentLine
           key={`${encodePlayingCard(row.card)}-${i}`}
-          className='village-summary__line'>
-          <span className='village-summary__line-num'>{i + 1}.</span>
-          <div className='village-summary__line-body'>
-            <div className='village-summary__line-inner'>
-              <div className='village-summary__line-main'>
-                <Typography.Text className='village-summary__line-name'>
-                  {row.text}
-                </Typography.Text>
-                <span className='village-summary__line-card-wrap'>
-                  {' ('}
-                  <PlayingCardLabel card={row.card} compact />
-                  {')'}
-                </span>
-                {onRerollPrimarySlot && row.rerollPrimarySlot != null ? (
-                  <Button
-                    type='text'
-                    size='small'
-                    icon={<RedoOutlined />}
-                    aria-label={fr.village.rerollCard}
-                    onClick={() => onRerollPrimarySlot(row.rerollPrimarySlot!)}
-                    className='village-summary__line-reroll'
-                  />
-                ) : null}
-              </div>
-              <span
-                className='village-summary__line-page'
-                aria-label={`${fr.village.rulebookPageAria}: ${formatVillageRulebookPagesJoined([row.rulebookPage])}`}>
-                {formatVillageRulebookPagesJoined([row.rulebookPage])}
-              </span>
-            </div>
-            <VillageEstablishmentOwners
-              entries={
-                ownersOk ? [{ roll: owners![i]!, ownerIndex: i }] : undefined
-              }
-              onRerollOwner={onRerollOwner}
-            />
-          </div>
-        </div>
+          lineNumber={i + 1}
+          title={row.text}
+          card={row.card}
+          rulebookPages={[row.rulebookPage]}
+          rerollPrimarySlot={row.rerollPrimarySlot ?? null}
+          onRerollPrimarySlot={onRerollPrimarySlot}
+          ownerEntries={
+            ownersOk ? [{ roll: owners![i]!, ownerIndex: i }] : undefined
+          }
+          onRerollOwner={onRerollOwner}
+        />
       ))
     }
     return groupEstablishments(display.establishments).map((g, i) => (
-      <div key={g.key} className='village-summary__line'>
-        <span className='village-summary__line-num'>{i + 1}.</span>
-        <div className='village-summary__line-body'>
-          <div className='village-summary__line-inner'>
-            <div className='village-summary__line-main'>
-              <Typography.Text className='village-summary__line-name'>
-                {g.text}
-              </Typography.Text>
-              <span className='village-summary__line-card-wrap'>
-                {' ('}
-                <PlayingCardLabel card={g.card} compact />
-                {')'}
-              </span>
-              {onRerollPrimarySlot && g.rerollPrimarySlot != null ? (
-                <Button
-                  type='text'
-                  size='small'
-                  icon={<RedoOutlined />}
-                  aria-label={fr.village.rerollCard}
-                  onClick={() => onRerollPrimarySlot(g.rerollPrimarySlot!)}
-                  className='village-summary__line-reroll'
-                />
-              ) : null}
-            </div>
-            <span
-              className='village-summary__line-page'
-              aria-label={`${fr.village.rulebookPageAria}: ${formatVillageRulebookPagesJoined(g.rulebookPages)}`}>
-              {formatVillageRulebookPagesJoined(g.rulebookPages)}
-            </span>
-          </div>
-          <VillageEstablishmentOwners
-            entries={
-              ownersOk
-                ? g.ownerIndices.map(idx => ({
-                    roll: owners![idx]!,
-                    ownerIndex: idx,
-                  }))
-                : undefined
-            }
-            onRerollOwner={onRerollOwner}
-          />
-        </div>
-      </div>
+      <VillageEstablishmentLine
+        key={g.key}
+        lineNumber={i + 1}
+        title={g.text}
+        card={g.card}
+        rulebookPages={g.rulebookPages}
+        rerollPrimarySlot={g.rerollPrimarySlot}
+        onRerollPrimarySlot={onRerollPrimarySlot}
+        ownerEntries={
+          ownersOk
+            ? g.ownerIndices.map(idx => ({
+                roll: owners![idx]!,
+                ownerIndex: idx,
+              }))
+            : undefined
+        }
+        onRerollOwner={onRerollOwner}
+      />
     ))
   }, [display, grouped, onRerollOwner, onRerollPrimarySlot, owners, ownersOk])
 

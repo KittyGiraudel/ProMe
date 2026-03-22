@@ -2,6 +2,7 @@ import { randomCard, randomNumberedCard } from "../rng";
 import type { PlayingCard } from "../types";
 import { isFaceRank } from "../types";
 import { suitIsRed } from "../suitGlyphs";
+import { toVillagePrimaryTuple } from "./primaryTuple";
 
 export type VillageRoll = {
   primary: readonly [
@@ -35,13 +36,13 @@ export function buildExpansionForPrimary(
 export function generateVillageRoll(
   rng: () => number = Math.random,
 ): VillageRoll {
-  const primary = [
+  const primary = toVillagePrimaryTuple([
     randomCard(rng),
     randomCard(rng),
     randomCard(rng),
     randomCard(rng),
     randomCard(rng),
-  ] as VillageRoll["primary"];
+  ])!;
   const expansion = buildExpansionForPrimary(primary, rng);
   return { primary, expansion };
 }
@@ -54,7 +55,7 @@ export function rerollVillagePrimarySlot(
   if (slotIndex < 0 || slotIndex > 4) return roll;
   const next: PlayingCard[] = [...roll.primary];
   next[slotIndex] = randomCard(rng);
-  const primary = next as unknown as VillageRoll["primary"];
+  const primary = toVillagePrimaryTuple(next)!;
   return { primary, expansion: buildExpansionForPrimary(primary, rng) };
 }
 

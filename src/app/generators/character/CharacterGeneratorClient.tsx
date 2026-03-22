@@ -1,11 +1,11 @@
 'use client'
 
 import { useCallback, useEffect, useMemo } from 'react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { App } from 'antd'
 import { CharacterSummary } from '@/components/CharacterSummary/CharacterSummary'
 import { GeneratorPageShell } from '@/components/GeneratorPageShell/GeneratorPageShell'
 import { RollActions } from '@/components/RollActions/RollActions'
+import { useReplaceSearchParams } from '@/hooks/useReplaceSearchParams'
 import {
   type CharacterRerollPart,
   generateCharacter,
@@ -21,9 +21,8 @@ const CHARACTER_QUERY_KEY = 'c'
 
 export function CharacterGeneratorClient() {
   const { message } = App.useApp()
-  const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+  const { replaceSearchParams, pathname, searchParams } =
+    useReplaceSearchParams()
   const encoded = searchParams.get(CHARACTER_QUERY_KEY)
 
   const roll = useMemo(
@@ -33,28 +32,27 @@ export function CharacterGeneratorClient() {
 
   useEffect(() => {
     if (!encoded || roll !== null) return
-    const params = new URLSearchParams(searchParams.toString())
-    params.delete(CHARACTER_QUERY_KEY)
-    const qs = params.toString()
-    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
-  }, [encoded, pathname, roll, router, searchParams])
+    replaceSearchParams(p => {
+      p.delete(CHARACTER_QUERY_KEY)
+    })
+  }, [encoded, replaceSearchParams, roll])
 
   const handleRollAll = useCallback(() => {
     const next = generateCharacter()
-    const params = new URLSearchParams(searchParams.toString())
-    params.set(CHARACTER_QUERY_KEY, encodeCharacterRoll(next))
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
-  }, [pathname, router, searchParams])
+    replaceSearchParams(p => {
+      p.set(CHARACTER_QUERY_KEY, encodeCharacterRoll(next))
+    })
+  }, [replaceSearchParams])
 
   const handleRerollPart = useCallback(
     (part: CharacterRerollPart) => {
       if (!roll) return
       const next = rerollCharacterPart(roll, part)
-      const params = new URLSearchParams(searchParams.toString())
-      params.set(CHARACTER_QUERY_KEY, encodeCharacterRoll(next))
-      router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+      replaceSearchParams(p => {
+        p.set(CHARACTER_QUERY_KEY, encodeCharacterRoll(next))
+      })
     },
-    [pathname, roll, router, searchParams]
+    [replaceSearchParams, roll]
   )
 
   const handleCopyOneLiner = useCallback(async () => {

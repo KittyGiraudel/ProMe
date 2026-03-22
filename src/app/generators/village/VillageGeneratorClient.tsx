@@ -1,11 +1,11 @@
 'use client'
 
 import { useCallback, useEffect, useMemo } from 'react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { App, Select, Typography } from 'antd'
 import { GeneratorPageShell } from '@/components/GeneratorPageShell/GeneratorPageShell'
 import { RollActions } from '@/components/RollActions/RollActions'
 import { VillageSummary } from '@/components/VillageSummary/VillageSummary'
+import { useReplaceSearchParams } from '@/hooks/useReplaceSearchParams'
 import {
   generateCharacterWithRace,
   type CharacterRoll,
@@ -39,9 +39,8 @@ const DEFAULT_VILLAGE_RACE: Race = 'bruja'
 
 export function VillageGeneratorClient() {
   const { message } = App.useApp()
-  const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+  const { replaceSearchParams, pathname, searchParams } =
+    useReplaceSearchParams()
   const encoded = searchParams.get(VILLAGE_QUERY_KEY)
   const ownersEncoded = searchParams.get(OWNERS_QUERY_KEY)
   const raceEncoded = searchParams.get(RACE_QUERY_KEY)
@@ -81,57 +80,47 @@ export function VillageGeneratorClient() {
   useEffect(() => {
     if (raceEncoded === null) return
     if (decodeVillageRaceParam(raceEncoded) !== null) return
-    const params = new URLSearchParams(searchParams.toString())
-    params.delete(RACE_QUERY_KEY)
-    const qs = params.toString()
-    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
-  }, [pathname, raceEncoded, router, searchParams])
+    replaceSearchParams(p => {
+      p.delete(RACE_QUERY_KEY)
+    })
+  }, [raceEncoded, replaceSearchParams])
 
   useEffect(() => {
     if (!roll || !ownersValid) return
     if (raceEncoded !== null) return
-    const params = new URLSearchParams(searchParams.toString())
-    params.set(RACE_QUERY_KEY, villageRace)
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
-  }, [
-    ownersValid,
-    pathname,
-    raceEncoded,
-    roll,
-    router,
-    searchParams,
-    villageRace,
-  ])
+    replaceSearchParams(p => {
+      p.set(RACE_QUERY_KEY, villageRace)
+    })
+  }, [ownersValid, raceEncoded, replaceSearchParams, roll, villageRace])
 
   useEffect(() => {
     if (!encoded || roll !== null) return
-    const params = new URLSearchParams(searchParams.toString())
-    params.delete(VILLAGE_QUERY_KEY)
-    params.delete(OWNERS_QUERY_KEY)
-    const qs = params.toString()
-    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
-  }, [encoded, pathname, roll, router, searchParams])
+    replaceSearchParams(p => {
+      p.delete(VILLAGE_QUERY_KEY)
+      p.delete(OWNERS_QUERY_KEY)
+    })
+  }, [encoded, replaceSearchParams, roll])
 
   useEffect(() => {
     if (!roll) return
     if (ownersValid !== null) return
     const fresh = generateOwnersForVillage(roll, villageRace)
-    const params = new URLSearchParams(searchParams.toString())
-    params.set(VILLAGE_QUERY_KEY, encodeVillageRoll(roll))
-    params.set(OWNERS_QUERY_KEY, encodeVillageOwners(fresh))
-    params.set(RACE_QUERY_KEY, villageRace)
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
-  }, [ownersValid, pathname, roll, router, searchParams, villageRace])
+    replaceSearchParams(p => {
+      p.set(VILLAGE_QUERY_KEY, encodeVillageRoll(roll))
+      p.set(OWNERS_QUERY_KEY, encodeVillageOwners(fresh))
+      p.set(RACE_QUERY_KEY, villageRace)
+    })
+  }, [ownersValid, replaceSearchParams, roll, villageRace])
 
   const pushVillageParams = useCallback(
     (nextRoll: VillageRoll, nextOwners: CharacterRoll[], nextRace: Race) => {
-      const params = new URLSearchParams(searchParams.toString())
-      params.set(VILLAGE_QUERY_KEY, encodeVillageRoll(nextRoll))
-      params.set(OWNERS_QUERY_KEY, encodeVillageOwners(nextOwners))
-      params.set(RACE_QUERY_KEY, nextRace)
-      router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+      replaceSearchParams(p => {
+        p.set(VILLAGE_QUERY_KEY, encodeVillageRoll(nextRoll))
+        p.set(OWNERS_QUERY_KEY, encodeVillageOwners(nextOwners))
+        p.set(RACE_QUERY_KEY, nextRace)
+      })
     },
-    [pathname, router, searchParams]
+    [replaceSearchParams]
   )
 
   const handleRollAll = useCallback(() => {
@@ -143,15 +132,15 @@ export function VillageGeneratorClient() {
   const handleRaceChange = useCallback(
     (nextRace: Race) => {
       if (!roll) {
-        const params = new URLSearchParams(searchParams.toString())
-        params.set(RACE_QUERY_KEY, nextRace)
-        router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+        replaceSearchParams(p => {
+          p.set(RACE_QUERY_KEY, nextRace)
+        })
         return
       }
       const owners = generateOwnersForVillage(roll, nextRace)
       pushVillageParams(roll, owners, nextRace)
     },
-    [pathname, pushVillageParams, roll, router, searchParams]
+    [pushVillageParams, replaceSearchParams, roll]
   )
 
   const handleRerollSlot = useCallback(

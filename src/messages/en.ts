@@ -1,6 +1,10 @@
 import type { Gender, Race } from "@/lib/lsdp/types";
 
-/** English UI copy (optional locale); game rule text may stay French in data files. */
+/**
+ * English UI copy kept in sync with `fr.ts` for a future locale switch. The app
+ * currently imports `fr` only (`layout`, pages, components); nothing references
+ * `en` yet.
+ */
 export const en = {
   appName: "LSDP — Tools",
   metadata: {
