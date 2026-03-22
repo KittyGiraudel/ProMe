@@ -1,6 +1,6 @@
 .generator-page-shell {
   flex: 1;
-  padding: 2rem 1.25rem 3rem;
+  padding: 1.35rem 1.25rem 3rem;
 }
 
 .generator-page-shell__inner {
@@ -8,11 +8,30 @@
   margin: 0 auto;
 }
 
+.generator-page-shell__back-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0;
+  margin-bottom: 0.75rem;
+  font-size: 0.9375rem;
+}
+
+.generator-page-shell__back-sep {
+  color: var(--lsdp-muted);
+  user-select: none;
+  margin: 0 1ch;
+}
+
 .generator-page-shell__back {
   display: inline-block;
   margin-bottom: 0.75rem;
   font-size: 0.9375rem;
   color: var(--lsdp-muted);
+}
+
+.generator-page-shell__back-row .generator-page-shell__back {
+  margin-bottom: 0;
 }
 
 .generator-page-shell__back:hover {

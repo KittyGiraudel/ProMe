@@ -16,9 +16,11 @@ export type VillageOwnerEntry = { roll: CharacterRoll; ownerIndex: number }
 
 export function VillageEstablishmentOwners({
   entries,
+  characterPageVillageQuery,
   onRerollOwner,
 }: {
   entries: VillageOwnerEntry[] | undefined
+  characterPageVillageQuery?: string | null
   onRerollOwner?: (ownerIndex: number) => void
 }) {
   if (!entries?.length) return null
@@ -28,13 +30,17 @@ export function VillageEstablishmentOwners({
     const age = getAgeBand(e.roll)
     const personality = getPersonality(e.roll)
     const c = encodeURIComponent(encodeCharacterRoll(e.roll))
+    const characterHref =
+      characterPageVillageQuery != null && characterPageVillageQuery !== ''
+        ? `/generators/character?c=${c}&${characterPageVillageQuery}`
+        : `/generators/character?c=${c}`
     return (
       <div className='village-summary__owner-row'>
         <span className='village-summary__owner-main'>
           <span className='village-summary__owner-line-start'>
             {genderCompactSymbol(e.roll.gender)}{' '}
             <Link
-              href={`/generators/character?c=${c}`}
+              href={characterHref}
               className='village-summary__owner-name-link'
               aria-label={copy.village.openInCharacterBuilder}>
               {e.roll.name}

@@ -18,6 +18,7 @@ export type VillageEstablishmentLineProps = {
   rulebookPages: number[]
   rerollPrimarySlot: number | null
   onRerollPrimarySlot?: (slotIndex: number) => void
+  characterPageVillageQuery?: string | null
   ownerEntries?: VillageOwnerEntry[]
   onRerollOwner?: (ownerIndex: number) => void
 }
@@ -29,6 +30,7 @@ export function VillageEstablishmentLine({
   rulebookPages,
   rerollPrimarySlot,
   onRerollPrimarySlot,
+  characterPageVillageQuery,
   ownerEntries,
   onRerollOwner,
 }: VillageEstablishmentLineProps) {
@@ -66,6 +68,7 @@ export function VillageEstablishmentLine({
         </div>
         <VillageEstablishmentOwners
           entries={ownerEntries}
+          characterPageVillageQuery={characterPageVillageQuery}
           onRerollOwner={onRerollOwner}
         />
       </div>

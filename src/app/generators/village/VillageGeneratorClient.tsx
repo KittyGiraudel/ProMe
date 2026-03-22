@@ -173,8 +173,14 @@ export function VillageGeneratorClient() {
     params.set(RACE_QUERY_KEY, villageRace)
     const shareUrl = `${window.location.origin}${pathname}?${params.toString()}`
     const line = formatVillageCopyOneLiner(roll, shareUrl, ownersValid, {
-      characterShareUrl: characterRoll =>
-        `${window.location.origin}/generators/character?c=${encodeURIComponent(encodeCharacterRoll(characterRoll))}`,
+      characterShareUrl: characterRoll => {
+        const p = new URLSearchParams()
+        p.set('c', encodeCharacterRoll(characterRoll))
+        p.set(VILLAGE_QUERY_KEY, encodeVillageRoll(roll))
+        p.set(OWNERS_QUERY_KEY, encodeVillageOwners(ownersValid))
+        p.set(RACE_QUERY_KEY, villageRace)
+        return `${window.location.origin}/generators/character?${p.toString()}`
+      },
     })
     try {
       await navigator.clipboard.writeText(line)
@@ -192,6 +198,15 @@ export function VillageGeneratorClient() {
       })),
     []
   )
+
+  const characterPageVillageQuery = useMemo(() => {
+    if (!roll || !ownersValid) return null
+    const p = new URLSearchParams()
+    p.set(VILLAGE_QUERY_KEY, encodeVillageRoll(roll))
+    p.set(OWNERS_QUERY_KEY, encodeVillageOwners(ownersValid))
+    p.set(RACE_QUERY_KEY, villageRace)
+    return p.toString()
+  }, [ownersValid, roll, villageRace])
 
   return (
     <GeneratorPageShell
@@ -224,6 +239,7 @@ export function VillageGeneratorClient() {
       <VillageSummary
         roll={roll}
         owners={ownersValid}
+        characterPageVillageQuery={characterPageVillageQuery}
         onRerollPrimarySlot={roll ? handleRerollSlot : undefined}
         onRerollOwner={roll && ownersValid ? handleRerollOwner : undefined}
       />

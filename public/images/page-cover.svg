@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 420" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="pc-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e5f2ec"/>
+      <stop offset="55%" stop-color="#c8e0d4"/>
+      <stop offset="100%" stop-color="#a8cdb8"/>
+    </linearGradient>
+    <linearGradient id="pc-haze" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7ab69a" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#5a9d84" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#7ab69a" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="pc-glow" cx="72%" cy="28%" r="1">
+      <stop offset="0%" stop-color="#f4faf7" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="#dff0e6" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#b8dcc8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pc-hill-far" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9dc4b0"/>
+      <stop offset="100%" stop-color="#6fa68e"/>
+    </linearGradient>
+    <linearGradient id="pc-hill-near" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a9078"/>
+      <stop offset="100%" stop-color="#2d6b56"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="420" fill="url(#pc-sky)"/>
+  <rect width="1600" height="420" fill="url(#pc-haze)"/>
+  <ellipse cx="1180" cy="80" rx="520" ry="200" fill="url(#pc-glow)"/>
+  <path
+    fill="url(#pc-hill-far)"
+    fill-opacity="0.55"
+    d="M0 280 C 200 220 380 260 560 235 C 740 210 900 250 1100 228 C 1280 208 1420 248 1600 215 V 420 H 0 Z"
+  />
+  <path
+    fill="url(#pc-hill-far)"
+    fill-opacity="0.75"
+    d="M0 310 C 240 265 420 295 640 268 C 860 242 1020 278 1220 255 C 1380 238 1500 268 1600 248 V 420 H 0 Z"
+  />
+  <path
+    fill="url(#pc-hill-near)"
+    fill-opacity="0.35"
+    d="M0 340 C 280 300 500 330 760 302 C 980 280 1180 318 1400 295 C 1500 285 1560 302 1600 295 V 420 H 0 Z"
+  />
+  <path
+    fill="#1f4d3d"
+    fill-opacity="0.12"
+    d="M0 368 C 320 338 540 358 800 335 C 1040 315 1260 348 1600 318 V 420 H 0 Z"
+  />
+</svg>

@@ -145,8 +145,12 @@ export const copy = {
   },
   nav: {
     backHome: "← Accueil",
+    backToVillage: "← Retour au village",
+    navMid: " | ",
+    homeLink: "Accueil",
   },
   a11y: {
+    generatorBreadcrumb: "Navigation",
     dieSingle(value: number): string {
       return `Dé ${value}`;
     },

@@ -3,6 +3,7 @@
 import { Typography } from 'antd'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
+import { copy } from '@/messages/fr'
 import './GeneratorPageShell.css'
 
 type GeneratorPageShellProps = {
@@ -10,6 +11,8 @@ type GeneratorPageShellProps = {
   description?: string
   backHref?: string
   backLabel?: string
+  /** When set (e.g. inhabitant opened from village), show village + home links. */
+  villageBackHref?: string
   children: ReactNode
 }
 
@@ -18,12 +21,28 @@ export function GeneratorPageShell({
   description,
   backHref,
   backLabel,
+  villageBackHref,
   children,
 }: GeneratorPageShellProps) {
+  const homeHref = backHref ?? '/'
   return (
     <div className='generator-page-shell'>
       <div className='generator-page-shell__inner'>
-        {backHref ? (
+        {villageBackHref ? (
+          <nav
+            className='generator-page-shell__back-row'
+            aria-label={copy.a11y.generatorBreadcrumb}>
+            <Link href={villageBackHref} className='generator-page-shell__back'>
+              {copy.nav.backToVillage}
+            </Link>
+            <span className='generator-page-shell__back-sep' aria-hidden='true'>
+              {copy.nav.navMid}
+            </span>
+            <Link href={homeHref} className='generator-page-shell__back'>
+              {copy.nav.homeLink}
+            </Link>
+          </nav>
+        ) : backHref ? (
           <Link href={backHref} className='generator-page-shell__back'>
             {backLabel ?? '←'}
           </Link>

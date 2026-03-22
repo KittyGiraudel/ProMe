@@ -28,6 +28,8 @@ import './VillageSummary.css'
 type VillageSummaryProps = {
   roll: VillageRoll | null
   owners: CharacterRoll[] | null
+  /** Appended to inhabitant links so the character page can offer « Retour au village ». */
+  characterPageVillageQuery?: string | null
   onRerollPrimarySlot?: (slotIndex: number) => void
   onRerollOwner?: (ownerIndex: number) => void
 }
@@ -104,6 +106,7 @@ function groupEstablishments(rows: VillageEstablishmentRow[]): {
 export function VillageSummary({
   roll,
   owners,
+  characterPageVillageQuery,
   onRerollPrimarySlot,
   onRerollOwner,
 }: VillageSummaryProps) {
@@ -142,6 +145,7 @@ export function VillageSummary({
             rulebookPages={[row.rulebookPage]}
             rerollPrimarySlot={row.rerollPrimarySlot ?? null}
             onRerollPrimarySlot={onRerollPrimarySlot}
+            characterPageVillageQuery={characterPageVillageQuery}
             ownerEntries={
               ownersOk && ownerSlot !== null
                 ? [{ roll: owners![ownerSlot]!, ownerIndex: ownerSlot }]
@@ -161,6 +165,7 @@ export function VillageSummary({
         rulebookPages={g.rulebookPages}
         rerollPrimarySlot={g.rerollPrimarySlot}
         onRerollPrimarySlot={onRerollPrimarySlot}
+        characterPageVillageQuery={characterPageVillageQuery}
         ownerEntries={
           ownersOk
             ? g.ownerIndices.flatMap(estIdx => {
@@ -179,6 +184,7 @@ export function VillageSummary({
       />
     ))
   }, [
+    characterPageVillageQuery,
     display,
     grouped,
     onRerollOwner,

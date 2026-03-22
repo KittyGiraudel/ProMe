@@ -26,6 +26,18 @@ export function CharacterGeneratorClient() {
   const { replaceSearchParams, pathname, searchParams } =
     useReplaceSearchParams()
   const encoded = searchParams.get(CHARACTER_QUERY_KEY)
+  const villageV = searchParams.get('v')
+  const villageO = searchParams.get('o')
+  const villageRaceParam = searchParams.get('race')
+
+  const villageBackHref = useMemo(() => {
+    if (!villageV || !villageO) return undefined
+    const p = new URLSearchParams()
+    p.set('v', villageV)
+    p.set('o', villageO)
+    if (villageRaceParam) p.set('race', villageRaceParam)
+    return `/generators/village?${p.toString()}`
+  }, [villageO, villageRaceParam, villageV])
 
   const roll = useMemo(
     () => (encoded ? decodeCharacterRollParam(encoded) : null),
@@ -85,7 +97,8 @@ export function CharacterGeneratorClient() {
       title={copy.character.pageTitle}
       description={copy.character.pageDescription}
       backHref='/'
-      backLabel={copy.nav.backHome}>
+      backLabel={copy.nav.backHome}
+      villageBackHref={villageBackHref}>
       <RollActions
         onRollAll={handleRollAll}
         label={copy.character.rollAll}

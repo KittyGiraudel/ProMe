@@ -2,6 +2,7 @@ import { AntdRegistry } from '@ant-design/nextjs-registry'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { AppProviders } from '@/components/AppProviders/AppProviders'
+import { PageCover } from '@/components/PageCover/PageCover'
 import { copy } from '@/messages/fr'
 import './globals.css'
 
@@ -29,7 +30,12 @@ export default function RootLayout({
     <html lang='fr' className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
         <AntdRegistry>
-          <AppProviders>{children}</AppProviders>
+          <AppProviders>
+            <div className='app-shell'>
+              <PageCover />
+              {children}
+            </div>
+          </AppProviders>
         </AntdRegistry>
       </body>
     </html>
