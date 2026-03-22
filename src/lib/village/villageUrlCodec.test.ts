@@ -43,4 +43,20 @@ describe("villageUrlCodec", () => {
     expect(decodeVillageRollParam("")).toBeNull();
     expect(decodeVillageRollParam("abc")).toBeNull();
   });
+
+  it("rejects expansion cards that are face ranks (length already valid)", () => {
+    const primary = toVillagePrimaryTuple([
+      { rank: "J", suit: "hearts" },
+      card("2", "clubs"),
+      card("3", "clubs"),
+      card("4", "clubs"),
+      card("5", "clubs"),
+    ])!;
+    const badExpansion: PlayingCard[] = [
+      { rank: "Q", suit: "spades" },
+      card("7", "diamonds"),
+      card("8", "hearts"),
+    ];
+    expect(decodeVillageRollParam(encodeVillageRoll({ primary, expansion: badExpansion }))).toBeNull();
+  });
 });
