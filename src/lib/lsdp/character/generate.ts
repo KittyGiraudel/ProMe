@@ -1,14 +1,20 @@
 import { randomCard, roll2D6, rollD6 } from "../rng";
-import type { PlayingCard, Race } from "../types";
+import type { Gender, PlayingCard, Race } from "../types";
 import { contextByRank } from "./data/contextByRank";
 import { lookupName } from "./data/namesByRace";
-import { ageBandFromSuit, personalityFromRank, raceFromD6 } from "./maps";
+import {
+  ageBandFromSuit,
+  genderFromD6,
+  personalityFromRank,
+  raceFromD6,
+} from "./maps";
 
 export type CharacterRerollPart =
   | "race"
   | "nameDice"
   | "agePersonalityCard"
-  | "contextCard";
+  | "contextCard"
+  | "gender";
 
 export type CharacterRoll = {
   raceDie: number;
@@ -18,6 +24,8 @@ export type CharacterRoll = {
   nameDice: [number, number];
   name: string;
   contextText: string;
+  genderDie: number;
+  gender: Gender;
 };
 
 export function generateCharacter(
@@ -30,6 +38,8 @@ export function generateCharacter(
   const nameDice = roll2D6(rng);
   const name = lookupName(race, nameDice[0], nameDice[1]);
   const contextText = contextByRank[contextCard.rank];
+  const genderDie = rollD6(rng);
+  const gender = genderFromD6(genderDie);
 
   return {
     raceDie,
@@ -39,6 +49,8 @@ export function generateCharacter(
     nameDice,
     name,
     contextText,
+    genderDie,
+    gender,
   };
 }
 
@@ -67,6 +79,11 @@ export function rerollCharacterPart(
       const contextCard = randomCard(rng);
       const contextText = contextByRank[contextCard.rank];
       return { ...roll, contextCard, contextText };
+    }
+    case "gender": {
+      const genderDie = rollD6(rng);
+      const gender = genderFromD6(genderDie);
+      return { ...roll, genderDie, gender };
     }
     default: {
       const _exhaustive: never = part;

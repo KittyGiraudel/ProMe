@@ -1,7 +1,7 @@
 .home-hub {
   flex: 1;
   padding: 2.5rem 1.25rem 3rem;
-  max-width: 52rem;
+  max-width: 56rem;
   margin: 0 auto;
   width: 100%;
 }
@@ -18,7 +18,7 @@
   color: var(--lsdp-muted);
   font-size: 1.05rem;
   line-height: 1.55;
-  max-width: 36rem;
+  max-width: 38rem;
 }
 
 .home-hub__list {

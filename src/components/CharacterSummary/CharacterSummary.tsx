@@ -113,6 +113,23 @@ export function CharacterSummary({
             ),
           },
           {
+            key: 'gender',
+            label: fr.character.sectionGender,
+            children: (
+              <div className='character-summary__stack'>
+                <span>{fr.genders[roll.gender]}</span>
+                <MetaWithReroll
+                  rerollLabel={fr.character.rerollGender}
+                  onReroll={onRerollPart && (() => onRerollPart('gender'))}>
+                  <>
+                    {fr.character.raceDieLabel} :{' '}
+                    <DiceFaces values={[roll.genderDie]} />
+                  </>
+                </MetaWithReroll>
+              </div>
+            ),
+          },
+          {
             key: 'agePersonality',
             label: fr.character.sectionAgePersonality,
             children: (

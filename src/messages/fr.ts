@@ -1,4 +1,10 @@
-import type { Race } from "@/lib/lsdp/types";
+import type { CharacterRoll } from "@/lib/lsdp/character/generate";
+import {
+  getAgeBand,
+  getPersonality,
+} from "@/lib/lsdp/character/generate";
+import { genderCompactSymbol } from "@/lib/lsdp/genderSymbols";
+import type { Gender, Race } from "@/lib/lsdp/types";
 
 /** French UI copy and localized labels (game data in French lives in `data/` modules). */
 export const fr = {
@@ -17,7 +23,7 @@ export const fr = {
       "Générateurs aléatoires pour la table : personnages, et bientôt le reste.",
     characterCardTitle: "Habitant",
     characterCardDescription:
-      "Type (D6), âge & personnalité (carte), contexte (carte), nom (2D6).",
+      "Type (D6), âge & personnalité (carte), contexte (carte), nom (2D6), genre (1D6, optionnel).",
     open: "Ouvrir",
   },
   character: {
@@ -29,6 +35,7 @@ export const fr = {
     emptySummaryBefore: "Cliquez sur « ",
     emptySummaryAfter: " » pour tirer un habitant.",
     sectionRace: "Type / peuple",
+    sectionGender: "Genre (optionnel, 1D6)",
     sectionAgePersonality: "Âge & personnalité",
     sectionContext: "Contexte",
     sectionName: "Nom",
@@ -41,7 +48,17 @@ export const fr = {
     rerollName: "Relancer le nom (2D6)",
     rerollAgePersonalityCard: "Relancer la carte âge & personnalité",
     rerollContextCard: "Relancer la carte de contexte",
+    rerollGender: "Relancer le genre (1D6)",
+    copyOneLiner: "Copier le résumé",
+    copyOneLinerSuccess: "Résumé copié dans le presse-papiers.",
+    copyOneLinerError: "Impossible de copier (autorisez le presse-papiers).",
   },
+  genders: {
+    man: "♂ Homme",
+    woman: "♀ Femme",
+    nonBinary: "⚥ Non-binaire",
+    indeterminate: "☿ Indéterminé",
+  } satisfies Record<Gender, string>,
   races: {
     bruja: "Bruja",
     cucurbitus: "Cucurbitus",
@@ -101,4 +118,15 @@ export function formatPlayingCard(
   rank: keyof typeof fr.ranks,
 ): string {
   return `${fr.ranks[rank]} de ${fr.suits[suit]}`;
+}
+
+/** One-line share text: `♀ Ada (Bruja), Adolescent·e Amical·e (https://…)`. */
+export function formatCharacterCopyOneLiner(
+  roll: CharacterRoll,
+  shareUrl: string,
+): string {
+  const age = getAgeBand(roll);
+  const personality = getPersonality(roll);
+  const g = genderCompactSymbol(roll.gender);
+  return `${g} ${roll.name} (${fr.races[roll.race]}), ${fr.ageBands[age]} ${fr.personalities[personality]} (${shareUrl})`;
 }

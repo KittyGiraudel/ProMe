@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { App } from 'antd'
 import { CharacterSummary } from '@/components/CharacterSummary/CharacterSummary'
 import { GeneratorPageShell } from '@/components/GeneratorPageShell/GeneratorPageShell'
 import { RollActions } from '@/components/RollActions/RollActions'
@@ -14,11 +15,12 @@ import {
   decodeCharacterRollParam,
   encodeCharacterRoll,
 } from '@/lib/lsdp/character/characterUrlCodec'
-import { fr } from '@/messages/fr'
+import { formatCharacterCopyOneLiner, fr } from '@/messages/fr'
 
 const CHARACTER_QUERY_KEY = 'c'
 
 export function CharacterGeneratorClient() {
+  const { message } = App.useApp()
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -55,13 +57,32 @@ export function CharacterGeneratorClient() {
     [pathname, roll, router, searchParams]
   )
 
+  const handleCopyOneLiner = useCallback(async () => {
+    if (!roll) return
+    const params = new URLSearchParams(searchParams.toString())
+    params.set(CHARACTER_QUERY_KEY, encodeCharacterRoll(roll))
+    const shareUrl = `${window.location.origin}${pathname}?${params.toString()}`
+    const line = formatCharacterCopyOneLiner(roll, shareUrl)
+    try {
+      await navigator.clipboard.writeText(line)
+      message.success(fr.character.copyOneLinerSuccess)
+    } catch {
+      message.error(fr.character.copyOneLinerError)
+    }
+  }, [message, pathname, roll, searchParams])
+
   return (
     <GeneratorPageShell
       title={fr.character.pageTitle}
       description={fr.character.pageDescription}
       backHref='/'
       backLabel={fr.nav.backHome}>
-      <RollActions onRollAll={handleRollAll} label={fr.character.rollAll} />
+      <RollActions
+        onRollAll={handleRollAll}
+        label={fr.character.rollAll}
+        onCopyOneLiner={roll ? handleCopyOneLiner : undefined}
+        copyOneLinerLabel={fr.character.copyOneLiner}
+      />
       <CharacterSummary
         roll={roll}
         onRerollPart={roll ? handleRerollPart : undefined}

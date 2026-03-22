@@ -1,6 +1,6 @@
 'use client'
 
-import { ConfigProvider } from 'antd'
+import { App, ConfigProvider } from 'antd'
 import frFR from 'antd/locale/fr_FR'
 import type { ReactNode } from 'react'
 
@@ -9,6 +9,7 @@ const theme = {
     colorPrimary: '#3d8b7a',
     colorBgLayout: '#f6f9f7',
     borderRadius: 10,
+    fontSize: 15,
     fontFamily:
       'var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, sans-serif',
   },
@@ -22,7 +23,7 @@ const theme = {
 export function AppProviders({ children }: { children: ReactNode }) {
   return (
     <ConfigProvider locale={frFR} theme={theme}>
-      {children}
+      <App>{children}</App>
     </ConfigProvider>
   )
 }

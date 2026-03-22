@@ -1,5 +1,8 @@
 export type Race = "bruja" | "cucurbitus" | "kiore" | "mousseron";
 
+/** Optional table aid: 1D6 gender roll (not core rules). */
+export type Gender = "man" | "woman" | "nonBinary" | "indeterminate";
+
 export type Suit = "hearts" | "diamonds" | "clubs" | "spades";
 
 /** Playing-card rank (display names come from locale messages, e.g. Valet/Dame/Roi). */

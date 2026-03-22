@@ -1,10 +1,18 @@
-import type { AgeBand, Personality, Race, Rank, Suit } from "../types";
+import type { AgeBand, Gender, Personality, Race, Rank, Suit } from "../types";
 
 export function raceFromD6(value: number): Race {
   if (value <= 2) return "bruja";
   if (value <= 4) return "cucurbitus";
   if (value === 5) return "kiore";
   return "mousseron";
+}
+
+/** Optional 1D6: 1–2 man, 3–4 woman, 5 non-binary, 6 indeterminate. */
+export function genderFromD6(value: number): Gender {
+  if (value <= 2) return "man";
+  if (value <= 4) return "woman";
+  if (value === 5) return "nonBinary";
+  return "indeterminate";
 }
 
 export function ageBandFromSuit(suit: Suit): AgeBand {

@@ -1,4 +1,4 @@
-import type { Race } from "@/lib/lsdp/types";
+import type { Gender, Race } from "@/lib/lsdp/types";
 
 /** English UI copy (optional locale); game rule text may stay French in data files. */
 export const en = {
@@ -16,7 +16,7 @@ export const en = {
     subtitle: "Random generators for play: characters, with more to come.",
     characterCardTitle: "Inhabitant",
     characterCardDescription:
-      "Type (D6), age & personality (card), context (card), name (2D6).",
+      "Type (D6), age & personality (card), context (card), name (2D6), gender (1D6, optional).",
     open: "Open",
   },
   character: {
@@ -27,6 +27,7 @@ export const en = {
     emptySummaryBefore: "Click « ",
     emptySummaryAfter: " » to roll an inhabitant.",
     sectionRace: "Type / people",
+    sectionGender: "Gender (optional, 1D6)",
     sectionAgePersonality: "Age & personality",
     sectionContext: "Context",
     sectionName: "Name",
@@ -35,7 +36,18 @@ export const en = {
     cardLabel: "Card",
     contextCardNote: "(only rank matters for context)",
     copyHint: "Paste context text from the book when you edit the data files.",
+    rerollRace: "Reroll type (D6)",
+    rerollName: "Reroll name (2D6)",
+    rerollAgePersonalityCard: "Reroll age & personality card",
+    rerollContextCard: "Reroll context card",
+    rerollGender: "Reroll gender (1D6)",
   },
+  genders: {
+    man: "♂ Man",
+    woman: "♀ Woman",
+    nonBinary: "⚥ Non-binary",
+    indeterminate: "☿ Indeterminate",
+  } satisfies Record<Gender, string>,
   races: {
     bruja: "Bruja",
     cucurbitus: "Cucurbitus",
