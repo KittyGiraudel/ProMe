@@ -61,3 +61,27 @@
   font-size: 1.125rem;
   font-weight: 600;
 }
+
+.character-summary__context-followup {
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.65rem;
+  border-radius: 8px;
+  background: rgba(31, 45, 42, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.character-summary__followup-label {
+  font-size: 0.8125rem;
+  color: var(--lsdp-muted);
+}
+
+.character-summary__stack--tight {
+  gap: 0.25rem;
+}
+
+.character-summary__spoken-name {
+  font-size: 1rem;
+  font-weight: 600;
+}

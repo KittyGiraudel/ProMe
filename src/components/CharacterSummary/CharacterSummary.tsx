@@ -8,6 +8,7 @@ import {
   type CharacterRoll,
   getAgeBand,
   getPersonality,
+  mapKindFromContextSevenDie,
 } from '@/lib/lsdp/character/generate'
 import { DiceFaces } from '@/components/DiceFaces/DiceFaces'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
@@ -171,6 +172,77 @@ export function CharacterSummary({
                     {fr.character.contextCardNote}
                   </>
                 </MetaWithReroll>
+                {roll.contextCard.rank === '7' ? (
+                  <div className='character-summary__context-followup'>
+                    <span className='character-summary__followup-label'>
+                      {fr.character.contextSevenFollowupLabel}
+                    </span>
+                    {roll.contextSevenDie == null ? (
+                      onRerollPart ? (
+                        <Button
+                          size='small'
+                          type='default'
+                          onClick={() => onRerollPart('contextSevenDie')}>
+                          {fr.character.rollContextSevenDie}
+                        </Button>
+                      ) : null
+                    ) : (
+                      <MetaWithReroll
+                        rerollLabel={fr.character.rerollContextSevenDie}
+                        onReroll={
+                          onRerollPart &&
+                          (() => onRerollPart('contextSevenDie'))
+                        }>
+                        <>
+                          <strong>
+                            {mapKindFromContextSevenDie(
+                              roll.contextSevenDie
+                            ) === 'localisation'
+                              ? fr.character.contextSevenMapLocalisation
+                              : fr.character.contextSevenMapBiome}
+                          </strong>
+                          {' · '}
+                          {fr.character.raceDieLabel} :{' '}
+                          <DiceFaces values={[roll.contextSevenDie]} />
+                        </>
+                      </MetaWithReroll>
+                    )}
+                  </div>
+                ) : null}
+                {roll.contextCard.rank === '10' ? (
+                  <div className='character-summary__context-followup'>
+                    <span className='character-summary__followup-label'>
+                      {fr.character.contextSpokenNameLabel}
+                    </span>
+                    {roll.contextSpokenNameDice == null ? (
+                      onRerollPart ? (
+                        <Button
+                          size='small'
+                          type='default'
+                          onClick={() => onRerollPart('contextSpokenNameDice')}>
+                          {fr.character.rollContextSpokenNameDice}
+                        </Button>
+                      ) : null
+                    ) : (
+                      <div className='character-summary__stack character-summary__stack--tight'>
+                        <strong className='character-summary__spoken-name'>
+                          {roll.contextSpokenName}
+                        </strong>
+                        <MetaWithReroll
+                          rerollLabel={fr.character.rerollContextSpokenNameDice}
+                          onReroll={
+                            onRerollPart &&
+                            (() => onRerollPart('contextSpokenNameDice'))
+                          }>
+                          <>
+                            {fr.character.nameDiceLabel} :{' '}
+                            <DiceFaces values={roll.contextSpokenNameDice} />
+                          </>
+                        </MetaWithReroll>
+                      </div>
+                    )}
+                  </div>
+                ) : null}
               </div>
             ),
           },

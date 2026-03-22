@@ -2,6 +2,7 @@ import type { CharacterRoll } from "@/lib/lsdp/character/generate";
 import {
   getAgeBand,
   getPersonality,
+  mapKindFromContextSevenDie,
 } from "@/lib/lsdp/character/generate";
 import { genderCompactSymbol } from "@/lib/lsdp/genderSymbols";
 import type { Gender, Race } from "@/lib/lsdp/types";
@@ -49,6 +50,14 @@ export const fr = {
     rerollAgePersonalityCard: "Relancer la carte âge & personnalité",
     rerollContextCard: "Relancer la carte de contexte",
     rerollGender: "Relancer le genre (1D6)",
+    contextSevenFollowupLabel: "Carte offerte (1D6, p. 49)",
+    contextSevenMapLocalisation: "Carte de localisation (1–3)",
+    contextSevenMapBiome: "Carte de biome (4–6)",
+    rollContextSevenDie: "Lancer le D6 (type de carte)",
+    rerollContextSevenDie: "Relancer le D6 (carte offerte)",
+    contextSpokenNameLabel: "Nom prononcé (2D6, p. 60)",
+    rollContextSpokenNameDice: "Lancer les 2D6 (nom prononcé)",
+    rerollContextSpokenNameDice: "Relancer le nom prononcé (2D6)",
     copyOneLiner: "Copier le résumé",
     copyOneLinerSuccess: "Résumé copié dans le presse-papiers.",
     copyOneLinerError: "Impossible de copier (autorisez le presse-papiers).",
@@ -128,5 +137,19 @@ export function formatCharacterCopyOneLiner(
   const age = getAgeBand(roll);
   const personality = getPersonality(roll);
   const g = genderCompactSymbol(roll.gender);
-  return `${g} ${roll.name} (${fr.races[roll.race]}), ${fr.ageBands[age]} ${fr.personalities[personality]} (${shareUrl})`;
+  const parts = [
+    `${g} ${roll.name} (${fr.races[roll.race]}), ${fr.ageBands[age]} ${fr.personalities[personality]}`,
+  ];
+  if (roll.contextCard.rank === "7" && roll.contextSevenDie != null) {
+    const kind = mapKindFromContextSevenDie(roll.contextSevenDie);
+    parts.push(
+      kind === "localisation"
+        ? fr.character.contextSevenMapLocalisation
+        : fr.character.contextSevenMapBiome,
+    );
+  }
+  if (roll.contextCard.rank === "10" && roll.contextSpokenName) {
+    parts.push(`${fr.character.contextSpokenNameLabel}: ${roll.contextSpokenName}`);
+  }
+  return `${parts.join(" — ")} (${shareUrl})`;
 }

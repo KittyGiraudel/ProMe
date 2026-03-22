@@ -14,7 +14,9 @@ export type CharacterRerollPart =
   | "nameDice"
   | "agePersonalityCard"
   | "contextCard"
-  | "gender";
+  | "gender"
+  | "contextSevenDie"
+  | "contextSpokenNameDice";
 
 export type CharacterRoll = {
   raceDie: number;
@@ -26,7 +28,43 @@ export type CharacterRoll = {
   contextText: string;
   genderDie: number;
   gender: Gender;
+  /** Context rank 7 — rulebook D6: 1–3 localisation, 4–6 biome (p. 49). */
+  contextSevenDie?: number;
+  /** Context rank 10 — name pronounced in the scene (2D6, same table as inhabitant name, p. 60). */
+  contextSpokenNameDice?: [number, number];
+  contextSpokenName?: string;
 };
+
+/** Map type offered by the cartographer context (rank 7). */
+export function mapKindFromContextSevenDie(
+  die: number,
+): "localisation" | "biome" {
+  return die >= 1 && die <= 3 ? "localisation" : "biome";
+}
+
+function rollContextFollowups(
+  roll: Pick<CharacterRoll, "race" | "contextCard">,
+  rng: () => number,
+): Pick<
+  CharacterRoll,
+  "contextSevenDie" | "contextSpokenNameDice" | "contextSpokenName"
+> {
+  const rank = roll.contextCard.rank;
+  if (rank === "7") {
+    const contextSevenDie = rollD6(rng);
+    return { contextSevenDie };
+  }
+  if (rank === "10") {
+    const contextSpokenNameDice = roll2D6(rng);
+    const contextSpokenName = lookupName(
+      roll.race,
+      contextSpokenNameDice[0],
+      contextSpokenNameDice[1],
+    );
+    return { contextSpokenNameDice, contextSpokenName };
+  }
+  return {};
+}
 
 export function generateCharacter(
   rng: () => number = Math.random,
@@ -40,6 +78,7 @@ export function generateCharacter(
   const contextText = contextByRank[contextCard.rank];
   const genderDie = rollD6(rng);
   const gender = genderFromD6(genderDie);
+  const follow = rollContextFollowups({ race, contextCard }, rng);
 
   return {
     raceDie,
@@ -51,6 +90,7 @@ export function generateCharacter(
     contextText,
     genderDie,
     gender,
+    ...follow,
   };
 }
 
@@ -65,7 +105,15 @@ export function rerollCharacterPart(
       const raceDie = rollD6(rng);
       const race = raceFromD6(raceDie);
       const name = lookupName(race, roll.nameDice[0], roll.nameDice[1]);
-      return { ...roll, raceDie, race, name };
+      const contextSpokenName =
+        roll.contextCard.rank === "10" && roll.contextSpokenNameDice
+          ? lookupName(
+              race,
+              roll.contextSpokenNameDice[0],
+              roll.contextSpokenNameDice[1],
+            )
+          : roll.contextSpokenName;
+      return { ...roll, raceDie, race, name, contextSpokenName };
     }
     case "nameDice": {
       const nameDice = roll2D6(rng);
@@ -78,7 +126,30 @@ export function rerollCharacterPart(
     case "contextCard": {
       const contextCard = randomCard(rng);
       const contextText = contextByRank[contextCard.rank];
-      return { ...roll, contextCard, contextText };
+      const follow = rollContextFollowups({ race: roll.race, contextCard }, rng);
+      return {
+        ...roll,
+        contextCard,
+        contextText,
+        contextSevenDie: undefined,
+        contextSpokenNameDice: undefined,
+        contextSpokenName: undefined,
+        ...follow,
+      };
+    }
+    case "contextSevenDie": {
+      if (roll.contextCard.rank !== "7") return roll;
+      return { ...roll, contextSevenDie: rollD6(rng) };
+    }
+    case "contextSpokenNameDice": {
+      if (roll.contextCard.rank !== "10") return roll;
+      const contextSpokenNameDice = roll2D6(rng);
+      const contextSpokenName = lookupName(
+        roll.race,
+        contextSpokenNameDice[0],
+        contextSpokenNameDice[1],
+      );
+      return { ...roll, contextSpokenNameDice, contextSpokenName };
     }
     case "gender": {
       const genderDie = rollD6(rng);

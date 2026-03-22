@@ -77,13 +77,22 @@ function legacyGenderDie(
   return (sum % 6) + 1;
 }
 
-/** Compact query: 1D6 race, 2× card, 2D6 name, 1D6 gender — 8 chars. Legacy 7-char URLs omit gender (derived deterministically). */
+/** Compact query: 1D6 race, 2× card, 2D6 name, 1D6 gender — 8 chars. Legacy 7-char URLs omit gender (derived deterministically). Optional tail: +1 D6 if context rank 7, +2 D6 if context rank 10. */
 export function encodeCharacterRoll(roll: CharacterRoll): string {
-  return `${roll.raceDie}${encodeCard(roll.agePersonalityCard)}${encodeCard(roll.contextCard)}${roll.nameDice[0]}${roll.nameDice[1]}${roll.genderDie}`;
+  let s = `${roll.raceDie}${encodeCard(roll.agePersonalityCard)}${encodeCard(roll.contextCard)}${roll.nameDice[0]}${roll.nameDice[1]}${roll.genderDie}`;
+  if (roll.contextCard.rank === "7" && roll.contextSevenDie != null) {
+    s += String(roll.contextSevenDie);
+  } else if (
+    roll.contextCard.rank === "10" &&
+    roll.contextSpokenNameDice != null
+  ) {
+    s += String(roll.contextSpokenNameDice[0]);
+    s += String(roll.contextSpokenNameDice[1]);
+  }
+  return s;
 }
 
-export function decodeCharacterRollParam(raw: string): CharacterRoll | null {
-  const compact = raw.trim().toUpperCase();
+function decodeCharacterRollBase(compact: string): CharacterRoll | null {
   if (compact.length !== 7 && compact.length !== 8) return null;
 
   const raceDie = parseRaceDie(compact[0]!);
@@ -125,4 +134,54 @@ export function decodeCharacterRollParam(raw: string): CharacterRoll | null {
     genderDie,
     gender,
   };
+}
+
+export function decodeCharacterRollParam(raw: string): CharacterRoll | null {
+  const compact = raw.trim().toUpperCase();
+  if (
+    compact.length !== 7 &&
+    compact.length !== 8 &&
+    compact.length !== 9 &&
+    compact.length !== 10
+  ) {
+    return null;
+  }
+
+  const baseStr =
+    compact.length === 9 || compact.length === 10
+      ? compact.slice(0, 8)
+      : compact;
+  const tail =
+    compact.length === 9 || compact.length === 10 ? compact.slice(8) : "";
+
+  if (baseStr.length !== 7 && baseStr.length !== 8) return null;
+  if (compact.length === 9 || compact.length === 10) {
+    if (baseStr.length !== 8) return null;
+  }
+
+  const base = decodeCharacterRollBase(baseStr);
+  if (!base) return null;
+
+  if (tail.length === 0) {
+    return base;
+  }
+
+  if (tail.length === 1) {
+    if (base.contextCard.rank !== "7") return null;
+    const contextSevenDie = parseRaceDie(tail);
+    if (contextSevenDie === null) return null;
+    return { ...base, contextSevenDie };
+  }
+
+  if (tail.length === 2) {
+    if (base.contextCard.rank !== "10") return null;
+    const a = parseNameDie(tail[0]!);
+    const b = parseNameDie(tail[1]!);
+    if (a === null || b === null) return null;
+    const contextSpokenNameDice: [number, number] = [a, b];
+    const contextSpokenName = lookupName(base.race, a, b);
+    return { ...base, contextSpokenNameDice, contextSpokenName };
+  }
+
+  return null;
 }
