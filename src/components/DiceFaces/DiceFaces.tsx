@@ -1,4 +1,3 @@
-import { diceFaceGlyph } from '@/lib/lsdp/diceGlyphs'
 import { copy } from '@/messages/fr'
 import './DiceFaces.css'
 
@@ -46,4 +45,12 @@ export function DiceFaces({ values, ariaLabel, className }: DiceFacesProps) {
       ))}
     </span>
   )
+}
+
+function diceFaceGlyph(value: number): string {
+  if (value >= 1 && value <= 6) {
+    return ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'][value - 1]!
+  }
+
+  return String(value)
 }

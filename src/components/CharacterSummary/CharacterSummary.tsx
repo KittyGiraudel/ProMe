@@ -9,13 +9,12 @@ import {
   getAgeBand,
   getPersonality,
   mapKindFromContextSevenDie,
-} from '@/lib/lsdp/character/generate'
+} from '@/lib/character/generate'
 import { DiceFaces } from '@/components/DiceFaces/DiceFaces'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { RichText } from '@/components/RichText/RichText'
-import { CHARACTER_RULEBOOK_PAGES } from '@/lib/lsdp/character/data/rulebookPages'
+import { RULEBOOK_PAGES } from '@/lib/constants/rulebookPages'
 import { copy } from '@/messages/fr'
-import { characterRulebookRefsNote } from '@/messages/formatCopy'
 import './CharacterSummary.css'
 
 type CharacterSummaryProps = {
@@ -58,9 +57,9 @@ export function CharacterSummary({
 }: CharacterSummaryProps) {
   const characterFootnote = (
     <Typography.Text type='secondary' className='generator-rulebook-footnote'>
-      {characterRulebookRefsNote(
-        CHARACTER_RULEBOOK_PAGES.inhabitantChapter,
-        CHARACTER_RULEBOOK_PAGES.nameTable
+      {copy.rulebook.characterFootnote(
+        RULEBOOK_PAGES.character.inhabitantChapter,
+        RULEBOOK_PAGES.character.nameTable
       )}
     </Typography.Text>
   )

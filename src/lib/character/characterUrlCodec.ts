@@ -5,7 +5,7 @@ import { contextByRank } from "@/messages/fr";
 import {
   decodePlayingCardPair as decodeCard,
   encodePlayingCard as encodeCard,
-} from "../playingCardCodec";
+} from "../codec/cards";
 
 function parseRaceDie(c: string): number | null {
   if (c.length !== 1) return null;

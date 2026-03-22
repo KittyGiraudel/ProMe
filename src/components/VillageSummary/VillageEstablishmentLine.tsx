@@ -3,7 +3,7 @@
 import { RedoOutlined } from '@ant-design/icons'
 import { Button, Typography } from 'antd'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
-import type { PlayingCard } from '@/lib/lsdp/types'
+import type { PlayingCard } from '@/lib/types'
 import { copy } from '@/messages/fr'
 import { formatVillageRulebookPagesJoined } from '@/messages/formatCopy'
 import {

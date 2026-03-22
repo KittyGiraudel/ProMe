@@ -3,13 +3,13 @@
 import { RedoOutlined } from '@ant-design/icons'
 import Link from 'next/link'
 import { Button, Typography } from 'antd'
-import { encodeCharacterRoll } from '@/lib/lsdp/character/characterUrlCodec'
+import { encodeCharacterRoll } from '@/lib/character/characterUrlCodec'
 import {
   getAgeBand,
   getPersonality,
   type CharacterRoll,
-} from '@/lib/lsdp/character/generate'
-import { genderCompactSymbol } from '@/lib/lsdp/genderSymbols'
+} from '@/lib/character/generate'
+import { genderCompactSymbol } from '@/lib/character/genderSymbols'
 import { copy } from '@/messages/fr'
 
 export type VillageOwnerEntry = { roll: CharacterRoll; ownerIndex: number }

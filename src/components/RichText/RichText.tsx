@@ -1,6 +1,6 @@
 'use client'
 
-import { renderSimpleInlineMarkup } from '@/lib/renderSimpleInlineMarkup'
+import { miniMarkdown } from '@/lib/miniMarkdown'
 import type { ElementType } from 'react'
 import './RichText.css'
 
@@ -17,9 +17,5 @@ export function RichText({
   className,
 }: RichTextProps) {
   const rootClass = ['rich-text', className].filter(Boolean).join(' ')
-  return (
-    <Component className={rootClass}>
-      {renderSimpleInlineMarkup(text)}
-    </Component>
-  )
+  return <Component className={rootClass}>{miniMarkdown(text)}</Component>
 }

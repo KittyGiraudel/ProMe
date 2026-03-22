@@ -10,11 +10,11 @@ import {
   type CharacterRerollPart,
   generateCharacter,
   rerollCharacterPart,
-} from '@/lib/lsdp/character/generate'
+} from '@/lib/character/generate'
 import {
   decodeCharacterRollParam,
   encodeCharacterRoll,
-} from '@/lib/lsdp/character/characterUrlCodec'
+} from '@/lib/character/characterUrlCodec'
 import { copy } from '@/messages/fr'
 import { formatCharacterCopyOneLiner } from '@/messages/formatCopy'
 

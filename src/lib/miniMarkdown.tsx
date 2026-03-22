@@ -4,7 +4,7 @@ import type { ReactNode } from 'react'
  * Minimal inline markup: `**bold**` then `*italic*` (no nesting of `*` inside `**…**`).
  * Intended for curated game strings, not arbitrary user markdown.
  */
-export function renderSimpleInlineMarkup(text: string): ReactNode {
+export function miniMarkdown(text: string): ReactNode {
   let key = 0
   const nextKey = () => key++
 

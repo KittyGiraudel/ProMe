@@ -1,4 +1,4 @@
-import type { PlayingCard, Rank, Suit } from "./types";
+import type { PlayingCard, Rank, Suit } from "../types";
 
 const SUIT_TO_CODE: Record<Suit, string> = {
   hearts: "H",

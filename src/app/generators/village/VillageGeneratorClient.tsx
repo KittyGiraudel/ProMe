@@ -6,29 +6,29 @@ import { GeneratorPageShell } from '@/components/GeneratorPageShell/GeneratorPag
 import { RollActions } from '@/components/RollActions/RollActions'
 import { VillageSummary } from '@/components/VillageSummary/VillageSummary'
 import { useReplaceSearchParams } from '@/hooks/useReplaceSearchParams'
-import { encodeCharacterRoll } from '@/lib/lsdp/character/characterUrlCodec'
+import { encodeCharacterRoll } from '@/lib/character/characterUrlCodec'
 import {
   generateCharacterWithRace,
   type CharacterRoll,
-} from '@/lib/lsdp/character/generate'
-import type { Race } from '@/lib/lsdp/types'
-import { RACES } from '@/lib/lsdp/types'
+} from '@/lib/character/generate'
+import type { Race } from '@/lib/types'
+import { RACES } from '@/lib/types'
 import {
   generateVillageRoll,
   rerollVillagePrimarySlot,
   type VillageRoll,
-} from '@/lib/lsdp/village/generate'
-import { generateOwnersForVillage } from '@/lib/lsdp/village/ownersGenerate'
-import { countVillageEstablishments } from '@/lib/lsdp/village/resolveDisplay'
-import { decodeVillageRaceParam } from '@/lib/lsdp/village/villageRaceCodec'
+} from '@/lib/village/generate'
+import { generateOwnersForVillage } from '@/lib/village/ownersGenerate'
+import { countVillageEstablishments } from '@/lib/village/resolveDisplay'
+import { decodeVillageRaceParam } from '@/lib/village/villageRaceCodec'
 import {
   decodeVillageRollParam,
   encodeVillageRoll,
-} from '@/lib/lsdp/village/villageUrlCodec'
+} from '@/lib/village/villageUrlCodec'
 import {
   decodeVillageOwnersParam,
   encodeVillageOwners,
-} from '@/lib/lsdp/village/villageOwnersCodec'
+} from '@/lib/village/villageOwnersCodec'
 import { copy } from '@/messages/fr'
 import { formatVillageCopyOneLiner } from '@/messages/formatCopy'
 import './VillageGeneratorClient.css'

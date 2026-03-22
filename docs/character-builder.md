@@ -49,7 +49,7 @@ Both suit and rank are rolled uniformly via `rng.randomCard`.
 
 ### 2.4 Context — one playing card (rank only)
 
-`contextByRank[rank]` is French rulebook-style text. It may include inline markup (`**bold**`, `*italic*`) rendered by `RichText` / `renderSimpleInlineMarkup` (see `contextByRank.ts` header).
+`contextByRank[rank]` is rulebook-style text (stored in `messages/fr.ts` as `copy.game.characterContextByRank`). It may include inline markup (`**bold**`, `*italic*`) rendered by `RichText` / `renderSimpleInlineMarkup`.
 
 Special ranks (also reflected in UI):
 
@@ -79,7 +79,7 @@ flowchart LR
     gen["generate.ts"]
     maps["maps.ts"]
     codec["characterUrlCodec.ts"]
-    ctx["data/contextByRank.ts"]
+    ctx["messages/fr.ts — copy.game.characterContextByRank"]
     names["data/namesByRace.ts"]
     rng["rng.ts"]
     pc["playingCardCodec.ts"]
@@ -100,20 +100,22 @@ flowchart LR
   summary --> gen
 ```
 
-| Path                                                        | Role                                                                                                                                           |
-| ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `src/lib/lsdp/character/generate.ts`                        | `CharacterRoll`, `generateCharacter`, `rerollCharacterPart`, context follow-ups, `getAgeBand` / `getPersonality`, `mapKindFromContextSevenDie` |
-| `src/lib/lsdp/character/maps.ts`                            | Deterministic mappings D6/card → race, gender, age band, personality                                                                           |
-| `src/lib/lsdp/character/data/contextByRank.ts`              | `Record<Rank, string>` context paragraphs                                                                                                      |
-| `src/lib/lsdp/character/data/namesByRace.ts`                | `namesByRace` grids + `lookupName`                                                                                                             |
-| `src/lib/lsdp/character/characterUrlCodec.ts`               | `encodeCharacterRoll` / `decodeCharacterRollParam` for query param `c`                                                                         |
-| `src/lib/lsdp/rng.ts`                                       | `rollD6`, `roll2D6`, `randomCard`, `randomInt` — all generation goes through an injectable `rng: () => number` (default `Math.random`)         |
-| `src/lib/lsdp/playingCardCodec.ts`                          | Shared 2-char card encoding (suit letter + rank code, `T` for ten)                                                                             |
-| `src/lib/lsdp/types.ts`                                     | `Race`, `Suit`, `Rank`, `PlayingCard`, `Gender`, etc.                                                                                          |
-| `src/app/generators/character/CharacterGeneratorClient.tsx` | URL sync, roll-all, reroll callbacks, copy one-liner                                                                                           |
-| `src/app/generators/character/page.tsx`                     | Server wrapper + `Suspense` (required for `useSearchParams` on static routes)                                                                  |
-| `src/components/CharacterSummary/CharacterSummary.tsx`      | Descriptions + per-field reroll + context follow-up UI                                                                                         |
-| `src/messages/fr.ts`                                        | `copy` strings + `formatPlayingCard`, `formatCharacterCopyOneLiner`                                                                            |
+| Path                                                                              | Role                                                                                                                                           |
+| --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/lib/character/generate.ts`                                              | `CharacterRoll`, `generateCharacter`, `rerollCharacterPart`, context follow-ups, `getAgeBand` / `getPersonality`, `mapKindFromContextSevenDie` |
+| `src/lib/character/maps.ts`                                                  | Deterministic mappings D6/card → race, gender, age band, personality                                                                           |
+| `src/lib/character/genderSymbols.ts`                                         | `genderCompactSymbol` for one-line / owner summaries (matches `copy.genders` prefixes)                                                         |
+| `src/messages/fr.ts` (`copy.game.characterContextByRank`, export `contextByRank`) | Context paragraphs by rank                                                                                                                     |
+| `src/lib/character/data/namesByRace.ts`                                      | `namesByRace` grids + `lookupName`                                                                                                             |
+| `src/lib/character/characterUrlCodec.ts`                                     | `encodeCharacterRoll` / `decodeCharacterRollParam` for query param `c`                                                                         |
+| `src/lib/rng.ts`                                                             | `rollD6`, `roll2D6`, `randomCard`, `randomInt` — all generation goes through an injectable `rng: () => number` (default `Math.random`)         |
+| `src/lib/playingCardCodec.ts`                                                | Shared 2-char card encoding (suit letter + rank code, `T` for ten)                                                                             |
+| `src/lib/types.ts`                                                           | `Race`, `Suit`, `Rank`, `PlayingCard`, `Gender`, etc.                                                                                          |
+| `src/app/generators/character/CharacterGeneratorClient.tsx`                       | URL sync, roll-all, reroll callbacks, copy one-liner                                                                                           |
+| `src/app/generators/character/page.tsx`                                           | Server wrapper + `Suspense` (required for `useSearchParams` on static routes)                                                                  |
+| `src/components/CharacterSummary/CharacterSummary.tsx`                            | Descriptions + per-field reroll + context follow-up UI; footnote uses `RULEBOOK_PAGES.character`                                               |
+| `src/lib/rulebookPages.ts`                                                   | `RULEBOOK_PAGES` (character + village, incl. establishment detail pages) + `establishmentDetailRulebookPage`                                   |
+| `src/messages/fr.ts` / `formatCopy.ts`                                            | `copy` + `formatCharacterCopyOneLiner`                                                                                                         |
 
 ### 3.2 `CharacterRoll` shape
 
@@ -195,7 +197,7 @@ URLs encode **dice and cards**, not free text. If you edit `contextByRank` or `n
 - Uses `App.useApp()` from Ant Design for copy toasts.
 - **Roll all:** `generateCharacter()` → `encodeCharacterRoll` → `router.replace`.
 - **Reroll:** `rerollCharacterPart(roll, part)` → same URL update.
-- **Copy one-liner:** builds share URL with current `c`, formats line via `formatCharacterCopyOneLiner(roll, shareUrl)` (includes gender symbol from `genderSymbols.genderCompactSymbol`, age, personality, optional map kind / spoken name, URL).
+- **Copy one-liner:** builds share URL with current `c`, formats line via `formatCharacterCopyOneLiner(roll, shareUrl)` (includes gender symbol from `character/genderSymbols.genderCompactSymbol`, age, personality, optional map kind / spoken name, URL).
 
 ### 5.2 `CharacterSummary`
 
@@ -213,8 +215,8 @@ Primary “generate all” plus optional copy-one-liner when a roll exists.
 
 - **`copy`** holds all generator UI strings (`messages/fr.ts`).
 - **`en`** exists as a stub for future use.
-- Card **display** uses `formatPlayingCard` / `PlayingCardLabel` (rank + suit wording in French).
-- **`formatCharacterCopyOneLiner`** lives in `messages/fr.ts` but takes a `CharacterRoll`; keep it in sync if you add fields to the summary line.
+- Card **display** uses `PlayingCardLabel` (`copy.ranks` / `copy.suits`); aria text via `playingCardAriaLabel` in `messages/fr.ts` (« {rang} de {couleur} »).
+- **`formatCharacterCopyOneLiner`** lives in `messages/formatCopy.ts` but takes a `CharacterRoll`; keep it in sync if you add fields to the summary line.
 
 ---
 
@@ -229,15 +231,15 @@ Primary “generate all” plus optional copy-one-liner when a roll exists.
 
 ## 8. Quick reference — file → responsibility
 
-| Question                               | Where to look                                |
-| -------------------------------------- | -------------------------------------------- |
-| How is a full inhabitant rolled?       | `generateCharacter`                          |
-| What does one D6 mean for type/gender? | `maps.ts`                                    |
-| What text appears for context rank X?  | `data/contextByRank.ts`                      |
-| How are names chosen?                  | `data/namesByRace.ts` + `lookupName`         |
-| How do I bookmark/share?               | `?c=` + `characterUrlCodec.ts`               |
-| How does reroll preserve consistency?  | `rerollCharacterPart`                        |
-| Why Suspense on the page?              | Next.js + `useSearchParams` static prerender |
+| Question                               | Where to look                                         |
+| -------------------------------------- | ----------------------------------------------------- |
+| How is a full inhabitant rolled?       | `generateCharacter`                                   |
+| What does one D6 mean for type/gender? | `maps.ts`                                             |
+| What text appears for context rank X?  | `messages/fr.ts` → `copy.game.characterContextByRank` |
+| How are names chosen?                  | `data/namesByRace.ts` + `lookupName`                  |
+| How do I bookmark/share?               | `?c=` + `characterUrlCodec.ts`                        |
+| How does reroll preserve consistency?  | `rerollCharacterPart`                                 |
+| Why Suspense on the page?              | Next.js + `useSearchParams` static prerender          |
 
 ---
 

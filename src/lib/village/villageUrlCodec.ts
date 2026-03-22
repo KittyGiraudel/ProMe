@@ -6,7 +6,7 @@
 import {
   decodePlayingCardString,
   encodePlayingCard,
-} from "../playingCardCodec";
+} from "../codec/cards";
 import type { VillageRoll } from "./generate";
 import { countRedJacksInPrimary, isValidExpansionCard } from "./generate";
 import { toVillagePrimaryTuple } from "./primaryTuple";

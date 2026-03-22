@@ -1,4 +1,4 @@
-import type { Gender, Race, Rank } from "@/lib/lsdp/types";
+import type { Gender, Race, Rank, Suit } from "@/lib/types";
 
 /**
  * User-facing copy: UI chrome, rulebook citations, and localized game tables
@@ -205,44 +205,45 @@ export const copy = {
           "**Nomade.** Le village **se déplace**. Lorsque vous revenez sur cette **case de carte**, vous devez réussir un **test de Courage**. En cas d’**échec**, le village **n’est plus là**.",
       },
     },
-    /** Établissements As–10 : 2–8 = petite / grande / immense ; A, 9 = rouge/noir ; 10 fixe. */
+    /** Établissements As–10 : 2–8 = trois tailles (indices 0–2) ; A, 9 = rouge/noir ; 10 fixe. */
     villageEstablishments: {
+      /** Rangs 2–8 : libellés par taille croissante (tier jeu 1 → index 0, etc.). */
       petiteGrande: {
-        "2": {
-          petite: "Petite boutique de potions",
-          grande: "Grande boutique de potions",
-          immense: "Immense boutique de potions",
-        },
-        "3": {
-          petite: "Petite boutique d’équipement",
-          grande: "Grande boutique d’équipement",
-          immense: "Immense boutique d’équipement",
-        },
-        "4": {
-          petite: "Petite boutique de vêtements",
-          grande: "Grande boutique de vêtements",
-          immense: "Immense boutique de vêtements",
-        },
-        "5": {
-          petite: "Petite taverne",
-          grande: "Grande taverne",
-          immense: "Immense taverne",
-        },
-        "6": {
-          petite: "Petit bureau de cartographie",
-          grande: "Grand bureau de cartographie",
-          immense: "Immense bureau de cartographie",
-        },
-        "7": {
-          petite: "Petite auberge",
-          grande: "Grande auberge",
-          immense: "Immense auberge",
-        },
-        "8": {
-          petite: "Petite agence de missions",
-          grande: "Grande agence de missions",
-          immense: "Immense agence de missions",
-        },
+        "2": [
+          "Petite boutique de potions",
+          "Grande boutique de potions",
+          "Immense boutique de potions",
+        ],
+        "3": [
+          "Petite boutique d’équipement",
+          "Grande boutique d’équipement",
+          "Immense boutique d’équipement",
+        ],
+        "4": [
+          "Petite boutique de vêtements",
+          "Grande boutique de vêtements",
+          "Immense boutique de vêtements",
+        ],
+        "5": [
+          "Petite taverne",
+          "Grande taverne",
+          "Immense taverne",
+        ],
+        "6": [
+          "Petit bureau de cartographie",
+          "Grand bureau de cartographie",
+          "Immense bureau de cartographie",
+        ],
+        "7": [
+          "Petite auberge",
+          "Grande auberge",
+          "Immense auberge",
+        ],
+        "8": [
+          "Petite agence de missions",
+          "Grande agence de missions",
+          "Immense agence de missions",
+        ],
       },
       rankA: {
         red: "Oratoire permanent",
@@ -260,3 +261,8 @@ export const copy = {
 /** Context hook by card rank (suit ignored); alias of `copy.game.characterContextByRank`. */
 export const contextByRank: Record<Rank, string> =
   copy.game.characterContextByRank as Record<Rank, string>;
+
+/** Screen reader label: « {rang} de {couleur} » (wording lives in `copy.ranks` / `copy.suits`). */
+export function playingCardAriaLabel(suit: Suit, rank: Rank): string {
+  return `${copy.ranks[rank]} de ${copy.suits[suit]}`;
+}

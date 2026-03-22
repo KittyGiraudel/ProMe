@@ -1,4 +1,4 @@
-/** Petite = 1, Grande = 2 before merge; Immense = 3 after merge. */
+/** Base draw: tier 1 or 2 from card color; merged outcome can reach 3. */
 type BasicTier = 1 | 2;
 type MergedTier = 1 | 2 | 3;
 
@@ -12,11 +12,11 @@ function mergeTwo(a: MergedTier, b: MergedTier): MergedTier {
 }
 
 /**
- * Combine several petites / grandes (same establishment rank) using:
- * petit + petit → grand ; grand + grand → immense ; petit + grand → grand.
- * Larger groups are reduced by repeatedly merging the two smallest tiers.
+ * Merge several base tiers for the same establishment rank (book rule:
+ * smallest+smallest → middle, middle+middle → largest, mixed → middle).
+ * Repeatedly merges the two smallest values until one tier remains.
  */
-export function mergePetiteGrandeTiers(tiers: BasicTier[]): MergedTier {
+export function mergeEstablishmentSizeTiers(tiers: BasicTier[]): MergedTier {
   if (tiers.length === 0) return 2;
   const list: MergedTier[] = [...tiers].sort((a, b) => a - b);
   while (list.length > 1) {

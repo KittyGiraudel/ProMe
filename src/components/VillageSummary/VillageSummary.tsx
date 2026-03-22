@@ -3,26 +3,23 @@
 import { RedoOutlined } from '@ant-design/icons'
 import { useMemo, useState } from 'react'
 import { Button, Card, Checkbox, Typography } from 'antd'
-import { encodePlayingCard } from '@/lib/lsdp/playingCardCodec'
-import type { PlayingCard } from '@/lib/lsdp/types'
-import { suitIsRed } from '@/lib/lsdp/suitGlyphs'
+import { encodePlayingCard } from '@/lib/codec/cards'
+import type { PlayingCard } from '@/lib/types'
+import { suitIsRed } from '@/lib/suitGlyphs'
 import {
   establishmentLineFromSizeTier,
   rankUsesPetiteGrandeEstablishment,
-} from '@/lib/lsdp/village/data/establishments'
-import { VILLAGE_RULEBOOK_PAGES } from '@/lib/lsdp/village/data/establishmentPages'
-import { mergePetiteGrandeTiers } from '@/lib/lsdp/village/mergePetiteGrandeTiers'
-import type { VillageRoll } from '@/lib/lsdp/village/generate'
-import type { CharacterRoll } from '@/lib/lsdp/character/generate'
-import type { VillageEstablishmentRow } from '@/lib/lsdp/village/resolveDisplay'
-import { resolveVillageDisplay } from '@/lib/lsdp/village/resolveDisplay'
+} from '@/lib/village/data/establishments'
+import { RULEBOOK_PAGES } from '@/lib/constants/rulebookPages'
+import { mergeEstablishmentSizeTiers } from '@/lib/village/mergeEstablishmentSizeTiers'
+import type { VillageRoll } from '@/lib/village/generate'
+import type { CharacterRoll } from '@/lib/character/generate'
+import type { VillageEstablishmentRow } from '@/lib/village/resolveDisplay'
+import { resolveVillageDisplay } from '@/lib/village/resolveDisplay'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { RichText } from '@/components/RichText/RichText'
 import { copy } from '@/messages/fr'
-import {
-  formatVillageRulebookPagesJoined,
-  villageRulebookRefsNote,
-} from '@/messages/formatCopy'
+import { formatVillageRulebookPagesJoined } from '@/messages/formatCopy'
 import { VillageEstablishmentLine } from './VillageEstablishmentLine'
 import './VillageSummary.css'
 
@@ -66,7 +63,7 @@ function groupEstablishments(rows: VillageEstablishmentRow[]): {
     let text: string
     if (key.startsWith('pg:')) {
       const tiers = rows.map(rr => (suitIsRed(rr.card.suit) ? 2 : 1) as 1 | 2)
-      const merged = mergePetiteGrandeTiers(tiers)
+      const merged = mergeEstablishmentSizeTiers(tiers)
       text = establishmentLineFromSizeTier(first.card.rank, merged)
     } else {
       const baseText = first.text
@@ -161,9 +158,9 @@ export function VillageSummary({
 
   const villageFootnote = (
     <Typography.Text type='secondary' className='generator-rulebook-footnote'>
-      {villageRulebookRefsNote(
-        VILLAGE_RULEBOOK_PAGES.villageChapter,
-        VILLAGE_RULEBOOK_PAGES.establishmentTable
+      {copy.rulebook.villageFootnote(
+        RULEBOOK_PAGES.village.chapter,
+        RULEBOOK_PAGES.village.establishmentTable
       )}
     </Typography.Text>
   )

@@ -3,19 +3,11 @@ import {
   getAgeBand,
   getPersonality,
   mapKindFromContextSevenDie,
-} from '@/lib/lsdp/character/generate'
-import { genderCompactSymbol } from '@/lib/lsdp/genderSymbols'
-import type { VillageRoll } from '@/lib/lsdp/village/generate'
-import { resolveVillageDisplay } from '@/lib/lsdp/village/resolveDisplay'
+} from '@/lib/character/generate'
+import { genderCompactSymbol } from '@/lib/character/genderSymbols'
+import type { VillageRoll } from '@/lib/village/generate'
+import { resolveVillageDisplay } from '@/lib/village/resolveDisplay'
 import { copy } from './fr'
-
-/** Playing card label: rank + suit wording. */
-export function formatPlayingCard(
-  suit: keyof typeof copy.suits,
-  rank: keyof typeof copy.ranks,
-): string {
-  return `${copy.ranks[rank]} de ${copy.suits[suit]}`
-}
 
 /** One-line share text: `♀ Ada (Bruja), Adolescent·e Amical·e (https://…)`. */
 export function formatCharacterCopyOneLiner(
@@ -98,27 +90,9 @@ export function formatVillageCopyOneLiner(
   return sections.join('\n\n')
 }
 
-export function formatVillageRulebookPage(page: number): string {
-  return copy.rulebook.pageCitation(page)
-}
-
 export function formatVillageRulebookPagesJoined(pages: number[]): string {
   return [...new Set(pages)]
     .sort((a, b) => a - b)
-    .map(formatVillageRulebookPage)
+    .map((p) => copy.rulebook.pageCitation(p))
     .join(' · ')
-}
-
-export function villageRulebookRefsNote(
-  villageChapterPage: number,
-  establishmentTablePage: number,
-): string {
-  return copy.rulebook.villageFootnote(villageChapterPage, establishmentTablePage)
-}
-
-export function characterRulebookRefsNote(
-  inhabitantChapterPage: string,
-  nameTablePage: string,
-): string {
-  return copy.rulebook.characterFootnote(inhabitantChapterPage, nameTablePage)
 }

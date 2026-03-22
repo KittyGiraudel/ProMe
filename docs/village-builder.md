@@ -2,7 +2,7 @@
 
 This document describes **what** the village generator implements (rulebook-aligned draw logic, establishments, traits, owners) and **how** it is wired in code (resolution, URL, UI). It is meant for maintainers and for AI assistants editing this repo.
 
-Game: _Les Souvenirs du Protecteur_ (LSDP). UI strings live in `src/messages/fr.ts` (`copy`). Numeric **book page** anchors live in `src/lib/lsdp/village/data/establishmentPages.ts` (and the footnote string is built via `villageRulebookRefsNote` in that messages module).
+Game: _Les Souvenirs du Protecteur_ (LSDP). UI strings live in `src/messages/fr.ts` (`copy`). All **rulebook page** anchors (character + village chapters, establishment table, per-rank establishment detail) live in `src/lib/rulebookPages.ts` (`RULEBOOK_PAGES`, `establishmentDetailRulebookPage`). The village summary footnote uses `copy.rulebook.villageFootnote(RULEBOOK_PAGES.village.chapter, …)`.
 
 ---
 
@@ -68,16 +68,16 @@ Pure UI transform of `VillageEstablishmentRow[]`:
 
 | Bucket key     | Grouping rule                                                     | Merged label                                                                                                  |
 | -------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `pg:<rank>`    | Same **rank** among ranks that use petite/grande (2–8)            | Combine tiers with `mergePetiteGrandeTiers` → `establishmentLineFromSizeTier(rank, merged)`                   |
+| `pg:<rank>`    | Same **rank** among ranks with three size tiers (2–8)             | Combine tiers with `mergeEstablishmentSizeTiers` → `establishmentLineFromSizeTier(rank, merged)`              |
 | `plain:<text>` | Same **full establishment line string** (e.g. same A/red variant) | **2** copies → `Immense — <base>`; **3+** → `Immense (×n) — <base>` (`copy.village.mergedEstablishmentLabel`) |
 
 **Owners:** `ownerIndices` lists global indices into `owners[]` (resolution order). Co-owners see **multiple** name lines under one establishment.
 
 **Reroll primary card:** shown only when the group represents a **single** row with a non-null `rerollPrimarySlot` (cannot pick one slot ambiguously for merged multi-card groups).
 
-### 2.7 `mergePetiteGrandeTiers` (`mergePetiteGrandeTiers.ts`)
+### 2.7 `mergeEstablishmentSizeTiers` (`mergeEstablishmentSizeTiers.ts`)
 
-Encodes the helper rule **petit + petit → grand**, **grand + grand → immense**, **petit + grand → grand**, generalized to N tiers by repeatedly merging the two smallest. **Immense (3)** absorbs further merges.
+Encodes the book’s duplicate-establishment sizing rule (smallest+smallest → middle, middle+middle → largest, mixed → middle), generalized to N draws by repeatedly merging the two smallest tiers. Tier **3** absorbs further merges.
 
 ### 2.8 Owners (`ownersGenerate.ts`)
 
@@ -108,10 +108,10 @@ flowchart LR
     vown["village/villageOwnersCodec.ts"]
     vrace["village/villageRaceCodec.ts"]
     ownGen["village/ownersGenerate.ts"]
-    merge["village/mergePetiteGrandeTiers.ts"]
+    merge["village/mergeEstablishmentSizeTiers.ts"]
     est["village/data/establishments.ts"]
     tr["village/data/traits.ts"]
-    pages["village/data/establishmentPages.ts"]
+    rb["rulebookPages.ts"]
     pc["playingCardCodec.ts"]
     cgen["character/generate.ts"]
     ccodec["character/characterUrlCodec.ts"]
@@ -123,6 +123,7 @@ flowchart LR
   pc --> vurl
   vgen --> vurl
   res --> ownGen
+  res --> rb
   vgen --> res
   cgen --> ownGen
   ccodec --> vown
@@ -136,19 +137,19 @@ flowchart LR
 
 | Path                                                    | Role                                                                                                                                         |
 | ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `src/lib/lsdp/village/generate.ts`                      | `VillageRoll`, `generateVillageRoll`, `rerollVillagePrimarySlot`, `buildExpansionForPrimary`, `countRedJacksInPrimary`, expansion validation |
-| `src/lib/lsdp/village/resolveDisplay.ts`                | `resolveVillageDisplay`, `VillageTraitRow`, `VillageEstablishmentRow`, `countVillageEstablishments`                                          |
-| `src/lib/lsdp/village/villageUrlCodec.ts`               | `encodeVillageRoll` / `decodeVillageRollParam` for `v`                                                                                       |
-| `src/lib/lsdp/village/villageOwnersCodec.ts`            | `encodeVillageOwners` / `decodeVillageOwnersParam` — `~`-joined `encodeCharacterRoll` blobs                                                  |
-| `src/lib/lsdp/village/villageRaceCodec.ts`              | `decodeVillageRaceParam`                                                                                                                     |
-| `src/lib/lsdp/village/ownersGenerate.ts`                | `generateOwnersForVillage`                                                                                                                   |
-| `src/lib/lsdp/village/mergePetiteGrandeTiers.ts`        | Tier merge for grouped petite/grande establishments                                                                                          |
-| `src/lib/lsdp/village/data/establishments.ts`           | `establishmentLine`, `establishmentLineFromSizeTier`, `rankUsesPetiteGrandeEstablishment`                                                    |
-| `src/lib/lsdp/village/data/traits.ts`                   | `villageTraitText`                                                                                                                           |
-| `src/lib/lsdp/village/data/establishmentPages.ts`       | `VILLAGE_RULEBOOK_PAGES`, per-rank detail pages for UI citations                                                                             |
+| `src/lib/village/generate.ts`                      | `VillageRoll`, `generateVillageRoll`, `rerollVillagePrimarySlot`, `buildExpansionForPrimary`, `countRedJacksInPrimary`, expansion validation |
+| `src/lib/village/resolveDisplay.ts`                | `resolveVillageDisplay`, `VillageTraitRow`, `VillageEstablishmentRow`, `countVillageEstablishments`                                          |
+| `src/lib/village/villageUrlCodec.ts`               | `encodeVillageRoll` / `decodeVillageRollParam` for `v`                                                                                       |
+| `src/lib/village/villageOwnersCodec.ts`            | `encodeVillageOwners` / `decodeVillageOwnersParam` — `~`-joined `encodeCharacterRoll` blobs                                                  |
+| `src/lib/village/villageRaceCodec.ts`              | `decodeVillageRaceParam`                                                                                                                     |
+| `src/lib/village/ownersGenerate.ts`                | `generateOwnersForVillage`                                                                                                                   |
+| `src/lib/village/mergeEstablishmentSizeTiers.ts`   | Tier merge for grouped same-rank establishments (ranks 2–8)                                                                                  |
+| `src/lib/village/data/establishments.ts`           | `establishmentLine`, `establishmentLineFromSizeTier`, `rankUsesPetiteGrandeEstablishment`                                                    |
+| `src/lib/village/data/traits.ts`                   | `villageTraitText`                                                                                                                           |
+| `src/lib/rulebookPages.ts`                         | `RULEBOOK_PAGES` (character + village, incl. per-rank establishment detail) + `establishmentDetailRulebookPage`                              |
 | `src/app/generators/village/VillageGeneratorClient.tsx` | Toolbar, race select, URL sync, roll / reroll owner / reroll slot / copy                                                                     |
 | `src/components/VillageSummary/VillageSummary.tsx`      | Establishments + traits + owners + grouping + rulebook footnote fragment                                                                     |
-| `src/messages/fr.ts`                                    | `formatVillageCopyOneLiner`, `villageRulebookRefsNote`, village strings                                                                      |
+| `src/messages/fr.ts` / `formatCopy.ts`                  | `copy`, `formatVillageCopyOneLiner`, `formatVillageRulebookPagesJoined`, village UI strings                                                  |
 
 ### 3.2 Reroll primary slot (`rerollVillagePrimarySlot`)
 
@@ -213,13 +214,13 @@ Rendered **outside** the Ant Design `Card` as a sibling in a fragment, with clas
 
 - Establishment and trait **game text** lives under `village/data/`, not in `messages/fr.ts`.
 - `copy.village.*` holds UI chrome (section titles, duplicate hint, grouping toggle, reroll labels, copy strings).
-- `villageRulebookRefsNote` takes page numbers from `VILLAGE_RULEBOOK_PAGES` so you can retune one constant file per printing.
+- `copy.rulebook.villageFootnote` takes page numbers from `RULEBOOK_PAGES.village` so you can retune `rulebookPages.ts` for the whole app.
 
 ---
 
 ## 7. How to extend safely
 
-1. **New establishment rank or red/black variant** — Update `establishments.ts` and, if the book adds a detail page, `establishmentPages.ts` (`ESTABLISHMENT_DETAIL_PAGE_BY_RANK` / helpers).
+1. **New establishment rank or red/black variant** — Update `establishments.ts` and, if the book adds a detail page, `rulebookPages.ts` (`RULEBOOK_PAGES.village.establishmentDetailByRank` / `establishmentTable`).
 2. **New trait (face rank)** — Extend `traits.ts` and ensure `isFaceRank` in `types.ts` still classifies it; resolver picks it up automatically.
 3. **URL length change** — `decodeVillageRollParam` assumes 2 chars per card and derives expansion count from red Jacks; keep `encode`/`decode` symmetric.
 4. **Owner payload change** — Any change to `CharacterRoll` / `encodeCharacterRoll` affects **`o=`**; old village links may fail decode until regenerated; consider backward compatibility in `characterUrlCodec` before breaking blobs.
@@ -229,15 +230,15 @@ Rendered **outside** the Ant Design `Card` as a sibling in a fragment, with clas
 
 ## 8. Quick reference — file → responsibility
 
-| Question                                   | Where to look                                               |
-| ------------------------------------------ | ----------------------------------------------------------- |
-| How many cards in the village URL?         | `villageUrlCodec.ts` — 5 primary + 3× red jacks             |
-| What is an establishment line for card X?  | `establishmentLine` / `establishmentLineFromSizeTier`       |
-| Why are two traits merged into one line?   | `resolveVillageDisplay` groups by `villageTraitText` string |
-| How are duplicate shops grouped in the UI? | `groupEstablishments` + `mergePetiteGrandeTiers`            |
-| How many owners should exist?              | `countVillageEstablishments`                                |
-| How is village race enforced?              | `VillageGeneratorClient` + `generateCharacterWithRace`      |
-| Where are book page numbers?               | `establishmentPages.ts` + `villageRulebookRefsNote`         |
+| Question                                   | Where to look                                                             |
+| ------------------------------------------ | ------------------------------------------------------------------------- |
+| How many cards in the village URL?         | `villageUrlCodec.ts` — 5 primary + 3× red jacks                           |
+| What is an establishment line for card X?  | `establishmentLine` / `establishmentLineFromSizeTier`                     |
+| Why are two traits merged into one line?   | `resolveVillageDisplay` groups by `villageTraitText` string               |
+| How are duplicate shops grouped in the UI? | `groupEstablishments` + `mergeEstablishmentSizeTiers`                     |
+| How many owners should exist?              | `countVillageEstablishments`                                              |
+| How is village race enforced?              | `VillageGeneratorClient` + `generateCharacterWithRace`                    |
+| Where are book page numbers?               | `rulebookPages.ts` — `RULEBOOK_PAGES` + `establishmentDetailRulebookPage` |
 
 ---
 

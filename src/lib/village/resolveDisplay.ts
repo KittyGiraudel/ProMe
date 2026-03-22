@@ -3,8 +3,8 @@ import { isFaceRank } from "../types";
 import { suitIsRed } from "../suitGlyphs";
 import {
   establishmentDetailRulebookPage,
-  VILLAGE_RULEBOOK_PAGES,
-} from "./data/establishmentPages";
+  RULEBOOK_PAGES,
+} from "../constants/rulebookPages";
 import { establishmentLine } from "./data/establishments";
 import { villageTraitText } from "./data/traits";
 import type { VillageRoll } from "./generate";
@@ -22,7 +22,7 @@ export type VillageEstablishmentRow = {
   text: string;
   /** Primary slot to reroll, or null when the card comes from a red Jack expansion. */
   rerollPrimarySlot: number | null;
-  /** Page where this establishment type is detailed (see `establishmentPages.ts`). */
+  /** Page where this establishment type is detailed (see `rulebookPages.ts`). */
   rulebookPage: number;
 };
 
@@ -48,7 +48,7 @@ export function resolveVillageDisplay(roll: VillageRoll): {
     (instances) => ({
       text: villageTraitText(instances[0]!.card),
       instances,
-      rulebookPage: VILLAGE_RULEBOOK_PAGES.establishmentTable,
+      rulebookPage: RULEBOOK_PAGES.village.establishmentTable,
     }),
   );
 

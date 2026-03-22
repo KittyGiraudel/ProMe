@@ -16,11 +16,10 @@ export function rankUsesPetiteGrandeEstablishment(rank: Rank): boolean {
   return (PETITE_GRANDE_RANKS as readonly Rank[]).includes(rank);
 }
 
-/** 1 = petite/petit, 2 = grande/grand, 3 = immense (merged). */
+/** Game tier 1–3 (ascending size); indexes `petiteGrande` copy lines at `tier - 1`. */
 export type EstablishmentSizeTier = 1 | 2 | 3;
 
 type PetiteGrandeRank = (typeof PETITE_GRANDE_RANKS)[number];
-type SizeTierLabel = "petite" | "grande" | "immense";
 
 export function establishmentLineFromSizeTier(
   rank: Rank,
@@ -29,11 +28,9 @@ export function establishmentLineFromSizeTier(
   if (!rankUsesPetiteGrandeEstablishment(rank)) {
     throw new Error(`establishmentLineFromSizeTier: rank ${rank}`);
   }
-  const tierKey: SizeTierLabel =
-    tier === 1 ? "petite" : tier === 2 ? "grande" : "immense";
-  const row =
+  const lines =
     copy.game.villageEstablishments.petiteGrande[rank as PetiteGrandeRank];
-  return row[tierKey];
+  return lines[tier - 1];
 }
 
 /** Label for an establishment card (A–10 only). */
