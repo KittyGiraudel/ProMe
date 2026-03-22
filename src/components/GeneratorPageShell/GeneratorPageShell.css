@@ -1,0 +1,37 @@
+.generator-page-shell {
+  flex: 1;
+  padding: 2rem 1.25rem 3rem;
+}
+
+.generator-page-shell__inner {
+  max-width: 44rem;
+  margin: 0 auto;
+}
+
+.generator-page-shell__back {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--lsdp-muted);
+}
+
+.generator-page-shell__back:hover {
+  color: var(--lsdp-text);
+}
+
+.generator-page-shell__title {
+  margin-bottom: 0.5rem !important;
+}
+
+.generator-page-shell__description {
+  margin-bottom: 1.5rem;
+  color: var(--lsdp-muted);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.generator-page-shell__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}

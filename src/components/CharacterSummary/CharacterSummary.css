@@ -1,0 +1,63 @@
+.character-summary {
+  border: 1px solid var(--lsdp-border) !important;
+  border-radius: 12px !important;
+  background: var(--lsdp-surface) !important;
+  box-shadow: 0 1px 2px rgba(31, 45, 42, 0.04);
+}
+
+.character-summary--empty {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.character-summary__descriptions .ant-descriptions-item-label {
+  color: var(--lsdp-muted);
+}
+
+.character-summary__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.character-summary__meta {
+  font-size: 0.875rem;
+  color: var(--lsdp-muted);
+}
+
+.character-summary__meta--with-action {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.1rem 0.35rem;
+}
+
+.character-summary__meta-main {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.character-summary__reroll.ant-btn {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  padding: 0;
+  color: var(--lsdp-muted);
+}
+
+.character-summary__reroll.ant-btn:hover {
+  color: var(--lsdp-text);
+}
+
+.character-summary__context {
+  margin: 0;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.character-summary__name {
+  font-size: 1.125rem;
+  font-weight: 600;
+}

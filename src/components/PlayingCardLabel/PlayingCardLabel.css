@@ -1,0 +1,24 @@
+.playing-card-label {
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+}
+
+.playing-card-label__rank {
+  font-variant-numeric: tabular-nums;
+}
+
+.playing-card-label__suit {
+  font-family: "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols 2",
+    sans-serif;
+  line-height: 1;
+  transform: translateY(-0.05em) translateX(-0.1em) scale(1.5);
+}
+
+.playing-card-label__suit--red {
+  color: #b42318;
+}
+
+.playing-card-label__suit--black {
+  color: inherit;
+}
