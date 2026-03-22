@@ -16,7 +16,8 @@ function makeRoll(over: Partial<CharacterRoll> = {}): CharacterRoll {
   return {
     raceDie: 1,
     race: "bruja",
-    agePersonalityCard: { suit: "hearts", rank: "2" },
+    ageCard: { suit: "hearts", rank: "2" },
+    personalityCard: { suit: "hearts", rank: "2" },
     contextCard: { suit: "clubs", rank: "3" },
     nameDice: [1, 1],
     name: lookupName("bruja", 1, 1),

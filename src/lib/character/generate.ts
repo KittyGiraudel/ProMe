@@ -13,7 +13,8 @@ import {
 export type CharacterRerollPart =
   | "race"
   | "nameDice"
-  | "agePersonalityCard"
+  | "ageCard"
+  | "personalityCard"
   | "contextCard"
   | "gender"
   | "contextSevenDie"
@@ -22,7 +23,10 @@ export type CharacterRerollPart =
 export type CharacterRoll = {
   raceDie: number;
   race: Race;
-  agePersonalityCard: PlayingCard;
+  /** Suit → age band (book: one draw for age). */
+  ageCard: PlayingCard;
+  /** Rank → personality (book: one draw for personality). */
+  personalityCard: PlayingCard;
   contextCard: PlayingCard;
   nameDice: [number, number];
   name: string;
@@ -70,7 +74,8 @@ function rollCharacterRoll(
   race: Race,
   rng: () => number,
 ): CharacterRoll {
-  const agePersonalityCard = randomCard(rng);
+  const ageCard = randomCard(rng);
+  const personalityCard = randomCard(rng);
   const contextCard = randomCard(rng);
   const nameDice = roll2D6(rng);
   const name = lookupName(race, nameDice[0], nameDice[1]);
@@ -82,7 +87,8 @@ function rollCharacterRoll(
   return {
     raceDie,
     race,
-    agePersonalityCard,
+    ageCard,
+    personalityCard,
     contextCard,
     nameDice,
     name,
@@ -133,8 +139,11 @@ export function rerollCharacterPart(
       const name = lookupName(roll.race, nameDice[0], nameDice[1]);
       return { ...roll, nameDice, name };
     }
-    case "agePersonalityCard": {
-      return { ...roll, agePersonalityCard: randomCard(rng) };
+    case "ageCard": {
+      return { ...roll, ageCard: randomCard(rng) };
+    }
+    case "personalityCard": {
+      return { ...roll, personalityCard: randomCard(rng) };
     }
     case "contextCard": {
       const contextCard = randomCard(rng);
@@ -177,9 +186,9 @@ export function rerollCharacterPart(
 }
 
 export function getAgeBand(roll: CharacterRoll) {
-  return ageBandFromSuit(roll.agePersonalityCard.suit);
+  return ageBandFromSuit(roll.ageCard.suit);
 }
 
 export function getPersonality(roll: CharacterRoll) {
-  return personalityFromRank(roll.agePersonalityCard.rank);
+  return personalityFromRank(roll.personalityCard.rank);
 }

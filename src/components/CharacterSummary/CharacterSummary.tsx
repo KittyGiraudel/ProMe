@@ -143,21 +143,36 @@ export function CharacterSummary({
               ),
             },
             {
-              key: 'agePersonality',
-              label: copy.character.sectionAgePersonality,
+              key: 'age',
+              label: copy.character.sectionAge,
               children: (
                 <div className='character-summary__stack'>
-                  <span>
-                    {copy.ageBands[age]}, {copy.personalities[personality]}
-                  </span>
+                  <span>{copy.ageBands[age]}</span>
                   <MetaWithReroll
-                    rerollLabel={copy.character.rerollAgePersonalityCard}
+                    rerollLabel={copy.character.rerollAgeCard}
+                    onReroll={onRerollPart && (() => onRerollPart('ageCard'))}>
+                    <>
+                      {copy.character.cardLabel} :{' '}
+                      <PlayingCardLabel card={roll.ageCard} />
+                    </>
+                  </MetaWithReroll>
+                </div>
+              ),
+            },
+            {
+              key: 'personality',
+              label: copy.character.sectionPersonality,
+              children: (
+                <div className='character-summary__stack'>
+                  <span>{copy.personalities[personality]}</span>
+                  <MetaWithReroll
+                    rerollLabel={copy.character.rerollPersonalityCard}
                     onReroll={
-                      onRerollPart && (() => onRerollPart('agePersonalityCard'))
+                      onRerollPart && (() => onRerollPart('personalityCard'))
                     }>
                     <>
                       {copy.character.cardLabel} :{' '}
-                      <PlayingCardLabel card={roll.agePersonalityCard} />
+                      <PlayingCardLabel card={roll.personalityCard} />
                     </>
                   </MetaWithReroll>
                 </div>

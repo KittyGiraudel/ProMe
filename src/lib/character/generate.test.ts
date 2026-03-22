@@ -13,7 +13,8 @@ function makeRoll(over: Partial<CharacterRoll> = {}): CharacterRoll {
   return {
     raceDie: 1,
     race: "bruja",
-    agePersonalityCard: { suit: "hearts", rank: "2" },
+    ageCard: { suit: "hearts", rank: "2" },
+    personalityCard: { suit: "hearts", rank: "2" },
     contextCard: { suit: "clubs", rank: "3" },
     nameDice: [1, 1],
     name: lookupName("bruja", 1, 1),
@@ -39,12 +40,21 @@ describe("character/generate", () => {
     expect(roll.raceDie).toBe(3);
   });
 
-  it("getAgeBand and getPersonality derive from age card", () => {
+  it("getAgeBand uses suit of age card; getPersonality uses rank of personality card", () => {
     const roll = makeRoll({
-      agePersonalityCard: { suit: "spades", rank: "Q" },
+      ageCard: { suit: "spades", rank: "2" },
+      personalityCard: { suit: "hearts", rank: "Q" },
     });
     expect(getAgeBand(roll)).toBe("elderly");
     expect(getPersonality(roll)).toBe("joyful");
+  });
+
+  it("rerollCharacterPart ageCard and personalityCard are independent", () => {
+    const roll = makeRoll();
+    const nextAge = rerollCharacterPart(roll, "ageCard", () => 0.5);
+    expect(nextAge.personalityCard).toEqual(roll.personalityCard);
+    const nextPers = rerollCharacterPart(roll, "personalityCard", () => 0.5);
+    expect(nextPers.ageCard).toEqual(roll.ageCard);
   });
 
   it("rerollCharacterPart race updates name for new race grid", () => {
