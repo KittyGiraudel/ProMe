@@ -1,10 +1,14 @@
 import { describe, expect, it } from "vitest";
+import { RANKS } from "../types";
 import {
   ageBandFromSuit,
+  canonicalGenderDie,
   canonicalRaceDie,
   genderFromD6,
   personalityFromRank,
   raceFromD6,
+  rankFromPersonality,
+  suitFromAgeBand,
 } from "./maps";
 
 describe("character/maps", () => {
@@ -35,6 +39,13 @@ describe("character/maps", () => {
     expect(genderFromD6(6)).toBe("indeterminate");
   });
 
+  it("canonicalGenderDie round-trips through genderFromD6", () => {
+    const genders = ["man", "woman", "nonBinary", "indeterminate"] as const;
+    for (const g of genders) {
+      expect(genderFromD6(canonicalGenderDie(g))).toBe(g);
+    }
+  });
+
   it("ageBandFromSuit maps suits", () => {
     expect(ageBandFromSuit("hearts")).toBe("child");
     expect(ageBandFromSuit("diamonds")).toBe("teenager");
@@ -47,5 +58,18 @@ describe("character/maps", () => {
     expect(personalityFromRank("10")).toBe("dreamy");
     expect(personalityFromRank("J")).toBe("calm");
     expect(personalityFromRank("K")).toBe("sad");
+  });
+
+  it("suitFromAgeBand inverts ageBandFromSuit", () => {
+    const suits = ["hearts", "diamonds", "clubs", "spades"] as const;
+    for (const suit of suits) {
+      expect(suitFromAgeBand(ageBandFromSuit(suit))).toBe(suit);
+    }
+  });
+
+  it("rankFromPersonality inverts personalityFromRank for every rank", () => {
+    for (const rank of RANKS) {
+      expect(rankFromPersonality(personalityFromRank(rank))).toBe(rank);
+    }
   });
 });

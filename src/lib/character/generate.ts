@@ -1,13 +1,16 @@
 import { randomCard, roll2D6, rollD6 } from "../rng";
-import type { Gender, PlayingCard, Race } from "../types";
+import type { AgeBand, Gender, Personality, PlayingCard, Race } from "../types";
 import { contextByRank } from "@/messages/fr";
 import { lookupName } from "./data/namesByRace";
 import {
   ageBandFromSuit,
+  canonicalGenderDie,
   canonicalRaceDie,
   genderFromD6,
   personalityFromRank,
   raceFromD6,
+  rankFromPersonality,
+  suitFromAgeBand,
 } from "./maps";
 
 export type CharacterRerollPart =
@@ -112,6 +115,59 @@ export function generateCharacter(
   const raceDie = rollD6(rng);
   const race = raceFromD6(raceDie);
   return rollCharacterRoll(raceDie, race, rng);
+}
+
+export function setCharacterRace(roll: CharacterRoll, race: Race): CharacterRoll {
+  const raceDie = canonicalRaceDie(race);
+  const name = lookupName(race, roll.nameDice[0], roll.nameDice[1]);
+  const contextSpokenName =
+    roll.contextCard.rank === "10" && roll.contextSpokenNameDice
+      ? lookupName(
+          race,
+          roll.contextSpokenNameDice[0],
+          roll.contextSpokenNameDice[1],
+        )
+      : roll.contextSpokenName;
+  return { ...roll, raceDie, race, name, contextSpokenName };
+}
+
+export function setCharacterNameDice(
+  roll: CharacterRoll,
+  nameDice: [number, number],
+): CharacterRoll {
+  const name = lookupName(roll.race, nameDice[0], nameDice[1]);
+  return { ...roll, nameDice, name };
+}
+
+export function setCharacterAgeBand(
+  roll: CharacterRoll,
+  ageBand: AgeBand,
+): CharacterRoll {
+  return {
+    ...roll,
+    ageCard: { ...roll.ageCard, suit: suitFromAgeBand(ageBand) },
+  };
+}
+
+export function setCharacterPersonality(
+  roll: CharacterRoll,
+  personality: Personality,
+): CharacterRoll {
+  return {
+    ...roll,
+    personalityCard: {
+      ...roll.personalityCard,
+      rank: rankFromPersonality(personality),
+    },
+  };
+}
+
+export function setCharacterGender(
+  roll: CharacterRoll,
+  gender: Gender,
+): CharacterRoll {
+  const genderDie = canonicalGenderDie(gender);
+  return { ...roll, genderDie, gender };
 }
 
 export function rerollCharacterPart(

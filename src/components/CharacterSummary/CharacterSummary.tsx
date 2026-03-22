@@ -1,24 +1,48 @@
 'use client'
 
 import { RedoOutlined } from '@ant-design/icons'
-import type { ReactNode } from 'react'
-import { Button, Card, Descriptions, Tooltip, Typography } from 'antd'
+import { useMemo, type ReactNode } from 'react'
+import { Button, Card, Descriptions, Select, Tooltip, Typography } from 'antd'
+import { lookupName } from '@/lib/character/data/namesByRace'
 import {
   type CharacterRerollPart,
   type CharacterRoll,
   getAgeBand,
   getPersonality,
   mapKindFromContextSevenDie,
+  setCharacterAgeBand,
+  setCharacterGender,
+  setCharacterNameDice,
+  setCharacterPersonality,
+  setCharacterRace,
 } from '@/lib/character/generate'
+import { personalityFromRank } from '@/lib/character/maps'
+import {
+  AGE_BANDS,
+  GENDERS,
+  RACES,
+  RANKS,
+  type AgeBand,
+  type Gender,
+  type Personality,
+  type Race,
+} from '@/lib/types'
 import { DiceFaces } from '@/components/DiceFaces/DiceFaces'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { RichText } from '@/components/RichText/RichText'
 import { copy } from '@/messages/fr'
 import './CharacterSummary.css'
 
+/** Wider popup than the trigger + full option labels (antd defaults ellipsis). */
+const CHARACTER_SUMMARY_SELECT_PROPS = {
+  popupMatchSelectWidth: false as const,
+  classNames: { popup: { root: 'character-summary__select-popup' } },
+}
+
 type CharacterSummaryProps = {
   roll: CharacterRoll | null
   onRerollPart?: (part: CharacterRerollPart) => void
+  onSetRoll?: (roll: CharacterRoll) => void
 }
 
 function MetaWithReroll({
@@ -53,11 +77,35 @@ function MetaWithReroll({
 export function CharacterSummary({
   roll,
   onRerollPart,
+  onSetRoll,
 }: CharacterSummaryProps) {
   const characterFootnote = (
     <Typography.Text type='secondary' className='generator-rulebook-footnote'>
       {copy.rulebook.characterFootnote}
     </Typography.Text>
+  )
+
+  const nameDiceSelectOptions = useMemo(() => {
+    if (!roll) return [] as { value: string; label: string }[]
+    const opts: { value: string; label: string }[] = []
+    for (let d1 = 1; d1 <= 6; d1++) {
+      for (let d2 = 1; d2 <= 6; d2++) {
+        opts.push({
+          value: `${d1}-${d2}`,
+          label: lookupName(roll.race, d1, d2),
+        })
+      }
+    }
+    return opts
+  }, [roll])
+
+  const personalitySelectOptions = useMemo(
+    () =>
+      RANKS.map(rank => {
+        const p = personalityFromRank(rank)
+        return { value: p, label: copy.personalities[p] }
+      }),
+    []
   )
 
   if (!roll) {
@@ -79,6 +127,7 @@ export function CharacterSummary({
 
   const age = getAgeBand(roll)
   const personality = getPersonality(roll)
+  const nameDiceValue = `${roll.nameDice[0]}-${roll.nameDice[1]}`
 
   return (
     <>
@@ -93,18 +142,37 @@ export function CharacterSummary({
               key: 'name',
               label: copy.character.sectionName,
               children: (
-                <div className='character-summary__stack'>
-                  <strong className='character-summary__name'>
-                    {roll.name}
-                  </strong>
-                  <MetaWithReroll
-                    rerollLabel={copy.character.rerollName}
-                    onReroll={onRerollPart && (() => onRerollPart('nameDice'))}>
-                    <>
-                      {copy.character.nameDiceLabel} :{' '}
-                      <DiceFaces values={roll.nameDice} />
-                    </>
-                  </MetaWithReroll>
+                <div className='character-summary__field-row'>
+                  <Select
+                    {...CHARACTER_SUMMARY_SELECT_PROPS}
+                    className='character-summary__field-select'
+                    showSearch
+                    optionFilterProp='label'
+                    disabled={!onSetRoll}
+                    value={nameDiceValue}
+                    options={nameDiceSelectOptions}
+                    onChange={v => {
+                      if (!onSetRoll) return
+                      const [a, b] = v.split('-').map(Number) as [
+                        number,
+                        number,
+                      ]
+                      onSetRoll(setCharacterNameDice(roll, [a, b]))
+                    }}
+                    aria-label={copy.character.sectionName}
+                  />
+                  <div className='character-summary__field-meta'>
+                    <MetaWithReroll
+                      rerollLabel={copy.character.rerollName}
+                      onReroll={
+                        onRerollPart && (() => onRerollPart('nameDice'))
+                      }>
+                      <>
+                        {copy.character.nameDiceLabel} :{' '}
+                        <DiceFaces values={roll.nameDice} />
+                      </>
+                    </MetaWithReroll>
+                  </div>
                 </div>
               ),
             },
@@ -112,16 +180,32 @@ export function CharacterSummary({
               key: 'race',
               label: copy.character.sectionRace,
               children: (
-                <div className='character-summary__stack'>
-                  <span>{copy.races[roll.race]}</span>
-                  <MetaWithReroll
-                    rerollLabel={copy.character.rerollRace}
-                    onReroll={onRerollPart && (() => onRerollPart('race'))}>
-                    <>
-                      {copy.character.raceDieLabel} :{' '}
-                      <DiceFaces values={[roll.raceDie]} />
-                    </>
-                  </MetaWithReroll>
+                <div className='character-summary__field-row'>
+                  <Select
+                    {...CHARACTER_SUMMARY_SELECT_PROPS}
+                    className='character-summary__field-select'
+                    disabled={!onSetRoll}
+                    value={roll.race}
+                    options={RACES.map(r => ({
+                      value: r,
+                      label: copy.races[r],
+                    }))}
+                    onChange={(r: Race) => {
+                      if (!onSetRoll) return
+                      onSetRoll(setCharacterRace(roll, r))
+                    }}
+                    aria-label={copy.character.sectionRace}
+                  />
+                  <div className='character-summary__field-meta'>
+                    <MetaWithReroll
+                      rerollLabel={copy.character.rerollRace}
+                      onReroll={onRerollPart && (() => onRerollPart('race'))}>
+                      <>
+                        {copy.character.raceDieLabel} :{' '}
+                        <DiceFaces values={[roll.raceDie]} />
+                      </>
+                    </MetaWithReroll>
+                  </div>
                 </div>
               ),
             },
@@ -129,16 +213,32 @@ export function CharacterSummary({
               key: 'gender',
               label: copy.character.sectionGender,
               children: (
-                <div className='character-summary__stack'>
-                  <span>{copy.genders[roll.gender]}</span>
-                  <MetaWithReroll
-                    rerollLabel={copy.character.rerollGender}
-                    onReroll={onRerollPart && (() => onRerollPart('gender'))}>
-                    <>
-                      {copy.character.raceDieLabel} :{' '}
-                      <DiceFaces values={[roll.genderDie]} />
-                    </>
-                  </MetaWithReroll>
+                <div className='character-summary__field-row'>
+                  <Select
+                    {...CHARACTER_SUMMARY_SELECT_PROPS}
+                    className='character-summary__field-select'
+                    disabled={!onSetRoll}
+                    value={roll.gender}
+                    options={GENDERS.map(g => ({
+                      value: g,
+                      label: copy.genders[g],
+                    }))}
+                    onChange={(g: Gender) => {
+                      if (!onSetRoll) return
+                      onSetRoll(setCharacterGender(roll, g))
+                    }}
+                    aria-label={copy.character.sectionGender}
+                  />
+                  <div className='character-summary__field-meta'>
+                    <MetaWithReroll
+                      rerollLabel={copy.character.rerollGender}
+                      onReroll={onRerollPart && (() => onRerollPart('gender'))}>
+                      <>
+                        {copy.character.raceDieLabel} :{' '}
+                        <DiceFaces values={[roll.genderDie]} />
+                      </>
+                    </MetaWithReroll>
+                  </div>
                 </div>
               ),
             },
@@ -146,16 +246,34 @@ export function CharacterSummary({
               key: 'age',
               label: copy.character.sectionAge,
               children: (
-                <div className='character-summary__stack'>
-                  <span>{copy.ageBands[age]}</span>
-                  <MetaWithReroll
-                    rerollLabel={copy.character.rerollAgeCard}
-                    onReroll={onRerollPart && (() => onRerollPart('ageCard'))}>
-                    <>
-                      {copy.character.cardLabel} :{' '}
-                      <PlayingCardLabel card={roll.ageCard} />
-                    </>
-                  </MetaWithReroll>
+                <div className='character-summary__field-row'>
+                  <Select
+                    {...CHARACTER_SUMMARY_SELECT_PROPS}
+                    className='character-summary__field-select'
+                    disabled={!onSetRoll}
+                    value={age}
+                    options={AGE_BANDS.map(band => ({
+                      value: band,
+                      label: copy.ageBands[band],
+                    }))}
+                    onChange={(band: AgeBand) => {
+                      if (!onSetRoll) return
+                      onSetRoll(setCharacterAgeBand(roll, band))
+                    }}
+                    aria-label={copy.character.sectionAge}
+                  />
+                  <div className='character-summary__field-meta'>
+                    <MetaWithReroll
+                      rerollLabel={copy.character.rerollAgeCard}
+                      onReroll={
+                        onRerollPart && (() => onRerollPart('ageCard'))
+                      }>
+                      <>
+                        {copy.character.cardLabel} :{' '}
+                        <PlayingCardLabel card={roll.ageCard} />
+                      </>
+                    </MetaWithReroll>
+                  </div>
                 </div>
               ),
             },
@@ -163,18 +281,31 @@ export function CharacterSummary({
               key: 'personality',
               label: copy.character.sectionPersonality,
               children: (
-                <div className='character-summary__stack'>
-                  <span>{copy.personalities[personality]}</span>
-                  <MetaWithReroll
-                    rerollLabel={copy.character.rerollPersonalityCard}
-                    onReroll={
-                      onRerollPart && (() => onRerollPart('personalityCard'))
-                    }>
-                    <>
-                      {copy.character.cardLabel} :{' '}
-                      <PlayingCardLabel card={roll.personalityCard} />
-                    </>
-                  </MetaWithReroll>
+                <div className='character-summary__field-row'>
+                  <Select
+                    {...CHARACTER_SUMMARY_SELECT_PROPS}
+                    className='character-summary__field-select'
+                    disabled={!onSetRoll}
+                    value={personality}
+                    options={personalitySelectOptions}
+                    onChange={(p: Personality) => {
+                      if (!onSetRoll) return
+                      onSetRoll(setCharacterPersonality(roll, p))
+                    }}
+                    aria-label={copy.character.sectionPersonality}
+                  />
+                  <div className='character-summary__field-meta'>
+                    <MetaWithReroll
+                      rerollLabel={copy.character.rerollPersonalityCard}
+                      onReroll={
+                        onRerollPart && (() => onRerollPart('personalityCard'))
+                      }>
+                      <>
+                        {copy.character.cardLabel} :{' '}
+                        <PlayingCardLabel card={roll.personalityCard} />
+                      </>
+                    </MetaWithReroll>
+                  </div>
                 </div>
               ),
             },

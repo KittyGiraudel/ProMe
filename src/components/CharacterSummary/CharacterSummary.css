@@ -20,6 +20,22 @@
   gap: 0.35rem;
 }
 
+.character-summary__field-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+  width: 100%;
+}
+
+.character-summary__field-meta {
+  flex: 0 1 auto;
+  display: flex;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
 .character-summary__meta {
   font-size: 0.875rem;
   color: var(--lsdp-muted);
@@ -69,9 +85,35 @@
   box-shadow: 0 0 0 2px var(--lsdp-surface), 0 0 0 4px var(--lsdp-border);
 }
 
-.character-summary__name {
-  font-size: 1.125rem;
+/* Hug selected label; don’t stretch across the row (flex parent was growing them). */
+.character-summary__field-select {
+  flex: 0 1 auto;
+  width: auto;
+  max-width: min(18rem, 100%);
+  min-width: 0;
+}
+
+.character-summary__field-select .ant-select-selector {
   font-weight: 600;
+}
+
+/* Popups: at least trigger width (rc-trigger minWidth) and as wide as the longest option. */
+.character-summary__select-popup.ant-select-dropdown {
+  min-width: max-content !important;
+  max-width: calc(100vw - 1.5rem);
+  overflow-x: auto;
+}
+
+.character-summary__select-popup .ant-select-item-option-content {
+  flex: none !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  white-space: nowrap !important;
+}
+
+.character-summary__select-popup .rc-virtual-list-holder-inner {
+  width: max-content !important;
+  min-width: 100%;
 }
 
 .character-summary__context-followup {

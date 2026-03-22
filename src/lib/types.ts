@@ -10,6 +10,13 @@ export const RACES: readonly Race[] = [
 /** Optional table aid: 1D6 gender roll (not core rules). */
 export type Gender = "man" | "woman" | "nonBinary" | "indeterminate";
 
+export const GENDERS: readonly Gender[] = [
+  "man",
+  "woman",
+  "nonBinary",
+  "indeterminate",
+] as const;
+
 export type Suit = "hearts" | "diamonds" | "clubs" | "spades";
 
 /** Playing-card rank (display names in `messages/fr.ts` → `copy.ranks`). */
@@ -29,6 +36,13 @@ export type Rank =
   | "A";
 
 export type AgeBand = "child" | "teenager" | "adult" | "elderly";
+
+export const AGE_BANDS: readonly AgeBand[] = [
+  "child",
+  "teenager",
+  "adult",
+  "elderly",
+] as const;
 
 export type Personality =
   | "enthusiast"

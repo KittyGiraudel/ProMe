@@ -6,6 +6,11 @@ import {
   getPersonality,
   mapKindFromContextSevenDie,
   rerollCharacterPart,
+  setCharacterAgeBand,
+  setCharacterGender,
+  setCharacterNameDice,
+  setCharacterPersonality,
+  setCharacterRace,
   type CharacterRoll,
 } from "./generate";
 
@@ -75,5 +80,45 @@ describe("character/generate", () => {
     const roll = makeRoll();
     const next = rerollCharacterPart(roll, "contextSpokenNameDice", () => 0.99);
     expect(next).toBe(roll);
+  });
+
+  it("setCharacterNameDice updates name string", () => {
+    const roll = makeRoll({ race: "bruja", nameDice: [1, 1] });
+    const next = setCharacterNameDice(roll, [2, 3]);
+    expect(next.nameDice).toEqual([2, 3]);
+    expect(next.name).toBe(lookupName("bruja", 2, 3));
+  });
+
+  it("setCharacterRace uses canonical die and recomputes name", () => {
+    const roll = makeRoll({ race: "bruja", nameDice: [1, 1] });
+    const next = setCharacterRace(roll, "kiore");
+    expect(next.raceDie).toBe(5);
+    expect(next.race).toBe("kiore");
+    expect(next.name).toBe(lookupName("kiore", 1, 1));
+  });
+
+  it("setCharacterAgeBand changes suit only", () => {
+    const roll = makeRoll({
+      ageCard: { suit: "hearts", rank: "5" },
+    });
+    const next = setCharacterAgeBand(roll, "elderly");
+    expect(next.ageCard).toEqual({ suit: "spades", rank: "5" });
+    expect(getAgeBand(next)).toBe("elderly");
+  });
+
+  it("setCharacterPersonality changes rank only", () => {
+    const roll = makeRoll({
+      personalityCard: { suit: "diamonds", rank: "2" },
+    });
+    const next = setCharacterPersonality(roll, "sad");
+    expect(next.personalityCard).toEqual({ suit: "diamonds", rank: "K" });
+    expect(getPersonality(next)).toBe("sad");
+  });
+
+  it("setCharacterGender uses canonical die", () => {
+    const roll = makeRoll({ genderDie: 2, gender: "man" });
+    const next = setCharacterGender(roll, "woman");
+    expect(next.genderDie).toBe(3);
+    expect(next.gender).toBe("woman");
   });
 });

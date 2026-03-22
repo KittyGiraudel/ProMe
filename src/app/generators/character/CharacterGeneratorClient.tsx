@@ -7,6 +7,7 @@ import { GeneratorPageShell } from '@/components/GeneratorPageShell/GeneratorPag
 import { RollActions } from '@/components/RollActions/RollActions'
 import { useReplaceSearchParams } from '@/hooks/useReplaceSearchParams'
 import {
+  type CharacterRoll,
   type CharacterRerollPart,
   generateCharacter,
   rerollCharacterPart,
@@ -56,6 +57,15 @@ export function CharacterGeneratorClient() {
     [replaceSearchParams, roll]
   )
 
+  const handleSetRoll = useCallback(
+    (next: CharacterRoll) => {
+      replaceSearchParams(p => {
+        p.set(CHARACTER_QUERY_KEY, encodeCharacterRoll(next))
+      })
+    },
+    [replaceSearchParams]
+  )
+
   const handleCopyOneLiner = useCallback(async () => {
     if (!roll) return
     const params = new URLSearchParams(searchParams.toString())
@@ -85,6 +95,7 @@ export function CharacterGeneratorClient() {
       <CharacterSummary
         roll={roll}
         onRerollPart={roll ? handleRerollPart : undefined}
+        onSetRoll={roll ? handleSetRoll : undefined}
       />
     </GeneratorPageShell>
   )
