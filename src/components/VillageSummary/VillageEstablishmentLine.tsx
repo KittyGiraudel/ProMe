@@ -4,7 +4,8 @@ import { RedoOutlined } from '@ant-design/icons'
 import { Button, Typography } from 'antd'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import type { PlayingCard } from '@/lib/lsdp/types'
-import { formatVillageRulebookPagesJoined, fr } from '@/messages/fr'
+import { copy } from '@/messages/fr'
+import { formatVillageRulebookPagesJoined } from '@/messages/formatCopy'
 import {
   VillageEstablishmentOwners,
   type VillageOwnerEntry,
@@ -51,7 +52,7 @@ export function VillageEstablishmentLine({
                 type='text'
                 size='small'
                 icon={<RedoOutlined />}
-                aria-label={fr.village.rerollCard}
+                aria-label={copy.village.rerollCard}
                 onClick={() => onRerollPrimarySlot(rerollPrimarySlot)}
                 className='village-summary__line-reroll'
               />
@@ -59,7 +60,7 @@ export function VillageEstablishmentLine({
           </div>
           <span
             className='village-summary__line-page'
-            aria-label={`${fr.village.rulebookPageAria}: ${pagesLabel}`}>
+            aria-label={`${copy.village.rulebookPageAria}: ${pagesLabel}`}>
             {pagesLabel}
           </span>
         </div>

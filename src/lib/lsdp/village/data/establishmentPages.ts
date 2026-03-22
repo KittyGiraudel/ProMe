@@ -1,10 +1,10 @@
 import type { Rank } from "../../types";
 
 /**
- * French edition — chapter anchors (générateur / table des cartes).
+ * Rulebook chapter anchors (générateur / table des cartes).
  * Ajustez si besoin selon votre impression.
  */
-export const VILLAGE_RULEBOOK_PAGES_FR = {
+export const VILLAGE_RULEBOOK_PAGES = {
   /** « Établissement » — table As–10 + figures (carte → type / trait). */
   establishmentTable: 43,
   /** « Les villages » — tirage des 5 cartes, encadré doublons, etc. */
@@ -34,7 +34,7 @@ export const ESTABLISHMENT_DETAIL_PAGE_BY_RANK: Record<
 
 export function establishmentDetailRulebookPage(rank: Rank): number {
   if (rank === "J" || rank === "Q" || rank === "K") {
-    return VILLAGE_RULEBOOK_PAGES_FR.establishmentTable;
+    return VILLAGE_RULEBOOK_PAGES.establishmentTable;
   }
   return ESTABLISHMENT_DETAIL_PAGE_BY_RANK[rank];
 }

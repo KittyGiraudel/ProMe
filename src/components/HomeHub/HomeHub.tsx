@@ -2,19 +2,19 @@
 
 import { Card, Typography } from 'antd'
 import { useRouter } from 'next/navigation'
-import { fr } from '@/messages/fr'
+import { copy } from '@/messages/fr'
 import './HomeHub.css'
 
 const generators = [
   {
     href: '/generators/character',
-    title: fr.hub.characterCardTitle,
-    description: fr.hub.characterCardDescription,
+    title: copy.hub.characterCardTitle,
+    description: copy.hub.characterCardDescription,
   },
   {
     href: '/generators/village',
-    title: fr.hub.villageCardTitle,
-    description: fr.hub.villageCardDescription,
+    title: copy.hub.villageCardTitle,
+    description: copy.hub.villageCardDescription,
   },
 ] as const
 
@@ -25,9 +25,9 @@ export function HomeHub() {
     <div className='home-hub'>
       <header className='home-hub__header'>
         <Typography.Title level={1} className='home-hub__title'>
-          {fr.hub.title}
+          {copy.hub.title}
         </Typography.Title>
-        <p className='home-hub__subtitle'>{fr.hub.subtitle}</p>
+        <p className='home-hub__subtitle'>{copy.hub.subtitle}</p>
       </header>
       <ul className='home-hub__list'>
         {generators.map(g => (
@@ -38,7 +38,7 @@ export function HomeHub() {
               tabIndex={0}
               className='home-hub__card'
               title={g.title}
-              extra={<span className='home-hub__cta'>{fr.hub.open}</span>}
+              extra={<span className='home-hub__cta'>{copy.hub.open}</span>}
               onClick={() => router.push(g.href)}
               onKeyDown={e => {
                 if (e.key === 'Enter' || e.key === ' ') {

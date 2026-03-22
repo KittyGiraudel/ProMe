@@ -1,6 +1,7 @@
 import type { PlayingCard } from '@/lib/lsdp/types'
 import { suitGlyph, suitIsRed } from '@/lib/lsdp/suitGlyphs'
-import { formatPlayingCard, fr } from '@/messages/fr'
+import { copy } from '@/messages/fr'
+import { formatPlayingCard } from '@/messages/formatCopy'
 import './PlayingCardLabel.css'
 
 type PlayingCardLabelProps = {
@@ -23,7 +24,7 @@ export function PlayingCardLabel({
     .filter(Boolean)
     .join(' ')
   const ariaLabel = formatPlayingCard(card.suit, card.rank)
-  const rankText = fr.ranks[card.rank]
+  const rankText = copy.ranks[card.rank]
   const suitClass = [
     'playing-card-label__suit',
     suitIsRed(card.suit)

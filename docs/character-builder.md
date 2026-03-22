@@ -32,7 +32,7 @@ The app can **reroll** individual mechanical inputs while keeping the rest; deri
 - 5 → `kiore`
 - 6 → `mousseron`
 
-The stored die value is the **actual roll** (1–6), not an index. The label comes from `fr.races`.
+The stored die value is the **actual roll** (1–6), not an index. The label comes from `copy.races`.
 
 ### 2.2 Name — two D6 (“D66”)
 
@@ -65,7 +65,7 @@ Special ranks (also reflected in UI):
 - 5 → non-binary
 - 6 → indeterminate
 
-Documented in code as optional; labels in `fr.genders`.
+Documented in code as optional; labels in `copy.genders`.
 
 ---
 
@@ -113,7 +113,7 @@ flowchart LR
 | `src/app/generators/character/CharacterGeneratorClient.tsx` | URL sync, roll-all, reroll callbacks, copy one-liner                                                                                           |
 | `src/app/generators/character/page.tsx`                     | Server wrapper + `Suspense` (required for `useSearchParams` on static routes)                                                                  |
 | `src/components/CharacterSummary/CharacterSummary.tsx`      | Descriptions + per-field reroll + context follow-up UI                                                                                         |
-| `src/messages/fr.ts`                                        | French strings + `formatPlayingCard`, `formatCharacterCopyOneLiner`                                                                            |
+| `src/messages/fr.ts`                                        | `copy` strings + `formatPlayingCard`, `formatCharacterCopyOneLiner`                                                                            |
 
 ### 3.2 `CharacterRoll` shape
 
@@ -165,16 +165,14 @@ The codec builds a compact ASCII string (then often uppercased for parsing).
 2. Two chars: age/personality card (`encodePlayingCard`)
 3. Two chars: context card
 4. Two chars: name dice `1`–`6` each
-5. **Either** 7-char legacy **or** 8-char current:
-   - **7 chars (legacy bookmarks):** no gender digit; decoder synthesizes `genderDie` with `legacyGenderDie(...)` from race + cards + name dice (deterministic, stable for old links).
-   - **8 chars:** eighth char is `genderDie` `1`–`6`.
+5. One char: `genderDie` `1`–`6`
 
 **Optional tail** (only when the corresponding follow-up exists in the roll):
 
 - Context rank **7** and `contextSevenDie` set: **+1** char (D6). **Total length 9.**
 - Context rank **10** and `contextSpokenNameDice` set: **+2** chars (two D6). **Total length 10.**
 
-Valid lengths: **7, 8, 9, 10**. Any other length → decode fails.
+Valid lengths: **8, 9, 10**. Any other length → decode fails.
 
 Tail interpretation (`decodeCharacterRollParam`):
 
@@ -213,19 +211,19 @@ Primary “generate all” plus optional copy-one-liner when a roll exists.
 
 ## 6. Internationalization
 
-- **`fr`** is the live UI locale for the generator.
+- **`copy`** holds all generator UI strings (`messages/fr.ts`).
 - **`en`** exists as a stub for future use.
 - Card **display** uses `formatPlayingCard` / `PlayingCardLabel` (rank + suit wording in French).
-- **`formatCharacterCopyOneLiner`** lives in `fr.ts` but takes a `CharacterRoll`; keep it in sync if you add fields to the summary line.
+- **`formatCharacterCopyOneLiner`** lives in `messages/fr.ts` but takes a `CharacterRoll`; keep it in sync if you add fields to the summary line.
 
 ---
 
 ## 7. How to extend safely
 
-1. **New race or D6 range change** — Update `raceFromD6`, `namesByRace`, and `fr.races` / `en.races`.
+1. **New race or D6 range change** — Update `raceFromD6`, `namesByRace`, and `copy.races`.
 2. **New context rank** — Extend `contextByRank` (all `Rank` keys must exist) and, if the book adds extra rolls, extend `rollContextFollowups` + `CharacterRoll` + codec + UI like rank 7/10.
-3. **URL version bump** — Today there is no explicit version prefix; backward compatibility is handled via 7-char legacy and tail rules. A future v2 format should either use a new query key or a prefixed scheme and keep `decodeCharacterRollParam` accepting old values.
-4. **Tests** — There is no test runner in `package.json` yet; if you add one, prioritize round-trip tests: `decode(encode(roll))` equals roll for representative cases (all context ranks, with/without tails, legacy 7-char).
+3. **URL version bump** — Today there is no explicit version prefix; a future v2 format should either use a new query key or a prefixed scheme and keep `decodeCharacterRollParam` accepting old values if you still need old links.
+4. **Tests** — There is no test runner in `package.json` yet; if you add one, prioritize round-trip tests: `decode(encode(roll))` equals roll for representative cases (all context ranks, with/without tails).
 
 ---
 
@@ -243,4 +241,4 @@ Primary “generate all” plus optional copy-one-liner when a roll exists.
 
 ---
 
-_Last updated to match generator behavior as of the repo revision that includes gender, context follow-ups 7/10, per-part rerolls, and 7–10 char URL payloads._
+_Last updated to match generator behavior as of the repo revision that includes gender, context follow-ups 7/10, per-part rerolls, and 8–10 char URL payloads._

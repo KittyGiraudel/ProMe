@@ -7,10 +7,10 @@ import { encodePlayingCard } from '@/lib/lsdp/playingCardCodec'
 import type { PlayingCard } from '@/lib/lsdp/types'
 import { suitIsRed } from '@/lib/lsdp/suitGlyphs'
 import {
-  establishmentLineFrFromSizeTier,
+  establishmentLineFromSizeTier,
   rankUsesPetiteGrandeEstablishment,
 } from '@/lib/lsdp/village/data/establishments'
-import { VILLAGE_RULEBOOK_PAGES_FR } from '@/lib/lsdp/village/data/establishmentPages'
+import { VILLAGE_RULEBOOK_PAGES } from '@/lib/lsdp/village/data/establishmentPages'
 import { mergePetiteGrandeTiers } from '@/lib/lsdp/village/mergePetiteGrandeTiers'
 import type { VillageRoll } from '@/lib/lsdp/village/generate'
 import type { CharacterRoll } from '@/lib/lsdp/character/generate'
@@ -18,11 +18,11 @@ import type { VillageEstablishmentRow } from '@/lib/lsdp/village/resolveDisplay'
 import { resolveVillageDisplay } from '@/lib/lsdp/village/resolveDisplay'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { RichText } from '@/components/RichText/RichText'
+import { copy } from '@/messages/fr'
 import {
   formatVillageRulebookPagesJoined,
-  fr,
-  villageRulebookRefsNoteFr,
-} from '@/messages/fr'
+  villageRulebookRefsNote,
+} from '@/messages/formatCopy'
 import { VillageEstablishmentLine } from './VillageEstablishmentLine'
 import './VillageSummary.css'
 
@@ -67,15 +67,15 @@ function groupEstablishments(rows: VillageEstablishmentRow[]): {
     if (key.startsWith('pg:')) {
       const tiers = rows.map(rr => (suitIsRed(rr.card.suit) ? 2 : 1) as 1 | 2)
       const merged = mergePetiteGrandeTiers(tiers)
-      text = establishmentLineFrFromSizeTier(first.card.rank, merged)
+      text = establishmentLineFromSizeTier(first.card.rank, merged)
     } else {
       const baseText = first.text
       if (count === 1) {
         text = baseText
       } else if (count === 2) {
-        text = `${fr.village.mergedEstablishmentLabel} — ${baseText}`
+        text = `${copy.village.mergedEstablishmentLabel}${copy.common.emDashSpaced}${baseText}`
       } else {
-        text = `${fr.village.mergedEstablishmentLabel} (×${count}) — ${baseText}`
+        text = `${copy.village.mergedEstablishmentLabel} (×${count})${copy.common.emDashSpaced}${baseText}`
       }
     }
     const slots = rows.flatMap(rr =>
@@ -161,9 +161,9 @@ export function VillageSummary({
 
   const villageFootnote = (
     <Typography.Text type='secondary' className='generator-rulebook-footnote'>
-      {villageRulebookRefsNoteFr(
-        VILLAGE_RULEBOOK_PAGES_FR.villageChapter,
-        VILLAGE_RULEBOOK_PAGES_FR.establishmentTable
+      {villageRulebookRefsNote(
+        VILLAGE_RULEBOOK_PAGES.villageChapter,
+        VILLAGE_RULEBOOK_PAGES.establishmentTable
       )}
     </Typography.Text>
   )
@@ -175,9 +175,9 @@ export function VillageSummary({
           className='village-summary village-summary--empty'
           variant='borderless'>
           <Typography.Text type='secondary'>
-            {fr.village.emptySummaryBefore}
-            {fr.village.rollAll}
-            {fr.village.emptySummaryAfter}
+            {copy.village.emptySummaryBefore}
+            {copy.village.rollAll}
+            {copy.village.emptySummaryAfter}
           </Typography.Text>
         </Card>
         {villageFootnote}
@@ -189,7 +189,7 @@ export function VillageSummary({
     <>
       <Card className='village-summary' variant='borderless'>
         <Typography.Title level={5} className='village-summary__section-title'>
-          {fr.village.sectionEstablishments}
+          {copy.village.sectionEstablishments}
         </Typography.Title>
         {establishmentBlocks}
 
@@ -198,7 +198,7 @@ export function VillageSummary({
             <Typography.Title
               level={5}
               className='village-summary__section-title'>
-              {fr.village.sectionTraits}
+              {copy.village.sectionTraits}
             </Typography.Title>
             <ul className='village-summary__trait-list'>
               {display.traits.map(row => (
@@ -229,7 +229,7 @@ export function VillageSummary({
                               type='text'
                               size='small'
                               icon={<RedoOutlined />}
-                              aria-label={fr.village.rerollCard}
+                              aria-label={copy.village.rerollCard}
                               onClick={() =>
                                 onRerollPrimarySlot(inst.primarySlot)
                               }
@@ -240,7 +240,7 @@ export function VillageSummary({
                     </div>
                     <span
                       className='village-summary__line-page'
-                      aria-label={`${fr.village.rulebookPageAria}: ${formatVillageRulebookPagesJoined([row.rulebookPage])}`}>
+                      aria-label={`${copy.village.rulebookPageAria}: ${formatVillageRulebookPagesJoined([row.rulebookPage])}`}>
                       {formatVillageRulebookPagesJoined([row.rulebookPage])}
                     </span>
                   </div>
@@ -255,13 +255,13 @@ export function VillageSummary({
             <RichText
               as='p'
               className='village-summary__dupes-explanation'
-              text={fr.village.duplicateRuleHint}
+              text={copy.village.duplicateRuleHint}
             />
             <div className='village-summary__dupes-toggle'>
               <Checkbox
                 checked={grouped}
                 onChange={e => setGrouped(e.target.checked)}>
-                {fr.village.groupedToggle}
+                {copy.village.groupedToggle}
               </Checkbox>
             </div>
           </div>

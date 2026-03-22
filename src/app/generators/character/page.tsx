@@ -1,16 +1,16 @@
 import { Suspense } from 'react'
 import { GeneratorPageShell } from '@/components/GeneratorPageShell/GeneratorPageShell'
 import { CharacterGeneratorClient } from './CharacterGeneratorClient'
-import { fr } from '@/messages/fr'
+import { copy } from '@/messages/fr'
 
 function CharacterGeneratorFallback() {
   return (
     <GeneratorPageShell
-      title={fr.character.pageTitle}
-      description={fr.character.pageDescription}
+      title={copy.character.pageTitle}
+      description={copy.character.pageDescription}
       backHref='/'
-      backLabel={fr.nav.backHome}>
-      <p>{fr.common.loading}</p>
+      backLabel={copy.nav.backHome}>
+      <p>{copy.common.loading}</p>
     </GeneratorPageShell>
   )
 }

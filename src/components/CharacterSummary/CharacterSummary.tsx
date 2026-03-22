@@ -13,8 +13,9 @@ import {
 import { DiceFaces } from '@/components/DiceFaces/DiceFaces'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { RichText } from '@/components/RichText/RichText'
-import { CHARACTER_RULEBOOK_PAGES_FR } from '@/lib/lsdp/character/data/rulebookPages'
-import { characterRulebookRefsNoteFr, fr } from '@/messages/fr'
+import { CHARACTER_RULEBOOK_PAGES } from '@/lib/lsdp/character/data/rulebookPages'
+import { copy } from '@/messages/fr'
+import { characterRulebookRefsNote } from '@/messages/formatCopy'
 import './CharacterSummary.css'
 
 type CharacterSummaryProps = {
@@ -57,9 +58,9 @@ export function CharacterSummary({
 }: CharacterSummaryProps) {
   const characterFootnote = (
     <Typography.Text type='secondary' className='generator-rulebook-footnote'>
-      {characterRulebookRefsNoteFr(
-        CHARACTER_RULEBOOK_PAGES_FR.inhabitantChapter,
-        CHARACTER_RULEBOOK_PAGES_FR.nameTable
+      {characterRulebookRefsNote(
+        CHARACTER_RULEBOOK_PAGES.inhabitantChapter,
+        CHARACTER_RULEBOOK_PAGES.nameTable
       )}
     </Typography.Text>
   )
@@ -71,9 +72,9 @@ export function CharacterSummary({
           className='character-summary character-summary--empty'
           variant='borderless'>
           <Typography.Text type='secondary'>
-            {fr.character.emptySummaryBefore}
-            {fr.character.rollAll}
-            {fr.character.emptySummaryAfter}
+            {copy.character.emptySummaryBefore}
+            {copy.character.rollAll}
+            {copy.character.emptySummaryAfter}
           </Typography.Text>
         </Card>
         {characterFootnote}
@@ -95,17 +96,17 @@ export function CharacterSummary({
           items={[
             {
               key: 'name',
-              label: fr.character.sectionName,
+              label: copy.character.sectionName,
               children: (
                 <div className='character-summary__stack'>
                   <strong className='character-summary__name'>
                     {roll.name}
                   </strong>
                   <MetaWithReroll
-                    rerollLabel={fr.character.rerollName}
+                    rerollLabel={copy.character.rerollName}
                     onReroll={onRerollPart && (() => onRerollPart('nameDice'))}>
                     <>
-                      {fr.character.nameDiceLabel} :{' '}
+                      {copy.character.nameDiceLabel} :{' '}
                       <DiceFaces values={roll.nameDice} />
                     </>
                   </MetaWithReroll>
@@ -114,15 +115,15 @@ export function CharacterSummary({
             },
             {
               key: 'race',
-              label: fr.character.sectionRace,
+              label: copy.character.sectionRace,
               children: (
                 <div className='character-summary__stack'>
-                  <span>{fr.races[roll.race]}</span>
+                  <span>{copy.races[roll.race]}</span>
                   <MetaWithReroll
-                    rerollLabel={fr.character.rerollRace}
+                    rerollLabel={copy.character.rerollRace}
                     onReroll={onRerollPart && (() => onRerollPart('race'))}>
                     <>
-                      {fr.character.raceDieLabel} :{' '}
+                      {copy.character.raceDieLabel} :{' '}
                       <DiceFaces values={[roll.raceDie]} />
                     </>
                   </MetaWithReroll>
@@ -131,15 +132,15 @@ export function CharacterSummary({
             },
             {
               key: 'gender',
-              label: fr.character.sectionGender,
+              label: copy.character.sectionGender,
               children: (
                 <div className='character-summary__stack'>
-                  <span>{fr.genders[roll.gender]}</span>
+                  <span>{copy.genders[roll.gender]}</span>
                   <MetaWithReroll
-                    rerollLabel={fr.character.rerollGender}
+                    rerollLabel={copy.character.rerollGender}
                     onReroll={onRerollPart && (() => onRerollPart('gender'))}>
                     <>
-                      {fr.character.raceDieLabel} :{' '}
+                      {copy.character.raceDieLabel} :{' '}
                       <DiceFaces values={[roll.genderDie]} />
                     </>
                   </MetaWithReroll>
@@ -148,19 +149,19 @@ export function CharacterSummary({
             },
             {
               key: 'agePersonality',
-              label: fr.character.sectionAgePersonality,
+              label: copy.character.sectionAgePersonality,
               children: (
                 <div className='character-summary__stack'>
                   <span>
-                    {fr.ageBands[age]}, {fr.personalities[personality]}
+                    {copy.ageBands[age]}, {copy.personalities[personality]}
                   </span>
                   <MetaWithReroll
-                    rerollLabel={fr.character.rerollAgePersonalityCard}
+                    rerollLabel={copy.character.rerollAgePersonalityCard}
                     onReroll={
                       onRerollPart && (() => onRerollPart('agePersonalityCard'))
                     }>
                     <>
-                      {fr.character.cardLabel} :{' '}
+                      {copy.character.cardLabel} :{' '}
                       <PlayingCardLabel card={roll.agePersonalityCard} />
                     </>
                   </MetaWithReroll>
@@ -169,7 +170,7 @@ export function CharacterSummary({
             },
             {
               key: 'context',
-              label: fr.character.sectionContext,
+              label: copy.character.sectionContext,
               children: (
                 <div className='character-summary__stack'>
                   <RichText
@@ -178,20 +179,25 @@ export function CharacterSummary({
                     className='character-summary__context'
                   />
                   <MetaWithReroll
-                    rerollLabel={fr.character.rerollContextCard}
+                    rerollLabel={copy.character.rerollContextCard}
                     onReroll={
                       onRerollPart && (() => onRerollPart('contextCard'))
                     }>
                     <>
-                      {fr.character.cardLabel} :{' '}
-                      <PlayingCardLabel card={roll.contextCard} /> —{' '}
-                      {fr.character.contextCardNote}
+                      {copy.character.cardLabel} :{' '}
+                      <Tooltip title={copy.character.contextCardNote}>
+                        <span
+                          className='character-summary__context-card-hit'
+                          tabIndex={0}>
+                          <PlayingCardLabel card={roll.contextCard} />
+                        </span>
+                      </Tooltip>
                     </>
                   </MetaWithReroll>
                   {roll.contextCard.rank === '7' ? (
                     <div className='character-summary__context-followup'>
                       <span className='character-summary__followup-label'>
-                        {fr.character.contextSevenFollowupLabel}
+                        {copy.character.contextSevenFollowupLabel}
                       </span>
                       {roll.contextSevenDie == null ? (
                         onRerollPart ? (
@@ -199,12 +205,12 @@ export function CharacterSummary({
                             size='small'
                             type='default'
                             onClick={() => onRerollPart('contextSevenDie')}>
-                            {fr.character.rollContextSevenDie}
+                            {copy.character.rollContextSevenDie}
                           </Button>
                         ) : null
                       ) : (
                         <MetaWithReroll
-                          rerollLabel={fr.character.rerollContextSevenDie}
+                          rerollLabel={copy.character.rerollContextSevenDie}
                           onReroll={
                             onRerollPart &&
                             (() => onRerollPart('contextSevenDie'))
@@ -214,11 +220,11 @@ export function CharacterSummary({
                               {mapKindFromContextSevenDie(
                                 roll.contextSevenDie
                               ) === 'localisation'
-                                ? fr.character.contextSevenMapLocalisation
-                                : fr.character.contextSevenMapBiome}
+                                ? copy.character.contextSevenMapLocalisation
+                                : copy.character.contextSevenMapBiome}
                             </strong>
                             {' · '}
-                            {fr.character.raceDieLabel} :{' '}
+                            {copy.character.raceDieLabel} :{' '}
                             <DiceFaces values={[roll.contextSevenDie]} />
                           </>
                         </MetaWithReroll>
@@ -228,7 +234,7 @@ export function CharacterSummary({
                   {roll.contextCard.rank === '10' ? (
                     <div className='character-summary__context-followup'>
                       <span className='character-summary__followup-label'>
-                        {fr.character.contextSpokenNameLabel}
+                        {copy.character.contextSpokenNameLabel}
                       </span>
                       {roll.contextSpokenNameDice == null ? (
                         onRerollPart ? (
@@ -238,7 +244,7 @@ export function CharacterSummary({
                             onClick={() =>
                               onRerollPart('contextSpokenNameDice')
                             }>
-                            {fr.character.rollContextSpokenNameDice}
+                            {copy.character.rollContextSpokenNameDice}
                           </Button>
                         ) : null
                       ) : (
@@ -248,14 +254,14 @@ export function CharacterSummary({
                           </strong>
                           <MetaWithReroll
                             rerollLabel={
-                              fr.character.rerollContextSpokenNameDice
+                              copy.character.rerollContextSpokenNameDice
                             }
                             onReroll={
                               onRerollPart &&
                               (() => onRerollPart('contextSpokenNameDice'))
                             }>
                             <>
-                              {fr.character.nameDiceLabel} :{' '}
+                              {copy.character.nameDiceLabel} :{' '}
                               <DiceFaces values={roll.contextSpokenNameDice} />
                             </>
                           </MetaWithReroll>

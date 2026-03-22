@@ -2,7 +2,7 @@
 
 This document describes **what** the village generator implements (rulebook-aligned draw logic, establishments, traits, owners) and **how** it is wired in code (resolution, URL, UI). It is meant for maintainers and for AI assistants editing this repo.
 
-Game: _Les Souvenirs du Protecteur_ (LSDP). UI copy is primarily French (`src/messages/fr.ts`). Numeric **book page** anchors live in `src/lib/lsdp/village/data/establishmentPages.ts` (and the footnote string is built in `fr.ts` via `villageRulebookRefsNoteFr`).
+Game: _Les Souvenirs du Protecteur_ (LSDP). UI strings live in `src/messages/fr.ts` (`copy`). Numeric **book page** anchors live in `src/lib/lsdp/village/data/establishmentPages.ts` (and the footnote string is built via `villageRulebookRefsNote` in that messages module).
 
 ---
 
@@ -19,7 +19,7 @@ Game: _Les Souvenirs du Protecteur_ (LSDP). UI copy is primarily French (`src/me
 | URL                  | Serializable village (`v`), owners (`o`), race (`race`) for sharing and bookmarking                                                                                                   |
 | Rerolls              | Reroll one **primary** slot (rebuilds expansion), reroll one **owner** only, optional **grouped** display (local state)                                                               |
 
-Out of scope (today): persisting grouped view in the URL; generating owners for trait-only rows; English UI beyond stubs in `en.ts`.
+Out of scope (today): persisting grouped view in the URL; generating owners for trait-only rows.
 
 ---
 
@@ -38,7 +38,7 @@ The URL codec concatenates **primary then expansion** as 2-character card codes 
 
 1. **`traits`** — face cards in **primary**, in slot order, **merged by identical trait text** (so two red Queens share one paragraph in the UI but keep separate `primarySlot` values for reroll).
 2. **`establishments`** — walk primary **left to right**:
-   - **Numbered card (A–10)** → one establishment row (`establishmentLineFr`, reroll tied to that primary index).
+   - **Numbered card (A–10)** → one establishment row (`establishmentLine`, reroll tied to that primary index).
    - **Red Jack** → **consume three** cards from `expansion` in order; each becomes an establishment row with **`rerollPrimarySlot: null`** (those cards are not individually rerollable via primary slots; rerolling the Jack replaces the whole expansion block).
 
 After the loop, `expIdx` must equal `expansion.length` or the resolver throws (data invariant).
@@ -47,11 +47,11 @@ After the loop, `expIdx` must equal `expansion.length` or the resolver throws (d
 
 - Ranks **2–8** use **petite / grande / immense** tiers. **Base** tier from suit: **red → grande (2)**, **black → petite (1)** (`suitIsRed`).
 - Ranks **A, 9, 10** use `lineForRankOther` (red/black or fixed « Ruines » for 10).
-- **`establishmentLineFr`** must not be called for J/Q/K (face cards).
+- **`establishmentLine`** must not be called for J/Q/K (face cards).
 
 ### 2.4 Trait wording (`data/traits.ts`)
 
-**`villageTraitTextFr(card)`** returns markdown-style French copy. **Red vs black** matters for J, Q, K. Red Jack includes the rule text about drawing three extra **numbered** establishments.
+**`villageTraitText(card)`** returns markdown-style trait copy. **Red vs black** matters for J, Q, K. Red Jack includes the rule text about drawing three extra **numbered** establishments.
 
 ### 2.5 Duplicate establishments (book vs UI)
 
@@ -66,10 +66,10 @@ The grey hint + checkbox stay **inside** the summary card; the **« Livre — Le
 
 Pure UI transform of `VillageEstablishmentRow[]`:
 
-| Bucket key     | Grouping rule                                                     | Merged label                                                                                                |
-| -------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `pg:<rank>`    | Same **rank** among ranks that use petite/grande (2–8)            | Combine tiers with `mergePetiteGrandeTiers` → `establishmentLineFrFromSizeTier(rank, merged)`               |
-| `plain:<text>` | Same **full establishment line string** (e.g. same A/red variant) | **2** copies → `Immense — <base>`; **3+** → `Immense (×n) — <base>` (`fr.village.mergedEstablishmentLabel`) |
+| Bucket key     | Grouping rule                                                     | Merged label                                                                                                  |
+| -------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `pg:<rank>`    | Same **rank** among ranks that use petite/grande (2–8)            | Combine tiers with `mergePetiteGrandeTiers` → `establishmentLineFromSizeTier(rank, merged)`                   |
+| `plain:<text>` | Same **full establishment line string** (e.g. same A/red variant) | **2** copies → `Immense — <base>`; **3+** → `Immense (×n) — <base>` (`copy.village.mergedEstablishmentLabel`) |
 
 **Owners:** `ownerIndices` lists global indices into `owners[]` (resolution order). Co-owners see **multiple** name lines under one establishment.
 
@@ -143,12 +143,12 @@ flowchart LR
 | `src/lib/lsdp/village/villageRaceCodec.ts`              | `decodeVillageRaceParam`                                                                                                                     |
 | `src/lib/lsdp/village/ownersGenerate.ts`                | `generateOwnersForVillage`                                                                                                                   |
 | `src/lib/lsdp/village/mergePetiteGrandeTiers.ts`        | Tier merge for grouped petite/grande establishments                                                                                          |
-| `src/lib/lsdp/village/data/establishments.ts`           | `establishmentLineFr`, `establishmentLineFrFromSizeTier`, `rankUsesPetiteGrandeEstablishment`                                                |
-| `src/lib/lsdp/village/data/traits.ts`                   | `villageTraitTextFr`                                                                                                                         |
-| `src/lib/lsdp/village/data/establishmentPages.ts`       | `VILLAGE_RULEBOOK_PAGES_FR`, per-rank detail pages for UI citations                                                                          |
+| `src/lib/lsdp/village/data/establishments.ts`           | `establishmentLine`, `establishmentLineFromSizeTier`, `rankUsesPetiteGrandeEstablishment`                                                    |
+| `src/lib/lsdp/village/data/traits.ts`                   | `villageTraitText`                                                                                                                           |
+| `src/lib/lsdp/village/data/establishmentPages.ts`       | `VILLAGE_RULEBOOK_PAGES`, per-rank detail pages for UI citations                                                                             |
 | `src/app/generators/village/VillageGeneratorClient.tsx` | Toolbar, race select, URL sync, roll / reroll owner / reroll slot / copy                                                                     |
 | `src/components/VillageSummary/VillageSummary.tsx`      | Establishments + traits + owners + grouping + rulebook footnote fragment                                                                     |
-| `src/messages/fr.ts`                                    | `formatVillageCopyOneLiner`, `villageRulebookRefsNoteFr`, village strings                                                                    |
+| `src/messages/fr.ts`                                    | `formatVillageCopyOneLiner`, `villageRulebookRefsNote`, village strings                                                                      |
 
 ### 3.2 Reroll primary slot (`rerollVillagePrimarySlot`)
 
@@ -182,7 +182,7 @@ If `v` decodes but `o` is missing, wrong length, or any owner `race !== villageR
 
 ### 4.3 Copy one-liner
 
-`formatVillageCopyOneLiner(roll, shareUrl, owners)` (`fr.ts`): traits (bold stripped) and establishment lines joined, plus owner **names** if lengths match. The share URL should include `v`, `o`, and `race` (client builds this in `handleCopyOneLiner`).
+`formatVillageCopyOneLiner(roll, shareUrl, owners)` (`messages/fr.ts`): traits (bold stripped) and establishment lines joined, plus owner **names** if lengths match. The share URL should include `v`, `o`, and `race` (client builds this in `handleCopyOneLiner`).
 
 ---
 
@@ -209,11 +209,11 @@ Rendered **outside** the Ant Design `Card` as a sibling in a fragment, with clas
 
 ---
 
-## 6. Internationalization
+## 6. Copy layout
 
-- French establishment and trait **game text** lives under `village/data/`, not in `fr.ts`.
-- `fr.village.*` holds UI chrome (section titles, duplicate hint, grouping toggle, reroll labels, copy strings).
-- `villageRulebookRefsNoteFr` takes page numbers from `VILLAGE_RULEBOOK_PAGES_FR` so you can retune one constant file per printing.
+- Establishment and trait **game text** lives under `village/data/`, not in `messages/fr.ts`.
+- `copy.village.*` holds UI chrome (section titles, duplicate hint, grouping toggle, reroll labels, copy strings).
+- `villageRulebookRefsNote` takes page numbers from `VILLAGE_RULEBOOK_PAGES` so you can retune one constant file per printing.
 
 ---
 
@@ -229,15 +229,15 @@ Rendered **outside** the Ant Design `Card` as a sibling in a fragment, with clas
 
 ## 8. Quick reference — file → responsibility
 
-| Question                                   | Where to look                                                 |
-| ------------------------------------------ | ------------------------------------------------------------- |
-| How many cards in the village URL?         | `villageUrlCodec.ts` — 5 primary + 3× red jacks               |
-| What is an establishment line for card X?  | `establishmentLineFr` / `establishmentLineFrFromSizeTier`     |
-| Why are two traits merged into one line?   | `resolveVillageDisplay` groups by `villageTraitTextFr` string |
-| How are duplicate shops grouped in the UI? | `groupEstablishments` + `mergePetiteGrandeTiers`              |
-| How many owners should exist?              | `countVillageEstablishments`                                  |
-| How is village race enforced?              | `VillageGeneratorClient` + `generateCharacterWithRace`        |
-| Where are book page numbers?               | `establishmentPages.ts` + `villageRulebookRefsNoteFr`         |
+| Question                                   | Where to look                                               |
+| ------------------------------------------ | ----------------------------------------------------------- |
+| How many cards in the village URL?         | `villageUrlCodec.ts` — 5 primary + 3× red jacks             |
+| What is an establishment line for card X?  | `establishmentLine` / `establishmentLineFromSizeTier`       |
+| Why are two traits merged into one line?   | `resolveVillageDisplay` groups by `villageTraitText` string |
+| How are duplicate shops grouped in the UI? | `groupEstablishments` + `mergePetiteGrandeTiers`            |
+| How many owners should exist?              | `countVillageEstablishments`                                |
+| How is village race enforced?              | `VillageGeneratorClient` + `generateCharacterWithRace`      |
+| Where are book page numbers?               | `establishmentPages.ts` + `villageRulebookRefsNote`         |
 
 ---
 

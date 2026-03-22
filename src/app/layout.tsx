@@ -2,7 +2,7 @@ import { AntdRegistry } from '@ant-design/nextjs-registry'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { AppProviders } from '@/components/AppProviders/AppProviders'
-import { fr } from '@/messages/fr'
+import { copy } from '@/messages/fr'
 import './globals.css'
 
 const geistSans = Geist({
@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: fr.metadata.title,
-  description: fr.metadata.description,
+  title: copy.metadata.title,
+  description: copy.metadata.description,
 }
 
 export default function RootLayout({

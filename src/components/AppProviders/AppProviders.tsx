@@ -1,7 +1,7 @@
 'use client'
 
 import { App, ConfigProvider } from 'antd'
-import frFR from 'antd/locale/fr_FR'
+import antdLocale from 'antd/locale/fr_FR'
 import type { ReactNode } from 'react'
 
 const theme = {
@@ -22,7 +22,7 @@ const theme = {
 
 export function AppProviders({ children }: { children: ReactNode }) {
   return (
-    <ConfigProvider locale={frFR} theme={theme}>
+    <ConfigProvider locale={antdLocale} theme={theme}>
       <App>{children}</App>
     </ConfigProvider>
   )

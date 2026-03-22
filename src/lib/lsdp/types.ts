@@ -12,7 +12,7 @@ export type Gender = "man" | "woman" | "nonBinary" | "indeterminate";
 
 export type Suit = "hearts" | "diamonds" | "clubs" | "spades";
 
-/** Playing-card rank (display names come from locale messages, e.g. Valet/Dame/Roi). */
+/** Playing-card rank (display names in `messages/fr.ts` → `copy.ranks`). */
 export type Rank =
   | "2"
   | "3"

@@ -1,16 +1,11 @@
-import {
-  type CharacterRoll,
-  getAgeBand,
-  getPersonality,
-  mapKindFromContextSevenDie,
-} from "@/lib/lsdp/character/generate";
-import { genderCompactSymbol } from "@/lib/lsdp/genderSymbols";
-import type { VillageRoll } from "@/lib/lsdp/village/generate";
-import { resolveVillageDisplay } from "@/lib/lsdp/village/resolveDisplay";
-import type { Gender, Race } from "@/lib/lsdp/types";
+import type { Gender, Race, Rank } from "@/lib/lsdp/types";
 
-/** French UI copy and localized labels (game data in French lives in `data/` modules). */
-export const fr = {
+/**
+ * User-facing copy: UI chrome, rulebook citations, and localized game tables
+ * (établissements, traits de village, contexte habitant). Inhabitant **names** live
+ * in `character/data/namesByRace.ts` (rulebook proper nouns, not localized).
+ */
+export const copy = {
   appName: "LSDP — Outils",
   metadata: {
     title: "LSDP — Outils de jeu",
@@ -19,6 +14,8 @@ export const fr = {
   },
   common: {
     loading: "Chargement…",
+    /** Tiret cadratin entouré d’espaces (listes, libellés groupés). */
+    emDashSpaced: " — ",
   },
   hub: {
     title: "Outils pour Les Souvenirs du Protecteur",
@@ -47,7 +44,7 @@ export const fr = {
     raceDieLabel: "1D6",
     nameDiceLabel: "2D6",
     cardLabel: "Carte",
-    contextCardNote: "(seule la hauteur compte pour le contexte)",
+    contextCardNote: "Seule la hauteur compte pour le contexte.",
     copyHint: "Copiez le texte de contexte depuis le livre si vous éditez les données.",
     rerollRace: "Relancer le type (D6)",
     rerollName: "Relancer le nom (2D6)",
@@ -149,83 +146,117 @@ export const fr = {
   nav: {
     backHome: "← Accueil",
   },
+  a11y: {
+    dieSingle(value: number): string {
+      return `Dé ${value}`;
+    },
+    diceList(commaJoinedRest: string, last: number): string {
+      return `Dés ${commaJoinedRest} et ${last}`;
+    },
+  },
+  rulebook: {
+    pageCitation(page: number): string {
+      return `p. ${page}`;
+    },
+    villageFootnote(
+      villageChapterPage: number,
+      establishmentTablePage: number,
+    ): string {
+      return `Livre — Les villages (tirage, doublons) : p. ${villageChapterPage}. Table « Établissement » : p. ${establishmentTablePage}.`;
+    },
+    characterFootnote(
+      inhabitantChapterPage: string,
+      nameTablePage: string,
+    ): string {
+      return `Livre — Les habitants (tirage, cartes, contexte) : p. ${inhabitantChapterPage}. Table des noms : p. ${nameTablePage}.`;
+    },
+  },
+  game: {
+    /** Contexte habitant par hauteur de carte (couleur ignorée). */
+    characterContextByRank: {
+      A: "**Cet habitant pleure une perte récente.** Il a peut-être perdu un animal de compagnie ou un ami proche. Peut-être qu’une discussion serait la bienvenue ? À moins qu’il ait besoin d’écoute pour se sentir mieux ?",
+      "2": "**Cet habitant est à la recherche de quelque chose.** Peut-être quelque chose qui n’est pas vendu dans ce village, ou quelque chose que l’on ne peut trouver que loin d’ici ? Mais au-delà de ça, il semble avoir peur de l’inconnu. Il y a peut-être une histoire derrière tout ça.",
+      "3": "**Cet habitant rêve de voyager dans un autre village.** Peut-être pourriez-vous l’accompagner et en savoir plus sur ses motivations et ses envies !",
+      "4": "**Cet habitant est très malade et n’a plus que peu de temps à vivre.** Il est seul et personne pour l’épauler dans ces instants difficiles. Peut-être qu’une conversation lui donnerait un peu de baume au cœur ? *Si vous avez rencontré cet habitant dans un village, la prochaine fois que vous visiterez cet endroit, vous devrez réussir un test de Courage pour le retrouver.*",
+      "5": "**Cet habitant cherche l’amitié — ou peut-être l’amour ?** Vous n’en êtes pas sûr, mais il semble se sentir seul. Vous pouvez l’aider à trouver quelqu’un qui cherche quelque chose de similaire.",
+      "6": "**Cet habitant se languit d’un être cher.** Peut-être est-ce quelqu’un qui vit ailleurs ou qui vient juste de partir. Mais il est aussi à la recherche d’un objet très spécial qui lui rappelle cette personne. Quel est cet objet ?",
+      "7": "Cet habitant est un **cartographe**. Vous le croisez alors qu’il va quitter le village et il reconnaît en vous un voyageur. Il vous offre une de ses cartes. Lancez un D6 : *Carte de localisation (1-3)* ou *Carte de biome (4-6)* (voir p. 49).",
+      "8": "Cet habitant est **en train de peindre un tableau**. Se rendant compte que vous êtes un voyageur, il vous demande si vous avez un croquis représentant un endroit qui lui est inconnu, ou si vous pouvez décrire un panorama que vous avez vu au cours de votre voyage ! Il ne s’est jamais aventuré dans des endroits éloignés de son village et recherche l’inspiration !",
+      "9": "Il existe des rumeurs sur de mystérieuses Ruines parsemées à travers le monde et **cet habitant est curieux d’en savoir plus sur le sujet**. Voyant que vous êtes un voyageur, il s’approche de vous pour voir si vous avez des informations à partager !",
+      "10": "**Cet habitant prononce un nom en errant dans le village.** De qui s’agit-il ? Pourquoi cet habitant prononce-t-il ce nom ? Que s’est-il passé ? *Si vous devez créer un nom, consultez la table page 60.*",
+      J: "**Cet habitant achète des objets provenant d’autres endroits du monde et offre 100 pièces pour chaque objet digne de son intérêt.** Parlez-lui ! Peut-être que vous avez sur vous un objet qu’il pourrait acquérir.",
+      Q: "**Cet habitant ressemble à quelqu’un que vous avez déjà rencontré.** S’agit-il d’une impression ? Vous pouvez toujours lui demander pour en avoir le cœur net. Il a peut-être déjà croisé votre chemin, à moins que ce ne soit un inconnu avec de nouvelles histoires à raconter !",
+      K: "**Cet habitant est un bâtisseur.** Il vous dit qu’avec 3 bois et 3 fers ou avec 1000 pièces, il peut construire l’établissement de votre choix dans le village.",
+    } satisfies Record<Rank, string>,
+    villageTraits: {
+      J: {
+        red: "**Ville.** C’est une **grande colonie**. Tirez **3 cartes d’établissement supplémentaires** ; si vous tirez une **figure** (valet, dame, roi), **ignorez-la** et tirez à nouveau jusqu’à obtenir une **carte numérotée**.",
+        black:
+          "**Merveille.** Le village est **d’une beauté exceptionnelle**. Décrivez-le. Vous gagnez **2 points d’Inspiration**.",
+      },
+      Q: {
+        red: "**Fortifié.** Le village est **entouré de murs** avec une **entrée gardée**. Vous devez avoir **au moins 1 point d’Honneur** pour y entrer.",
+        black:
+          "**Luxuriant.** Il comporte une **étendue d’eau** (rivière, lac, etc.) et un **jardin**. Vous pouvez utiliser la **table de collecte du biome** **sans équipement particulier**.",
+      },
+      K: {
+        red: "**Abandonné.** Les bâtiments semblent **inhabités**. Les **établissements sont inopérants** tant que quelqu’un ne décide pas de **reconstruire le village**.",
+        black:
+          "**Nomade.** Le village **se déplace**. Lorsque vous revenez sur cette **case de carte**, vous devez réussir un **test de Courage**. En cas d’**échec**, le village **n’est plus là**.",
+      },
+    },
+    /** Établissements As–10 : 2–8 = petite / grande / immense ; A, 9 = rouge/noir ; 10 fixe. */
+    villageEstablishments: {
+      petiteGrande: {
+        "2": {
+          petite: "Petite boutique de potions",
+          grande: "Grande boutique de potions",
+          immense: "Immense boutique de potions",
+        },
+        "3": {
+          petite: "Petite boutique d’équipement",
+          grande: "Grande boutique d’équipement",
+          immense: "Immense boutique d’équipement",
+        },
+        "4": {
+          petite: "Petite boutique de vêtements",
+          grande: "Grande boutique de vêtements",
+          immense: "Immense boutique de vêtements",
+        },
+        "5": {
+          petite: "Petite taverne",
+          grande: "Grande taverne",
+          immense: "Immense taverne",
+        },
+        "6": {
+          petite: "Petit bureau de cartographie",
+          grande: "Grand bureau de cartographie",
+          immense: "Immense bureau de cartographie",
+        },
+        "7": {
+          petite: "Petite auberge",
+          grande: "Grande auberge",
+          immense: "Immense auberge",
+        },
+        "8": {
+          petite: "Petite agence de missions",
+          grande: "Grande agence de missions",
+          immense: "Immense agence de missions",
+        },
+      },
+      rankA: {
+        red: "Oratoire permanent",
+        black: "Oratoire éphémère",
+      },
+      rank9: {
+        red: "Gare en activité",
+        black: "Gare à l'abandon",
+      },
+      rank10: "Ruines",
+    },
+  },
 } as const;
 
-/** “Rank of suit” label for the current French UI. */
-export function formatPlayingCard(
-  suit: keyof typeof fr.suits,
-  rank: keyof typeof fr.ranks,
-): string {
-  return `${fr.ranks[rank]} de ${fr.suits[suit]}`;
-}
-
-/** One-line share text: `♀ Ada (Bruja), Adolescent·e Amical·e (https://…)`. */
-export function formatCharacterCopyOneLiner(
-  roll: CharacterRoll,
-  shareUrl: string,
-): string {
-  const age = getAgeBand(roll);
-  const personality = getPersonality(roll);
-  const g = genderCompactSymbol(roll.gender);
-  const parts = [
-    `${g} ${roll.name} (${fr.races[roll.race]}), ${fr.ageBands[age]} ${fr.personalities[personality]}`,
-  ];
-  if (roll.contextCard.rank === "7" && roll.contextSevenDie != null) {
-    const kind = mapKindFromContextSevenDie(roll.contextSevenDie);
-    parts.push(
-      kind === "localisation"
-        ? fr.character.contextSevenMapLocalisation
-        : fr.character.contextSevenMapBiome,
-    );
-  }
-  if (roll.contextCard.rank === "10" && roll.contextSpokenName) {
-    parts.push(`${fr.character.contextSpokenNameLabel}: ${roll.contextSpokenName}`);
-  }
-  return `${parts.join(" — ")} (${shareUrl})`;
-}
-
-function stripBoldMarkers(s: string): string {
-  return s.replace(/\*\*(.+?)\*\*/g, "$1");
-}
-
-/** One-line share: traits (sans mise en forme) + établissements + propriétaires. */
-export function formatVillageCopyOneLiner(
-  roll: VillageRoll,
-  shareUrl: string,
-  owners?: CharacterRoll[] | null,
-): string {
-  const { traits, establishments } = resolveVillageDisplay(roll);
-  const t = traits.map((row) => stripBoldMarkers(row.text)).join(" — ");
-  const e = establishments.map((row) => row.text).join(" — ");
-  const parts = [t, e].filter(Boolean);
-  if (owners && owners.length === establishments.length) {
-    const names = owners.map((o) => o.name).join(", ");
-    parts.push(`Propriétaires : ${names}`);
-  }
-  return `${parts.join(" — ")} (${shareUrl})`;
-}
-
-export function formatVillageRulebookPage(page: number): string {
-  return `p. ${page}`;
-}
-
-export function formatVillageRulebookPagesJoined(pages: number[]): string {
-  return [...new Set(pages)]
-    .sort((a, b) => a - b)
-    .map(formatVillageRulebookPage)
-    .join(" · ");
-}
-
-export function villageRulebookRefsNoteFr(
-  villageChapterPage: number,
-  establishmentTablePage: number,
-): string {
-  return `Livre — Les villages (tirage, doublons) : p. ${villageChapterPage}. Table « Établissement » : p. ${establishmentTablePage}.`;
-}
-
-export function characterRulebookRefsNoteFr(
-  inhabitantChapterPage: string,
-  nameTablePage: string,
-): string {
-  return `Livre — Les habitants (tirage, cartes, contexte) : p. ${inhabitantChapterPage}. Table des noms : p. ${nameTablePage}.`;
-}
+/** Context hook by card rank (suit ignored); alias of `copy.game.characterContextByRank`. */
+export const contextByRank: Record<Rank, string> =
+  copy.game.characterContextByRank as Record<Rank, string>;

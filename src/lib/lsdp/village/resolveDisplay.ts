@@ -3,10 +3,10 @@ import { isFaceRank } from "../types";
 import { suitIsRed } from "../suitGlyphs";
 import {
   establishmentDetailRulebookPage,
-  VILLAGE_RULEBOOK_PAGES_FR,
+  VILLAGE_RULEBOOK_PAGES,
 } from "./data/establishmentPages";
-import { establishmentLineFr } from "./data/establishments";
-import { villageTraitTextFr } from "./data/traits";
+import { establishmentLine } from "./data/establishments";
+import { villageTraitText } from "./data/traits";
 import type { VillageRoll } from "./generate";
 
 export type VillageTraitRow = {
@@ -37,7 +37,7 @@ export function resolveVillageDisplay(roll: VillageRoll): {
   for (let i = 0; i < roll.primary.length; i++) {
     const card = roll.primary[i]!;
     if (isFaceRank(card.rank)) {
-      const text = villageTraitTextFr(card);
+      const text = villageTraitText(card);
       const inst = { card, primarySlot: i };
       const cur = traitGroups.get(text);
       if (cur) cur.push(inst);
@@ -46,9 +46,9 @@ export function resolveVillageDisplay(roll: VillageRoll): {
   }
   const traits: VillageTraitRow[] = [...traitGroups.values()].map(
     (instances) => ({
-      text: villageTraitTextFr(instances[0]!.card),
+      text: villageTraitText(instances[0]!.card),
       instances,
-      rulebookPage: VILLAGE_RULEBOOK_PAGES_FR.establishmentTable,
+      rulebookPage: VILLAGE_RULEBOOK_PAGES.establishmentTable,
     }),
   );
 
@@ -60,7 +60,7 @@ export function resolveVillageDisplay(roll: VillageRoll): {
     if (!isFaceRank(card.rank)) {
       establishments.push({
         card,
-        text: establishmentLineFr(card),
+        text: establishmentLine(card),
         rerollPrimarySlot: i,
         rulebookPage: establishmentDetailRulebookPage(card.rank),
       });
@@ -69,7 +69,7 @@ export function resolveVillageDisplay(roll: VillageRoll): {
         const ec = roll.expansion[expIdx++]!;
         establishments.push({
           card: ec,
-          text: establishmentLineFr(ec),
+          text: establishmentLine(ec),
           rerollPrimarySlot: null,
           rulebookPage: establishmentDetailRulebookPage(ec.rank),
         });

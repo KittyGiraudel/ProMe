@@ -15,7 +15,8 @@ import {
   decodeCharacterRollParam,
   encodeCharacterRoll,
 } from '@/lib/lsdp/character/characterUrlCodec'
-import { formatCharacterCopyOneLiner, fr } from '@/messages/fr'
+import { copy } from '@/messages/fr'
+import { formatCharacterCopyOneLiner } from '@/messages/formatCopy'
 
 const CHARACTER_QUERY_KEY = 'c'
 
@@ -63,23 +64,23 @@ export function CharacterGeneratorClient() {
     const line = formatCharacterCopyOneLiner(roll, shareUrl)
     try {
       await navigator.clipboard.writeText(line)
-      message.success(fr.character.copyOneLinerSuccess)
+      message.success(copy.character.copyOneLinerSuccess)
     } catch {
-      message.error(fr.character.copyOneLinerError)
+      message.error(copy.character.copyOneLinerError)
     }
   }, [message, pathname, roll, searchParams])
 
   return (
     <GeneratorPageShell
-      title={fr.character.pageTitle}
-      description={fr.character.pageDescription}
+      title={copy.character.pageTitle}
+      description={copy.character.pageDescription}
       backHref='/'
-      backLabel={fr.nav.backHome}>
+      backLabel={copy.nav.backHome}>
       <RollActions
         onRollAll={handleRollAll}
-        label={fr.character.rollAll}
+        label={copy.character.rollAll}
         onCopyOneLiner={roll ? handleCopyOneLiner : undefined}
-        copyOneLinerLabel={fr.character.copyOneLiner}
+        copyOneLinerLabel={copy.character.copyOneLiner}
       />
       <CharacterSummary
         roll={roll}

@@ -6,6 +6,7 @@ import { GeneratorPageShell } from '@/components/GeneratorPageShell/GeneratorPag
 import { RollActions } from '@/components/RollActions/RollActions'
 import { VillageSummary } from '@/components/VillageSummary/VillageSummary'
 import { useReplaceSearchParams } from '@/hooks/useReplaceSearchParams'
+import { encodeCharacterRoll } from '@/lib/lsdp/character/characterUrlCodec'
 import {
   generateCharacterWithRace,
   type CharacterRoll,
@@ -28,7 +29,8 @@ import {
   decodeVillageOwnersParam,
   encodeVillageOwners,
 } from '@/lib/lsdp/village/villageOwnersCodec'
-import { formatVillageCopyOneLiner, fr } from '@/messages/fr'
+import { copy } from '@/messages/fr'
+import { formatVillageCopyOneLiner } from '@/messages/formatCopy'
 import './VillageGeneratorClient.css'
 
 const VILLAGE_QUERY_KEY = 'v'
@@ -170,12 +172,15 @@ export function VillageGeneratorClient() {
     params.set(OWNERS_QUERY_KEY, encodeVillageOwners(ownersValid))
     params.set(RACE_QUERY_KEY, villageRace)
     const shareUrl = `${window.location.origin}${pathname}?${params.toString()}`
-    const line = formatVillageCopyOneLiner(roll, shareUrl, ownersValid)
+    const line = formatVillageCopyOneLiner(roll, shareUrl, ownersValid, {
+      characterShareUrl: characterRoll =>
+        `${window.location.origin}/generators/character?c=${encodeURIComponent(encodeCharacterRoll(characterRoll))}`,
+    })
     try {
       await navigator.clipboard.writeText(line)
-      message.success(fr.village.copyOneLinerSuccess)
+      message.success(copy.village.copyOneLinerSuccess)
     } catch {
-      message.error(fr.village.copyOneLinerError)
+      message.error(copy.village.copyOneLinerError)
     }
   }, [message, ownersValid, pathname, roll, searchParams, villageRace])
 
@@ -183,36 +188,36 @@ export function VillageGeneratorClient() {
     () =>
       RACES.map(r => ({
         value: r,
-        label: fr.races[r],
+        label: copy.races[r],
       })),
     []
   )
 
   return (
     <GeneratorPageShell
-      title={fr.village.pageTitle}
-      description={fr.village.pageDescription}
+      title={copy.village.pageTitle}
+      description={copy.village.pageDescription}
       backHref='/'
-      backLabel={fr.nav.backHome}>
+      backLabel={copy.nav.backHome}>
       <div className='village-generator__toolbar'>
         <div className='village-generator__toolbar-actions'>
           <RollActions
             onRollAll={handleRollAll}
-            label={fr.village.rollAll}
+            label={copy.village.rollAll}
             onCopyOneLiner={
               roll && ownersValid ? handleCopyOneLiner : undefined
             }
-            copyOneLinerLabel={fr.village.copyOneLiner}
+            copyOneLinerLabel={copy.village.copyOneLiner}
           />
         </div>
         <div className='village-generator__race'>
-          <Typography.Text>{fr.village.villageRaceLabel}</Typography.Text>
+          <Typography.Text>{copy.village.villageRaceLabel}</Typography.Text>
           <Select<Race>
             value={villageRace}
             onChange={handleRaceChange}
             options={raceOptions}
             style={{ minWidth: 200 }}
-            aria-label={fr.village.villageRaceLabel}
+            aria-label={copy.village.villageRaceLabel}
           />
         </div>
       </div>

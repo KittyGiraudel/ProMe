@@ -1,6 +1,6 @@
 import { randomCard, roll2D6, rollD6 } from "../rng";
 import type { Gender, PlayingCard, Race } from "../types";
-import { contextByRank } from "./data/contextByRank";
+import { contextByRank } from "@/messages/fr";
 import { lookupName } from "./data/namesByRace";
 import {
   ageBandFromSuit,

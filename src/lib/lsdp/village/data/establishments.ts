@@ -1,3 +1,4 @@
+import { copy } from "@/messages/fr";
 import type { PlayingCard, Rank } from "../../types";
 import { suitIsRed } from "../../suitGlyphs";
 
@@ -18,68 +19,45 @@ export function rankUsesPetiteGrandeEstablishment(rank: Rank): boolean {
 /** 1 = petite/petit, 2 = grande/grand, 3 = immense (merged). */
 export type EstablishmentSizeTier = 1 | 2 | 3;
 
-export function establishmentLineFrFromSizeTier(
+type PetiteGrandeRank = (typeof PETITE_GRANDE_RANKS)[number];
+type SizeTierLabel = "petite" | "grande" | "immense";
+
+export function establishmentLineFromSizeTier(
   rank: Rank,
   tier: EstablishmentSizeTier,
 ): string {
   if (!rankUsesPetiteGrandeEstablishment(rank)) {
-    throw new Error(`establishmentLineFrFromSizeTier: rank ${rank}`);
+    throw new Error(`establishmentLineFromSizeTier: rank ${rank}`);
   }
-  switch (rank) {
-    case "2":
-      if (tier === 3) return "Immense boutique de potions";
-      if (tier === 2) return "Grande boutique de potions";
-      return "Petite boutique de potions";
-    case "3":
-      if (tier === 3) return "Immense boutique d’équipement";
-      if (tier === 2) return "Grande boutique d’équipement";
-      return "Petite boutique d’équipement";
-    case "4":
-      if (tier === 3) return "Immense boutique de vêtements";
-      if (tier === 2) return "Grande boutique de vêtements";
-      return "Petite boutique de vêtements";
-    case "5":
-      if (tier === 3) return "Immense taverne";
-      if (tier === 2) return "Grande taverne";
-      return "Petite taverne";
-    case "6":
-      if (tier === 3) return "Immense bureau de cartographie";
-      if (tier === 2) return "Grand bureau de cartographie";
-      return "Petit bureau de cartographie";
-    case "7":
-      if (tier === 3) return "Immense auberge";
-      if (tier === 2) return "Grande auberge";
-      return "Petite auberge";
-    case "8":
-      if (tier === 3) return "Immense agence de missions";
-      if (tier === 2) return "Grande agence de missions";
-      return "Petite agence de missions";
-    default:
-      throw new Error(`establishmentLineFrFromSizeTier: unexpected rank ${rank}`);
-  }
+  const tierKey: SizeTierLabel =
+    tier === 1 ? "petite" : tier === 2 ? "grande" : "immense";
+  const row =
+    copy.game.villageEstablishments.petiteGrande[rank as PetiteGrandeRank];
+  return row[tierKey];
 }
 
-/** French label for an establishment card (A–10 only). */
-export function establishmentLineFr(card: PlayingCard): string {
+/** Label for an establishment card (A–10 only). */
+export function establishmentLine(card: PlayingCard): string {
   const { suit, rank } = card;
   if (rank === "J" || rank === "Q" || rank === "K") {
-    throw new Error("establishmentLineFr: face card");
+    throw new Error("establishmentLine: face card");
   }
   if (rankUsesPetiteGrandeEstablishment(rank)) {
-    return establishmentLineFrFromSizeTier(rank, suitIsRed(suit) ? 2 : 1);
+    return establishmentLineFromSizeTier(rank, suitIsRed(suit) ? 2 : 1);
   }
   return lineForRankOther(rank, suitIsRed(suit));
 }
 
 function lineForRankOther(rank: Rank, red: boolean): string {
+  const est = copy.game.villageEstablishments;
   switch (rank) {
     case "A":
-      return red ? "Oratoire permanent" : "Oratoire éphémère";
+      return red ? est.rankA.red : est.rankA.black;
     case "9":
-      return red ? "Gare en activité" : "Gare à l'abandon";
+      return red ? est.rank9.red : est.rank9.black;
     case "10":
-      return "Ruines";
+      return est.rank10;
     default:
-      throw new Error(`establishmentLineFr: unexpected rank ${rank}`);
+      throw new Error(`establishmentLine: unexpected rank ${rank}`);
   }
 }

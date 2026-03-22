@@ -57,6 +57,18 @@
   white-space: pre-wrap;
 }
 
+.character-summary__context-card-hit {
+  cursor: help;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 4px;
+  outline: none;
+}
+
+.character-summary__context-card-hit:focus-visible {
+  box-shadow: 0 0 0 2px var(--lsdp-surface), 0 0 0 4px var(--lsdp-border);
+}
+
 .character-summary__name {
   font-size: 1.125rem;
   font-weight: 600;

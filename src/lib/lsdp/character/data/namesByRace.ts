@@ -2,7 +2,7 @@ import type { Race } from "../../types";
 
 /**
  * 6×6 grid: names[d1 - 1][d2 - 1] for a D66 roll (X.Y = first die, second die).
- * Source: rulebook table “Lancez 1D66 ou choisissez un nom”.
+ * Rulebook proper nouns — kept here (not in `messages/fr.ts`) because they are not localized.
  */
 export const namesByRace: Record<Race, string[][]> = {
   bruja: [
@@ -39,11 +39,13 @@ export const namesByRace: Record<Race, string[][]> = {
   ],
 };
 
+const LOOKUP_MISSING = "—";
+
 export function lookupName(
   race: Race,
   die1: number,
   die2: number,
 ): string {
   const r = namesByRace[race];
-  return r[die1 - 1]?.[die2 - 1] ?? "—";
+  return r[die1 - 1]?.[die2 - 1] ?? LOOKUP_MISSING;
 }
