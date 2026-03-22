@@ -1,5 +1,12 @@
 export type Race = "bruja" | "cucurbitus" | "kiore" | "mousseron";
 
+export const RACES: readonly Race[] = [
+  "bruja",
+  "cucurbitus",
+  "kiore",
+  "mousseron",
+] as const;
+
 /** Optional table aid: 1D6 gender roll (not core rules). */
 export type Gender = "man" | "woman" | "nonBinary" | "indeterminate";
 

@@ -7,6 +7,20 @@ export function raceFromD6(value: number): Race {
   return "mousseron";
 }
 
+/** D6 value that maps to `race` via `raceFromD6` (stable encoding for URLs). */
+export function canonicalRaceDie(race: Race): number {
+  switch (race) {
+    case "bruja":
+      return 1;
+    case "cucurbitus":
+      return 3;
+    case "kiore":
+      return 5;
+    case "mousseron":
+      return 6;
+  }
+}
+
 /** Optional 1D6: 1–2 man, 3–4 woman, 5 non-binary, 6 indeterminate. */
 export function genderFromD6(value: number): Gender {
   if (value <= 2) return "man";

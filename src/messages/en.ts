@@ -56,12 +56,17 @@ export const en = {
   village: {
     pageTitle: "Village generator",
     pageDescription:
-      "Draw 5 cards as in the rulebook: each card is an establishment or a village trait. Share results via the URL.",
+      "Draw 5 cards as in the rulebook: each card is an establishment or a village trait. One inhabitant is generated per establishment (co-owners when merged). Share via the URL.",
+    villageRaceLabel: "Village people",
     rollAll: "Draw 5 cards",
     emptySummaryBefore: "Click « ",
     emptySummaryAfter: " » to generate a village.",
     sectionTraits: "Village traits",
     sectionEstablishments: "Establishments",
+    ownerLabel: "Owner",
+    coOwnersLabel: "Co-owners",
+    openInCharacterBuilder: "Open in inhabitant generator",
+    rerollOwner: "Regenerate this inhabitant",
     duplicateRuleHint:
       "If you draw the same establishment twice: either **two** sites of that type, or **one** larger, more imposing site — decide at the table.",
     groupedToggle:
@@ -148,4 +153,11 @@ export function villageRulebookRefsNoteEn(
   establishmentTablePage: number,
 ): string {
   return `Book — Villages (draw, duplicates): p. ${villageChapterPage}. “Establishment” table: p. ${establishmentTablePage}.`;
+}
+
+export function characterRulebookRefsNoteEn(
+  inhabitantChapterPage: number,
+  nameTablePage: number,
+): string {
+  return `Book — Inhabitants (draws, cards, context): p. ${inhabitantChapterPage}. Name table: p. ${nameTablePage}.`;
 }

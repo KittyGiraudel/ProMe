@@ -10,10 +10,9 @@ import { villageTraitTextFr } from "./data/traits";
 import type { VillageRoll } from "./generate";
 
 export type VillageTraitRow = {
-  card: PlayingCard;
   text: string;
-  /** Index in the 5-card primary draw (for reroll). */
-  primarySlot: number;
+  /** One draw per face card; same `text` is merged into one row. */
+  instances: readonly { card: PlayingCard; primarySlot: number }[];
   /** Rulebook page for the « Établissement » table (figures + types). */
   rulebookPage: number;
 };
@@ -31,18 +30,27 @@ export function resolveVillageDisplay(roll: VillageRoll): {
   traits: VillageTraitRow[];
   establishments: VillageEstablishmentRow[];
 } {
-  const traits: VillageTraitRow[] = [];
+  const traitGroups = new Map<
+    string,
+    { card: PlayingCard; primarySlot: number }[]
+  >();
   for (let i = 0; i < roll.primary.length; i++) {
     const card = roll.primary[i]!;
     if (isFaceRank(card.rank)) {
-      traits.push({
-        card,
-        text: villageTraitTextFr(card),
-        primarySlot: i,
-        rulebookPage: VILLAGE_RULEBOOK_PAGES_FR.establishmentTable,
-      });
+      const text = villageTraitTextFr(card);
+      const inst = { card, primarySlot: i };
+      const cur = traitGroups.get(text);
+      if (cur) cur.push(inst);
+      else traitGroups.set(text, [inst]);
     }
   }
+  const traits: VillageTraitRow[] = [...traitGroups.values()].map(
+    (instances) => ({
+      text: villageTraitTextFr(instances[0]!.card),
+      instances,
+      rulebookPage: VILLAGE_RULEBOOK_PAGES_FR.establishmentTable,
+    }),
+  );
 
   let expIdx = 0;
   const establishments: VillageEstablishmentRow[] = [];
@@ -74,4 +82,9 @@ export function resolveVillageDisplay(roll: VillageRoll): {
   }
 
   return { traits, establishments };
+}
+
+/** Number of establishment rows in resolution order (one owner each; merges share co-owners). */
+export function countVillageEstablishments(roll: VillageRoll): number {
+  return resolveVillageDisplay(roll).establishments.length;
 }

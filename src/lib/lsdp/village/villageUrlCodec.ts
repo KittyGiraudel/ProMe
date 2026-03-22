@@ -1,10 +1,6 @@
 /**
- * Village URL: `v=<10 + 6×redJacks>` chars — five primary cards, then three
- * numbered cards per **red Jack** in primary order.
- *
- * Phase 2 (owners): could add `&o=` with a delimiter not used by
- * `encodeCharacterRoll` (e.g. `~` or `.`) between `encodeCharacterRoll` blobs,
- * one per establishment row in display order.
+ * Village URL: `v=<10 + 6×redJacks>` — cards; `o=` — owners (`~`-separated
+ * `encodeCharacterRoll` blobs), one per establishment row in resolution order.
  */
 
 import {

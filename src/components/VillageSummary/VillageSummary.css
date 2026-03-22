@@ -70,19 +70,96 @@
   line-height: 1.45;
 }
 
-.village-summary__hint-books {
-  display: block;
-  margin-top: 0.65rem;
-  font-size: 0.8125rem !important;
-  line-height: 1.45;
-}
-
 .village-summary__line {
   display: flex;
   flex-wrap: nowrap;
   align-items: flex-start;
   gap: 0.35rem 0.5rem;
   margin-bottom: 0.4rem;
+}
+
+.village-summary__line-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.village-summary__owners {
+  padding-left: 0.05rem;
+}
+
+.village-summary__owners-heading {
+  display: block;
+  font-size: 0.8125rem !important;
+  line-height: 1.4;
+  margin-bottom: 0.1rem;
+}
+
+.village-summary__owners-list {
+  margin: 0;
+  padding-left: 1.15rem;
+  list-style-type: disc;
+}
+
+.village-summary__owners-item {
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.village-summary__owners-item::marker {
+  color: var(--lsdp-muted);
+}
+
+.village-summary__owners-one {
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.village-summary__owner-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.75rem;
+  width: 100%;
+}
+
+.village-summary__owner-main {
+  flex: 1 1 12rem;
+  min-width: 0;
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.village-summary__owner-sep {
+  color: var(--lsdp-muted);
+}
+
+.village-summary__owner-age-personality {
+  color: var(--lsdp-fg, #1f2d2a);
+}
+
+.village-summary__owner-name-link {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--lsdp-muted) 55%, transparent);
+  text-underline-offset: 0.12em;
+}
+
+.village-summary__owner-name-link:hover {
+  text-decoration-color: var(--lsdp-text);
+}
+
+.village-summary__owner-actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.15rem 0.35rem;
+  flex-shrink: 0;
+}
+
+.village-summary__owner-reroll {
+  flex-shrink: 0;
 }
 
 .village-summary__line-inner {

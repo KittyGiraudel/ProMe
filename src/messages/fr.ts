@@ -1,5 +1,5 @@
-import type { CharacterRoll } from "@/lib/lsdp/character/generate";
 import {
+  type CharacterRoll,
   getAgeBand,
   getPersonality,
   mapKindFromContextSevenDie,
@@ -69,12 +69,17 @@ export const fr = {
   village: {
     pageTitle: "Générateur de village",
     pageDescription:
-      "Tirez 5 cartes comme au livre : chaque carte indique un établissement ou un trait. Partagez le résultat via l’URL.",
+      "Tirez 5 cartes comme au livre : chaque carte indique un établissement ou un trait. Un habitant est généré par établissement (copropriété si fusion). Partagez via l’URL.",
+    villageRaceLabel: "Peuple du village",
     rollAll: "Tirer 5 cartes",
     emptySummaryBefore: "Cliquez sur « ",
     emptySummaryAfter: " » pour générer un village.",
     sectionTraits: "Traits du village",
     sectionEstablishments: "Établissements",
+    ownerLabel: "Propriétaire",
+    coOwnersLabel: "Copropriétaires",
+    openInCharacterBuilder: "Ouvrir dans le générateur d’habitant",
+    rerollOwner: "Regénérer cet habitant",
     duplicateRuleHint:
       "Si vous tirez deux fois le même établissement : soit **deux** lieux du même type, soit **un seul** plus grand et imposant — à trancher à la table.",
     groupedToggle:
@@ -183,16 +188,21 @@ function stripBoldMarkers(s: string): string {
   return s.replace(/\*\*(.+?)\*\*/g, "$1");
 }
 
-/** One-line share: traits (sans mise en forme) + établissements. */
+/** One-line share: traits (sans mise en forme) + établissements + propriétaires. */
 export function formatVillageCopyOneLiner(
   roll: VillageRoll,
   shareUrl: string,
+  owners?: CharacterRoll[] | null,
 ): string {
   const { traits, establishments } = resolveVillageDisplay(roll);
   const t = traits.map((row) => stripBoldMarkers(row.text)).join(" — ");
   const e = establishments.map((row) => row.text).join(" — ");
-  const body = [t, e].filter(Boolean).join(" — ");
-  return `${body} (${shareUrl})`;
+  const parts = [t, e].filter(Boolean);
+  if (owners && owners.length === establishments.length) {
+    const names = owners.map((o) => o.name).join(", ");
+    parts.push(`Propriétaires : ${names}`);
+  }
+  return `${parts.join(" — ")} (${shareUrl})`;
 }
 
 export function formatVillageRulebookPage(page: number): string {
@@ -211,4 +221,11 @@ export function villageRulebookRefsNoteFr(
   establishmentTablePage: number,
 ): string {
   return `Livre — Les villages (tirage, doublons) : p. ${villageChapterPage}. Table « Établissement » : p. ${establishmentTablePage}.`;
+}
+
+export function characterRulebookRefsNoteFr(
+  inhabitantChapterPage: string,
+  nameTablePage: string,
+): string {
+  return `Livre — Les habitants (tirage, cartes, contexte) : p. ${inhabitantChapterPage}. Table des noms : p. ${nameTablePage}.`;
 }

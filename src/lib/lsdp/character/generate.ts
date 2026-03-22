@@ -4,6 +4,7 @@ import { contextByRank } from "./data/contextByRank";
 import { lookupName } from "./data/namesByRace";
 import {
   ageBandFromSuit,
+  canonicalRaceDie,
   genderFromD6,
   personalityFromRank,
   raceFromD6,
@@ -66,11 +67,11 @@ function rollContextFollowups(
   return {};
 }
 
-export function generateCharacter(
-  rng: () => number = Math.random,
+function rollCharacterRoll(
+  raceDie: number,
+  race: Race,
+  rng: () => number,
 ): CharacterRoll {
-  const raceDie = rollD6(rng);
-  const race = raceFromD6(raceDie);
   const agePersonalityCard = randomCard(rng);
   const contextCard = randomCard(rng);
   const nameDice = roll2D6(rng);
@@ -92,6 +93,22 @@ export function generateCharacter(
     gender,
     ...follow,
   };
+}
+
+/** Random inhabitant with a fixed people / race (village owners, etc.). */
+export function generateCharacterWithRace(
+  race: Race,
+  rng: () => number = Math.random,
+): CharacterRoll {
+  return rollCharacterRoll(canonicalRaceDie(race), race, rng);
+}
+
+export function generateCharacter(
+  rng: () => number = Math.random,
+): CharacterRoll {
+  const raceDie = rollD6(rng);
+  const race = raceFromD6(raceDie);
+  return rollCharacterRoll(raceDie, race, rng);
 }
 
 /** Reroll one mechanical input; keeps other fields and fixes derived fields (name, context text). */

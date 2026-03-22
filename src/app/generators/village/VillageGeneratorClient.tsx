@@ -2,21 +2,40 @@
 
 import { useCallback, useEffect, useMemo } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { App } from 'antd'
+import { App, Select, Typography } from 'antd'
 import { GeneratorPageShell } from '@/components/GeneratorPageShell/GeneratorPageShell'
 import { RollActions } from '@/components/RollActions/RollActions'
 import { VillageSummary } from '@/components/VillageSummary/VillageSummary'
 import {
+  generateCharacterWithRace,
+  type CharacterRoll,
+} from '@/lib/lsdp/character/generate'
+import type { Race } from '@/lib/lsdp/types'
+import { RACES } from '@/lib/lsdp/types'
+import {
   generateVillageRoll,
   rerollVillagePrimarySlot,
+  type VillageRoll,
 } from '@/lib/lsdp/village/generate'
+import { generateOwnersForVillage } from '@/lib/lsdp/village/ownersGenerate'
+import { countVillageEstablishments } from '@/lib/lsdp/village/resolveDisplay'
+import { decodeVillageRaceParam } from '@/lib/lsdp/village/villageRaceCodec'
 import {
   decodeVillageRollParam,
   encodeVillageRoll,
 } from '@/lib/lsdp/village/villageUrlCodec'
+import {
+  decodeVillageOwnersParam,
+  encodeVillageOwners,
+} from '@/lib/lsdp/village/villageOwnersCodec'
 import { formatVillageCopyOneLiner, fr } from '@/messages/fr'
+import './VillageGeneratorClient.css'
 
 const VILLAGE_QUERY_KEY = 'v'
+const OWNERS_QUERY_KEY = 'o'
+const RACE_QUERY_KEY = 'race'
+
+const DEFAULT_VILLAGE_RACE: Race = 'bruja'
 
 export function VillageGeneratorClient() {
   const { message } = App.useApp()
@@ -24,51 +43,161 @@ export function VillageGeneratorClient() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const encoded = searchParams.get(VILLAGE_QUERY_KEY)
+  const ownersEncoded = searchParams.get(OWNERS_QUERY_KEY)
+  const raceEncoded = searchParams.get(RACE_QUERY_KEY)
 
   const roll = useMemo(
     () => (encoded ? decodeVillageRollParam(encoded) : null),
     [encoded]
   )
 
+  const ownersDecoded = useMemo(() => {
+    if (!roll || !ownersEncoded) return null
+    const n = countVillageEstablishments(roll)
+    const list = decodeVillageOwnersParam(ownersEncoded)
+    if (!list || list.length !== n) return null
+    return list
+  }, [roll, ownersEncoded])
+
+  const raceInferredFromOwners = useMemo((): Race | null => {
+    if (!ownersDecoded?.length) return null
+    const r = ownersDecoded[0]!.race
+    return ownersDecoded.every(o => o.race === r) ? r : null
+  }, [ownersDecoded])
+
+  const villageRace = useMemo(() => {
+    const fromParam = decodeVillageRaceParam(raceEncoded)
+    if (fromParam !== null) return fromParam
+    if (raceInferredFromOwners !== null) return raceInferredFromOwners
+    return DEFAULT_VILLAGE_RACE
+  }, [raceEncoded, raceInferredFromOwners])
+
+  const ownersValid = useMemo(() => {
+    if (!ownersDecoded) return null
+    if (!ownersDecoded.every(o => o.race === villageRace)) return null
+    return ownersDecoded
+  }, [ownersDecoded, villageRace])
+
+  useEffect(() => {
+    if (raceEncoded === null) return
+    if (decodeVillageRaceParam(raceEncoded) !== null) return
+    const params = new URLSearchParams(searchParams.toString())
+    params.delete(RACE_QUERY_KEY)
+    const qs = params.toString()
+    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
+  }, [pathname, raceEncoded, router, searchParams])
+
+  useEffect(() => {
+    if (!roll || !ownersValid) return
+    if (raceEncoded !== null) return
+    const params = new URLSearchParams(searchParams.toString())
+    params.set(RACE_QUERY_KEY, villageRace)
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+  }, [
+    ownersValid,
+    pathname,
+    raceEncoded,
+    roll,
+    router,
+    searchParams,
+    villageRace,
+  ])
+
   useEffect(() => {
     if (!encoded || roll !== null) return
     const params = new URLSearchParams(searchParams.toString())
     params.delete(VILLAGE_QUERY_KEY)
+    params.delete(OWNERS_QUERY_KEY)
     const qs = params.toString()
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
   }, [encoded, pathname, roll, router, searchParams])
 
+  useEffect(() => {
+    if (!roll) return
+    if (ownersValid !== null) return
+    const fresh = generateOwnersForVillage(roll, villageRace)
+    const params = new URLSearchParams(searchParams.toString())
+    params.set(VILLAGE_QUERY_KEY, encodeVillageRoll(roll))
+    params.set(OWNERS_QUERY_KEY, encodeVillageOwners(fresh))
+    params.set(RACE_QUERY_KEY, villageRace)
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+  }, [ownersValid, pathname, roll, router, searchParams, villageRace])
+
+  const pushVillageParams = useCallback(
+    (nextRoll: VillageRoll, nextOwners: CharacterRoll[], nextRace: Race) => {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set(VILLAGE_QUERY_KEY, encodeVillageRoll(nextRoll))
+      params.set(OWNERS_QUERY_KEY, encodeVillageOwners(nextOwners))
+      params.set(RACE_QUERY_KEY, nextRace)
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+    },
+    [pathname, router, searchParams]
+  )
+
   const handleRollAll = useCallback(() => {
     const next = generateVillageRoll()
-    const params = new URLSearchParams(searchParams.toString())
-    params.set(VILLAGE_QUERY_KEY, encodeVillageRoll(next))
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
-  }, [pathname, router, searchParams])
+    const owners = generateOwnersForVillage(next, villageRace)
+    pushVillageParams(next, owners, villageRace)
+  }, [pushVillageParams, villageRace])
+
+  const handleRaceChange = useCallback(
+    (nextRace: Race) => {
+      if (!roll) {
+        const params = new URLSearchParams(searchParams.toString())
+        params.set(RACE_QUERY_KEY, nextRace)
+        router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+        return
+      }
+      const owners = generateOwnersForVillage(roll, nextRace)
+      pushVillageParams(roll, owners, nextRace)
+    },
+    [pathname, pushVillageParams, roll, router, searchParams]
+  )
 
   const handleRerollSlot = useCallback(
     (slotIndex: number) => {
       if (!roll) return
       const next = rerollVillagePrimarySlot(roll, slotIndex)
-      const params = new URLSearchParams(searchParams.toString())
-      params.set(VILLAGE_QUERY_KEY, encodeVillageRoll(next))
-      router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+      const owners = generateOwnersForVillage(next, villageRace)
+      pushVillageParams(next, owners, villageRace)
     },
-    [pathname, roll, router, searchParams]
+    [pushVillageParams, roll, villageRace]
+  )
+
+  const handleRerollOwner = useCallback(
+    (ownerIndex: number) => {
+      if (!roll || !ownersValid) return
+      const nextOwners = ownersValid.slice()
+      nextOwners[ownerIndex] = generateCharacterWithRace(villageRace)
+      pushVillageParams(roll, nextOwners, villageRace)
+    },
+    [ownersValid, pushVillageParams, roll, villageRace]
   )
 
   const handleCopyOneLiner = useCallback(async () => {
-    if (!roll) return
+    if (!roll || !ownersValid) return
     const params = new URLSearchParams(searchParams.toString())
     params.set(VILLAGE_QUERY_KEY, encodeVillageRoll(roll))
+    params.set(OWNERS_QUERY_KEY, encodeVillageOwners(ownersValid))
+    params.set(RACE_QUERY_KEY, villageRace)
     const shareUrl = `${window.location.origin}${pathname}?${params.toString()}`
-    const line = formatVillageCopyOneLiner(roll, shareUrl)
+    const line = formatVillageCopyOneLiner(roll, shareUrl, ownersValid)
     try {
       await navigator.clipboard.writeText(line)
       message.success(fr.village.copyOneLinerSuccess)
     } catch {
       message.error(fr.village.copyOneLinerError)
     }
-  }, [message, pathname, roll, searchParams])
+  }, [message, ownersValid, pathname, roll, searchParams, villageRace])
+
+  const raceOptions = useMemo(
+    () =>
+      RACES.map(r => ({
+        value: r,
+        label: fr.races[r],
+      })),
+    []
+  )
 
   return (
     <GeneratorPageShell
@@ -76,15 +205,33 @@ export function VillageGeneratorClient() {
       description={fr.village.pageDescription}
       backHref='/'
       backLabel={fr.nav.backHome}>
-      <RollActions
-        onRollAll={handleRollAll}
-        label={fr.village.rollAll}
-        onCopyOneLiner={roll ? handleCopyOneLiner : undefined}
-        copyOneLinerLabel={fr.village.copyOneLiner}
-      />
+      <div className='village-generator__toolbar'>
+        <div className='village-generator__toolbar-actions'>
+          <RollActions
+            onRollAll={handleRollAll}
+            label={fr.village.rollAll}
+            onCopyOneLiner={
+              roll && ownersValid ? handleCopyOneLiner : undefined
+            }
+            copyOneLinerLabel={fr.village.copyOneLiner}
+          />
+        </div>
+        <div className='village-generator__race'>
+          <Typography.Text>{fr.village.villageRaceLabel}</Typography.Text>
+          <Select<Race>
+            value={villageRace}
+            onChange={handleRaceChange}
+            options={raceOptions}
+            style={{ minWidth: 200 }}
+            aria-label={fr.village.villageRaceLabel}
+          />
+        </div>
+      </div>
       <VillageSummary
         roll={roll}
+        owners={ownersValid}
         onRerollPrimarySlot={roll ? handleRerollSlot : undefined}
+        onRerollOwner={roll && ownersValid ? handleRerollOwner : undefined}
       />
     </GeneratorPageShell>
   )
