@@ -13,7 +13,6 @@ import {
 import { DiceFaces } from '@/components/DiceFaces/DiceFaces'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { RichText } from '@/components/RichText/RichText'
-import { RULEBOOK_PAGES } from '@/lib/constants/rulebookPages'
 import { copy } from '@/messages/fr'
 import './CharacterSummary.css'
 
@@ -57,10 +56,7 @@ export function CharacterSummary({
 }: CharacterSummaryProps) {
   const characterFootnote = (
     <Typography.Text type='secondary' className='generator-rulebook-footnote'>
-      {copy.rulebook.characterFootnote(
-        RULEBOOK_PAGES.character.inhabitantChapter,
-        RULEBOOK_PAGES.character.nameTable
-      )}
+      {copy.rulebook.characterFootnote}
     </Typography.Text>
   )
 

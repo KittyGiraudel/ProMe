@@ -10,11 +10,10 @@ export const copy = {
   metadata: {
     title: "LSDP — Outils de jeu",
     description:
-      "Générateurs pour Les Souvenirs du Protecteur — personnages, villages et plus.",
+      "Companion de jeu pour Les Souvenirs du Protecteur — personnages, villages et plus.",
   },
   common: {
     loading: "Chargement…",
-    /** Tiret cadratin entouré d’espaces (listes, libellés groupés). */
     emDashSpaced: " — ",
   },
   hub: {
@@ -33,7 +32,6 @@ export const copy = {
     pageDescription:
       "Les résultats suivent les règles du livre : lancez tout d’un coup ou notez les tirages pour votre partie.",
     rollAll: "Tout générer",
-    /** Use as: `{before}{rollAll}{after}` */
     emptySummaryBefore: "Cliquez sur « ",
     emptySummaryAfter: " » pour tirer un habitant.",
     sectionRace: "Type / peuple",
@@ -81,7 +79,6 @@ export const copy = {
       "Si vous tirez deux fois le même établissement : soit **deux** lieux du même type, soit **un seul** plus grand et imposant — à trancher à la table.",
     groupedToggle:
       "Regrouper les doublons (petite + petite → grande, grande + grande → immense, mixte → grande)",
-    /** Libellé proposé quand la case « regrouper » fusionne plusieurs fois le même type (règle « plus grand »). */
     mergedEstablishmentLabel: "Immense",
     rerollCard: "Relancer cette carte",
     copyOneLiner: "Copier le résumé",
@@ -158,21 +155,12 @@ export const copy = {
     pageCitation(page: number): string {
       return `p. ${page}`;
     },
-    villageFootnote(
-      villageChapterPage: number,
-      establishmentTablePage: number,
-    ): string {
-      return `Livre — Les villages (tirage, doublons) : p. ${villageChapterPage}. Table « Établissement » : p. ${establishmentTablePage}.`;
-    },
-    characterFootnote(
-      inhabitantChapterPage: string,
-      nameTablePage: string,
-    ): string {
-      return `Livre — Les habitants (tirage, cartes, contexte) : p. ${inhabitantChapterPage}. Table des noms : p. ${nameTablePage}.`;
-    },
+    villageFootnote:
+      "Livre — Les villages (tirage, doublons) : p. 42. Table « Établissement » : p. 43.",
+    characterFootnote:
+      "Livre — Les habitants (tirage, cartes, contexte) : p. 56–58. Table des noms : p. 60.",
   },
   game: {
-    /** Contexte habitant par hauteur de carte (couleur ignorée). */
     characterContextByRank: {
       A: "**Cet habitant pleure une perte récente.** Il a peut-être perdu un animal de compagnie ou un ami proche. Peut-être qu’une discussion serait la bienvenue ? À moins qu’il ait besoin d’écoute pour se sentir mieux ?",
       "2": "**Cet habitant est à la recherche de quelque chose.** Peut-être quelque chose qui n’est pas vendu dans ce village, ou quelque chose que l’on ne peut trouver que loin d’ici ? Mais au-delà de ça, il semble avoir peur de l’inconnu. Il y a peut-être une histoire derrière tout ça.",
@@ -205,10 +193,8 @@ export const copy = {
           "**Nomade.** Le village **se déplace**. Lorsque vous revenez sur cette **case de carte**, vous devez réussir un **test de Courage**. En cas d’**échec**, le village **n’est plus là**.",
       },
     },
-    /** Établissements As–10 : 2–8 = trois tailles (indices 0–2) ; A, 9 = rouge/noir ; 10 fixe. */
     villageEstablishments: {
-      /** Rangs 2–8 : libellés par taille croissante (tier jeu 1 → index 0, etc.). */
-      petiteGrande: {
+      establishmentSizeTierLines: {
         "2": [
           "Petite boutique de potions",
           "Grande boutique de potions",

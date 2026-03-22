@@ -2,7 +2,8 @@ import { copy } from "@/messages/fr";
 import type { PlayingCard, Rank } from "../../types";
 import { suitIsRed } from "../../suitGlyphs";
 
-const PETITE_GRANDE_RANKS = [
+/** Ranks 2–8: establishment type has three size tiers in the rulebook. */
+const ESTABLISHMENT_SIZE_TIER_RANKS = [
   "2",
   "3",
   "4",
@@ -12,24 +13,26 @@ const PETITE_GRANDE_RANKS = [
   "8",
 ] as const satisfies readonly Rank[];
 
-export function rankUsesPetiteGrandeEstablishment(rank: Rank): boolean {
-  return (PETITE_GRANDE_RANKS as readonly Rank[]).includes(rank);
+export function rankUsesEstablishmentSizeTiers(rank: Rank): boolean {
+  return (ESTABLISHMENT_SIZE_TIER_RANKS as readonly Rank[]).includes(rank);
 }
 
-/** Game tier 1–3 (ascending size); indexes `petiteGrande` copy lines at `tier - 1`. */
+/** Game tier 1–3 (ascending size); indexes `establishmentSizeTierLines` copy at `tier - 1`. */
 export type EstablishmentSizeTier = 1 | 2 | 3;
 
-type PetiteGrandeRank = (typeof PETITE_GRANDE_RANKS)[number];
+type EstablishmentSizeTierRank = (typeof ESTABLISHMENT_SIZE_TIER_RANKS)[number];
 
 export function establishmentLineFromSizeTier(
   rank: Rank,
   tier: EstablishmentSizeTier,
 ): string {
-  if (!rankUsesPetiteGrandeEstablishment(rank)) {
+  if (!rankUsesEstablishmentSizeTiers(rank)) {
     throw new Error(`establishmentLineFromSizeTier: rank ${rank}`);
   }
   const lines =
-    copy.game.villageEstablishments.petiteGrande[rank as PetiteGrandeRank];
+    copy.game.villageEstablishments.establishmentSizeTierLines[
+      rank as EstablishmentSizeTierRank
+    ];
   return lines[tier - 1];
 }
 
@@ -39,7 +42,7 @@ export function establishmentLine(card: PlayingCard): string {
   if (rank === "J" || rank === "Q" || rank === "K") {
     throw new Error("establishmentLine: face card");
   }
-  if (rankUsesPetiteGrandeEstablishment(rank)) {
+  if (rankUsesEstablishmentSizeTiers(rank)) {
     return establishmentLineFromSizeTier(rank, suitIsRed(suit) ? 2 : 1);
   }
   return lineForRankOther(rank, suitIsRed(suit));

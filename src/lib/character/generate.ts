@@ -29,9 +29,7 @@ export type CharacterRoll = {
   contextText: string;
   genderDie: number;
   gender: Gender;
-  /** Context rank 7 — rulebook D6: 1–3 localisation, 4–6 biome (p. 49). */
   contextSevenDie?: number;
-  /** Context rank 10 — name pronounced in the scene (2D6, same table as inhabitant name, p. 60). */
   contextSpokenNameDice?: [number, number];
   contextSpokenName?: string;
 };
@@ -95,7 +93,6 @@ function rollCharacterRoll(
   };
 }
 
-/** Random inhabitant with a fixed people / race (village owners, etc.). */
 export function generateCharacterWithRace(
   race: Race,
   rng: () => number = Math.random,
@@ -111,7 +108,6 @@ export function generateCharacter(
   return rollCharacterRoll(raceDie, race, rng);
 }
 
-/** Reroll one mechanical input; keeps other fields and fixes derived fields (name, context text). */
 export function rerollCharacterPart(
   roll: CharacterRoll,
   part: CharacterRerollPart,

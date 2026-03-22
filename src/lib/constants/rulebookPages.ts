@@ -1,22 +1,13 @@
 import type { Rank } from "../types";
 
 /**
- * Rulebook page anchors for this printing — single place to retune citations.
- * Ajustez si besoin selon votre impression.
+ * Rulebook page anchors for village establishment links (per-rank detail, table page).
+ * Citations de bas de page générateur : `copy.rulebook.villageFootnote` / `characterFootnote` dans `fr.ts`.
  */
 export const RULEBOOK_PAGES = {
-  character: {
-    /** Section « Habitants » — D6, cartes âge/personnalité & contexte, etc. */
-    inhabitantChapter: "56–58",
-    /** Table des noms (1D66 / 2D6), citée p. ex. pour le contexte 10. */
-    nameTable: "60",
-  },
   village: {
-    /** « Les villages » — tirage des 5 cartes, encadré doublons, etc. */
     chapter: 42,
-    /** « Établissement » — table As–10 + figures (carte → type / trait). */
     establishmentTable: 43,
-    /** Page du livre pour le détail de chaque type d’établissement (As–10). J/Q/K → `establishmentTable`. */
     establishmentDetailByRank: {
       A: 44,
       "2": 45,

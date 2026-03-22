@@ -8,9 +8,8 @@ import type { PlayingCard } from '@/lib/types'
 import { suitIsRed } from '@/lib/suitGlyphs'
 import {
   establishmentLineFromSizeTier,
-  rankUsesPetiteGrandeEstablishment,
+  rankUsesEstablishmentSizeTiers,
 } from '@/lib/village/data/establishments'
-import { RULEBOOK_PAGES } from '@/lib/constants/rulebookPages'
 import { mergeEstablishmentSizeTiers } from '@/lib/village/mergeEstablishmentSizeTiers'
 import type { VillageRoll } from '@/lib/village/generate'
 import type { CharacterRoll } from '@/lib/character/generate'
@@ -45,8 +44,8 @@ function groupEstablishments(rows: VillageEstablishmentRow[]): {
     { rows: VillageEstablishmentRow[]; ownerIndices: number[] }
   >()
   rows.forEach((r, idx) => {
-    const pg = rankUsesPetiteGrandeEstablishment(r.card.rank)
-    const key = pg ? `pg:${r.card.rank}` : `plain:${r.text}`
+    const tiered = rankUsesEstablishmentSizeTiers(r.card.rank)
+    const key = tiered ? `tier:${r.card.rank}` : `plain:${r.text}`
     const cur = map.get(key)
     if (!cur) {
       map.set(key, { rows: [r], ownerIndices: [idx] })
@@ -61,7 +60,7 @@ function groupEstablishments(rows: VillageEstablishmentRow[]): {
     const count = rows.length
     const first = rows[0]!
     let text: string
-    if (key.startsWith('pg:')) {
+    if (key.startsWith('tier:')) {
       const tiers = rows.map(rr => (suitIsRed(rr.card.suit) ? 2 : 1) as 1 | 2)
       const merged = mergeEstablishmentSizeTiers(tiers)
       text = establishmentLineFromSizeTier(first.card.rank, merged)
@@ -158,10 +157,7 @@ export function VillageSummary({
 
   const villageFootnote = (
     <Typography.Text type='secondary' className='generator-rulebook-footnote'>
-      {copy.rulebook.villageFootnote(
-        RULEBOOK_PAGES.village.chapter,
-        RULEBOOK_PAGES.village.establishmentTable
-      )}
+      {copy.rulebook.villageFootnote}
     </Typography.Text>
   )
 

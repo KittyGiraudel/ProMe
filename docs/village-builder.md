@@ -68,7 +68,7 @@ Pure UI transform of `VillageEstablishmentRow[]`:
 
 | Bucket key     | Grouping rule                                                     | Merged label                                                                                                  |
 | -------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `pg:<rank>`    | Same **rank** among ranks with three size tiers (2–8)             | Combine tiers with `mergeEstablishmentSizeTiers` → `establishmentLineFromSizeTier(rank, merged)`              |
+| `tier:<rank>`  | Same **rank** among ranks with three size tiers (2–8)             | Combine tiers with `mergeEstablishmentSizeTiers` → `establishmentLineFromSizeTier(rank, merged)`              |
 | `plain:<text>` | Same **full establishment line string** (e.g. same A/red variant) | **2** copies → `Immense — <base>`; **3+** → `Immense (×n) — <base>` (`copy.village.mergedEstablishmentLabel`) |
 
 **Owners:** `ownerIndices` lists global indices into `owners[]` (resolution order). Co-owners see **multiple** name lines under one establishment.
@@ -137,16 +137,16 @@ flowchart LR
 
 | Path                                                    | Role                                                                                                                                         |
 | ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `src/lib/village/generate.ts`                      | `VillageRoll`, `generateVillageRoll`, `rerollVillagePrimarySlot`, `buildExpansionForPrimary`, `countRedJacksInPrimary`, expansion validation |
-| `src/lib/village/resolveDisplay.ts`                | `resolveVillageDisplay`, `VillageTraitRow`, `VillageEstablishmentRow`, `countVillageEstablishments`                                          |
-| `src/lib/village/villageUrlCodec.ts`               | `encodeVillageRoll` / `decodeVillageRollParam` for `v`                                                                                       |
-| `src/lib/village/villageOwnersCodec.ts`            | `encodeVillageOwners` / `decodeVillageOwnersParam` — `~`-joined `encodeCharacterRoll` blobs                                                  |
-| `src/lib/village/villageRaceCodec.ts`              | `decodeVillageRaceParam`                                                                                                                     |
-| `src/lib/village/ownersGenerate.ts`                | `generateOwnersForVillage`                                                                                                                   |
-| `src/lib/village/mergeEstablishmentSizeTiers.ts`   | Tier merge for grouped same-rank establishments (ranks 2–8)                                                                                  |
-| `src/lib/village/data/establishments.ts`           | `establishmentLine`, `establishmentLineFromSizeTier`, `rankUsesPetiteGrandeEstablishment`                                                    |
-| `src/lib/village/data/traits.ts`                   | `villageTraitText`                                                                                                                           |
-| `src/lib/rulebookPages.ts`                         | `RULEBOOK_PAGES` (character + village, incl. per-rank establishment detail) + `establishmentDetailRulebookPage`                              |
+| `src/lib/village/generate.ts`                           | `VillageRoll`, `generateVillageRoll`, `rerollVillagePrimarySlot`, `buildExpansionForPrimary`, `countRedJacksInPrimary`, expansion validation |
+| `src/lib/village/resolveDisplay.ts`                     | `resolveVillageDisplay`, `VillageTraitRow`, `VillageEstablishmentRow`, `countVillageEstablishments`                                          |
+| `src/lib/village/villageUrlCodec.ts`                    | `encodeVillageRoll` / `decodeVillageRollParam` for `v`                                                                                       |
+| `src/lib/village/villageOwnersCodec.ts`                 | `encodeVillageOwners` / `decodeVillageOwnersParam` — `~`-joined `encodeCharacterRoll` blobs                                                  |
+| `src/lib/village/villageRaceCodec.ts`                   | `decodeVillageRaceParam`                                                                                                                     |
+| `src/lib/village/ownersGenerate.ts`                     | `generateOwnersForVillage`                                                                                                                   |
+| `src/lib/village/mergeEstablishmentSizeTiers.ts`        | Tier merge for grouped same-rank establishments (ranks 2–8)                                                                                  |
+| `src/lib/village/data/establishments.ts`                | `establishmentLine`, `establishmentLineFromSizeTier`, `rankUsesEstablishmentSizeTiers`                                                       |
+| `src/lib/village/data/traits.ts`                        | `villageTraitText`                                                                                                                           |
+| `src/lib/rulebookPages.ts`                              | `RULEBOOK_PAGES` (character + village, incl. per-rank establishment detail) + `establishmentDetailRulebookPage`                              |
 | `src/app/generators/village/VillageGeneratorClient.tsx` | Toolbar, race select, URL sync, roll / reroll owner / reroll slot / copy                                                                     |
 | `src/components/VillageSummary/VillageSummary.tsx`      | Establishments + traits + owners + grouping + rulebook footnote fragment                                                                     |
 | `src/messages/fr.ts` / `formatCopy.ts`                  | `copy`, `formatVillageCopyOneLiner`, `formatVillageRulebookPagesJoined`, village UI strings                                                  |
