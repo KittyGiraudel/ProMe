@@ -1,0 +1,160 @@
+.village-summary {
+  border: 1px solid var(--lsdp-border) !important;
+  border-radius: 12px !important;
+  background: var(--lsdp-surface) !important;
+  box-shadow: 0 1px 2px rgba(31, 45, 42, 0.04);
+}
+
+.village-summary--empty {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.village-summary__section-title {
+  margin: 0 0 0.6rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--lsdp-fg, #1f2d2a);
+}
+
+.village-summary__traits {
+  margin-top: 1.15rem;
+}
+
+.village-summary__traits .village-summary__section-title {
+  margin-bottom: 0.5rem;
+}
+
+.village-summary__trait-list {
+  margin: 0;
+  padding-left: 1.15rem;
+  list-style-type: disc;
+}
+
+.village-summary__trait-item {
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
+}
+
+.village-summary__trait-item:last-child {
+  margin-bottom: 0;
+}
+
+.village-summary__trait-item::marker {
+  color: var(--lsdp-muted);
+}
+
+.village-summary__hint {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: var(--lsdp-muted);
+}
+
+.village-summary__dupes-block {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.65rem;
+}
+
+.village-summary__dupes-explanation {
+  margin: 0;
+}
+
+.village-summary__dupes-explanation.rich-text {
+  margin: 0;
+}
+
+.village-summary__dupes-toggle .ant-checkbox-wrapper {
+  align-items: flex-start;
+  line-height: 1.45;
+}
+
+.village-summary__hint-books {
+  display: block;
+  margin-top: 0.65rem;
+  font-size: 0.8125rem !important;
+  line-height: 1.45;
+}
+
+.village-summary__line {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: 0.35rem 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.village-summary__line-inner {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  min-width: 0;
+}
+
+.village-summary__line-main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.15rem 0.25rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.village-summary__line-main--trait {
+  align-items: baseline;
+}
+
+.village-summary__line-page {
+  flex-shrink: 0;
+  margin-left: auto;
+  padding-top: 0.12rem;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--lsdp-muted);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  max-width: 42%;
+}
+
+.village-summary__line:last-child {
+  margin-bottom: 0;
+}
+
+.village-summary__line--trait {
+  margin-bottom: 0.5rem;
+}
+
+.village-summary__line-num {
+  flex-shrink: 0;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--lsdp-muted);
+  min-width: 1.35rem;
+}
+
+.village-summary__line-name {
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.village-summary__line-name--trait.rich-text {
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.village-summary__line-card-wrap {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0;
+  color: var(--lsdp-muted);
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.village-summary__line-reroll {
+  flex-shrink: 0;
+  margin-left: 0.1rem;
+}

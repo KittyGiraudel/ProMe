@@ -65,3 +65,7 @@ export const SUITS: readonly Suit[] = [
   "clubs",
   "spades",
 ] as const;
+
+export function isFaceRank(rank: Rank): boolean {
+  return rank === "J" || rank === "Q" || rank === "K";
+}

@@ -6,10 +6,22 @@ import './PlayingCardLabel.css'
 type PlayingCardLabelProps = {
   card: PlayingCard
   className?: string
+  /** Smaller suit glyph for inline / parenthetical use. */
+  compact?: boolean
 }
 
-export function PlayingCardLabel({ card, className }: PlayingCardLabelProps) {
-  const rootClass = ['playing-card-label', className].filter(Boolean).join(' ')
+export function PlayingCardLabel({
+  card,
+  className,
+  compact,
+}: PlayingCardLabelProps) {
+  const rootClass = [
+    'playing-card-label',
+    compact ? 'playing-card-label--compact' : null,
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ')
   const ariaLabel = formatPlayingCard(card.suit, card.rank)
   const rankText = fr.ranks[card.rank]
   const suitClass = [

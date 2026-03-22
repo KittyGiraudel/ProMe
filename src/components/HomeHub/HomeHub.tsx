@@ -11,6 +11,11 @@ const generators = [
     title: fr.hub.characterCardTitle,
     description: fr.hub.characterCardDescription,
   },
+  {
+    href: '/generators/village',
+    title: fr.hub.villageCardTitle,
+    description: fr.hub.villageCardDescription,
+  },
 ] as const
 
 export function HomeHub() {

@@ -2,46 +2,11 @@ import { lookupName } from "./data/namesByRace";
 import { genderFromD6, raceFromD6 } from "./maps";
 import type { CharacterRoll } from "./generate";
 import { contextByRank } from "./data/contextByRank";
-import { RANKS, type PlayingCard, type Rank, type Suit } from "../types";
-
-const SUIT_TO_CODE: Record<Suit, string> = {
-  hearts: "H",
-  diamonds: "D",
-  clubs: "C",
-  spades: "S",
-};
-
-const CODE_TO_SUIT: Record<string, Suit> = {
-  H: "hearts",
-  D: "diamonds",
-  C: "clubs",
-  S: "spades",
-};
-
-function rankToCode(rank: Rank): string {
-  return rank === "10" ? "T" : rank;
-}
-
-function codeToRank(c: string): Rank | null {
-  if (c === "T") return "10";
-  if (/^[2-9]$/.test(c)) return c as Rank;
-  if (c === "J" || c === "Q" || c === "K" || c === "A") return c;
-  return null;
-}
-
-function encodeCard(card: PlayingCard): string {
-  const suit = SUIT_TO_CODE[card.suit];
-  const rank = rankToCode(card.rank);
-  return `${suit}${rank}`;
-}
-
-function decodeCard(pair: string): PlayingCard | null {
-  if (pair.length !== 2) return null;
-  const suit = CODE_TO_SUIT[pair[0]!.toUpperCase()];
-  const rank = codeToRank(pair[1]!.toUpperCase());
-  if (!suit || !rank) return null;
-  return { suit, rank };
-}
+import {
+  decodePlayingCardPair as decodeCard,
+  encodePlayingCard as encodeCard,
+} from "../playingCardCodec";
+import { RANKS, type PlayingCard, type Suit } from "../types";
 
 function parseRaceDie(c: string): number | null {
   if (c.length !== 1) return null;

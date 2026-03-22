@@ -13,10 +13,13 @@ export const en = {
   },
   hub: {
     title: "Les Souvenirs du Protecteur — tools",
-    subtitle: "Random generators for play: characters, with more to come.",
+    subtitle: "Random generators for play: characters, villages, and more.",
     characterCardTitle: "Inhabitant",
     characterCardDescription:
       "Type (D6), age & personality (card), context (card), name (2D6), gender (1D6, optional).",
+    villageCardTitle: "Village",
+    villageCardDescription:
+      "5 cards: establishments (Ace–10) and village traits (face cards). Red jack: 3 extra establishments.",
     open: "Open",
   },
   character: {
@@ -49,6 +52,26 @@ export const en = {
     contextSpokenNameLabel: "Name spoken aloud (2D6, p. 60)",
     rollContextSpokenNameDice: "Roll 2D6 (spoken name)",
     rerollContextSpokenNameDice: "Reroll spoken name (2D6)",
+  },
+  village: {
+    pageTitle: "Village generator",
+    pageDescription:
+      "Draw 5 cards as in the rulebook: each card is an establishment or a village trait. Share results via the URL.",
+    rollAll: "Draw 5 cards",
+    emptySummaryBefore: "Click « ",
+    emptySummaryAfter: " » to generate a village.",
+    sectionTraits: "Village traits",
+    sectionEstablishments: "Establishments",
+    duplicateRuleHint:
+      "If you draw the same establishment twice: either **two** sites of that type, or **one** larger, more imposing site — decide at the table.",
+    groupedToggle:
+      "Group duplicates (small+small→large, large+large→immense, mixed→large)",
+    mergedEstablishmentLabel: "Immense",
+    rerollCard: "Reroll this card",
+    copyOneLiner: "Copy summary",
+    copyOneLinerSuccess: "Summary copied to clipboard.",
+    copyOneLinerError: "Could not copy (clipboard permission).",
+    rulebookPageAria: "Rulebook reference",
   },
   genders: {
     man: "♂ Man",
@@ -108,3 +131,21 @@ export const en = {
     backHome: "← Home",
   },
 } as const;
+
+export function formatVillageRulebookPage(page: number): string {
+  return `p. ${page}`;
+}
+
+export function formatVillageRulebookPagesJoined(pages: number[]): string {
+  return [...new Set(pages)]
+    .sort((a, b) => a - b)
+    .map(formatVillageRulebookPage)
+    .join(" · ");
+}
+
+export function villageRulebookRefsNoteEn(
+  villageChapterPage: number,
+  establishmentTablePage: number,
+): string {
+  return `Book — Villages (draw, duplicates): p. ${villageChapterPage}. “Establishment” table: p. ${establishmentTablePage}.`;
+}

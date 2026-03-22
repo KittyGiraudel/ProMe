@@ -4,6 +4,14 @@
   white-space: nowrap;
 }
 
+.playing-card-label--compact .playing-card-label__suit {
+  transform: translateY(-0.04em) translateX(-0.08em) scale(1.2);
+}
+
+.playing-card-label--compact {
+  font-size: 0.92em;
+}
+
 .playing-card-label__rank {
   font-variant-numeric: tabular-nums;
 }
