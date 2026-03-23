@@ -15,9 +15,9 @@ import {
   type CharacterMapCell,
   type CharacterMapState,
   type HexCoordinate,
-} from '@/lib/playerCharacter/types'
+} from '@/lib/character/types'
 import { copy } from '@/messages/fr'
-import { DEFAULT_MAP_POSITION } from '@/lib/playerCharacter/model'
+import { DEFAULT_MAP_POSITION } from '@/lib/character/model'
 import { MapFormValueAnchor } from './MapFormValueAnchor'
 
 function normalizeMapState(
@@ -131,14 +131,11 @@ export function MapCard() {
   }
 
   return (
-    <Card title={copy.playerCharacters.mapSection}>
+    <Card title={copy.characters.mapSection}>
       <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
         <Space wrap>
           <Tag>
-            {copy.playerCharacters.mapSheet(
-              visibleSheet.sheetQ,
-              visibleSheet.sheetR
-            )}
+            {copy.characters.mapSheet(visibleSheet.sheetQ, visibleSheet.sheetR)}
           </Tag>
           <Button
             htmlType='button'
@@ -173,7 +170,7 @@ export function MapCard() {
             onClick={() =>
               setVisibleSheet(getSheetCoordinate(mapState.currentPosition))
             }>
-            {copy.playerCharacters.mapCenterOnCurrent}
+            {copy.characters.mapCenterOnCurrent}
           </Button>
         </Space>
 
@@ -182,7 +179,7 @@ export function MapCard() {
         </Form.Item>
 
         <Typography.Text type='secondary'>
-          {copy.playerCharacters.mapCharacterPosition}
+          {copy.characters.mapCharacterPosition}
           {' : '}
           <Typography.Text strong>
             {getDisplayedCellLabel(mapState.currentPosition)}

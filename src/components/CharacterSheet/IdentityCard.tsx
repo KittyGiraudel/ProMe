@@ -2,7 +2,7 @@
 
 import { Alert, Card, Col, Form, Input, Row, Select, Typography } from 'antd'
 import { GENDERS } from '@/lib/types'
-import type { PlayerArchetype } from '@/lib/playerCharacter/types'
+import type { Archetype } from '@/lib/character/types'
 import { copy } from '@/messages/fr'
 
 export function IdentityCard({
@@ -10,22 +10,20 @@ export function IdentityCard({
 }: {
   isArchetypeReadonly?: boolean
 }) {
-  const watchedArchetype = Form.useWatch('archetype') as
-    | PlayerArchetype
-    | undefined
+  const watchedArchetype = Form.useWatch('archetype') as Archetype | undefined
 
   const archetypePower = watchedArchetype
-    ? copy.playerCharacters.archetypePowers[watchedArchetype]
+    ? copy.characters.archetypePowers[watchedArchetype]
     : null
 
   return (
-    <Card title={copy.playerCharacters.identitySection}>
+    <Card title={copy.characters.identitySection}>
       <Row gutter={[16, 16]}>
         <Col xs={24} md={8}>
           <Form.Item
             rules={[{ required: true }]}
             name='name'
-            label={copy.playerCharacters.nameLabel}
+            label={copy.characters.nameLabel}
             style={{ marginBottom: 0 }}>
             <Input />
           </Form.Item>
@@ -35,7 +33,7 @@ export function IdentityCard({
           <Form.Item
             rules={[{ required: true }]}
             name='archetype'
-            label={copy.playerCharacters.archetypeLabel}
+            label={copy.characters.archetypeLabel}
             style={{ marginBottom: archetypePower ? 8 : 0 }}>
             <Select
               disabled={isArchetypeReadonly}
@@ -43,15 +41,15 @@ export function IdentityCard({
               options={[
                 {
                   value: 'warrior',
-                  label: copy.playerCharacters.archetypes.warrior,
+                  label: copy.characters.archetypes.warrior,
                 },
                 {
                   value: 'pilgrim',
-                  label: copy.playerCharacters.archetypes.pilgrim,
+                  label: copy.characters.archetypes.pilgrim,
                 },
                 {
                   value: 'bard',
-                  label: copy.playerCharacters.archetypes.bard,
+                  label: copy.characters.archetypes.bard,
                 },
               ]}
             />
@@ -61,7 +59,7 @@ export function IdentityCard({
         <Col xs={24} md={8}>
           <Form.Item
             name='gender'
-            label={copy.playerCharacters.genderLabel}
+            label={copy.characters.genderLabel}
             style={{ marginBottom: 0 }}>
             <Select
               allowClear
@@ -82,7 +80,7 @@ export function IdentityCard({
               type='info'
               title={
                 <>
-                  <strong>{copy.playerCharacters.archetypePowerLabel} :</strong>{' '}
+                  <strong>{copy.characters.archetypePowerLabel} :</strong>{' '}
                   {archetypePower}
                 </>
               }

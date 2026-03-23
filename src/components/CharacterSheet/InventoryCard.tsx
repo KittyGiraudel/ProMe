@@ -39,8 +39,8 @@ export function InventoryCard({
             justifyContent: 'space-between',
             width: '100%',
           }}>
-          <span>{copy.playerCharacters.inventorySection}</span>
-          <Tooltip title={copy.playerCharacters.inventoryFootnote}>
+          <span>{copy.characters.inventorySection}</span>
+          <Tooltip title={copy.characters.inventoryFootnote}>
             <Button
               type='text'
               size='small'
@@ -54,7 +54,7 @@ export function InventoryCard({
       <Space orientation='vertical' style={{ width: '100%' }}>
         <Typography.Text
           type={fields.length >= inventoryLimit ? 'danger' : 'secondary'}>
-          {copy.playerCharacters.inventoryStatus(fields.length, inventoryLimit)}
+          {copy.characters.inventoryStatus(fields.length, inventoryLimit)}
         </Typography.Text>
         {fields.map(field => (
           <div
@@ -68,10 +68,10 @@ export function InventoryCard({
             }}>
             <Form.Item
               name={[field.name, 'label']}
-              label={copy.playerCharacters.itemNamePlaceholder}
+              label={copy.characters.itemNamePlaceholder}
               noStyle>
               <Input
-                placeholder={copy.playerCharacters.itemNamePlaceholder}
+                placeholder={copy.characters.itemNamePlaceholder}
                 style={{ flex: 1, minWidth: 220 }}
               />
             </Form.Item>
@@ -82,10 +82,10 @@ export function InventoryCard({
 
             <Form.Item
               name={[field.name, 'note']}
-              label={copy.playerCharacters.itemNotePlaceholder}
+              label={copy.characters.itemNotePlaceholder}
               noStyle>
               <Input
-                placeholder={copy.playerCharacters.itemNotePlaceholder}
+                placeholder={copy.characters.itemNotePlaceholder}
                 style={{ width: 240 }}
               />
             </Form.Item>
@@ -94,7 +94,7 @@ export function InventoryCard({
               danger
               onClick={() => onRemoveItem(field.name)}
               htmlType='button'>
-              {copy.playerCharacters.delete}
+              {copy.characters.delete}
             </Button>
           </div>
         ))}
@@ -106,7 +106,7 @@ export function InventoryCard({
           onClick={onAddItem}
           disabled={cannotAdd}
           htmlType='button'>
-          {copy.playerCharacters.addItem}
+          {copy.characters.addItem}
         </Button>
       </Space>
     </Card>

@@ -35,8 +35,8 @@ export function SpellbookCard({
             justifyContent: 'space-between',
             width: '100%',
           }}>
-          <span>{copy.playerCharacters.spellbookSection}</span>
-          <Tooltip title={copy.playerCharacters.spellbookFootnote}>
+          <span>{copy.characters.spellbookSection}</span>
+          <Tooltip title={copy.characters.spellbookFootnote}>
             <Button
               type='text'
               size='small'
@@ -49,7 +49,7 @@ export function SpellbookCard({
       }>
       <Space orientation='vertical' style={{ width: '100%' }}>
         <Typography.Text type='secondary'>
-          {copy.playerCharacters.spellbookStatus(fields.length)}
+          {copy.characters.spellbookStatus(fields.length)}
         </Typography.Text>
         {fields.map(field => (
           <div
@@ -63,20 +63,20 @@ export function SpellbookCard({
             }}>
             <Form.Item
               name={[field.name, 'name']}
-              label={copy.playerCharacters.spellNamePlaceholder}
+              label={copy.characters.spellNamePlaceholder}
               noStyle>
               <Input
-                placeholder={copy.playerCharacters.spellNamePlaceholder}
+                placeholder={copy.characters.spellNamePlaceholder}
                 style={{ flex: 1, minWidth: 220 }}
               />
             </Form.Item>
 
             <Form.Item
               name={[field.name, 'note']}
-              label={copy.playerCharacters.spellNotePlaceholder}
+              label={copy.characters.spellNotePlaceholder}
               noStyle>
               <Input
-                placeholder={copy.playerCharacters.spellNotePlaceholder}
+                placeholder={copy.characters.spellNotePlaceholder}
                 style={{ width: 240 }}
               />
             </Form.Item>
@@ -85,7 +85,7 @@ export function SpellbookCard({
               danger
               onClick={() => onRemoveSpell(field.name)}
               htmlType='button'>
-              {copy.playerCharacters.delete}
+              {copy.characters.delete}
             </Button>
           </div>
         ))}
@@ -97,7 +97,7 @@ export function SpellbookCard({
           onClick={onAddSpell}
           disabled={fields.length >= SPELLBOOK_MAX}
           htmlType='button'>
-          {copy.playerCharacters.addSpell}
+          {copy.characters.addSpell}
         </Button>
       </Space>
     </Card>

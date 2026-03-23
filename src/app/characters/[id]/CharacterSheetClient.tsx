@@ -11,19 +11,19 @@ import {
   getDefaultPoolsForArchetype,
   randomId,
   remapClockPositionForTotalSegments,
-} from '@/lib/playerCharacter/model'
-import { loadDraft, clearDraft } from '@/lib/playerCharacter/draftStorage'
-import { getCharacterStore } from '@/lib/playerCharacter/store'
-import { stringifyPlayerCharacters } from '@/lib/playerCharacter/store/migrations'
+} from '@/lib/character/model'
+import { loadDraft, clearDraft } from '@/lib/character/draftStorage'
+import { getCharacterStore } from '@/lib/character/store'
+import { stringifyCharacters } from '@/lib/character/store/migrations'
 import type {
   CharacterClock,
   CharacterMapState,
   InventoryItem,
-  PlayerArchetype,
-  PlayerCharacter,
+  Archetype,
+  Character,
   SpellEntry,
   StatPool,
-} from '@/lib/playerCharacter/types'
+} from '@/lib/character/types'
 import type { Gender } from '@/lib/types'
 import { copy } from '@/messages/fr'
 import { IdentityCard } from '@/components/CharacterSheet/IdentityCard'
@@ -42,7 +42,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
   const { setHandler } = useNavigationBlocker()
 
   const [sheetState, setSheetState] = useState<{
-    character: PlayerCharacter | null
+    character: Character | null
     mode: 'draft' | 'saved' | 'none'
   }>({ character: null, mode: 'none' })
 
@@ -70,7 +70,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
 
   type SheetFormValues = {
     name: string
-    archetype: PlayerArchetype
+    archetype: Archetype
     gender?: Gender
     honor: number
     inspiration: number
@@ -88,7 +88,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
   const [form] = Form.useForm<SheetFormValues>()
   const [saveErrors, setSaveErrors] = useState<string[] | null>(null)
 
-  const toFormValues = (pc: PlayerCharacter): SheetFormValues => ({
+  const toFormValues = (pc: Character): SheetFormValues => ({
     name: pc.name,
     archetype: pc.archetype,
     gender: pc.gender,
@@ -105,12 +105,12 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     notes: pc.notes,
   })
 
-  const fallbackArchetype: PlayerArchetype = 'warrior'
+  const fallbackArchetype: Archetype = 'warrior'
   const fallbackStatPool: StatPool = { current: 0, max: 0 }
 
   // Watch only the fields we need so UI re-renders when we add/remove items.
   const watchedArchetypeRaw = Form.useWatch('archetype', form) as
-    | PlayerArchetype
+    | Archetype
     | undefined
   const watchedStaminaRaw = Form.useWatch('stamina', form) as
     | StatPool
@@ -139,7 +139,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     watchedStamina.current
   )
 
-  const prevArchetypeRef = useRef<PlayerArchetype | null>(null)
+  const prevArchetypeRef = useRef<Archetype | null>(null)
   const prevClockTotalSegmentsRef = useRef<number | null>(null)
   const leaveConfirmingRef = useRef(false)
   const interceptionReadyRef = useRef(false)
@@ -232,10 +232,10 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
       leaveConfirmingRef.current = true
 
       modal.confirm({
-        title: copy.playerCharacters.unsavedChangesTitle,
-        content: copy.playerCharacters.unsavedChangesDescription,
-        okText: copy.playerCharacters.unsavedChangesLeave,
-        cancelText: copy.playerCharacters.unsavedChangesStay,
+        title: copy.characters.unsavedChangesTitle,
+        content: copy.characters.unsavedChangesDescription,
+        okText: copy.characters.unsavedChangesLeave,
+        cancelText: copy.characters.unsavedChangesStay,
         onOk: () => {
           leaveConfirmingRef.current = false
           onLeave()
@@ -317,7 +317,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
       const archetype =
         mode === 'saved' ? character.archetype : values.archetype
 
-      const payload: PlayerCharacter = {
+      const payload: Character = {
         ...character,
         ...values,
         archetype,
@@ -327,7 +327,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
       if (mode === 'draft') clearDraft(character.id)
       setSaveErrors(null)
       setSheetState({ character: saved, mode: 'saved' })
-      message.success(copy.playerCharacters.saveSuccess)
+      message.success(copy.characters.saveSuccess)
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e)
       const parts = msg
@@ -342,38 +342,38 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
   const handleExportCharacter = async () => {
     if (!character) return
     const formValues = form.getFieldsValue(true)
-    const payload: PlayerCharacter = {
+    const payload: Character = {
       ...character,
       ...formValues,
     }
-    const content = stringifyPlayerCharacters([payload])
+    const content = stringifyCharacters([payload])
     try {
       await navigator.clipboard.writeText(content)
-      message.success(copy.playerCharacters.exportCopied)
+      message.success(copy.characters.exportCopied)
     } catch {
-      message.error(copy.playerCharacters.exportCopyError)
+      message.error(copy.characters.exportCopyError)
     }
   }
 
   if (!character) {
     return (
       <Layout
-        title={copy.playerCharacters.sheetTitle}
-        description={copy.playerCharacters.sheetDescription}
+        title={copy.characters.sheetTitle}
+        description={copy.characters.sheetDescription}
         breadcrumbs={[
           { label: copy.nav.homeLink, href: '/' },
-          { label: copy.playerCharacters.pageTitle, href: '/characters' },
+          { label: copy.characters.pageTitle, href: '/characters' },
         ]}>
         <Alert
           type='warning'
-          title={copy.playerCharacters.notFoundTitle}
+          title={copy.characters.notFoundTitle}
           description={
             <Space orientation='vertical'>
               <Typography.Text>
-                {copy.playerCharacters.notFoundDescription}
+                {copy.characters.notFoundDescription}
               </Typography.Text>
               <BlockedLink href='/characters'>
-                {copy.playerCharacters.backToLibrary}
+                {copy.characters.backToLibrary}
               </BlockedLink>
             </Space>
           }
@@ -385,11 +385,11 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
   if (mode === 'draft') {
     return (
       <Layout
-        title={character.name || copy.playerCharacters.unnamed}
-        description={copy.playerCharacters.sheetDescription}
+        title={character.name || copy.characters.unnamed}
+        description={copy.characters.sheetDescription}
         breadcrumbs={[
           { label: copy.nav.homeLink, href: '/' },
-          { label: copy.playerCharacters.pageTitle, href: '/characters' },
+          { label: copy.characters.pageTitle, href: '/characters' },
         ]}>
         <Form
           key={`${character.id}-${mode}-${character.updatedAt}`}
@@ -405,10 +405,10 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
             <IdentityCard isArchetypeReadonly={false} />
             <Space wrap>
               <Button htmlType='button' onClick={handleCancel}>
-                {copy.playerCharacters.cancel}
+                {copy.characters.cancel}
               </Button>
               <Button type='primary' htmlType='submit'>
-                {copy.playerCharacters.save}
+                {copy.characters.save}
               </Button>
             </Space>
           </Space>
@@ -419,11 +419,11 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
 
   return (
     <Layout
-      title={character.name || copy.playerCharacters.unnamed}
-      description={copy.playerCharacters.sheetDescription}
+      title={character.name || copy.characters.unnamed}
+      description={copy.characters.sheetDescription}
       breadcrumbs={[
         { label: copy.nav.homeLink, href: '/' },
-        { label: copy.playerCharacters.pageTitle, href: '/characters' },
+        { label: copy.characters.pageTitle, href: '/characters' },
       ]}>
       <Form
         key={`${character.id}-${mode}-${character.updatedAt}`}
@@ -480,10 +480,10 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
 
         <Space wrap>
           <Button type='primary' htmlType='submit'>
-            {copy.playerCharacters.save}
+            {copy.characters.save}
           </Button>
           <Button onClick={handleExportCharacter}>
-            {copy.playerCharacters.exportOne}
+            {copy.characters.exportOne}
           </Button>
         </Space>
       </Form>

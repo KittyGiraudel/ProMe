@@ -1,19 +1,19 @@
 import {
   normalizeImportMode,
-  normalizePlayerCharacter,
-} from '@/lib/playerCharacter/model'
+  normalizeCharacter,
+} from '@/lib/character/model'
 import type {
   CharacterImportMode,
   CharacterImportResult,
-  PlayerCharacter,
-} from '@/lib/playerCharacter/types'
+  Character,
+} from '@/lib/character/types'
 
 type PersistedEnvelope = {
   schemaVersion?: number
   characters?: unknown
 }
 
-export function parsePlayerCharacters(json: string): PlayerCharacter[] {
+export function parseCharacters(json: string): Character[] {
   let parsed: unknown
   try {
     parsed = JSON.parse(json)
@@ -23,12 +23,12 @@ export function parsePlayerCharacters(json: string): PlayerCharacter[] {
 
   const list = extractCharacterList(parsed)
   return list
-    .map(normalizePlayerCharacter)
-    .filter((item): item is PlayerCharacter => item !== null)
+    .map(normalizeCharacter)
+    .filter((item): item is Character => item !== null)
 }
 
-export function stringifyPlayerCharacters(
-  characters: PlayerCharacter[],
+export function stringifyCharacters(
+  characters: Character[],
 ): string {
   return JSON.stringify(
     {
@@ -49,10 +49,10 @@ function extractCharacterList(value: unknown): unknown[] {
 }
 
 export function mergeImportedCharacters(
-  existing: PlayerCharacter[],
-  imported: PlayerCharacter[],
+  existing: Character[],
+  imported: Character[],
   mode: CharacterImportMode,
-): { characters: PlayerCharacter[]; result: CharacterImportResult } {
+): { characters: Character[]; result: CharacterImportResult } {
   const normalizedMode = normalizeImportMode(mode)
   const totalRead = imported.length
 

@@ -1,6 +1,6 @@
 'use client'
 
-import type { CharacterMapState } from '@/lib/playerCharacter/types'
+import type { CharacterMapState } from '@/lib/character/types'
 
 type Props = {
   value?: CharacterMapState

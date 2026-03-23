@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'vitest'
 import {
-  createDefaultPlayerCharacterInput,
-  createPlayerCharacter,
+  createDefaultCharacterInput,
+  createCharacter,
   getDefaultPoolsForArchetype,
-  normalizePlayerCharacter,
-  validatePlayerCharacterForPersistence,
+  normalizeCharacter,
+  validateCharacterForPersistence,
 } from './model'
 
-describe('playerCharacter/model', () => {
+describe('character/model', () => {
   it('default pools match archetype mapping', () => {
     expect(getDefaultPoolsForArchetype('warrior')).toEqual({
       health: { current: 2, max: 2 },
@@ -26,8 +26,8 @@ describe('playerCharacter/model', () => {
     })
   })
 
-  it('createDefaultPlayerCharacterInput sets money=100 and archetype pools', () => {
-    const input = createDefaultPlayerCharacterInput('pilgrim')
+  it('createDefaultCharacterInput sets money=100 and archetype pools', () => {
+    const input = createDefaultCharacterInput('pilgrim')
     expect(input.money).toBe(100)
     expect(input.health).toEqual({ current: 3, max: 3 })
     expect(input.courage).toEqual({ current: 2, max: 2 })
@@ -37,12 +37,12 @@ describe('playerCharacter/model', () => {
   })
 
   it('validate rejects empty inventory item labels', () => {
-    const pc = createPlayerCharacter({
+    const pc = createCharacter({
       inventory: [{ id: 'i1', label: '', quantity: 1 }],
       spellbook: [{ id: 's1', name: 'Feu' }],
     })
 
-    const result = validatePlayerCharacterForPersistence(pc)
+    const result = validateCharacterForPersistence(pc)
     expect(result.ok).toBe(false)
     if (!result.ok) {
       expect(result.errors.join(';')).toMatch(/inventory item/i)
@@ -50,12 +50,12 @@ describe('playerCharacter/model', () => {
   })
 
   it('validate rejects empty spell names', () => {
-    const pc = createPlayerCharacter({
+    const pc = createCharacter({
       inventory: [{ id: 'i1', label: 'Potion', quantity: 1 }],
       spellbook: [{ id: 's1', name: '' }],
     })
 
-    const result = validatePlayerCharacterForPersistence(pc)
+    const result = validateCharacterForPersistence(pc)
     expect(result.ok).toBe(false)
     if (!result.ok) {
       expect(result.errors.join(';')).toMatch(/spell/i)
@@ -63,7 +63,7 @@ describe('playerCharacter/model', () => {
   })
 
   it('validate accepts non-empty inventory and spells', () => {
-    const pc = createPlayerCharacter({
+    const pc = createCharacter({
       inventory: [
         { id: 'i1', label: 'Potion', quantity: 1 },
         { id: 'i2', label: 'Bois', quantity: 2 },
@@ -71,7 +71,7 @@ describe('playerCharacter/model', () => {
       spellbook: [{ id: 's1', name: 'Feu' }],
     })
 
-    const result = validatePlayerCharacterForPersistence(pc)
+    const result = validateCharacterForPersistence(pc)
     expect(result.ok).toBe(true)
   })
 
@@ -82,13 +82,13 @@ describe('playerCharacter/model', () => {
       quantity: 1,
     }))
 
-    const pc = createPlayerCharacter({
+    const pc = createCharacter({
       stamina: { current: 1, max: 1 },
       inventory,
       spellbook: [{ id: 's1', name: 'Feu' }],
     })
 
-    const result = validatePlayerCharacterForPersistence(pc)
+    const result = validateCharacterForPersistence(pc)
     expect(result.ok).toBe(false)
     if (!result.ok) {
       expect(result.errors.join(';')).toMatch(/Stamina/i)
@@ -103,24 +103,24 @@ describe('playerCharacter/model', () => {
       quantity: 1,
     }))
 
-    const pc = createPlayerCharacter({
+    const pc = createCharacter({
       stamina: { current: 1, max: 1 },
       inventory,
       spellbook: [{ id: 's1', name: 'Feu' }],
     })
 
-    const result = validatePlayerCharacterForPersistence(pc)
+    const result = validateCharacterForPersistence(pc)
     expect(result.ok).toBe(true)
   })
 
   it('defaults map to sparse unexplored state at core position', () => {
-    const pc = createPlayerCharacter()
+    const pc = createCharacter()
     expect(pc.map.currentPosition).toEqual({ q: 0, r: 0 })
     expect(pc.map.cells).toEqual([])
   })
 
   it('normalize map deduplicates by coordinates and trims icon', () => {
-    const normalized = normalizePlayerCharacter({
+    const normalized = normalizeCharacter({
       id: 'pc-1',
       name: 'Test',
       archetype: 'warrior',
@@ -150,7 +150,7 @@ describe('playerCharacter/model', () => {
   })
 
   it('normalize drops invalid biome and keeps core non-biome', () => {
-    const normalized = normalizePlayerCharacter({
+    const normalized = normalizeCharacter({
       id: 'pc-2',
       name: 'Test',
       archetype: 'pilgrim',
@@ -171,9 +171,9 @@ describe('playerCharacter/model', () => {
   })
 
   it('validate rejects core biome assignment', () => {
-    const pc = createPlayerCharacter()
+    const pc = createCharacter()
     pc.map.cells = [{ q: 0, r: 0, biome: 'shadowForest' }]
-    const result = validatePlayerCharacterForPersistence(pc)
+    const result = validateCharacterForPersistence(pc)
     expect(result.ok).toBe(false)
     if (!result.ok) {
       expect(result.errors.join(';')).toMatch(/core map cell/i)

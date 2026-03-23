@@ -5,10 +5,10 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react'
 import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
-import { getCharacterStore } from '@/lib/playerCharacter/store'
-import { saveDraft } from '@/lib/playerCharacter/draftStorage'
-import { createPlayerCharacter } from '@/lib/playerCharacter/model'
-import type { PlayerCharacter } from '@/lib/playerCharacter/types'
+import { getCharacterStore } from '@/lib/character/store'
+import { saveDraft } from '@/lib/character/draftStorage'
+import { createCharacter } from '@/lib/character/model'
+import type { Character } from '@/lib/character/types'
 import { copy } from '@/messages/fr'
 
 export function CharacterLibraryClient() {
@@ -17,7 +17,7 @@ export function CharacterLibraryClient() {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const store = useMemo(() => getCharacterStore(), [])
   // Keep initial render consistent with the server (no localStorage access on SSR).
-  const [characters, setCharacters] = useState<PlayerCharacter[]>([])
+  const [characters, setCharacters] = useState<Character[]>([])
 
   useEffect(() => {
     setCharacters(store.list())
@@ -26,7 +26,7 @@ export function CharacterLibraryClient() {
   const refresh = () => setCharacters(store.list())
 
   const handleCreate = () => {
-    const draft = createPlayerCharacter()
+    const draft = createCharacter()
     saveDraft(draft)
     router.push(`/characters/${draft.id}`)
   }
@@ -34,16 +34,16 @@ export function CharacterLibraryClient() {
   const handleDelete = (id: string) => {
     store.delete(id)
     refresh()
-    message.success(copy.playerCharacters.deleteSuccess)
+    message.success(copy.characters.deleteSuccess)
   }
 
   const handleExport = async () => {
     const content = store.exportAll()
     try {
       await navigator.clipboard.writeText(content)
-      message.success(copy.playerCharacters.exportCopied)
+      message.success(copy.characters.exportCopied)
     } catch {
-      message.error(copy.playerCharacters.exportCopyError)
+      message.error(copy.characters.exportCopyError)
     }
   }
 
@@ -59,14 +59,14 @@ export function CharacterLibraryClient() {
       const result = store.importAll(raw, 'upsert')
       refresh()
       message.success(
-        copy.playerCharacters.importSuccess(
+        copy.characters.importSuccess(
           result.totalRead,
           result.created,
           result.updated
         )
       )
     } catch {
-      message.error(copy.playerCharacters.importError)
+      message.error(copy.characters.importError)
     } finally {
       event.target.value = ''
     }
@@ -74,18 +74,14 @@ export function CharacterLibraryClient() {
 
   return (
     <Layout
-      title={copy.playerCharacters.pageTitle}
-      description={copy.playerCharacters.pageDescription}>
+      title={copy.characters.pageTitle}
+      description={copy.characters.pageDescription}>
       <Space style={{ marginBottom: 16, flexWrap: 'wrap' }}>
         <Button type='primary' onClick={handleCreate}>
-          {copy.playerCharacters.create}
+          {copy.characters.create}
         </Button>
-        <Button onClick={handleImportClick}>
-          {copy.playerCharacters.import}
-        </Button>
-        <Button onClick={handleExport}>
-          {copy.playerCharacters.exportAll}
-        </Button>
+        <Button onClick={handleImportClick}>{copy.characters.import}</Button>
+        <Button onClick={handleExport}>{copy.characters.exportAll}</Button>
       </Space>
 
       <input
@@ -98,38 +94,38 @@ export function CharacterLibraryClient() {
 
       {characters.length === 0 ? (
         <Card>
-          <Empty description={copy.playerCharacters.empty} />
+          <Empty description={copy.characters.empty} />
         </Card>
       ) : (
         <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
           {characters.map(character => (
             <Card
               key={character.id}
-              title={character.name || copy.playerCharacters.unnamed}
+              title={character.name || copy.characters.unnamed}
               extra={
                 <Space>
                   <BlockedLink href={`/characters/${character.id}`}>
-                    {copy.playerCharacters.open}
+                    {copy.characters.open}
                   </BlockedLink>
                   <Popconfirm
-                    title={copy.playerCharacters.deleteConfirmTitle}
-                    description={copy.playerCharacters.deleteConfirmDescription}
-                    okText={copy.playerCharacters.delete}
-                    cancelText={copy.playerCharacters.cancel}
+                    title={copy.characters.deleteConfirmTitle}
+                    description={copy.characters.deleteConfirmDescription}
+                    okText={copy.characters.delete}
+                    cancelText={copy.characters.cancel}
                     onConfirm={() => handleDelete(character.id)}>
                     <Button type='link' danger>
-                      {copy.playerCharacters.delete}
+                      {copy.characters.delete}
                     </Button>
                   </Popconfirm>
                 </Space>
               }>
               <Space orientation='vertical' size={4}>
                 <Typography.Text>
-                  {copy.playerCharacters.archetypeLabel}:{' '}
-                  {copy.playerCharacters.archetypes[character.archetype]}
+                  {copy.characters.archetypeLabel}:{' '}
+                  {copy.characters.archetypes[character.archetype]}
                 </Typography.Text>
                 <Typography.Text type='secondary'>
-                  {copy.playerCharacters.updatedLabel}:{' '}
+                  {copy.characters.updatedLabel}:{' '}
                   {new Date(character.updatedAt).toLocaleString('fr-FR')}
                 </Typography.Text>
               </Space>

@@ -15,9 +15,9 @@ import {
 import {
   computeClockSegmentsPerHalfFromStamina,
   computeClockTotalSegmentsFromStamina,
-} from '@/lib/playerCharacter/model'
+} from '@/lib/character/model'
 import { ClockDisplay } from '@/components/ClockDisplay/ClockDisplay'
-import type { CharacterClock, StatPool } from '@/lib/playerCharacter/types'
+import type { CharacterClock, StatPool } from '@/lib/character/types'
 import { copy } from '@/messages/fr'
 
 export function ClockCard() {
@@ -36,8 +36,8 @@ export function ClockCard() {
   )
   const isDay = position < segmentsPerHalf
   const phaseLabel = isDay
-    ? copy.playerCharacters.clockDay
-    : copy.playerCharacters.clockNight
+    ? copy.characters.clockDay
+    : copy.characters.clockNight
 
   const setPosition = (nextPosition: number) => {
     const wrapped =
@@ -46,13 +46,11 @@ export function ClockCard() {
     form.setFieldValue(['clock', 'position'], wrapped)
     if (nextIsDay !== isDay) {
       notification.warning({
-        title: copy.playerCharacters.clockPhaseShiftTitle(
-          nextIsDay
-            ? copy.playerCharacters.clockDay
-            : copy.playerCharacters.clockNight
+        title: copy.characters.clockPhaseShiftTitle(
+          nextIsDay ? copy.characters.clockDay : copy.characters.clockNight
         ),
-        description: copy.playerCharacters.clockPhaseShiftDescription(
-          copy.playerCharacters.clockSlice(wrapped + 1, totalSegments)
+        description: copy.characters.clockPhaseShiftDescription(
+          copy.characters.clockSlice(wrapped + 1, totalSegments)
         ),
         placement: 'bottomRight',
         duration: 4,
@@ -61,8 +59,8 @@ export function ClockCard() {
     }
 
     notification.success({
-      title: copy.playerCharacters.clockSection,
-      description: copy.playerCharacters.clockSlice(wrapped + 1, totalSegments),
+      title: copy.characters.clockSection,
+      description: copy.characters.clockSlice(wrapped + 1, totalSegments),
       placement: 'bottomRight',
       duration: 2,
     })
@@ -78,12 +76,12 @@ export function ClockCard() {
             justifyContent: 'space-between',
             width: '100%',
           }}>
-          <span>{copy.playerCharacters.clockSection}</span>
+          <span>{copy.characters.clockSection}</span>
           <Popover
-            title={copy.playerCharacters.clockSection}
+            title={copy.characters.clockSection}
             content={
               <>
-                {copy.playerCharacters.clockTooltip
+                {copy.characters.clockTooltip
                   .split('\n')
                   .map((paragraph, index) => (
                     <Typography.Text
@@ -100,7 +98,7 @@ export function ClockCard() {
                     marginBottom: 8,
                     color: '#8c8c8c',
                   }}>
-                  {copy.playerCharacters.clockFootnote}
+                  {copy.characters.clockFootnote}
                 </Typography.Text>
               </>
             }
@@ -128,19 +126,19 @@ export function ClockCard() {
         </Form.Item>
         <Space wrap style={{ width: '100%', justifyContent: 'space-between' }}>
           <Button htmlType='button' onClick={() => setPosition(position - 1)}>
-            {copy.playerCharacters.clockBack}
+            {copy.characters.clockBack}
           </Button>
           <Space wrap>
             <Tag color={isDay ? 'gold' : 'blue'}>{phaseLabel}</Tag>
             <Typography.Text>
-              {copy.playerCharacters.clockSlice(position + 1, totalSegments)}
+              {copy.characters.clockSlice(position + 1, totalSegments)}
             </Typography.Text>
           </Space>
           <Button
             type='primary'
             htmlType='button'
             onClick={() => setPosition(position + 1)}>
-            {copy.playerCharacters.clockAdvance}
+            {copy.characters.clockAdvance}
           </Button>
         </Space>
       </Space>

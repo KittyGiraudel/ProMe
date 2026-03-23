@@ -4,8 +4,8 @@ import { Card, Col, Row, Space, Typography } from 'antd'
 import { useEffect, useMemo, useState } from 'react'
 import { copy } from '@/messages/fr'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
-import { getCharacterStore } from '@/lib/playerCharacter/store'
-import type { PlayerCharacter } from '@/lib/playerCharacter/types'
+import { getCharacterStore } from '@/lib/character/store'
+import type { Character } from '@/lib/character/types'
 import './HomeHub.css'
 import { DiceRoll } from '../DiceRoll/DiceRoll'
 import { CardDraw } from '../CardDraw/CardDraw'
@@ -28,16 +28,14 @@ const generators = [
 const managers = [
   {
     href: '/characters',
-    title: copy.hub.playerCharacterCardTitle,
-    description: copy.hub.playerCharacterCardDescription,
+    title: copy.hub.characterCardTitle,
+    description: copy.hub.characterCardDescription,
   },
 ] as const
 
 const CharacterManager = () => {
   const store = useMemo(() => getCharacterStore(), [])
-  const [recentCharacters, setRecentCharacters] = useState<PlayerCharacter[]>(
-    []
-  )
+  const [recentCharacters, setRecentCharacters] = useState<Character[]>([])
 
   useEffect(() => {
     const latest = [...store.list()]
@@ -52,15 +50,13 @@ const CharacterManager = () => {
   return (
     <Card
       className='home-hub__card'
-      title={copy.hub.playerCharacterCardTitle}
+      title={copy.hub.characterCardTitle}
       extra={
         <BlockedLink href='/characters' className='home-hub__cta'>
           {copy.hub.open}
         </BlockedLink>
       }>
-      <p className='home-hub__card-text'>
-        {copy.hub.playerCharacterCardDescription}
-      </p>
+      <p className='home-hub__card-text'>{copy.hub.characterCardDescription}</p>
       <Row style={{ marginTop: 16 }}>
         {recentCharacters.map(character => (
           <Col span={8} key={character.id}>
@@ -76,12 +72,12 @@ const CharacterManager = () => {
                     {character.gender
                       ? genderCompactSymbol(character.gender)
                       : ''}{' '}
-                    {character.name || copy.playerCharacters.unnamed},{' '}
-                    {copy.playerCharacters.archetypes[character.archetype]}
+                    {character.name || copy.characters.unnamed},{' '}
+                    {copy.characters.archetypes[character.archetype]}
                   </>
                 }>
                 <Typography.Text type='secondary'>
-                  {copy.playerCharacters.updatedLabel}:{' '}
+                  {copy.characters.updatedLabel}:{' '}
                   {new Date(character.updatedAt).toLocaleDateString('fr-FR')}
                 </Typography.Text>
               </Card>

@@ -27,39 +27,19 @@ export function CharacteristicsCard() {
     | undefined
 
   const resources: readonly [ResourceKey, string, string][] = [
-    [
-      'honor',
-      copy.playerCharacters.honorLabel,
-      copy.playerCharacters.honorTooltip,
-    ],
+    ['honor', copy.characters.honorLabel, copy.characters.honorTooltip],
     [
       'inspiration',
-      copy.playerCharacters.inspirationLabel,
-      copy.playerCharacters.inspirationTooltip,
+      copy.characters.inspirationLabel,
+      copy.characters.inspirationTooltip,
     ],
-    [
-      'money',
-      copy.playerCharacters.moneyLabel,
-      copy.playerCharacters.moneyTooltip,
-    ],
+    ['money', copy.characters.moneyLabel, copy.characters.moneyTooltip],
   ]
 
   const pools: readonly [PoolKey, string, string][] = [
-    [
-      'health',
-      copy.playerCharacters.healthLabel,
-      copy.playerCharacters.healthTooltip,
-    ],
-    [
-      'courage',
-      copy.playerCharacters.courageLabel,
-      copy.playerCharacters.courageTooltip,
-    ],
-    [
-      'stamina',
-      copy.playerCharacters.staminaLabel,
-      copy.playerCharacters.staminaTooltip,
-    ],
+    ['health', copy.characters.healthLabel, copy.characters.healthTooltip],
+    ['courage', copy.characters.courageLabel, copy.characters.courageTooltip],
+    ['stamina', copy.characters.staminaLabel, copy.characters.staminaTooltip],
   ]
 
   function renderLabelWithHelp(label: string, tooltip: string) {
@@ -90,7 +70,7 @@ export function CharacteristicsCard() {
                   color: '#8c8c8c',
                 }}
                 italic>
-                {copy.playerCharacters.characteristicsFootnote}
+                {copy.characters.characteristicsFootnote}
               </Typography.Text>
             </>
           }
@@ -122,9 +102,9 @@ export function CharacteristicsCard() {
 
     notification[success ? 'success' : 'error']({
       title: success
-        ? copy.playerCharacters.courageRollSuccessTitle
-        : copy.playerCharacters.courageRollFailureTitle,
-      description: copy.playerCharacters.courageRollResult(roll, target),
+        ? copy.characters.courageRollSuccessTitle
+        : copy.characters.courageRollFailureTitle,
+      description: copy.characters.courageRollResult(roll, target),
       placement: 'bottomRight',
       duration: 15,
     })
@@ -141,8 +121,8 @@ export function CharacteristicsCard() {
               justifyContent: 'space-between',
               width: '100%',
             }}>
-            <span>{copy.playerCharacters.characteristicsSection}</span>
-            <Tooltip title={copy.playerCharacters.characteristicsFootnote}>
+            <span>{copy.characters.characteristicsSection}</span>
+            <Tooltip title={copy.characters.characteristicsFootnote}>
               <Button
                 type='text'
                 size='small'
@@ -181,13 +161,13 @@ export function CharacteristicsCard() {
                 }}>
                 {renderLabelWithHelp(label, tooltip)}
                 {poolKey === 'courage' ? (
-                  <Tooltip title={copy.playerCharacters.courageRollTooltip}>
+                  <Tooltip title={copy.characters.courageRollTooltip}>
                     <Button
                       type='text'
                       size='small'
                       htmlType='button'
                       icon={<RedoOutlined />}
-                      aria-label={copy.playerCharacters.courageRollAria}
+                      aria-label={copy.characters.courageRollAria}
                       onClick={handleCourageRoll}
                     />
                   </Tooltip>
@@ -198,7 +178,7 @@ export function CharacteristicsCard() {
                 <Col xs={24} sm={12}>
                   <Form.Item
                     name={[poolKey, 'current']}
-                    label={copy.playerCharacters.currentLabel}
+                    label={copy.characters.currentLabel}
                     style={{ marginBottom: 0 }}>
                     <InputNumber min={0} style={{ width: '100%' }} />
                   </Form.Item>
@@ -207,7 +187,7 @@ export function CharacteristicsCard() {
                 <Col xs={24} sm={12}>
                   <Form.Item
                     name={[poolKey, 'max']}
-                    label={copy.playerCharacters.maxLabel}
+                    label={copy.characters.maxLabel}
                     style={{ marginBottom: 0 }}>
                     <InputNumber min={0} style={{ width: '100%' }} />
                   </Form.Item>

@@ -1,10 +1,10 @@
 import type { Gender } from '@/lib/types'
 
-export const PLAYER_CHARACTER_SCHEMA_VERSION = 1 as const
+export const CHARACTER_SCHEMA_VERSION = 1 as const
 
-export type PlayerArchetype = 'warrior' | 'pilgrim' | 'bard'
+export type Archetype = 'warrior' | 'pilgrim' | 'bard'
 
-export const PLAYER_ARCHETYPES: readonly PlayerArchetype[] = [
+export const ARCHETYPES: readonly Archetype[] = [
   'warrior',
   'pilgrim',
   'bard',
@@ -64,13 +64,13 @@ export type CharacterMapState = {
   cells: CharacterMapCell[]
 }
 
-export type PlayerCharacter = {
+export type Character = {
   id: string
-  schemaVersion: typeof PLAYER_CHARACTER_SCHEMA_VERSION
+  schemaVersion: typeof CHARACTER_SCHEMA_VERSION
   createdAt: string
   updatedAt: string
   name: string
-  archetype: PlayerArchetype
+  archetype: Archetype
   gender?: Gender
   honor: number
   inspiration: number
@@ -85,8 +85,8 @@ export type PlayerCharacter = {
   notes: string
 }
 
-export type PlayerCharacterInput = Omit<
-  PlayerCharacter,
+export type CharacterInput = Omit<
+  Character,
   'id' | 'createdAt' | 'updatedAt' | 'schemaVersion'
 >
 

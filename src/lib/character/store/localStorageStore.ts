@@ -1,18 +1,18 @@
 import {
-  createPlayerCharacter,
-  normalizePlayerCharacter,
-  touchPlayerCharacter,
-  validatePlayerCharacterForPersistence,
-} from '@/lib/playerCharacter/model'
+  createCharacter,
+  normalizeCharacter,
+  touchCharacter,
+  validateCharacterForPersistence,
+} from '@/lib/character/model'
 import {
   mergeImportedCharacters,
-  parsePlayerCharacters,
-  stringifyPlayerCharacters,
-} from '@/lib/playerCharacter/store/migrations'
-import type { CharacterStore } from '@/lib/playerCharacter/store/types'
-import type { CharacterImportMode, PlayerCharacter } from '@/lib/playerCharacter/types'
+  parseCharacters,
+  stringifyCharacters,
+} from '@/lib/character/store/migrations'
+import type { CharacterStore } from '@/lib/character/store/types'
+import type { CharacterImportMode, Character } from '@/lib/character/types'
 
-const STORAGE_KEY = 'lsdp:playerCharacters:v1'
+const STORAGE_KEY = 'lsdp:characters:v1'
 
 function safeReadStorage(): string {
   if (typeof window === 'undefined') return '[]'
@@ -23,23 +23,23 @@ function safeReadStorage(): string {
   }
 }
 
-function safeWriteStorage(characters: PlayerCharacter[]): void {
+function safeWriteStorage(characters: Character[]): void {
   if (typeof window === 'undefined') return
   try {
-    window.localStorage.setItem(STORAGE_KEY, stringifyPlayerCharacters(characters))
+    window.localStorage.setItem(STORAGE_KEY, stringifyCharacters(characters))
   } catch {
     // ignore write failures (private mode / quota)
   }
 }
 
-function readAll(): PlayerCharacter[] {
-  return parsePlayerCharacters(safeReadStorage())
+function readAll(): Character[] {
+  return parseCharacters(safeReadStorage())
 }
 
-function writeAll(characters: PlayerCharacter[]): PlayerCharacter[] {
+function writeAll(characters: Character[]): Character[] {
   const normalized = characters
-    .map(normalizePlayerCharacter)
-    .filter((item): item is PlayerCharacter => item !== null)
+    .map(normalizeCharacter)
+    .filter((item): item is Character => item !== null)
   safeWriteStorage(normalized)
   return normalized
 }
@@ -53,24 +53,24 @@ export function createLocalStorageCharacterStore(): CharacterStore {
       return readAll().find(character => character.id === id) ?? null
     },
     create(input) {
-      const next = createPlayerCharacter(input)
+      const next = createCharacter(input)
       const all = readAll()
       all.push(next)
       writeAll(all)
       return next
     },
     save(character) {
-      const normalized = normalizePlayerCharacter(character)
+      const normalized = normalizeCharacter(character)
       if (!normalized) {
-        throw new Error('Invalid player character payload')
+        throw new Error('Invalid character payload')
       }
 
-      const validation = validatePlayerCharacterForPersistence(normalized)
+      const validation = validateCharacterForPersistence(normalized)
       if (!validation.ok) {
         throw new Error(validation.errors.join('; '))
       }
 
-      const touched = touchPlayerCharacter(normalized)
+      const touched = touchCharacter(normalized)
       const all = readAll()
       const index = all.findIndex(item => item.id === touched.id)
       if (index >= 0) {
@@ -89,15 +89,15 @@ export function createLocalStorageCharacterStore(): CharacterStore {
       return true
     },
     exportAll() {
-      return stringifyPlayerCharacters(readAll())
+      return stringifyCharacters(readAll())
     },
     importAll(json, mode: CharacterImportMode = 'upsert') {
-      const imported = parsePlayerCharacters(json)
+      const imported = parseCharacters(json)
       const existing = readAll()
       const validImported: typeof imported = []
       let discarded = 0
       for (const pc of imported) {
-        const validation = validatePlayerCharacterForPersistence(pc)
+        const validation = validateCharacterForPersistence(pc)
         if (validation.ok) validImported.push(pc)
         else discarded += 1
       }

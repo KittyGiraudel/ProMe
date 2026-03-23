@@ -4,7 +4,7 @@ import type {
   BiomeId,
   CharacterMapCell,
   HexCoordinate,
-} from '@/lib/playerCharacter/types'
+} from '@/lib/character/types'
 import {
   MAP_COLS,
   MAP_ROWS,

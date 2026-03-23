@@ -1,4 +1,4 @@
-import type { HexCoordinate } from '@/lib/playerCharacter/types'
+import type { HexCoordinate } from '@/lib/character/types'
 
 export const MAP_ROWS = 9
 export const MAP_COLS = 12

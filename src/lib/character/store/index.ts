@@ -1,5 +1,5 @@
-import { createLocalStorageCharacterStore } from '@/lib/playerCharacter/store/localStorageStore'
-import type { CharacterStore } from '@/lib/playerCharacter/store/types'
+import { createLocalStorageCharacterStore } from '@/lib/character/store/localStorageStore'
+import type { CharacterStore } from '@/lib/character/store/types'
 
 let cachedStore: CharacterStore | null = null
 

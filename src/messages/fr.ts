@@ -25,11 +25,11 @@ export const copy = {
     villageCardTitle: "Générateur de village",
     villageCardDescription:
       "Établissements, et traits du village.",
-    playerCharacterCardTitle: "Gestionnaire de personnages",
-    playerCharacterCardDescription:
+    characterCardTitle: "Gestionnaire de personnages",
+    characterCardDescription:
       "Fiches jouables persistantes comprenant les ressources, l’inventaire, les sorts et les notes arbitraires.",
-    playerCharacterRecentTitle: "Derniers personnages",
-    playerCharacterRecentEmpty: "Aucun personnage récent.",
+    characterRecentTitle: "Derniers personnages",
+    characterRecentEmpty: "Aucun personnage récent.",
     open: "Ouvrir",
     generatorsTitle: "Générateurs",
     managersTitle: "Gestionnaires",
@@ -105,7 +105,7 @@ export const copy = {
     copyOneLinerError: "Impossible de copier (autorisez le presse-papiers).",
     rulebookPageAria: "Référence livre",
   },
-  playerCharacters: {
+  characters: {
     pageTitle: "Gestionnaire de personnages",
     pageDescription:
       "Créez et gérez vos personnages jouables. Les fiches sont enregistrées localement dans ce navigateur.",

@@ -4,8 +4,8 @@ import { Dropdown, Modal, Spin } from 'antd'
 import type { MenuProps } from 'antd'
 import dynamic from 'next/dynamic'
 import { useMemo, useState } from 'react'
-import type { BiomeId, HexCoordinate } from '@/lib/playerCharacter/types'
-import { BIOME_IDS } from '@/lib/playerCharacter/types'
+import type { BiomeId, HexCoordinate } from '@/lib/character/types'
+import { BIOME_IDS } from '@/lib/character/types'
 import { copy } from '@/messages/fr'
 import { EmojiStyle, Theme, type EmojiClickData } from 'emoji-picker-react'
 
@@ -66,14 +66,14 @@ export function MapCellContextMenu({
     const iconChildren: NonNullable<MenuProps['items']> = [
       {
         key: 'icon-picker',
-        label: copy.playerCharacters.mapPickEmoji,
+        label: copy.characters.mapPickEmoji,
       },
       ...(hasStoredIcon
         ? [
             { type: 'divider' as const },
             {
               key: 'icon:clear',
-              label: copy.playerCharacters.mapClearIcon,
+              label: copy.characters.mapClearIcon,
             },
           ]
         : []),
@@ -81,21 +81,21 @@ export function MapCellContextMenu({
 
     const iconSubmenu = {
       key: 'icon',
-      label: copy.playerCharacters.mapIconLabel,
+      label: copy.characters.mapIconLabel,
       children: iconChildren,
     }
 
     const baseItems: NonNullable<MenuProps['items']> = [
       {
         key: 'move',
-        label: copy.playerCharacters.mapMoveHere,
+        label: copy.characters.mapMoveHere,
       },
       iconSubmenu,
       { type: 'divider' as const },
       {
         key: 'clear',
         danger: true,
-        label: copy.playerCharacters.mapClearCell,
+        label: copy.characters.mapClearCell,
       },
     ]
 
@@ -103,19 +103,19 @@ export function MapCellContextMenu({
       {
         key: 'coord-group',
         type: 'group',
-        label: `${copy.playerCharacters.mapSelectedCell}: ${coordLabel}`,
+        label: `${copy.characters.mapSelectedCell}: ${coordLabel}`,
         children: [],
       },
       {
         key: 'biome',
-        label: copy.playerCharacters.mapBiomeLabel,
+        label: copy.characters.mapBiomeLabel,
         children: [
           ...BIOME_IDS.map(id => ({
             key: `biome:${id}`,
             label: (
               <span className='Map__BiomeMenuItem'>
                 <span data-biome={id} className='Map__BiomeSwatch' />
-                <span>{copy.playerCharacters.mapBiomes[id]}</span>
+                <span>{copy.characters.mapBiomes[id]}</span>
               </span>
             ),
           })),
@@ -127,7 +127,7 @@ export function MapCellContextMenu({
             label: (
               <span className='Map__BiomeMenuItem'>
                 <span data-biome='unexplored' className='Map__BiomeSwatch' />
-                <span>{copy.playerCharacters.mapUnexplored}</span>
+                <span>{copy.characters.mapUnexplored}</span>
               </span>
             ),
           },
@@ -190,14 +190,14 @@ export function MapCellContextMenu({
           onClick={() => onSelectCell(coord)}
           title={title}
           className='Map__Button'
-          aria-label={`${title} ${copy.playerCharacters.mapCell}`}>
+          aria-label={`${title} ${copy.characters.mapCell}`}>
           {coordLabel}
         </button>
       </Dropdown>
 
       <Modal
         open={emojiModalOpen}
-        title={copy.playerCharacters.mapIconLabel}
+        title={copy.characters.mapIconLabel}
         footer={null}
         onCancel={() => setEmojiModalOpen(false)}
         destroyOnHidden
@@ -208,7 +208,7 @@ export function MapCellContextMenu({
             onEmojiClick={onEmojiPicked}
             theme={Theme.LIGHT}
             emojiStyle={EmojiStyle.NATIVE}
-            searchPlaceHolder={copy.playerCharacters.mapEmojiSearchPlaceholder}
+            searchPlaceHolder={copy.characters.mapEmojiSearchPlaceholder}
             width={320}
             height={380}
             previewConfig={{ showPreview: false }}

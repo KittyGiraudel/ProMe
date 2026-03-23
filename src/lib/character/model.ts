@@ -3,14 +3,14 @@ import {
   type BiomeId,
   type CharacterMapCell,
   type CharacterMapState,
-  PLAYER_CHARACTER_SCHEMA_VERSION,
+  CHARACTER_SCHEMA_VERSION,
   type CharacterClock,
   type CharacterImportMode,
   type InventoryItem,
-  type PlayerCharacter,
-  type PlayerCharacterInput,
+  type Character,
+  type CharacterInput,
   type SpellEntry,
-  type PlayerArchetype,
+  type Archetype,
   type StatPool,
   HexCoordinate,
 } from './types'
@@ -24,8 +24,8 @@ export const DEFAULT_MAP_POSITION: HexCoordinate = { q: 0, r: 0 }
 
 function normalizeArchetype(
   value: unknown,
-  fallback: PlayerArchetype,
-): PlayerArchetype {
+  fallback: Archetype,
+): Archetype {
   if (value === 'warrior' || value === 'pilgrim' || value === 'bard') return value
   return fallback
 }
@@ -184,7 +184,7 @@ export function normalizeCharacterClock(
   }
 }
 
-function defaultPoolsForArchetype(archetype: PlayerArchetype): {
+function defaultPoolsForArchetype(archetype: Archetype): {
   health: StatPool
   courage: StatPool
   stamina: StatPool
@@ -215,7 +215,7 @@ function defaultPoolsForArchetype(archetype: PlayerArchetype): {
   }
 }
 
-export function getDefaultPoolsForArchetype(archetype: PlayerArchetype): {
+export function getDefaultPoolsForArchetype(archetype: Archetype): {
   health: StatPool
   courage: StatPool
   stamina: StatPool
@@ -223,9 +223,9 @@ export function getDefaultPoolsForArchetype(archetype: PlayerArchetype): {
   return defaultPoolsForArchetype(archetype)
 }
 
-export function createDefaultPlayerCharacterInput(
-  archetype: PlayerArchetype = 'warrior',
-): PlayerCharacterInput {
+export function createDefaultCharacterInput(
+  archetype: Archetype = 'warrior',
+): CharacterInput {
   const pools = defaultPoolsForArchetype(archetype)
   return {
     name: '',
@@ -248,12 +248,12 @@ export function createDefaultPlayerCharacterInput(
   }
 }
 
-export function normalizePlayerCharacterInput(
-  input: Partial<PlayerCharacterInput> | null | undefined,
-): PlayerCharacterInput {
-  const fallbackArchetype: PlayerArchetype = 'warrior'
+export function normalizeCharacterInput(
+  input: Partial<CharacterInput> | null | undefined,
+): CharacterInput {
+  const fallbackArchetype: Archetype = 'warrior'
   const baseArchetype = normalizeArchetype(input?.archetype, fallbackArchetype)
-  const base = createDefaultPlayerCharacterInput(baseArchetype)
+  const base = createDefaultCharacterInput(baseArchetype)
   const source = input ?? {}
   const inventory = Array.isArray(source.inventory)
     ? source.inventory
@@ -302,27 +302,27 @@ export function normalizePlayerCharacterInput(
   }
 }
 
-export function createPlayerCharacter(
-  input?: Partial<PlayerCharacterInput>,
-): PlayerCharacter {
+export function createCharacter(
+  input?: Partial<CharacterInput>,
+): Character {
   const now = new Date().toISOString()
   return {
     id: randomId(),
-    schemaVersion: PLAYER_CHARACTER_SCHEMA_VERSION,
+    schemaVersion: CHARACTER_SCHEMA_VERSION,
     createdAt: now,
     updatedAt: now,
-    ...normalizePlayerCharacterInput(input),
+    ...normalizeCharacterInput(input),
   }
 }
 
-export function normalizePlayerCharacter(
+export function normalizeCharacter(
   value: unknown,
-): PlayerCharacter | null {
-  const raw = value as Partial<PlayerCharacter> | undefined
+): Character | null {
+  const raw = value as Partial<Character> | undefined
   if (!raw || typeof raw !== 'object' || typeof raw.id !== 'string' || !raw.id) {
     return null
   }
-  const normalizedInput = normalizePlayerCharacterInput(raw)
+  const normalizedInput = normalizeCharacterInput(raw)
   const createdAt =
     typeof raw.createdAt === 'string' && raw.createdAt
       ? raw.createdAt
@@ -334,21 +334,21 @@ export function normalizePlayerCharacter(
 
   return {
     id: raw.id,
-    schemaVersion: PLAYER_CHARACTER_SCHEMA_VERSION,
+    schemaVersion: CHARACTER_SCHEMA_VERSION,
     createdAt,
     updatedAt,
     ...normalizedInput,
   }
 }
 
-export function touchPlayerCharacter(
-  character: PlayerCharacter,
-): PlayerCharacter {
+export function touchCharacter(
+  character: Character,
+): Character {
   return { ...character, updatedAt: new Date().toISOString() }
 }
 
-export function validatePlayerCharacterForPersistence(
-  character: PlayerCharacter,
+export function validateCharacterForPersistence(
+  character: Character,
 ): { ok: true } | { ok: false; errors: string[] } {
   const errors: string[] = []
 
@@ -432,7 +432,7 @@ export function validatePlayerCharacterForPersistence(
   return errors.length === 0 ? { ok: true } : { ok: false, errors }
 }
 
-export function computeInventoryCap(character: PlayerCharacter): number {
+export function computeInventoryCap(character: Character): number {
   return Math.max(0, character.stamina.current) * 6
 }
 

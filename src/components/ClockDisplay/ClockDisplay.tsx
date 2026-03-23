@@ -61,10 +61,7 @@ export function ClockDisplay({
       width='100%'
       style={{ maxWidth: 280, display: 'block', margin: 'auto' }}
       role='img'
-      aria-label={copy.playerCharacters.clockSlice(
-        position + 1,
-        totalSegments
-      )}>
+      aria-label={copy.characters.clockSlice(position + 1, totalSegments)}>
       {Array.from({ length: totalSegments }).map((_, index) => {
         const sliceStart = startDeg + index * stepDeg
         const sliceEnd = sliceStart + stepDeg
@@ -117,7 +114,7 @@ export function ClockDisplay({
         fillOpacity='0.45'
         fontWeight='700'
         letterSpacing='3'>
-        {copy.playerCharacters.clockDay.toUpperCase()}
+        {copy.characters.clockDay.toUpperCase()}
       </text>
       <text
         x={center}
@@ -128,7 +125,7 @@ export function ClockDisplay({
         fillOpacity='0.45'
         fontWeight='700'
         letterSpacing='3'>
-        {copy.playerCharacters.clockNight.toUpperCase()}
+        {copy.characters.clockNight.toUpperCase()}
       </text>
     </svg>
   )

@@ -2,7 +2,7 @@
 
 This document describes **what** the character manager implements (drafts, saved sheets, constraints, import/export) and **how** it is wired in code (route flow, storage, normalization, navigation blocking). It is meant for maintainers and for AI assistants editing this repo.
 
-Game: _Les Souvenirs du Protecteur_ (LSDP). UI strings live in `src/messages/fr.ts` (`copy.playerCharacters`).
+Game: _Les Souvenirs du Protecteur_ (LSDP). UI strings live in `src/messages/fr.ts` (`copy.characters`).
 
 ---
 
@@ -11,8 +11,8 @@ Game: _Les Souvenirs du Protecteur_ (LSDP). UI strings live in `src/messages/fr.
 | Area                | In scope                                                                                                     |
 | ------------------- | ------------------------------------------------------------------------------------------------------------ |
 | Character lifecycle | Create draft → edit sheet → save to local library                                                            |
-| Persistence         | Saved characters in **`localStorage`** (`lsdp:playerCharacters:v1`), drafts in **`sessionStorage`** per tab  |
-| Data model          | Typed `PlayerCharacter` with archetype, stat pools, inventory, spellbook, notes, metadata timestamps         |
+| Persistence         | Saved characters in **`localStorage`** (`lsdp:characters:v1`), drafts in **`sessionStorage`** per tab        |
+| Data model          | Typed `character` with archetype, stat pools, inventory, spellbook, notes, metadata timestamps               |
 | Validation          | Domain validation before persistence (money >= 0, pool bounds, inventory/spellbook limits, non-empty labels) |
 | Import/export       | JSON copy/export and file import with upsert/replace semantics in store                                      |
 | Unsaved navigation  | Intercepts in-app links + back/forward + tab close when form is dirty                                        |
@@ -26,8 +26,8 @@ Out of scope (today): cloud sync, multi-device persistence, server-side storage,
 
 ### 2.1 Two persistence tiers
 
-- **Saved characters**: canonical list persisted in `localStorage` under `lsdp:playerCharacters:v1`.
-- **Draft character**: transient entry persisted in `sessionStorage` under `lsdp:playerCharacterDraft:v1:<id>`.
+- **Saved characters**: canonical list persisted in `localStorage` under `lsdp:characters:v1`.
+- **Draft character**: transient entry persisted in `sessionStorage` under `lsdp:characterDraft:v1:<id>`.
 
 The creation flow intentionally starts in draft mode so a user can cancel without adding anything to the library.
 
@@ -37,9 +37,9 @@ Each character has:
 
 - stable `id` (`randomUUID` when available, fallback timestamp/random),
 - `createdAt` and `updatedAt` ISO strings,
-- fixed `schemaVersion` (`PLAYER_CHARACTER_SCHEMA_VERSION = 1`).
+- fixed `schemaVersion` (`CHARACTER_SCHEMA_VERSION = 1`).
 
-`updatedAt` is refreshed on every save (`touchPlayerCharacter`) and is used for list ordering (latest first).
+`updatedAt` is refreshed on every save (`touchcharacter`) and is used for list ordering (latest first).
 
 ### 2.3 Archetype defaults
 
@@ -89,12 +89,12 @@ flowchart LR
     blocked["BlockedLink.tsx"]
   end
   subgraph domain
-    model["playerCharacter/model.ts"]
-    types["playerCharacter/types.ts"]
-    draft["playerCharacter/draftStorage.ts"]
-    store["playerCharacter/store/localStorageStore.ts"]
-    mig["playerCharacter/store/migrations.ts"]
-    storeIdx["playerCharacter/store/index.ts"]
+    model["character/model.ts"]
+    types["character/types.ts"]
+    draft["character/draftStorage.ts"]
+    store["character/store/localStorageStore.ts"]
+    mig["character/store/migrations.ts"]
+    storeIdx["character/store/index.ts"]
   end
   subgraph ui
     identity["CharacterSheet/IdentityCard.tsx"]
@@ -125,25 +125,25 @@ flowchart LR
   model --> types
 ```
 
-| Path                                                 | Role                                                                            |
-| ---------------------------------------------------- | ------------------------------------------------------------------------------- |
-| `src/lib/playerCharacter/types.ts`                   | Core types (`PlayerCharacter`, `StatPool`, `InventoryItem`, import result/mode) |
-| `src/lib/playerCharacter/model.ts`                   | Defaults, normalization, id generation, validation, inventory cap computation   |
-| `src/lib/playerCharacter/draftStorage.ts`            | Draft save/load/clear in `sessionStorage`                                       |
-| `src/lib/playerCharacter/store/localStorageStore.ts` | CRUD + import/export against `localStorage`                                     |
-| `src/lib/playerCharacter/store/migrations.ts`        | JSON parse/stringify envelope + merge strategy for imports                      |
-| `src/lib/playerCharacter/store/index.ts`             | In-memory singleton accessor `getCharacterStore()`                              |
-| `src/app/characters/CharacterLibraryClient.tsx`      | Library list, create, delete, import, export, open sheet                        |
-| `src/app/characters/[id]/CharacterSheetClient.tsx`   | Sheet load/edit/save, draft handling, unsaved navigation guard                  |
-| `src/components/CharacterSheet/*.tsx`                | Form sub-sections: identity, characteristics, inventory, spellbook, notes       |
-| `src/components/Navigation/BlockedLink.tsx`          | Link wrapper that consults navigation blocker handler                           |
-| `src/app/contexts/NavigationBlockerContext.tsx`      | Shared blocker handler context                                                  |
+| Path                                               | Role                                                                          |
+| -------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `src/lib/character/types.ts`                       | Core types (`character`, `StatPool`, `InventoryItem`, import result/mode)     |
+| `src/lib/character/model.ts`                       | Defaults, normalization, id generation, validation, inventory cap computation |
+| `src/lib/character/draftStorage.ts`                | Draft save/load/clear in `sessionStorage`                                     |
+| `src/lib/character/store/localStorageStore.ts`     | CRUD + import/export against `localStorage`                                   |
+| `src/lib/character/store/migrations.ts`            | JSON parse/stringify envelope + merge strategy for imports                    |
+| `src/lib/character/store/index.ts`                 | In-memory singleton accessor `getCharacterStore()`                            |
+| `src/app/characters/CharacterLibraryClient.tsx`    | Library list, create, delete, import, export, open sheet                      |
+| `src/app/characters/[id]/CharacterSheetClient.tsx` | Sheet load/edit/save, draft handling, unsaved navigation guard                |
+| `src/components/CharacterSheet/*.tsx`              | Form sub-sections: identity, characteristics, inventory, spellbook, notes     |
+| `src/components/Navigation/BlockedLink.tsx`        | Link wrapper that consults navigation blocker handler                         |
+| `src/app/contexts/NavigationBlockerContext.tsx`    | Shared blocker handler context                                                |
 
 ### 3.2 Creation and first edit flow
 
 On `/characters`:
 
-1. `handleCreate` builds a default character with `createPlayerCharacter()`.
+1. `handleCreate` builds a default character with `createcharacter()`.
 2. It writes that object to draft storage (`saveDraft`).
 3. It navigates to `/characters/<id>`.
 
@@ -172,7 +172,7 @@ Validation errors are thrown as semicolon-separated messages and surfaced both i
 - **Export**: `store.exportAll()` returns a JSON string envelope:
   - `{ schemaVersion: 1, characters: [...] }`
   - copied to clipboard from the library page.
-- **Import**: file text is parsed with `parsePlayerCharacters`.
+- **Import**: file text is parsed with `parsecharacters`.
   - accepts either raw arrays or envelope objects with `characters`.
   - invalid JSON or malformed entries collapse to an empty import set.
   - each imported character is validated for persistence; invalid records are discarded.
@@ -185,7 +185,7 @@ Validation errors are thrown as semicolon-separated messages and surfaced both i
 
 Any boundary read/write normalizes data:
 
-- storage reads (`parsePlayerCharacters`) normalize each record,
+- storage reads (`parsecharacters`) normalize each record,
 - saves normalize incoming payload,
 - drafts normalize before save/load.
 
@@ -236,22 +236,22 @@ Draft mode currently renders only `IdentityCard` plus cancel/save actions.
 
 ### 6.1 Library (`localStorage`)
 
-- key: `lsdp:playerCharacters:v1`
-- value: JSON string from `stringifyPlayerCharacters`:
+- key: `lsdp:characters:v1`
+- value: JSON string from `stringifycharacters`:
   - `schemaVersion: 1`
-  - `characters: PlayerCharacter[]`
+  - `characters: character[]`
 
 ### 6.2 Draft (`sessionStorage`)
 
-- key prefix: `lsdp:playerCharacterDraft:v1:`
+- key prefix: `lsdp:characterDraft:v1:`
 - full key: `<prefix><characterId>`
-- value: serialized single `PlayerCharacter` JSON blob
+- value: serialized single `character` JSON blob
 
 ---
 
 ## 7. Extension notes
 
-1. **Adding fields to `PlayerCharacter`**
+1. **Adding fields to `character`**
    - update `types.ts`,
    - update defaults + normalization in `model.ts`,
    - update `SheetFormValues`, `toFormValues`, and save merge path in `CharacterSheetClient`,
@@ -260,7 +260,7 @@ Draft mode currently renders only `IdentityCard` plus cancel/save actions.
    - bump storage keys or add migration support in `migrations.ts`,
    - preserve backward decode when possible.
 3. **Changing validation rules**
-   - enforce in `validatePlayerCharacterForPersistence`,
+   - enforce in `validatecharacterForPersistence`,
    - reflect limits in UI components to avoid confusing save-time failures.
 4. **Exposing replace import in UI**
    - library currently hardcodes `'upsert'`; add user choice before calling `store.importAll`.
@@ -278,9 +278,9 @@ Draft mode currently renders only `IdentityCard` plus cancel/save actions.
 
 | Question                                       | Where to look                                      |
 | ---------------------------------------------- | -------------------------------------------------- |
-| How are default character values chosen?       | `createDefaultPlayerCharacterInput` in `model.ts`  |
+| How are default character values chosen?       | `createDefaultcharacterInput` in `model.ts`        |
 | Why does archetype change reset pools?         | Archetype watcher effect in `CharacterSheetClient` |
-| Why can inventory save fail?                   | `validatePlayerCharacterForPersistence`            |
+| Why can inventory save fail?                   | `validatecharacterForPersistence`                  |
 | Where is local persistence implemented?        | `store/localStorageStore.ts`                       |
 | What JSON shape does import/export use?        | `store/migrations.ts`                              |
 | Why are unsaved-change prompts shown on links? | `BlockedLink` + `NavigationBlockerContext` + sheet |
