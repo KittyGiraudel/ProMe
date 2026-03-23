@@ -1,6 +1,17 @@
 'use client'
 
-import { Card, Col, Divider, Form, InputNumber, Row, Typography } from 'antd'
+import { QuestionCircleOutlined } from '@ant-design/icons'
+import {
+  Button,
+  Card,
+  Col,
+  Divider,
+  Form,
+  InputNumber,
+  Row,
+  Tooltip,
+  Typography,
+} from 'antd'
 import { copy } from '@/messages/fr'
 
 type PoolKey = 'health' | 'courage' | 'stamina'
@@ -14,7 +25,27 @@ export function CharacteristicsCard() {
 
   return (
     <>
-      <Card title={copy.playerCharacters.characteristicsSection}>
+      <Card
+        title={
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              width: '100%',
+            }}>
+            <span>{copy.playerCharacters.characteristicsSection}</span>
+            <Tooltip title={copy.playerCharacters.characteristicsFootnote}>
+              <Button
+                type='text'
+                size='small'
+                htmlType='button'
+                icon={<QuestionCircleOutlined />}
+                aria-label='Informations du livre de règles'
+              />
+            </Tooltip>
+          </div>
+        }>
         <Row gutter={[16, 16]}>
           <Col xs={24} md={8}>
             <Form.Item
@@ -76,11 +107,6 @@ export function CharacteristicsCard() {
           ))}
         </Row>
       </Card>
-      <Typography.Text
-        type='secondary'
-        className='generator-rulebook-footnote character-sheet-rulebook-footnote'>
-        {copy.playerCharacters.characteristicsFootnote}
-      </Typography.Text>
     </>
   )
 }

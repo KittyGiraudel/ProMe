@@ -1,6 +1,17 @@
 'use client'
 
-import { Button, Card, Form, Input, InputNumber, Space, Typography } from 'antd'
+import { QuestionCircleOutlined } from '@ant-design/icons'
+import {
+  Button,
+  Card,
+  Divider,
+  Form,
+  Input,
+  InputNumber,
+  Space,
+  Tooltip,
+  Typography,
+} from 'antd'
 import { copy } from '@/messages/fr'
 import { randomId } from '@/lib/playerCharacter/model'
 
@@ -10,22 +21,25 @@ export function InventoryCard({ inventoryLimit }: { inventoryLimit: number }) {
       {(fields, { add, remove }) => (
         <>
           <Card
-            title={copy.playerCharacters.inventorySection}
-            extra={
-              <Button
-                size='small'
-                onClick={() =>
-                  add({
-                    id: randomId(),
-                    label: '',
-                    quantity: 1,
-                    note: '',
-                  })
-                }
-                disabled={fields.length >= inventoryLimit}
-                htmlType='button'>
-                {copy.playerCharacters.addItem}
-              </Button>
+            title={
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                }}>
+                <span>{copy.playerCharacters.inventorySection}</span>
+                <Tooltip title={copy.playerCharacters.inventoryFootnote}>
+                  <Button
+                    type='text'
+                    size='small'
+                    htmlType='button'
+                    icon={<QuestionCircleOutlined />}
+                    aria-label='Informations du livre de règles'
+                  />
+                </Tooltip>
+              </div>
             }>
             <Space orientation='vertical' style={{ width: '100%' }}>
               <Typography.Text
@@ -81,12 +95,28 @@ export function InventoryCard({ inventoryLimit }: { inventoryLimit: number }) {
                 </div>
               ))}
             </Space>
+            <Divider />
+            <Space
+              wrap
+              align='end'
+              style={{ width: '100%' }}
+              orientation='vertical'>
+              <Button
+                type='dashed'
+                onClick={() =>
+                  add({
+                    id: randomId(),
+                    label: '',
+                    quantity: 1,
+                    note: '',
+                  })
+                }
+                disabled={fields.length >= inventoryLimit}
+                htmlType='button'>
+                {copy.playerCharacters.addItem}
+              </Button>
+            </Space>
           </Card>
-          <Typography.Text
-            type='secondary'
-            className='generator-rulebook-footnote character-sheet-rulebook-footnote'>
-            {copy.playerCharacters.inventoryFootnote}
-          </Typography.Text>
         </>
       )}
     </Form.List>

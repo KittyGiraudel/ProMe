@@ -176,9 +176,9 @@ export const copy = {
     spellbookStatus(count: number): string {
       return `Sorts : ${count} / 6`;
     },
-    inventoryFootnote: "Livre de règles — Les autres valeurs du jeu → L’inventaire : p. 8.",
-    spellbookFootnote: "Livre de règles — La Magie : p. 14.",
-    characteristicsFootnote: "Livre de règles — Les Attributs de votre Protecteur : p. 7–8.",
+    inventoryFootnote: "Livre de règles : Les autres valeurs du jeu → L’inventaire : p. 8.",
+    spellbookFootnote: "Livre de règles : La Magie : p. 14.",
+    characteristicsFootnote: "Livre de règles : Les Attributs de votre Protecteur : p. 7–8.",
   },
   genders: {
     man: "♂ Homme",
@@ -254,9 +254,9 @@ export const copy = {
       return `p. ${page}`;
     },
     villageFootnote:
-      "Livre de règles — Les villages : p. 42. Table « Établissement » : p. 43.",
+      "Livre de règles : Les villages : p. 42. Table « Établissement » : p. 43.",
     inhabitantFootnote:
-      "Livre de règles — Les habitants : p. 56–58. Table des noms : p. 60.",
+      "Livre de règles : Les habitants : p. 56–58. Table des noms : p. 60.",
   },
   game: {
     inhabitantContextByRank: {
