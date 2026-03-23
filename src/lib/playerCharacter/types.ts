@@ -28,6 +28,10 @@ export type SpellEntry = {
   note?: string
 }
 
+export type CharacterClock = {
+  position: number
+}
+
 export type PlayerCharacter = {
   id: string
   schemaVersion: typeof PLAYER_CHARACTER_SCHEMA_VERSION
@@ -42,6 +46,7 @@ export type PlayerCharacter = {
   health: StatPool
   courage: StatPool
   stamina: StatPool
+  clock: CharacterClock
   inventory: InventoryItem[]
   spellbook: SpellEntry[]
   notes: string

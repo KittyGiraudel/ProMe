@@ -6,11 +6,16 @@ import { useRouter } from 'next/navigation'
 import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { useNavigationBlocker } from '@/app/contexts/NavigationBlockerContext'
-import { getDefaultPoolsForArchetype } from '@/lib/playerCharacter/model'
+import {
+  computeClockTotalSegmentsFromStamina,
+  getDefaultPoolsForArchetype,
+  remapClockPositionForTotalSegments,
+} from '@/lib/playerCharacter/model'
 import { loadDraft, clearDraft } from '@/lib/playerCharacter/draftStorage'
 import { getCharacterStore } from '@/lib/playerCharacter/store'
 import { stringifyPlayerCharacters } from '@/lib/playerCharacter/store/migrations'
 import type {
+  CharacterClock,
   InventoryItem,
   PlayerArchetype,
   PlayerCharacter,
@@ -21,6 +26,7 @@ import type { Gender } from '@/lib/types'
 import { copy } from '@/messages/fr'
 import { IdentityCard } from '@/components/CharacterSheet/IdentityCard'
 import { CharacteristicsCard } from '@/components/CharacterSheet/CharacteristicsCard'
+import { ClockCard } from '@/components/ClockCard/ClockCard'
 import { InventoryCard } from '@/components/CharacterSheet/InventoryCard'
 import { SpellbookCard } from '@/components/CharacterSheet/SpellbookCard'
 import { NotesCard } from '@/components/CharacterSheet/NotesCard'
@@ -68,6 +74,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     health: StatPool
     courage: StatPool
     stamina: StatPool
+    clock: CharacterClock
     inventory: InventoryItem[]
     spellbook: SpellEntry[]
     notes: string
@@ -86,6 +93,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     health: pc.health,
     courage: pc.courage,
     stamina: pc.stamina,
+    clock: pc.clock,
     inventory: pc.inventory,
     spellbook: pc.spellbook,
     notes: pc.notes,
@@ -101,6 +109,9 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
   const watchedStaminaRaw = Form.useWatch('stamina', form) as
     | StatPool
     | undefined
+  const watchedClockRaw = Form.useWatch('clock', form) as
+    | CharacterClock
+    | undefined
   const watchedHealthRaw = Form.useWatch('health', form) as StatPool | undefined
   const watchedCourageRaw = Form.useWatch('courage', form) as
     | StatPool
@@ -110,6 +121,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     watchedArchetypeRaw ?? character?.archetype ?? fallbackArchetype
   const watchedStamina =
     watchedStaminaRaw ?? character?.stamina ?? fallbackStatPool
+  const watchedClock = watchedClockRaw ?? character?.clock ?? { position: 0 }
   const watchedHealth =
     watchedHealthRaw ?? character?.health ?? fallbackStatPool
   const watchedCourage =
@@ -117,8 +129,12 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
 
   const inventoryCap = Math.max(0, watchedStamina?.current ?? 0) * 6
   const inventoryLimit = Math.min(30, inventoryCap)
+  const clockTotalSegments = computeClockTotalSegmentsFromStamina(
+    watchedStamina.current
+  )
 
   const prevArchetypeRef = useRef<PlayerArchetype | null>(null)
+  const prevClockTotalSegmentsRef = useRef<number | null>(null)
   const leaveConfirmingRef = useRef(false)
   const interceptionReadyRef = useRef(false)
   const stableUrlRef = useRef<string>('')
@@ -151,6 +167,33 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     })
     prevArchetypeRef.current = watchedArchetype
   }, [watchedArchetype, sheetCharacterId, form])
+
+  useEffect(() => {
+    if (!sheetCharacterId) return
+    const staminaCurrent = form.getFieldValue(['stamina', 'current']) as
+      | number
+      | undefined
+    prevClockTotalSegmentsRef.current = computeClockTotalSegmentsFromStamina(
+      staminaCurrent ?? 0
+    )
+  }, [sheetCharacterId, form])
+
+  useEffect(() => {
+    if (!sheetCharacterId) return
+    const previous = prevClockTotalSegmentsRef.current
+    if (previous === null) {
+      prevClockTotalSegmentsRef.current = clockTotalSegments
+      return
+    }
+    if (previous === clockTotalSegments) return
+    const remapped = remapClockPositionForTotalSegments(
+      watchedClock.position,
+      previous,
+      clockTotalSegments
+    )
+    form.setFieldValue(['clock', 'position'], remapped)
+    prevClockTotalSegmentsRef.current = clockTotalSegments
+  }, [sheetCharacterId, clockTotalSegments, watchedClock.position, form])
 
   useEffect(() => {
     if (healthCurrent == null || healthMax == null) return
@@ -390,6 +433,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
 
           <IdentityCard isArchetypeReadonly />
           <CharacteristicsCard />
+          <ClockCard />
           <InventoryCard inventoryLimit={inventoryLimit} />
           <SpellbookCard />
           <NotesCard />

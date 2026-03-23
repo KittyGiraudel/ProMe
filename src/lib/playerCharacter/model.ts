@@ -1,5 +1,6 @@
 import {
   PLAYER_CHARACTER_SCHEMA_VERSION,
+  type CharacterClock,
   type CharacterImportMode,
   type InventoryItem,
   type PlayerCharacter,
@@ -64,6 +65,50 @@ function normalizeSpellEntry(value: unknown): SpellEntry | null {
   }
 }
 
+export function computeClockSegmentsPerHalfFromStamina(
+  staminaCurrent: number,
+): number {
+  return Math.max(1, Math.trunc(staminaCurrent))
+}
+
+export function computeClockTotalSegmentsFromStamina(
+  staminaCurrent: number,
+): number {
+  return computeClockSegmentsPerHalfFromStamina(staminaCurrent) * 2
+}
+
+function normalizeClockPosition(position: unknown, totalSegments: number): number {
+  const asInteger = asInt(position, 0)
+  if (totalSegments <= 0) return 0
+  if (asInteger < 0) return 0
+  if (asInteger >= totalSegments) return totalSegments - 1
+  return asInteger
+}
+
+export function remapClockPositionForTotalSegments(
+  position: number,
+  fromTotalSegments: number,
+  toTotalSegments: number,
+): number {
+  if (toTotalSegments <= 0) return 0
+  if (fromTotalSegments <= 0) return normalizeClockPosition(position, toTotalSegments)
+  const normalizedFrom = normalizeClockPosition(position, fromTotalSegments)
+  const ratio = normalizedFrom / fromTotalSegments
+  const remapped = Math.floor(ratio * toTotalSegments)
+  return normalizeClockPosition(remapped, toTotalSegments)
+}
+
+export function normalizeCharacterClock(
+  value: unknown,
+  staminaCurrent: number,
+): CharacterClock {
+  const source = value as Partial<CharacterClock> | undefined
+  const totalSegments = computeClockTotalSegmentsFromStamina(staminaCurrent)
+  return {
+    position: normalizeClockPosition(source?.position, totalSegments),
+  }
+}
+
 function defaultPoolsForArchetype(archetype: PlayerArchetype): {
   health: StatPool
   courage: StatPool
@@ -117,6 +162,7 @@ export function createDefaultPlayerCharacterInput(
     health: pools.health,
     courage: pools.courage,
     stamina: pools.stamina,
+    clock: { position: 0 },
     inventory: [],
     spellbook: [],
     notes: '',
@@ -144,6 +190,11 @@ export function normalizePlayerCharacterInput(
         .slice(0, MAX_SPELLBOOK_ITEMS)
     : base.spellbook
 
+  const stamina = normalizeStatPool(
+    source.stamina,
+    base.stamina.max,
+  )
+
   return {
     name: typeof source.name === 'string' ? source.name : base.name,
     archetype: normalizeArchetype(source.archetype, base.archetype),
@@ -162,10 +213,8 @@ export function normalizePlayerCharacterInput(
       base.health.max,
     ),
     courage: normalizeStatPool(source.courage, base.courage.max),
-    stamina: normalizeStatPool(
-      source.stamina,
-      base.stamina.max,
-    ),
+    stamina,
+    clock: normalizeCharacterClock(source.clock, stamina.current),
     inventory,
     spellbook,
     notes: typeof source.notes === 'string' ? source.notes : base.notes,
@@ -246,6 +295,11 @@ export function validatePlayerCharacterForPersistence(
     errors.push('courage.current <= courage.max')
   if (character.stamina.current > character.stamina.max)
     errors.push('stamina.current <= stamina.max')
+
+  const totalSegments = computeClockTotalSegmentsFromStamina(character.stamina.current)
+  if (character.clock.position < 0 || character.clock.position >= totalSegments) {
+    errors.push(`clock.position must be between 0 and ${totalSegments - 1}`)
+  }
 
   for (const [idx, item] of character.inventory.entries()) {
     if (!item.label.trim()) {

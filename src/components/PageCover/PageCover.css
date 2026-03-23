@@ -1,10 +1,10 @@
 .page-cover {
   flex-shrink: 0;
   width: 100%;
-  height: clamp(132px, 26vw, 248px);
+  height: clamp(132px, 26vw, 200px);
   background-color: #c8e0d4;
   background-image: url('/images/page-cover.svg');
-  background-position: center 42%;
+  background-position: bottom 10% center ;
   background-size: cover;
   background-repeat: no-repeat;
   border-bottom: 1px solid color-mix(in srgb, var(--lsdp-border) 85%, transparent);

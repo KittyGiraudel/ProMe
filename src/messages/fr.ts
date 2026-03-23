@@ -206,9 +206,30 @@ export const copy = {
     spellbookStatus(count: number): string {
       return `Sorts : ${count} / 6`;
     },
-    inventoryFootnote: "Livre de règles : Les autres valeurs du jeu → L’inventaire : p. 8.",
-    spellbookFootnote: "Livre de règles : La Magie : p. 14.",
-    characteristicsFootnote: "Livre de règles : Les Attributs de votre Protecteur : p. 7–8.",
+    inventoryFootnote: "Livre de règles — Les autres valeurs du jeu → L’inventaire : p. 8.",
+    spellbookFootnote: "Livre de règles — La Magie : p. 14.",
+    characteristicsFootnote: "Livre de règles — Les Attributs de votre Protecteur : p. 7–8.",
+    clockSection: "Horloge",
+    clockHelp:
+      "L’Horloge suit le temps et l’appétit. Elle est divisée selon votre Endurance actuelle.",
+    clockTooltip:
+      "L’Horloge est divisée en deux moitiés : Jour et Nuit.\nChaque moitié contient autant de tranches que votre Endurance actuelle.\nÀ chaque entrée dans un hexagone, avancez d’une tranche. Si votre Endurance change, l’Horloge doit être réorganisée.",
+    clockFootnote:
+      "Livre de règles — L’Horloge (exploration, Jour/Nuit, Endurance) : p. 10–11.",
+    clockDay: "Jour",
+    clockNight: "Nuit",
+    clockAdvance: "Avancer d’une tranche",
+    clockBack: "Revenir d’une tranche",
+    clockPhaseShiftTitle(nextPhase: string) {
+      if (nextPhase === 'Jour') return `Levée du jour`
+       else return `Tombée de la nuit`
+    },
+    clockPhaseShiftDescription(slice: string): string {
+        return `N’oubliez pas de consommer de la nourriture pour ne pas avoir faim.\n${slice}`
+    },
+    clockSlice(position: number, total: number): string {
+      return `Tranche : ${position} / ${total}`;
+    },
   },
   genders: {
     man: "♂ Homme",
@@ -284,9 +305,9 @@ export const copy = {
       return `p. ${page}`;
     },
     villageFootnote:
-      "Livre de règles : Les villages : p. 42. Table « Établissement » : p. 43.",
+      "Livre de règles — Les villages : p. 42. Table « Établissement » : p. 43.",
     inhabitantFootnote:
-      "Livre de règles : Les habitants : p. 56–58. Table des noms : p. 60.",
+      "Livre de règles — Les habitants : p. 56–58. Table des noms : p. 60.",
   },
   game: {
     inhabitantContextByRank: {
