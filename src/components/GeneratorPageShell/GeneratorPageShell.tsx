@@ -1,7 +1,9 @@
 'use client'
 
-import { Typography } from 'antd'
+import { Breadcrumb, Typography } from 'antd'
+import type { BreadcrumbProps } from 'antd'
 import type { ReactNode } from 'react'
+import { useMemo } from 'react'
 import { copy } from '@/messages/fr'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import './GeneratorPageShell.css'
@@ -24,31 +26,56 @@ export function GeneratorPageShell({
   villageBackHref,
   children,
 }: GeneratorPageShellProps) {
-  const homeHref = backHref ?? '/'
+  const breadcrumbItems = useMemo<BreadcrumbProps['items']>(() => {
+    const items: NonNullable<BreadcrumbProps['items']> = []
+
+    if (villageBackHref) {
+      items.push({
+        title: (
+          <BlockedLink
+            href='/'
+            className='generator-page-shell__breadcrumb-link'>
+            {copy.nav.homeLink}
+          </BlockedLink>
+        ),
+      })
+      items.push({
+        title: (
+          <BlockedLink
+            href={villageBackHref}
+            className='generator-page-shell__breadcrumb-link'>
+            {copy.nav.backToVillage.replace(/^←\s*/, '')}
+          </BlockedLink>
+        ),
+      })
+    } else if (backHref) {
+      const label =
+        backHref === '/' ? copy.nav.homeLink : (backLabel ?? copy.nav.backHome)
+      items.push({
+        title: (
+          <BlockedLink
+            href={backHref}
+            className='generator-page-shell__breadcrumb-link'>
+            {label.replace(/^←\s*/, '')}
+          </BlockedLink>
+        ),
+      })
+    }
+
+    items.push({
+      title: <span>{title}</span>,
+    })
+    return items
+  }, [backHref, backLabel, title, villageBackHref])
+
   return (
     <div className='generator-page-shell'>
       <div className='generator-page-shell__inner'>
-        {villageBackHref ? (
-          <nav
-            className='generator-page-shell__back-row'
-            aria-label={copy.a11y.generatorBreadcrumb}>
-            <BlockedLink
-              href={villageBackHref}
-              className='generator-page-shell__back'>
-              {copy.nav.backToVillage}
-            </BlockedLink>
-            <span className='generator-page-shell__back-sep' aria-hidden='true'>
-              {copy.nav.navMid}
-            </span>
-            <BlockedLink href={homeHref} className='generator-page-shell__back'>
-              {copy.nav.homeLink}
-            </BlockedLink>
-          </nav>
-        ) : backHref ? (
-          <BlockedLink href={backHref} className='generator-page-shell__back'>
-            {backLabel ?? '←'}
-          </BlockedLink>
-        ) : null}
+        <Breadcrumb
+          className='generator-page-shell__breadcrumb'
+          aria-label={copy.a11y.generatorBreadcrumb}
+          items={breadcrumbItems}
+        />
         <Typography.Title level={2} className='generator-page-shell__title'>
           {title}
         </Typography.Title>

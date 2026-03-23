@@ -52,3 +52,9 @@ a {
   line-height: 1.45;
   color: var(--lsdp-muted);
 }
+
+/* Tighten card-to-note spacing in character sheets only. */
+.character-sheet-rulebook-footnote {
+  margin-top: 0.25rem;
+  text-align: end;
+}
