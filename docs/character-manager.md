@@ -265,7 +265,8 @@ Draft mode currently renders only `IdentityCard` plus cancel/save actions.
 4. **Exposing replace import in UI**
    - library currently hardcodes `'upsert'`; add user choice before calling `store.importAll`.
 5. **Tests**
-   - if/when a test runner is added, prioritize:
+   - existing scripts are `test` (Vitest), `test:coverage`, and `test:e2e` (Playwright).
+   - prioritize:
      - normalization idempotence,
      - save validation errors,
      - import merge counts,

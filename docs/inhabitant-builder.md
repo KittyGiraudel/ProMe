@@ -100,22 +100,22 @@ flowchart LR
   summary --> gen
 ```
 
-| Path                                                                              | Role                                                                                                                                           |
-| --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `src/lib/inhabitant/generate.ts`                                              | `InhabitantRoll`, `generateInhabitant`, `rerollInhabitantPart`, context follow-ups, `getAgeBand` / `getPersonality`, `mapKindFromContextSevenDie` |
-| `src/lib/inhabitant/maps.ts`                                                  | Deterministic mappings D6/card → race, gender, age band, personality                                                                           |
-| `src/lib/inhabitant/genderSymbols.ts`                                         | `genderCompactSymbol` for one-line / owner summaries (matches `copy.genders` prefixes)                                                         |
-| `src/messages/fr.ts` (`copy.game.inhabitantContextByRank`, export `contextByRank`) | Context paragraphs by rank                                                                                                                     |
-| `src/lib/inhabitant/data/namesByRace.ts`                                      | `namesByRace` grids + `lookupName`                                                                                                             |
-| `src/lib/inhabitant/inhabitantUrlCodec.ts`                                     | `encodeInhabitantRoll` / `decodeInhabitantRollParam` for query param `i`                                                                         |
-| `src/lib/rng.ts`                                                             | `rollD6`, `roll2D6`, `randomCard`, `randomInt` — all generation goes through an injectable `rng: () => number` (default `Math.random`)         |
-| `src/lib/playingCardCodec.ts`                                                | Shared 2-char card encoding (suit letter + rank code, `T` for ten)                                                                             |
-| `src/lib/types.ts`                                                           | `Race`, `Suit`, `Rank`, `PlayingCard`, `Gender`, etc.                                                                                          |
-| `src/app/generators/inhabitant/InhabitantGeneratorClient.tsx`                       | URL sync, roll-all, reroll callbacks, copy one-liner                                                                                           |
-| `src/app/generators/inhabitant/page.tsx`                                           | Server wrapper + `Suspense` (required for `useSearchParams` on static routes)                                                                  |
-| `src/components/InhabitantSummary/InhabitantSummary.tsx`                            | Descriptions + per-field reroll + context follow-up UI; footnote uses `copy.rulebook.inhabitantFootnote`                                               |
-| `src/lib/rulebookPages.ts`                                                   | `RULEBOOK_PAGES` (inhabitant + village, incl. establishment detail pages) + `establishmentDetailRulebookPage`                                   |
-| `src/messages/fr.ts` / `formatCopy.ts`                                            | `copy` + `formatInhabitantCopyOneLiner`                                                                                                         |
+| Path                                                                               | Role                                                                                                                                              |
+| ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/lib/inhabitant/generate.ts`                                                   | `InhabitantRoll`, `generateInhabitant`, `rerollInhabitantPart`, context follow-ups, `getAgeBand` / `getPersonality`, `mapKindFromContextSevenDie` |
+| `src/lib/inhabitant/maps.ts`                                                       | Deterministic mappings D6/card → race, gender, age band, personality                                                                              |
+| `src/lib/inhabitant/genderSymbols.ts`                                              | `genderCompactSymbol` for one-line / owner summaries (matches `copy.genders` prefixes)                                                            |
+| `src/messages/fr.ts` (`copy.game.inhabitantContextByRank`, export `contextByRank`) | Context paragraphs by rank                                                                                                                        |
+| `src/lib/inhabitant/data/namesByRace.ts`                                           | `namesByRace` grids + `lookupName`                                                                                                                |
+| `src/lib/inhabitant/inhabitantUrlCodec.ts`                                         | `encodeInhabitantRoll` / `decodeInhabitantRollParam` for query param `i`                                                                          |
+| `src/lib/rng.ts`                                                                   | `rollD6`, `roll2D6`, `randomCard`, `randomInt` — all generation goes through an injectable `rng: () => number` (default `Math.random`)            |
+| `src/lib/playingCardCodec.ts`                                                      | Shared 2-char card encoding (suit letter + rank code, `T` for ten)                                                                                |
+| `src/lib/types.ts`                                                                 | `Race`, `Suit`, `Rank`, `PlayingCard`, `Gender`, etc.                                                                                             |
+| `src/app/generators/inhabitant/InhabitantGeneratorClient.tsx`                      | URL sync, roll-all, reroll callbacks, copy one-liner                                                                                              |
+| `src/app/generators/inhabitant/page.tsx`                                           | Server wrapper + `Suspense` (required for `useSearchParams` on static routes)                                                                     |
+| `src/components/InhabitantSummary/InhabitantSummary.tsx`                           | Descriptions + per-field reroll + context follow-up UI; footnote uses `copy.rulebook.inhabitantFootnote`                                          |
+| `src/lib/rulebookPages.ts`                                                         | `RULEBOOK_PAGES` (inhabitant + village, incl. establishment detail pages) + `establishmentDetailRulebookPage`                                     |
+| `src/messages/fr.ts` / `formatCopy.ts`                                             | `copy` + `formatInhabitantCopyOneLiner`                                                                                                           |
 
 ### 3.2 `InhabitantRoll` shape
 
@@ -214,7 +214,7 @@ Primary “generate all” plus optional copy-one-liner when a roll exists.
 ## 6. Internationalization
 
 - **`copy`** holds all generator UI strings (`messages/fr.ts`).
-- **`en`** exists as a stub for future use.
+- there is currently no `en` locale file in `src/messages/`; French is the active locale.
 - Card **display** uses `PlayingCardLabel` (`copy.ranks` / `copy.suits`); aria text via `playingCardAriaLabel` in `messages/fr.ts` (« {rang} de {couleur} »).
 - **`formatInhabitantCopyOneLiner`** lives in `messages/formatCopy.ts` but takes a `InhabitantRoll`; keep it in sync if you add fields to the summary line.
 
@@ -225,21 +225,21 @@ Primary “generate all” plus optional copy-one-liner when a roll exists.
 1. **New race or D6 range change** — Update `raceFromD6`, `namesByRace`, and `copy.races`.
 2. **New context rank** — Extend `contextByRank` (all `Rank` keys must exist) and, if the book adds extra rolls, extend `rollContextFollowups` + `InhabitantRoll` + codec + UI like rank 7/10.
 3. **URL version bump** — Today there is no explicit version prefix; a future v2 format should either use a new query key or a prefixed scheme and keep `decodeInhabitantRollParam` accepting old values if you still need old links.
-4. **Tests** — There is no test runner in `package.json` yet; if you add one, prioritize round-trip tests: `decode(encode(roll))` equals roll for representative cases (all context ranks, with/without tails).
+4. **Tests** — existing scripts are `test` (Vitest), `test:coverage`, and `test:e2e` (Playwright). Prioritize round-trip tests: `decode(encode(roll))` equals roll for representative cases (all context ranks, with/without tails).
 
 ---
 
 ## 8. Quick reference — file → responsibility
 
-| Question                               | Where to look                                         |
-| -------------------------------------- | ----------------------------------------------------- |
+| Question                               | Where to look                                          |
+| -------------------------------------- | ------------------------------------------------------ |
 | How is a full inhabitant rolled?       | `generateInhabitant`                                   |
-| What does one D6 mean for type/gender? | `maps.ts`                                             |
+| What does one D6 mean for type/gender? | `maps.ts`                                              |
 | What text appears for context rank X?  | `messages/fr.ts` → `copy.game.inhabitantContextByRank` |
-| How are names chosen?                  | `data/namesByRace.ts` + `lookupName`                  |
+| How are names chosen?                  | `data/namesByRace.ts` + `lookupName`                   |
 | How do I bookmark/share?               | `?i=` + `inhabitantUrlCodec.ts`                        |
 | How does reroll preserve consistency?  | `rerollInhabitantPart`                                 |
-| Why Suspense on the page?              | Next.js + `useSearchParams` static prerender          |
+| Why Suspense on the page?              | Next.js + `useSearchParams` static prerender           |
 
 ---
 
