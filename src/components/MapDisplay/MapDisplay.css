@@ -205,6 +205,15 @@
   min-width: 220px;
 }
 
+/**
+ * Dropdown menus use prefix ant-dropdown-menu (not ant-menu). With selectable +
+ * selectedKeys on biome children, the parent gets *-submenu-selected and primary
+ * color on the title — reset to normal item text. !important beats injected menu styles.
+ */
+.Map__DropdownOverlay .ant-dropdown-menu-submenu-selected > .ant-dropdown-menu-submenu-title {
+  color: var(--ant-color-text) !important;
+}
+
 .Map__BiomeMenuItem {
   display: inline-flex;
   align-items: center;
