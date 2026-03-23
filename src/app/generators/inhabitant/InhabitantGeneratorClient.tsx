@@ -20,22 +20,25 @@ import { copy } from '@/messages/fr'
 import { formatInhabitantCopyOneLiner } from '@/messages/formatCopy'
 
 const INHABITANT_QUERY_KEY = 'i'
+const VILLAGE_QUERY_KEY = 'v'
+const OWNERS_QUERY_KEY = 'o'
+const RACE_QUERY_KEY = 'race'
 
 export function InhabitantGeneratorClient() {
   const { message } = App.useApp()
   const { replaceSearchParams, pathname, searchParams } =
     useReplaceSearchParams()
   const encoded = searchParams.get(INHABITANT_QUERY_KEY)
-  const villageV = searchParams.get('v')
-  const villageO = searchParams.get('o')
-  const villageRaceParam = searchParams.get('race')
+  const villageV = searchParams.get(VILLAGE_QUERY_KEY)
+  const villageO = searchParams.get(OWNERS_QUERY_KEY)
+  const villageRaceParam = searchParams.get(RACE_QUERY_KEY)
 
   const villageBackHref = useMemo(() => {
     if (!villageV || !villageO) return undefined
     const p = new URLSearchParams()
-    p.set('v', villageV)
-    p.set('o', villageO)
-    if (villageRaceParam) p.set('race', villageRaceParam)
+    p.set(VILLAGE_QUERY_KEY, villageV)
+    p.set(OWNERS_QUERY_KEY, villageO)
+    if (villageRaceParam) p.set(RACE_QUERY_KEY, villageRaceParam)
     return `/generators/village?${p.toString()}`
   }, [villageO, villageRaceParam, villageV])
 

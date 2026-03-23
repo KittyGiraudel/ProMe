@@ -117,6 +117,11 @@ export const copy = {
     saveSuccess: "Fiche sauvegardée.",
     delete: "Supprimer",
     cancel: "Annuler",
+    unsavedChangesTitle: "Modifications non sauvegardées",
+    unsavedChangesDescription:
+      "Vous avez des changements qui ne sont pas sauvegardés. Si vous quittez maintenant, ils seront perdus.",
+    unsavedChangesLeave: "Quitter sans sauvegarder",
+    unsavedChangesStay: "Annuler",
     deleteConfirmTitle: "Supprimer ce personnage ?",
     deleteConfirmDescription: "Cette action est locale et irréversible.",
     deleteSuccess: "Personnage supprimé.",

@@ -2,8 +2,8 @@
 
 import { Card, Typography } from 'antd'
 import { HomeQuickTools } from '@/components/HomeQuickTools/HomeQuickTools'
-import Link from 'next/link'
 import { copy } from '@/messages/fr'
+import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import './HomeHub.css'
 
 const generators = [
@@ -37,7 +37,7 @@ export function HomeHub() {
       <ul className='home-hub__list'>
         {generators.map(g => (
           <li key={g.href} className='home-hub__item'>
-            <Link href={g.href} className='home-hub__card'>
+            <BlockedLink href={g.href} className='home-hub__card'>
               <Card
                 hoverable
                 className='home-hub__card'
@@ -45,7 +45,7 @@ export function HomeHub() {
                 extra={<span className='home-hub__cta'>{copy.hub.open}</span>}>
                 <p className='home-hub__card-text'>{g.description}</p>
               </Card>
-            </Link>
+            </BlockedLink>
           </li>
         ))}
       </ul>

@@ -1,9 +1,9 @@
 'use client'
 
 import { Typography } from 'antd'
-import Link from 'next/link'
 import type { ReactNode } from 'react'
 import { copy } from '@/messages/fr'
+import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import './GeneratorPageShell.css'
 
 type GeneratorPageShellProps = {
@@ -32,20 +32,22 @@ export function GeneratorPageShell({
           <nav
             className='generator-page-shell__back-row'
             aria-label={copy.a11y.generatorBreadcrumb}>
-            <Link href={villageBackHref} className='generator-page-shell__back'>
+            <BlockedLink
+              href={villageBackHref}
+              className='generator-page-shell__back'>
               {copy.nav.backToVillage}
-            </Link>
+            </BlockedLink>
             <span className='generator-page-shell__back-sep' aria-hidden='true'>
               {copy.nav.navMid}
             </span>
-            <Link href={homeHref} className='generator-page-shell__back'>
+            <BlockedLink href={homeHref} className='generator-page-shell__back'>
               {copy.nav.homeLink}
-            </Link>
+            </BlockedLink>
           </nav>
         ) : backHref ? (
-          <Link href={backHref} className='generator-page-shell__back'>
+          <BlockedLink href={backHref} className='generator-page-shell__back'>
             {backLabel ?? '←'}
-          </Link>
+          </BlockedLink>
         ) : null}
         <Typography.Title level={2} className='generator-page-shell__title'>
           {title}

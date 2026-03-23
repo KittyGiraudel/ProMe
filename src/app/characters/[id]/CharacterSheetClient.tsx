@@ -1,10 +1,11 @@
 'use client'
 
 import { Alert, App, Button, Divider, Form, Space, Typography } from 'antd'
-import Link from 'next/link'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { GeneratorPageShell } from '@/components/GeneratorPageShell/GeneratorPageShell'
+import { BlockedLink } from '@/components/Navigation/BlockedLink'
+import { useNavigationBlocker } from '@/app/contexts/NavigationBlockerContext'
 import { getDefaultPoolsForArchetype } from '@/lib/playerCharacter/model'
 import { loadDraft, clearDraft } from '@/lib/playerCharacter/draftStorage'
 import { getCharacterStore } from '@/lib/playerCharacter/store'
@@ -24,9 +25,10 @@ import { SpellbookCard } from '@/components/CharacterSheet/SpellbookCard'
 import { NotesCard } from '@/components/CharacterSheet/NotesCard'
 
 export function CharacterSheetClient({ characterId }: { characterId: string }) {
-  const { message } = App.useApp()
+  const { message, modal } = App.useApp()
   const store = useMemo(() => getCharacterStore(), [])
   const router = useRouter()
+  const { setHandler } = useNavigationBlocker()
 
   const [sheetState, setSheetState] = useState<{
     character: PlayerCharacter | null
@@ -116,6 +118,9 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
   const inventoryLimit = Math.min(30, inventoryCap)
 
   const prevArchetypeRef = useRef<PlayerArchetype | null>(null)
+  const leaveConfirmingRef = useRef(false)
+  const interceptionReadyRef = useRef(false)
+  const stableUrlRef = useRef<string>('')
 
   const sheetCharacterId = character?.id
   const characterArchetype = character?.archetype
@@ -164,10 +169,94 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     form.setFieldValue(['stamina', 'current'], staminaMax)
   }, [staminaCurrent, staminaMax, form])
 
+  const attemptLeave = useCallback(
+    (onLeave: () => void, onStay?: () => void) => {
+      const hasUnsavedChanges =
+        interceptionReadyRef.current && form.isFieldsTouched()
+      if (!hasUnsavedChanges) {
+        onLeave()
+        return
+      }
+
+      if (leaveConfirmingRef.current) return
+      leaveConfirmingRef.current = true
+
+      modal.confirm({
+        title: copy.playerCharacters.unsavedChangesTitle,
+        content: copy.playerCharacters.unsavedChangesDescription,
+        okText: copy.playerCharacters.unsavedChangesLeave,
+        cancelText: copy.playerCharacters.unsavedChangesStay,
+        onOk: () => {
+          leaveConfirmingRef.current = false
+          onLeave()
+        },
+        onCancel: () => {
+          leaveConfirmingRef.current = false
+          onStay?.()
+        },
+      })
+    },
+    [form, modal]
+  )
+
+  useEffect(() => {
+    setHandler(() => (navigate: () => void) => {
+      attemptLeave(navigate)
+    })
+    return () => setHandler(null)
+  }, [attemptLeave, setHandler])
+
+  useEffect(() => {
+    const onBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (!interceptionReadyRef.current) return
+      if (!form.isFieldsTouched()) return
+      e.preventDefault()
+      e.returnValue = ''
+    }
+
+    window.addEventListener('beforeunload', onBeforeUnload)
+    return () => window.removeEventListener('beforeunload', onBeforeUnload)
+  }, [form])
+
+  // Mark when the form is "settled" so we don't prompt during initial hydration/setup.
+  useEffect(() => {
+    interceptionReadyRef.current = false
+    leaveConfirmingRef.current = false
+    stableUrlRef.current =
+      window.location.pathname + window.location.search + window.location.hash
+    const t = window.setTimeout(() => {
+      interceptionReadyRef.current = true
+    }, 0)
+    return () => window.clearTimeout(t)
+  }, [characterId, mode, character?.updatedAt])
+
+  useEffect(() => {
+    const onPopState = () => {
+      if (!interceptionReadyRef.current) return
+      if (!form.isFieldsTouched()) return
+      if (leaveConfirmingRef.current) return
+
+      attemptLeave(
+        () => {
+          // Navigation already happened; if user confirms we do nothing.
+        },
+        () => {
+          // Navigation was cancelled; revert URL back.
+          history.pushState(null, '', stableUrlRef.current)
+        }
+      )
+    }
+
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
+  }, [form, attemptLeave])
+
   const handleCancel = () => {
     if (mode !== 'draft') return
-    clearDraft(characterId)
-    router.push('/characters')
+    attemptLeave(() => {
+      clearDraft(characterId)
+      router.push('/characters')
+    })
   }
 
   const handleFinish = (values: SheetFormValues) => {
@@ -211,9 +300,9 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
               <Typography.Text>
                 {copy.playerCharacters.notFoundDescription}
               </Typography.Text>
-              <Link href='/characters'>
+              <BlockedLink href='/characters'>
                 {copy.playerCharacters.backToLibrary}
-              </Link>
+              </BlockedLink>
             </Space>
           }
         />
@@ -227,7 +316,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
         title={character.name || copy.playerCharacters.unnamed}
         description={copy.playerCharacters.sheetDescription}>
         <Form
-          key={`${character.id}-${mode}`}
+          key={`${character.id}-${mode}-${character.updatedAt}`}
           form={form}
           initialValues={toFormValues(character)}
           onFinish={handleFinish}
@@ -259,7 +348,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
       backHref='/characters'
       backLabel={copy.playerCharacters.backToLibrary}>
       <Form
-        key={`${character.id}-${mode}`}
+        key={`${character.id}-${mode}-${character.updatedAt}`}
         form={form}
         initialValues={toFormValues(character)}
         onFinish={handleFinish}

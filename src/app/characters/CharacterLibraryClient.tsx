@@ -1,10 +1,10 @@
 'use client'
 
 import { App, Button, Card, Popconfirm, Space, Typography } from 'antd'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react'
 import { GeneratorPageShell } from '@/components/GeneratorPageShell/GeneratorPageShell'
+import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { getCharacterStore } from '@/lib/playerCharacter/store'
 import { saveDraft } from '@/lib/playerCharacter/draftStorage'
 import { createPlayerCharacter } from '@/lib/playerCharacter/model'
@@ -110,9 +110,9 @@ export function CharacterLibraryClient() {
               title={character.name || copy.playerCharacters.unnamed}
               extra={
                 <Space>
-                  <Link href={`/characters/${character.id}`}>
+                  <BlockedLink href={`/characters/${character.id}`}>
                     {copy.playerCharacters.open}
-                  </Link>
+                  </BlockedLink>
                   <Popconfirm
                     title={copy.playerCharacters.deleteConfirmTitle}
                     description={copy.playerCharacters.deleteConfirmDescription}

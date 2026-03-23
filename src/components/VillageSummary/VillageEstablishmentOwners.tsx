@@ -1,7 +1,6 @@
 'use client'
 
 import { RedoOutlined } from '@ant-design/icons'
-import Link from 'next/link'
 import { Button, Typography } from 'antd'
 import { encodeInhabitantRoll } from '@/lib/inhabitant/inhabitantUrlCodec'
 import {
@@ -11,6 +10,7 @@ import {
 } from '@/lib/inhabitant/generate'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 import { copy } from '@/messages/fr'
+import { BlockedLink } from '@/components/Navigation/BlockedLink'
 
 export type VillageOwnerEntry = { roll: InhabitantRoll; ownerIndex: number }
 
@@ -37,12 +37,11 @@ export function VillageEstablishmentOwners({
         <span className='village-summary__owner-main'>
           <span className='village-summary__owner-line-start'>
             {genderCompactSymbol(e.roll.gender)}{' '}
-            <Link
+            <BlockedLink
               href={inhabitantHref}
-              className='village-summary__owner-name-link'
-              aria-label={copy.village.openInInhabitantBuilder}>
+              className='village-summary__owner-name-link'>
               {e.roll.name}
-            </Link>
+            </BlockedLink>
             {` (${copy.races[e.roll.race]})`}
           </span>
           <span className='village-summary__owner-sep'>
