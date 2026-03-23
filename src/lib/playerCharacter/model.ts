@@ -12,9 +12,9 @@ import {
 const MAX_INVENTORY_ITEMS = 30
 const MAX_SPELLBOOK_ITEMS = 6
 
-const ARQUETYPE_DEFAULT_PIECES = 100
+const DEFAULT_PIECES = 100
 
-function randomId(): string {
+export function randomId(): string {
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
     return crypto.randomUUID()
   }
@@ -105,7 +105,7 @@ export function createDefaultPlayerCharacterInput(
     gender: undefined,
     honneur: 0,
     inspiration: 0,
-    pieces: ARQUETYPE_DEFAULT_PIECES,
+    pieces: DEFAULT_PIECES,
     ame: pools.ame,
     courage: pools.courage,
     endurance: pools.endurance,
