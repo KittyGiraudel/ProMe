@@ -1,6 +1,7 @@
 'use client'
 
 import { Card, Typography } from 'antd'
+import { HomeQuickTools } from '@/components/HomeQuickTools/HomeQuickTools'
 import { useRouter } from 'next/navigation'
 import { copy } from '@/messages/fr'
 import './HomeHub.css'
@@ -29,6 +30,7 @@ export function HomeHub() {
         </Typography.Title>
         <p className='home-hub__subtitle'>{copy.hub.subtitle}</p>
       </header>
+      <h2 className='home-hub__section-title'>{copy.hub.generatorsTitle}</h2>
       <ul className='home-hub__list'>
         {generators.map(g => (
           <li key={g.href} className='home-hub__item'>
@@ -51,6 +53,7 @@ export function HomeHub() {
           </li>
         ))}
       </ul>
+      <HomeQuickTools />
     </div>
   )
 }

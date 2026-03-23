@@ -18,7 +18,7 @@ export const copy = {
   },
   hub: {
     title: "Outils pour Les Souvenirs du Protecteur",
-    subtitle: "Générateurs aléatoires de personnages, villages, et plus.",
+    subtitle: "Outils et générateurs aléatoires de personnages, villages, et plus.",
     characterCardTitle: "Générateur d’habitant",
     characterCardDescription:
       "Nom, faction, âge, personnalité, contexte, genre.",
@@ -26,6 +26,16 @@ export const copy = {
     villageCardDescription:
       "Établissements, et traits du village.",
     open: "Ouvrir",
+    generatorsTitle: "Générateurs",
+    quickToolsTitle: "Outils rapides",
+    dieToolTitle: "Dé",
+    dieToolEmpty: "Aucun lancer",
+    dieToolAction: "Lancer 1D6",
+    dieToolRolling: "Lancer en cours…",
+    cardToolTitle: "Carte",
+    cardToolEmpty: "Aucune carte",
+    cardToolAction: "Tirer 1 carte",
+    cardToolDrawing: "Tirage en cours…",
   },
   character: {
     pageTitle: "Générateur d’habitant",

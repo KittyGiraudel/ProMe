@@ -21,6 +21,15 @@
   max-width: 38rem;
 }
 
+.home-hub__section-title {
+  margin: 0 0 0.75rem;
+  color: var(--lsdp-muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
 .home-hub__list {
   list-style: none;
   display: flex;
