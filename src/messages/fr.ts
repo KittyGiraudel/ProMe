@@ -28,6 +28,8 @@ export const copy = {
     playerCharacterCardTitle: "Gestionnaire de personnages",
     playerCharacterCardDescription:
       "Fiches jouables persistantes comprenant les ressources, l’inventaire, les sorts et les notes arbitraires.",
+    playerCharacterRecentTitle: "Derniers personnages",
+    playerCharacterRecentEmpty: "Aucun personnage récent.",
     open: "Ouvrir",
     generatorsTitle: "Générateurs",
     managersTitle: "Gestionnaires",
@@ -183,6 +185,13 @@ export const copy = {
       "Ils représentent votre capacité à réaliser ce que vous voulez.\nÀ chaque fois que vous avez besoin de faire quelque chose qui pourrait mal tourner — courir, sauter, vous cacher, distraire, fuir, attaquer, etc. —, vous devez utiliser votre Courage.",
     staminaTooltip:
       "Ils représentent votre capacité à continuer d’avancer.\nVos points d’Endurance déterminent la quantité d’objets que vous pouvez porter ou le temps que l’Horloge met à avancer.",
+    courageRollAria: "Lancer un test de Courage",
+    courageRollTooltip: "Lancer 1D6 pour un test de Courage",
+    courageRollSuccessTitle: "Test de Courage réussi",
+    courageRollFailureTitle: "Test de Courage échoué",
+    courageRollResult(roll: number, target: number): string {
+      return `Résultat du dé : ${roll}. Courage actuel : ${target}. ${roll <= target ? "Réussite (≤)." : "Échec (>)."}`;
+    },
     currentLabel: "Actuel",
     maxLabel: "Max",
     addItem: "Ajouter un objet",

@@ -1,7 +1,8 @@
 'use client'
 
-import { QuestionCircleOutlined } from '@ant-design/icons'
+import { QuestionCircleOutlined, RedoOutlined } from '@ant-design/icons'
 import {
+  App,
   Button,
   Card,
   Col,
@@ -19,6 +20,12 @@ type PoolKey = 'health' | 'courage' | 'stamina'
 type ResourceKey = 'honor' | 'inspiration' | 'money'
 
 export function CharacteristicsCard() {
+  const { notification } = App.useApp()
+  const form = Form.useFormInstance()
+  const courageCurrent = Form.useWatch(['courage', 'current'], form) as
+    | number
+    | undefined
+
   const resources: readonly [ResourceKey, string, string][] = [
     [
       'honor',
@@ -108,6 +115,21 @@ export function CharacteristicsCard() {
     )
   }
 
+  const handleCourageRoll = () => {
+    const target = Math.max(0, courageCurrent ?? 0)
+    const roll = Math.floor(Math.random() * 6) + 1
+    const success = roll <= target
+
+    notification[success ? 'success' : 'error']({
+      title: success
+        ? copy.playerCharacters.courageRollSuccessTitle
+        : copy.playerCharacters.courageRollFailureTitle,
+      description: copy.playerCharacters.courageRollResult(roll, target),
+      placement: 'bottomRight',
+      duration: 15,
+    })
+  }
+
   return (
     <>
       <Card
@@ -149,8 +171,27 @@ export function CharacteristicsCard() {
         <Row gutter={[16, 16]}>
           {pools.map(([poolKey, label, tooltip]) => (
             <Col xs={24} md={8} key={poolKey}>
-              <div style={{ marginBottom: 8 }}>
+              <div
+                style={{
+                  marginBottom: 8,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: 8,
+                }}>
                 {renderLabelWithHelp(label, tooltip)}
+                {poolKey === 'courage' ? (
+                  <Tooltip title={copy.playerCharacters.courageRollTooltip}>
+                    <Button
+                      type='text'
+                      size='small'
+                      htmlType='button'
+                      icon={<RedoOutlined />}
+                      aria-label={copy.playerCharacters.courageRollAria}
+                      onClick={handleCourageRoll}
+                    />
+                  </Tooltip>
+                ) : null}
               </div>
 
               <Row gutter={[8, 8]}>
