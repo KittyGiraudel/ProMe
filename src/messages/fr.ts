@@ -6,11 +6,11 @@ import type { Gender, Race, Rank, Suit } from "@/lib/types";
  * in `inhabitant/data/namesByRace.ts` (rulebook proper nouns, not localized).
  */
 export const copy = {
-  appName: "LSDP — Outils",
+  appName: "LSDP — Companion de jeu",
   metadata: {
-    title: "LSDP — Outils de jeu",
+    title: "LSDP — Companion de jeu",
     description:
-      "Companion de jeu pour Les Souvenirs du Protecteur — personnages, villages et plus.",
+      "Companion de jeu pour Les Souvenirs du Protecteur : gestionnaires, générateurs de personnages, villages et plus.",
   },
   common: {
     loading: "Chargement…",
@@ -18,7 +18,7 @@ export const copy = {
   },
   hub: {
     title: "Companion du Protecteur",
-    subtitle: "Outils, gestionnaires de personnages et générateurs aléatoires de personnages, villages, et plus.",
+    subtitle: "Ce site rassemble des outils, un gestionnaires de personnages et des générateurs aléatoires d’habitants et villages, et davantage pour accompagner une partie du jeu « Les Souvenirs du Protecteur », par Enzo Salviato.",
     inhabitantCardTitle: "Générateur d’habitant",
     inhabitantCardDescription:
       "Nom, faction, âge, personnalité, contexte, genre.",
@@ -27,7 +27,7 @@ export const copy = {
       "Établissements, et traits du village.",
     playerCharacterCardTitle: "Gestionnaire de personnages",
     playerCharacterCardDescription:
-      "Fiches jouables persistantes : ressources, jauges, inventaire et sorts.",
+      "Fiches jouables persistantes comprenant les ressources, l’inventaire, les sorts et les notes arbitraires.",
     open: "Ouvrir",
     generatorsTitle: "Générateurs",
     managersTitle: "Gestionnaires",
@@ -118,7 +118,7 @@ export const copy = {
     open: "Ouvrir",
     save: "Sauvegarder",
     saveSuccess: "Fiche sauvegardée.",
-    delete: "Supprimer",
+    delete: "Jeter",
     cancel: "Annuler",
     unsavedChangesTitle: "Modifications non sauvegardées",
     unsavedChangesDescription:
@@ -159,9 +159,21 @@ export const copy = {
     honorLabel: "Honneur",
     inspirationLabel: "Inspiration",
     moneyLabel: "Pièces",
-    healthLabel: "Âme",
-    courageLabel: "Courage",
-    staminaLabel: "Endurance",
+    honorTooltip:
+      "L’air, les cours d’eau, les créatures et les ombres perçoivent l’Honneur autour de vous. Plus votre Honneur est grand, plus vous êtes respecté.\nEn aidant les autres, en protégeant vos souvenirs et en accomplissant votre mission, vous gagnerez de l’Honneur. Mais attention, céder à la violence ou nuire à une créature vous fera perdre de l’Honneur. Les points d’Honneur peuvent être négatifs et, si c’est le cas, votre liberté d’acheter des objets ou d’entrer dans certains endroits sera limitée.",
+    inspirationTooltip:
+      "C’est votre lien avec le monde qui vous entoure.\nÀ chaque fois que vous faites preuve de créativité, que vous aidez quelqu’un ou que vous êtes heureux de la découverte que vous venez de faire, vous pouvez vous récompenser en gagnant un point d’Inspiration. Soyez bienveillant avec vous-même à chaque fois que vous contribuez à façonner le monde qui vous entoure.",
+    moneyTooltip:
+      "Elles permettent de faire du commerce, en achetant ou vendant des objets.",
+    healthLabel: "Points d’Âme",
+    courageLabel: "Points de Courage",
+    staminaLabel: "Points d’Endurance",
+    healthTooltip:
+      "Ils représentent votre force vitale.\nChaque fois que vous vous retrouvez dans un environnement hostile ou face à une créature dangereuse, vos points d’Âme seront menacés. S’ils atteignent zéro, votre Protecteur meurt.",
+    courageTooltip:
+      "Ils représentent votre capacité à réaliser ce que vous voulez.\nÀ chaque fois que vous avez besoin de faire quelque chose qui pourrait mal tourner — courir, sauter, vous cacher, distraire, fuir, attaquer, etc. —, vous devez utiliser votre Courage.",
+    staminaTooltip:
+      "Ils représentent votre capacité à continuer d’avancer.\nVos points d’Endurance déterminent la quantité d’objets que vous pouvez porter ou le temps que l’Horloge met à avancer.",
     currentLabel: "Actuel",
     maxLabel: "Max",
     addItem: "Ajouter un objet",
