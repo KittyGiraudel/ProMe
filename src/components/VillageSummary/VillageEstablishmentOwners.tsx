@@ -3,24 +3,24 @@
 import { RedoOutlined } from '@ant-design/icons'
 import Link from 'next/link'
 import { Button, Typography } from 'antd'
-import { encodeCharacterRoll } from '@/lib/character/characterUrlCodec'
+import { encodeInhabitantRoll } from '@/lib/inhabitant/inhabitantUrlCodec'
 import {
   getAgeBand,
   getPersonality,
-  type CharacterRoll,
-} from '@/lib/character/generate'
-import { genderCompactSymbol } from '@/lib/character/genderSymbols'
+  type InhabitantRoll,
+} from '@/lib/inhabitant/generate'
+import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 import { copy } from '@/messages/fr'
 
-export type VillageOwnerEntry = { roll: CharacterRoll; ownerIndex: number }
+export type VillageOwnerEntry = { roll: InhabitantRoll; ownerIndex: number }
 
 export function VillageEstablishmentOwners({
   entries,
-  characterPageVillageQuery,
+  inhabitantPageVillageQuery,
   onRerollOwner,
 }: {
   entries: VillageOwnerEntry[] | undefined
-  characterPageVillageQuery?: string | null
+  inhabitantPageVillageQuery?: string | null
   onRerollOwner?: (ownerIndex: number) => void
 }) {
   if (!entries?.length) return null
@@ -29,18 +29,18 @@ export function VillageEstablishmentOwners({
   const renderRow = (e: VillageOwnerEntry) => {
     const age = getAgeBand(e.roll)
     const personality = getPersonality(e.roll)
-    const params = new URLSearchParams(characterPageVillageQuery ?? '')
-    params.set('c', encodeCharacterRoll(e.roll))
-    const characterHref = `/generators/character?${params.toString()}`
+    const params = new URLSearchParams(inhabitantPageVillageQuery ?? '')
+    params.set('i', encodeInhabitantRoll(e.roll))
+    const inhabitantHref = `/generators/inhabitant?${params.toString()}`
     return (
       <div className='village-summary__owner-row'>
         <span className='village-summary__owner-main'>
           <span className='village-summary__owner-line-start'>
             {genderCompactSymbol(e.roll.gender)}{' '}
             <Link
-              href={characterHref}
+              href={inhabitantHref}
               className='village-summary__owner-name-link'
-              aria-label={copy.village.openInCharacterBuilder}>
+              aria-label={copy.village.openInInhabitantBuilder}>
               {e.roll.name}
             </Link>
             {` (${copy.races[e.roll.race]})`}

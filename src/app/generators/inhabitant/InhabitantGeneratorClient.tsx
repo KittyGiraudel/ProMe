@@ -2,30 +2,30 @@
 
 import { useCallback, useEffect, useMemo } from 'react'
 import { App } from 'antd'
-import { CharacterSummary } from '@/components/CharacterSummary/CharacterSummary'
+import { InhabitantSummary } from '@/components/InhabitantSummary/InhabitantSummary'
 import { GeneratorPageShell } from '@/components/GeneratorPageShell/GeneratorPageShell'
 import { RollActions } from '@/components/RollActions/RollActions'
 import { useReplaceSearchParams } from '@/hooks/useReplaceSearchParams'
 import {
-  type CharacterRoll,
-  type CharacterRerollPart,
-  generateCharacter,
-  rerollCharacterPart,
-} from '@/lib/character/generate'
+  type InhabitantRoll,
+  type InhabitantRerollPart,
+  generateInhabitant,
+  rerollInhabitantPart,
+} from '@/lib/inhabitant/generate'
 import {
-  decodeCharacterRollParam,
-  encodeCharacterRoll,
-} from '@/lib/character/characterUrlCodec'
+  decodeInhabitantRollParam,
+  encodeInhabitantRoll,
+} from '@/lib/inhabitant/inhabitantUrlCodec'
 import { copy } from '@/messages/fr'
-import { formatCharacterCopyOneLiner } from '@/messages/formatCopy'
+import { formatInhabitantCopyOneLiner } from '@/messages/formatCopy'
 
-const CHARACTER_QUERY_KEY = 'c'
+const INHABITANT_QUERY_KEY = 'i'
 
-export function CharacterGeneratorClient() {
+export function InhabitantGeneratorClient() {
   const { message } = App.useApp()
   const { replaceSearchParams, pathname, searchParams } =
     useReplaceSearchParams()
-  const encoded = searchParams.get(CHARACTER_QUERY_KEY)
+  const encoded = searchParams.get(INHABITANT_QUERY_KEY)
   const villageV = searchParams.get('v')
   const villageO = searchParams.get('o')
   const villageRaceParam = searchParams.get('race')
@@ -40,39 +40,39 @@ export function CharacterGeneratorClient() {
   }, [villageO, villageRaceParam, villageV])
 
   const roll = useMemo(
-    () => (encoded ? decodeCharacterRollParam(encoded) : null),
+    () => (encoded ? decodeInhabitantRollParam(encoded) : null),
     [encoded]
   )
 
   useEffect(() => {
     if (!encoded || roll !== null) return
     replaceSearchParams(p => {
-      p.delete(CHARACTER_QUERY_KEY)
+      p.delete(INHABITANT_QUERY_KEY)
     })
   }, [encoded, replaceSearchParams, roll])
 
   const handleRollAll = useCallback(() => {
-    const next = generateCharacter()
+    const next = generateInhabitant()
     replaceSearchParams(p => {
-      p.set(CHARACTER_QUERY_KEY, encodeCharacterRoll(next))
+      p.set(INHABITANT_QUERY_KEY, encodeInhabitantRoll(next))
     })
   }, [replaceSearchParams])
 
   const handleRerollPart = useCallback(
-    (part: CharacterRerollPart) => {
+    (part: InhabitantRerollPart) => {
       if (!roll) return
-      const next = rerollCharacterPart(roll, part)
+      const next = rerollInhabitantPart(roll, part)
       replaceSearchParams(p => {
-        p.set(CHARACTER_QUERY_KEY, encodeCharacterRoll(next))
+        p.set(INHABITANT_QUERY_KEY, encodeInhabitantRoll(next))
       })
     },
     [replaceSearchParams, roll]
   )
 
   const handleSetRoll = useCallback(
-    (next: CharacterRoll) => {
+    (next: InhabitantRoll) => {
       replaceSearchParams(p => {
-        p.set(CHARACTER_QUERY_KEY, encodeCharacterRoll(next))
+        p.set(INHABITANT_QUERY_KEY, encodeInhabitantRoll(next))
       })
     },
     [replaceSearchParams]
@@ -81,31 +81,31 @@ export function CharacterGeneratorClient() {
   const handleCopyOneLiner = useCallback(async () => {
     if (!roll) return
     const params = new URLSearchParams(searchParams.toString())
-    params.set(CHARACTER_QUERY_KEY, encodeCharacterRoll(roll))
+    params.set(INHABITANT_QUERY_KEY, encodeInhabitantRoll(roll))
     const shareUrl = `${window.location.origin}${pathname}?${params.toString()}`
-    const line = formatCharacterCopyOneLiner(roll, shareUrl)
+    const line = formatInhabitantCopyOneLiner(roll, shareUrl)
     try {
       await navigator.clipboard.writeText(line)
-      message.success(copy.character.copyOneLinerSuccess)
+      message.success(copy.inhabitant.copyOneLinerSuccess)
     } catch {
-      message.error(copy.character.copyOneLinerError)
+      message.error(copy.inhabitant.copyOneLinerError)
     }
   }, [message, pathname, roll, searchParams])
 
   return (
     <GeneratorPageShell
-      title={copy.character.pageTitle}
-      description={copy.character.pageDescription}
+      title={copy.inhabitant.pageTitle}
+      description={copy.inhabitant.pageDescription}
       backHref='/'
       backLabel={copy.nav.backHome}
       villageBackHref={villageBackHref}>
       <RollActions
         onRollAll={handleRollAll}
-        label={copy.character.rollAll}
+        label={copy.inhabitant.rollAll}
         onCopyOneLiner={roll ? handleCopyOneLiner : undefined}
-        copyOneLinerLabel={copy.character.copyOneLiner}
+        copyOneLinerLabel={copy.inhabitant.copyOneLiner}
       />
-      <CharacterSummary
+      <InhabitantSummary
         roll={roll}
         onRerollPart={roll ? handleRerollPart : undefined}
         onSetRoll={roll ? handleSetRoll : undefined}

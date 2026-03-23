@@ -1,8 +1,3 @@
-/**
- * Village URL: `v=<10 + 6×redJacks>` — cards; `o=` — owners (`~`-separated
- * `encodeCharacterRoll` blobs), one per establishment row in resolution order.
- */
-
 import {
   decodePlayingCardString,
   encodePlayingCard,

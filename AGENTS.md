@@ -8,4 +8,4 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 ## LSDP project docs
 
-- **[Character builder](docs/character-builder.md)** — Inhabitant generator: book-aligned rolls, `CharacterRoll`, URL query `c`, rerolls, and UI wiring. Read this before changing `src/lib/character/` or the generator route.
+- **[Inhabitant builder](docs/inhabitant-builder.md)** — Inhabitant generator: book-aligned rolls, `InhabitantRoll`, URL query `i`, rerolls, and UI wiring. Read this before changing `src/lib/inhabitant/` or the generator route.

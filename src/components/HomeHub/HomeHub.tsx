@@ -8,9 +8,9 @@ import './HomeHub.css'
 
 const generators = [
   {
-    href: '/generators/character',
-    title: copy.hub.characterCardTitle,
-    description: copy.hub.characterCardDescription,
+    href: '/generators/inhabitant',
+    title: copy.hub.inhabitantCardTitle,
+    description: copy.hub.inhabitantCardDescription,
   },
   {
     href: '/generators/village',

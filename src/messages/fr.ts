@@ -3,7 +3,7 @@ import type { Gender, Race, Rank, Suit } from "@/lib/types";
 /**
  * User-facing copy: UI chrome, rulebook citations, and localized game tables
  * (établissements, traits de village, contexte habitant). Inhabitant **names** live
- * in `character/data/namesByRace.ts` (rulebook proper nouns, not localized).
+ * in `inhabitant/data/namesByRace.ts` (rulebook proper nouns, not localized).
  */
 export const copy = {
   appName: "LSDP — Outils",
@@ -19,8 +19,8 @@ export const copy = {
   hub: {
     title: "Outils pour Les Souvenirs du Protecteur",
     subtitle: "Outils et générateurs aléatoires de personnages, villages, et plus.",
-    characterCardTitle: "Générateur d’habitant",
-    characterCardDescription:
+    inhabitantCardTitle: "Générateur d’habitant",
+    inhabitantCardDescription:
       "Nom, faction, âge, personnalité, contexte, genre.",
     villageCardTitle: "Générateur de village",
     villageCardDescription:
@@ -37,7 +37,7 @@ export const copy = {
     cardToolAction: "Tirer 1 carte",
     cardToolDrawing: "Tirage en cours…",
   },
-  character: {
+  inhabitant: {
     pageTitle: "Générateur d’habitant",
     pageDescription:
       "Générez un personnage pour le jeu, puis copiez son lien unique. Vous pouvez relancer certaines caractéristiques à souhait.",
@@ -85,7 +85,7 @@ export const copy = {
     sectionEstablishments: "Établissements",
     ownerLabel: "Propriétaire",
     coOwnersLabel: "Copropriétaires",
-    openInCharacterBuilder: "Ouvrir dans le générateur d’habitant",
+    openInInhabitantBuilder: "Ouvrir dans le générateur d’habitant",
     rerollOwner: "Regénérer cette habitant·e",
     duplicateRuleHint:
       "Si vous tirez deux fois le même établissement : soit **deux** lieux du même type, soit **un seul** plus grand et imposant — à trancher à la table.",
@@ -174,11 +174,11 @@ export const copy = {
     },
     villageFootnote:
       "Livre — Les villages (tirage, doublons) : p. 42. Table « Établissement » : p. 43.",
-    characterFootnote:
+    inhabitantFootnote:
       "Livre — Les habitants (tirage, cartes, contexte) : p. 56–58. Table des noms : p. 60.",
   },
   game: {
-    characterContextByRank: {
+    inhabitantContextByRank: {
       A: "**Cette habitant·e pleure une perte récente.** Iel a peut-être perdu un animal de compagnie ou un·e ami·e proche. Peut-être qu’une discussion serait la bienvenue ? À moins qu’iel ait besoin d’écoute pour se sentir mieux ?",
       "2": "**Cette habitant·e est à la recherche de quelque chose.** Peut-être quelque chose qui n’est pas vendu dans ce village, ou quelque chose que l’on ne peut trouver que loin d’ici ? Mais au-delà de ça, iel semble avoir peur de l’inconnu. Il y a peut-être une histoire derrière tout ça.",
       "3": "**Cette habitant·e rêve de voyager dans un autre village.** Peut-être pourriez-vous l’accompagner et en savoir plus sur ses motivations et ses envies !",
@@ -261,9 +261,9 @@ export const copy = {
   },
 } as const;
 
-/** Context hook by card rank (suit ignored); alias of `copy.game.characterContextByRank`. */
+/** Context hook by card rank (suit ignored); alias of `copy.game.inhabitantContextByRank`. */
 export const contextByRank: Record<Rank, string> =
-  copy.game.characterContextByRank as Record<Rank, string>;
+  copy.game.inhabitantContextByRank as Record<Rank, string>;
 
 /** Screen reader label: « {rang} de {couleur} » (wording lives in `copy.ranks` / `copy.suits`). */
 export function playingCardAriaLabel(suit: Suit, rank: Rank): string {

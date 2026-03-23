@@ -1,6 +1,6 @@
 import { lookupName } from "./data/namesByRace";
 import { genderFromD6, raceFromD6 } from "./maps";
-import type { CharacterRoll } from "./generate";
+import type { InhabitantRoll } from "./generate";
 import type { PlayingCard } from "../types";
 import { contextByRank } from "@/messages/fr";
 import {
@@ -30,7 +30,7 @@ function dualFromLegacyMerged(merged: PlayingCard): {
 }
 
 /** Pre–split URL: 1D6 race, 1 card (age+personality), context, 2D6 name, 1D6 gender — 8 chars. */
-function decodeCharacterRollBaseLegacy(compact: string): CharacterRoll | null {
+function decodeInhabitantRollBaseLegacy(compact: string): InhabitantRoll | null {
   if (compact.length !== 8) return null;
 
   const raceDie = parseRaceDie(compact[0]!);
@@ -73,7 +73,7 @@ function decodeCharacterRollBaseLegacy(compact: string): CharacterRoll | null {
 }
 
 /** Current URL: race, age card, personality card, context, 2D6 name, 1D6 gender — 10 chars. */
-function decodeCharacterRollBaseV2(compact: string): CharacterRoll | null {
+function decodeInhabitantRollBaseV2(compact: string): InhabitantRoll | null {
   if (compact.length !== 10) return null;
 
   const raceDie = parseRaceDie(compact[0]!);
@@ -121,7 +121,7 @@ function decodeCharacterRollBaseV2(compact: string): CharacterRoll | null {
  * Optional tail: +1 D6 if context rank 7, +2 D6 if context rank 10.
  * Legacy 8/9/10-char payloads (single merged age/personality card) still decode.
  */
-export function encodeCharacterRoll(roll: CharacterRoll): string {
+export function encodeInhabitantRoll(roll: InhabitantRoll): string {
   let s = `${roll.raceDie}${encodeCard(roll.ageCard)}${encodeCard(roll.personalityCard)}${encodeCard(roll.contextCard)}${roll.nameDice[0]}${roll.nameDice[1]}${roll.genderDie}`;
   if (roll.contextCard.rank === "7" && roll.contextSevenDie != null) {
     s += String(roll.contextSevenDie);
@@ -135,9 +135,9 @@ export function encodeCharacterRoll(roll: CharacterRoll): string {
   return s;
 }
 
-function tryDecodeLegacyLength10(compact: string): CharacterRoll | null {
+function tryDecodeLegacyLength10(compact: string): InhabitantRoll | null {
   if (compact.length !== 10) return null;
-  const base = decodeCharacterRollBaseLegacy(compact.slice(0, 8));
+  const base = decodeInhabitantRollBaseLegacy(compact.slice(0, 8));
   if (!base || base.contextCard.rank !== "10") return null;
   const a = parseNameDie(compact[8]!);
   const b = parseNameDie(compact[9]!);
@@ -147,16 +147,16 @@ function tryDecodeLegacyLength10(compact: string): CharacterRoll | null {
   return { ...base, contextSpokenNameDice, contextSpokenName };
 }
 
-export function decodeCharacterRollParam(raw: string): CharacterRoll | null {
+export function decodeInhabitantRollParam(raw: string): InhabitantRoll | null {
   const compact = raw.trim().toUpperCase();
   const len = compact.length;
 
   if (len === 8) {
-    return decodeCharacterRollBaseLegacy(compact);
+    return decodeInhabitantRollBaseLegacy(compact);
   }
 
   if (len === 9) {
-    const base = decodeCharacterRollBaseLegacy(compact.slice(0, 8));
+    const base = decodeInhabitantRollBaseLegacy(compact.slice(0, 8));
     if (!base) return null;
     if (base.contextCard.rank !== "7") return null;
     const contextSevenDie = parseRaceDie(compact[8]!);
@@ -167,11 +167,11 @@ export function decodeCharacterRollParam(raw: string): CharacterRoll | null {
   if (len === 10) {
     const legacyRank10 = tryDecodeLegacyLength10(compact);
     if (legacyRank10) return legacyRank10;
-    return decodeCharacterRollBaseV2(compact);
+    return decodeInhabitantRollBaseV2(compact);
   }
 
   if (len === 11) {
-    const base = decodeCharacterRollBaseV2(compact.slice(0, 10));
+    const base = decodeInhabitantRollBaseV2(compact.slice(0, 10));
     if (!base) return null;
     if (base.contextCard.rank !== "7") return null;
     const contextSevenDie = parseRaceDie(compact[10]!);
@@ -180,7 +180,7 @@ export function decodeCharacterRollParam(raw: string): CharacterRoll | null {
   }
 
   if (len === 12) {
-    const base = decodeCharacterRollBaseV2(compact.slice(0, 10));
+    const base = decodeInhabitantRollBaseV2(compact.slice(0, 10));
     if (!base) return null;
     if (base.contextCard.rank !== "10") return null;
     const a = parseNameDie(compact[10]!);

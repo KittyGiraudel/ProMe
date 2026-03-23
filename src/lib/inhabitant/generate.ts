@@ -13,7 +13,7 @@ import {
   suitFromAgeBand,
 } from "./maps";
 
-export type CharacterRerollPart =
+export type InhabitantRerollPart =
   | "race"
   | "nameDice"
   | "ageCard"
@@ -23,7 +23,7 @@ export type CharacterRerollPart =
   | "contextSevenDie"
   | "contextSpokenNameDice";
 
-export type CharacterRoll = {
+export type InhabitantRoll = {
   raceDie: number;
   race: Race;
   /** Suit → age band (book: one draw for age). */
@@ -49,10 +49,10 @@ export function mapKindFromContextSevenDie(
 }
 
 function rollContextFollowups(
-  roll: Pick<CharacterRoll, "race" | "contextCard">,
+  roll: Pick<InhabitantRoll, "race" | "contextCard">,
   rng: () => number,
 ): Pick<
-  CharacterRoll,
+  InhabitantRoll,
   "contextSevenDie" | "contextSpokenNameDice" | "contextSpokenName"
 > {
   const rank = roll.contextCard.rank;
@@ -72,11 +72,11 @@ function rollContextFollowups(
   return {};
 }
 
-function rollCharacterRoll(
+function rollInhabitantRoll(
   raceDie: number,
   race: Race,
   rng: () => number,
-): CharacterRoll {
+): InhabitantRoll {
   const ageCard = randomCard(rng);
   const personalityCard = randomCard(rng);
   const contextCard = randomCard(rng);
@@ -102,22 +102,22 @@ function rollCharacterRoll(
   };
 }
 
-export function generateCharacterWithRace(
+export function generateInhabitantWithRace(
   race: Race,
   rng: () => number = Math.random,
-): CharacterRoll {
-  return rollCharacterRoll(canonicalRaceDie(race), race, rng);
+): InhabitantRoll {
+  return rollInhabitantRoll(canonicalRaceDie(race), race, rng);
 }
 
-export function generateCharacter(
+export function generateInhabitant(
   rng: () => number = Math.random,
-): CharacterRoll {
+): InhabitantRoll {
   const raceDie = rollD6(rng);
   const race = raceFromD6(raceDie);
-  return rollCharacterRoll(raceDie, race, rng);
+  return rollInhabitantRoll(raceDie, race, rng);
 }
 
-export function setCharacterRace(roll: CharacterRoll, race: Race): CharacterRoll {
+export function setInhabitantRace(roll: InhabitantRoll, race: Race): InhabitantRoll {
   const raceDie = canonicalRaceDie(race);
   const name = lookupName(race, roll.nameDice[0], roll.nameDice[1]);
   const contextSpokenName =
@@ -131,28 +131,28 @@ export function setCharacterRace(roll: CharacterRoll, race: Race): CharacterRoll
   return { ...roll, raceDie, race, name, contextSpokenName };
 }
 
-export function setCharacterNameDice(
-  roll: CharacterRoll,
+export function setInhabitantNameDice(
+  roll: InhabitantRoll,
   nameDice: [number, number],
-): CharacterRoll {
+): InhabitantRoll {
   const name = lookupName(roll.race, nameDice[0], nameDice[1]);
   return { ...roll, nameDice, name };
 }
 
-export function setCharacterAgeBand(
-  roll: CharacterRoll,
+export function setInhabitantAgeBand(
+  roll: InhabitantRoll,
   ageBand: AgeBand,
-): CharacterRoll {
+): InhabitantRoll {
   return {
     ...roll,
     ageCard: { ...roll.ageCard, suit: suitFromAgeBand(ageBand) },
   };
 }
 
-export function setCharacterPersonality(
-  roll: CharacterRoll,
+export function setInhabitantPersonality(
+  roll: InhabitantRoll,
   personality: Personality,
-): CharacterRoll {
+): InhabitantRoll {
   return {
     ...roll,
     personalityCard: {
@@ -162,19 +162,19 @@ export function setCharacterPersonality(
   };
 }
 
-export function setCharacterGender(
-  roll: CharacterRoll,
+export function setInhabitantGender(
+  roll: InhabitantRoll,
   gender: Gender,
-): CharacterRoll {
+): InhabitantRoll {
   const genderDie = canonicalGenderDie(gender);
   return { ...roll, genderDie, gender };
 }
 
-export function rerollCharacterPart(
-  roll: CharacterRoll,
-  part: CharacterRerollPart,
+export function rerollInhabitantPart(
+  roll: InhabitantRoll,
+  part: InhabitantRerollPart,
   rng: () => number = Math.random,
-): CharacterRoll {
+): InhabitantRoll {
   switch (part) {
     case "race": {
       const raceDie = rollD6(rng);
@@ -241,10 +241,10 @@ export function rerollCharacterPart(
   }
 }
 
-export function getAgeBand(roll: CharacterRoll) {
+export function getAgeBand(roll: InhabitantRoll) {
   return ageBandFromSuit(roll.ageCard.suit);
 }
 
-export function getPersonality(roll: CharacterRoll) {
+export function getPersonality(roll: InhabitantRoll) {
   return personalityFromRank(roll.personalityCard.rank);
 }

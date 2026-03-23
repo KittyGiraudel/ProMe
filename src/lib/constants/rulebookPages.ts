@@ -2,7 +2,7 @@ import type { Rank } from "../types";
 
 /**
  * Rulebook page anchors for village establishment links (per-rank detail, table page).
- * Citations de bas de page générateur : `copy.rulebook.villageFootnote` / `characterFootnote` dans `fr.ts`.
+ * Citations de bas de page générateur : `copy.rulebook.villageFootnote` / `inhabitantFootnote` dans `fr.ts`.
  */
 export const RULEBOOK_PAGES = {
   village: {

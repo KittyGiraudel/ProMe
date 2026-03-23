@@ -11,7 +11,7 @@ import {
   suitFromAgeBand,
 } from "./maps";
 
-describe("character/maps", () => {
+describe("inhabitant/maps", () => {
   describe("raceFromD6 / canonicalRaceDie", () => {
     it("maps D6 to races", () => {
       expect(raceFromD6(1)).toBe("bruja");

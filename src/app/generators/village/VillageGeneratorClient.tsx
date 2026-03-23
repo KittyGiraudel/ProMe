@@ -6,11 +6,11 @@ import { GeneratorPageShell } from '@/components/GeneratorPageShell/GeneratorPag
 import { RollActions } from '@/components/RollActions/RollActions'
 import { VillageSummary } from '@/components/VillageSummary/VillageSummary'
 import { useReplaceSearchParams } from '@/hooks/useReplaceSearchParams'
-import { encodeCharacterRoll } from '@/lib/character/characterUrlCodec'
+import { encodeInhabitantRoll } from '@/lib/inhabitant/inhabitantUrlCodec'
 import {
-  generateCharacterWithRace,
-  type CharacterRoll,
-} from '@/lib/character/generate'
+  generateInhabitantWithRace,
+  type InhabitantRoll,
+} from '@/lib/inhabitant/generate'
 import type { Race } from '@/lib/types'
 import { RACES } from '@/lib/types'
 import {
@@ -115,7 +115,7 @@ export function VillageGeneratorClient() {
   }, [ownersValid, replaceSearchParams, roll, villageRace])
 
   const pushVillageParams = useCallback(
-    (nextRoll: VillageRoll, nextOwners: CharacterRoll[], nextRace: Race) => {
+    (nextRoll: VillageRoll, nextOwners: InhabitantRoll[], nextRace: Race) => {
       replaceSearchParams(p => {
         p.set(VILLAGE_QUERY_KEY, encodeVillageRoll(nextRoll))
         p.set(OWNERS_QUERY_KEY, encodeVillageOwners(nextOwners))
@@ -159,7 +159,7 @@ export function VillageGeneratorClient() {
     (ownerIndex: number) => {
       if (!roll || !ownersValid) return
       const nextOwners = ownersValid.slice()
-      nextOwners[ownerIndex] = generateCharacterWithRace(villageRace)
+      nextOwners[ownerIndex] = generateInhabitantWithRace(villageRace)
       pushVillageParams(roll, nextOwners, villageRace)
     },
     [ownersValid, pushVillageParams, roll, villageRace]
@@ -173,13 +173,13 @@ export function VillageGeneratorClient() {
     params.set(RACE_QUERY_KEY, villageRace)
     const shareUrl = `${window.location.origin}${pathname}?${params.toString()}`
     const line = formatVillageCopyOneLiner(roll, shareUrl, ownersValid, {
-      characterShareUrl: characterRoll => {
+      inhabitantShareUrl: inhabitantRoll => {
         const p = new URLSearchParams()
-        p.set('c', encodeCharacterRoll(characterRoll))
+        p.set('i', encodeInhabitantRoll(inhabitantRoll))
         p.set(VILLAGE_QUERY_KEY, encodeVillageRoll(roll))
         p.set(OWNERS_QUERY_KEY, encodeVillageOwners(ownersValid))
         p.set(RACE_QUERY_KEY, villageRace)
-        return `${window.location.origin}/generators/character?${p.toString()}`
+        return `${window.location.origin}/generators/inhabitant?${p.toString()}`
       },
     })
     try {
@@ -199,7 +199,7 @@ export function VillageGeneratorClient() {
     []
   )
 
-  const characterPageVillageQuery = useMemo(() => {
+  const inhabitantPageVillageQuery = useMemo(() => {
     if (!roll || !ownersValid) return null
     const p = new URLSearchParams()
     p.set(VILLAGE_QUERY_KEY, encodeVillageRoll(roll))
@@ -239,7 +239,7 @@ export function VillageGeneratorClient() {
       <VillageSummary
         roll={roll}
         owners={ownersValid}
-        characterPageVillageQuery={characterPageVillageQuery}
+        inhabitantPageVillageQuery={inhabitantPageVillageQuery}
         onRerollPrimarySlot={roll ? handleRerollSlot : undefined}
         onRerollOwner={roll && ownersValid ? handleRerollOwner : undefined}
       />

@@ -1,13 +1,13 @@
 import { Suspense } from 'react'
 import { GeneratorPageShell } from '@/components/GeneratorPageShell/GeneratorPageShell'
-import { CharacterGeneratorClient } from './CharacterGeneratorClient'
+import { InhabitantGeneratorClient } from './InhabitantGeneratorClient'
 import { copy } from '@/messages/fr'
 
-function CharacterGeneratorFallback() {
+function InhabitantGeneratorFallback() {
   return (
     <GeneratorPageShell
-      title={copy.character.pageTitle}
-      description={copy.character.pageDescription}
+      title={copy.inhabitant.pageTitle}
+      description={copy.inhabitant.pageDescription}
       backHref='/'
       backLabel={copy.nav.backHome}>
       <p>{copy.common.loading}</p>
@@ -15,10 +15,10 @@ function CharacterGeneratorFallback() {
   )
 }
 
-export default function CharacterGeneratorPage() {
+export default function InhabitantGeneratorPage() {
   return (
-    <Suspense fallback={<CharacterGeneratorFallback />}>
-      <CharacterGeneratorClient />
+    <Suspense fallback={<InhabitantGeneratorFallback />}>
+      <InhabitantGeneratorClient />
     </Suspense>
   )
 }

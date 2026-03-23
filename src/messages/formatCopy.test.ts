@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { lookupName } from "@/lib/character/data/namesByRace";
-import type { CharacterRoll } from "@/lib/character/generate";
+import { lookupName } from "@/lib/inhabitant/data/namesByRace";
+import type { InhabitantRoll } from "@/lib/inhabitant/generate";
 import type { PlayingCard } from "@/lib/types";
 import { toVillagePrimaryTuple } from "@/lib/village/primaryTuple";
 import {
-  formatCharacterCopyOneLiner,
+  formatInhabitantCopyOneLiner,
   formatVillageCopyOneLiner,
   formatVillageRulebookPagesJoined,
 } from "./formatCopy";
@@ -12,7 +12,7 @@ import {
 const card = (rank: PlayingCard["rank"], suit: PlayingCard["suit"]): PlayingCard =>
   ({ rank, suit });
 
-function makeRoll(over: Partial<CharacterRoll> = {}): CharacterRoll {
+function makeRoll(over: Partial<InhabitantRoll> = {}): InhabitantRoll {
   return {
     raceDie: 1,
     race: "bruja",
@@ -29,9 +29,9 @@ function makeRoll(over: Partial<CharacterRoll> = {}): CharacterRoll {
 }
 
 describe("formatCopy", () => {
-  describe("formatCharacterCopyOneLiner", () => {
+  describe("formatInhabitantCopyOneLiner", () => {
     it("builds the share line with gender, name, race, age, personality", () => {
-      const line = formatCharacterCopyOneLiner(
+      const line = formatInhabitantCopyOneLiner(
         makeRoll({ gender: "man" }),
         "https://example.com/c",
       );
@@ -41,7 +41,7 @@ describe("formatCopy", () => {
     });
 
     it("appends cartographer map kind when context is 7", () => {
-      const localisation = formatCharacterCopyOneLiner(
+      const localisation = formatInhabitantCopyOneLiner(
         makeRoll({
           contextCard: { suit: "diamonds", rank: "7" },
           contextSevenDie: 2,
@@ -49,7 +49,7 @@ describe("formatCopy", () => {
         "https://x",
       );
       expect(localisation).toContain("localisation");
-      const biome = formatCharacterCopyOneLiner(
+      const biome = formatInhabitantCopyOneLiner(
         makeRoll({
           contextCard: { suit: "diamonds", rank: "7" },
           contextSevenDie: 5,
@@ -60,7 +60,7 @@ describe("formatCopy", () => {
     });
 
     it("appends spoken name label when context is 10", () => {
-      const line = formatCharacterCopyOneLiner(
+      const line = formatInhabitantCopyOneLiner(
         makeRoll({
           contextCard: { suit: "spades", rank: "10" },
           contextSpokenName: "Mira",
@@ -103,13 +103,13 @@ describe("formatCopy", () => {
         makeRoll({ name: "OwnerE", gender: "woman" }),
       ];
       const out = formatVillageCopyOneLiner(roll, "https://v", owners, {
-        characterShareUrl: (o) => `https://char/${o.name}`,
+        inhabitantShareUrl: (o) => `https://char/${o.name}`,
       });
       expect(out).toContain("Propriétaire");
       expect(out).toContain("https://char/OwnerA");
     });
 
-    it("lists owner details without character URLs when owners are aligned", () => {
+    it("lists owner details without inhabitant URLs when owners are aligned", () => {
       const primary = toVillagePrimaryTuple([
         card("2", "hearts"),
         card("3", "clubs"),

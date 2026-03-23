@@ -1,4 +1,4 @@
-# Character builder (inhabitant generator)
+# Inhabitant builder (inhabitant generator)
 
 This document describes **what** the inhabitant generator implements (table logic, book references) and **how** it is wired in code (state, URL, UI). It is meant for maintainers and for AI assistants editing this repo.
 
@@ -49,7 +49,7 @@ Both suit and rank are rolled uniformly via `rng.randomCard`.
 
 ### 2.4 Context — one playing card (rank only)
 
-`contextByRank[rank]` is rulebook-style text (stored in `messages/fr.ts` as `copy.game.characterContextByRank`). It may include inline markup (`**bold**`, `*italic*`) rendered by `RichText` / `renderSimpleInlineMarkup`.
+`contextByRank[rank]` is rulebook-style text (stored in `messages/fr.ts` as `copy.game.inhabitantContextByRank`). It may include inline markup (`**bold**`, `*italic*`) rendered by `RichText` / `renderSimpleInlineMarkup`.
 
 Special ranks (also reflected in UI):
 
@@ -78,15 +78,15 @@ flowchart LR
   subgraph domain
     gen["generate.ts"]
     maps["maps.ts"]
-    codec["characterUrlCodec.ts"]
-    ctx["messages/fr.ts — copy.game.characterContextByRank"]
+    codec["inhabitantUrlCodec.ts"]
+    ctx["messages/fr.ts — copy.game.inhabitantContextByRank"]
     names["data/namesByRace.ts"]
     rng["rng.ts"]
     pc["playingCardCodec.ts"]
   end
   subgraph app
-    client["CharacterGeneratorClient.tsx"]
-    summary["CharacterSummary.tsx"]
+    client["InhabitantGeneratorClient.tsx"]
+    summary["InhabitantSummary.tsx"]
   end
   rng --> gen
   maps --> gen
@@ -102,31 +102,31 @@ flowchart LR
 
 | Path                                                                              | Role                                                                                                                                           |
 | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `src/lib/character/generate.ts`                                              | `CharacterRoll`, `generateCharacter`, `rerollCharacterPart`, context follow-ups, `getAgeBand` / `getPersonality`, `mapKindFromContextSevenDie` |
-| `src/lib/character/maps.ts`                                                  | Deterministic mappings D6/card → race, gender, age band, personality                                                                           |
-| `src/lib/character/genderSymbols.ts`                                         | `genderCompactSymbol` for one-line / owner summaries (matches `copy.genders` prefixes)                                                         |
-| `src/messages/fr.ts` (`copy.game.characterContextByRank`, export `contextByRank`) | Context paragraphs by rank                                                                                                                     |
-| `src/lib/character/data/namesByRace.ts`                                      | `namesByRace` grids + `lookupName`                                                                                                             |
-| `src/lib/character/characterUrlCodec.ts`                                     | `encodeCharacterRoll` / `decodeCharacterRollParam` for query param `c`                                                                         |
+| `src/lib/inhabitant/generate.ts`                                              | `InhabitantRoll`, `generateInhabitant`, `rerollInhabitantPart`, context follow-ups, `getAgeBand` / `getPersonality`, `mapKindFromContextSevenDie` |
+| `src/lib/inhabitant/maps.ts`                                                  | Deterministic mappings D6/card → race, gender, age band, personality                                                                           |
+| `src/lib/inhabitant/genderSymbols.ts`                                         | `genderCompactSymbol` for one-line / owner summaries (matches `copy.genders` prefixes)                                                         |
+| `src/messages/fr.ts` (`copy.game.inhabitantContextByRank`, export `contextByRank`) | Context paragraphs by rank                                                                                                                     |
+| `src/lib/inhabitant/data/namesByRace.ts`                                      | `namesByRace` grids + `lookupName`                                                                                                             |
+| `src/lib/inhabitant/inhabitantUrlCodec.ts`                                     | `encodeInhabitantRoll` / `decodeInhabitantRollParam` for query param `i`                                                                         |
 | `src/lib/rng.ts`                                                             | `rollD6`, `roll2D6`, `randomCard`, `randomInt` — all generation goes through an injectable `rng: () => number` (default `Math.random`)         |
 | `src/lib/playingCardCodec.ts`                                                | Shared 2-char card encoding (suit letter + rank code, `T` for ten)                                                                             |
 | `src/lib/types.ts`                                                           | `Race`, `Suit`, `Rank`, `PlayingCard`, `Gender`, etc.                                                                                          |
-| `src/app/generators/character/CharacterGeneratorClient.tsx`                       | URL sync, roll-all, reroll callbacks, copy one-liner                                                                                           |
-| `src/app/generators/character/page.tsx`                                           | Server wrapper + `Suspense` (required for `useSearchParams` on static routes)                                                                  |
-| `src/components/CharacterSummary/CharacterSummary.tsx`                            | Descriptions + per-field reroll + context follow-up UI; footnote uses `RULEBOOK_PAGES.character`                                               |
-| `src/lib/rulebookPages.ts`                                                   | `RULEBOOK_PAGES` (character + village, incl. establishment detail pages) + `establishmentDetailRulebookPage`                                   |
-| `src/messages/fr.ts` / `formatCopy.ts`                                            | `copy` + `formatCharacterCopyOneLiner`                                                                                                         |
+| `src/app/generators/inhabitant/InhabitantGeneratorClient.tsx`                       | URL sync, roll-all, reroll callbacks, copy one-liner                                                                                           |
+| `src/app/generators/inhabitant/page.tsx`                                           | Server wrapper + `Suspense` (required for `useSearchParams` on static routes)                                                                  |
+| `src/components/InhabitantSummary/InhabitantSummary.tsx`                            | Descriptions + per-field reroll + context follow-up UI; footnote uses `copy.rulebook.inhabitantFootnote`                                               |
+| `src/lib/rulebookPages.ts`                                                   | `RULEBOOK_PAGES` (inhabitant + village, incl. establishment detail pages) + `establishmentDetailRulebookPage`                                   |
+| `src/messages/fr.ts` / `formatCopy.ts`                                            | `copy` + `formatInhabitantCopyOneLiner`                                                                                                         |
 
-### 3.2 `CharacterRoll` shape
+### 3.2 `InhabitantRoll` shape
 
 Defined in `generate.ts`. Conceptually:
 
 - **Stored random outcomes**: `raceDie`, `agePersonalityCard`, `contextCard`, `nameDice`, `genderDie`, and when applicable `contextSevenDie`, `contextSpokenNameDice`.
 - **Derived / denormalized for convenience**: `race`, `name`, `contextText`, `gender`, `contextSpokenName` — always recomputed from the mechanical inputs when generating or decoding from URL so they stay aligned with data files.
 
-`CharacterRerollPart` enumerates which slice `rerollCharacterPart` may replace. Rerolling `contextCard` clears follow-up fields then re-runs `rollContextFollowups` so rank 7/10 extras match the new card.
+`InhabitantRerollPart` enumerates which slice `rerollInhabitantPart` may replace. Rerolling `contextCard` clears follow-up fields then re-runs `rollContextFollowups` so rank 7/10 extras match the new card.
 
-### 3.3 Generation order (`generateCharacter`)
+### 3.3 Generation order (`generateInhabitant`)
 
 1. `raceDie` → `race`
 2. `agePersonalityCard`
@@ -136,11 +136,11 @@ Defined in `generate.ts`. Conceptually:
 6. If `contextCard.rank === "7"`: roll `contextSevenDie`
 7. If `contextCard.rank === "10"`: roll `contextSpokenNameDice` → `contextSpokenName`
 
-So a full “roll all” includes automatic follow-up rolls when the context card is 7 or 10. The **UI** can still show a state where rank is 7 or 10 but follow-up dice are missing (e.g. old URL without tail — see §4); in that case `CharacterSummary` offers buttons that call `rerollCharacterPart('contextSevenDie')` or `('contextSpokenNameDice')` to fill them.
+So a full “roll all” includes automatic follow-up rolls when the context card is 7 or 10. The **UI** can still show a state where rank is 7 or 10 but follow-up dice are missing (e.g. old URL without tail — see §4); in that case `InhabitantSummary` offers buttons that call `rerollInhabitantPart('contextSevenDie')` or `('contextSpokenNameDice')` to fill them.
 
 ### 3.4 Playing card encoding (`playingCardCodec.ts`)
 
-Cards are two characters:
+Cards are two symbols:
 
 - Suit: `H` hearts, `D` diamonds, `C` clubs, `S` spades
 - Rank: `2`–`9`, `T` (= ten), `J`, `Q`, `K`, `A`
@@ -149,13 +149,13 @@ Decoding is case-insensitive for those letters.
 
 ---
 
-## 4. URL serialization (`?c=`)
+## 4. URL serialization (`?i=`)
 
-**Query key:** `c` (see `CHARACTER_QUERY_KEY` in `CharacterGeneratorClient.tsx`).
+**Query key:** `i` (see `INHABITANT_QUERY_KEY` in `InhabitantGeneratorClient.tsx`).
 
-**Source of truth:** The client **derives** `roll` with `useMemo` from `decodeCharacterRollParam(encoded)` — there is no separate React state for the roll. Updates go through `router.replace` with a new `c`.
+**Source of truth:** The client **derives** `roll` with `useMemo` from `decodeInhabitantRollParam(encoded)` — there is no separate React state for the roll. Updates go through `router.replace` with a new `i`.
 
-**Invalid `c`:** If `encoded` is present but decode fails, an effect strips `c` from the URL (and the summary shows empty).
+**Invalid `i`:** If `encoded` is present but decode fails, an effect strips `i` from the URL (and the summary shows empty).
 
 ### 4.1 Payload layout
 
@@ -176,12 +176,12 @@ The codec builds a compact ASCII string (then often uppercased for parsing).
 
 Valid lengths: **8, 9, 10**. Any other length → decode fails.
 
-Tail interpretation (`decodeCharacterRollParam`):
+Tail interpretation (`decodeInhabitantRollParam`):
 
 - After parsing the 8-char base, if `tail.length === 1`, context card must be rank 7 and tail is `contextSevenDie`.
 - If `tail.length === 2`, context must be rank 10 and tail is the two name dice for the spoken name.
 
-Encoding (`encodeCharacterRoll`) appends the tail only when those follow-up fields are non-null and ranks match.
+Encoding (`encodeInhabitantRoll`) appends the tail only when those follow-up fields are non-null and ranks match.
 
 ### 4.2 Bookmarks and data changes
 
@@ -191,15 +191,15 @@ URLs encode **dice and cards**, not free text. If you edit `contextByRank` or `n
 
 ## 5. UI behavior
 
-### 5.1 `CharacterGeneratorClient`
+### 5.1 `InhabitantGeneratorClient`
 
 - Wrapped in `<Suspense>` in `page.tsx` for Next.js prerender rules around `useSearchParams`.
 - Uses `App.useApp()` from Ant Design for copy toasts.
-- **Roll all:** `generateCharacter()` → `encodeCharacterRoll` → `router.replace`.
-- **Reroll:** `rerollCharacterPart(roll, part)` → same URL update.
-- **Copy one-liner:** builds share URL with current `c`, formats line via `formatCharacterCopyOneLiner(roll, shareUrl)` (includes gender symbol from `character/genderSymbols.genderCompactSymbol`, age, personality, optional map kind / spoken name, URL).
+- **Roll all:** `generateInhabitant()` → `encodeInhabitantRoll` → `router.replace`.
+- **Reroll:** `rerollInhabitantPart(roll, part)` → same URL update.
+- **Copy one-liner:** builds share URL with current `i`, formats line via `formatInhabitantCopyOneLiner(roll, shareUrl)` (includes gender symbol from `inhabitant/genderSymbols.genderCompactSymbol`, age, personality, optional map kind / spoken name, URL).
 
-### 5.2 `CharacterSummary`
+### 5.2 `InhabitantSummary`
 
 Ant Design `Descriptions` with one section per concept. Each section can show a small reroll control when `onRerollPart` is provided.
 
@@ -216,15 +216,15 @@ Primary “generate all” plus optional copy-one-liner when a roll exists.
 - **`copy`** holds all generator UI strings (`messages/fr.ts`).
 - **`en`** exists as a stub for future use.
 - Card **display** uses `PlayingCardLabel` (`copy.ranks` / `copy.suits`); aria text via `playingCardAriaLabel` in `messages/fr.ts` (« {rang} de {couleur} »).
-- **`formatCharacterCopyOneLiner`** lives in `messages/formatCopy.ts` but takes a `CharacterRoll`; keep it in sync if you add fields to the summary line.
+- **`formatInhabitantCopyOneLiner`** lives in `messages/formatCopy.ts` but takes a `InhabitantRoll`; keep it in sync if you add fields to the summary line.
 
 ---
 
 ## 7. How to extend safely
 
 1. **New race or D6 range change** — Update `raceFromD6`, `namesByRace`, and `copy.races`.
-2. **New context rank** — Extend `contextByRank` (all `Rank` keys must exist) and, if the book adds extra rolls, extend `rollContextFollowups` + `CharacterRoll` + codec + UI like rank 7/10.
-3. **URL version bump** — Today there is no explicit version prefix; a future v2 format should either use a new query key or a prefixed scheme and keep `decodeCharacterRollParam` accepting old values if you still need old links.
+2. **New context rank** — Extend `contextByRank` (all `Rank` keys must exist) and, if the book adds extra rolls, extend `rollContextFollowups` + `InhabitantRoll` + codec + UI like rank 7/10.
+3. **URL version bump** — Today there is no explicit version prefix; a future v2 format should either use a new query key or a prefixed scheme and keep `decodeInhabitantRollParam` accepting old values if you still need old links.
 4. **Tests** — There is no test runner in `package.json` yet; if you add one, prioritize round-trip tests: `decode(encode(roll))` equals roll for representative cases (all context ranks, with/without tails).
 
 ---
@@ -233,12 +233,12 @@ Primary “generate all” plus optional copy-one-liner when a roll exists.
 
 | Question                               | Where to look                                         |
 | -------------------------------------- | ----------------------------------------------------- |
-| How is a full inhabitant rolled?       | `generateCharacter`                                   |
+| How is a full inhabitant rolled?       | `generateInhabitant`                                   |
 | What does one D6 mean for type/gender? | `maps.ts`                                             |
-| What text appears for context rank X?  | `messages/fr.ts` → `copy.game.characterContextByRank` |
+| What text appears for context rank X?  | `messages/fr.ts` → `copy.game.inhabitantContextByRank` |
 | How are names chosen?                  | `data/namesByRace.ts` + `lookupName`                  |
-| How do I bookmark/share?               | `?c=` + `characterUrlCodec.ts`                        |
-| How does reroll preserve consistency?  | `rerollCharacterPart`                                 |
+| How do I bookmark/share?               | `?i=` + `inhabitantUrlCodec.ts`                        |
+| How does reroll preserve consistency?  | `rerollInhabitantPart`                                 |
 | Why Suspense on the page?              | Next.js + `useSearchParams` static prerender          |
 
 ---

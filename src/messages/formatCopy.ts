@@ -1,10 +1,10 @@
 import {
-  type CharacterRoll,
+  type InhabitantRoll,
   getAgeBand,
   getPersonality,
   mapKindFromContextSevenDie,
-} from '@/lib/character/generate'
-import { genderCompactSymbol } from '@/lib/character/genderSymbols'
+} from '@/lib/inhabitant/generate'
+import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 import type { VillageRoll } from '@/lib/village/generate'
 import {
   ownerSlotIndexByEstablishmentIndex,
@@ -13,8 +13,8 @@ import {
 import { copy } from './fr'
 
 /** One-line share text: `♀ Ada (Bruja), Adolescent·e Amical·e (https://…)`. */
-export function formatCharacterCopyOneLiner(
-  roll: CharacterRoll,
+export function formatInhabitantCopyOneLiner(
+  roll: InhabitantRoll,
   shareUrl: string,
 ): string {
   const age = getAgeBand(roll)
@@ -27,12 +27,12 @@ export function formatCharacterCopyOneLiner(
     const kind = mapKindFromContextSevenDie(roll.contextSevenDie)
     parts.push(
       kind === 'localisation'
-        ? copy.character.contextSevenMapLocalisation
-        : copy.character.contextSevenMapBiome,
+        ? copy.inhabitant.contextSevenMapLocalisation
+        : copy.inhabitant.contextSevenMapBiome,
     )
   }
   if (roll.contextCard.rank === '10' && roll.contextSpokenName) {
-    parts.push(`${copy.character.contextSpokenNameLabel}: ${roll.contextSpokenName}`)
+    parts.push(`${copy.inhabitant.contextSpokenNameLabel}: ${roll.contextSpokenName}`)
   }
   return `${parts.join(copy.common.emDashSpaced)} (${shareUrl})`
 }
@@ -42,8 +42,8 @@ function stripBoldMarkers(s: string): string {
 }
 
 export type VillageCopyFormatOptions = {
-  /** Same URL shape as the inhabitant generator copy (e.g. `…/generators/character?c=…`). */
-  characterShareUrl: (roll: CharacterRoll) => string
+  /** Same URL shape as the inhabitant generator copy (e.g. `…/generators/inhabitant?i=…`). */
+  inhabitantShareUrl: (roll: InhabitantRoll) => string
 }
 
 /**
@@ -54,7 +54,7 @@ export type VillageCopyFormatOptions = {
 export function formatVillageCopyOneLiner(
   roll: VillageRoll,
   shareUrl: string,
-  owners?: CharacterRoll[] | null,
+  owners?: InhabitantRoll[] | null,
   options?: VillageCopyFormatOptions,
 ): string {
   const { traits, establishments } = resolveVillageDisplay(roll)
@@ -71,11 +71,11 @@ export function formatVillageCopyOneLiner(
     owners.length === ownerSlots.filter((s): s is number => s !== null).length
   const establishmentLines = establishments.map((row, i) => {
     const ownerIdx = ownerSlots[i]!
-    if (ownersOk && ownerIdx !== null && options?.characterShareUrl) {
+    if (ownersOk && ownerIdx !== null && options?.inhabitantShareUrl) {
       const owner = owners[ownerIdx]!
-      const oneLiner = formatCharacterCopyOneLiner(
+      const oneLiner = formatInhabitantCopyOneLiner(
         owner,
-        options.characterShareUrl(owner),
+        options.inhabitantShareUrl(owner),
       )
       return `- ${row.text}\n  - ${copy.village.ownerLabel} : ${oneLiner}`
     }

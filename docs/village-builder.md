@@ -2,7 +2,7 @@
 
 This document describes **what** the village generator implements (rulebook-aligned draw logic, establishments, traits, owners) and **how** it is wired in code (resolution, URL, UI). It is meant for maintainers and for AI assistants editing this repo.
 
-Game: _Les Souvenirs du Protecteur_ (LSDP). UI strings live in `src/messages/fr.ts` (`copy`). All **rulebook page** anchors (character + village chapters, establishment table, per-rank establishment detail) live in `src/lib/rulebookPages.ts` (`RULEBOOK_PAGES`, `establishmentDetailRulebookPage`). The village summary footnote uses `copy.rulebook.villageFootnote(RULEBOOK_PAGES.village.chapter, …)`.
+Game: _Les Souvenirs du Protecteur_ (LSDP). UI strings live in `src/messages/fr.ts` (`copy`). All **rulebook page** anchors (inhabitant + village chapters, establishment table, per-rank establishment detail) live in `src/lib/rulebookPages.ts` (`RULEBOOK_PAGES`, `establishmentDetailRulebookPage`). The village summary footnote uses `copy.rulebook.villageFootnote(RULEBOOK_PAGES.village.chapter, …)`.
 
 ---
 
@@ -14,8 +14,8 @@ Game: _Les Souvenirs du Protecteur_ (LSDP). UI strings live in `src/messages/fr.
 | Red Jack             | **Hearts or diamonds Jack** in the primary draw triggers **3 extra establishment cards** (`expansion`); black Jack is a trait only (no extra draws)                                   |
 | Establishment labels | French lines from card rank + suit (petite/grande for some ranks, red/black variants for A, 9, etc.) — see `data/establishments.ts`                                                   |
 | Trait text           | French rich-text paragraphs for each face rank + red/black — `data/traits.ts`                                                                                                         |
-| Owners               | One **inhabitant** (`CharacterRoll`) per **establishment row** after resolution (not per primary card slot). Co-owners when the UI **groups** duplicate establishment rows            |
-| Village people       | A single **`Race`** for the whole village (`race` query param). All owners are generated with `generateCharacterWithRace(race, rng)`                                                  |
+| Owners               | One **inhabitant** (`InhabitantRoll`) per **establishment row** after resolution (not per primary card slot). Co-owners when the UI **groups** duplicate establishment rows            |
+| Village people       | A single **`Race`** for the whole village (`race` query param). All owners are generated with `generateInhabitantWithRace(race, rng)`                                                  |
 | URL                  | Serializable village (`v`), owners (`o`), race (`race`) for sharing and bookmarking                                                                                                   |
 | Rerolls              | Reroll one **primary** slot (rebuilds expansion), reroll one **owner** only, optional **grouped** display (local state)                                                               |
 
@@ -30,7 +30,7 @@ Out of scope (today): persisting grouped view in the URL; generating owners for 
 - **`primary`**: exactly **5** `PlayingCard` values (fixed tuple type in `generate.ts`).
 - **`expansion`**: **0 to 6** numbered cards (A–10 only, **no face ranks**). Length = **3 × (number of red Jacks in primary)**.
 
-The URL codec concatenates **primary then expansion** as 2-character card codes (see §4). Decoding **rejects** invalid expansion length or any face card in the expansion segment.
+The URL codec concatenates **primary then expansion** as 2-symbol card codes (see §4). Decoding **rejects** invalid expansion length or any face card in the expansion segment.
 
 ### 2.2 Resolution order (`resolveVillageDisplay`)
 
@@ -82,9 +82,9 @@ Encodes the book’s duplicate-establishment sizing rule (smallest+smallest → 
 ### 2.8 Owners (`ownersGenerate.ts`)
 
 - **`countVillageEstablishments(roll)`** = `resolveVillageDisplay(roll).establishments.length`.
-- **`generateOwnersForVillage(roll, race, rng)`** returns that many independent **`generateCharacterWithRace(race)`** rolls.
+- **`generateOwnersForVillage(roll, race, rng)`** returns that many independent **`generateInhabitantWithRace(race)`** rolls.
 
-Each owner’s **`CharacterRoll.raceDie`** is set to the **canonical** D6 for the chosen race (`canonicalRaceDie` in `character/maps.ts`) so `encodeCharacterRoll` / `decodeCharacterRollParam` round-trips consistently with a fixed village race.
+Each owner’s **`InhabitantRoll.raceDie`** is set to the **canonical** D6 for the chosen race (`canonicalRaceDie` in `inhabitant/maps.ts`) so `encodeInhabitantRoll` / `decodeInhabitantRollParam` round-trips consistently with a fixed village race.
 
 ### 2.9 Village race (`race` query param)
 
@@ -113,8 +113,8 @@ flowchart LR
     tr["village/data/traits.ts"]
     rb["rulebookPages.ts"]
     pc["playingCardCodec.ts"]
-    cgen["character/generate.ts"]
-    ccodec["character/characterUrlCodec.ts"]
+    cgen["inhabitant/generate.ts"]
+    ccodec["inhabitant/inhabitantUrlCodec.ts"]
   end
   subgraph app
     client["VillageGeneratorClient.tsx"]
@@ -140,13 +140,13 @@ flowchart LR
 | `src/lib/village/generate.ts`                           | `VillageRoll`, `generateVillageRoll`, `rerollVillagePrimarySlot`, `buildExpansionForPrimary`, `countRedJacksInPrimary`, expansion validation |
 | `src/lib/village/resolveDisplay.ts`                     | `resolveVillageDisplay`, `VillageTraitRow`, `VillageEstablishmentRow`, `countVillageEstablishments`                                          |
 | `src/lib/village/villageUrlCodec.ts`                    | `encodeVillageRoll` / `decodeVillageRollParam` for `v`                                                                                       |
-| `src/lib/village/villageOwnersCodec.ts`                 | `encodeVillageOwners` / `decodeVillageOwnersParam` — `~`-joined `encodeCharacterRoll` blobs                                                  |
+| `src/lib/village/villageOwnersCodec.ts`                 | `encodeVillageOwners` / `decodeVillageOwnersParam` — `~`-joined `encodeInhabitantRoll` blobs                                                  |
 | `src/lib/village/villageRaceCodec.ts`                   | `decodeVillageRaceParam`                                                                                                                     |
 | `src/lib/village/ownersGenerate.ts`                     | `generateOwnersForVillage`                                                                                                                   |
 | `src/lib/village/mergeEstablishmentSizeTiers.ts`        | Tier merge for grouped same-rank establishments (ranks 2–8)                                                                                  |
 | `src/lib/village/data/establishments.ts`                | `establishmentLine`, `establishmentLineFromSizeTier`, `rankUsesEstablishmentSizeTiers`                                                       |
 | `src/lib/village/data/traits.ts`                        | `villageTraitText`                                                                                                                           |
-| `src/lib/rulebookPages.ts`                              | `RULEBOOK_PAGES` (character + village, incl. per-rank establishment detail) + `establishmentDetailRulebookPage`                              |
+| `src/lib/rulebookPages.ts`                              | `RULEBOOK_PAGES` (inhabitant + village, incl. per-rank establishment detail) + `establishmentDetailRulebookPage`                              |
 | `src/app/generators/village/VillageGeneratorClient.tsx` | Toolbar, race select, URL sync, roll / reroll owner / reroll slot / copy                                                                     |
 | `src/components/VillageSummary/VillageSummary.tsx`      | Establishments + traits + owners + grouping + rulebook footnote fragment                                                                     |
 | `src/messages/fr.ts` / `formatCopy.ts`                  | `copy`, `formatVillageCopyOneLiner`, `formatVillageRulebookPagesJoined`, village UI strings                                                  |
@@ -157,7 +157,7 @@ Replaces **one** card in `primary` at `slotIndex`, then **rebuilds the entire `e
 
 ### 3.3 Reroll single owner
 
-Replaces `owners[i]` with `generateCharacterWithRace(villageRace)` and rewrites `o=` (and keeps `v`, `race`). Does not change the village cards.
+Replaces `owners[i]` with `generateInhabitantWithRace(villageRace)` and rewrites `o=` (and keeps `v`, `race`). Does not change the village cards.
 
 ---
 
@@ -168,10 +168,10 @@ Replaces `owners[i]` with `generateCharacterWithRace(villageRace)` and rewrites 
 | Query key | Meaning                                                                                                        |
 | --------- | -------------------------------------------------------------------------------------------------------------- |
 | `v`       | Village cards: `encodeVillageRoll` — 10 chars minimum (5 primary × 2), then 6 chars per red Jack (3 cards × 2) |
-| `o`       | Owners: `~`-separated list of compact inhabitant payloads (same as character `c`)                              |
+| `o`       | Owners: `~`-separated list of compact inhabitant payloads (same as inhabitant `i`)                              |
 | `race`    | `bruja` \| `cucurbitus` \| `kiore` \| `mousseron`                                                              |
 
-**Source of truth:** Like the character page, the client **derives** `roll` and owner list from the URL via `useMemo`; updates use `router.replace`.
+**Source of truth:** Like the inhabitant page, the client **derives** `roll` and owner list from the URL via `useMemo`; updates use `router.replace`.
 
 ### 4.1 Invalid `v`
 
@@ -191,7 +191,7 @@ If `v` decodes but `o` is missing, wrong length, or any owner `race !== villageR
 
 ### 5.1 `VillageGeneratorClient`
 
-- Wrapped in `<Suspense>` in `page.tsx` (same `useSearchParams` constraint as the character page).
+- Wrapped in `<Suspense>` in `page.tsx` (same `useSearchParams` constraint as the inhabitant page).
 - **Toolbar:** `RollActions` on the left; **Peuple du village** `Select` on the right (`VillageGeneratorClient.css`, `margin-left: auto` on the race block).
 - **Roll all:** new `generateVillageRoll()` → push `v`, `o`, `race`.
 - **Change race:** updates `race`; if a village exists, **regenerates all owners** for the new race.
@@ -201,12 +201,12 @@ If `v` decodes but `o` is missing, wrong length, or any owner `race !== villageR
 
 - **Establishments:** numbered list with optional per-line page citation (`formatVillageRulebookPagesJoined`).
 - **Traits:** list with `RichText`; merged duplicate trait **text** shows **one** paragraph, **multiple** card labels and **multiple** reroll buttons (one per `primarySlot`).
-- **Owners:** name links to `/generators/character?c=…` (`encodeCharacterRoll`), age + personality, per-owner reroll when callback provided.
+- **Owners:** name links to `/generators/inhabitant?i=…` (`encodeInhabitantRoll`), age + personality, per-owner reroll when callback provided.
 - **Grouped mode:** local `useState` only; does not affect URL or owner count.
 
 ### 5.3 Rulebook footnote
 
-Rendered **outside** the Ant Design `Card` as a sibling in a fragment, with class **`generator-rulebook-footnote`** (see `globals.css`). Same pattern as `CharacterSummary` for inhabitants.
+Rendered **outside** the Ant Design `Card` as a sibling in a fragment, with class **`generator-rulebook-footnote`** (see `globals.css`). Same pattern as `InhabitantSummary` for inhabitants.
 
 ---
 
@@ -223,7 +223,7 @@ Rendered **outside** the Ant Design `Card` as a sibling in a fragment, with clas
 1. **New establishment rank or red/black variant** — Update `establishments.ts` and, if the book adds a detail page, `rulebookPages.ts` (`RULEBOOK_PAGES.village.establishmentDetailByRank` / `establishmentTable`).
 2. **New trait (face rank)** — Extend `traits.ts` and ensure `isFaceRank` in `types.ts` still classifies it; resolver picks it up automatically.
 3. **URL length change** — `decodeVillageRollParam` assumes 2 chars per card and derives expansion count from red Jacks; keep `encode`/`decode` symmetric.
-4. **Owner payload change** — Any change to `CharacterRoll` / `encodeCharacterRoll` affects **`o=`**; old village links may fail decode until regenerated; consider backward compatibility in `characterUrlCodec` before breaking blobs.
+4. **Owner payload change** — Any change to `InhabitantRoll` / `encodeInhabitantRoll` affects **`o=`**; old village links may fail decode until regenerated; consider backward compatibility in `inhabitantUrlCodec` before breaking blobs.
 5. **Tests** — If you add a test runner, prioritize: `decodeVillageRollParam(encodeVillageRoll(roll))` for 0–2 red Jacks; `resolveVillageDisplay` row counts; `countVillageEstablishments` === `o` split count after `generateOwnersForVillage`.
 
 ---
@@ -237,7 +237,7 @@ Rendered **outside** the Ant Design `Card` as a sibling in a fragment, with clas
 | Why are two traits merged into one line?   | `resolveVillageDisplay` groups by `villageTraitText` string               |
 | How are duplicate shops grouped in the UI? | `groupEstablishments` + `mergeEstablishmentSizeTiers`                     |
 | How many owners should exist?              | `countVillageEstablishments`                                              |
-| How is village race enforced?              | `VillageGeneratorClient` + `generateCharacterWithRace`                    |
+| How is village race enforced?              | `VillageGeneratorClient` + `generateInhabitantWithRace`                    |
 | Where are book page numbers?               | `rulebookPages.ts` — `RULEBOOK_PAGES` + `establishmentDetailRulebookPage` |
 
 ---

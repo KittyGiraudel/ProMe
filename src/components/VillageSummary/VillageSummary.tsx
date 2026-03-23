@@ -12,7 +12,7 @@ import {
 } from '@/lib/village/data/establishments'
 import { mergeEstablishmentSizeTiers } from '@/lib/village/mergeEstablishmentSizeTiers'
 import type { VillageRoll } from '@/lib/village/generate'
-import type { CharacterRoll } from '@/lib/character/generate'
+import type { InhabitantRoll } from '@/lib/inhabitant/generate'
 import type { VillageEstablishmentRow } from '@/lib/village/resolveDisplay'
 import {
   ownerSlotIndexByEstablishmentIndex,
@@ -27,9 +27,9 @@ import './VillageSummary.css'
 
 type VillageSummaryProps = {
   roll: VillageRoll | null
-  owners: CharacterRoll[] | null
-  /** Appended to inhabitant links so the character page can offer « Retour au village ». */
-  characterPageVillageQuery?: string | null
+  owners: InhabitantRoll[] | null
+  /** Appended to inhabitant links so the inhabitant page can offer « Retour au village ». */
+  inhabitantPageVillageQuery?: string | null
   onRerollPrimarySlot?: (slotIndex: number) => void
   onRerollOwner?: (ownerIndex: number) => void
 }
@@ -106,7 +106,7 @@ function groupEstablishments(rows: VillageEstablishmentRow[]): {
 export function VillageSummary({
   roll,
   owners,
-  characterPageVillageQuery,
+  inhabitantPageVillageQuery,
   onRerollPrimarySlot,
   onRerollOwner,
 }: VillageSummaryProps) {
@@ -145,7 +145,7 @@ export function VillageSummary({
             rulebookPages={[row.rulebookPage]}
             rerollPrimarySlot={row.rerollPrimarySlot ?? null}
             onRerollPrimarySlot={onRerollPrimarySlot}
-            characterPageVillageQuery={characterPageVillageQuery}
+            inhabitantPageVillageQuery={inhabitantPageVillageQuery}
             ownerEntries={
               ownersOk && ownerSlot !== null
                 ? [{ roll: owners![ownerSlot]!, ownerIndex: ownerSlot }]
@@ -165,7 +165,7 @@ export function VillageSummary({
         rulebookPages={g.rulebookPages}
         rerollPrimarySlot={g.rerollPrimarySlot}
         onRerollPrimarySlot={onRerollPrimarySlot}
-        characterPageVillageQuery={characterPageVillageQuery}
+        inhabitantPageVillageQuery={inhabitantPageVillageQuery}
         ownerEntries={
           ownersOk
             ? g.ownerIndices.flatMap(estIdx => {
@@ -184,7 +184,7 @@ export function VillageSummary({
       />
     ))
   }, [
-    characterPageVillageQuery,
+    inhabitantPageVillageQuery,
     display,
     grouped,
     onRerollOwner,

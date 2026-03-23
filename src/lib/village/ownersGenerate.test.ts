@@ -7,7 +7,7 @@ const c = (rank: PlayingCard["rank"], suit: PlayingCard["suit"]): PlayingCard =>
   ({ rank, suit });
 
 describe("ownersGenerate", () => {
-  it("generates one character roll per resolved establishment", () => {
+  it("generates one inhabitant roll per resolved establishment", () => {
     const primary = toVillagePrimaryTuple([
       c("2", "hearts"),
       c("3", "clubs"),

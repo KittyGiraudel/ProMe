@@ -1,20 +1,20 @@
 import { describe, expect, it } from "vitest";
 import { lookupName } from "./data/namesByRace";
 import {
-  generateCharacterWithRace,
+  generateInhabitantWithRace,
   getAgeBand,
   getPersonality,
   mapKindFromContextSevenDie,
-  rerollCharacterPart,
-  setCharacterAgeBand,
-  setCharacterGender,
-  setCharacterNameDice,
-  setCharacterPersonality,
-  setCharacterRace,
-  type CharacterRoll,
+  rerollInhabitantPart,
+  setInhabitantAgeBand,
+  setInhabitantGender,
+  setInhabitantNameDice,
+  setInhabitantPersonality,
+  setInhabitantRace,
+  type InhabitantRoll,
 } from "./generate";
 
-function makeRoll(over: Partial<CharacterRoll> = {}): CharacterRoll {
+function makeRoll(over: Partial<InhabitantRoll> = {}): InhabitantRoll {
   return {
     raceDie: 1,
     race: "bruja",
@@ -30,7 +30,7 @@ function makeRoll(over: Partial<CharacterRoll> = {}): CharacterRoll {
   };
 }
 
-describe("character/generate", () => {
+describe("inhabitant/generate", () => {
   it("mapKindFromContextSevenDie splits 1–3 vs 4–6", () => {
     expect(mapKindFromContextSevenDie(1)).toBe("localisation");
     expect(mapKindFromContextSevenDie(3)).toBe("localisation");
@@ -38,9 +38,9 @@ describe("character/generate", () => {
     expect(mapKindFromContextSevenDie(6)).toBe("biome");
   });
 
-  it("generateCharacterWithRace uses canonical race die", () => {
+  it("generateInhabitantWithRace uses canonical race die", () => {
     const rng = () => 0.0001;
-    const roll = generateCharacterWithRace("cucurbitus", rng);
+    const roll = generateInhabitantWithRace("cucurbitus", rng);
     expect(roll.race).toBe("cucurbitus");
     expect(roll.raceDie).toBe(3);
   });
@@ -54,70 +54,70 @@ describe("character/generate", () => {
     expect(getPersonality(roll)).toBe("joyful");
   });
 
-  it("rerollCharacterPart ageCard and personalityCard are independent", () => {
+  it("rerollInhabitantPart ageCard and personalityCard are independent", () => {
     const roll = makeRoll();
-    const nextAge = rerollCharacterPart(roll, "ageCard", () => 0.5);
+    const nextAge = rerollInhabitantPart(roll, "ageCard", () => 0.5);
     expect(nextAge.personalityCard).toEqual(roll.personalityCard);
-    const nextPers = rerollCharacterPart(roll, "personalityCard", () => 0.5);
+    const nextPers = rerollInhabitantPart(roll, "personalityCard", () => 0.5);
     expect(nextPers.ageCard).toEqual(roll.ageCard);
   });
 
-  it("rerollCharacterPart race updates name for new race grid", () => {
+  it("rerollInhabitantPart race updates name for new race grid", () => {
     const roll = makeRoll({ race: "bruja", nameDice: [1, 1] });
-    const next = rerollCharacterPart(roll, "race", () => 0.999);
+    const next = rerollInhabitantPart(roll, "race", () => 0.999);
     expect(next.raceDie).toBe(6);
     expect(next.race).toBe("mousseron");
     expect(next.name).toBe(lookupName("mousseron", 1, 1));
   });
 
-  it("rerollCharacterPart contextSevenDie is a no-op when context is not 7", () => {
+  it("rerollInhabitantPart contextSevenDie is a no-op when context is not 7", () => {
     const roll = makeRoll();
-    const next = rerollCharacterPart(roll, "contextSevenDie", () => 0.99);
+    const next = rerollInhabitantPart(roll, "contextSevenDie", () => 0.99);
     expect(next).toBe(roll);
   });
 
-  it("rerollCharacterPart contextSpokenNameDice is a no-op when context is not 10", () => {
+  it("rerollInhabitantPart contextSpokenNameDice is a no-op when context is not 10", () => {
     const roll = makeRoll();
-    const next = rerollCharacterPart(roll, "contextSpokenNameDice", () => 0.99);
+    const next = rerollInhabitantPart(roll, "contextSpokenNameDice", () => 0.99);
     expect(next).toBe(roll);
   });
 
-  it("setCharacterNameDice updates name string", () => {
+  it("setInhabitantNameDice updates name string", () => {
     const roll = makeRoll({ race: "bruja", nameDice: [1, 1] });
-    const next = setCharacterNameDice(roll, [2, 3]);
+    const next = setInhabitantNameDice(roll, [2, 3]);
     expect(next.nameDice).toEqual([2, 3]);
     expect(next.name).toBe(lookupName("bruja", 2, 3));
   });
 
-  it("setCharacterRace uses canonical die and recomputes name", () => {
+  it("setInhabitantRace uses canonical die and recomputes name", () => {
     const roll = makeRoll({ race: "bruja", nameDice: [1, 1] });
-    const next = setCharacterRace(roll, "kiore");
+    const next = setInhabitantRace(roll, "kiore");
     expect(next.raceDie).toBe(5);
     expect(next.race).toBe("kiore");
     expect(next.name).toBe(lookupName("kiore", 1, 1));
   });
 
-  it("setCharacterAgeBand changes suit only", () => {
+  it("setInhabitantAgeBand changes suit only", () => {
     const roll = makeRoll({
       ageCard: { suit: "hearts", rank: "5" },
     });
-    const next = setCharacterAgeBand(roll, "elderly");
+    const next = setInhabitantAgeBand(roll, "elderly");
     expect(next.ageCard).toEqual({ suit: "spades", rank: "5" });
     expect(getAgeBand(next)).toBe("elderly");
   });
 
-  it("setCharacterPersonality changes rank only", () => {
+  it("setInhabitantPersonality changes rank only", () => {
     const roll = makeRoll({
       personalityCard: { suit: "diamonds", rank: "2" },
     });
-    const next = setCharacterPersonality(roll, "sad");
+    const next = setInhabitantPersonality(roll, "sad");
     expect(next.personalityCard).toEqual({ suit: "diamonds", rank: "K" });
     expect(getPersonality(next)).toBe("sad");
   });
 
-  it("setCharacterGender uses canonical die", () => {
+  it("setInhabitantGender uses canonical die", () => {
     const roll = makeRoll({ genderDie: 2, gender: "man" });
-    const next = setCharacterGender(roll, "woman");
+    const next = setInhabitantGender(roll, "woman");
     expect(next.genderDie).toBe(3);
     expect(next.gender).toBe("woman");
   });
