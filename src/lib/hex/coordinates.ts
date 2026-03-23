@@ -2,8 +2,10 @@ import type { HexCoordinate } from '@/lib/playerCharacter/types'
 
 export const MAP_ROWS = 9
 export const MAP_COLS = 12
-export const ORIGIN_ROW_INDEX = 4 // E
-export const ORIGIN_COL_INDEX = 6 // 13
+
+// This is the position *in the rendered map* where the *origin* (0, 0) exists:
+// in the 4th row (E) at the 6th column (13).
+export const ORIGIN_POSITION = { r: 4, q: 6 }
 
 export type SheetCoordinate = {
   sheetQ: number
@@ -67,8 +69,8 @@ export function colLabelFromIndex(index: number): string {
 }
 
 export function getSheetCoordinate(coord: HexCoordinate): SheetCoordinate {
-  const absoluteRow = coord.r + ORIGIN_ROW_INDEX
-  const absoluteCol = coord.q + ORIGIN_COL_INDEX
+  const absoluteRow = coord.r + ORIGIN_POSITION.r
+  const absoluteCol = coord.q + ORIGIN_POSITION.q
   return {
     sheetQ: floorDiv(absoluteCol, MAP_COLS),
     sheetR: floorDiv(absoluteRow, MAP_ROWS),
@@ -83,14 +85,14 @@ export function getGlobalFromSheetCell(
   const absoluteRow = sheet.sheetR * MAP_ROWS + rowIndex
   const absoluteCol = sheet.sheetQ * MAP_COLS + colIndex
   return {
-    q: absoluteCol - ORIGIN_COL_INDEX,
-    r: absoluteRow - ORIGIN_ROW_INDEX,
+    q: absoluteCol - ORIGIN_POSITION.q,
+    r: absoluteRow - ORIGIN_POSITION.r,
   }
 }
 
 export function getSheetCellAddress(coord: HexCoordinate): SheetCellAddress {
-  const absoluteRow = coord.r + ORIGIN_ROW_INDEX
-  const absoluteCol = coord.q + ORIGIN_COL_INDEX
+  const absoluteRow = coord.r + ORIGIN_POSITION.r
+  const absoluteCol = coord.q + ORIGIN_POSITION.q
   const sheetR = floorDiv(absoluteRow, MAP_ROWS)
   const sheetQ = floorDiv(absoluteCol, MAP_COLS)
   const rowIndex = positiveMod(absoluteRow, MAP_ROWS)

@@ -9,6 +9,7 @@ import { useNavigationBlocker } from '@/app/contexts/NavigationBlockerContext'
 import {
   computeClockTotalSegmentsFromStamina,
   getDefaultPoolsForArchetype,
+  randomId,
   remapClockPositionForTotalSegments,
 } from '@/lib/playerCharacter/model'
 import { loadDraft, clearDraft } from '@/lib/playerCharacter/draftStorage'
@@ -440,8 +441,38 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
           <CharacteristicsCard />
           <ClockCard />
           <MapCard />
-          <InventoryCard inventoryLimit={inventoryLimit} />
-          <SpellbookCard />
+          <Form.List name='inventory'>
+            {(fields, { add, remove }) => (
+              <InventoryCard
+                fields={fields}
+                inventoryLimit={inventoryLimit}
+                onAddItem={() =>
+                  add({
+                    id: randomId(),
+                    label: '',
+                    quantity: 1,
+                    note: '',
+                  })
+                }
+                onRemoveItem={remove}
+              />
+            )}
+          </Form.List>
+          <Form.List name='spellbook'>
+            {(fields, { add, remove }) => (
+              <SpellbookCard
+                fields={fields}
+                onAddSpell={() =>
+                  add({
+                    id: randomId(),
+                    name: '',
+                    note: '',
+                  })
+                }
+                onRemoveSpell={remove}
+              />
+            )}
+          </Form.List>
           <NotesCard />
         </Space>
 

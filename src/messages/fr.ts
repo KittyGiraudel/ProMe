@@ -235,6 +235,7 @@ export const copy = {
       return `Feuille (${sheetQ}, ${sheetR})`;
     },
     mapCenterOnCurrent: "Centrer sur ma position",
+    mapCharacterPosition: "Position du personnage",
     mapSelectedCell: "Case sélectionnée",
     mapCell: "Hexagone",
     mapCore: "Le Noyau",

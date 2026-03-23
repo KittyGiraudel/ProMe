@@ -90,11 +90,13 @@ export function MapCellContextMenu({
         key: 'move',
         label: copy.playerCharacters.mapMoveHere,
       },
+      iconSubmenu,
+      { type: 'divider' as const },
       {
         key: 'clear',
+        danger: true,
         label: copy.playerCharacters.mapClearCell,
       },
-      iconSubmenu,
     ]
 
     return [
@@ -180,10 +182,7 @@ export function MapCellContextMenu({
           selectedKeys: [selectedBiomeKey],
         }}
         open={open}
-        onOpenChange={nextOpen => {
-          setOpen(nextOpen)
-          if (nextOpen) onSelectCell(coord)
-        }}
+        onOpenChange={setOpen}
         placement='topLeft'
         classNames={{ root: 'Map__DropdownOverlay' }}>
         <button

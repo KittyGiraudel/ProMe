@@ -1,10 +1,6 @@
-/**
- * 1. Leave some room for the column labels.
- */
 .Map {
   --gap: 0px; 
   --size: calc(100% / 12 - var(--gap));
-  padding-top: 2em; /* 1 */
 }
 
 .Map__LegendRow {
@@ -132,19 +128,20 @@
   margin-left: calc(var(--_c) * (var(--size) + var(--gap)) / 2);
 
   display: grid;
-  place-content: stretch;
-  border: 1px solid transparent;
+  place-content: center;
+  border: 1px solid var(--biome-dark);
   box-sizing: border-box;
   transition: 0.1s ease-in-out;
 
   background-color: var(--biome-light);
-  border-color: var(--biome-dark);
   color: var(--biome-contrast);
+
+  box-shadow: inset 0 0 20px var(--biome-dark);
 }
 
 .Map__Hex[data-current="true"] {
-  outline: 3px solid #1677ff;
-  outline-offset: 3px;
+  box-shadow: inset 0 0 10px 2px white;
+  border-color: white;
   z-index: 1;
   position: relative;
 }
@@ -152,7 +149,7 @@
 .Map__Hex[data-selected="true"] {
   outline: 3px solid #722ed1;
   outline-offset: 3px;
-  z-index: 1;
+  z-index: 2;
   position: relative;
 }
 
@@ -236,7 +233,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: inherit;
-  opacity: 0.3;
+  opacity: 0.25;
   appearance: none;
   background: transparent;
   border: 0;

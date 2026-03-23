@@ -1,12 +1,13 @@
 'use client'
 
 import { Button, Card, Form, Space, Tag, Typography } from 'antd'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { MapDisplay } from '@/components/MapDisplay/MapDisplay'
 import {
   toHexKey,
   getDisplayedCellLabel,
   getSheetCoordinate,
+  isSameHex,
   type SheetCoordinate,
 } from '@/lib/hex/coordinates'
 import {
@@ -38,12 +39,21 @@ export function MapCard() {
     preserve: true,
   }) as CharacterMapState | undefined
   const mapState = normalizeMapState(watchedMap)
-  const [selectedCell, setSelectedCell] = useState<HexCoordinate>(
+  const [selectedCell, setSelectedCell] = useState<HexCoordinate | null>(
     mapState.currentPosition
   )
   const [visibleSheet, setVisibleSheet] = useState<SheetCoordinate>(() =>
     getSheetCoordinate(mapState.currentPosition)
   )
+
+  const hasSyncedVisibleSheetRef = useRef(false)
+  useEffect(() => {
+    if (hasSyncedVisibleSheetRef.current) return
+    if (watchedMap === undefined || watchedMap === null) return
+    hasSyncedVisibleSheetRef.current = true
+    const normalized = normalizeMapState(watchedMap)
+    setVisibleSheet(getSheetCoordinate(normalized.currentPosition))
+  }, [watchedMap])
 
   const cellsByKey = useMemo(() => {
     const next = new Map<string, CharacterMapCell>()
@@ -53,7 +63,9 @@ export function MapCard() {
     return next
   }, [mapState.cells])
 
-  const selectedCellData = cellsByKey.get(toHexKey(selectedCell))
+  const toggleSelectCell = (coord: HexCoordinate) => {
+    setSelectedCell(prev => (prev && isSameHex(prev, coord) ? null : coord))
+  }
 
   const updateMap = (
     updater: (current: CharacterMapState) => CharacterMapState
@@ -118,8 +130,6 @@ export function MapCard() {
     updateMap(current => ({ ...current, currentPosition: target }))
   }
 
-  const selectedBiome = selectedCellData?.biome
-
   return (
     <Card title={copy.playerCharacters.mapSection}>
       <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
@@ -171,30 +181,25 @@ export function MapCard() {
           <MapFormValueAnchor />
         </Form.Item>
 
+        <Typography.Text type='secondary'>
+          {copy.playerCharacters.mapCharacterPosition}
+          {' : '}
+          <Typography.Text strong>
+            {getDisplayedCellLabel(mapState.currentPosition)}
+          </Typography.Text>
+        </Typography.Text>
+
         <MapDisplay
           sheet={visibleSheet}
           cellsByKey={cellsByKey}
           currentPosition={mapState.currentPosition}
           selectedPosition={selectedCell}
-          onSelectCell={setSelectedCell}
+          onSelectCell={toggleSelectCell}
           onAssignBiome={setBiomeAt}
           onMoveTo={moveToCell}
           onSetIcon={setIconAt}
           onClearCell={clearCellAt}
         />
-
-        <Space direction='vertical' size='small' style={{ width: '100%' }}>
-          <Typography.Text strong>
-            {copy.playerCharacters.mapSelectedCell}:{' '}
-            {getDisplayedCellLabel(selectedCell)}
-          </Typography.Text>
-
-          <Tag>
-            {selectedBiome
-              ? copy.playerCharacters.mapBiomes[selectedBiome]
-              : copy.playerCharacters.mapUnexplored}
-          </Tag>
-        </Space>
       </Space>
     </Card>
   )
