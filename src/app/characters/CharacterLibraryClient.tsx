@@ -3,7 +3,7 @@
 import { App, Button, Card, Popconfirm, Space, Typography } from 'antd'
 import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react'
-import { GeneratorPageShell } from '@/components/GeneratorPageShell/GeneratorPageShell'
+import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { getCharacterStore } from '@/lib/playerCharacter/store'
 import { saveDraft } from '@/lib/playerCharacter/draftStorage'
@@ -73,11 +73,9 @@ export function CharacterLibraryClient() {
   }
 
   return (
-    <GeneratorPageShell
+    <Layout
       title={copy.playerCharacters.pageTitle}
-      description={copy.playerCharacters.pageDescription}
-      backHref='/'
-      backLabel={copy.nav.backHome}>
+      description={copy.playerCharacters.pageDescription}>
       <Space style={{ marginBottom: 16, flexWrap: 'wrap' }}>
         <Button type='primary' onClick={handleCreate}>
           {copy.playerCharacters.create}
@@ -139,6 +137,6 @@ export function CharacterLibraryClient() {
           ))}
         </Space>
       )}
-    </GeneratorPageShell>
+    </Layout>
   )
 }

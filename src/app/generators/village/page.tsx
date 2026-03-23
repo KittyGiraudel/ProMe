@@ -1,17 +1,15 @@
 import { Suspense } from 'react'
-import { GeneratorPageShell } from '@/components/GeneratorPageShell/GeneratorPageShell'
+import { Layout } from '@/components/Layout/Layout'
 import { copy } from '@/messages/fr'
 import { VillageGeneratorClient } from './VillageGeneratorClient'
 
 function VillageGeneratorFallback() {
   return (
-    <GeneratorPageShell
+    <Layout
       title={copy.village.pageTitle}
-      description={copy.village.pageDescription}
-      backHref='/'
-      backLabel={copy.nav.backHome}>
+      description={copy.village.pageDescription}>
       <p>{copy.common.loading}</p>
-    </GeneratorPageShell>
+    </Layout>
   )
 }
 

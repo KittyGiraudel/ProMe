@@ -3,7 +3,7 @@
 import { Alert, App, Button, Divider, Form, Space, Typography } from 'antd'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { GeneratorPageShell } from '@/components/GeneratorPageShell/GeneratorPageShell'
+import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { useNavigationBlocker } from '@/app/contexts/NavigationBlockerContext'
 import { getDefaultPoolsForArchetype } from '@/lib/playerCharacter/model'
@@ -287,11 +287,13 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
 
   if (!character) {
     return (
-      <GeneratorPageShell
+      <Layout
         title={copy.playerCharacters.sheetTitle}
         description={copy.playerCharacters.sheetDescription}
-        backHref='/characters'
-        backLabel={copy.playerCharacters.backToLibrary}>
+        breadcrumbs={[
+          { label: copy.nav.homeLink, href: '/' },
+          { label: copy.playerCharacters.pageTitle, href: '/characters' },
+        ]}>
         <Alert
           type='warning'
           title={copy.playerCharacters.notFoundTitle}
@@ -306,15 +308,19 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
             </Space>
           }
         />
-      </GeneratorPageShell>
+      </Layout>
     )
   }
 
   if (mode === 'draft') {
     return (
-      <GeneratorPageShell
+      <Layout
         title={character.name || copy.playerCharacters.unnamed}
-        description={copy.playerCharacters.sheetDescription}>
+        description={copy.playerCharacters.sheetDescription}
+        breadcrumbs={[
+          { label: copy.nav.homeLink, href: '/' },
+          { label: copy.playerCharacters.pageTitle, href: '/characters' },
+        ]}>
         <Form
           key={`${character.id}-${mode}-${character.updatedAt}`}
           form={form}
@@ -337,16 +343,18 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
             </Space>
           </Space>
         </Form>
-      </GeneratorPageShell>
+      </Layout>
     )
   }
 
   return (
-    <GeneratorPageShell
+    <Layout
       title={character.name || copy.playerCharacters.unnamed}
       description={copy.playerCharacters.sheetDescription}
-      backHref='/characters'
-      backLabel={copy.playerCharacters.backToLibrary}>
+      breadcrumbs={[
+        { label: copy.nav.homeLink, href: '/' },
+        { label: copy.playerCharacters.pageTitle, href: '/characters' },
+      ]}>
       <Form
         key={`${character.id}-${mode}-${character.updatedAt}`}
         form={form}
@@ -374,6 +382,6 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
           </Button>
         </Space>
       </Form>
-    </GeneratorPageShell>
+    </Layout>
   )
 }

@@ -1,17 +1,15 @@
 import { Suspense } from 'react'
-import { GeneratorPageShell } from '@/components/GeneratorPageShell/GeneratorPageShell'
+import { Layout } from '@/components/Layout/Layout'
 import { InhabitantGeneratorClient } from './InhabitantGeneratorClient'
 import { copy } from '@/messages/fr'
 
 function InhabitantGeneratorFallback() {
   return (
-    <GeneratorPageShell
+    <Layout
       title={copy.inhabitant.pageTitle}
-      description={copy.inhabitant.pageDescription}
-      backHref='/'
-      backLabel={copy.nav.backHome}>
+      description={copy.inhabitant.pageDescription}>
       <p>{copy.common.loading}</p>
-    </GeneratorPageShell>
+    </Layout>
   )
 }
 

@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo } from 'react'
 import { App } from 'antd'
 import { InhabitantSummary } from '@/components/InhabitantSummary/InhabitantSummary'
-import { GeneratorPageShell } from '@/components/GeneratorPageShell/GeneratorPageShell'
+import { Layout } from '@/components/Layout/Layout'
 import { RollActions } from '@/components/RollActions/RollActions'
 import { useReplaceSearchParams } from '@/hooks/useReplaceSearchParams'
 import {
@@ -41,6 +41,14 @@ export function InhabitantGeneratorClient() {
     if (villageRaceParam) p.set(RACE_QUERY_KEY, villageRaceParam)
     return `/generators/village?${p.toString()}`
   }, [villageO, villageRaceParam, villageV])
+
+  const breadcrumbs = useMemo(() => {
+    if (!villageBackHref) return undefined
+    return [
+      { label: copy.nav.homeLink, href: '/' },
+      { label: copy.nav.backToVillage, href: villageBackHref },
+    ]
+  }, [villageBackHref])
 
   const roll = useMemo(
     () => (encoded ? decodeInhabitantRollParam(encoded) : null),
@@ -96,12 +104,10 @@ export function InhabitantGeneratorClient() {
   }, [message, pathname, roll, searchParams])
 
   return (
-    <GeneratorPageShell
+    <Layout
       title={copy.inhabitant.pageTitle}
       description={copy.inhabitant.pageDescription}
-      backHref='/'
-      backLabel={copy.nav.backHome}
-      villageBackHref={villageBackHref}>
+      breadcrumbs={breadcrumbs}>
       <RollActions
         onRollAll={handleRollAll}
         label={copy.inhabitant.rollAll}
@@ -113,6 +119,6 @@ export function InhabitantGeneratorClient() {
         onRerollPart={roll ? handleRerollPart : undefined}
         onSetRoll={roll ? handleSetRoll : undefined}
       />
-    </GeneratorPageShell>
+    </Layout>
   )
 }

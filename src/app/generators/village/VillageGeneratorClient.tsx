@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo } from 'react'
 import { App, Select, Typography } from 'antd'
-import { GeneratorPageShell } from '@/components/GeneratorPageShell/GeneratorPageShell'
+import { Layout } from '@/components/Layout/Layout'
 import { RollActions } from '@/components/RollActions/RollActions'
 import { VillageSummary } from '@/components/VillageSummary/VillageSummary'
 import { useReplaceSearchParams } from '@/hooks/useReplaceSearchParams'
@@ -209,11 +209,9 @@ export function VillageGeneratorClient() {
   }, [ownersValid, roll, villageRace])
 
   return (
-    <GeneratorPageShell
+    <Layout
       title={copy.village.pageTitle}
-      description={copy.village.pageDescription}
-      backHref='/'
-      backLabel={copy.nav.backHome}>
+      description={copy.village.pageDescription}>
       <div className='village-generator__toolbar'>
         <div className='village-generator__toolbar-actions'>
           <RollActions
@@ -243,6 +241,6 @@ export function VillageGeneratorClient() {
         onRerollPrimarySlot={roll ? handleRerollSlot : undefined}
         onRerollOwner={roll && ownersValid ? handleRerollOwner : undefined}
       />
-    </GeneratorPageShell>
+    </Layout>
   )
 }

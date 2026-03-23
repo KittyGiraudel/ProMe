@@ -1,37 +1,37 @@
-.generator-page-shell {
+.layout {
   flex: 1;
   padding: 1.35rem 1.25rem 3rem;
 }
 
-.generator-page-shell__inner {
+.layout__inner {
   max-width: 47rem;
   margin: 0 auto;
 }
 
-.generator-page-shell__breadcrumb {
+.layout__breadcrumb {
   margin-bottom: 0.75rem;
 }
 
-.generator-page-shell__breadcrumb-link {
+.layout__breadcrumb-link {
   color: var(--lsdp-muted);
 }
 
-.generator-page-shell__breadcrumb-link:hover {
+.layout__breadcrumb-link:hover {
   color: var(--lsdp-text);
 }
 
-.generator-page-shell__title {
+.layout__title {
   margin-bottom: 0.5rem !important;
 }
 
-.generator-page-shell__description {
+.layout__description {
   margin-bottom: 1.5rem;
   color: var(--lsdp-muted);
   font-size: 1rem;
   line-height: 1.55;
 }
 
-.generator-page-shell__body {
+.layout__body {
   display: flex;
   flex-direction: column;
   gap: 1rem;
