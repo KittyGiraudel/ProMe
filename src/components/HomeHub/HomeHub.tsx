@@ -17,6 +17,11 @@ const generators = [
     title: copy.hub.villageCardTitle,
     description: copy.hub.villageCardDescription,
   },
+  {
+    href: '/characters',
+    title: copy.hub.playerCharacterCardTitle,
+    description: copy.hub.playerCharacterCardDescription,
+  },
 ] as const
 
 export function HomeHub() {
