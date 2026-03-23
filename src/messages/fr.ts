@@ -250,7 +250,7 @@ export const copy = {
       mushroomJungle: "Jungle de champignons",
       fieldSea: "Mer champêtre",
       silentDesert: "Désert silencieux",
-      titanesqueGardens: "Jardins gigantesques",
+      giganticGardens: "Jardins gigantesques",
     },
   },
   genders: {

@@ -20,15 +20,6 @@ import React from 'react'
 import { CORE_Q, CORE_R } from '@/lib/playerCharacter/model'
 import { MapCellContextMenu } from './MapCellContextMenu'
 
-const biomeClassById: Record<BiomeId, string> = {
-  shadowForest: 'Map__Hex--shadow-forest',
-  floodedPlains: 'Map__Hex--flooded-plains',
-  mushroomJungle: 'Map__Hex--mushroom-jungle',
-  fieldSea: 'Map__Hex--field-sea',
-  silentDesert: 'Map__Hex--silent-desert',
-  titanesqueGardens: 'Map__Hex--titanesque-gardens',
-}
-
 type MapDisplayProps = {
   sheet: SheetCoordinate
   cellsByKey: Map<string, CharacterMapCell>
@@ -95,27 +86,19 @@ export function MapDisplay({
               const biome = isCore ? undefined : cell?.biome
               const icon = cell?.icon
               const localLabel = getDisplayedCellLabel(global)
-              const biomeClassName = biome
-                ? biomeClassById[biome]
-                : isCore
-                  ? 'Map__Hex--core'
-                  : 'Map__Hex--unexplored'
-
-              const className = [
-                'Map__Hex',
-                biomeClassName,
-                isCurrent ? 'Map__Hex--current' : '',
-                isSelected ? 'Map__Hex--selected' : '',
-              ]
-                .filter(Boolean)
-                .join(' ')
 
               return (
                 <div
                   key={localLabel}
-                  className={className}
+                  className='Map__Hex'
                   data-q={global.q}
-                  data-r={global.r}>
+                  data-r={global.r}
+                  data-coord={localLabel}
+                  data-biome={biome ?? 'unexplored'}
+                  data-icon={icon ?? ''}
+                  data-is-core={isCore ? 'true' : 'false'}
+                  data-current={isCurrent ? 'true' : 'false'}
+                  data-selected={isSelected ? 'true' : 'false'}>
                   <MapCellContextMenu
                     coord={global}
                     isCore={isCore}

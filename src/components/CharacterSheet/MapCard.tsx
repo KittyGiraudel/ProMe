@@ -16,8 +16,9 @@ import {
   type HexCoordinate,
 } from '@/lib/playerCharacter/types'
 import { copy } from '@/messages/fr'
+import { CORE_Q, CORE_R } from '@/lib/playerCharacter/model'
 
-const CORE_POSITION: HexCoordinate = { q: 0, r: 0 }
+const CORE_POSITION: HexCoordinate = { q: CORE_Q, r: CORE_R }
 
 function sameHex(a: HexCoordinate, b: HexCoordinate): boolean {
   return a.q === b.q && a.r === b.r
@@ -41,7 +42,10 @@ function normalizeMapState(
 
 export function MapCard() {
   const form = Form.useFormInstance()
-  const watchedMap = Form.useWatch('map', form) as CharacterMapState | undefined
+  const watchedMap = Form.useWatch('map', {
+    form,
+    preserve: true,
+  }) as CharacterMapState | undefined
   const mapState = normalizeMapState(watchedMap)
   const [selectedCell, setSelectedCell] = useState<HexCoordinate>(
     mapState.currentPosition
@@ -192,12 +196,7 @@ export function MapCard() {
             {copy.playerCharacters.mapSelectedCell}:{' '}
             {getDisplayedCellLabel(selectedCell)}
           </Typography.Text>
-          <Typography.Text type='secondary'>
-            {copy.playerCharacters.mapSheet(
-              selectedAddress.sheetQ,
-              selectedAddress.sheetR
-            )}
-          </Typography.Text>
+
           {selectedIsCore ? (
             <Tag color='gold'>{copy.playerCharacters.mapCore}</Tag>
           ) : (

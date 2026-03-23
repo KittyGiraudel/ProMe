@@ -93,7 +93,12 @@ export function MapCellContextMenu({
         children: [
           ...BIOME_IDS.map(id => ({
             key: `biome:${id}`,
-            label: copy.playerCharacters.mapBiomes[id],
+            label: (
+              <span className='Map__BiomeMenuItem'>
+                <span data-biome={id} className='Map__BiomeSwatch' />
+                <span>{copy.playerCharacters.mapBiomes[id]}</span>
+              </span>
+            ),
           })),
           {
             type: 'divider' as const,

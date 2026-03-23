@@ -38,7 +38,7 @@ export type BiomeId =
   | 'mushroomJungle'
   | 'fieldSea'
   | 'silentDesert'
-  | 'titanesqueGardens'
+  | 'giganticGardens'
 
 export const BIOME_IDS: readonly BiomeId[] = [
   'shadowForest',
@@ -46,7 +46,7 @@ export const BIOME_IDS: readonly BiomeId[] = [
   'mushroomJungle',
   'fieldSea',
   'silentDesert',
-  'titanesqueGardens',
+  'giganticGardens',
 ] as const
 
 export type HexCoordinate = {
