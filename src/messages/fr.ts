@@ -82,7 +82,7 @@ export const copy = {
     pageDescription:
       "Tirez 5 cartes comme au livre : chaque carte indique un établissement ou un trait. Un habitant est généré par établissement (copropriété si fusion). Partagez via l’URL.",
     villageRaceLabel: "Peuple du village",
-    rollAll: "Tirer 5 cartes",
+    rollAll: "Générer",
     emptySummaryBefore: "Cliquez sur « ",
     emptySummaryAfter: " » pour générer un village.",
     sectionTraits: "Traits du village",
@@ -155,7 +155,16 @@ export const copy = {
       pilgrim: "Pèlerin",
       bard: "Troubadour",
     },
-    genderPlaceholder: "Genre (optionnel)",
+    archetypePowerLabel: "Pouvoir d’archétype",
+    archetypePowers: {
+      warrior:
+        "Le pouvoir de l’épée : quand vous le souhaitez, vous pouvez fuir une bataille sans avoir à lancer de dés ni risquer de subir des dégâts.",
+      pilgrim:
+        "Le pouvoir du bâton : vous n’avez besoin de vous nourrir qu’une fois par jour, à la fin de chaque nuit.",
+      bard:
+        "Le pouvoir de la mandoline : lorsque vous arrivez dans un village pour la première fois, vous pouvez jouer une chanson et gagner 1D6 × 10 pièces.",
+    },
+    genderLabel: "Genre",
     honorLabel: "Honneur",
     inspirationLabel: "Inspiration",
     moneyLabel: "Pièces",

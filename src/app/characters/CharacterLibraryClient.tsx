@@ -1,6 +1,6 @@
 'use client'
 
-import { App, Button, Card, Popconfirm, Space, Typography } from 'antd'
+import { App, Button, Card, Empty, Popconfirm, Space, Typography } from 'antd'
 import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react'
 import { Layout } from '@/components/Layout/Layout'
@@ -98,9 +98,7 @@ export function CharacterLibraryClient() {
 
       {characters.length === 0 ? (
         <Card>
-          <Typography.Text type='secondary'>
-            {copy.playerCharacters.empty}
-          </Typography.Text>
+          <Empty description={copy.playerCharacters.empty} />
         </Card>
       ) : (
         <Space orientation='vertical' size='middle' style={{ width: '100%' }}>

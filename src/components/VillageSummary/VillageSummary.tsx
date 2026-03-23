@@ -2,7 +2,7 @@
 
 import { RedoOutlined } from '@ant-design/icons'
 import { useMemo, useState } from 'react'
-import { Button, Card, Checkbox, Tooltip, Typography } from 'antd'
+import { Button, Card, Checkbox, Empty, Tooltip, Typography } from 'antd'
 import { encodePlayingCard } from '@/lib/codec/cards'
 import type { PlayingCard } from '@/lib/types'
 import { suitIsRed } from '@/lib/suitGlyphs'
@@ -206,11 +206,15 @@ export function VillageSummary({
         <Card
           className='village-summary village-summary--empty'
           variant='borderless'>
-          <Typography.Text type='secondary'>
-            {copy.village.emptySummaryBefore}
-            {copy.village.rollAll}
-            {copy.village.emptySummaryAfter}
-          </Typography.Text>
+          <Empty
+            description={
+              <>
+                {copy.village.emptySummaryBefore}
+                {copy.village.rollAll}
+                {copy.village.emptySummaryAfter}
+              </>
+            }
+          />
         </Card>
         {villageFootnote}
       </>

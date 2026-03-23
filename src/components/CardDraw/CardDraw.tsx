@@ -1,6 +1,6 @@
 import { randomCard, rollD6 } from '@/lib/rng'
 import { copy } from '@/messages/fr'
-import { Button, Card } from 'antd'
+import { Button, Card, Empty } from 'antd'
 import { useEffect, useRef, useState } from 'react'
 import { PlayingCardLabel } from '../PlayingCardLabel/PlayingCardLabel'
 import { PlayingCard } from '@/lib/types'
@@ -60,7 +60,7 @@ export function CardDraw() {
           {isDrawingCard ? copy.hub.cardToolDrawing : copy.hub.cardToolAction}
         </Button>
       }>
-      <p
+      <div
         className={[
           'CardDraw__value',
           isDrawingCard ? 'CardDraw__value--drawing' : '',
@@ -68,11 +68,11 @@ export function CardDraw() {
           .filter(Boolean)
           .join(' ')}>
         {drawnCard === null ? (
-          copy.hub.cardToolEmpty
+          <Empty description={copy.hub.cardToolEmpty} />
         ) : (
           <PlayingCardLabel card={drawnCard} className='CardDraw__drawn-card' />
         )}
-      </p>
+      </div>
     </Card>
   )
 }

@@ -2,7 +2,15 @@
 
 import { RedoOutlined } from '@ant-design/icons'
 import { useMemo, type ReactNode } from 'react'
-import { Button, Card, Descriptions, Select, Tooltip, Typography } from 'antd'
+import {
+  Button,
+  Card,
+  Descriptions,
+  Empty,
+  Select,
+  Tooltip,
+  Typography,
+} from 'antd'
 import { lookupName } from '@/lib/inhabitant/data/namesByRace'
 import {
   type InhabitantRerollPart,
@@ -114,11 +122,16 @@ export function InhabitantSummary({
         <Card
           className='inhabitant-summary inhabitant-summary--empty'
           variant='borderless'>
-          <Typography.Text type='secondary'>
-            {copy.inhabitant.emptySummaryBefore}
-            {copy.inhabitant.rollAll}
-            {copy.inhabitant.emptySummaryAfter}
-          </Typography.Text>
+          <Empty
+            description={
+              <>
+                {copy.inhabitant.emptySummaryBefore}
+                {copy.inhabitant.rollAll}
+                {copy.inhabitant.emptySummaryAfter}
+              </>
+            }
+          />
+          <Typography.Text type='secondary'></Typography.Text>
         </Card>
         {inhabitantFootnote}
       </>

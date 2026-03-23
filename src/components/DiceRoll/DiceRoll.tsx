@@ -1,6 +1,6 @@
 import { rollD6 } from '@/lib/rng'
 import { copy } from '@/messages/fr'
-import { Button, Card } from 'antd'
+import { Button, Card, Empty } from 'antd'
 import { useEffect, useRef, useState } from 'react'
 import { DiceFaces } from '../DiceFaces/DiceFaces'
 import './DiceRoll.css'
@@ -57,7 +57,7 @@ export function DiceRoll() {
           {isRollingDie ? copy.hub.dieToolRolling : copy.hub.dieToolAction}
         </Button>
       }>
-      <p
+      <div
         className={[
           'DiceRoll__value',
           isRollingDie ? 'DiceRoll__value--rolling' : '',
@@ -65,11 +65,11 @@ export function DiceRoll() {
           .filter(Boolean)
           .join(' ')}>
         {dieValue === null ? (
-          copy.hub.dieToolEmpty
+          <Empty description={copy.hub.dieToolEmpty} />
         ) : (
           <DiceFaces values={[dieValue]} className='DiceRoll__die-face' />
         )}
-      </p>
+      </div>
     </Card>
   )
 }

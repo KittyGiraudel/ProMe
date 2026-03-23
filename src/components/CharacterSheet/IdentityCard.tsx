@@ -1,10 +1,19 @@
 'use client'
 
-import { Card, Col, Form, Input, Row, Select } from 'antd'
+import { Alert, Card, Col, Form, Input, Row, Select, Typography } from 'antd'
 import { GENDERS } from '@/lib/types'
+import type { PlayerArchetype } from '@/lib/playerCharacter/types'
 import { copy } from '@/messages/fr'
 
 export function IdentityCard() {
+  const watchedArchetype = Form.useWatch('archetype') as
+    | PlayerArchetype
+    | undefined
+
+  const archetypePower = watchedArchetype
+    ? copy.playerCharacters.archetypePowers[watchedArchetype]
+    : null
+
   return (
     <Card title={copy.playerCharacters.identitySection}>
       <Row gutter={[16, 16]}>
@@ -23,7 +32,7 @@ export function IdentityCard() {
             rules={[{ required: true }]}
             name='archetype'
             label={copy.playerCharacters.archetypeLabel}
-            style={{ marginBottom: 0 }}>
+            style={{ marginBottom: archetypePower ? 8 : 0 }}>
             <Select
               style={{ width: '100%' }}
               options={[
@@ -47,7 +56,7 @@ export function IdentityCard() {
         <Col xs={24} md={8}>
           <Form.Item
             name='gender'
-            label={copy.playerCharacters.genderPlaceholder}
+            label={copy.playerCharacters.genderLabel}
             style={{ marginBottom: 0 }}>
             <Select
               allowClear
@@ -58,6 +67,22 @@ export function IdentityCard() {
               }))}
             />
           </Form.Item>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={24}>
+          {archetypePower ? (
+            <Alert
+              style={{ marginTop: 16 }}
+              type='info'
+              title={
+                <>
+                  <strong>{copy.playerCharacters.archetypePowerLabel} :</strong>{' '}
+                  {archetypePower}
+                </>
+              }
+            />
+          ) : null}
         </Col>
       </Row>
     </Card>
