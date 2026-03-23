@@ -1,12 +1,16 @@
 'use client'
 
-import { Card, Col, Row, Typography } from 'antd'
+import { Card, Col, Row, Space, Typography } from 'antd'
+import { useEffect, useMemo, useState } from 'react'
 import { copy } from '@/messages/fr'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
+import { getCharacterStore } from '@/lib/playerCharacter/store'
+import type { PlayerCharacter } from '@/lib/playerCharacter/types'
 import './HomeHub.css'
 import { DiceRoll } from '../DiceRoll/DiceRoll'
 import { CardDraw } from '../CardDraw/CardDraw'
 import { Layout } from '../Layout/Layout'
+import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 
 const generators = [
   {
@@ -30,6 +34,21 @@ const managers = [
 ] as const
 
 const CharacterManager = () => {
+  const store = useMemo(() => getCharacterStore(), [])
+  const [recentCharacters, setRecentCharacters] = useState<PlayerCharacter[]>(
+    []
+  )
+
+  useEffect(() => {
+    const latest = [...store.list()]
+      .sort(
+        (a, b) =>
+          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+      )
+      .slice(0, 3)
+    setRecentCharacters(latest)
+  }, [store])
+
   return (
     <Card
       className='home-hub__card'
@@ -42,6 +61,34 @@ const CharacterManager = () => {
       <p className='home-hub__card-text'>
         {copy.hub.playerCharacterCardDescription}
       </p>
+      <Row style={{ marginTop: 16 }}>
+        {recentCharacters.map(character => (
+          <Col span={8} key={character.id}>
+            <BlockedLink
+              key={character.id}
+              href={`/characters/${character.id}`}
+              className='home-hub__recent-link'>
+              <Card
+                size='small'
+                hoverable
+                title={
+                  <>
+                    {character.gender
+                      ? genderCompactSymbol(character.gender)
+                      : ''}{' '}
+                    {character.name || copy.playerCharacters.unnamed},{' '}
+                    {copy.playerCharacters.archetypes[character.archetype]}
+                  </>
+                }>
+                <Typography.Text type='secondary'>
+                  {copy.playerCharacters.updatedLabel}:{' '}
+                  {new Date(character.updatedAt).toLocaleDateString('fr-FR')}
+                </Typography.Text>
+              </Card>
+            </BlockedLink>
+          </Col>
+        ))}
+      </Row>
     </Card>
   )
 }

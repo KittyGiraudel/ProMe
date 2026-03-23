@@ -23,3 +23,14 @@
   color: var(--lsdp-muted);
   line-height: 1.5;
 }
+
+.home-hub__recent {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.home-hub__recent-link {
+  color: inherit;
+}
