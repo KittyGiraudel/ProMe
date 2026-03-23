@@ -87,7 +87,7 @@ export function HomeHub() {
       title={copy.hub.title}
       description={copy.hub.subtitle}
       breadcrumbs={[]}>
-      <section className='home-hub__section'>
+      <section className='home-hub__section' data-testid='managers'>
         <h2 className='home-hub__section-title'>{copy.hub.managersTitle}</h2>
         <Row gutter={16}>
           <Col span={24}>
@@ -96,7 +96,7 @@ export function HomeHub() {
         </Row>
       </section>
 
-      <section className='home-hub__section'>
+      <section className='home-hub__section' data-testid='generators'>
         <h2 className='home-hub__section-title'>{copy.hub.generatorsTitle}</h2>
         <Row gutter={16}>
           <Col span={12}>
@@ -108,7 +108,7 @@ export function HomeHub() {
         </Row>
       </section>
 
-      <section className='home-hub__section'>
+      <section className='home-hub__section' data-testid='tools'>
         <h2 className='home-hub__section-title'>{copy.hub.quickToolsTitle}</h2>
         <Row gutter={16}>
           <Col span={12}>

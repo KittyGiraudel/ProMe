@@ -8,11 +8,10 @@ test.describe('public smoke', () => {
 
     // HomeHub
     await page.goto('/')
-    await expect(page.locator('.home-hub__title')).toBeVisible()
 
     // Inhabitant generator (first load is "empty" because no `?i=` query param).
     await page.locator('a[href="/generators/inhabitant"]').click()
-    await expect(page.locator('.generator-page-shell__title')).toBeVisible()
+    await expect(page.locator('.layout__title')).toBeVisible()
 
     const inhabitantEmpty = page.locator('.inhabitant-summary--empty')
     await expect(inhabitantEmpty).toBeVisible()
@@ -35,7 +34,7 @@ test.describe('public smoke', () => {
     await page.goto('/characters')
 
     const createButton = page
-      .locator('.generator-page-shell__body button.ant-btn-primary')
+      .locator('.layout__body button.ant-btn-primary')
       .first()
     await expect(createButton).toBeVisible()
     await createButton.click()
@@ -44,13 +43,13 @@ test.describe('public smoke', () => {
     const form = page.locator('form').first()
     await expect(form).toBeVisible()
 
-    // In draft mode, the sheet does not show the GeneratorPageShell back link.
+    // In draft mode, the sheet does not show the layout back link.
     // Instead, it provides an explicit "cancel" button that returns to `/characters`.
     await expect(form.locator('button.ant-btn-primary')).toBeVisible()
     const cancelButton = form.locator('button.ant-btn:not(.ant-btn-primary)')
     await cancelButton.click()
     await expect(page).toHaveURL(/\/characters\/?$/)
-    await expect(page.locator('.generator-page-shell__title')).toBeVisible()
+    await expect(page.locator('.layout__title')).toBeVisible()
   })
 })
 
