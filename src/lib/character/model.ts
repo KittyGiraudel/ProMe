@@ -179,8 +179,11 @@ export function normalizeCharacterClock(
 ): CharacterClock {
   const source = value as Partial<CharacterClock> | undefined
   const totalSegments = computeClockTotalSegmentsFromStamina(staminaCurrent)
+  const position = normalizeClockPosition(source?.position, totalSegments)
+  const sheetDarkWithClockNight = source?.sheetDarkWithClockNight === true
   return {
-    position: normalizeClockPosition(source?.position, totalSegments),
+    position,
+    ...(sheetDarkWithClockNight ? { sheetDarkWithClockNight: true } : {}),
   }
 }
 

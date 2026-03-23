@@ -44,7 +44,7 @@
   font-weight: normal;
   text-align: center;
   font-size: 75%;
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .Map__LegendRow .Map__LegendItem {
@@ -157,6 +157,12 @@
   --biome-light: var(--unexplored-light);
   --biome-dark: var(--unexplored-dark);
   --biome-contrast: var(--unexplored-contrast);
+}
+
+[data-sheet-night='true'] [data-biome='unexplored'] {
+  --biome-light: #2c3834;
+  --biome-dark: #1a2320;
+  --biome-contrast: #b8c9c2;
 }
 
 [data-biome="shadowForest"] {

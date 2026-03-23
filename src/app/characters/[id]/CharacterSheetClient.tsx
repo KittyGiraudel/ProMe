@@ -1,12 +1,23 @@
 'use client'
 
-import { Alert, App, Button, Divider, Form, Space, Typography } from 'antd'
+import {
+  Alert,
+  App,
+  Button,
+  ConfigProvider,
+  Divider,
+  Form,
+  Space,
+  Typography,
+  theme as antdTheme,
+} from 'antd'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { useNavigationBlocker } from '@/app/contexts/NavigationBlockerContext'
 import {
+  computeClockSegmentsPerHalfFromStamina,
   computeClockTotalSegmentsFromStamina,
   getDefaultPoolsForArchetype,
   randomId,
@@ -34,6 +45,29 @@ import { MapFormValueAnchor } from '@/components/CharacterSheet/MapFormValueAnch
 import { InventoryCard } from '@/components/CharacterSheet/InventoryCard'
 import { SpellbookCard } from '@/components/CharacterSheet/SpellbookCard'
 import { NotesCard } from '@/components/CharacterSheet/NotesCard'
+
+const CHARACTER_SHEET_NIGHT_THEME = {
+  algorithm: antdTheme.darkAlgorithm,
+  token: {
+    colorPrimary: '#5cb399',
+    colorBgLayout: '#1a2420',
+    colorBgContainer: '#243029',
+    colorBgElevated: '#2d3b36',
+    colorText: '#e8f0ed',
+    colorTextSecondary: '#9eb5ac',
+    colorBorder: '#3d4f47',
+    colorBorderSecondary: '#3d4f47',
+    borderRadius: 10,
+    fontSize: 15,
+    fontFamily:
+      'var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, sans-serif',
+  },
+  components: {
+    Layout: {
+      bodyBg: '#1a2420',
+    },
+  },
+}
 
 export function CharacterSheetClient({ characterId }: { characterId: string }) {
   const { message, modal } = App.useApp()
@@ -98,7 +132,10 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     health: pc.health,
     courage: pc.courage,
     stamina: pc.stamina,
-    clock: pc.clock,
+    clock: {
+      position: pc.clock.position,
+      sheetDarkWithClockNight: pc.clock.sheetDarkWithClockNight === true,
+    },
     map: pc.map,
     inventory: pc.inventory,
     spellbook: pc.spellbook,
@@ -138,6 +175,18 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
   const clockTotalSegments = computeClockTotalSegmentsFromStamina(
     watchedStamina.current
   )
+  const clockSegmentsPerHalf = computeClockSegmentsPerHalfFromStamina(
+    watchedStamina.current
+  )
+  const clockPositionForPhase = Math.min(
+    Math.max(0, Math.trunc(watchedClock.position ?? 0)),
+    Math.max(0, clockTotalSegments - 1)
+  )
+  const isClockNight = clockPositionForPhase >= clockSegmentsPerHalf
+  const sheetDarkWithClockNightEnabled =
+    watchedClock.sheetDarkWithClockNight === true
+  const characterSheetNightMode =
+    isClockNight && sheetDarkWithClockNightEnabled && mode === 'saved'
 
   const prevArchetypeRef = useRef<Archetype | null>(null)
   const prevClockTotalSegmentsRef = useRef<number | null>(null)
@@ -419,6 +468,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
 
   return (
     <Layout
+      sheetNightChrome={characterSheetNightMode}
       title={character.name || copy.characters.unnamed}
       description={copy.characters.sheetDescription}
       breadcrumbs={[
@@ -432,60 +482,70 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
         onFinish={handleFinish}
         layout='vertical'
         colon={false}>
-        <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
-          {saveErrors ? (
-            <Alert type='error' title={saveErrors.join('; ')} />
-          ) : null}
+        <ConfigProvider
+          theme={
+            characterSheetNightMode ? CHARACTER_SHEET_NIGHT_THEME : undefined
+          }>
+          <div data-sheet-night={characterSheetNightMode ? 'true' : undefined}>
+            <Space
+              orientation='vertical'
+              size='middle'
+              style={{ width: '100%' }}>
+              {saveErrors ? (
+                <Alert type='error' title={saveErrors.join('; ')} />
+              ) : null}
 
-          <IdentityCard isArchetypeReadonly />
-          <CharacteristicsCard />
-          <ClockCard />
-          <MapCard />
-          <Form.List name='inventory'>
-            {(fields, { add, remove }) => (
-              <InventoryCard
-                fields={fields}
-                inventoryLimit={inventoryLimit}
-                onAddItem={() =>
-                  add({
-                    id: randomId(),
-                    label: '',
-                    quantity: 1,
-                    note: '',
-                  })
-                }
-                onRemoveItem={remove}
-              />
-            )}
-          </Form.List>
-          <Form.List name='spellbook'>
-            {(fields, { add, remove }) => (
-              <SpellbookCard
-                fields={fields}
-                onAddSpell={() =>
-                  add({
-                    id: randomId(),
-                    name: '',
-                    note: '',
-                  })
-                }
-                onRemoveSpell={remove}
-              />
-            )}
-          </Form.List>
-          <NotesCard />
-        </Space>
+              <IdentityCard isArchetypeReadonly />
+              <CharacteristicsCard />
+              <ClockCard />
+              <MapCard />
+              <Form.List name='inventory'>
+                {(fields, { add, remove }) => (
+                  <InventoryCard
+                    fields={fields}
+                    inventoryLimit={inventoryLimit}
+                    onAddItem={() =>
+                      add({
+                        id: randomId(),
+                        label: '',
+                        quantity: 1,
+                        note: '',
+                      })
+                    }
+                    onRemoveItem={remove}
+                  />
+                )}
+              </Form.List>
+              <Form.List name='spellbook'>
+                {(fields, { add, remove }) => (
+                  <SpellbookCard
+                    fields={fields}
+                    onAddSpell={() =>
+                      add({
+                        id: randomId(),
+                        name: '',
+                        note: '',
+                      })
+                    }
+                    onRemoveSpell={remove}
+                  />
+                )}
+              </Form.List>
+              <NotesCard />
+            </Space>
 
-        <Divider />
+            <Divider />
 
-        <Space wrap>
-          <Button type='primary' htmlType='submit'>
-            {copy.characters.save}
-          </Button>
-          <Button onClick={handleExportCharacter}>
-            {copy.characters.exportOne}
-          </Button>
-        </Space>
+            <Space wrap>
+              <Button type='primary' htmlType='submit'>
+                {copy.characters.save}
+              </Button>
+              <Button onClick={handleExportCharacter}>
+                {copy.characters.exportOne}
+              </Button>
+            </Space>
+          </div>
+        </ConfigProvider>
       </Form>
     </Layout>
   )

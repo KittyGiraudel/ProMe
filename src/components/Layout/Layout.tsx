@@ -13,6 +13,7 @@ type LayoutProps = {
   description?: string
   backHref?: string
   backLabel?: string
+  sheetNightChrome?: boolean
   breadcrumbs?: Array<{
     label: string
     href?: string
@@ -25,6 +26,7 @@ export function Layout({
   description,
   backHref,
   backLabel,
+  sheetNightChrome = false,
   breadcrumbs,
   children,
 }: LayoutProps) {
@@ -65,7 +67,7 @@ export function Layout({
   }, [backHref, backLabel, breadcrumbs, title])
 
   return (
-    <div className='layout'>
+    <div className={sheetNightChrome ? 'layout layout--dark' : 'layout'}>
       <div className='layout__inner'>
         <Breadcrumb
           aria-label={copy.a11y.generatorBreadcrumb}

@@ -1,5 +1,7 @@
 'use client'
 
+import { useId } from 'react'
+
 import { copy } from '@/messages/fr'
 
 type ClockDisplayProps = {
@@ -42,9 +44,16 @@ export function ClockDisplay({
   segmentsPerHalf,
   position,
 }: ClockDisplayProps) {
+  const uid = useId().replace(/:/g, '')
   const svgSize = 220
   const center = svgSize / 2
   const radius = 92
+  const grad = {
+    dayBase: `clock-day-base-${uid}`,
+    dayCurrent: `clock-day-current-${uid}`,
+    nightBase: `clock-night-base-${uid}`,
+    nightCurrent: `clock-night-current-${uid}`,
+  }
   const stepDeg = 360 / totalSegments
   const startDeg = -180
   const currentMidAngle = startDeg + (position + 0.5) * stepDeg
@@ -62,19 +71,66 @@ export function ClockDisplay({
       style={{ maxWidth: 280, display: 'block', margin: 'auto' }}
       role='img'
       aria-label={copy.characters.clockSlice(position + 1, totalSegments)}>
+      <defs>
+        <radialGradient
+          id={grad.dayBase}
+          cx={center}
+          cy={center}
+          r={radius}
+          gradientUnits='userSpaceOnUse'>
+          <stop offset='0%' stopColor='#fff8e6' />
+          <stop offset='55%' stopColor='#f5e2a8' />
+          <stop offset='100%' stopColor='#e8c97a' />
+        </radialGradient>
+        <radialGradient
+          id={grad.dayCurrent}
+          cx={center}
+          cy={center}
+          r={radius}
+          gradientUnits='userSpaceOnUse'>
+          <stop offset='0%' stopColor='#ffe58f' />
+          <stop offset='45%' stopColor='#ffc53d' />
+          <stop offset='100%' stopColor='#d48806' />
+        </radialGradient>
+        <radialGradient
+          id={grad.nightBase}
+          cx={center}
+          cy={center}
+          r={radius}
+          gradientUnits='userSpaceOnUse'>
+          <stop offset='0%' stopColor='#f4f9ff' />
+          <stop offset='55%' stopColor='#d4e5fc' />
+          <stop offset='100%' stopColor='#a8c8f0' />
+        </radialGradient>
+        <radialGradient
+          id={grad.nightCurrent}
+          cx={center}
+          cy={center}
+          r={radius}
+          gradientUnits='userSpaceOnUse'>
+          <stop offset='0%' stopColor='#91caff' />
+          <stop offset='45%' stopColor='#4096ff' />
+          <stop offset='100%' stopColor='#0958d9' />
+        </radialGradient>
+      </defs>
       {Array.from({ length: totalSegments }).map((_, index) => {
         const sliceStart = startDeg + index * stepDeg
         const sliceEnd = sliceStart + stepDeg
         const inDay = index < segmentsPerHalf
         const isCurrent = index === position
-        const baseFill = inDay ? '#f9e7a6' : '#d9e8ff'
-        const currentFill = inDay ? '#faad14' : '#1677ff'
+        const fillId = inDay
+          ? isCurrent
+            ? grad.dayCurrent
+            : grad.dayBase
+          : isCurrent
+            ? grad.nightCurrent
+            : grad.nightBase
 
         return (
           <path
             key={index}
             d={describeSectorPath(center, center, radius, sliceStart, sliceEnd)}
-            fill={isCurrent ? currentFill : baseFill}
+            fill={`url(#${fillId})`}
             fillOpacity={isCurrent ? 0.95 : 0.55}
             stroke='#595959'
             strokeWidth={1}

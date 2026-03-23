@@ -30,6 +30,7 @@ export type SpellEntry = {
 
 export type CharacterClock = {
   position: number
+  sheetDarkWithClockNight?: boolean
 }
 
 export type BiomeId =

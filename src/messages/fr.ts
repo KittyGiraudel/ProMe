@@ -219,8 +219,8 @@ export const copy = {
       "Livre de règles — L’Horloge (exploration, Jour/Nuit, Endurance) : p. 10–11.",
     clockDay: "Jour",
     clockNight: "Nuit",
-    clockAdvance: "Avancer d’une tranche",
-    clockBack: "Revenir d’une tranche",
+    clockAdvance: "Avancer",
+    clockBack: "Revenir",
     clockPhaseShiftTitle(nextPhase: string) {
       if (nextPhase === 'Jour') return `Levée du jour`
        else return `Tombée de la nuit`
@@ -231,11 +231,13 @@ export const copy = {
     clockSlice(position: number, total: number): string {
       return `Tranche : ${position} / ${total}`;
     },
+    clockSheetDarkWithClockNight:
+      'Assombrir la feuille quand l’horloge est à la nuit',
     mapSheet(sheetQ: number, sheetR: number): string {
-      return `Feuille (${sheetQ}, ${sheetR})`;
+      return `Feuille : (${sheetQ}, ${sheetR})`;
     },
     mapCenterOnCurrent: "Centrer sur ma position",
-    mapCharacterPosition: "Position du personnage",
+    mapCharacterPosition: "Position",
     mapSelectedCell: "Case sélectionnée",
     mapCell: "Hexagone",
     mapCore: "Le Noyau",

@@ -130,12 +130,22 @@ export function MapCard() {
     updateMap(current => ({ ...current, currentPosition: target }))
   }
 
+  const sheetForCurrentPosition = getSheetCoordinate(mapState.currentPosition)
+  const isViewingCurrentSheet =
+    visibleSheet.sheetQ === sheetForCurrentPosition.sheetQ &&
+    visibleSheet.sheetR === sheetForCurrentPosition.sheetR
+
   return (
     <Card title={copy.characters.mapSection}>
       <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
         <Space wrap>
           <Tag>
             {copy.characters.mapSheet(visibleSheet.sheetQ, visibleSheet.sheetR)}
+          </Tag>
+          <Tag>
+            {copy.characters.mapCharacterPosition}
+            {' : '}
+            {getDisplayedCellLabel(mapState.currentPosition)}
           </Tag>
           <Button
             htmlType='button'
@@ -165,26 +175,20 @@ export function MapCard() {
             }>
             →
           </Button>
-          <Button
-            htmlType='button'
-            onClick={() =>
-              setVisibleSheet(getSheetCoordinate(mapState.currentPosition))
-            }>
-            {copy.characters.mapCenterOnCurrent}
-          </Button>
+          {!isViewingCurrentSheet ? (
+            <Button
+              htmlType='button'
+              onClick={() =>
+                setVisibleSheet(getSheetCoordinate(mapState.currentPosition))
+              }>
+              {copy.characters.mapCenterOnCurrent}
+            </Button>
+          ) : null}
         </Space>
 
         <Form.Item name='map' noStyle>
           <MapFormValueAnchor />
         </Form.Item>
-
-        <Typography.Text type='secondary'>
-          {copy.characters.mapCharacterPosition}
-          {' : '}
-          <Typography.Text strong>
-            {getDisplayedCellLabel(mapState.currentPosition)}
-          </Typography.Text>
-        </Typography.Text>
 
         <MapDisplay
           sheet={visibleSheet}
