@@ -243,6 +243,7 @@ export const copy = {
     mapCore: "Le Noyau",
     mapUnexplored: "Inexploré",
     mapMoveHere: "Se déplacer ici",
+    mapMoveNeighborOnly: "Uniquement vers un hexagone adjacent",
     mapClearCell: "Effacer la case",
     mapBiomeLabel: "Biome",
     mapIconLabel: "Icône",

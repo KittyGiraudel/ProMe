@@ -26,6 +26,8 @@ type MapCellContextMenuProps = {
   currentBiome?: BiomeId
   /** True when this cell has a persisted map icon. */
   hasStoredIcon: boolean
+  /** When false, moving the character to this hex is blocked (not adjacent). */
+  canMoveHere: boolean
   title: string
   coordLabel: string
   onSelectCell: (coord: HexCoordinate) => void
@@ -48,6 +50,7 @@ export function MapCellContextMenu({
   coord,
   currentBiome,
   hasStoredIcon,
+  canMoveHere,
   title,
   coordLabel,
   onSelectCell,
@@ -89,6 +92,8 @@ export function MapCellContextMenu({
       {
         key: 'move',
         label: copy.characters.mapMoveHere,
+        disabled: !canMoveHere,
+        title: canMoveHere ? undefined : copy.characters.mapMoveNeighborOnly,
       },
       iconSubmenu,
       { type: 'divider' as const },
@@ -135,7 +140,7 @@ export function MapCellContextMenu({
       },
       ...baseItems,
     ]
-  }, [coordLabel, currentBiome, hasStoredIcon])
+  }, [canMoveHere, coordLabel, currentBiome, hasStoredIcon])
 
   const onEmojiPicked = (data: EmojiClickData) => {
     onSetIcon(coord, firstGrapheme(data.emoji))
@@ -144,8 +149,10 @@ export function MapCellContextMenu({
 
   const onMenuClick: MenuProps['onClick'] = ({ key }) => {
     if (key === 'move') {
-      onMoveTo(coord)
-      setOpen(false)
+      if (canMoveHere) {
+        onMoveTo(coord)
+        setOpen(false)
+      }
       return
     }
     if (key === 'clear') {

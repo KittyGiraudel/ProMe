@@ -4,6 +4,7 @@ import { Button, Card, Form, Space, Tag, Typography } from 'antd'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { MapDisplay } from '@/components/MapDisplay/MapDisplay'
 import {
+  areHexNeighbors,
   toHexKey,
   getDisplayedCellLabel,
   getSheetCoordinate,
@@ -127,7 +128,10 @@ export function MapCard() {
   }
 
   const moveToCell = (target: HexCoordinate) => {
-    updateMap(current => ({ ...current, currentPosition: target }))
+    updateMap(current => {
+      if (!areHexNeighbors(current.currentPosition, target)) return current
+      return { ...current, currentPosition: target }
+    })
   }
 
   const sheetForCurrentPosition = getSheetCoordinate(mapState.currentPosition)

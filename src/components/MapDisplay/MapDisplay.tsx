@@ -8,6 +8,7 @@ import type {
 import {
   MAP_COLS,
   MAP_ROWS,
+  areHexNeighbors,
   colLabelFromIndex,
   getDisplayedCellLabel,
   getGlobalFromSheetCell,
@@ -84,6 +85,7 @@ export function MapDisplay({
               const biome = cell?.biome
               const icon = cell?.icon
               const localLabel = getDisplayedCellLabel(global)
+              const canMoveHere = areHexNeighbors(currentPosition, global)
 
               return (
                 <div
@@ -100,6 +102,7 @@ export function MapDisplay({
                     coord={global}
                     currentBiome={biome}
                     hasStoredIcon={Boolean(icon)}
+                    canMoveHere={canMoveHere}
                     title={localLabel}
                     coordLabel={localLabel}
                     onSelectCell={onSelectCell}
