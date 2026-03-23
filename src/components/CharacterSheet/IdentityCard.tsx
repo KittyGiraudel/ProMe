@@ -28,16 +28,16 @@ export function IdentityCard() {
               style={{ width: '100%' }}
               options={[
                 {
-                  value: 'guerrier',
-                  label: copy.playerCharacters.archetypes.guerrier,
+                  value: 'warrior',
+                  label: copy.playerCharacters.archetypes.warrior,
                 },
                 {
-                  value: 'pelerin',
-                  label: copy.playerCharacters.archetypes.pelerin,
+                  value: 'pilgrim',
+                  label: copy.playerCharacters.archetypes.pilgrim,
                 },
                 {
-                  value: 'troubadour',
-                  label: copy.playerCharacters.archetypes.troubadour,
+                  value: 'bard',
+                  label: copy.playerCharacters.archetypes.bard,
                 },
               ]}
             />

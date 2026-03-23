@@ -3,13 +3,13 @@
 import { Card, Col, Divider, Form, InputNumber, Row, Typography } from 'antd'
 import { copy } from '@/messages/fr'
 
-type PoolKey = 'ame' | 'courage' | 'endurance'
+type PoolKey = 'health' | 'courage' | 'stamina'
 
 export function CharacteristicsCard() {
   const pools: readonly [PoolKey, string][] = [
-    ['ame', copy.playerCharacters.ameLabel],
+    ['health', copy.playerCharacters.healthLabel],
     ['courage', copy.playerCharacters.courageLabel],
-    ['endurance', copy.playerCharacters.enduranceLabel],
+    ['stamina', copy.playerCharacters.staminaLabel],
   ]
 
   return (
@@ -17,8 +17,8 @@ export function CharacteristicsCard() {
       <Row gutter={[16, 16]}>
         <Col xs={24} md={8}>
           <Form.Item
-            name='honneur'
-            label={copy.playerCharacters.honneurLabel}
+            name='honor'
+            label={copy.playerCharacters.honorLabel}
             style={{ marginBottom: 0 }}>
             <InputNumber min={0} style={{ width: '100%' }} />
           </Form.Item>
@@ -35,8 +35,8 @@ export function CharacteristicsCard() {
 
         <Col xs={24} md={8}>
           <Form.Item
-            name='pieces'
-            label={copy.playerCharacters.piecesLabel}
+            name='money'
+            label={copy.playerCharacters.moneyLabel}
             style={{ marginBottom: 0 }}>
             <InputNumber min={0} style={{ width: '100%' }} />
           </Form.Item>

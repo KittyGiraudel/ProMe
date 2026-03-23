@@ -12,7 +12,15 @@ import {
 const MAX_INVENTORY_ITEMS = 30
 const MAX_SPELLBOOK_ITEMS = 6
 
-const DEFAULT_PIECES = 100
+const DEFAULT_MONEY = 100
+
+function normalizeArchetype(
+  value: unknown,
+  fallback: PlayerArchetype,
+): PlayerArchetype {
+  if (value === 'warrior' || value === 'pilgrim' || value === 'bard') return value
+  return fallback
+}
 
 export function randomId(): string {
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
@@ -57,28 +65,28 @@ function normalizeSpellEntry(value: unknown): SpellEntry | null {
 }
 
 function defaultPoolsForArchetype(archetype: PlayerArchetype): {
-  ame: StatPool
+  health: StatPool
   courage: StatPool
-  endurance: StatPool
+  stamina: StatPool
 } {
   switch (archetype) {
-    case 'guerrier':
+    case 'warrior':
       return {
-        ame: { current: 2, max: 2 },
+        health: { current: 2, max: 2 },
         courage: { current: 4, max: 4 },
-        endurance: { current: 3, max: 3 },
+        stamina: { current: 3, max: 3 },
       }
-    case 'pelerin':
+    case 'pilgrim':
       return {
-        ame: { current: 3, max: 3 },
+        health: { current: 3, max: 3 },
         courage: { current: 2, max: 2 },
-        endurance: { current: 4, max: 4 },
+        stamina: { current: 4, max: 4 },
       }
-    case 'troubadour':
+    case 'bard':
       return {
-        ame: { current: 4, max: 4 },
+        health: { current: 4, max: 4 },
         courage: { current: 3, max: 3 },
-        endurance: { current: 2, max: 2 },
+        stamina: { current: 2, max: 2 },
       }
     default: {
       const _exhaustive: never = archetype
@@ -88,27 +96,27 @@ function defaultPoolsForArchetype(archetype: PlayerArchetype): {
 }
 
 export function getDefaultPoolsForArchetype(archetype: PlayerArchetype): {
-  ame: StatPool
+  health: StatPool
   courage: StatPool
-  endurance: StatPool
+  stamina: StatPool
 } {
   return defaultPoolsForArchetype(archetype)
 }
 
 export function createDefaultPlayerCharacterInput(
-  archetype: PlayerArchetype = 'guerrier',
+  archetype: PlayerArchetype = 'warrior',
 ): PlayerCharacterInput {
   const pools = defaultPoolsForArchetype(archetype)
   return {
     name: '',
     archetype,
     gender: undefined,
-    honneur: 0,
+    honor: 0,
     inspiration: 0,
-    pieces: DEFAULT_PIECES,
-    ame: pools.ame,
+    money: DEFAULT_MONEY,
+    health: pools.health,
     courage: pools.courage,
-    endurance: pools.endurance,
+    stamina: pools.stamina,
     inventory: [],
     spellbook: [],
     notes: '',
@@ -119,16 +127,8 @@ export function createDefaultPlayerCharacterInput(
 export function normalizePlayerCharacterInput(
   input: Partial<PlayerCharacterInput> | null | undefined,
 ): PlayerCharacterInput {
-  const validArchetypes: PlayerArchetype[] = [
-    'guerrier',
-    'pelerin',
-    'troubadour',
-  ]
-  const baseArchetype = input?.archetype
-    ? (validArchetypes.includes(input.archetype as PlayerArchetype)
-        ? (input.archetype as PlayerArchetype)
-        : 'guerrier')
-    : 'guerrier'
+  const fallbackArchetype: PlayerArchetype = 'warrior'
+  const baseArchetype = normalizeArchetype(input?.archetype, fallbackArchetype)
   const base = createDefaultPlayerCharacterInput(baseArchetype)
   const source = input ?? {}
   const inventory = Array.isArray(source.inventory)
@@ -147,12 +147,7 @@ export function normalizePlayerCharacterInput(
 
   return {
     name: typeof source.name === 'string' ? source.name : base.name,
-    archetype:
-      source.archetype === 'guerrier' ||
-      source.archetype === 'pelerin' ||
-      source.archetype === 'troubadour'
-        ? source.archetype
-        : base.archetype,
+    archetype: normalizeArchetype(source.archetype, base.archetype),
     gender:
       source.gender === 'man' ||
       source.gender === 'woman' ||
@@ -160,12 +155,18 @@ export function normalizePlayerCharacterInput(
       source.gender === 'indeterminate'
         ? source.gender
         : undefined,
-    honneur: asInt(source.honneur, base.honneur),
+    honor: asInt(source.honor, base.honor),
     inspiration: asInt(source.inspiration, base.inspiration),
-    pieces: Math.max(0, asInt(source.pieces, base.pieces)),
-    ame: normalizeStatPool(source.ame, base.ame.max),
+    money: Math.max(0, asInt(source.money, base.money)),
+    health: normalizeStatPool(
+      source.health,
+      base.health.max,
+    ),
     courage: normalizeStatPool(source.courage, base.courage.max),
-    endurance: normalizeStatPool(source.endurance, base.endurance.max),
+    stamina: normalizeStatPool(
+      source.stamina,
+      base.stamina.max,
+    ),
     inventory,
     spellbook,
     notes: typeof source.notes === 'string' ? source.notes : base.notes,
@@ -228,29 +229,30 @@ export function validatePlayerCharacterForPersistence(
 ): { ok: true } | { ok: false; errors: string[] } {
   const errors: string[] = []
 
-  if (!Number.isFinite(character.pieces) || character.pieces < 0) {
+  if (!Number.isFinite(character.money) || character.money < 0) {
     errors.push('pieces must be >= 0')
   }
 
-  const inventoryCap = Math.max(0, character.endurance.current) * 6
+  const inventoryCap = Math.max(0, character.stamina.current) * 6
 
   if (character.inventory.length > MAX_INVENTORY_ITEMS) {
     errors.push(`inventory must have <= ${MAX_INVENTORY_ITEMS} items`)
   }
   if (character.inventory.length > inventoryCap) {
     errors.push(
-      `inventory must have <= ${inventoryCap} items (based on Endurance)`,
+      `inventory must have <= ${inventoryCap} items (based on Stamina)`,
     )
   }
   if (character.spellbook.length > MAX_SPELLBOOK_ITEMS) {
     errors.push(`spellbook must have <= ${MAX_SPELLBOOK_ITEMS} spells`)
   }
 
-  if (character.ame.current > character.ame.max) errors.push('ame.current <= ame.max')
+  if (character.health.current > character.health.max)
+    errors.push('health.current <= health.max')
   if (character.courage.current > character.courage.max)
     errors.push('courage.current <= courage.max')
-  if (character.endurance.current > character.endurance.max)
-    errors.push('endurance.current <= endurance.max')
+  if (character.stamina.current > character.stamina.max)
+    errors.push('stamina.current <= stamina.max')
 
   for (const [idx, item] of character.inventory.entries()) {
     if (!item.label.trim()) {
@@ -270,7 +272,7 @@ export function validatePlayerCharacterForPersistence(
 }
 
 export function computeInventoryCap(character: PlayerCharacter): number {
-  return Math.max(0, character.endurance.current) * 6
+  return Math.max(0, character.stamina.current) * 6
 }
 
 export function normalizeImportMode(value: unknown): CharacterImportMode {

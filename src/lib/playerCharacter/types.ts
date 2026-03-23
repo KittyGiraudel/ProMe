@@ -2,12 +2,12 @@ import type { Gender } from '@/lib/types'
 
 export const PLAYER_CHARACTER_SCHEMA_VERSION = 1 as const
 
-export type PlayerArchetype = 'guerrier' | 'pelerin' | 'troubadour'
+export type PlayerArchetype = 'warrior' | 'pilgrim' | 'bard'
 
 export const PLAYER_ARCHETYPES: readonly PlayerArchetype[] = [
-  'guerrier',
-  'pelerin',
-  'troubadour',
+  'warrior',
+  'pilgrim',
+  'bard',
 ] as const
 
 export type StatPool = {
@@ -36,12 +36,12 @@ export type PlayerCharacter = {
   name: string
   archetype: PlayerArchetype
   gender?: Gender
-  honneur: number
+  honor: number
   inspiration: number
-  pieces: number
-  ame: StatPool
+  money: number
+  health: StatPool
   courage: StatPool
-  endurance: StatPool
+  stamina: StatPool
   inventory: InventoryItem[]
   spellbook: SpellEntry[]
   notes: string

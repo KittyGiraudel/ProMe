@@ -59,12 +59,12 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     name: string
     archetype: PlayerArchetype
     gender?: Gender
-    honneur: number
+    honor: number
     inspiration: number
-    pieces: number
-    ame: StatPool
+    money: number
+    health: StatPool
     courage: StatPool
-    endurance: StatPool
+    stamina: StatPool
     inventory: InventoryItem[]
     spellbook: SpellEntry[]
     notes: string
@@ -77,41 +77,42 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     name: pc.name,
     archetype: pc.archetype,
     gender: pc.gender,
-    honneur: pc.honneur,
+    honor: pc.honor,
     inspiration: pc.inspiration,
-    pieces: pc.pieces,
-    ame: pc.ame,
+    money: pc.money,
+    health: pc.health,
     courage: pc.courage,
-    endurance: pc.endurance,
+    stamina: pc.stamina,
     inventory: pc.inventory,
     spellbook: pc.spellbook,
     notes: pc.notes,
   })
 
-  const fallbackArchetype: PlayerArchetype = 'guerrier'
+  const fallbackArchetype: PlayerArchetype = 'warrior'
   const fallbackStatPool: StatPool = { current: 0, max: 0 }
 
   // Watch only the fields we need so UI re-renders when we add/remove items.
   const watchedArchetypeRaw = Form.useWatch('archetype', form) as
     | PlayerArchetype
     | undefined
-  const watchedEnduranceRaw = Form.useWatch('endurance', form) as
+  const watchedStaminaRaw = Form.useWatch('stamina', form) as
     | StatPool
     | undefined
-  const watchedAmeRaw = Form.useWatch('ame', form) as StatPool | undefined
+  const watchedHealthRaw = Form.useWatch('health', form) as StatPool | undefined
   const watchedCourageRaw = Form.useWatch('courage', form) as
     | StatPool
     | undefined
 
   const watchedArchetype =
     watchedArchetypeRaw ?? character?.archetype ?? fallbackArchetype
-  const watchedEndurance =
-    watchedEnduranceRaw ?? character?.endurance ?? fallbackStatPool
-  const watchedAme = watchedAmeRaw ?? character?.ame ?? fallbackStatPool
+  const watchedStamina =
+    watchedStaminaRaw ?? character?.stamina ?? fallbackStatPool
+  const watchedHealth =
+    watchedHealthRaw ?? character?.health ?? fallbackStatPool
   const watchedCourage =
     watchedCourageRaw ?? character?.courage ?? fallbackStatPool
 
-  const inventoryCap = Math.max(0, watchedEndurance?.current ?? 0) * 6
+  const inventoryCap = Math.max(0, watchedStamina?.current ?? 0) * 6
   const inventoryLimit = Math.min(30, inventoryCap)
 
   const prevArchetypeRef = useRef<PlayerArchetype | null>(null)
@@ -119,12 +120,12 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
   const sheetCharacterId = character?.id
   const characterArchetype = character?.archetype
 
-  const ameCurrent = watchedAme?.current
-  const ameMax = watchedAme?.max
+  const healthCurrent = watchedHealth?.current
+  const healthMax = watchedHealth?.max
   const courageCurrent = watchedCourage?.current
   const courageMax = watchedCourage?.max
-  const enduranceCurrent = watchedEndurance?.current
-  const enduranceMax = watchedEndurance?.max
+  const staminaCurrent = watchedStamina?.current
+  const staminaMax = watchedStamina?.max
 
   useEffect(() => {
     if (!characterArchetype) return
@@ -138,18 +139,18 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
 
     const pools = getDefaultPoolsForArchetype(watchedArchetype)
     form.setFieldsValue({
-      ame: pools.ame,
+      health: pools.health,
       courage: pools.courage,
-      endurance: pools.endurance,
+      stamina: pools.stamina,
     })
     prevArchetypeRef.current = watchedArchetype
   }, [watchedArchetype, sheetCharacterId, form])
 
   useEffect(() => {
-    if (ameCurrent == null || ameMax == null) return
-    if (ameCurrent <= ameMax) return
-    form.setFieldValue(['ame', 'current'], ameMax)
-  }, [ameCurrent, ameMax, form])
+    if (healthCurrent == null || healthMax == null) return
+    if (healthCurrent <= healthMax) return
+    form.setFieldValue(['health', 'current'], healthMax)
+  }, [healthCurrent, healthMax, form])
 
   useEffect(() => {
     if (courageCurrent == null || courageMax == null) return
@@ -158,10 +159,10 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
   }, [courageCurrent, courageMax, form])
 
   useEffect(() => {
-    if (enduranceCurrent == null || enduranceMax == null) return
-    if (enduranceCurrent <= enduranceMax) return
-    form.setFieldValue(['endurance', 'current'], enduranceMax)
-  }, [enduranceCurrent, enduranceMax, form])
+    if (staminaCurrent == null || staminaMax == null) return
+    if (staminaCurrent <= staminaMax) return
+    form.setFieldValue(['stamina', 'current'], staminaMax)
+  }, [staminaCurrent, staminaMax, form])
 
   const handleCancel = () => {
     if (mode !== 'draft') return
