@@ -8,7 +8,7 @@
   margin: 0 auto;
 }
 
-.layout__breadcrumb {
+.layout__inner .ant-breadcrumb {
   margin-bottom: 0.75rem;
 }
 

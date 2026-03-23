@@ -49,7 +49,6 @@ export function CardDraw() {
 
   return (
     <Card
-      hoverable
       className='CardDraw__card home-hub__card'
       title={copy.hub.cardToolTitle}
       extra={

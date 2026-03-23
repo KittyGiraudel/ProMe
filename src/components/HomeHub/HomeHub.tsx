@@ -32,7 +32,6 @@ const managers = [
 const CharacterManager = () => {
   return (
     <Card
-      hoverable
       className='home-hub__card'
       title={copy.hub.playerCharacterCardTitle}
       extra={
@@ -50,7 +49,6 @@ const CharacterManager = () => {
 const InhabitantGenerator = () => {
   return (
     <Card
-      hoverable
       className='home-hub__card'
       title={copy.hub.inhabitantCardTitle}
       extra={
@@ -68,7 +66,6 @@ const InhabitantGenerator = () => {
 const VillageGenerator = () => {
   return (
     <Card
-      hoverable
       className='home-hub__card'
       title={copy.hub.villageCardTitle}
       extra={

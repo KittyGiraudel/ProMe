@@ -68,7 +68,6 @@ export function Layout({
     <div className='layout'>
       <div className='layout__inner'>
         <Breadcrumb
-          className='layout__breadcrumb'
           aria-label={copy.a11y.generatorBreadcrumb}
           items={breadcrumbItems}
         />

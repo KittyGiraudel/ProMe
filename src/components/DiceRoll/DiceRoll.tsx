@@ -46,7 +46,6 @@ export function DiceRoll() {
 
   return (
     <Card
-      hoverable
       className='DiceRoll__card home-hub__card'
       title={copy.hub.dieToolTitle}
       extra={
