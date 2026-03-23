@@ -1,0 +1,29 @@
+.DiceRoll__value {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 5.25rem;
+  margin-bottom: 1rem;
+}
+
+.DiceRoll__die-face {
+  font-size: 5rem;
+}
+
+.DiceRoll__die-face .dice-faces__face {
+  transform: none;
+}
+
+.DiceRoll__value--rolling .DiceRoll__die-face {
+  animation: die-pulse 0.16s ease-in-out infinite;
+}
+
+@keyframes die-pulse {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.08) rotate(-2deg);
+  }
+}

@@ -17,8 +17,8 @@ export const copy = {
     emDashSpaced: " — ",
   },
   hub: {
-    title: "Outils pour Les Souvenirs du Protecteur",
-    subtitle: "Outils et générateurs aléatoires de personnages, villages, et plus.",
+    title: "Companion du Protecteur",
+    subtitle: "Outils, gestionnaires de personnages et générateurs aléatoires de personnages, villages, et plus.",
     inhabitantCardTitle: "Générateur d’habitant",
     inhabitantCardDescription:
       "Nom, faction, âge, personnalité, contexte, genre.",
@@ -30,6 +30,7 @@ export const copy = {
       "Fiches jouables persistantes : ressources, jauges, inventaire et sorts.",
     open: "Ouvrir",
     generatorsTitle: "Générateurs",
+    managersTitle: "Gestionnaires",
     quickToolsTitle: "Outils rapides",
     dieToolTitle: "Dé",
     dieToolEmpty: "Aucun lancer",

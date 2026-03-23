@@ -1,10 +1,12 @@
 'use client'
 
-import { Card, Typography } from 'antd'
-import { HomeQuickTools } from '@/components/HomeQuickTools/HomeQuickTools'
+import { Card, Col, Row, Typography } from 'antd'
 import { copy } from '@/messages/fr'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import './HomeHub.css'
+import { DiceRoll } from '../DiceRoll/DiceRoll'
+import { CardDraw } from '../CardDraw/CardDraw'
+import { Layout } from '../Layout/Layout'
 
 const generators = [
   {
@@ -17,6 +19,9 @@ const generators = [
     title: copy.hub.villageCardTitle,
     description: copy.hub.villageCardDescription,
   },
+] as const
+
+const managers = [
   {
     href: '/characters',
     title: copy.hub.playerCharacterCardTitle,
@@ -24,32 +29,96 @@ const generators = [
   },
 ] as const
 
+const CharacterManager = () => {
+  return (
+    <Card
+      hoverable
+      className='home-hub__card'
+      title={copy.hub.playerCharacterCardTitle}
+      extra={
+        <BlockedLink href='/characters' className='home-hub__cta'>
+          {copy.hub.open}
+        </BlockedLink>
+      }>
+      <p className='home-hub__card-text'>
+        {copy.hub.playerCharacterCardDescription}
+      </p>
+    </Card>
+  )
+}
+
+const InhabitantGenerator = () => {
+  return (
+    <Card
+      hoverable
+      className='home-hub__card'
+      title={copy.hub.inhabitantCardTitle}
+      extra={
+        <BlockedLink href='/generators/inhabitant' className='home-hub__cta'>
+          {copy.hub.open}
+        </BlockedLink>
+      }>
+      <p className='home-hub__card-text'>
+        {copy.hub.inhabitantCardDescription}
+      </p>
+    </Card>
+  )
+}
+
+const VillageGenerator = () => {
+  return (
+    <Card
+      hoverable
+      className='home-hub__card'
+      title={copy.hub.villageCardTitle}
+      extra={
+        <BlockedLink href='/generators/village' className='home-hub__cta'>
+          {copy.hub.open}
+        </BlockedLink>
+      }>
+      <p className='home-hub__card-text'>{copy.hub.villageCardDescription}</p>
+    </Card>
+  )
+}
+
 export function HomeHub() {
   return (
-    <div className='home-hub'>
-      <header className='home-hub__header'>
-        <Typography.Title level={1} className='home-hub__title'>
-          {copy.hub.title}
-        </Typography.Title>
-        <p className='home-hub__subtitle'>{copy.hub.subtitle}</p>
-      </header>
-      <h2 className='home-hub__section-title'>{copy.hub.generatorsTitle}</h2>
-      <ul className='home-hub__list'>
-        {generators.map(g => (
-          <li key={g.href} className='home-hub__item'>
-            <BlockedLink href={g.href} className='home-hub__card'>
-              <Card
-                hoverable
-                className='home-hub__card'
-                title={g.title}
-                extra={<span className='home-hub__cta'>{copy.hub.open}</span>}>
-                <p className='home-hub__card-text'>{g.description}</p>
-              </Card>
-            </BlockedLink>
-          </li>
-        ))}
-      </ul>
-      <HomeQuickTools />
-    </div>
+    <Layout
+      title={copy.hub.title}
+      description={copy.hub.subtitle}
+      breadcrumbs={[]}>
+      <section className='home-hub__section'>
+        <h2 className='home-hub__section-title'>{copy.hub.managersTitle}</h2>
+        <Row gutter={16}>
+          <Col span={24}>
+            <CharacterManager />
+          </Col>
+        </Row>
+      </section>
+
+      <section className='home-hub__section'>
+        <h2 className='home-hub__section-title'>{copy.hub.generatorsTitle}</h2>
+        <Row gutter={16}>
+          <Col span={12}>
+            <InhabitantGenerator />
+          </Col>
+          <Col span={12}>
+            <VillageGenerator />
+          </Col>
+        </Row>
+      </section>
+
+      <section className='home-hub__section'>
+        <h2 className='home-hub__section-title'>{copy.hub.quickToolsTitle}</h2>
+        <Row gutter={16}>
+          <Col span={12}>
+            <DiceRoll />
+          </Col>
+          <Col span={12}>
+            <CardDraw />
+          </Col>
+        </Row>
+      </section>
+    </Layout>
   )
 }
