@@ -9,15 +9,16 @@ import {
   MAP_COLS,
   MAP_ROWS,
   colLabelFromIndex,
+  getDisplayedCellLabel,
   getGlobalFromSheetCell,
   rowLabelFromIndex,
   toHexKey,
   type SheetCoordinate,
 } from '@/lib/hex/coordinates'
-import { copy } from '@/messages/fr'
 import './MapDisplay.css'
 import React from 'react'
 import { CORE_Q, CORE_R } from '@/lib/playerCharacter/model'
+import { MapCellContextMenu } from './MapCellContextMenu'
 
 const biomeClassById: Record<BiomeId, string> = {
   shadowForest: 'Map__Hex--shadow-forest',
@@ -34,6 +35,10 @@ type MapDisplayProps = {
   currentPosition: HexCoordinate
   selectedPosition: HexCoordinate | null
   onSelectCell: (coord: HexCoordinate) => void
+  onAssignBiome: (coord: HexCoordinate, biome: BiomeId | undefined) => void
+  onMoveTo: (coord: HexCoordinate) => void
+  onSetIcon: (coord: HexCoordinate, icon: string | undefined) => void
+  onClearCell: (coord: HexCoordinate) => void
 }
 
 export function MapDisplay({
@@ -42,6 +47,10 @@ export function MapDisplay({
   currentPosition,
   selectedPosition,
   onSelectCell,
+  onAssignBiome,
+  onMoveTo,
+  onSetIcon,
+  onClearCell,
 }: MapDisplayProps) {
   return (
     <div className='Map'>
@@ -65,7 +74,9 @@ export function MapDisplay({
 
         <div className='Map__LegendCol Map__LegendCol--left'>
           {Array.from({ length: MAP_ROWS }, (_, ri) => (
-            <div className='Map__LegendItem'>{rowLabelFromIndex(ri)}</div>
+            <div className='Map__LegendItem' key={`legend-left-${ri}`}>
+              {rowLabelFromIndex(ri)}
+            </div>
           ))}
         </div>
 
@@ -83,7 +94,7 @@ export function MapDisplay({
                 selectedPosition?.r === global.r
               const biome = isCore ? undefined : cell?.biome
               const icon = cell?.icon
-              const localLabel = `${rowLabelFromIndex(ri)}${String(ci + 1).padStart(2, '0')}`
+              const localLabel = getDisplayedCellLabel(global)
               const biomeClassName = biome
                 ? biomeClassById[biome]
                 : isCore
@@ -99,22 +110,23 @@ export function MapDisplay({
                 .filter(Boolean)
                 .join(' ')
 
-              const coord =
-                ri % 2 === 0
-                  ? rowLabelFromIndex(ri) + '' + colLabelFromIndex(ci * 2)
-                  : rowLabelFromIndex(ri) + '' + colLabelFromIndex(ci * 2 + 1)
-
               return (
-                <div className={className} data-q={global.q} data-r={global.r}>
-                  <button
-                    key={localLabel}
-                    type='button'
-                    onClick={() => onSelectCell(global)}
+                <div
+                  key={localLabel}
+                  className={className}
+                  data-q={global.q}
+                  data-r={global.r}>
+                  <MapCellContextMenu
+                    coord={global}
+                    isCore={isCore}
                     title={localLabel}
-                    className='Map__Button'
-                    aria-label={`${localLabel} ${isCore ? copy.playerCharacters.mapCore : copy.playerCharacters.mapCell}`}>
-                    {coord}
-                  </button>
+                    coordLabel={localLabel}
+                    onSelectCell={onSelectCell}
+                    onAssignBiome={onAssignBiome}
+                    onMoveTo={onMoveTo}
+                    onSetIcon={onSetIcon}
+                    onClearCell={onClearCell}
+                  />
                   <span className='Map__Icon'>
                     {icon ?? (isCore ? '🏰' : '')}
                   </span>
@@ -126,7 +138,9 @@ export function MapDisplay({
 
         <div className='Map__LegendCol Map__LegendCol--right'>
           {Array.from({ length: MAP_ROWS }, (_, ri) => (
-            <div className='Map__LegendItem'>{rowLabelFromIndex(ri)}</div>
+            <div className='Map__LegendItem' key={`legend-right-${ri}`}>
+              {rowLabelFromIndex(ri)}
+            </div>
           ))}
         </div>
 

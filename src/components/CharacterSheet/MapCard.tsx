@@ -1,15 +1,15 @@
 'use client'
 
-import { Button, Card, Form, Input, Select, Space, Tag, Typography } from 'antd'
+import { Button, Card, Form, Space, Tag, Typography } from 'antd'
 import { useMemo, useState } from 'react'
 import { MapDisplay } from '@/components/MapDisplay/MapDisplay'
 import {
+  getDisplayedCellLabel,
   getSheetCellAddress,
   getSheetCoordinate,
   type SheetCoordinate,
 } from '@/lib/hex/coordinates'
 import {
-  BIOME_IDS,
   type BiomeId,
   type CharacterMapCell,
   type CharacterMapState,
@@ -58,8 +58,7 @@ export function MapCard() {
     return next
   }, [mapState.cells])
 
-  const selectedKey = toHexKey(selectedCell)
-  const selectedCellData = cellsByKey.get(selectedKey)
+  const selectedCellData = cellsByKey.get(toHexKey(selectedCell))
   const selectedIsCore = sameHex(selectedCell, CORE_POSITION)
   const selectedAddress = getSheetCellAddress(selectedCell)
 
@@ -73,17 +72,18 @@ export function MapCard() {
     form.setFieldValue('map', next)
   }
 
-  const setBiome = (biome: BiomeId | undefined) => {
+  const setBiomeAt = (target: HexCoordinate, biome: BiomeId | undefined) => {
     updateMap(current => {
       const nextByKey = new Map(
         current.cells.map(cell => [toHexKey(cell), cell])
       )
-      const key = toHexKey(selectedCell)
+      const key = toHexKey(target)
       const existing = nextByKey.get(key)
+      const isCore = sameHex(target, CORE_POSITION)
       const nextCell: CharacterMapCell = {
-        q: selectedCell.q,
-        r: selectedCell.r,
-        biome: selectedIsCore ? undefined : biome,
+        q: target.q,
+        r: target.r,
+        biome: isCore ? undefined : biome,
         icon: existing?.icon,
       }
       if (!nextCell.biome && !nextCell.icon) nextByKey.delete(key)
@@ -92,17 +92,17 @@ export function MapCard() {
     })
   }
 
-  const setIcon = (iconRaw: string) => {
-    const icon = iconRaw.trim()
+  const setIconAt = (target: HexCoordinate, iconRaw: string | undefined) => {
+    const icon = (iconRaw ?? '').trim()
     updateMap(current => {
       const nextByKey = new Map(
         current.cells.map(cell => [toHexKey(cell), cell])
       )
-      const key = toHexKey(selectedCell)
+      const key = toHexKey(target)
       const existing = nextByKey.get(key)
       const nextCell: CharacterMapCell = {
-        q: selectedCell.q,
-        r: selectedCell.r,
+        q: target.q,
+        r: target.r,
         biome: existing?.biome,
         icon: icon || undefined,
       }
@@ -112,22 +112,21 @@ export function MapCard() {
     })
   }
 
-  const clearCell = () => {
+  const clearCellAt = (target: HexCoordinate) => {
     updateMap(current => {
       const nextByKey = new Map(
         current.cells.map(cell => [toHexKey(cell), cell])
       )
-      nextByKey.delete(selectedKey)
+      nextByKey.delete(toHexKey(target))
       return { ...current, cells: Array.from(nextByKey.values()) }
     })
   }
 
-  const moveToSelected = () => {
-    updateMap(current => ({ ...current, currentPosition: selectedCell }))
+  const moveToCell = (target: HexCoordinate) => {
+    updateMap(current => ({ ...current, currentPosition: target }))
   }
 
   const selectedBiome = selectedIsCore ? undefined : selectedCellData?.biome
-  const selectedIcon = selectedCellData?.icon ?? ''
 
   return (
     <Card title={copy.playerCharacters.mapSection}>
@@ -182,12 +181,16 @@ export function MapCard() {
           currentPosition={mapState.currentPosition}
           selectedPosition={selectedCell}
           onSelectCell={setSelectedCell}
+          onAssignBiome={setBiomeAt}
+          onMoveTo={moveToCell}
+          onSetIcon={setIconAt}
+          onClearCell={clearCellAt}
         />
 
         <Space direction='vertical' size='small' style={{ width: '100%' }}>
           <Typography.Text strong>
             {copy.playerCharacters.mapSelectedCell}:{' '}
-            {selectedAddress.localLabel}
+            {getDisplayedCellLabel(selectedCell)}
           </Typography.Text>
           <Typography.Text type='secondary'>
             {copy.playerCharacters.mapSheet(
@@ -204,41 +207,6 @@ export function MapCard() {
                 : copy.playerCharacters.mapUnexplored}
             </Tag>
           )}
-
-          <Space wrap>
-            <Typography.Text>
-              {copy.playerCharacters.mapBiomeLabel}
-            </Typography.Text>
-            <Select
-              value={selectedBiome}
-              onChange={value => setBiome(value)}
-              allowClear
-              style={{ minWidth: 260 }}
-              disabled={selectedIsCore}
-              options={BIOME_IDS.map(id => ({
-                label: copy.playerCharacters.mapBiomes[id],
-                value: id,
-              }))}
-            />
-          </Space>
-
-          <Space wrap>
-            <Typography.Text>
-              {copy.playerCharacters.mapIconLabel}
-            </Typography.Text>
-            <Input
-              value={selectedIcon}
-              onChange={e => setIcon(e.target.value)}
-              placeholder={copy.playerCharacters.mapIconPlaceholder}
-              style={{ width: 220 }}
-            />
-            <Button htmlType='button' onClick={clearCell}>
-              {copy.playerCharacters.mapClearCell}
-            </Button>
-            <Button type='primary' htmlType='button' onClick={moveToSelected}>
-              {copy.playerCharacters.mapMoveHere}
-            </Button>
-          </Space>
         </Space>
       </Space>
     </Card>

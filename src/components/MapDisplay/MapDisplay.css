@@ -164,7 +164,7 @@
   color: #262626;
 }
 
-.Map__Hex--sizehadow-forest {
+.Map__Hex--shadow-forest {
   background: #3d5940;
   border-color: #21361f;
   color: #ffffff;
@@ -188,7 +188,7 @@
   color: #ffffff;
 }
 
-.Map__Hex--sizeilent-desert {
+.Map__Hex--silent-desert {
   background: #f3d58e;
   border-color: #af8c43;
   color: #ffffff;
@@ -198,6 +198,10 @@
   background: #ffb3a7;
   border-color: #a64b3c;
   color: #ffffff;
+}
+
+.Map__DropdownOverlay .ant-dropdown-menu {
+  min-width: 220px;
 }
 
 .Map__Icon {

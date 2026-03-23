@@ -109,6 +109,13 @@ export function getSheetCellAddress(coord: HexCoordinate): SheetCellAddress {
   }
 }
 
+export function getDisplayedCellLabel(coord: HexCoordinate): string {
+  const address = getSheetCellAddress(coord)
+  const displayColIndex =
+    address.rowIndex % 2 === 0 ? address.colIndex * 2 : address.colIndex * 2 + 1
+  return `${address.rowLabel}${colLabelFromIndex(displayColIndex)}`
+}
+
 export function buildSheetViewport(sheet: SheetCoordinate): SheetCellAddress[] {
   const cells: SheetCellAddress[] = []
   for (let rowIndex = 0; rowIndex < MAP_ROWS; rowIndex += 1) {
