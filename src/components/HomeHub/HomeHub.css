@@ -38,6 +38,8 @@
 }
 
 .home-hub__card {
+  display: block;
+  text-decoration: none;
   cursor: pointer;
   border: 1px solid var(--lsdp-border) !important;
   border-radius: 12px !important;

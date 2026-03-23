@@ -2,7 +2,7 @@
 
 import { Card, Typography } from 'antd'
 import { HomeQuickTools } from '@/components/HomeQuickTools/HomeQuickTools'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { copy } from '@/messages/fr'
 import './HomeHub.css'
 
@@ -20,8 +20,6 @@ const generators = [
 ] as const
 
 export function HomeHub() {
-  const router = useRouter()
-
   return (
     <div className='home-hub'>
       <header className='home-hub__header'>
@@ -34,22 +32,15 @@ export function HomeHub() {
       <ul className='home-hub__list'>
         {generators.map(g => (
           <li key={g.href} className='home-hub__item'>
-            <Card
-              hoverable
-              role='link'
-              tabIndex={0}
-              className='home-hub__card'
-              title={g.title}
-              extra={<span className='home-hub__cta'>{copy.hub.open}</span>}
-              onClick={() => router.push(g.href)}
-              onKeyDown={e => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault()
-                  router.push(g.href)
-                }
-              }}>
-              <p className='home-hub__card-text'>{g.description}</p>
-            </Card>
+            <Link href={g.href} className='home-hub__card'>
+              <Card
+                hoverable
+                className='home-hub__card'
+                title={g.title}
+                extra={<span className='home-hub__cta'>{copy.hub.open}</span>}>
+                <p className='home-hub__card-text'>{g.description}</p>
+              </Card>
+            </Link>
           </li>
         ))}
       </ul>
