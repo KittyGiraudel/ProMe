@@ -1,0 +1,225 @@
+/**
+ * 1. Leave some room for the column labels.
+ */
+.Map {
+  --gap: 4px; 
+  --size: calc(100% / 12 - var(--gap));
+  padding-top: 2em; /* 1 */
+  box-sizing: display-box;
+}
+
+.Map * {
+  box-sizing: inherit;
+}
+
+.Map__LegendRow {
+  display: flex;
+  gap: var(--gap);
+  margin-bottom: -0.5em;
+  width: 100%;
+}
+
+.Map__LegendRow--top + .Map__LegendRow--top {
+  margin-left: calc(var(--size) / 2);
+}
+
+.Map__LegendRow--bottom {
+  margin-left: calc(var(--size) / 2);
+  margin-top: 0.5em;
+}
+
+.Map__LegendRow--bottom + .Map__LegendRow--bottom {
+  margin-left: 0;
+  margin-top: 0;
+}
+
+.Map__RowLabel {
+  position: absolute;
+  font-weight: normal;
+  text-align: center;
+  font-size: 75%;
+  opacity: 0.5;
+}
+
+.Map__RowLabel--left {
+  left: 0;
+}
+
+.Map__RowLabel--right {
+  right: 0;
+}
+
+.Map__LegendItem {
+  font-weight: normal;
+  text-align: center;
+  font-size: 75%;
+  opacity: 0.5;
+}
+
+.Map__LegendRow .Map__LegendItem {
+  transform: translateX(-50%);
+  width: var(--size);
+}
+
+.Map__LegendCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: var(--gap);
+  position: absolute;
+  top: 2em;
+  bottom: 2em;
+}
+
+.Map__LegendCol--left {
+  right: 100%;
+  margin-right: 0.5em;
+}
+
+.Map__LegendCol--left .Map__LegendItem {
+  position: relative;
+}
+
+.Map__LegendCol--left .Map__LegendItem:nth-of-type(odd) {
+  transform: translateX(-30px);
+  position: relative;
+}
+
+.Map__LegendCol--right {
+  left: 100%;
+  margin-left: 0.5em;
+}
+
+.Map__LegendCol--right .Map__LegendItem:nth-of-type(odd) {
+  transform: translateX(-30px);
+  position: relative;
+}
+
+/**
+ * 2. Offset the grid to counter-balance the even rows’ offset towards the right.
+ */
+.Map__Inner {
+  position: relative;
+  padding-bottom: calc(var(--size)/(4*cos(30deg)));
+  container-type: inline-size;
+  margin-left: calc(var(--size) / 2); /* 2 */
+}
+
+/**
+ * 1. Apply the same gap both horizontally and vertically.
+ */
+.Map__Row {
+  display: flex;
+  gap: var(--gap); /* 1 */
+  margin-bottom: var(--gap); /* 1 */
+  width: 100%;
+}
+
+/**
+ * 1. Offset the odd rows to the right to fit the hexagons neatly.
+ */
+.Map__Row:nth-of-type(even) {
+  transform: translateX(calc(var(--size) / 2 * -1 - 1px));
+}
+
+.Map__Hex {
+  position: relative;
+  width: var(--size);
+  aspect-ratio: cos(30deg);
+  border-radius: 50% / 25%;
+  corner-shape: bevel;
+  margin-bottom: calc(var(--size)/(-4*cos(30deg)));
+  --_n: round(down,(100cqw + var(--gap))/(var(--size) + var(--gap)));
+  --_m: round(down,(100cqw - (var(--size) - var(--gap))/2)/(var(--size) + var(--gap)));
+  --_c: round(down,1 - mod((sibling-index() - 1 + var(--_m))/(var(--_n) + var(--_m)),1));
+  margin-left: calc(var(--_c)*(var(--size) + var(--gap))/2);
+
+  display: grid;
+  place-content: center;
+  border: 2px solid rgb(0 0 0 / 0.2);
+  box-sizing: border-box;
+  transition: 0.1s ease-in-out;
+}
+
+.Map__Hex:hover {
+  transform: scale(1.05);
+}
+
+.Map__Hex--current {
+  border-color: #1677ff;
+}
+
+.Map__Hex--selected {
+  border-color: #722ed1;
+}
+
+.Map__Hex--core {
+  background: #fff1b8;
+  color: #262626;
+}
+
+.Map__Hex--unexplored {
+  background: #f5f5f5;
+  color: #262626;
+}
+
+.Map__Hex--sizehadow-forest {
+  background: #3d5940;
+  border-color: #21361f;
+  color: #ffffff;
+}
+
+.Map__Hex--flooded-plains {
+  background: #7bc7d6;
+  border-color: #367a89;
+  color: #ffffff;
+}
+
+.Map__Hex--mushroom-jungle {
+  background: #9c6ad6;
+  border-color: #623b90;
+  color: #ffffff;
+}
+
+.Map__Hex--field-sea {
+  background: #6ac77a;
+  border-color: #2b7940;
+  color: #ffffff;
+}
+
+.Map__Hex--sizeilent-desert {
+  background: #f3d58e;
+  border-color: #af8c43;
+  color: #ffffff;
+}
+
+.Map__Hex--titanesque-gardens {
+  background: #ffb3a7;
+  border-color: #a64b3c;
+  color: #ffffff;
+}
+
+.Map__Icon {
+  grid-row: 1;
+  grid-column: 1;
+  text-align: center;
+  font-size: 180%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.Map__Button {
+  grid-row: 1;
+  grid-column: 1;
+  font: inherit;
+  font-size: 120%;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.3;
+  appearance: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}

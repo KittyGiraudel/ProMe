@@ -16,6 +16,7 @@ import { getCharacterStore } from '@/lib/playerCharacter/store'
 import { stringifyPlayerCharacters } from '@/lib/playerCharacter/store/migrations'
 import type {
   CharacterClock,
+  CharacterMapState,
   InventoryItem,
   PlayerArchetype,
   PlayerCharacter,
@@ -26,7 +27,8 @@ import type { Gender } from '@/lib/types'
 import { copy } from '@/messages/fr'
 import { IdentityCard } from '@/components/CharacterSheet/IdentityCard'
 import { CharacteristicsCard } from '@/components/CharacterSheet/CharacteristicsCard'
-import { ClockCard } from '@/components/ClockCard/ClockCard'
+import { ClockCard } from '@/components/CharacterSheet/ClockCard'
+import { MapCard } from '@/components/CharacterSheet/MapCard'
 import { InventoryCard } from '@/components/CharacterSheet/InventoryCard'
 import { SpellbookCard } from '@/components/CharacterSheet/SpellbookCard'
 import { NotesCard } from '@/components/CharacterSheet/NotesCard'
@@ -75,6 +77,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     courage: StatPool
     stamina: StatPool
     clock: CharacterClock
+    map: CharacterMapState
     inventory: InventoryItem[]
     spellbook: SpellEntry[]
     notes: string
@@ -94,6 +97,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     courage: pc.courage,
     stamina: pc.stamina,
     clock: pc.clock,
+    map: pc.map,
     inventory: pc.inventory,
     spellbook: pc.spellbook,
     notes: pc.notes,
@@ -434,6 +438,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
           <IdentityCard isArchetypeReadonly />
           <CharacteristicsCard />
           <ClockCard />
+          <MapCard />
           <InventoryCard inventoryLimit={inventoryLimit} />
           <SpellbookCard />
           <NotesCard />

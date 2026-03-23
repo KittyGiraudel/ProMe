@@ -16,7 +16,7 @@ import {
   computeClockSegmentsPerHalfFromStamina,
   computeClockTotalSegmentsFromStamina,
 } from '@/lib/playerCharacter/model'
-import { ClockDisplay } from '@/components/CharacterSheet/ClockDisplay'
+import { ClockDisplay } from '@/components/ClockDisplay/ClockDisplay'
 import type { CharacterClock, StatPool } from '@/lib/playerCharacter/types'
 import { copy } from '@/messages/fr'
 

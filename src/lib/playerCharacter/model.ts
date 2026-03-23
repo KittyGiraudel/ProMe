@@ -1,4 +1,8 @@
 import {
+  BIOME_IDS,
+  type BiomeId,
+  type CharacterMapCell,
+  type CharacterMapState,
   PLAYER_CHARACTER_SCHEMA_VERSION,
   type CharacterClock,
   type CharacterImportMode,
@@ -12,8 +16,11 @@ import {
 
 const MAX_INVENTORY_ITEMS = 30
 const MAX_SPELLBOOK_ITEMS = 6
+const MAX_MAP_ICON_LENGTH = 1
 
 const DEFAULT_MONEY = 100
+export const CORE_Q = 6
+export const CORE_R = 0
 
 function normalizeArchetype(
   value: unknown,
@@ -40,6 +47,69 @@ function normalizeStatPool(value: unknown, fallbackMax = 1): StatPool {
   const max = Math.max(0, asInt(source?.max, fallbackMax))
   const current = Math.min(max, Math.max(0, asInt(source?.current, max)))
   return { current, max }
+}
+
+function normalizeBiome(value: unknown): BiomeId | undefined {
+  if (typeof value !== 'string') return undefined
+  return (BIOME_IDS as readonly string[]).includes(value) ? (value as BiomeId) : undefined
+}
+
+function normalizeHexCoordinate(
+  value: unknown,
+  fallback: { q: number; r: number },
+): { q: number; r: number } {
+  const source = value as Partial<{ q: number; r: number }> | undefined
+  return {
+    q: asInt(source?.q, fallback.q),
+    r: asInt(source?.r, fallback.r),
+  }
+}
+
+function normalizeMapIcon(value: unknown): string | undefined {
+  if (typeof value !== 'string') return undefined
+  const icon = value.trim()
+  if (!icon) return undefined
+  return Array.from(icon).slice(0, MAX_MAP_ICON_LENGTH).join('')
+}
+
+function normalizeCharacterMapCell(value: unknown): CharacterMapCell | null {
+  const raw = value as Partial<CharacterMapCell> | undefined
+  if (!raw || typeof raw !== 'object') return null
+  const q = asInt(raw.q, Number.NaN)
+  const r = asInt(raw.r, Number.NaN)
+  if (!Number.isFinite(q) || !Number.isFinite(r)) return null
+
+  const icon = normalizeMapIcon(raw.icon)
+  const biome = q === CORE_Q && r === CORE_R ? undefined : normalizeBiome(raw.biome)
+
+  return {
+    q,
+    r,
+    biome,
+    icon,
+  }
+}
+
+export function normalizeCharacterMapState(value: unknown): CharacterMapState {
+  const raw = value as Partial<CharacterMapState> | undefined
+  const currentPosition = normalizeHexCoordinate(raw?.currentPosition, {
+    q: CORE_Q,
+    r: CORE_R,
+  })
+
+  const byCoord = new Map<string, CharacterMapCell>()
+  if (Array.isArray(raw?.cells)) {
+    for (const entry of raw.cells) {
+      const normalized = normalizeCharacterMapCell(entry)
+      if (!normalized) continue
+      byCoord.set(`${normalized.q},${normalized.r}`, normalized)
+    }
+  }
+
+  return {
+    currentPosition,
+    cells: Array.from(byCoord.values()),
+  }
 }
 
 function normalizeInventoryItem(value: unknown): InventoryItem | null {
@@ -163,6 +233,10 @@ export function createDefaultPlayerCharacterInput(
     courage: pools.courage,
     stamina: pools.stamina,
     clock: { position: 0 },
+    map: {
+      currentPosition: { q: CORE_Q, r: CORE_R },
+      cells: [],
+    },
     inventory: [],
     spellbook: [],
     notes: '',
@@ -194,6 +268,7 @@ export function normalizePlayerCharacterInput(
     source.stamina,
     base.stamina.max,
   )
+  const map = normalizeCharacterMapState(source.map)
 
   return {
     name: typeof source.name === 'string' ? source.name : base.name,
@@ -215,6 +290,7 @@ export function normalizePlayerCharacterInput(
     courage: normalizeStatPool(source.courage, base.courage.max),
     stamina,
     clock: normalizeCharacterClock(source.clock, stamina.current),
+    map,
     inventory,
     spellbook,
     notes: typeof source.notes === 'string' ? source.notes : base.notes,
@@ -299,6 +375,40 @@ export function validatePlayerCharacterForPersistence(
   const totalSegments = computeClockTotalSegmentsFromStamina(character.stamina.current)
   if (character.clock.position < 0 || character.clock.position >= totalSegments) {
     errors.push(`clock.position must be between 0 and ${totalSegments - 1}`)
+  }
+
+  if (
+    !Number.isFinite(character.map.currentPosition.q) ||
+    !Number.isFinite(character.map.currentPosition.r)
+  ) {
+    errors.push('map.currentPosition must be finite')
+  }
+
+  const seenCoords = new Set<string>()
+  for (const cell of character.map.cells) {
+    if (!Number.isFinite(cell.q) || !Number.isFinite(cell.r)) {
+      errors.push('map cell coordinates must be finite')
+      break
+    }
+    const key = `${cell.q},${cell.r}`
+    if (seenCoords.has(key)) {
+      errors.push('map cells must have unique coordinates')
+      break
+    }
+    seenCoords.add(key)
+
+    if (cell.biome && !(BIOME_IDS as readonly string[]).includes(cell.biome)) {
+      errors.push('map cell biome is invalid')
+      break
+    }
+    if (typeof cell.icon === 'string' && cell.icon.length > MAX_MAP_ICON_LENGTH) {
+      errors.push(`map cell icon length must be <= ${MAX_MAP_ICON_LENGTH}`)
+      break
+    }
+    if (cell.q === CORE_Q && cell.r === CORE_R && cell.biome) {
+      errors.push('core map cell cannot have a biome')
+      break
+    }
   }
 
   for (const [idx, item] of character.inventory.entries()) {

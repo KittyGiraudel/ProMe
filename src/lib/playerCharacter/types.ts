@@ -32,6 +32,38 @@ export type CharacterClock = {
   position: number
 }
 
+export type BiomeId =
+  | 'shadowForest'
+  | 'floodedPlains'
+  | 'mushroomJungle'
+  | 'fieldSea'
+  | 'silentDesert'
+  | 'titanesqueGardens'
+
+export const BIOME_IDS: readonly BiomeId[] = [
+  'shadowForest',
+  'floodedPlains',
+  'mushroomJungle',
+  'fieldSea',
+  'silentDesert',
+  'titanesqueGardens',
+] as const
+
+export type HexCoordinate = {
+  q: number
+  r: number
+}
+
+export type CharacterMapCell = HexCoordinate & {
+  biome?: BiomeId
+  icon?: string
+}
+
+export type CharacterMapState = {
+  currentPosition: HexCoordinate
+  cells: CharacterMapCell[]
+}
+
 export type PlayerCharacter = {
   id: string
   schemaVersion: typeof PLAYER_CHARACTER_SCHEMA_VERSION
@@ -47,6 +79,7 @@ export type PlayerCharacter = {
   courage: StatPool
   stamina: StatPool
   clock: CharacterClock
+  map: CharacterMapState
   inventory: InventoryItem[]
   spellbook: SpellEntry[]
   notes: string

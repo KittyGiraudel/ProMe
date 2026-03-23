@@ -150,6 +150,7 @@ export const copy = {
     inventorySection: "Inventaire",
     spellbookSection: "Grimoire",
     notesSection: "Notes",
+    mapSection: "Carte",
     nameLabel: "Nom",
     archetypeLabel: "Archétype",
     archetypes: {
@@ -229,6 +230,27 @@ export const copy = {
     },
     clockSlice(position: number, total: number): string {
       return `Tranche : ${position} / ${total}`;
+    },
+    mapSheet(sheetQ: number, sheetR: number): string {
+      return `Feuille (${sheetQ}, ${sheetR})`;
+    },
+    mapCenterOnCurrent: "Centrer sur ma position",
+    mapSelectedCell: "Case sélectionnée",
+    mapCell: "Hexagone",
+    mapCore: "Le Noyau",
+    mapUnexplored: "Inexploré",
+    mapMoveHere: "Se déplacer ici",
+    mapClearCell: "Effacer la case",
+    mapBiomeLabel: "Biome",
+    mapIconLabel: "Icône",
+    mapIconPlaceholder: "Emoji ou symbole",
+    mapBiomes: {
+      shadowForest: "Forêt des ombres",
+      floodedPlains: "Plaines inondées",
+      mushroomJungle: "Jungle de champignons",
+      fieldSea: "Mer champêtre",
+      silentDesert: "Désert silencieux",
+      titanesqueGardens: "Jardins gigantesques",
     },
   },
   genders: {
