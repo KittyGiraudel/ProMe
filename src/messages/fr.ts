@@ -154,9 +154,9 @@ export const copy = {
     nameLabel: "Nom",
     archetypeLabel: "Archétype",
     archetypes: {
-      warrior: "Guerrier",
-      pilgrim: "Pèlerin",
-      bard: "Troubadour",
+      warrior: "Guerrier·e",
+      pilgrim: "Pèlerin·e",
+      bard: "Troubadour·esse",
     },
     archetypePowerLabel: "Pouvoir d’archétype",
     archetypePowers: {
