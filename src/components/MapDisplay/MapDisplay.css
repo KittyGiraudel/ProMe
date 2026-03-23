@@ -132,7 +132,7 @@
   margin-left: calc(var(--_c) * (var(--size) + var(--gap)) / 2);
 
   display: grid;
-  place-content: center;
+  place-content: stretch;
   border: 1px solid transparent;
   box-sizing: border-box;
   transition: 0.1s ease-in-out;
@@ -156,43 +156,43 @@
   position: relative;
 }
 
-.Map__Hex[data-biome="unexplored"] {
+[data-biome="unexplored"] {
   --biome-light: var(--unexplored-light);
   --biome-dark: var(--unexplored-dark);
   --biome-contrast: var(--unexplored-contrast);
 }
 
-.Map__Hex[data-biome="shadowForest"] {
+[data-biome="shadowForest"] {
   --biome-light: var(--shadow-forest-light);
   --biome-dark: var(--shadow-forest-dark);
   --biome-contrast: var(--shadow-forest-contrast);
 }
 
-.Map__Hex[data-biome="floodedPlains"] {
+[data-biome="floodedPlains"] {
   --biome-light: var(--flooded-plains-light);
   --biome-dark: var(--flooded-plains-dark);
   --biome-contrast: var(--flooded-plains-contrast);
 }
 
-.Map__Hex[data-biome="mushroomJungle"] {
+[data-biome="mushroomJungle"] {
   --biome-light: var(--mushroom-jungle-light);
   --biome-dark: var(--mushroom-jungle-dark);
   --biome-contrast: var(--mushroom-jungle-contrast);
 }
 
-.Map__Hex[data-biome="fieldSea"] {
+[data-biome="fieldSea"] {
   --biome-light: var(--field-sea-light);
   --biome-dark: var(--field-sea-dark);
   --biome-contrast: var(--field-sea-contrast);
 }
 
-.Map__Hex[data-biome="silentDesert"] {
+[data-biome="silentDesert"] {
   --biome-light: var(--silent-desert-light);
   --biome-dark: var(--silent-desert-dark);
   --biome-contrast: var(--silent-desert-contrast);
 }
 
-.Map__Hex[data-biome="giganticGardens"] {
+[data-biome="giganticGardens"] {
   --biome-light: var(--gigantic-gardens-light);
   --biome-dark: var(--gigantic-gardens-dark);
   --biome-contrast: var(--gigantic-gardens-contrast);
@@ -212,31 +212,8 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  border: 1px solid rgb(0 0 0 / 0.25);
-}
-
-.Map__BiomeSwatch[data-biome="shadowForest"] {
-  background: #3d5940;
-}
-
-.Map__BiomeSwatch[data-biome="floodedPlains"] {
-  background: #7bc7d6;
-}
-
-.Map__BiomeSwatch[data-biome="mushroomJungle"] {
-  background: #9c6ad6;
-}
-
-.Map__BiomeSwatch[data-biome="fieldSea"] {
-  background: #6ac77a;
-}
-
-.Map__BiomeSwatch[data-biome="silentDesert"] {
-  background: #f3d58e;
-}
-
-.Map__BiomeSwatch[data-biome="giganticGardens"] {
-  background: #ffb3a7;
+  border: 1px solid var(--biome-dark);
+  background: var(--biome-light);
 }
 
 .Map__Icon {

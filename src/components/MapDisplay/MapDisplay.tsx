@@ -98,6 +98,7 @@ export function MapDisplay({
                   data-selected={isSelected ? 'true' : 'false'}>
                   <MapCellContextMenu
                     coord={global}
+                    currentBiome={biome}
                     hasStoredIcon={Boolean(icon)}
                     title={localLabel}
                     coordLabel={localLabel}

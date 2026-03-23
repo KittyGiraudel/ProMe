@@ -23,6 +23,7 @@ const EmojiPicker = dynamic(
 
 type MapCellContextMenuProps = {
   coord: HexCoordinate
+  currentBiome?: BiomeId
   /** True when this cell has a persisted map icon. */
   hasStoredIcon: boolean
   title: string
@@ -45,6 +46,7 @@ function firstGrapheme(value: string): string {
 
 export function MapCellContextMenu({
   coord,
+  currentBiome,
   hasStoredIcon,
   title,
   coordLabel,
@@ -56,6 +58,9 @@ export function MapCellContextMenu({
 }: MapCellContextMenuProps) {
   const [open, setOpen] = useState(false)
   const [emojiModalOpen, setEmojiModalOpen] = useState(false)
+  const selectedBiomeKey = currentBiome
+    ? `biome:${currentBiome}`
+    : 'biome:clear'
 
   const items = useMemo<MenuProps['items']>(() => {
     const iconChildren: NonNullable<MenuProps['items']> = [
@@ -117,13 +122,18 @@ export function MapCellContextMenu({
           },
           {
             key: 'biome:clear',
-            label: copy.playerCharacters.mapUnexplored,
+            label: (
+              <span className='Map__BiomeMenuItem'>
+                <span data-biome='unexplored' className='Map__BiomeSwatch' />
+                <span>{copy.playerCharacters.mapUnexplored}</span>
+              </span>
+            ),
           },
         ],
       },
       ...baseItems,
     ]
-  }, [coordLabel, hasStoredIcon])
+  }, [coordLabel, currentBiome, hasStoredIcon])
 
   const onEmojiPicked = (data: EmojiClickData) => {
     onSetIcon(coord, firstGrapheme(data.emoji))
@@ -163,7 +173,12 @@ export function MapCellContextMenu({
     <>
       <Dropdown
         trigger={['click']}
-        menu={{ items, onClick: onMenuClick }}
+        menu={{
+          items,
+          onClick: onMenuClick,
+          selectable: true,
+          selectedKeys: [selectedBiomeKey],
+        }}
         open={open}
         onOpenChange={nextOpen => {
           setOpen(nextOpen)
