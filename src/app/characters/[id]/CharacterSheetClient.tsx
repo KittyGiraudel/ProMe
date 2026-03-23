@@ -9,6 +9,7 @@ import { useNavigationBlocker } from '@/app/contexts/NavigationBlockerContext'
 import { getDefaultPoolsForArchetype } from '@/lib/playerCharacter/model'
 import { loadDraft, clearDraft } from '@/lib/playerCharacter/draftStorage'
 import { getCharacterStore } from '@/lib/playerCharacter/store'
+import { stringifyPlayerCharacters } from '@/lib/playerCharacter/store/migrations'
 import type {
   InventoryItem,
   PlayerArchetype,
@@ -285,6 +286,22 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     }
   }
 
+  const handleExportCharacter = async () => {
+    if (!character) return
+    const formValues = form.getFieldsValue(true)
+    const payload: PlayerCharacter = {
+      ...character,
+      ...formValues,
+    }
+    const content = stringifyPlayerCharacters([payload])
+    try {
+      await navigator.clipboard.writeText(content)
+      message.success(copy.playerCharacters.exportCopied)
+    } catch {
+      message.error(copy.playerCharacters.exportCopyError)
+    }
+  }
+
   if (!character) {
     return (
       <Layout
@@ -379,6 +396,9 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
         <Space wrap>
           <Button type='primary' htmlType='submit'>
             {copy.playerCharacters.save}
+          </Button>
+          <Button onClick={handleExportCharacter}>
+            {copy.playerCharacters.exportOne}
           </Button>
         </Space>
       </Form>

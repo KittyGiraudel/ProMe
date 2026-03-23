@@ -120,7 +120,6 @@ export function createDefaultPlayerCharacterInput(
     inventory: [],
     spellbook: [],
     notes: '',
-    tags: [],
   }
 }
 
@@ -170,12 +169,6 @@ export function normalizePlayerCharacterInput(
     inventory,
     spellbook,
     notes: typeof source.notes === 'string' ? source.notes : base.notes,
-    tags: Array.isArray(source.tags)
-      ? source.tags
-          .filter((tag): tag is string => typeof tag === 'string')
-          .map(tag => tag.trim())
-          .filter(Boolean)
-      : base.tags,
   }
 }
 

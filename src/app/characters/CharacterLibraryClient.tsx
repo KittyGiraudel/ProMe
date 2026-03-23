@@ -83,7 +83,9 @@ export function CharacterLibraryClient() {
         <Button onClick={handleImportClick}>
           {copy.playerCharacters.import}
         </Button>
-        <Button onClick={handleExport}>{copy.playerCharacters.export}</Button>
+        <Button onClick={handleExport}>
+          {copy.playerCharacters.exportAll}
+        </Button>
       </Space>
 
       <input

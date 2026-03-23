@@ -45,7 +45,6 @@ export type PlayerCharacter = {
   inventory: InventoryItem[]
   spellbook: SpellEntry[]
   notes: string
-  tags: string[]
 }
 
 export type PlayerCharacterInput = Omit<

@@ -113,6 +113,8 @@ export const copy = {
     create: "Créer un personnage",
     import: "Importer JSON",
     export: "Copier export JSON",
+    exportAll: "Copier export JSON",
+    exportOne: "Copier export JSON",
     open: "Ouvrir",
     save: "Sauvegarder",
     saveSuccess: "Fiche sauvegardée.",
@@ -168,7 +170,6 @@ export const copy = {
     itemNotePlaceholder: "Note",
     spellNamePlaceholder: "Nom du sort",
     spellNotePlaceholder: "Note",
-    tagsLabel: "Tags",
     inventoryStatus(count: number, cap: number): string {
       return `Objets : ${count} / ${cap}`;
     },
