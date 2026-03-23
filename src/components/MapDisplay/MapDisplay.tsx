@@ -17,7 +17,6 @@ import {
 } from '@/lib/hex/coordinates'
 import './MapDisplay.css'
 import React from 'react'
-import { CORE_Q, CORE_R } from '@/lib/playerCharacter/model'
 import { MapCellContextMenu } from './MapCellContextMenu'
 
 type MapDisplayProps = {
@@ -77,13 +76,12 @@ export function MapDisplay({
               const global = getGlobalFromSheetCell(sheet, ri, ci)
               const key = toHexKey(global)
               const cell = cellsByKey.get(key)
-              const isCore = global.q === CORE_Q && global.r === CORE_R
               const isCurrent =
                 currentPosition.q === global.q && currentPosition.r === global.r
               const isSelected =
                 selectedPosition?.q === global.q &&
                 selectedPosition?.r === global.r
-              const biome = isCore ? undefined : cell?.biome
+              const biome = cell?.biome
               const icon = cell?.icon
               const localLabel = getDisplayedCellLabel(global)
 
@@ -96,12 +94,11 @@ export function MapDisplay({
                   data-coord={localLabel}
                   data-biome={biome ?? 'unexplored'}
                   data-icon={icon ?? ''}
-                  data-is-core={isCore ? 'true' : 'false'}
                   data-current={isCurrent ? 'true' : 'false'}
                   data-selected={isSelected ? 'true' : 'false'}>
                   <MapCellContextMenu
                     coord={global}
-                    isCore={isCore}
+                    hasStoredIcon={Boolean(icon)}
                     title={localLabel}
                     coordLabel={localLabel}
                     onSelectCell={onSelectCell}
@@ -110,9 +107,7 @@ export function MapDisplay({
                     onSetIcon={onSetIcon}
                     onClearCell={onClearCell}
                   />
-                  <span className='Map__Icon'>
-                    {icon ?? (isCore ? '🏰' : '')}
-                  </span>
+                  <span className='Map__Icon'>{icon ?? ''}</span>
                 </div>
               )
             })}

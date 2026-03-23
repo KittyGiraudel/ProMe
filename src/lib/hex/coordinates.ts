@@ -126,3 +126,8 @@ export function buildSheetViewport(sheet: SheetCoordinate): SheetCellAddress[] {
   }
   return cells
 }
+
+
+export function isSameHex(a: HexCoordinate, b: HexCoordinate): boolean {
+  return a.q === b.q && a.r === b.r
+}

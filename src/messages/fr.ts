@@ -243,6 +243,9 @@ export const copy = {
     mapClearCell: "Effacer la case",
     mapBiomeLabel: "Biome",
     mapIconLabel: "Icône",
+    mapPickEmoji: "Choisir une icône…",
+    mapClearIcon: "Retirer l’icône",
+    mapEmojiSearchPlaceholder: "Rechercher une emoji…",
     mapIconPlaceholder: "Emoji ou symbole",
     mapBiomes: {
       shadowForest: "Forêt des ombres",

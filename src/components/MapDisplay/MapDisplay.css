@@ -156,11 +156,6 @@
   position: relative;
 }
 
-.Map__Hex[data-is-core="true"] {
-  background: #fff1b8;
-  color: #262626;
-}
-
 .Map__Hex[data-biome="unexplored"] {
   --biome-light: var(--unexplored-light);
   --biome-dark: var(--unexplored-dark);
@@ -259,7 +254,7 @@
   width: 100%;
   height: 100%;
   font: inherit;
-  font-size: 120%;
+  font-size: 100%;
   font-weight: bold;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -270,9 +265,28 @@
   border: 0;
   padding: 0;
   cursor: pointer;
+  font-family: monospace;
+  font-variant-numeric: tabular-nums;
   transition: transform 0.1s ease-in-out;
 }
 
 .Map__Hex:hover .Map__Button {
   transform: scale(1.15);
+}
+
+.Map__EmojiModalBody {
+  padding-top: 8px;
+}
+
+.Map__EmojiPickerWrap {
+  display: flex;
+  justify-content: center;
+  margin: 0 -8px;
+}
+
+.Map__EmojiPickerLoading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
 }

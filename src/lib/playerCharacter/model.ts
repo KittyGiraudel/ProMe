@@ -12,6 +12,7 @@ import {
   type SpellEntry,
   type PlayerArchetype,
   type StatPool,
+  HexCoordinate,
 } from './types'
 
 const MAX_INVENTORY_ITEMS = 30
@@ -19,8 +20,7 @@ const MAX_SPELLBOOK_ITEMS = 6
 const MAX_MAP_ICON_LENGTH = 1
 
 const DEFAULT_MONEY = 100
-export const CORE_Q = 6
-export const CORE_R = 0
+export const DEFAULT_MAP_POSITION: HexCoordinate = { q: 0, r: 0 }
 
 function normalizeArchetype(
   value: unknown,
@@ -65,11 +65,19 @@ function normalizeHexCoordinate(
   }
 }
 
+function splitGraphemes(value: string): string[] {
+  if (typeof Intl !== 'undefined' && 'Segmenter' in Intl) {
+    const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' })
+    return Array.from(segmenter.segment(value), part => part.segment)
+  }
+  return Array.from(value)
+}
+
 function normalizeMapIcon(value: unknown): string | undefined {
   if (typeof value !== 'string') return undefined
   const icon = value.trim()
   if (!icon) return undefined
-  return Array.from(icon).slice(0, MAX_MAP_ICON_LENGTH).join('')
+  return splitGraphemes(icon).slice(0, MAX_MAP_ICON_LENGTH).join('')
 }
 
 function normalizeCharacterMapCell(value: unknown): CharacterMapCell | null {
@@ -80,7 +88,7 @@ function normalizeCharacterMapCell(value: unknown): CharacterMapCell | null {
   if (!Number.isFinite(q) || !Number.isFinite(r)) return null
 
   const icon = normalizeMapIcon(raw.icon)
-  const biome = q === CORE_Q && r === CORE_R ? undefined : normalizeBiome(raw.biome)
+  const biome = normalizeBiome(raw.biome)
 
   return {
     q,
@@ -92,10 +100,7 @@ function normalizeCharacterMapCell(value: unknown): CharacterMapCell | null {
 
 export function normalizeCharacterMapState(value: unknown): CharacterMapState {
   const raw = value as Partial<CharacterMapState> | undefined
-  const currentPosition = normalizeHexCoordinate(raw?.currentPosition, {
-    q: CORE_Q,
-    r: CORE_R,
-  })
+  const currentPosition = normalizeHexCoordinate(raw?.currentPosition, DEFAULT_MAP_POSITION)
 
   const byCoord = new Map<string, CharacterMapCell>()
   if (Array.isArray(raw?.cells)) {
@@ -234,7 +239,7 @@ export function createDefaultPlayerCharacterInput(
     stamina: pools.stamina,
     clock: { position: 0 },
     map: {
-      currentPosition: { q: CORE_Q, r: CORE_R },
+      currentPosition: DEFAULT_MAP_POSITION,
       cells: [],
     },
     inventory: [],
@@ -401,12 +406,11 @@ export function validatePlayerCharacterForPersistence(
       errors.push('map cell biome is invalid')
       break
     }
-    if (typeof cell.icon === 'string' && cell.icon.length > MAX_MAP_ICON_LENGTH) {
+    if (
+      typeof cell.icon === 'string' &&
+      splitGraphemes(cell.icon).length > MAX_MAP_ICON_LENGTH
+    ) {
       errors.push(`map cell icon length must be <= ${MAX_MAP_ICON_LENGTH}`)
-      break
-    }
-    if (cell.q === CORE_Q && cell.r === CORE_R && cell.biome) {
-      errors.push('core map cell cannot have a biome')
       break
     }
   }

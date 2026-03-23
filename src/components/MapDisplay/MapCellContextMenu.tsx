@@ -1,17 +1,30 @@
 'use client'
 
-import { Dropdown } from 'antd'
+import { Dropdown, Modal, Spin } from 'antd'
 import type { MenuProps } from 'antd'
+import dynamic from 'next/dynamic'
 import { useMemo, useState } from 'react'
 import type { BiomeId, HexCoordinate } from '@/lib/playerCharacter/types'
 import { BIOME_IDS } from '@/lib/playerCharacter/types'
 import { copy } from '@/messages/fr'
+import { EmojiStyle, Theme, type EmojiClickData } from 'emoji-picker-react'
 
-const ICON_CHOICES = ['★', '✦', '✪', '⚑', '☠', '☘', '♣', '♠', '♥', '♦'] as const
+const EmojiPicker = dynamic(
+  () => import('emoji-picker-react').then(m => m.default),
+  {
+    ssr: false,
+    loading: () => (
+      <div className='Map__EmojiPickerLoading'>
+        <Spin size='small' />
+      </div>
+    ),
+  }
+)
 
 type MapCellContextMenuProps = {
   coord: HexCoordinate
-  isCore: boolean
+  /** True when this cell has a persisted map icon. */
+  hasStoredIcon: boolean
   title: string
   coordLabel: string
   onSelectCell: (coord: HexCoordinate) => void
@@ -21,9 +34,18 @@ type MapCellContextMenuProps = {
   onClearCell: (coord: HexCoordinate) => void
 }
 
+function firstGrapheme(value: string): string {
+  if (typeof Intl !== 'undefined' && 'Segmenter' in Intl) {
+    const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' })
+    const [first] = Array.from(segmenter.segment(value), part => part.segment)
+    return first ?? ''
+  }
+  return Array.from(value).slice(0, 1).join('')
+}
+
 export function MapCellContextMenu({
   coord,
-  isCore,
+  hasStoredIcon,
   title,
   coordLabel,
   onSelectCell,
@@ -33,8 +55,31 @@ export function MapCellContextMenu({
   onClearCell,
 }: MapCellContextMenuProps) {
   const [open, setOpen] = useState(false)
+  const [emojiModalOpen, setEmojiModalOpen] = useState(false)
 
   const items = useMemo<MenuProps['items']>(() => {
+    const iconChildren: NonNullable<MenuProps['items']> = [
+      {
+        key: 'icon-picker',
+        label: copy.playerCharacters.mapPickEmoji,
+      },
+      ...(hasStoredIcon
+        ? [
+            { type: 'divider' as const },
+            {
+              key: 'icon:clear',
+              label: copy.playerCharacters.mapClearIcon,
+            },
+          ]
+        : []),
+    ]
+
+    const iconSubmenu = {
+      key: 'icon',
+      label: copy.playerCharacters.mapIconLabel,
+      children: iconChildren,
+    }
+
     const baseItems: NonNullable<MenuProps['items']> = [
       {
         key: 'move',
@@ -44,41 +89,8 @@ export function MapCellContextMenu({
         key: 'clear',
         label: copy.playerCharacters.mapClearCell,
       },
-      {
-        key: 'icon',
-        label: copy.playerCharacters.mapIconLabel,
-        children: [
-          ...ICON_CHOICES.map(icon => ({
-            key: `icon:${icon}`,
-            label: icon,
-          })),
-          {
-            type: 'divider' as const,
-          },
-          {
-            key: 'icon:clear',
-            label: copy.playerCharacters.mapClearCell,
-          },
-        ],
-      },
+      iconSubmenu,
     ]
-
-    if (isCore) {
-      return [
-        {
-          key: 'coord-group',
-          type: 'group',
-          label: `${copy.playerCharacters.mapSelectedCell}: ${coordLabel}`,
-          children: [],
-        },
-        {
-          key: 'core',
-          label: copy.playerCharacters.mapCore,
-          disabled: true,
-        },
-        ...baseItems,
-      ]
-    }
 
     return [
       {
@@ -111,7 +123,12 @@ export function MapCellContextMenu({
       },
       ...baseItems,
     ]
-  }, [coordLabel, isCore])
+  }, [coordLabel, hasStoredIcon])
+
+  const onEmojiPicked = (data: EmojiClickData) => {
+    onSetIcon(coord, firstGrapheme(data.emoji))
+    setEmojiModalOpen(false)
+  }
 
   const onMenuClick: MenuProps['onClick'] = ({ key }) => {
     if (key === 'move') {
@@ -124,13 +141,13 @@ export function MapCellContextMenu({
       setOpen(false)
       return
     }
-    if (key === 'icon:clear') {
-      onSetIcon(coord, undefined)
+    if (key === 'icon-picker') {
       setOpen(false)
+      setEmojiModalOpen(true)
       return
     }
-    if (typeof key === 'string' && key.startsWith('icon:')) {
-      onSetIcon(coord, key.slice('icon:'.length))
+    if (key === 'icon:clear') {
+      onSetIcon(coord, undefined)
       setOpen(false)
       return
     }
@@ -143,24 +160,47 @@ export function MapCellContextMenu({
   }
 
   return (
-    <Dropdown
-      trigger={['click']}
-      menu={{ items, onClick: onMenuClick }}
-      open={open}
-      onOpenChange={nextOpen => {
-        setOpen(nextOpen)
-        if (nextOpen) onSelectCell(coord)
-      }}
-      placement='topLeft'
-      overlayClassName='Map__DropdownOverlay'>
-      <button
-        type='button'
-        onClick={() => onSelectCell(coord)}
-        title={title}
-        className='Map__Button'
-        aria-label={`${title} ${isCore ? copy.playerCharacters.mapCore : copy.playerCharacters.mapCell}`}>
-        {coordLabel}
-      </button>
-    </Dropdown>
+    <>
+      <Dropdown
+        trigger={['click']}
+        menu={{ items, onClick: onMenuClick }}
+        open={open}
+        onOpenChange={nextOpen => {
+          setOpen(nextOpen)
+          if (nextOpen) onSelectCell(coord)
+        }}
+        placement='topLeft'
+        classNames={{ root: 'Map__DropdownOverlay' }}>
+        <button
+          type='button'
+          onClick={() => onSelectCell(coord)}
+          title={title}
+          className='Map__Button'
+          aria-label={`${title} ${copy.playerCharacters.mapCell}`}>
+          {coordLabel}
+        </button>
+      </Dropdown>
+
+      <Modal
+        open={emojiModalOpen}
+        title={copy.playerCharacters.mapIconLabel}
+        footer={null}
+        onCancel={() => setEmojiModalOpen(false)}
+        destroyOnHidden
+        width={360}
+        classNames={{ body: 'Map__EmojiModalBody' }}>
+        <div className='Map__EmojiPickerWrap'>
+          <EmojiPicker
+            onEmojiClick={onEmojiPicked}
+            theme={Theme.LIGHT}
+            emojiStyle={EmojiStyle.NATIVE}
+            searchPlaceHolder={copy.playerCharacters.mapEmojiSearchPlaceholder}
+            width={320}
+            height={380}
+            previewConfig={{ showPreview: false }}
+          />
+        </div>
+      </Modal>
+    </>
   )
 }

@@ -4,8 +4,8 @@ import { Button, Card, Form, Space, Tag, Typography } from 'antd'
 import { useMemo, useState } from 'react'
 import { MapDisplay } from '@/components/MapDisplay/MapDisplay'
 import {
+  toHexKey,
   getDisplayedCellLabel,
-  getSheetCellAddress,
   getSheetCoordinate,
   type SheetCoordinate,
 } from '@/lib/hex/coordinates'
@@ -16,26 +16,17 @@ import {
   type HexCoordinate,
 } from '@/lib/playerCharacter/types'
 import { copy } from '@/messages/fr'
-import { CORE_Q, CORE_R } from '@/lib/playerCharacter/model'
-
-const CORE_POSITION: HexCoordinate = { q: CORE_Q, r: CORE_R }
-
-function sameHex(a: HexCoordinate, b: HexCoordinate): boolean {
-  return a.q === b.q && a.r === b.r
-}
-
-function toHexKey(coord: HexCoordinate): string {
-  return `${coord.q},${coord.r}`
-}
+import { DEFAULT_MAP_POSITION } from '@/lib/playerCharacter/model'
+import { MapFormValueAnchor } from './MapFormValueAnchor'
 
 function normalizeMapState(
   value: CharacterMapState | undefined
 ): CharacterMapState {
   if (!value) {
-    return { currentPosition: CORE_POSITION, cells: [] }
+    return { currentPosition: DEFAULT_MAP_POSITION, cells: [] }
   }
   return {
-    currentPosition: value.currentPosition ?? CORE_POSITION,
+    currentPosition: value.currentPosition ?? DEFAULT_MAP_POSITION,
     cells: Array.isArray(value.cells) ? value.cells : [],
   }
 }
@@ -63,8 +54,6 @@ export function MapCard() {
   }, [mapState.cells])
 
   const selectedCellData = cellsByKey.get(toHexKey(selectedCell))
-  const selectedIsCore = sameHex(selectedCell, CORE_POSITION)
-  const selectedAddress = getSheetCellAddress(selectedCell)
 
   const updateMap = (
     updater: (current: CharacterMapState) => CharacterMapState
@@ -83,11 +72,10 @@ export function MapCard() {
       )
       const key = toHexKey(target)
       const existing = nextByKey.get(key)
-      const isCore = sameHex(target, CORE_POSITION)
       const nextCell: CharacterMapCell = {
         q: target.q,
         r: target.r,
-        biome: isCore ? undefined : biome,
+        biome,
         icon: existing?.icon,
       }
       if (!nextCell.biome && !nextCell.icon) nextByKey.delete(key)
@@ -130,7 +118,7 @@ export function MapCard() {
     updateMap(current => ({ ...current, currentPosition: target }))
   }
 
-  const selectedBiome = selectedIsCore ? undefined : selectedCellData?.biome
+  const selectedBiome = selectedCellData?.biome
 
   return (
     <Card title={copy.playerCharacters.mapSection}>
@@ -179,6 +167,10 @@ export function MapCard() {
           </Button>
         </Space>
 
+        <Form.Item name='map' noStyle>
+          <MapFormValueAnchor />
+        </Form.Item>
+
         <MapDisplay
           sheet={visibleSheet}
           cellsByKey={cellsByKey}
@@ -197,15 +189,11 @@ export function MapCard() {
             {getDisplayedCellLabel(selectedCell)}
           </Typography.Text>
 
-          {selectedIsCore ? (
-            <Tag color='gold'>{copy.playerCharacters.mapCore}</Tag>
-          ) : (
-            <Tag>
-              {selectedBiome
-                ? copy.playerCharacters.mapBiomes[selectedBiome]
-                : copy.playerCharacters.mapUnexplored}
-            </Tag>
-          )}
+          <Tag>
+            {selectedBiome
+              ? copy.playerCharacters.mapBiomes[selectedBiome]
+              : copy.playerCharacters.mapUnexplored}
+          </Tag>
         </Space>
       </Space>
     </Card>
