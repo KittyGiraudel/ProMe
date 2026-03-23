@@ -1,15 +1,15 @@
-import type { AgeBand, Gender, Personality, Race, Rank, Suit } from "../types";
+import type { AgeBand, Gender, Personality, Faction, Rank, Suit } from "../types";
 
-export function raceFromD6(value: number): Race {
+export function factionFromD6(value: number): Faction {
   if (value <= 2) return "bruja";
   if (value <= 4) return "cucurbitus";
   if (value === 5) return "kiore";
   return "mousseron";
 }
 
-/** D6 value that maps to `race` via `raceFromD6` (stable encoding for URLs). */
-export function canonicalRaceDie(race: Race): number {
-  switch (race) {
+/** D6 value that maps to `faction` via `factionFromD6` (stable encoding for URLs). */
+export function canonicalFactionDie(faction: Faction): number {
+  switch (faction) {
     case "bruja":
       return 1;
     case "cucurbitus":

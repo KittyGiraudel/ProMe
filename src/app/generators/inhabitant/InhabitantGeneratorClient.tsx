@@ -22,7 +22,7 @@ import { formatInhabitantCopyOneLiner } from '@/messages/formatCopy'
 const INHABITANT_QUERY_KEY = 'i'
 const VILLAGE_QUERY_KEY = 'v'
 const OWNERS_QUERY_KEY = 'o'
-const RACE_QUERY_KEY = 'race'
+const FACTION_QUERY_KEY = 'f'
 
 export function InhabitantGeneratorClient() {
   const { message } = App.useApp()
@@ -31,16 +31,16 @@ export function InhabitantGeneratorClient() {
   const encoded = searchParams.get(INHABITANT_QUERY_KEY)
   const villageV = searchParams.get(VILLAGE_QUERY_KEY)
   const villageO = searchParams.get(OWNERS_QUERY_KEY)
-  const villageRaceParam = searchParams.get(RACE_QUERY_KEY)
+  const villageFactionParam = searchParams.get(FACTION_QUERY_KEY)
 
   const villageBackHref = useMemo(() => {
     if (!villageV || !villageO) return undefined
     const p = new URLSearchParams()
     p.set(VILLAGE_QUERY_KEY, villageV)
     p.set(OWNERS_QUERY_KEY, villageO)
-    if (villageRaceParam) p.set(RACE_QUERY_KEY, villageRaceParam)
+    if (villageFactionParam) p.set(FACTION_QUERY_KEY, villageFactionParam)
     return `/generators/village?${p.toString()}`
-  }, [villageO, villageRaceParam, villageV])
+  }, [villageO, villageFactionParam, villageV])
 
   const breadcrumbs = useMemo(() => {
     if (!villageBackHref) return undefined

@@ -1,20 +1,20 @@
 import {
-  generateInhabitantWithRace,
+  generateInhabitantWithFaction,
   type InhabitantRoll,
 } from '../inhabitant/generate'
-import type { Race } from "../types";
+import type { Faction } from "../types";
 import type { VillageRoll } from "./generate";
 import { countVillageOwnerSlots } from "./resolveDisplay";
 
 export function generateOwnersForVillage(
   roll: VillageRoll,
-  race: Race,
+  faction: Faction,
   rng: () => number = Math.random,
 ): InhabitantRoll[] {
   const n = countVillageOwnerSlots(roll);
   const out: InhabitantRoll[] = [];
   for (let i = 0; i < n; i++) {
-    out.push(generateInhabitantWithRace(race, rng));
+    out.push(generateInhabitantWithFaction(faction, rng));
   }
   return out;
 }

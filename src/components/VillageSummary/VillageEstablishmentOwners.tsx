@@ -42,7 +42,7 @@ export function VillageEstablishmentOwners({
               className='village-summary__owner-name-link'>
               {e.roll.name}
             </BlockedLink>
-            {` (${copy.races[e.roll.race]})`}
+            {` (${copy.factions[e.roll.faction]})`}
           </span>
           <span className='village-summary__owner-sep'>
             {copy.common.emDashSpaced}

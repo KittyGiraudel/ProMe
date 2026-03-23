@@ -20,7 +20,7 @@ describe("ownersGenerate", () => {
     const owners = generateOwnersForVillage(roll, "mousseron", rng);
     expect(owners).toHaveLength(5);
     for (const o of owners) {
-      expect(o.race).toBe("mousseron");
+      expect(o.faction).toBe("mousseron");
     }
   });
 

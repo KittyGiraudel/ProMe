@@ -1,20 +1,20 @@
 import { randomCard, roll2D6, rollD6 } from "../rng";
-import type { AgeBand, Gender, Personality, PlayingCard, Race } from "../types";
+import type { AgeBand, Gender, Personality, PlayingCard, Faction } from "../types";
 import { contextByRank } from "@/messages/fr";
-import { lookupName } from "./data/namesByRace";
+import { lookupName } from "./data/namesByFaction";
 import {
   ageBandFromSuit,
   canonicalGenderDie,
-  canonicalRaceDie,
+  canonicalFactionDie,
   genderFromD6,
   personalityFromRank,
-  raceFromD6,
+  factionFromD6,
   rankFromPersonality,
   suitFromAgeBand,
 } from "./maps";
 
 export type InhabitantRerollPart =
-  | "race"
+  | "faction"
   | "nameDice"
   | "ageCard"
   | "personalityCard"
@@ -24,8 +24,8 @@ export type InhabitantRerollPart =
   | "contextSpokenNameDice";
 
 export type InhabitantRoll = {
-  raceDie: number;
-  race: Race;
+  factionDie: number;
+  faction: Faction;
   /** Suit → age band (book: one draw for age). */
   ageCard: PlayingCard;
   /** Rank → personality (book: one draw for personality). */
@@ -49,7 +49,7 @@ export function mapKindFromContextSevenDie(
 }
 
 function rollContextFollowups(
-  roll: Pick<InhabitantRoll, "race" | "contextCard">,
+  roll: Pick<InhabitantRoll, "faction" | "contextCard">,
   rng: () => number,
 ): Pick<
   InhabitantRoll,
@@ -63,7 +63,7 @@ function rollContextFollowups(
   if (rank === "10") {
     const contextSpokenNameDice = roll2D6(rng);
     const contextSpokenName = lookupName(
-      roll.race,
+      roll.faction,
       contextSpokenNameDice[0],
       contextSpokenNameDice[1],
     );
@@ -73,23 +73,23 @@ function rollContextFollowups(
 }
 
 function rollInhabitantRoll(
-  raceDie: number,
-  race: Race,
+  factionDie: number,
+  faction: Faction,
   rng: () => number,
 ): InhabitantRoll {
   const ageCard = randomCard(rng);
   const personalityCard = randomCard(rng);
   const contextCard = randomCard(rng);
   const nameDice = roll2D6(rng);
-  const name = lookupName(race, nameDice[0], nameDice[1]);
+  const name = lookupName(faction, nameDice[0], nameDice[1]);
   const contextText = contextByRank[contextCard.rank];
   const genderDie = rollD6(rng);
   const gender = genderFromD6(genderDie);
-  const follow = rollContextFollowups({ race, contextCard }, rng);
+  const follow = rollContextFollowups({ faction, contextCard }, rng);
 
   return {
-    raceDie,
-    race,
+    factionDie,
+    faction,
     ageCard,
     personalityCard,
     contextCard,
@@ -102,40 +102,40 @@ function rollInhabitantRoll(
   };
 }
 
-export function generateInhabitantWithRace(
-  race: Race,
+export function generateInhabitantWithFaction(
+  faction: Faction,
   rng: () => number = Math.random,
 ): InhabitantRoll {
-  return rollInhabitantRoll(canonicalRaceDie(race), race, rng);
+  return rollInhabitantRoll(canonicalFactionDie(faction), faction, rng);
 }
 
 export function generateInhabitant(
   rng: () => number = Math.random,
 ): InhabitantRoll {
-  const raceDie = rollD6(rng);
-  const race = raceFromD6(raceDie);
-  return rollInhabitantRoll(raceDie, race, rng);
+  const factionDie = rollD6(rng);
+  const faction = factionFromD6(factionDie);
+  return rollInhabitantRoll(factionDie, faction, rng);
 }
 
-export function setInhabitantRace(roll: InhabitantRoll, race: Race): InhabitantRoll {
-  const raceDie = canonicalRaceDie(race);
-  const name = lookupName(race, roll.nameDice[0], roll.nameDice[1]);
+export function setInhabitantFaction(roll: InhabitantRoll, faction: Faction): InhabitantRoll {
+  const factionDie = canonicalFactionDie(faction);
+  const name = lookupName(faction, roll.nameDice[0], roll.nameDice[1]);
   const contextSpokenName =
     roll.contextCard.rank === "10" && roll.contextSpokenNameDice
       ? lookupName(
-          race,
+          faction,
           roll.contextSpokenNameDice[0],
           roll.contextSpokenNameDice[1],
         )
       : roll.contextSpokenName;
-  return { ...roll, raceDie, race, name, contextSpokenName };
+  return { ...roll, factionDie, faction, name, contextSpokenName };
 }
 
 export function setInhabitantNameDice(
   roll: InhabitantRoll,
   nameDice: [number, number],
 ): InhabitantRoll {
-  const name = lookupName(roll.race, nameDice[0], nameDice[1]);
+  const name = lookupName(roll.faction, nameDice[0], nameDice[1]);
   return { ...roll, nameDice, name };
 }
 
@@ -176,23 +176,23 @@ export function rerollInhabitantPart(
   rng: () => number = Math.random,
 ): InhabitantRoll {
   switch (part) {
-    case "race": {
-      const raceDie = rollD6(rng);
-      const race = raceFromD6(raceDie);
-      const name = lookupName(race, roll.nameDice[0], roll.nameDice[1]);
+    case "faction": {
+      const factionDie = rollD6(rng);
+      const faction = factionFromD6(factionDie);
+      const name = lookupName(faction, roll.nameDice[0], roll.nameDice[1]);
       const contextSpokenName =
         roll.contextCard.rank === "10" && roll.contextSpokenNameDice
           ? lookupName(
-              race,
+              faction,
               roll.contextSpokenNameDice[0],
               roll.contextSpokenNameDice[1],
             )
           : roll.contextSpokenName;
-      return { ...roll, raceDie, race, name, contextSpokenName };
+      return { ...roll, factionDie, faction, name, contextSpokenName };
     }
     case "nameDice": {
       const nameDice = roll2D6(rng);
-      const name = lookupName(roll.race, nameDice[0], nameDice[1]);
+      const name = lookupName(roll.faction, nameDice[0], nameDice[1]);
       return { ...roll, nameDice, name };
     }
     case "ageCard": {
@@ -204,7 +204,7 @@ export function rerollInhabitantPart(
     case "contextCard": {
       const contextCard = randomCard(rng);
       const contextText = contextByRank[contextCard.rank];
-      const follow = rollContextFollowups({ race: roll.race, contextCard }, rng);
+      const follow = rollContextFollowups({ faction: roll.faction, contextCard }, rng);
       return {
         ...roll,
         contextCard,
@@ -223,7 +223,7 @@ export function rerollInhabitantPart(
       if (roll.contextCard.rank !== "10") return roll;
       const contextSpokenNameDice = roll2D6(rng);
       const contextSpokenName = lookupName(
-        roll.race,
+        roll.faction,
         contextSpokenNameDice[0],
         contextSpokenNameDice[1],
       );

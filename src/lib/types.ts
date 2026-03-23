@@ -1,6 +1,6 @@
-export type Race = "bruja" | "cucurbitus" | "kiore" | "mousseron";
+export type Faction = "bruja" | "cucurbitus" | "kiore" | "mousseron";
 
-export const RACES: readonly Race[] = [
+export const FACTIONS: readonly Faction[] = [
   "bruja",
   "cucurbitus",
   "kiore",

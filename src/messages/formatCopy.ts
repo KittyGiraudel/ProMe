@@ -21,7 +21,7 @@ export function formatInhabitantCopyOneLiner(
   const personality = getPersonality(roll)
   const g = genderCompactSymbol(roll.gender)
   const parts = [
-    `${g} ${roll.name} (${copy.races[roll.race]}), ${copy.ageBands[age]} ${copy.personalities[personality]}`,
+    `${g} ${roll.name} (${copy.factions[roll.faction]}), ${copy.ageBands[age]} ${copy.personalities[personality]}`,
   ]
   if (roll.contextCard.rank === '7' && roll.contextSevenDie != null) {
     const kind = mapKindFromContextSevenDie(roll.contextSevenDie)
@@ -84,7 +84,7 @@ export function formatVillageCopyOneLiner(
       const age = getAgeBand(owner)
       const personality = getPersonality(owner)
       const g = genderCompactSymbol(owner.gender)
-      const detail = `${g} ${owner.name} (${copy.races[owner.race]}), ${copy.ageBands[age]} ${copy.personalities[personality]}`
+      const detail = `${g} ${owner.name} (${copy.factions[owner.faction]}), ${copy.ageBands[age]} ${copy.personalities[personality]}`
       return `- ${row.text}\n  - ${copy.village.ownerLabel} : ${detail}`
     }
     return `- ${row.text}`

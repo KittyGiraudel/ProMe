@@ -11,7 +11,7 @@ import {
   Tooltip,
   Typography,
 } from 'antd'
-import { lookupName } from '@/lib/inhabitant/data/namesByRace'
+import { lookupName } from '@/lib/inhabitant/data/namesByFaction'
 import {
   type InhabitantRerollPart,
   type InhabitantRoll,
@@ -22,18 +22,18 @@ import {
   setInhabitantGender,
   setInhabitantNameDice,
   setInhabitantPersonality,
-  setInhabitantRace,
+  setInhabitantFaction,
 } from '@/lib/inhabitant/generate'
 import { personalityFromRank } from '@/lib/inhabitant/maps'
 import {
   AGE_BANDS,
   GENDERS,
-  RACES,
+  FACTIONS,
   RANKS,
   type AgeBand,
   type Gender,
   type Personality,
-  type Race,
+  type Faction,
 } from '@/lib/types'
 import { DiceFaces } from '@/components/DiceFaces/DiceFaces'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
@@ -100,7 +100,7 @@ export function InhabitantSummary({
       for (let d2 = 1; d2 <= 6; d2++) {
         opts.push({
           value: `${d1}-${d2}`,
-          label: lookupName(roll.race, d1, d2),
+          label: lookupName(roll.faction, d1, d2),
         })
       }
     }
@@ -125,9 +125,10 @@ export function InhabitantSummary({
           <Empty
             description={
               <>
-                {copy.inhabitant.emptySummaryBefore}
-                {copy.inhabitant.rollAll}
-                {copy.inhabitant.emptySummaryAfter}
+                {copy.inhabitant.emptySummary.replace(
+                  '{button}',
+                  copy.inhabitant.rollAll
+                )}
               </>
             }
           />
@@ -190,32 +191,34 @@ export function InhabitantSummary({
               ),
             },
             {
-              key: 'race',
-              label: copy.inhabitant.sectionRace,
+              key: 'faction',
+              label: copy.inhabitant.sectionFaction,
               children: (
                 <div className='inhabitant-summary__field-row'>
                   <Select
                     {...INHABITANT_SUMMARY_SELECT_PROPS}
                     className='inhabitant-summary__field-select'
                     disabled={!onSetRoll}
-                    value={roll.race}
-                    options={RACES.map(r => ({
+                    value={roll.faction}
+                    options={FACTIONS.map(r => ({
                       value: r,
-                      label: copy.races[r],
+                      label: copy.factions[r],
                     }))}
-                    onChange={(r: Race) => {
+                    onChange={(r: Faction) => {
                       if (!onSetRoll) return
-                      onSetRoll(setInhabitantRace(roll, r))
+                      onSetRoll(setInhabitantFaction(roll, r))
                     }}
-                    aria-label={copy.inhabitant.sectionRace}
+                    aria-label={copy.inhabitant.sectionFaction}
                   />
                   <div className='inhabitant-summary__field-meta'>
                     <MetaWithReroll
-                      rerollLabel={copy.inhabitant.rerollRace}
-                      onReroll={onRerollPart && (() => onRerollPart('race'))}>
+                      rerollLabel={copy.inhabitant.rerollFaction}
+                      onReroll={
+                        onRerollPart && (() => onRerollPart('faction'))
+                      }>
                       <>
-                        {copy.inhabitant.raceDieLabel} :{' '}
-                        <DiceFaces values={[roll.raceDie]} />
+                        {copy.inhabitant.factionDieLabel} :{' '}
+                        <DiceFaces values={[roll.factionDie]} />
                       </>
                     </MetaWithReroll>
                   </div>
@@ -247,7 +250,7 @@ export function InhabitantSummary({
                       rerollLabel={copy.inhabitant.rerollGender}
                       onReroll={onRerollPart && (() => onRerollPart('gender'))}>
                       <>
-                        {copy.inhabitant.raceDieLabel} :{' '}
+                        {copy.inhabitant.factionDieLabel} :{' '}
                         <DiceFaces values={[roll.genderDie]} />
                       </>
                     </MetaWithReroll>
@@ -378,7 +381,7 @@ export function InhabitantSummary({
                                 : copy.inhabitant.contextSevenMapBiome}
                             </strong>
                             {' · '}
-                            {copy.inhabitant.raceDieLabel} :{' '}
+                            {copy.inhabitant.factionDieLabel} :{' '}
                             <DiceFaces values={[roll.contextSevenDie]} />
                           </>
                         </MetaWithReroll>

@@ -209,9 +209,10 @@ export function VillageSummary({
           <Empty
             description={
               <>
-                {copy.village.emptySummaryBefore}
-                {copy.village.rollAll}
-                {copy.village.emptySummaryAfter}
+                {copy.village.emptySummary.replace(
+                  '{button}',
+                  copy.village.rollAll
+                )}
               </>
             }
           />

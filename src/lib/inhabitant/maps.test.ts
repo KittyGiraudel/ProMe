@@ -3,29 +3,29 @@ import { RANKS } from "../types";
 import {
   ageBandFromSuit,
   canonicalGenderDie,
-  canonicalRaceDie,
+  canonicalFactionDie,
   genderFromD6,
   personalityFromRank,
-  raceFromD6,
+  factionFromD6,
   rankFromPersonality,
   suitFromAgeBand,
 } from "./maps";
 
 describe("inhabitant/maps", () => {
-  describe("raceFromD6 / canonicalRaceDie", () => {
-    it("maps D6 to races", () => {
-      expect(raceFromD6(1)).toBe("bruja");
-      expect(raceFromD6(2)).toBe("bruja");
-      expect(raceFromD6(3)).toBe("cucurbitus");
-      expect(raceFromD6(4)).toBe("cucurbitus");
-      expect(raceFromD6(5)).toBe("kiore");
-      expect(raceFromD6(6)).toBe("mousseron");
+  describe("factionFromD6 / canonicalFactionDie", () => {
+    it("maps D6 to factions", () => {
+      expect(factionFromD6(1)).toBe("bruja");
+      expect(factionFromD6(2)).toBe("bruja");
+      expect(factionFromD6(3)).toBe("cucurbitus");
+      expect(factionFromD6(4)).toBe("cucurbitus");
+      expect(factionFromD6(5)).toBe("kiore");
+      expect(factionFromD6(6)).toBe("mousseron");
     });
 
-    it("canonicalRaceDie round-trips through raceFromD6", () => {
-      const races = ["bruja", "cucurbitus", "kiore", "mousseron"] as const;
-      for (const r of races) {
-        expect(raceFromD6(canonicalRaceDie(r))).toBe(r);
+    it("canonicalFactionDie round-trips through factionFromD6", () => {
+      const factions = ["bruja", "cucurbitus", "kiore", "mousseron"] as const;
+      for (const r of factions) {
+        expect(factionFromD6(canonicalFactionDie(r))).toBe(r);
       }
     });
   });

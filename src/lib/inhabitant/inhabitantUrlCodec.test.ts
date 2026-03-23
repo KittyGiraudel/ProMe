@@ -3,9 +3,9 @@ import {
   decodeInhabitantRollParam,
   encodeInhabitantRoll,
 } from "./inhabitantUrlCodec";
-import { lookupName } from "./data/namesByRace";
+import { lookupName } from "./data/namesByFaction";
 import { contextByRank } from "@/messages/fr";
-import { genderFromD6, raceFromD6 } from "./maps";
+import { genderFromD6, factionFromD6 } from "./maps";
 
 describe("inhabitantUrlCodec", () => {
   it("decodes legacy 8-char and round-trips through v2 encode", () => {
@@ -39,17 +39,17 @@ describe("inhabitantUrlCodec", () => {
   });
 
   it("round-trips v2 when age and personality cards differ", () => {
-    const raceDie = 1;
-    const race = raceFromD6(raceDie);
+    const factionDie = 1;
+    const faction = factionFromD6(factionDie);
     const nameDice: [number, number] = [2, 3];
     const roll = {
-      raceDie,
-      race,
+      factionDie,
+      faction,
       ageCard: { suit: "hearts" as const, rank: "5" as const },
       personalityCard: { suit: "spades" as const, rank: "K" as const },
       contextCard: { suit: "clubs" as const, rank: "3" as const },
       nameDice,
-      name: lookupName(race, nameDice[0], nameDice[1]),
+      name: lookupName(faction, nameDice[0], nameDice[1]),
       contextText: contextByRank["3"],
       genderDie: 4,
       gender: genderFromD6(4),

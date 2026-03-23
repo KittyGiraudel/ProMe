@@ -13,7 +13,7 @@
   min-width: min-content;
 }
 
-.village-generator__race {
+.village-generator__faction {
   display: flex;
   flex-wrap: wrap;
   align-items: center;

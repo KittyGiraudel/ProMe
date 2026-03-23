@@ -15,8 +15,8 @@ Game: _Les Souvenirs du Protecteur_ (LSDP). UI strings live in `src/messages/fr.
 | Establishment labels | French lines from card rank + suit (petite/grande for some ranks, red/black variants for A, 9, etc.) — see `data/establishments.ts`                                                   |
 | Trait text           | French rich-text paragraphs for each face rank + red/black — `data/traits.ts`                                                                                                         |
 | Owners               | One **inhabitant** (`InhabitantRoll`) per **establishment row** after resolution (not per primary card slot). Co-owners when the UI **groups** duplicate establishment rows           |
-| Village people       | A single **`Race`** for the whole village (`race` query param). All owners are generated with `generateInhabitantWithRace(race, rng)`                                                 |
-| URL                  | Serializable village (`v`), owners (`o`), race (`race`) for sharing and bookmarking                                                                                                   |
+| Village people       | A single **`Faction`** for the whole village (`f` query param). All owners are generated with `generateInhabitantWithFaction(faction, rng)`                                           |
+| URL                  | Serializable village (`v`), owners (`o`), faction (`f`) for sharing and bookmarking                                                                                                   |
 | Rerolls              | Reroll one **primary** slot (rebuilds expansion), reroll one **owner** only, optional **grouped** display (local state)                                                               |
 
 Out of scope (today): persisting grouped view in the URL; generating owners for trait-only rows.
@@ -82,16 +82,16 @@ Encodes the book’s duplicate-establishment sizing rule (smallest+smallest → 
 ### 2.8 Owners (`ownersGenerate.ts`)
 
 - **`countVillageEstablishments(roll)`** = `resolveVillageDisplay(roll).establishments.length`.
-- **`generateOwnersForVillage(roll, race, rng)`** returns that many independent **`generateInhabitantWithRace(race)`** rolls.
+- **`generateOwnersForVillage(roll, faction, rng)`** returns that many independent **`generateInhabitantWithFaction(faction)`** rolls.
 
-Each owner’s **`InhabitantRoll.raceDie`** is set to the **canonical** D6 for the chosen race (`canonicalRaceDie` in `inhabitant/maps.ts`) so `encodeInhabitantRoll` / `decodeInhabitantRollParam` round-trips consistently with a fixed village race.
+Each owner’s **`InhabitantRoll.factionDie`** is set to the **canonical** D6 for the chosen faction (`canonicalFactionDie` in `inhabitant/maps.ts`) so `encodeInhabitantRoll` / `decodeInhabitantRollParam` round-trips consistently with a fixed village faction.
 
-### 2.9 Village race (`race` query param)
+### 2.9 Village faction (`rafactionce` query param)
 
-- **Allowed values:** `RACES` in `types.ts` (`decodeVillageRaceParam`).
-- **Precedence:** explicit `race` param → else, if all decoded owners share one race, **infer** from `o` → else default **`bruja`** (`VillageGeneratorClient.tsx`).
-- **Validation:** `ownersValid` requires every owner’s `race` to match `villageRace`; otherwise the client **regenerates** owners for the current roll + race.
-- **Effects:** invalid `race` strings are stripped from the URL; missing `race` may be **hydrated** when `v` + `o` are valid so old links gain an explicit param.
+- **Allowed values:** `FACTIONS` in `types.ts` (`decodeVillageFactionParam`).
+- **Precedence:** explicit `f` param → else, if all decoded owners share one faction, **infer** from `o` → else default **`bruja`** (`VillageGeneratorClient.tsx`).
+- **Validation:** `ownersValid` requires every owner’s `f` to match `villageFaction`; otherwise the client **regenerates** owners for the current roll + faction.
+- **Effects:** invalid `f` strings are stripped from the URL; missing `f` may be **hydrated** when `v` + `o` are valid so old links gain an explicit param.
 
 ---
 
@@ -106,7 +106,7 @@ flowchart LR
     res["village/resolveDisplay.ts"]
     vurl["village/villageUrlCodec.ts"]
     vown["village/villageOwnersCodec.ts"]
-    vrace["village/villageRaceCodec.ts"]
+    vfaction["village/villageFactionCodec.ts"]
     ownGen["village/ownersGenerate.ts"]
     merge["village/mergeEstablishmentSizeTiers.ts"]
     est["village/data/establishments.ts"]
@@ -130,7 +130,7 @@ flowchart LR
   client --> vgen
   client --> vurl
   client --> vown
-  client --> vrace
+  client --> vfaction
   client --> summary
   summary --> res
 ```
@@ -141,13 +141,13 @@ flowchart LR
 | `src/lib/village/resolveDisplay.ts`                     | `resolveVillageDisplay`, `VillageTraitRow`, `VillageEstablishmentRow`, `countVillageEstablishments`                                          |
 | `src/lib/village/villageUrlCodec.ts`                    | `encodeVillageRoll` / `decodeVillageRollParam` for `v`                                                                                       |
 | `src/lib/village/villageOwnersCodec.ts`                 | `encodeVillageOwners` / `decodeVillageOwnersParam` — `~`-joined `encodeInhabitantRoll` blobs                                                 |
-| `src/lib/village/villageRaceCodec.ts`                   | `decodeVillageRaceParam`                                                                                                                     |
+| `src/lib/village/villageFactionCodec.ts`                | `decodeVillageFactionParam`                                                                                                                  |
 | `src/lib/village/ownersGenerate.ts`                     | `generateOwnersForVillage`                                                                                                                   |
 | `src/lib/village/mergeEstablishmentSizeTiers.ts`        | Tier merge for grouped same-rank establishments (ranks 2–8)                                                                                  |
 | `src/lib/village/data/establishments.ts`                | `establishmentLine`, `establishmentLineFromSizeTier`, `rankUsesEstablishmentSizeTiers`                                                       |
 | `src/lib/village/data/traits.ts`                        | `villageTraitText`                                                                                                                           |
 | `src/lib/rulebookPages.ts`                              | `RULEBOOK_PAGES` (inhabitant + village, incl. per-rank establishment detail) + `establishmentDetailRulebookPage`                             |
-| `src/app/generators/village/VillageGeneratorClient.tsx` | Toolbar, race select, URL sync, roll / reroll owner / reroll slot / copy                                                                     |
+| `src/app/generators/village/VillageGeneratorClient.tsx` | Toolbar, faction select, URL sync, roll / reroll owner / reroll slot / copy                                                                  |
 | `src/components/VillageSummary/VillageSummary.tsx`      | Establishments + traits + owners + grouping + rulebook footnote fragment                                                                     |
 | `src/messages/fr.ts` / `formatCopy.ts`                  | `copy`, `formatVillageCopyOneLiner`, `formatVillageRulebookPagesJoined`, village UI strings                                                  |
 
@@ -157,7 +157,7 @@ Replaces **one** card in `primary` at `slotIndex`, then **rebuilds the entire `e
 
 ### 3.3 Reroll single owner
 
-Replaces `owners[i]` with `generateInhabitantWithRace(villageRace)` and rewrites `o=` (and keeps `v`, `race`). Does not change the village cards.
+Replaces `owners[i]` with `generateInhabitantWithFaction(villageFaction)` and rewrites `o=` (and keeps `v`, `f`). Does not change the village cards.
 
 ---
 
@@ -169,7 +169,7 @@ Replaces `owners[i]` with `generateInhabitantWithRace(villageRace)` and rewrites
 | --------- | -------------------------------------------------------------------------------------------------------------- |
 | `v`       | Village cards: `encodeVillageRoll` — 10 chars minimum (5 primary × 2), then 6 chars per red Jack (3 cards × 2) |
 | `o`       | Owners: `~`-separated list of compact inhabitant payloads (same as inhabitant `i`)                             |
-| `race`    | `bruja` \| `cucurbitus` \| `kiore` \| `mousseron`                                                              |
+| `faction` | `bruja` \| `cucurbitus` \| `kiore` \| `mousseron`                                                              |
 
 **Source of truth:** Like the inhabitant page, the client **derives** `roll` and owner list from the URL via `useMemo`; updates use `router.replace`.
 
@@ -179,11 +179,11 @@ If `v` is present but `decodeVillageRollParam` fails, an effect **strips** `v` a
 
 ### 4.2 Owners out of sync
 
-If `v` decodes but `o` is missing, wrong length, or any owner `race !== villageRace`, `ownersValid` is null and an effect **fills** `o` with `generateOwnersForVillage(roll, villageRace)` and sets `v`/`race` as needed.
+If `v` decodes but `o` is missing, wrong length, or any owner `faction !== villageFaction`, `ownersValid` is null and an effect **fills** `o` with `generateOwnersForVillage(roll, villageFaction)` and sets `v`/`f` as needed.
 
 ### 4.3 Copy one-liner
 
-`formatVillageCopyOneLiner(roll, shareUrl, owners)` (`messages/fr.ts`): traits (bold stripped) and establishment lines joined, plus owner **names** if lengths match. The share URL should include `v`, `o`, and `race` (client builds this in `handleCopyOneLiner`).
+`formatVillageCopyOneLiner(roll, shareUrl, owners)` (`messages/fr.ts`): traits (bold stripped) and establishment lines joined, plus owner **names** if lengths match. The share URL should include `v`, `o`, and `f` (client builds this in `handleCopyOneLiner`).
 
 ---
 
@@ -192,9 +192,9 @@ If `v` decodes but `o` is missing, wrong length, or any owner `race !== villageR
 ### 5.1 `VillageGeneratorClient`
 
 - Wrapped in `<Suspense>` in `page.tsx` (same `useSearchParams` constraint as the inhabitant page).
-- **Toolbar:** `RollActions` on the left; **Peuple du village** `Select` on the right (`VillageGeneratorClient.css`, `margin-left: auto` on the race block).
-- **Roll all:** new `generateVillageRoll()` → push `v`, `o`, `race`.
-- **Change race:** updates `race`; if a village exists, **regenerates all owners** for the new race.
+- **Toolbar:** `RollActions` on the left; **Peuple du village** `Select` on the right (`VillageGeneratorClient.css`, `margin-left: auto` on the faction block).
+- **Roll all:** new `generateVillageRoll()` → push `v`, `o`, `f`.
+- **Change faction:** updates `f`; if a village exists, **regenerates all owners** for the new faction.
 - **Reroll establishment card:** `rerollVillagePrimarySlot` → new `v` + full owner regen.
 
 ### 5.2 `VillageSummary`
@@ -237,9 +237,9 @@ Rendered **outside** the Ant Design `Card` as a sibling in a fragment, with clas
 | Why are two traits merged into one line?   | `resolveVillageDisplay` groups by `villageTraitText` string               |
 | How are duplicate shops grouped in the UI? | `groupEstablishments` + `mergeEstablishmentSizeTiers`                     |
 | How many owners should exist?              | `countVillageEstablishments`                                              |
-| How is village race enforced?              | `VillageGeneratorClient` + `generateInhabitantWithRace`                   |
+| How is village faction enforced?           | `VillageGeneratorClient` + `generateInhabitantWithFaction`                |
 | Where are book page numbers?               | `rulebookPages.ts` — `RULEBOOK_PAGES` + `establishmentDetailRulebookPage` |
 
 ---
 
-_Last updated to match the village generator as of the revision that includes `v`/`o`/`race` URLs, merged trait rows, grouped establishment view, per-owner reroll, and footnotes below summary cards._
+_Last updated to match the village generator as of the revision that includes `v`/`o`/`f` URLs, merged trait rows, grouped establishment view, per-owner reroll, and footnotes below summary cards._

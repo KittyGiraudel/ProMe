@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { lookupName } from "./data/namesByRace";
+import { lookupName } from "./data/namesByFaction";
 import {
-  generateInhabitantWithRace,
+  generateInhabitantWithFaction,
   getAgeBand,
   getPersonality,
   mapKindFromContextSevenDie,
@@ -10,14 +10,14 @@ import {
   setInhabitantGender,
   setInhabitantNameDice,
   setInhabitantPersonality,
-  setInhabitantRace,
+  setInhabitantFaction,
   type InhabitantRoll,
 } from "./generate";
 
 function makeRoll(over: Partial<InhabitantRoll> = {}): InhabitantRoll {
   return {
-    raceDie: 1,
-    race: "bruja",
+    factionDie: 1,
+    faction: "bruja",
     ageCard: { suit: "hearts", rank: "2" },
     personalityCard: { suit: "hearts", rank: "2" },
     contextCard: { suit: "clubs", rank: "3" },
@@ -38,11 +38,11 @@ describe("inhabitant/generate", () => {
     expect(mapKindFromContextSevenDie(6)).toBe("biome");
   });
 
-  it("generateInhabitantWithRace uses canonical race die", () => {
+  it("generateInhabitantWithFaction uses canonical faction die", () => {
     const rng = () => 0.0001;
-    const roll = generateInhabitantWithRace("cucurbitus", rng);
-    expect(roll.race).toBe("cucurbitus");
-    expect(roll.raceDie).toBe(3);
+    const roll = generateInhabitantWithFaction("cucurbitus", rng);
+    expect(roll.faction).toBe("cucurbitus");
+    expect(roll.factionDie).toBe(3);
   });
 
   it("getAgeBand uses suit of age card; getPersonality uses rank of personality card", () => {
@@ -62,11 +62,11 @@ describe("inhabitant/generate", () => {
     expect(nextPers.ageCard).toEqual(roll.ageCard);
   });
 
-  it("rerollInhabitantPart race updates name for new race grid", () => {
-    const roll = makeRoll({ race: "bruja", nameDice: [1, 1] });
-    const next = rerollInhabitantPart(roll, "race", () => 0.999);
-    expect(next.raceDie).toBe(6);
-    expect(next.race).toBe("mousseron");
+  it("rerollInhabitantPart faction updates name for new faction grid", () => {
+    const roll = makeRoll({ faction: "bruja", nameDice: [1, 1] });
+    const next = rerollInhabitantPart(roll, "faction", () => 0.999);
+    expect(next.factionDie).toBe(6);
+    expect(next.faction).toBe("mousseron");
     expect(next.name).toBe(lookupName("mousseron", 1, 1));
   });
 
@@ -83,17 +83,17 @@ describe("inhabitant/generate", () => {
   });
 
   it("setInhabitantNameDice updates name string", () => {
-    const roll = makeRoll({ race: "bruja", nameDice: [1, 1] });
+    const roll = makeRoll({ faction: "bruja", nameDice: [1, 1] });
     const next = setInhabitantNameDice(roll, [2, 3]);
     expect(next.nameDice).toEqual([2, 3]);
     expect(next.name).toBe(lookupName("bruja", 2, 3));
   });
 
-  it("setInhabitantRace uses canonical die and recomputes name", () => {
-    const roll = makeRoll({ race: "bruja", nameDice: [1, 1] });
-    const next = setInhabitantRace(roll, "kiore");
-    expect(next.raceDie).toBe(5);
-    expect(next.race).toBe("kiore");
+  it("setInhabitantFaction uses canonical die and recomputes name", () => {
+    const roll = makeRoll({ faction: "bruja", nameDice: [1, 1] });
+    const next = setInhabitantFaction(roll, "kiore");
+    expect(next.factionDie).toBe(5);
+    expect(next.faction).toBe("kiore");
     expect(next.name).toBe(lookupName("kiore", 1, 1));
   });
 

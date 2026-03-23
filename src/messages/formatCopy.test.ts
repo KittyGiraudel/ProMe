@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { lookupName } from "@/lib/inhabitant/data/namesByRace";
+import { lookupName } from "@/lib/inhabitant/data/namesByFaction";
 import type { InhabitantRoll } from "@/lib/inhabitant/generate";
 import type { PlayingCard } from "@/lib/types";
 import { toVillagePrimaryTuple } from "@/lib/village/primaryTuple";
@@ -14,8 +14,8 @@ const card = (rank: PlayingCard["rank"], suit: PlayingCard["suit"]): PlayingCard
 
 function makeRoll(over: Partial<InhabitantRoll> = {}): InhabitantRoll {
   return {
-    raceDie: 1,
-    race: "bruja",
+    factionDie: 1,
+    faction: "bruja",
     ageCard: { suit: "hearts", rank: "2" },
     personalityCard: { suit: "hearts", rank: "2" },
     contextCard: { suit: "clubs", rank: "3" },
@@ -30,7 +30,7 @@ function makeRoll(over: Partial<InhabitantRoll> = {}): InhabitantRoll {
 
 describe("formatCopy", () => {
   describe("formatInhabitantCopyOneLiner", () => {
-    it("builds the share line with gender, name, race, age, personality", () => {
+    it("builds the share line with gender, name, faction, age, personality", () => {
       const line = formatInhabitantCopyOneLiner(
         makeRoll({ gender: "man" }),
         "https://example.com/c",

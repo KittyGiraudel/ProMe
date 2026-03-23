@@ -1,9 +1,9 @@
-import type { Gender, Race, Rank, Suit } from "@/lib/types";
+import type { Gender, Faction, Rank, Suit } from "@/lib/types";
 
 /**
  * User-facing copy: UI chrome, rulebook citations, and localized game tables
  * (établissements, traits de village, contexte habitant). Inhabitant **names** live
- * in `inhabitant/data/namesByRace.ts` (rulebook proper nouns, not localized).
+ * in `inhabitant/data/namesByFaction.ts` (rulebook proper nouns, not localized).
  */
 export const copy = {
   appName: "LSDP — Companion de jeu",
@@ -48,20 +48,18 @@ export const copy = {
     pageDescription:
       "Générez un personnage pour le jeu, puis copiez son lien unique. Vous pouvez relancer certaines caractéristiques à souhait.",
     rollAll: "Générer",
-    emptySummaryBefore: "Cliquez sur « ",
-    emptySummaryAfter: " » pour tirer un habitant.",
-    sectionRace: "Faction",
+    emptySummary: "Cliquez sur « {button} » pour générer un habitant.",
+    sectionFaction: "Faction",
     sectionGender: "Genre",
     sectionAge: "Âge",
     sectionPersonality: "Personnalité",
     sectionContext: "Contexte",
     sectionName: "Nom",
-    raceDieLabel: "1D6",
+    factionDieLabel: "1D6",
     nameDiceLabel: "2D6",
     cardLabel: "Carte",
     contextCardNote: "Seule la hauteur de la carte compte pour le contexte ; la couleur est ignorée.",
-    copyHint: "Copiez le texte de contexte depuis le livre si vous éditez les données.",
-    rerollRace: "Relancer le type (D6)",
+    rerollFaction: "Relancer la faction (D6)",
     rerollName: "Relancer le nom (2D6)",
     rerollAgeCard: "Relancer la carte d’âge",
     rerollPersonalityCard: "Relancer la carte de personnalité",
@@ -83,10 +81,9 @@ export const copy = {
     pageTitle: "Générateur de village",
     pageDescription:
       "Tirez 5 cartes comme au livre : chaque carte indique un établissement ou un trait. Un habitant est généré par établissement (copropriété si fusion). Partagez via l’URL.",
-    villageRaceLabel: "Peuple du village",
+    villageFactionLabel: "Faction du village",
     rollAll: "Générer",
-    emptySummaryBefore: "Cliquez sur « ",
-    emptySummaryAfter: " » pour générer un village.",
+    emptySummary: "Cliquez sur « {button} » pour générer un village.",
     sectionTraits: "Traits du village",
     sectionEstablishments: "Établissements",
     ownerLabel: "Propriétaire",
@@ -187,7 +184,7 @@ export const copy = {
     staminaTooltip:
       "Ils représentent votre capacité à continuer d’avancer.\nVos points d’Endurance déterminent la quantité d’objets que vous pouvez porter ou le temps que l’Horloge met à avancer.",
     courageRollAria: "Lancer un test de Courage",
-    courageRollTooltip: "Lancer 1D6 pour un test de Courage",
+    courageRollTooltip: "Effectuer un Test de Courage",
     courageRollSuccessTitle: "Test de Courage réussi",
     courageRollFailureTitle: "Test de Courage échoué",
     courageRollResult(roll: number, target: number): string {
@@ -266,12 +263,12 @@ export const copy = {
     nonBinary: "⚥ Non-binaire",
     indeterminate: "☿ Indéterminé",
   } satisfies Record<Gender, string>,
-  races: {
+  factions: {
     bruja: "Bruja",
     cucurbitus: "Cucurbitus",
     kiore: "Kiore",
     mousseron: "Mousseron",
-  } satisfies Record<Race, string>,
+  } satisfies Record<Faction, string>,
   ageBands: {
     child: "Enfant",
     teenager: "Adolescent·e",

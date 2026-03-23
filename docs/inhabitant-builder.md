@@ -10,8 +10,8 @@ Game: _Les Souvenirs du Protecteur_ (LSDP). UI copy is primarily French (`src/me
 
 | Area               | In scope                                                                                                           |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| Type / people      | D6 → one of four races (`raceFromD6`)                                                                              |
-| Name               | 2D6 → cell in a 6×6 grid per race (`namesByRace`, `lookupName`)                                                    |
+| Type / people      | D6 → one of four factions (`factionFromD6`)                                                                        |
+| Name               | 2D6 → cell in a 6×6 grid per faction (`namesByFaction`, `lookupName`)                                              |
 | Age & personality  | One random playing card: **suit** → age band, **rank** → personality                                               |
 | Context            | One random playing card: **rank only** → narrative hook (`contextByRank`); suit is irrelevant for rules            |
 | Context follow-ups | Rank **7**: extra D6 (cartographer map type). Rank **10**: extra 2D6 → spoken name (same name table as inhabitant) |
@@ -23,20 +23,20 @@ The app can **reroll** individual mechanical inputs while keeping the rest; deri
 
 ## 2. Conceptual model (what each input means)
 
-### 2.1 Type (race) — one D6
+### 2.1 Type (faction) — one D6
 
-`maps.raceFromD6`:
+`maps.factionFromD6`:
 
 - 1–2 → `bruja`
 - 3–4 → `cucurbitus`
 - 5 → `kiore`
 - 6 → `mousseron`
 
-The stored die value is the **actual roll** (1–6), not an index. The label comes from `copy.races`.
+The stored die value is the **actual roll** (1–6), not an index. The label comes from `copy.factions`.
 
 ### 2.2 Name — two D6 (“D66”)
 
-Two independent D6, each 1–6. They index `namesByRace[race][die1 - 1][die2 - 1]` (see comment in `namesByRace.ts`: first die = row, second = column, matching the book’s “1D66” style table).
+Two independent D6, each 1–6. They index `namesByFaction[faction][die1 - 1][die2 - 1]` (see comment in `namesByFaction.ts`: first die = row, second = column, matching the book’s “1D66” style table).
 
 If the grid is ever mis-sized, `lookupName` falls back to `"—"`.
 
@@ -54,7 +54,7 @@ Both suit and rank are rolled uniformly via `rng.randomCard`.
 Special ranks (also reflected in UI):
 
 - **7 — Cartographe**: after drawing this context, the book asks for **another D6** to choose _carte de localisation_ (1–3) vs _carte de biome_ (4–6). Implemented as `contextSevenDie` and `mapKindFromContextSevenDie` in `generate.ts`.
-- **10 — Nom prononcé**: book points to the name table (p. 60). The app rolls **2D6** with the **current inhabitant race** and stores `contextSpokenNameDice` + `contextSpokenName` via `lookupName`.
+- **10 — Nom prononcé**: book points to the name table (p. 60). The app rolls **2D6** with the **current inhabitant faction** and stores `contextSpokenNameDice` + `contextSpokenName` via `lookupName`.
 
 ### 2.5 Gender — one D6 (optional aid)
 
@@ -80,7 +80,7 @@ flowchart LR
     maps["maps.ts"]
     codec["inhabitantUrlCodec.ts"]
     ctx["messages/fr.ts — copy.game.inhabitantContextByRank"]
-    names["data/namesByRace.ts"]
+    names["data/namesByFaction.ts"]
     rng["rng.ts"]
     pc["playingCardCodec.ts"]
   end
@@ -103,14 +103,14 @@ flowchart LR
 | Path                                                                               | Role                                                                                                                                              |
 | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `src/lib/inhabitant/generate.ts`                                                   | `InhabitantRoll`, `generateInhabitant`, `rerollInhabitantPart`, context follow-ups, `getAgeBand` / `getPersonality`, `mapKindFromContextSevenDie` |
-| `src/lib/inhabitant/maps.ts`                                                       | Deterministic mappings D6/card → race, gender, age band, personality                                                                              |
+| `src/lib/inhabitant/maps.ts`                                                       | Deterministic mappings D6/card → faction, gender, age band, personality                                                                           |
 | `src/lib/inhabitant/genderSymbols.ts`                                              | `genderCompactSymbol` for one-line / owner summaries (matches `copy.genders` prefixes)                                                            |
 | `src/messages/fr.ts` (`copy.game.inhabitantContextByRank`, export `contextByRank`) | Context paragraphs by rank                                                                                                                        |
-| `src/lib/inhabitant/data/namesByRace.ts`                                           | `namesByRace` grids + `lookupName`                                                                                                                |
+| `src/lib/inhabitant/data/namesByFaction.ts`                                        | `namesByFaction` grids + `lookupName`                                                                                                             |
 | `src/lib/inhabitant/inhabitantUrlCodec.ts`                                         | `encodeInhabitantRoll` / `decodeInhabitantRollParam` for query param `i`                                                                          |
 | `src/lib/rng.ts`                                                                   | `rollD6`, `roll2D6`, `randomCard`, `randomInt` — all generation goes through an injectable `rng: () => number` (default `Math.random`)            |
 | `src/lib/playingCardCodec.ts`                                                      | Shared 2-char card encoding (suit letter + rank code, `T` for ten)                                                                                |
-| `src/lib/types.ts`                                                                 | `Race`, `Suit`, `Rank`, `PlayingCard`, `Gender`, etc.                                                                                             |
+| `src/lib/types.ts`                                                                 | `Faction`, `Suit`, `Rank`, `PlayingCard`, `Gender`, etc.                                                                                          |
 | `src/app/generators/inhabitant/InhabitantGeneratorClient.tsx`                      | URL sync, roll-all, reroll callbacks, copy one-liner                                                                                              |
 | `src/app/generators/inhabitant/page.tsx`                                           | Server wrapper + `Suspense` (required for `useSearchParams` on static routes)                                                                     |
 | `src/components/InhabitantSummary/InhabitantSummary.tsx`                           | Descriptions + per-field reroll + context follow-up UI; footnote uses `copy.rulebook.inhabitantFootnote`                                          |
@@ -121,14 +121,14 @@ flowchart LR
 
 Defined in `generate.ts`. Conceptually:
 
-- **Stored random outcomes**: `raceDie`, `agePersonalityCard`, `contextCard`, `nameDice`, `genderDie`, and when applicable `contextSevenDie`, `contextSpokenNameDice`.
-- **Derived / denormalized for convenience**: `race`, `name`, `contextText`, `gender`, `contextSpokenName` — always recomputed from the mechanical inputs when generating or decoding from URL so they stay aligned with data files.
+- **Stored random outcomes**: `factionDie`, `agePersonalityCard`, `contextCard`, `nameDice`, `genderDie`, and when applicable `contextSevenDie`, `contextSpokenNameDice`.
+- **Derived / denormalized for convenience**: `faction`, `name`, `contextText`, `gender`, `contextSpokenName` — always recomputed from the mechanical inputs when generating or decoding from URL so they stay aligned with data files.
 
 `InhabitantRerollPart` enumerates which slice `rerollInhabitantPart` may replace. Rerolling `contextCard` clears follow-up fields then re-runs `rollContextFollowups` so rank 7/10 extras match the new card.
 
 ### 3.3 Generation order (`generateInhabitant`)
 
-1. `raceDie` → `race`
+1. `factionDie` → `faction`
 2. `agePersonalityCard`
 3. `contextCard` → `contextText`
 4. `nameDice` → `name`
@@ -163,7 +163,7 @@ The codec builds a compact ASCII string (then often uppercased for parsing).
 
 **Base (always):**
 
-1. One char: race D6 `1`–`6`
+1. One char: faction D6 `1`–`6`
 2. Two chars: age/personality card (`encodePlayingCard`)
 3. Two chars: context card
 4. Two chars: name dice `1`–`6` each
@@ -185,7 +185,7 @@ Encoding (`encodeInhabitantRoll`) appends the tail only when those follow-up fie
 
 ### 4.2 Bookmarks and data changes
 
-URLs encode **dice and cards**, not free text. If you edit `contextByRank` or `namesByRace`, an old URL still produces the same mechanical result but **displayed** name/context/spoken name strings may change.
+URLs encode **dice and cards**, not free text. If you edit `contextByRank` or `namesByFaction`, an old URL still produces the same mechanical result but **displayed** name/context/spoken name strings may change.
 
 ---
 
@@ -222,7 +222,7 @@ Primary “generate all” plus optional copy-one-liner when a roll exists.
 
 ## 7. How to extend safely
 
-1. **New race or D6 range change** — Update `raceFromD6`, `namesByRace`, and `copy.races`.
+1. **New faction or D6 range change** — Update `factionFromD6`, `namesByFaction`, and `copy.factions`.
 2. **New context rank** — Extend `contextByRank` (all `Rank` keys must exist) and, if the book adds extra rolls, extend `rollContextFollowups` + `InhabitantRoll` + codec + UI like rank 7/10.
 3. **URL version bump** — Today there is no explicit version prefix; a future v2 format should either use a new query key or a prefixed scheme and keep `decodeInhabitantRollParam` accepting old values if you still need old links.
 4. **Tests** — existing scripts are `test` (Vitest), `test:coverage`, and `test:e2e` (Playwright). Prioritize round-trip tests: `decode(encode(roll))` equals roll for representative cases (all context ranks, with/without tails).
@@ -236,7 +236,7 @@ Primary “generate all” plus optional copy-one-liner when a roll exists.
 | How is a full inhabitant rolled?       | `generateInhabitant`                                   |
 | What does one D6 mean for type/gender? | `maps.ts`                                              |
 | What text appears for context rank X?  | `messages/fr.ts` → `copy.game.inhabitantContextByRank` |
-| How are names chosen?                  | `data/namesByRace.ts` + `lookupName`                   |
+| How are names chosen?                  | `data/namesByFaction.ts` + `lookupName`                |
 | How do I bookmark/share?               | `?i=` + `inhabitantUrlCodec.ts`                        |
 | How does reroll preserve consistency?  | `rerollInhabitantPart`                                 |
 | Why Suspense on the page?              | Next.js + `useSearchParams` static prerender           |

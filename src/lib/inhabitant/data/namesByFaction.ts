@@ -1,10 +1,10 @@
-import type { Race } from "../../types";
+import type { Faction } from "../../types";
 
 /**
  * 6×6 grid: names[d1 - 1][d2 - 1] for a D66 roll (X.Y = first die, second die).
  * Rulebook proper nouns — kept here (not in `messages/fr.ts`) because they are not localized.
  */
-export const namesByRace: Record<Race, string[][]> = {
+export const namesByFaction: Record<Faction, string[][]> = {
   bruja: [
     ["Ágata", "Galileo", "Carmilia", "Lontana", "Teressa", "Gamilo"],
     ["Delfinio", "Ludélia", "Daldrida", "Keliana", "Isonela", "Sororia"],
@@ -42,10 +42,10 @@ export const namesByRace: Record<Race, string[][]> = {
 const LOOKUP_MISSING = "—";
 
 export function lookupName(
-  race: Race,
+  faction: Faction,
   die1: number,
   die2: number,
 ): string {
-  const r = namesByRace[race];
+  const r = namesByFaction[faction];
   return r[die1 - 1]?.[die2 - 1] ?? LOOKUP_MISSING;
 }
