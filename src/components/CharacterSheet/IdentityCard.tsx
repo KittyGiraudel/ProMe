@@ -5,7 +5,11 @@ import { GENDERS } from '@/lib/types'
 import type { PlayerArchetype } from '@/lib/playerCharacter/types'
 import { copy } from '@/messages/fr'
 
-export function IdentityCard() {
+export function IdentityCard({
+  isArchetypeReadonly = false,
+}: {
+  isArchetypeReadonly?: boolean
+}) {
   const watchedArchetype = Form.useWatch('archetype') as
     | PlayerArchetype
     | undefined
@@ -34,6 +38,7 @@ export function IdentityCard() {
             label={copy.playerCharacters.archetypeLabel}
             style={{ marginBottom: archetypePower ? 8 : 0 }}>
             <Select
+              disabled={isArchetypeReadonly}
               style={{ width: '100%' }}
               options={[
                 {

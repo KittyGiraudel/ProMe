@@ -265,9 +265,13 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     setSaveErrors(null)
 
     try {
+      const archetype =
+        mode === 'saved' ? character.archetype : values.archetype
+
       const payload: PlayerCharacter = {
         ...character,
         ...values,
+        archetype,
       }
 
       const saved = store.save(payload)
@@ -349,7 +353,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
             {saveErrors ? (
               <Alert type='error' title={saveErrors.join('; ')} />
             ) : null}
-            <IdentityCard />
+            <IdentityCard isArchetypeReadonly={false} />
             <Space wrap>
               <Button htmlType='button' onClick={handleCancel}>
                 {copy.playerCharacters.cancel}
@@ -384,7 +388,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
             <Alert type='error' title={saveErrors.join('; ')} />
           ) : null}
 
-          <IdentityCard />
+          <IdentityCard isArchetypeReadonly />
           <CharacteristicsCard />
           <InventoryCard inventoryLimit={inventoryLimit} />
           <SpellbookCard />
