@@ -3,11 +3,29 @@
   --size: calc(100% / 12 - var(--gap));
 }
 
+/**
+ * 1. Position context for absolutely positioned legend items.
+ * 2. No idea how it works or what it does.
+ * 3. Offset the grid to counter-balance the even rows’ offset towards the right.
+ */
+.Map__Inner {
+  position: relative; /* 1 */
+  padding-bottom: calc(var(--size) / (4 * cos(30deg))); /* 2 */
+  margin-left: calc(var(--size) / 2); /* 3 */
+}
+
+
 .Map__LegendRow {
   display: flex;
   gap: var(--gap);
-  margin-bottom: -0.5em;
   width: 100%;
+}
+
+/**
+ * 1. Squeeze the legend closer to the map.
+ */
+.Map__LegendRow--top {
+  margin-bottom: -0.5em; /* 1 */
 }
 
 .Map__LegendRow--top + .Map__LegendRow--top {
@@ -16,7 +34,7 @@
 
 .Map__LegendRow--bottom {
   margin-left: calc(var(--size) / 2);
-  margin-top: 0.5em;
+  margin-top: 1em;
 }
 
 .Map__LegendRow--bottom + .Map__LegendRow--bottom {
@@ -61,40 +79,29 @@
   position: absolute;
   top: 2em;
   bottom: 2em;
+  width: var(--size);
 }
 
 .Map__LegendCol--left {
   right: 100%;
-  margin-right: 0.5em;
-}
-
-.Map__LegendCol--left .Map__LegendItem {
-  position: relative;
-}
-
-.Map__LegendCol--left .Map__LegendItem:nth-of-type(odd) {
-  transform: translateX(-30px);
-  position: relative;
+  transform: translateX(-50%);
+  align-items: flex-end;
+  margin-right: 1ch;
 }
 
 .Map__LegendCol--right {
   left: 100%;
-  margin-left: 0.5em;
+  margin-left: 1ch;
+  transform: translateX(-50%);
+  align-items: flex-start;
 }
 
-.Map__LegendCol--right .Map__LegendItem:nth-of-type(odd) {
-  transform: translateX(-30px);
+.Map__LegendCol .Map__LegendItem {
   position: relative;
 }
 
-/**
- * 2. Offset the grid to counter-balance the even rows’ offset towards the right.
- */
-.Map__Inner {
-  position: relative;
-  padding-bottom: calc(var(--size)/(4*cos(30deg)));
-  container-type: inline-size;
-  margin-left: calc(var(--size) / 2); /* 2 */
+.Map__LegendItem:nth-of-type(even) {
+  left: 50%;
 }
 
 /**
