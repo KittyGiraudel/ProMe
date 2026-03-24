@@ -14,13 +14,14 @@ export function useCharacterSheetDerived({
   form: FormInstance
   character: Character | null
 }) {
-  // Watch only fields needed by derived UI and downstream hooks.
-  const watchedStaminaRaw = Form.useWatch('stamina', form) as
+  // preserve: true — pool fields live on other tabs; default useWatch only sees mounted fields.
+  const watchOpts = { form, preserve: true } as const
+  const watchedStaminaRaw = Form.useWatch('stamina', watchOpts) as
     | StatPool
     | undefined
-  const watchedClockRaw = Form.useWatch('clock', form) as number | undefined
-  const watchedHealthRaw = Form.useWatch('health', form) as StatPool | undefined
-  const watchedCourageRaw = Form.useWatch('courage', form) as
+  const watchedClockRaw = Form.useWatch('clock', watchOpts) as number | undefined
+  const watchedHealthRaw = Form.useWatch('health', watchOpts) as StatPool | undefined
+  const watchedCourageRaw = Form.useWatch('courage', watchOpts) as
     | StatPool
     | undefined
 

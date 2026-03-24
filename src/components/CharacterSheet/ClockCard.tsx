@@ -14,8 +14,9 @@ import { Button } from '@/components/Button/Button'
 export function ClockCard() {
   const { notification } = App.useApp()
   const form = Form.useFormInstance()
-  const stamina = Form.useWatch('stamina', form) as StatPool | undefined
-  const clock = Form.useWatch('clock', form) as number | undefined
+  const watchOpts = { form, preserve: true } as const
+  const stamina = Form.useWatch('stamina', watchOpts) as StatPool | undefined
+  const clock = Form.useWatch('clock', watchOpts) as number | undefined
 
   const staminaCurrent = stamina?.current ?? 0
   const segmentsPerHalf = computeClockSegmentsPerHalfFromStamina(staminaCurrent)
