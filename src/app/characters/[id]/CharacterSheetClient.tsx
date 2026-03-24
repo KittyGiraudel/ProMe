@@ -14,7 +14,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
-import { useNavigationBlocker } from '@/app/contexts/NavigationBlockerContext'
 import { useSettings } from '@/app/contexts/SettingsContext'
 import {
   computeClockSegmentsPerHalfFromStamina,
@@ -44,6 +43,7 @@ import { InventoryCard } from '@/components/CharacterSheet/InventoryCard'
 import { SpellbookCard } from '@/components/CharacterSheet/SpellbookCard'
 import { NotesCard } from '@/components/CharacterSheet/NotesCard'
 import { Button } from '@/components/Button/Button'
+import { useUnsavedChangesGuard } from '@/hooks/useUnsavedChangesGuard'
 
 const CHARACTER_SHEET_NIGHT_THEME = {
   algorithm: antdTheme.darkAlgorithm,
@@ -72,7 +72,6 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
   const { message, modal } = App.useApp()
   const store = useMemo(() => getCharacterStore(), [])
   const router = useRouter()
-  const { setHandler } = useNavigationBlocker()
   const { settings } = useSettings()
 
   const [sheetState, setSheetState] = useState<{
@@ -177,10 +176,6 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
 
   const prevArchetypeRef = useRef<Archetype | null>(null)
   const prevClockTotalSegmentsRef = useRef<number | null>(null)
-  const leaveConfirmingRef = useRef(false)
-  const interceptionReadyRef = useRef(false)
-  const stableUrlRef = useRef<string>('')
-  const stablePathAndQueryRef = useRef<string>('')
 
   const sheetCharacterId = character?.id
   const characterArchetype = character?.archetype
@@ -256,99 +251,25 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     form.setFieldValue(['stamina', 'current'], staminaMax)
   }, [staminaCurrent, staminaMax, form])
 
-  const attemptLeave = useCallback(
-    (onLeave: () => void, onStay?: () => void) => {
-      const hasUnsavedChanges =
-        interceptionReadyRef.current && form.isFieldsTouched()
-      if (!hasUnsavedChanges) {
-        onLeave()
-        return
-      }
-
-      if (leaveConfirmingRef.current) return
-      leaveConfirmingRef.current = true
-
+  const isFormDirty = useCallback(() => form.isFieldsTouched(), [form])
+  const confirmUnsavedLeave = useCallback(
+    ({ onLeave, onStay }: { onLeave: () => void; onStay: () => void }) => {
       modal.confirm({
         title: copy.characters.unsavedChangesTitle,
         content: copy.characters.unsavedChangesDescription,
         okText: copy.characters.unsavedChangesLeave,
         cancelText: copy.characters.unsavedChangesStay,
-        onOk: () => {
-          leaveConfirmingRef.current = false
-          onLeave()
-        },
-        onCancel: () => {
-          leaveConfirmingRef.current = false
-          onStay?.()
-        },
+        onOk: onLeave,
+        onCancel: onStay,
       })
     },
-    [form, modal]
+    [modal]
   )
-
-  useEffect(() => {
-    setHandler(() => (navigate: () => void) => {
-      attemptLeave(navigate)
-    })
-    return () => setHandler(null)
-  }, [attemptLeave, setHandler])
-
-  useEffect(() => {
-    const onBeforeUnload = (e: BeforeUnloadEvent) => {
-      if (!interceptionReadyRef.current) return
-      if (!form.isFieldsTouched()) return
-      e.preventDefault()
-      e.returnValue = ''
-    }
-
-    window.addEventListener('beforeunload', onBeforeUnload)
-    return () => window.removeEventListener('beforeunload', onBeforeUnload)
-  }, [form])
-
-  // Mark when the form is "settled" so we don't prompt during initial hydration/setup.
-  useEffect(() => {
-    interceptionReadyRef.current = false
-    leaveConfirmingRef.current = false
-    stableUrlRef.current =
-      window.location.pathname + window.location.search + window.location.hash
-    stablePathAndQueryRef.current =
-      window.location.pathname + window.location.search
-    const t = window.setTimeout(() => {
-      interceptionReadyRef.current = true
-    }, 0)
-    return () => window.clearTimeout(t)
-  }, [characterId, mode, character?.updatedAt])
-
-  useEffect(() => {
-    const onPopState = () => {
-      if (!interceptionReadyRef.current) return
-      if (!form.isFieldsTouched()) return
-      if (leaveConfirmingRef.current) return
-      const currentPathAndQuery =
-        window.location.pathname + window.location.search
-      // Hash-only navigation (permalinks/anchors) should not be blocked.
-      if (currentPathAndQuery === stablePathAndQueryRef.current) {
-        stableUrlRef.current =
-          window.location.pathname +
-          window.location.search +
-          window.location.hash
-        return
-      }
-
-      attemptLeave(
-        () => {
-          // Navigation already happened; if user confirms we do nothing.
-        },
-        () => {
-          // Navigation was cancelled; revert URL back.
-          history.pushState(null, '', stableUrlRef.current)
-        }
-      )
-    }
-
-    window.addEventListener('popstate', onPopState)
-    return () => window.removeEventListener('popstate', onPopState)
-  }, [form, attemptLeave])
+  useUnsavedChangesGuard({
+    isDirty: isFormDirty,
+    confirmLeave: confirmUnsavedLeave,
+    resetToken: `${characterId}|${mode}|${character?.updatedAt ?? ''}`,
+  })
 
   const handleFinish = () => {
     if (!character) return
