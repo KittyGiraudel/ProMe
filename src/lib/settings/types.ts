@@ -5,4 +5,8 @@ export type AppSettings = {
   sheet: {
     adaptiveNightMode: boolean
   }
+  journal: {
+    /** When true, journal timeline is reverse chronological (newest first). */
+    timelineReverseChronological: boolean
+  }
 }

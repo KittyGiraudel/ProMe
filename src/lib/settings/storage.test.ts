@@ -41,9 +41,12 @@ describe('settings/storage', () => {
     saveSettings({
       ...DEFAULT_SETTINGS,
       sheet: { adaptiveNightMode: true },
+      journal: { timelineReverseChronological: true },
     })
 
-    expect(loadSettings().sheet.adaptiveNightMode).toBe(true)
+    const loaded = loadSettings()
+    expect(loaded.sheet.adaptiveNightMode).toBe(true)
+    expect(loaded.journal.timelineReverseChronological).toBe(true)
   })
 
   it('falls back to defaults on malformed JSON', () => {

@@ -402,6 +402,11 @@ export const copy = {
     pageDescription:
       "Réglez les préférences globales de l’application. Elles sont enregistrées localement dans ce navigateur.",
     sectionSheet: "Feuille de personnage",
+    sectionJournal: "Journal",
+    journalTimelineReverseChronologicalLabel:
+      "Afficher le journal du plus récent au plus ancien",
+    journalTimelineReverseChronologicalHelp:
+      "Décochez pour un ordre chronologique (du plus ancien au plus récent).",
     adaptiveNightModeLabel:
       "Assombrir la feuille quand l’horloge est à la nuit",
     adaptiveNightModeHelp:

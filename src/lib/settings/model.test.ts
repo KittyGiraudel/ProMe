@@ -13,4 +13,12 @@ describe('settings/model', () => {
       }).sheet.adaptiveNightMode
     ).toBe(true)
   })
+
+  it('keeps timelineReverseChronological when payload enables it', () => {
+    expect(
+      normalizeSettings({
+        journal: { timelineReverseChronological: true },
+      }).journal.timelineReverseChronological
+    ).toBe(true)
+  })
 })

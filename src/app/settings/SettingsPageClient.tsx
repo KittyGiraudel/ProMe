@@ -7,6 +7,7 @@ import { copy } from '@/messages/fr'
 
 type SettingsFormValues = {
   adaptiveNightMode: boolean
+  timelineReverseChronological: boolean
 }
 
 export function SettingsPageClient() {
@@ -14,6 +15,7 @@ export function SettingsPageClient() {
 
   const initialValues: SettingsFormValues = {
     adaptiveNightMode: settings.sheet.adaptiveNightMode,
+    timelineReverseChronological: settings.journal.timelineReverseChronological,
   }
 
   const handleValuesChange = (_: unknown, allValues: SettingsFormValues) => {
@@ -23,13 +25,18 @@ export function SettingsPageClient() {
         ...prev.sheet,
         adaptiveNightMode: allValues.adaptiveNightMode === true,
       },
+      journal: {
+        ...prev.journal,
+        timelineReverseChronological:
+          allValues.timelineReverseChronological === true,
+      },
     }))
   }
 
   return (
     <Layout title={copy.settings.pageTitle} pageCoverBiome='silentDesert'>
       <Form<SettingsFormValues>
-        key={settings.sheet.adaptiveNightMode ? 'night-on' : 'night-off'}
+        key={`${settings.sheet.adaptiveNightMode}-${settings.journal.timelineReverseChronological}`}
         layout='vertical'
         initialValues={initialValues}
         onValuesChange={handleValuesChange}>
@@ -43,6 +50,21 @@ export function SettingsPageClient() {
             </Form.Item>
             <Typography.Text type='secondary'>
               {copy.settings.adaptiveNightModeHelp}
+            </Typography.Text>
+          </Space>
+        </Card>
+        <Card title={copy.settings.sectionJournal} style={{ marginTop: 16 }}>
+          <Space orientation='vertical' size='small'>
+            <Form.Item
+              name='timelineReverseChronological'
+              valuePropName='checked'
+              style={{ marginBottom: 0 }}>
+              <Checkbox>
+                {copy.settings.journalTimelineReverseChronologicalLabel}
+              </Checkbox>
+            </Form.Item>
+            <Typography.Text type='secondary'>
+              {copy.settings.journalTimelineReverseChronologicalHelp}
             </Typography.Text>
           </Space>
         </Card>

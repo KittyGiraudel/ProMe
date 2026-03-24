@@ -3,6 +3,7 @@
 import { Timeline } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
 import type { FormInstance } from 'antd'
+import { useSettings } from '@/app/contexts/SettingsContext'
 import { JournalEntry } from '@/components/Journal/JournalEntry'
 import '@/components/Journal/Journal.css'
 
@@ -21,9 +22,12 @@ export function Journal({
   onConfirmDelete: (entryIndex: number, hasContent: boolean) => void
   formatTimestamp: (value: string | undefined) => string | null
 }) {
+  const { settings } = useSettings()
+
   return (
     <Timeline
       className='journal'
+      reverse={settings.journal.timelineReverseChronological}
       items={fields.map(field => ({
         key: String(field.key),
         content: (

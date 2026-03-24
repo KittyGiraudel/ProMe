@@ -5,6 +5,9 @@ export const DEFAULT_SETTINGS: AppSettings = {
   sheet: {
     adaptiveNightMode: false,
   },
+  journal: {
+    timelineReverseChronological: false,
+  },
 }
 
 export function normalizeSettings(value: unknown): AppSettings {
@@ -13,6 +16,10 @@ export function normalizeSettings(value: unknown): AppSettings {
     schemaVersion: SETTINGS_SCHEMA_VERSION,
     sheet: {
       adaptiveNightMode: source?.sheet?.adaptiveNightMode === true,
+    },
+    journal: {
+      timelineReverseChronological:
+        source?.journal?.timelineReverseChronological === true,
     },
   }
 }
