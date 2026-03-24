@@ -105,6 +105,11 @@ export const copy = {
     copyOneLiner: "Copier le résumé",
     copyOneLinerSuccess: "Résumé copié dans le presse-papiers.",
     copyOneLinerError: "Impossible de copier (autorisez le presse-papiers).",
+    linkSummary(factionLabel: string | null, establishmentCount: number): string {
+      const noun = `établissement${establishmentCount > 1 ? 's' : ''}`
+      if (factionLabel) return `Village (${factionLabel}), ${establishmentCount} ${noun}`
+      return `Village, ${establishmentCount} ${noun}`
+    },
     rulebookPageAria: "Référence livre",
   },
   characters: {

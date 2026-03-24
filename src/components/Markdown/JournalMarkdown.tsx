@@ -12,6 +12,7 @@ import {
 } from '@/lib/markdown/journalInlineTokens'
 import { buildJournalCoordinateTokenData } from '@/lib/markdown/journalCoordinateTokens'
 import { getInhabitantSummaryFromUrl } from '@/lib/markdown/inhabitantLinkSummary'
+import { getVillageSummaryFromUrl } from '@/lib/markdown/villageLinkSummary'
 import { BIOME_ROLL_TABLE } from '@/lib/constants/biomeRollTable'
 import { copy } from '@/messages/fr'
 import { DICE, SUITS } from '@/lib/constants/misc'
@@ -216,9 +217,13 @@ export function JournalMarkdown({
     ),
     a: ({ children, node: _node, href, ...props }) => {
       const inhabitantSummary = href ? getInhabitantSummaryFromUrl(href) : null
+      const villageSummary =
+        !inhabitantSummary && href ? getVillageSummaryFromUrl(href) : null
       return (
         <a {...props} href={href}>
-          {inhabitantSummary ?? renderWithHighlights(children)}
+          {inhabitantSummary ??
+            villageSummary ??
+            renderWithHighlights(children)}
         </a>
       )
     },
