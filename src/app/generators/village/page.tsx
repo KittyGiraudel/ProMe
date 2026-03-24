@@ -5,7 +5,7 @@ import { VillageGeneratorClient } from './VillageGeneratorClient'
 
 function VillageGeneratorFallback() {
   return (
-    <Layout title={copy.village.pageTitle}>
+    <Layout title={copy.village.pageTitle} pageCoverBiome='shadowForest'>
       <p>{copy.common.loading}</p>
     </Layout>
   )

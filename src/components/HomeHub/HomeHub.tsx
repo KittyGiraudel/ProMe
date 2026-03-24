@@ -123,7 +123,10 @@ const VillageGenerator = () => {
 
 export function HomeHub() {
   return (
-    <Layout title={copy.hub.title} breadcrumbs={[]}>
+    <Layout
+      title={copy.hub.title}
+      breadcrumbs={[]}
+      pageCoverBiome='giganticGardens'>
       <section className='home-hub__section' data-testid='managers'>
         <h2 className='home-hub__section-title'>{copy.hub.managersTitle}</h2>
         <Row gutter={16}>

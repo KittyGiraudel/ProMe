@@ -106,6 +106,7 @@ export function InhabitantGeneratorClient() {
   return (
     <Layout
       title={copy.inhabitant.pageTitle}
+      pageCoverBiome='fieldSea'
       breadcrumbs={breadcrumbs}
       headerActions={
         <RollActions

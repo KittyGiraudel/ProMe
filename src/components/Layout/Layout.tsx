@@ -5,6 +5,7 @@ import type { BreadcrumbProps } from 'antd'
 import type { ReactNode } from 'react'
 import { useMemo } from 'react'
 import { usePathname } from 'next/navigation'
+import type { BiomeId } from '@/lib/character/types'
 import { copy } from '@/messages/fr'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { PageCover } from '../PageCover/PageCover'
@@ -14,6 +15,8 @@ type LayoutProps = {
   title: string
   headerActions?: ReactNode
   sheetNightChrome?: boolean
+  /** Tints the page cover from map palette (character sheet). */
+  pageCoverBiome?: BiomeId | 'unexplored'
   breadcrumbs?: Array<{
     label: string
     href?: string
@@ -67,6 +70,7 @@ export const Layout = ({
   children,
   headerActions,
   sheetNightChrome,
+  pageCoverBiome,
 }: LayoutProps) => {
   const pathname = usePathname()
   const items = useMemo(
@@ -125,7 +129,9 @@ export const Layout = ({
   const breadcrumbItems = useBreadcrumbs({ breadcrumbs, title })
 
   return (
-    <AntLayout className={sheetNightChrome ? 'layout layout--dark' : 'layout'}>
+    <AntLayout
+      className={sheetNightChrome ? 'layout layout--dark' : 'layout'}
+      data-sheet-night={sheetNightChrome ? 'true' : undefined}>
       <AntLayout.Header style={{ display: 'flex', alignItems: 'center' }}>
         <Menu
           theme='dark'
@@ -135,7 +141,7 @@ export const Layout = ({
           style={{ flex: 1, minWidth: 0 }}
         />
       </AntLayout.Header>
-      <PageCover />
+      <PageCover biome={pageCoverBiome} />
       <AntLayout.Content style={{ padding: '16px 48px' }}>
         <Breadcrumb items={breadcrumbItems} />
 

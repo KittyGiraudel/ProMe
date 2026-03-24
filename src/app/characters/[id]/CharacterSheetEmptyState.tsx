@@ -9,6 +9,7 @@ export function CharacterSheetEmptyState() {
   return (
     <Layout
       title={copy.characters.sheetTitle}
+      pageCoverBiome='floodedPlains'
       breadcrumbs={[
         { label: copy.nav.homeLink, href: '/' },
         { label: copy.characters.pageTitle, href: '/characters' },

@@ -5,7 +5,7 @@ import { copy } from '@/messages/fr'
 
 function InhabitantGeneratorFallback() {
   return (
-    <Layout title={copy.inhabitant.pageTitle}>
+    <Layout title={copy.inhabitant.pageTitle} pageCoverBiome='fieldSea'>
       <p>{copy.common.loading}</p>
     </Layout>
   )

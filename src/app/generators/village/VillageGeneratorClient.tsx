@@ -215,6 +215,7 @@ export function VillageGeneratorClient() {
   return (
     <Layout
       title={copy.village.pageTitle}
+      pageCoverBiome='shadowForest'
       headerActions={
         <RollActions
           onRollAll={handleRollAll}

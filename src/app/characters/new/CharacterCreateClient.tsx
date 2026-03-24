@@ -26,6 +26,7 @@ export function CharacterCreateClient() {
   return (
     <Layout
       title={copy.characters.createPageTitle}
+      pageCoverBiome='floodedPlains'
       breadcrumbs={[
         { label: copy.nav.homeLink, href: '/' },
         { label: copy.characters.pageTitle, href: '/characters' },

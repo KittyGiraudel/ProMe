@@ -1,11 +1,137 @@
 .page-cover {
   flex-shrink: 0;
   width: 100%;
-  height: clamp(132px, 26vw, 200px);
-  background-color: #c8e0d4;
-  background-image: url('/images/page-cover.svg');
-  background-position: bottom 10% center ;
-  background-size: cover;
-  background-repeat: no-repeat;
+  height: clamp(132px, 26vw, 250px);
+  position: relative;
+  overflow: hidden;
+  background-color: var(--pc-sky-mid);
   border-bottom: 1px solid color-mix(in srgb, var(--lsdp-border) 85%, transparent);
+
+  /* Default palette: neutral grey (biome sheets override via [data-biome]) */
+  --pc-sky-top: #ececee;
+  --pc-sky-mid: #cfd2d5;
+  --pc-sky-bot: #b4b8bc;
+  --pc-haze-edge: #8b9096;
+  --pc-haze-mid: #6e7378;
+  --pc-glow-0: #f7f7f8;
+  --pc-glow-1: #e4e5e8;
+  --pc-glow-2: #c5c8cd;
+  --pc-hill-far-t: #9ea2a8;
+  --pc-hill-far-b: #757a80;
+  --pc-hill-near-t: #545960;
+  --pc-hill-near-b: #383c42;
+  --pc-foreground-mist: #2a2d32;
+
+  transition:
+    --pc-sky-top 0.7s cubic-bezier(0.33, 0, 0.2, 1),
+    --pc-sky-mid 0.7s cubic-bezier(0.33, 0, 0.2, 1),
+    --pc-sky-bot 0.7s cubic-bezier(0.33, 0, 0.2, 1),
+    --pc-haze-edge 0.7s cubic-bezier(0.33, 0, 0.2, 1),
+    --pc-haze-mid 0.7s cubic-bezier(0.33, 0, 0.2, 1),
+    --pc-glow-0 0.7s cubic-bezier(0.33, 0, 0.2, 1),
+    --pc-glow-1 0.7s cubic-bezier(0.33, 0, 0.2, 1),
+    --pc-glow-2 0.7s cubic-bezier(0.33, 0, 0.2, 1),
+    --pc-hill-far-t 0.7s cubic-bezier(0.33, 0, 0.2, 1),
+    --pc-hill-far-b 0.7s cubic-bezier(0.33, 0, 0.2, 1),
+    --pc-hill-near-t 0.7s cubic-bezier(0.33, 0, 0.2, 1),
+    --pc-hill-near-b 0.7s cubic-bezier(0.33, 0, 0.2, 1),
+    --pc-foreground-mist 0.7s cubic-bezier(0.33, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-cover {
+    transition: none;
+  }
+}
+
+.page-cover__art {
+  display: block;
+}
+
+/*
+ * Biome-driven cover: globals.css sets --biome-light / --biome-dark on [data-biome].
+ * Remap the whole scene from those two anchors so the shift is obvious.
+ */
+.page-cover[data-biome] {
+  --pc-sky-top: color-mix(in srgb, var(--biome-light) 38%, white);
+  --pc-sky-mid: color-mix(in srgb, var(--biome-light) 52%, var(--biome-dark));
+  --pc-sky-bot: color-mix(in srgb, var(--biome-dark) 42%, var(--biome-light));
+  --pc-haze-edge: var(--biome-light);
+  --pc-haze-mid: color-mix(in srgb, var(--biome-dark) 48%, var(--biome-light));
+  --pc-glow-0: color-mix(in srgb, var(--biome-light) 22%, white);
+  --pc-glow-1: color-mix(in srgb, var(--biome-light) 55%, transparent);
+  --pc-glow-2: color-mix(in srgb, var(--biome-dark) 40%, transparent);
+  --pc-hill-far-t: color-mix(in srgb, var(--biome-light) 35%, var(--biome-dark));
+  --pc-hill-far-b: color-mix(in srgb, var(--biome-dark) 38%, black);
+  --pc-hill-near-t: color-mix(in srgb, var(--biome-dark) 28%, var(--biome-light));
+  --pc-hill-near-b: color-mix(in srgb, var(--biome-dark) 68%, black);
+  --pc-foreground-mist: color-mix(in srgb, var(--biome-dark) 78%, black);
+}
+
+
+/* Registered so browsers can interpolate when biome (or grey default) changes. */
+@property --pc-sky-top {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #ececee;
+}
+@property --pc-sky-mid {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #cfd2d5;
+}
+@property --pc-sky-bot {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #b4b8bc;
+}
+@property --pc-haze-edge {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #8b9096;
+}
+@property --pc-haze-mid {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #6e7378;
+}
+@property --pc-glow-0 {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #f7f7f8;
+}
+@property --pc-glow-1 {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #e4e5e8;
+}
+@property --pc-glow-2 {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #c5c8cd;
+}
+@property --pc-hill-far-t {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #9ea2a8;
+}
+@property --pc-hill-far-b {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #757a80;
+}
+@property --pc-hill-near-t {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #545960;
+}
+@property --pc-hill-near-b {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #383c42;
+}
+@property --pc-foreground-mist {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #2a2d32;
 }

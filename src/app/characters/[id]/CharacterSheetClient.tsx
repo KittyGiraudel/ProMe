@@ -1,6 +1,7 @@
 'use client'
 
 import { Alert, ConfigProvider, Divider, Form, Space, Tabs } from 'antd'
+import { useMemo } from 'react'
 import type { TabsProps } from 'antd'
 import { Layout } from '@/components/Layout/Layout'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
@@ -22,6 +23,7 @@ import { CartographyTabSection } from './tabs/CartographyTabSection'
 import { InventorySpellbookTabSection } from './tabs/InventorySpellbookTabSection'
 import { JournalTabSection } from './tabs/JournalTabSection'
 import { ToolsTabSection } from './tabs/ToolsTabSection'
+import { biomeAtCurrentMapPosition } from '@/lib/character/biomeAtCurrentMapPosition'
 
 export function CharacterSheetClient({ characterId }: { characterId: string }) {
   const { activeTabKey, setActiveTabKey } = useCharacterSheetActiveTab()
@@ -82,6 +84,12 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     setSaveErrors,
   })
 
+  const watchedMap = Form.useWatch('map', form)
+  const pageCoverBiome = useMemo(
+    () => biomeAtCurrentMapPosition(watchedMap),
+    [watchedMap]
+  )
+
   if (!character) {
     return <CharacterSheetEmptyState />
   }
@@ -132,8 +140,8 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
   return (
     <Layout
       sheetNightChrome={characterSheetNightMode}
+      pageCoverBiome={pageCoverBiome}
       title={character.name || copy.characters.unnamed}
-      description={copy.characters.sheetDescription}
       breadcrumbs={[
         { label: copy.nav.homeLink, href: '/' },
         { label: copy.characters.pageTitle, href: '/characters' },

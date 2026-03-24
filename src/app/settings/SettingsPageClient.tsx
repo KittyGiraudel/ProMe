@@ -27,7 +27,7 @@ export function SettingsPageClient() {
   }
 
   return (
-    <Layout title={copy.settings.pageTitle}>
+    <Layout title={copy.settings.pageTitle} pageCoverBiome='silentDesert'>
       <Form<SettingsFormValues>
         key={settings.sheet.adaptiveNightMode ? 'night-on' : 'night-off'}
         layout='vertical'
