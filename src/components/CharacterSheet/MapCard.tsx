@@ -182,7 +182,7 @@ export function MapCard() {
             <InfoCircleFilled />
           </span>
         ),
-        message: copy.characters.mapRandomBiomeDiscoveredTitle,
+        title: copy.characters.mapRandomBiomeDiscoveredTitle,
         description: copy.characters.mapRandomBiomeDiscoveredDescription(
           biomeName,
           discoveredBiome.additionalTilesToMark
