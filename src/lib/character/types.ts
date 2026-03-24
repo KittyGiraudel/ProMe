@@ -60,6 +60,13 @@ export type CharacterMapState = {
   cells: CharacterMapCell[]
 }
 
+export type JournalEntry = {
+  id: string
+  content: string
+  createdAt: string
+  updatedAt: string
+}
+
 export type Character = {
   id: string
   schemaVersion: typeof CHARACTER_SCHEMA_VERSION
@@ -78,7 +85,7 @@ export type Character = {
   map: CharacterMapState
   inventory: InventoryItem[]
   spellbook: SpellEntry[]
-  notes: string
+  journalEntries: JournalEntry[]
 }
 
 export type CharacterInput = Omit<

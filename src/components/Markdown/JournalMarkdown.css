@@ -1,0 +1,64 @@
+.journal-markdown {
+  line-height: 1.6;
+  margin-top: -0.5em;
+}
+
+.journal-markdown p {
+  margin: 0 0 0.75rem;
+}
+
+.journal-markdown ul,
+.journal-markdown ol {
+  margin: 0 0 0.75rem 1.25rem;
+  padding: 0;
+}
+
+.journal-markdown li {
+  margin: 0.2rem 0;
+}
+
+.journal-markdown :first-child {
+  margin-top: 0;
+}
+
+.journal-markdown h1 {
+  font-size: 1.5em;
+}
+
+.journal-markdown h1,
+.journal-markdown h2,
+.journal-markdown h3,
+.journal-markdown h4 {
+  margin: 1rem 0 0.5rem;
+}
+
+.journal-markdown blockquote {
+  margin: 0.75rem 0;
+  padding-left: 0.75rem;
+  border-left: 3px solid var(--ant-colorBorderSecondary);
+  color: var(--ant-colorTextSecondary);
+}
+
+.journal-markdown code {
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+  background: var(--ant-colorFillTertiary);
+}
+
+.journal-markdown pre {
+  margin: 0.75rem 0;
+  padding: 0.75rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  background: var(--ant-colorFillTertiary);
+}
+
+.journal-markdown pre code {
+  padding: 0;
+  background: transparent;
+}
+
+.journal-markdown a {
+  color: var(--ant-colorLink);
+  text-decoration: underline;
+}

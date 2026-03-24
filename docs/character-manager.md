@@ -14,7 +14,7 @@ Adaptive sheet night-mode preference is now global and documented in `docs/setti
 | ------------------- | ------------------------------------------------------------------------------------------------------------ |
 | Character lifecycle | Create on `/characters/new` → persist → edit sheet on `/characters/[id]`                                     |
 | Persistence         | Saved characters in **`localStorage`** (`lsdp:characters:v1`)                                                |
-| Data model          | Typed `character` with archetype, stat pools, inventory, spellbook, notes, metadata timestamps               |
+| Data model          | Typed `character` with archetype, stat pools, inventory, spellbook, journal entries, metadata timestamps     |
 | Validation          | Domain validation before persistence (money >= 0, pool bounds, inventory/spellbook limits, non-empty labels) |
 | Import/export       | JSON copy/export and file import with upsert/replace semantics in store                                      |
 | Unsaved navigation  | Intercepts in-app links + back/forward + tab close when form is dirty                                        |
@@ -127,7 +127,7 @@ flowchart LR
 | `src/lib/character/store/index.ts`                 | In-memory singleton accessor `getCharacterStore()`                            |
 | `src/app/characters/CharacterLibraryClient.tsx`    | Library list, create, delete, import, export, open sheet                      |
 | `src/app/characters/[id]/CharacterSheetClient.tsx` | Sheet load/edit/save, draft handling, unsaved navigation guard                |
-| `src/components/CharacterSheet/*.tsx`              | Form sub-sections: identity, characteristics, inventory, spellbook, notes     |
+| `src/components/CharacterSheet/*.tsx`              | Form sub-sections: identity, characteristics, inventory, spellbook, journal   |
 | `src/components/Navigation/BlockedLink.tsx`        | Link wrapper that consults navigation blocker handler                         |
 | `src/app/contexts/NavigationBlockerContext.tsx`    | Shared blocker handler context                                                |
 
@@ -213,7 +213,7 @@ Saved mode sheet sections:
 - `CharacteristicsCard`: honor, inspiration, money, and three current/max pools.
 - `InventoryCard`: dynamic limit text + add/remove lines (name, quantity, note).
 - `SpellbookCard`: max 6 entries (name, note).
-- `NotesCard`: free text area.
+- `NotesCard`: journal entry collection with per-entry Markdown edit/preview toggle.
 
 Draft mode currently renders only `IdentityCard` plus cancel/save actions.
 

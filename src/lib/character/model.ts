@@ -6,6 +6,7 @@ import {
   CHARACTER_SCHEMA_VERSION,
   type CharacterImportMode,
   type InventoryItem,
+  type JournalEntry,
   type Character,
   type CharacterInput,
   type SpellEntry,
@@ -139,6 +140,44 @@ function normalizeSpellEntry(value: unknown): SpellEntry | null {
   }
 }
 
+function normalizeJournalEntry(value: unknown): JournalEntry | null {
+  const item = value as Partial<JournalEntry> | undefined
+  if (!item || typeof item !== 'object') return null
+  const content = typeof item.content === 'string' ? item.content : ''
+  const now = new Date().toISOString()
+  return {
+    id: typeof item.id === 'string' && item.id ? item.id : randomId(),
+    content,
+    createdAt:
+      typeof item.createdAt === 'string' && item.createdAt ? item.createdAt : now,
+    updatedAt:
+      typeof item.updatedAt === 'string' && item.updatedAt ? item.updatedAt : now,
+  }
+}
+
+function normalizeJournalEntries(source: Partial<CharacterInput> | Partial<Character>) {
+  if (Array.isArray(source.journalEntries)) {
+    return source.journalEntries
+      .map(normalizeJournalEntry)
+      .filter((entry): entry is JournalEntry => entry !== null)
+  }
+
+  // Legacy migration path for older payloads that still have a single "notes" string.
+  const legacyNotes = (source as { notes?: unknown }).notes
+  if (typeof legacyNotes === 'string' && legacyNotes.trim()) {
+    const now = new Date().toISOString()
+    return [
+      {
+        id: randomId(),
+        content: legacyNotes,
+        createdAt: now,
+        updatedAt: now,
+      },
+    ]
+  }
+  return []
+}
+
 export function computeClockSegmentsPerHalfFromStamina(
   staminaCurrent: number,
 ): number {
@@ -246,7 +285,7 @@ export function createDefaultCharacterInput(
     },
     inventory: [],
     spellbook: [],
-    notes: '',
+    journalEntries: [],
   }
 }
 
@@ -276,6 +315,7 @@ export function normalizeCharacterInput(
     base.stamina.max,
   )
   const map = normalizeCharacterMapState(source.map)
+  const journalEntries = normalizeJournalEntries(source)
 
   return {
     name: typeof source.name === 'string' ? source.name : base.name,
@@ -300,7 +340,7 @@ export function normalizeCharacterInput(
     map,
     inventory,
     spellbook,
-    notes: typeof source.notes === 'string' ? source.notes : base.notes,
+    journalEntries,
   }
 }
 

@@ -1,0 +1,56 @@
+.journal {
+  width: 100%;
+}
+
+.journal__entry {
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.journal__entry-actions {
+  position: absolute;
+  top: -8px;
+  right: 0;
+  z-index: 1; 
+}
+
+.journal__entry--preview .journal__entry-actions {
+  top: 0;
+}
+
+.journal__entry-edit-button {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms ease-in-out;
+}
+
+.journal__entry:hover .journal__entry-edit-button,
+.journal__entry:focus-within .journal__entry-edit-button {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.journal__entry-editor {
+  margin-bottom: 0;
+}
+
+.journal__entry-meta {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.journal__entry-meta-text {
+  font-size: 12px;
+}
+
+.journal__entry-permalink {
+  font-size: 12px;
+  color: var(--ant-colorLink);
+}
+
+.journal__entry-permalink:hover {
+  text-decoration: underline;
+}

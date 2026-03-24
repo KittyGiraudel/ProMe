@@ -28,6 +28,7 @@ import { stringifyCharacters } from '@/lib/character/store/migrations'
 import type {
   CharacterMapState,
   InventoryItem,
+  JournalEntry,
   Archetype,
   Character,
   SpellEntry,
@@ -109,7 +110,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     map: CharacterMapState
     inventory: InventoryItem[]
     spellbook: SpellEntry[]
-    notes: string
+    journalEntries: JournalEntry[]
   }
 
   const [form] = Form.useForm<SheetFormValues>()
@@ -129,7 +130,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     map: pc.map,
     inventory: pc.inventory,
     spellbook: pc.spellbook,
-    notes: pc.notes,
+    journalEntries: pc.journalEntries,
   })
 
   const fallbackArchetype: Archetype = 'warrior'
@@ -179,6 +180,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
   const leaveConfirmingRef = useRef(false)
   const interceptionReadyRef = useRef(false)
   const stableUrlRef = useRef<string>('')
+  const stablePathAndQueryRef = useRef<string>('')
 
   const sheetCharacterId = character?.id
   const characterArchetype = character?.archetype
@@ -309,6 +311,8 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     leaveConfirmingRef.current = false
     stableUrlRef.current =
       window.location.pathname + window.location.search + window.location.hash
+    stablePathAndQueryRef.current =
+      window.location.pathname + window.location.search
     const t = window.setTimeout(() => {
       interceptionReadyRef.current = true
     }, 0)
@@ -320,6 +324,16 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
       if (!interceptionReadyRef.current) return
       if (!form.isFieldsTouched()) return
       if (leaveConfirmingRef.current) return
+      const currentPathAndQuery =
+        window.location.pathname + window.location.search
+      // Hash-only navigation (permalinks/anchors) should not be blocked.
+      if (currentPathAndQuery === stablePathAndQueryRef.current) {
+        stableUrlRef.current =
+          window.location.pathname +
+          window.location.search +
+          window.location.hash
+        return
+      }
 
       attemptLeave(
         () => {
@@ -336,11 +350,12 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     return () => window.removeEventListener('popstate', onPopState)
   }, [form, attemptLeave])
 
-  const handleFinish = (values: SheetFormValues) => {
+  const handleFinish = () => {
     if (!character) return
     setSaveErrors(null)
 
     try {
+      const values = form.getFieldsValue(true) as SheetFormValues
       const payload: Character = {
         ...character,
         ...values,
@@ -469,7 +484,22 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
                   />
                 )}
               </Form.List>
-              <NotesCard />
+              <Form.List name='journalEntries'>
+                {(fields, { add, remove }) => (
+                  <NotesCard
+                    fields={fields}
+                    onAddEntry={() =>
+                      add({
+                        id: randomId(),
+                        content: '',
+                        createdAt: new Date().toISOString(),
+                        updatedAt: new Date().toISOString(),
+                      })
+                    }
+                    onRemoveEntry={remove}
+                  />
+                )}
+              </Form.List>
             </Space>
 
             <Divider />

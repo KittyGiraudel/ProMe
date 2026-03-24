@@ -14,6 +14,6 @@ describe('character/createFromIdentity', () => {
     expect(created.gender).toBe('woman')
     expect(created.inventory).toEqual([])
     expect(created.spellbook).toEqual([])
-    expect(created.notes).toBe('')
+    expect(created.journalEntries).toEqual([])
   })
 })

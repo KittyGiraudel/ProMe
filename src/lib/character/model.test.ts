@@ -34,6 +34,48 @@ describe('character/model', () => {
     expect(input.stamina).toEqual({ current: 4, max: 4 })
     expect(input.honor).toBe(0)
     expect(input.inspiration).toBe(0)
+    expect(input.journalEntries).toEqual([])
+  })
+
+  it('normalize migrates legacy notes string to one journal entry', () => {
+    const normalized = normalizeCharacter({
+      id: 'pc-legacy-journal',
+      name: 'Legacy',
+      archetype: 'warrior',
+      notes: 'Souvenir important',
+    })
+
+    expect(normalized).not.toBeNull()
+    if (!normalized) return
+    expect(normalized.journalEntries).toHaveLength(1)
+    expect(normalized.journalEntries[0].content).toBe('Souvenir important')
+  })
+
+  it('normalize keeps explicit journal entries and ignores empty ones', () => {
+    const normalized = normalizeCharacter({
+      id: 'pc-journal',
+      name: 'Journal',
+      archetype: 'bard',
+      journalEntries: [
+        {
+          id: 'e1',
+          content: 'Texte',
+          createdAt: '2025-01-01T00:00:00.000Z',
+          updatedAt: '2025-01-01T00:00:00.000Z',
+        },
+        {
+          id: 'e2',
+          content: '',
+        },
+      ],
+      notes: 'Ignored because journalEntries exist',
+    })
+
+    expect(normalized).not.toBeNull()
+    if (!normalized) return
+    expect(normalized.journalEntries).toHaveLength(2)
+    expect(normalized.journalEntries[0].id).toBe('e1')
+    expect(normalized.journalEntries[1].id).toBe('e2')
   })
 
   it('validate rejects empty inventory item labels', () => {
