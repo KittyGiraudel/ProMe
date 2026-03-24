@@ -197,8 +197,6 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
                   items={tabItems}
                 />
               </Space>
-
-              <Divider />
             </div>
           </ConfigProvider>
         </CharacterProvider>

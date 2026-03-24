@@ -30,9 +30,7 @@ export function CharacterLibraryClient() {
   const handleImportClick = () => fileInputRef.current?.click()
 
   return (
-    <Layout
-      title={copy.characters.pageTitle}
-      description={copy.characters.pageDescription}>
+    <Layout title={copy.characters.pageTitle}>
       <Space style={{ marginBottom: 16, flexWrap: 'wrap' }}>
         <Button type='primary' href='/characters/new'>
           {copy.characters.create}

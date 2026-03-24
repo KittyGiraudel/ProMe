@@ -5,9 +5,7 @@ import { VillageGeneratorClient } from './VillageGeneratorClient'
 
 function VillageGeneratorFallback() {
   return (
-    <Layout
-      title={copy.village.pageTitle}
-      description={copy.village.pageDescription}>
+    <Layout title={copy.village.pageTitle}>
       <p>{copy.common.loading}</p>
     </Layout>
   )

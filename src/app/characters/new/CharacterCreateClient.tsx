@@ -26,7 +26,6 @@ export function CharacterCreateClient() {
   return (
     <Layout
       title={copy.characters.createPageTitle}
-      description={copy.characters.createPageDescription}
       breadcrumbs={[
         { label: copy.nav.homeLink, href: '/' },
         { label: copy.characters.pageTitle, href: '/characters' },

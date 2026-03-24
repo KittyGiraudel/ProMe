@@ -1,19 +1,18 @@
 'use client'
 
-import { Breadcrumb, Typography } from 'antd'
+import { Breadcrumb, Layout as AntLayout, Typography, Menu } from 'antd'
 import type { BreadcrumbProps } from 'antd'
 import type { ReactNode } from 'react'
 import { useMemo } from 'react'
+import { usePathname } from 'next/navigation'
 import { copy } from '@/messages/fr'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
+import { PageCover } from '../PageCover/PageCover'
 import './Layout.css'
 
 type LayoutProps = {
   title: string
-  description?: string
   headerActions?: ReactNode
-  backHref?: string
-  backLabel?: string
   sheetNightChrome?: boolean
   breadcrumbs?: Array<{
     label: string
@@ -22,16 +21,10 @@ type LayoutProps = {
   children: ReactNode
 }
 
-export function Layout({
-  title,
-  description,
-  headerActions,
-  backHref,
-  backLabel,
-  sheetNightChrome = false,
+const useBreadcrumbs = ({
   breadcrumbs,
-  children,
-}: LayoutProps) {
+  title,
+}: Pick<LayoutProps, 'breadcrumbs' | 'title'>) => {
   const breadcrumbItems = useMemo<BreadcrumbProps['items']>(() => {
     const items: NonNullable<BreadcrumbProps['items']> = breadcrumbs
       ? breadcrumbs.map(item => ({
@@ -46,11 +39,9 @@ export function Layout({
       : []
 
     if (!breadcrumbs) {
-      const resolvedBackHref = backHref ?? '/'
+      const resolvedBackHref = '/'
       const label =
-        resolvedBackHref === '/'
-          ? copy.nav.homeLink
-          : (backLabel ?? copy.nav.backHome)
+        resolvedBackHref === '/' ? copy.nav.homeLink : copy.nav.backHome
       items.push({
         title: (
           <BlockedLink
@@ -62,32 +53,107 @@ export function Layout({
       })
     }
 
-    items.push({
-      title: <span>{title}</span>,
-    })
+    if (breadcrumbs?.length !== 0) items.push({ title: <span>{title}</span> })
+
     return items
-  }, [backHref, backLabel, breadcrumbs, title])
+  }, [breadcrumbs, title])
+
+  return breadcrumbItems
+}
+
+export const Layout = ({
+  title,
+  breadcrumbs,
+  children,
+  headerActions,
+  sheetNightChrome,
+}: LayoutProps) => {
+  const pathname = usePathname()
+  const items = useMemo(
+    () => [
+      {
+        key: '/',
+        label: (
+          <BlockedLink href='/' data-current={pathname === '/'}>
+            {copy.nav.homeLink}
+          </BlockedLink>
+        ),
+      },
+      {
+        key: '/characters',
+        label: (
+          <BlockedLink
+            href='/characters'
+            data-current={pathname.startsWith('/characters')}>
+            {copy.nav.charactersLink}
+          </BlockedLink>
+        ),
+      },
+      {
+        key: '/generators/inhabitant',
+        label: (
+          <BlockedLink
+            href='/generators/inhabitant'
+            data-current={pathname.startsWith('/generators/inhabitant')}>
+            {copy.nav.inhabitantGeneratorLink}
+          </BlockedLink>
+        ),
+      },
+      {
+        key: '/generators/village',
+        label: (
+          <BlockedLink
+            href='/generators/village'
+            data-current={pathname.startsWith('/generators/village')}>
+            {copy.nav.villageGeneratorLink}
+          </BlockedLink>
+        ),
+      },
+      {
+        key: '/settings',
+        label: (
+          <BlockedLink
+            href='/settings'
+            data-current={pathname.startsWith('/settings')}>
+            {copy.nav.settingsLink}
+          </BlockedLink>
+        ),
+      },
+    ],
+    [pathname]
+  )
+  const breadcrumbItems = useBreadcrumbs({ breadcrumbs, title })
 
   return (
-    <div className={sheetNightChrome ? 'layout layout--dark' : 'layout'}>
-      <div className='layout__inner'>
-        <Breadcrumb
-          aria-label={copy.a11y.generatorBreadcrumb}
-          items={breadcrumbItems}
+    <AntLayout className={sheetNightChrome ? 'layout layout--dark' : 'layout'}>
+      <AntLayout.Header style={{ display: 'flex', alignItems: 'center' }}>
+        <Menu
+          theme='dark'
+          mode='horizontal'
+          defaultSelectedKeys={['2']}
+          items={items}
+          style={{ flex: 1, minWidth: 0 }}
         />
-        <div className='layout__title-row'>
-          <Typography.Title level={2} className='layout__title'>
-            {title}
-          </Typography.Title>
-          {headerActions ? (
-            <div className='layout__header-actions'>{headerActions}</div>
-          ) : null}
+      </AntLayout.Header>
+      <PageCover />
+      <AntLayout.Content style={{ padding: '16px 48px' }}>
+        <Breadcrumb items={breadcrumbItems} />
+
+        <div className='layout__content'>
+          <div className='layout__title-row'>
+            <Typography.Title level={1} className='layout__title'>
+              {title}
+            </Typography.Title>
+            {headerActions ? (
+              <div className='layout__header-actions'>{headerActions}</div>
+            ) : null}
+          </div>
+          {children}
         </div>
-        {description ? (
-          <p className='layout__description'>{description}</p>
-        ) : null}
-        <div className='layout__body'>{children}</div>
-      </div>
-    </div>
+      </AntLayout.Content>
+      <AntLayout.Footer style={{ textAlign: 'center' }}>
+        © Les Souvenirs du Protecteur par Enzo Salviato — Application par Kitty
+      </AntLayout.Footer>
+    </AntLayout>
   )
 }

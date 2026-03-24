@@ -27,13 +27,7 @@ export function SettingsPageClient() {
   }
 
   return (
-    <Layout
-      title={copy.settings.pageTitle}
-      description={copy.settings.pageDescription}
-      breadcrumbs={[
-        { label: copy.nav.homeLink, href: '/' },
-        { label: copy.settings.pageTitle },
-      ]}>
+    <Layout title={copy.settings.pageTitle}>
       <Form<SettingsFormValues>
         key={settings.sheet.adaptiveNightMode ? 'night-on' : 'night-off'}
         layout='vertical'

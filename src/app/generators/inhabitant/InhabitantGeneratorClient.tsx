@@ -106,14 +106,15 @@ export function InhabitantGeneratorClient() {
   return (
     <Layout
       title={copy.inhabitant.pageTitle}
-      description={copy.inhabitant.pageDescription}
-      breadcrumbs={breadcrumbs}>
-      <RollActions
-        onRollAll={handleRollAll}
-        label={copy.inhabitant.rollAll}
-        onCopyOneLiner={roll ? handleCopyOneLiner : undefined}
-        copyOneLinerLabel={copy.inhabitant.copyOneLiner}
-      />
+      breadcrumbs={breadcrumbs}
+      headerActions={
+        <RollActions
+          onRollAll={handleRollAll}
+          label={copy.inhabitant.rollAll}
+          onCopyOneLiner={roll ? handleCopyOneLiner : undefined}
+          copyOneLinerLabel={copy.inhabitant.copyOneLiner}
+        />
+      }>
       <InhabitantSummary
         roll={roll}
         onRerollPart={roll ? handleRerollPart : undefined}

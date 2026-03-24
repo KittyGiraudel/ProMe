@@ -215,28 +215,23 @@ export function VillageGeneratorClient() {
   return (
     <Layout
       title={copy.village.pageTitle}
-      description={copy.village.pageDescription}>
+      headerActions={
+        <RollActions
+          onRollAll={handleRollAll}
+          label={copy.village.rollAll}
+          onCopyOneLiner={roll && ownersValid ? handleCopyOneLiner : undefined}
+          copyOneLinerLabel={copy.village.copyOneLiner}
+        />
+      }>
       <div className='village-generator__toolbar'>
-        <div className='village-generator__toolbar-actions'>
-          <RollActions
-            onRollAll={handleRollAll}
-            label={copy.village.rollAll}
-            onCopyOneLiner={
-              roll && ownersValid ? handleCopyOneLiner : undefined
-            }
-            copyOneLinerLabel={copy.village.copyOneLiner}
-          />
-        </div>
-        <div className='village-generator__faction'>
-          <Typography.Text>{copy.village.villageFactionLabel}</Typography.Text>
-          <Select<Faction>
-            value={villageFaction}
-            onChange={handleFactionChange}
-            options={factionOptions}
-            style={{ minWidth: 200 }}
-            aria-label={copy.village.villageFactionLabel}
-          />
-        </div>
+        <Typography.Text>{copy.village.villageFactionLabel}</Typography.Text>
+        <Select<Faction>
+          value={villageFaction}
+          onChange={handleFactionChange}
+          options={factionOptions}
+          style={{ minWidth: 200 }}
+          aria-label={copy.village.villageFactionLabel}
+        />
       </div>
       <VillageSummary
         roll={roll}

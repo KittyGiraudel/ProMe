@@ -50,6 +50,7 @@ a {
   display: block;
   font-size: 0.8125rem;
   line-height: 1.45;
+  margin-top: 0.5rem;
   color: var(--lsdp-muted);
 }
 

@@ -20,7 +20,7 @@ export const copy = {
     apply: 'Effectuer'
   },
   hub: {
-    title: "Companion du Protecteur",
+    title: "Accueil",
     subtitle: "Ce site rassemble des outils, un gestionnaires de personnages et des générateurs aléatoires d’habitants et villages, et davantage pour accompagner une partie du jeu « Les Souvenirs du Protecteur », par Enzo Salviato.",
     inhabitantCardTitle: "Générateur d’habitant",
     inhabitantCardDescription:
@@ -114,7 +114,7 @@ export const copy = {
     rulebookPageAria: "Référence livre",
   },
   characters: {
-    pageTitle: "Gestionnaire de personnages",
+    pageTitle: "Personnages",
     pageDescription:
       "Créez et gérez vos personnages jouables. Les fiches sont enregistrées localement dans ce navigateur.",
     createPageTitle: "Nouveau personnage",
@@ -392,6 +392,9 @@ export const copy = {
     backToVillage: "← Retour au village",
     navMid: " | ",
     homeLink: "Accueil",
+    charactersLink: "Personnages",
+    inhabitantGeneratorLink: "Générateur d’habitant",
+    villageGeneratorLink: "Générateur de village",
     settingsLink: "Paramètres",
   },
   settings: {

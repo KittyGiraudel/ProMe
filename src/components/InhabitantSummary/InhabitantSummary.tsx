@@ -125,7 +125,6 @@ export function InhabitantSummary({
               </>
             }
           />
-          <Typography.Text type='secondary'></Typography.Text>
         </Card>
         {inhabitantFootnote}
       </>

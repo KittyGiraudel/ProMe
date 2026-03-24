@@ -31,10 +31,7 @@ export default function RootLayout({
       <body>
         <AntdRegistry>
           <AppProviders>
-            <div className='app-shell'>
-              <PageCover />
-              {children}
-            </div>
+            <div className='app-shell'>{children}</div>
           </AppProviders>
         </AntdRegistry>
       </body>

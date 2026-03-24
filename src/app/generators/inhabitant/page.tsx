@@ -5,9 +5,7 @@ import { copy } from '@/messages/fr'
 
 function InhabitantGeneratorFallback() {
   return (
-    <Layout
-      title={copy.inhabitant.pageTitle}
-      description={copy.inhabitant.pageDescription}>
+    <Layout title={copy.inhabitant.pageTitle}>
       <p>{copy.common.loading}</p>
     </Layout>
   )
