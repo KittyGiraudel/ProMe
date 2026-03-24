@@ -1,7 +1,13 @@
+import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { Layout } from '@/components/Layout/Layout'
 import { InhabitantGeneratorClient } from './InhabitantGeneratorClient'
 import { copy } from '@/messages/fr'
+
+export const metadata: Metadata = {
+  title: copy.inhabitant.pageTitle,
+  description: copy.inhabitant.pageDescription,
+}
 
 function InhabitantGeneratorFallback() {
   return (

@@ -1,7 +1,7 @@
 'use client'
 
 import { Alert, ConfigProvider, Divider, Form, Space, Tabs } from 'antd'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import type { TabsProps } from 'antd'
 import { Layout } from '@/components/Layout/Layout'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
@@ -31,6 +31,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
   const {
     form,
     character,
+    hydratedFromStore,
     saveErrors,
     setSaveErrors,
     getCharacterFromForm,
@@ -69,6 +70,28 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     staminaCurrent,
     staminaMax,
   })
+
+  useEffect(() => {
+    if (!hydratedFromStore) return
+    const brand = copy.metadata.tabBrand
+    if (!character) {
+      document.title = `${copy.characters.notFoundTitle} — ${brand}`
+      return
+    }
+    const displayName = character.name?.trim() || copy.characters.unnamed
+    const tabSuffix =
+      activeTabKey === 'identityStats'
+        ? ''
+        : ` · ${
+            {
+              cartography: copy.characters.tabCartography,
+              inventorySpellbook: copy.characters.tabInventorySpellbook,
+              journal: copy.characters.tabJournal,
+              tools: copy.characters.tabTools,
+            }[activeTabKey]
+          }`
+    document.title = `${displayName}${tabSuffix} — ${brand}`
+  }, [hydratedFromStore, character, activeTabKey])
 
   const { handleMarkAsDead, handleRevive } = useCharacterLifeStatusActions({
     getCharacter: getCharacterFromForm,

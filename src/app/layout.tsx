@@ -17,7 +17,10 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: copy.metadata.title,
+  title: {
+    default: copy.metadata.title,
+    template: `%s — ${copy.metadata.tabBrand}`,
+  },
   description: copy.metadata.description,
 }
 

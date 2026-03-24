@@ -12,14 +12,16 @@ export function useCharacterSheetForm({ characterId }: { characterId: string }) 
   const { modal } = App.useApp()
   const [form] = Form.useForm<SheetFormValues>()
   const [character, setCharacter] = useState<Character | null>(null)
+  const [hydratedFromStore, setHydratedFromStore] = useState(false)
   const [saveErrors, setSaveErrors] = useState<string[] | null>(null)
 
   // Avoid hydration mismatches by deferring localStorage/sessionStorage reads to the client.
   useEffect(() => {
+    setHydratedFromStore(false)
     void Promise.resolve().then(() => {
       const saved = getCharacterStore().get(characterId)
-      if (saved) return setCharacter(saved)
-      setCharacter(null)
+      setCharacter(saved ?? null)
+      setHydratedFromStore(true)
     })
   }, [characterId])
 
@@ -57,6 +59,7 @@ export function useCharacterSheetForm({ characterId }: { characterId: string }) 
   return {
     form,
     character,
+    hydratedFromStore,
     saveErrors,
     setSaveErrors,
     getCharacterFromForm,

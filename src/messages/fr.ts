@@ -11,6 +11,8 @@ export const copy = {
     title: "LSDP — Companion de jeu",
     description:
       "Companion de jeu pour Les Souvenirs du Protecteur : gestionnaires, générateurs de personnages, villages et plus.",
+    /** Short brand suffix for nested routes (`Page — tabBrand`) and client `document.title` updates. */
+    tabBrand: "LSDP",
   },
   common: {
     loading: "Chargement…",
