@@ -13,6 +13,7 @@ export type CharacterCreateValues = {
   name: string
   archetype: Archetype
   gender?: Gender
+  inheritFromCharacterId?: string
 }
 
 export function useCharacterCreate() {
@@ -21,7 +22,18 @@ export function useCharacterCreate() {
   const store = useMemo(() => getCharacterStore(), [])
 
   const handleCreate = (values: CharacterCreateValues) => {
-    const created = createCharacterFromIdentity(values)
+    const source = values.inheritFromCharacterId
+      ? store.get(values.inheritFromCharacterId)
+      : null
+
+    const created = createCharacterFromIdentity(
+      {
+        name: values.name,
+        archetype: values.archetype,
+        gender: values.gender,
+      },
+      source ?? undefined,
+    )
     const saved = store.save(created)
     message.success(copy.characters.createSuccess)
     router.push(`/characters/${saved.id}`)

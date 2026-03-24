@@ -133,3 +133,8 @@ a {
   --biome-dark: var(--biome-giganticGardens-dark);
   --biome-contrast: var(--biome-giganticGardens-contrast);
 }
+
+.ant-form-item-explain-success {
+  margin-top: 8px;
+  font-size: 85%;
+}

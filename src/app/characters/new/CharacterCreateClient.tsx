@@ -8,16 +8,20 @@ import { IdentityCard } from '@/components/CharacterSheet/IdentityCard'
 import { copy } from '@/messages/fr'
 import { useCharacterCreate } from './useCharacterCreate'
 import { Button } from '@/components/Button/Button'
+import { useInheritanceCandidates } from './useInheritanceCandidates'
+import { InheritanceCard } from './InheritanceCard'
 
 type CharacterCreateFormValues = {
   name: string
   archetype: Archetype
   gender?: Gender
+  inheritFromCharacterId?: string
 }
 
 export function CharacterCreateClient() {
   const [form] = Form.useForm<CharacterCreateFormValues>()
   const { handleCreate } = useCharacterCreate()
+  const { candidates } = useInheritanceCandidates()
 
   return (
     <Layout
@@ -31,10 +35,16 @@ export function CharacterCreateClient() {
         form={form}
         layout='vertical'
         colon={false}
-        initialValues={{ name: '', archetype: 'warrior', gender: undefined }}
+        initialValues={{
+          name: '',
+          archetype: 'warrior',
+          gender: undefined,
+          inheritFromCharacterId: undefined,
+        }}
         onFinish={handleCreate}>
         <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
           <IdentityCard isArchetypeReadonly={false} />
+          <InheritanceCard candidates={candidates} />
           <Space wrap>
             <Button type='primary' htmlType='submit'>
               {copy.characters.create}

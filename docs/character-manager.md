@@ -148,9 +148,11 @@ On `/characters`:
 
 On `/characters/new` submit:
 
-1. Build character from minimal identity fields.
-2. Persist with `store.save`.
-3. Navigate to `/characters/<id>`.
+1. Resolve optional inheritance source (if selected).
+2. Build character from minimal identity fields.
+   - If inheritance is selected, copy full source `map` and `journalEntries`.
+3. Persist with `store.save`.
+4. Navigate to `/characters/<id>`.
 
 ### 3.3 Save flow
 

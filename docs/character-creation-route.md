@@ -26,14 +26,23 @@ Creation currently collects:
 - `name`,
 - `archetype`,
 - optional `gender`.
+- optional `inheritFromCharacterId` (existing Protector to inherit memories from).
 
-`IdentityCard` is reused for those fields, with archetype-power hint hidden for the create page to keep UI focused.
+`IdentityCard` is reused for identity fields, and a dedicated inheritance card handles optional memory source selection.
 
 Create submit flow:
 
-1. Build a `Character` from identity values (`createCharacterFromIdentity`).
-2. Persist through `store.save`.
-3. Navigate to `/characters/<id>`.
+1. Resolve the optional inheritance source by id from the character store.
+2. Build a `Character` from identity values (`createCharacterFromIdentity`), and if a source is selected, copy:
+   - full `map` state (position + all cells),
+   - full `journalEntries` collection.
+3. Persist through `store.save`.
+4. Navigate to `/characters/<id>`.
+
+Notes:
+
+- Inheritance eligibility is currently broad (`any protector`).
+- Dead-only filtering is intentionally deferred to a future settings slice.
 
 Cancel flow:
 

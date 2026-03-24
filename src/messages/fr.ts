@@ -179,6 +179,12 @@ export const copy = {
     inventorySection: "Inventaire",
     spellbookSection: "Grimoire",
     notesSection: "Journal",
+    inheritanceSection: "Héritage des souvenirs",
+    inheritanceSelectLabel: "Hériter les souvenirs de …",
+    inheritanceSelectHelp:
+      "Si vous choisissez un Protecteur existant, ce nouveau Protecteur héritera de ses souvenirs (i.e. sa carte et son journal).",
+    inheritanceSelectPlaceholder: "Choisir un Protecteur existant",
+    inheritanceEmpty: "Aucun Protecteur existant",
     addJournalEntry: "Ajouter une entrée",
     journalEmpty: "Aucune entrée pour le moment.",
     journalEditEntry: "Éditer",
