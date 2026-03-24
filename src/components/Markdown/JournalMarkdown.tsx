@@ -11,6 +11,10 @@ import {
   type JournalInlineTokenRule,
 } from '@/lib/markdown/journalInlineTokens'
 import { buildJournalCoordinateTokenData } from '@/lib/markdown/journalCoordinateTokens'
+import {
+  getGlobalFromDisplayedCellLabel,
+  getSheetCoordinate,
+} from '@/lib/hex/coordinates'
 import { getInhabitantSummaryFromUrl } from '@/lib/markdown/inhabitantLinkSummary'
 import { getVillageSummaryFromUrl } from '@/lib/markdown/villageLinkSummary'
 import { BIOME_ROLL_TABLE } from '@/lib/constants/biomeRollTable'
@@ -159,6 +163,9 @@ export function JournalMarkdown({
 }) {
   const coordTokenData = buildJournalCoordinateTokenData(mapState)
   const tokenRules = [...STATIC_TOKEN_RULES, ...coordTokenData.rules]
+  const currentSheet = mapState
+    ? getSheetCoordinate(mapState.currentPosition)
+    : undefined
 
   const renderTokenSegment = (
     tokenKey: string,
@@ -172,7 +179,17 @@ export function JournalMarkdown({
 
     const coordBiome = coordTokenData.biomeByTokenKey.get(tokenKey)
     if (coordBiome) {
-      return <CoordChip key={key} biome={coordBiome} value={value} />
+      const coord = currentSheet
+        ? getGlobalFromDisplayedCellLabel(currentSheet, value)
+        : null
+      return (
+        <CoordChip
+          key={key}
+          biome={coordBiome}
+          value={value}
+          coord={coord ?? undefined}
+        />
+      )
     }
 
     const renderer = TOKEN_RENDERERS.get(tokenKey)

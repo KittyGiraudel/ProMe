@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { areHexNeighbors, getGlobalFromSheetCell } from './coordinates'
+import {
+  areHexNeighbors,
+  getDisplayedCellLabel,
+  getGlobalFromDisplayedCellLabel,
+  getGlobalFromSheetCell,
+  parseDisplayedCellLabel,
+} from './coordinates'
 
 describe('areHexNeighbors', () => {
   it('matches rendered neighbor pattern for E11', () => {
@@ -45,5 +51,33 @@ describe('areHexNeighbors', () => {
     for (const notNeighbor of notNeighbors) {
       expect(areHexNeighbors(center, notNeighbor)).toBe(false)
     }
+  })
+})
+
+describe('displayed cell label helpers', () => {
+  it('round-trips displayed labels for known cells', () => {
+    const sheet = { sheetQ: 0, sheetR: 0 }
+    const coord = getGlobalFromSheetCell(sheet, 4, 6) // E13
+    const label = getDisplayedCellLabel(coord)
+    expect(label).toBe('E13')
+    expect(getGlobalFromDisplayedCellLabel(sheet, label)).toEqual(coord)
+  })
+
+  it('parses odd and even row parity correctly', () => {
+    expect(parseDisplayedCellLabel('E13')).toEqual({
+      rowIndex: 4,
+      displayColIndex: 12,
+    })
+    expect(parseDisplayedCellLabel('F12')).toEqual({
+      rowIndex: 5,
+      displayColIndex: 11,
+    })
+  })
+
+  it('rejects labels with invalid format or parity', () => {
+    expect(parseDisplayedCellLabel('E12')).toBeNull()
+    expect(parseDisplayedCellLabel('F13')).toBeNull()
+    expect(parseDisplayedCellLabel('Z13')).toBeNull()
+    expect(parseDisplayedCellLabel('E99')).toBeNull()
   })
 })

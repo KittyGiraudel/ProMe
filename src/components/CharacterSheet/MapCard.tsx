@@ -23,6 +23,7 @@ import { getRandomBiomeResult } from '@/lib/map/randomBiome'
 import { moveWithAutoBiome } from '@/lib/map/movement'
 import { MapFormValueAnchor } from './MapFormValueAnchor'
 import { Button } from '@/components/Button/Button'
+import { useMapHashNavigation } from './useMapHashNavigation'
 
 function normalizeMapState(
   value: CharacterMapState | undefined
@@ -52,6 +53,7 @@ export function MapCard() {
   )
 
   const hasSyncedVisibleSheetRef = useRef(false)
+  const cardRef = useRef<HTMLDivElement | null>(null)
   useEffect(() => {
     if (hasSyncedVisibleSheetRef.current) return
     if (watchedMap === undefined || watchedMap === null) return
@@ -59,6 +61,14 @@ export function MapCard() {
     const normalized = normalizeMapState(watchedMap)
     setVisibleSheet(getSheetCoordinate(normalized.currentPosition))
   }, [watchedMap])
+
+  useMapHashNavigation({
+    selectedCell,
+    setSelectedCell,
+    visibleSheet,
+    setVisibleSheet,
+    cardRef,
+  })
 
   const cellsByKey = useMemo(() => {
     const next = new Map<string, CharacterMapCell>()
@@ -184,72 +194,89 @@ export function MapCard() {
 
   return (
     <Card title={copy.characters.mapSection}>
-      <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
-        <Space wrap>
-          <Tag>
-            {copy.characters.mapSheet(visibleSheet.sheetQ, visibleSheet.sheetR)}
-          </Tag>
-          <Tag>
-            {copy.characters.mapCharacterPosition}
-            {' : '}
-            {getDisplayedCellLabel(mapState.currentPosition)}
-          </Tag>
-          <Button
-            htmlType='button'
-            onClick={() =>
-              setVisibleSheet(sheet => ({ ...sheet, sheetR: sheet.sheetR - 1 }))
-            }>
-            ↑
-          </Button>
-          <Button
-            htmlType='button'
-            onClick={() =>
-              setVisibleSheet(sheet => ({ ...sheet, sheetR: sheet.sheetR + 1 }))
-            }>
-            ↓
-          </Button>
-          <Button
-            htmlType='button'
-            onClick={() =>
-              setVisibleSheet(sheet => ({ ...sheet, sheetQ: sheet.sheetQ - 1 }))
-            }>
-            ←
-          </Button>
-          <Button
-            htmlType='button'
-            onClick={() =>
-              setVisibleSheet(sheet => ({ ...sheet, sheetQ: sheet.sheetQ + 1 }))
-            }>
-            →
-          </Button>
-          {!isViewingCurrentSheet ? (
+      <div ref={cardRef} tabIndex={-1}>
+        <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
+          <Space wrap>
+            <Tag>
+              {copy.characters.mapSheet(
+                visibleSheet.sheetQ,
+                visibleSheet.sheetR
+              )}
+            </Tag>
+            <Tag>
+              {copy.characters.mapCharacterPosition}
+              {' : '}
+              {getDisplayedCellLabel(mapState.currentPosition)}
+            </Tag>
             <Button
               htmlType='button'
               onClick={() =>
-                setVisibleSheet(getSheetCoordinate(mapState.currentPosition))
+                setVisibleSheet(sheet => ({
+                  ...sheet,
+                  sheetR: sheet.sheetR - 1,
+                }))
               }>
-              {copy.characters.mapCenterOnCurrent}
+              ↑
             </Button>
-          ) : null}
+            <Button
+              htmlType='button'
+              onClick={() =>
+                setVisibleSheet(sheet => ({
+                  ...sheet,
+                  sheetR: sheet.sheetR + 1,
+                }))
+              }>
+              ↓
+            </Button>
+            <Button
+              htmlType='button'
+              onClick={() =>
+                setVisibleSheet(sheet => ({
+                  ...sheet,
+                  sheetQ: sheet.sheetQ - 1,
+                }))
+              }>
+              ←
+            </Button>
+            <Button
+              htmlType='button'
+              onClick={() =>
+                setVisibleSheet(sheet => ({
+                  ...sheet,
+                  sheetQ: sheet.sheetQ + 1,
+                }))
+              }>
+              →
+            </Button>
+            {!isViewingCurrentSheet ? (
+              <Button
+                htmlType='button'
+                onClick={() =>
+                  setVisibleSheet(getSheetCoordinate(mapState.currentPosition))
+                }>
+                {copy.characters.mapCenterOnCurrent}
+              </Button>
+            ) : null}
+          </Space>
+
+          <Form.Item name='map' noStyle>
+            <MapFormValueAnchor />
+          </Form.Item>
+
+          <MapDisplay
+            sheet={visibleSheet}
+            cellsByKey={cellsByKey}
+            currentPosition={mapState.currentPosition}
+            selectedPosition={selectedCell}
+            onSelectCell={toggleSelectCell}
+            onAssignBiome={setBiomeAt}
+            onAssignRandomBiome={assignRandomBiomeAt}
+            onMoveTo={moveToCell}
+            onSetIcon={setIconAt}
+            onClearCell={clearCellAt}
+          />
         </Space>
-
-        <Form.Item name='map' noStyle>
-          <MapFormValueAnchor />
-        </Form.Item>
-
-        <MapDisplay
-          sheet={visibleSheet}
-          cellsByKey={cellsByKey}
-          currentPosition={mapState.currentPosition}
-          selectedPosition={selectedCell}
-          onSelectCell={toggleSelectCell}
-          onAssignBiome={setBiomeAt}
-          onAssignRandomBiome={assignRandomBiomeAt}
-          onMoveTo={moveToCell}
-          onSetIcon={setIconAt}
-          onClearCell={clearCellAt}
-        />
-      </Space>
+      </div>
     </Card>
   )
 }

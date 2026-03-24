@@ -118,6 +118,61 @@ export function getDisplayedCellLabel(coord: HexCoordinate): string {
   return `${address.rowLabel}${colLabelFromIndex(displayColIndex)}`
 }
 
+/**
+ * Parses a displayed cell label (for example `E13`) into row/display-column
+ * indices within a sheet.
+ *
+ * Returns `null` when the label format is invalid, out of range, or does not
+ * match the odd/even row parity used by displayed map labels.
+ */
+export function parseDisplayedCellLabel(label: string): {
+  rowIndex: number
+  displayColIndex: number
+} | null {
+  const trimmed = label.trim().toUpperCase()
+  const match = /^([A-I])([0-9]{2})$/u.exec(trimmed)
+  if (!match) return null
+
+  const rowIndex = match[1].charCodeAt(0) - 65
+  const displayCol = Number.parseInt(match[2], 10)
+  if (!Number.isFinite(displayCol)) return null
+
+  const displayColIndex = displayCol - 1
+  const maxDisplayColIndex = MAP_COLS * 2 - 1
+  if (displayColIndex < 0 || displayColIndex > maxDisplayColIndex) return null
+
+  const expectsEven = rowIndex % 2 === 0
+  const hasEvenParity = displayColIndex % 2 === 0
+  if (expectsEven !== hasEvenParity) return null
+
+  return { rowIndex, displayColIndex }
+}
+
+/**
+ * Resolves a displayed cell label (for example `E13`) to a global map
+ * coordinate for a given sheet.
+ *
+ * The label itself is sheet-local; pass the target `sheet` to disambiguate.
+ */
+export function getGlobalFromDisplayedCellLabel(
+  sheet: SheetCoordinate,
+  label: string
+): HexCoordinate | null {
+  const parsed = parseDisplayedCellLabel(label)
+  if (!parsed) return null
+
+  const colIndex =
+    parsed.rowIndex % 2 === 0
+      ? parsed.displayColIndex / 2
+      : (parsed.displayColIndex - 1) / 2
+
+  if (!Number.isInteger(colIndex) || colIndex < 0 || colIndex >= MAP_COLS) {
+    return null
+  }
+
+  return getGlobalFromSheetCell(sheet, parsed.rowIndex, colIndex)
+}
+
 export function buildSheetViewport(sheet: SheetCoordinate): SheetCellAddress[] {
   const cells: SheetCellAddress[] = []
   for (let rowIndex = 0; rowIndex < MAP_ROWS; rowIndex += 1) {
