@@ -180,11 +180,7 @@ export function normalizeCharacterClock(
   const source = value as Partial<CharacterClock> | undefined
   const totalSegments = computeClockTotalSegmentsFromStamina(staminaCurrent)
   const position = normalizeClockPosition(source?.position, totalSegments)
-  const sheetDarkWithClockNight = source?.sheetDarkWithClockNight === true
-  return {
-    position,
-    ...(sheetDarkWithClockNight ? { sheetDarkWithClockNight: true } : {}),
-  }
+  return { position }
 }
 
 function defaultPoolsForArchetype(archetype: Archetype): {

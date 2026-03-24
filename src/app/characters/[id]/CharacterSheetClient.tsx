@@ -16,6 +16,7 @@ import { useRouter } from 'next/navigation'
 import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { useNavigationBlocker } from '@/app/contexts/NavigationBlockerContext'
+import { useSettings } from '@/app/contexts/SettingsContext'
 import {
   computeClockSegmentsPerHalfFromStamina,
   computeClockTotalSegmentsFromStamina,
@@ -74,6 +75,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
   const store = useMemo(() => getCharacterStore(), [])
   const router = useRouter()
   const { setHandler } = useNavigationBlocker()
+  const { settings } = useSettings()
 
   const [sheetState, setSheetState] = useState<{
     character: Character | null
@@ -134,7 +136,6 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     stamina: pc.stamina,
     clock: {
       position: pc.clock.position,
-      sheetDarkWithClockNight: pc.clock.sheetDarkWithClockNight === true,
     },
     map: pc.map,
     inventory: pc.inventory,
@@ -183,8 +184,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     Math.max(0, clockTotalSegments - 1)
   )
   const isClockNight = clockPositionForPhase >= clockSegmentsPerHalf
-  const sheetDarkWithClockNightEnabled =
-    watchedClock.sheetDarkWithClockNight === true
+  const sheetDarkWithClockNightEnabled = settings.sheet.adaptiveNightMode
   const characterSheetNightMode =
     isClockNight && sheetDarkWithClockNightEnabled && mode === 'saved'
 

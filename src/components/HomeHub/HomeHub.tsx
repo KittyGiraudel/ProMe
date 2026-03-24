@@ -157,6 +157,20 @@ export function HomeHub() {
           <Col span={12}>
             <CardDraw />
           </Col>
+          <Col span={24} style={{ marginTop: 16 }}>
+            <Card
+              className='home-hub__card'
+              title={copy.hub.settingsCardTitle}
+              extra={
+                <BlockedLink href='/settings' className='home-hub__cta'>
+                  {copy.hub.open}
+                </BlockedLink>
+              }>
+              <p className='home-hub__card-text'>
+                {copy.hub.settingsCardDescription}
+              </p>
+            </Card>
+          </Col>
         </Row>
       </section>
     </Layout>

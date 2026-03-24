@@ -179,5 +179,23 @@ describe('character/model', () => {
       expect(result.errors.join(';')).toMatch(/core map cell/i)
     }
   })
+
+  it('normalize drops legacy clock adaptive-night flag from character payload', () => {
+    const normalized = normalizeCharacter({
+      id: 'pc-legacy-clock',
+      name: 'Legacy',
+      archetype: 'warrior',
+      stamina: { current: 3, max: 3 },
+      clock: {
+        position: 2,
+        sheetDarkWithClockNight: true,
+      },
+    })
+
+    expect(normalized).not.toBeNull()
+    if (!normalized) return
+    expect(normalized.clock).toEqual({ position: 2 })
+    expect('sheetDarkWithClockNight' in normalized.clock).toBe(false)
+  })
 })
 

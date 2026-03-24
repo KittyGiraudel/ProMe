@@ -4,6 +4,8 @@ This document describes **what** the character manager implements (drafts, saved
 
 Game: _Les Souvenirs du Protecteur_ (LSDP). UI strings live in `src/messages/fr.ts` (`copy.characters`).
 
+Adaptive sheet night-mode preference is now global and documented in `docs/settings.md` (not stored per character).
+
 ---
 
 ## 1. Scope

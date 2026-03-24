@@ -28,6 +28,9 @@ export const copy = {
     characterCardTitle: "Gestionnaire de personnages",
     characterCardDescription:
       "Fiches jouables persistantes comprenant les ressources, l’inventaire, les sorts et les notes arbitraires.",
+    settingsCardTitle: "Paramètres",
+    settingsCardDescription:
+      "Préférences locales de l’application, indépendantes des fiches de personnage.",
     characterRecentTitle: "Derniers personnages",
     characterRecentEmpty: "Aucun personnage récent.",
     open: "Ouvrir",
@@ -228,8 +231,6 @@ export const copy = {
     clockSlice(position: number, total: number): string {
       return `Tranche : ${position} / ${total}`;
     },
-    clockSheetDarkWithClockNight:
-      'Assombrir la feuille quand l’horloge est à la nuit',
     mapSheet(sheetQ: number, sheetR: number): string {
       return `Feuille : (${sheetQ}, ${sheetR})`;
     },
@@ -316,6 +317,18 @@ export const copy = {
     backToVillage: "← Retour au village",
     navMid: " | ",
     homeLink: "Accueil",
+    settingsLink: "Paramètres",
+  },
+  settings: {
+    pageTitle: "Paramètres",
+    pageDescription:
+      "Réglez les préférences globales de l’application. Elles sont enregistrées localement dans ce navigateur.",
+    sectionSheet: "Feuille de personnage",
+    adaptiveNightModeLabel:
+      "Assombrir la feuille quand l’horloge est à la nuit",
+    adaptiveNightModeHelp:
+      "Ce réglage s’applique à toutes les fiches personnage et n’est pas stocké dans les données de personnage.",
+    saveSuccess: "Paramètres enregistrés.",
   },
   a11y: {
     generatorBreadcrumb: "Navigation",

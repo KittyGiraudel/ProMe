@@ -4,6 +4,7 @@ import { App, ConfigProvider } from 'antd'
 import antdLocale from 'antd/locale/fr_FR'
 import type { ReactNode } from 'react'
 import { NavigationBlockerProvider } from '@/app/contexts/NavigationBlockerContext'
+import { SettingsProvider } from '@/app/contexts/SettingsContext'
 
 const theme = {
   token: {
@@ -24,9 +25,11 @@ const theme = {
 export function AppProviders({ children }: { children: ReactNode }) {
   return (
     <ConfigProvider locale={antdLocale} theme={theme}>
-      <NavigationBlockerProvider>
-        <App>{children}</App>
-      </NavigationBlockerProvider>
+      <SettingsProvider>
+        <NavigationBlockerProvider>
+          <App>{children}</App>
+        </NavigationBlockerProvider>
+      </SettingsProvider>
     </ConfigProvider>
   )
 }

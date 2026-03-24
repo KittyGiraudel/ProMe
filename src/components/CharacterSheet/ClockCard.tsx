@@ -5,7 +5,6 @@ import {
   App,
   Button,
   Card,
-  Checkbox,
   Form,
   Input,
   Popover,
@@ -142,12 +141,6 @@ export function ClockCard() {
             {copy.characters.clockAdvance}
           </Button>
         </Space>
-        <Form.Item
-          name={['clock', 'sheetDarkWithClockNight']}
-          valuePropName='checked'
-          style={{ marginBottom: 0 }}>
-          <Checkbox>{copy.characters.clockSheetDarkWithClockNight}</Checkbox>
-        </Form.Item>
       </Space>
     </Card>
   )
