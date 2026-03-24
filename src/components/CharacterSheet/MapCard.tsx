@@ -46,9 +46,7 @@ export function MapCard() {
     preserve: true,
   }) as CharacterMapState | undefined
   const mapState = normalizeMapState(watchedMap)
-  const [selectedCell, setSelectedCell] = useState<HexCoordinate | null>(
-    mapState.currentPosition
-  )
+  const [selectedCell, setSelectedCell] = useState<HexCoordinate | null>(null)
   const [visibleSheet, setVisibleSheet] = useState<SheetCoordinate>(() =>
     getSheetCoordinate(mapState.currentPosition)
   )

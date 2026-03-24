@@ -149,7 +149,7 @@
 }
 
 .Map__Hex[data-current="true"] {
-  box-shadow: inset 0 0 10px 2px white;
+  box-shadow: inset 0 0 10px 5px white;
   border-color: white;
   z-index: 1;
   position: relative;
