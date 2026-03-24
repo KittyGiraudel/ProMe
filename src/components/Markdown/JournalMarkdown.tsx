@@ -37,6 +37,17 @@ const DICE_ENTRIES = DICE.map((label, index) => ({
   value: index + 1,
 }))
 
+const SYMBOL_ALIAS_RULES: JournalInlineTokenRule[] = [
+  ...DICE_ENTRIES.map(entry => ({
+    key: `symbol:${entry.value}`,
+    match: `{${entry.value}}`,
+  })),
+  { key: 'symbol:spades', match: '{S}' },
+  { key: 'symbol:hearts', match: '{H}' },
+  { key: 'symbol:diamonds', match: '{D}' },
+  { key: 'symbol:clubs', match: '{C}' },
+]
+
 const STATIC_TOKEN_RULES: JournalInlineTokenRule[] = [
   ...BIOME_ENTRIES.map(entry => ({
     key: `biome:${entry.biomeId}`,
@@ -63,6 +74,7 @@ const STATIC_TOKEN_RULES: JournalInlineTokenRule[] = [
     key: `symbol:${entry.value}`,
     match: entry.label,
   })),
+  ...SYMBOL_ALIAS_RULES,
 ]
 
 const BIOME_BY_TOKEN_KEY = new Map<string, (typeof BIOME_ENTRIES)[number]>(
@@ -107,7 +119,7 @@ const TOKEN_RENDERER_ENTRIES: Array<
   ...SUIT_ENTRIES.map(
     (entry): [string, (value: string, key: string) => ReactNode] => [
       `symbol:${entry.suitId}`,
-      (value: string, key: string) => (
+      (_value: string, key: string) => (
         <span
           key={key}
           data-zoom
@@ -116,7 +128,7 @@ const TOKEN_RENDERER_ENTRIES: Array<
               '--color': suitIsRed(entry.suitId as Suit) ? 'red' : 'black',
             } as React.CSSProperties
           }>
-          {value}
+          {entry.label}
         </span>
       ),
     ]
@@ -124,9 +136,9 @@ const TOKEN_RENDERER_ENTRIES: Array<
   ...DICE_ENTRIES.map(
     (entry): [string, (value: string, key: string) => ReactNode] => [
       `symbol:${entry.value}`,
-      (value: string, key: string) => (
+      (_value: string, key: string) => (
         <span key={key} data-zoom>
-          {value}
+          {entry.label}
         </span>
       ),
     ]

@@ -59,12 +59,14 @@ export function JournalEntry({
           <Space>
             <Button
               danger
+              type='link'
               htmlType='button'
               onClick={() => onConfirmDelete(field.name, hasContent)}>
               {copy.characters.delete}
             </Button>
             <Button
               htmlType='button'
+              type='primary'
               onClick={() => setEditingMode(field.key, false)}>
               {copy.characters.journalDoneEditing}
             </Button>

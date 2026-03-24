@@ -131,7 +131,7 @@ export const copy = {
     save: "Sauvegarder",
     createSuccess: "Personnage créé.",
     saveSuccess: "Fiche sauvegardée.",
-    delete: "Jeter",
+    delete: "Supprimer",
     cancel: "Annuler",
     unsavedChangesTitle: "Modifications non sauvegardées",
     unsavedChangesDescription:

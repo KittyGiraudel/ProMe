@@ -54,4 +54,26 @@ describe('markdown/journalInlineTokens', () => {
       { type: 'text', value: ' Nuit' },
     ])
   })
+
+  it('matches brace-based symbol aliases', () => {
+    const aliasRules: JournalInlineTokenRule[] = [
+      { key: 'dice:1', match: '{1}' },
+      { key: 'spade', match: '{S}' },
+      { key: 'heart', match: '{H}' },
+      { key: 'diamond', match: '{D}' },
+      { key: 'club', match: '{C}' },
+    ]
+    const result = tokenizeJournalInlineText('{1} {S} {H} {D} {C}', aliasRules)
+    expect(result).toEqual([
+      { type: 'token', key: 'dice:1', value: '{1}' },
+      { type: 'text', value: ' ' },
+      { type: 'token', key: 'spade', value: '{S}' },
+      { type: 'text', value: ' ' },
+      { type: 'token', key: 'heart', value: '{H}' },
+      { type: 'text', value: ' ' },
+      { type: 'token', key: 'diamond', value: '{D}' },
+      { type: 'text', value: ' ' },
+      { type: 'token', key: 'club', value: '{C}' },
+    ])
+  })
 })
