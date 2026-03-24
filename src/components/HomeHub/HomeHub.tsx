@@ -57,7 +57,7 @@ const CharacterManager = () => {
         </BlockedLink>
       }>
       <p className='home-hub__card-text'>{copy.hub.characterCardDescription}</p>
-      <Row style={{ marginTop: 16 }}>
+      <Row style={{ marginTop: 16 }} gutter={16}>
         {recentCharacters.map(character => (
           <Col span={8} key={character.id}>
             <BlockedLink
