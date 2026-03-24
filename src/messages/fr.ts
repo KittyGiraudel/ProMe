@@ -99,10 +99,7 @@ export const copy = {
     openInInhabitantBuilder: "Ouvrir dans le générateur d’habitant",
     rerollOwner: "Regénérer cette habitant·e",
     duplicateRuleHint:
-      "Si vous tirez deux fois le même établissement : soit **deux** lieux du même type, soit **un seul** plus grand et imposant — à trancher à la table.",
-    groupedToggle: "Regrouper les doublons",
-    groupedToggleTooltip:
-      "petite + petite → grande, grande + grande → immense, mixte → grande",
+      "Si vous tirez deux fois le même établissement : soit **deux** lieux du même type, soit **un seul** plus grand et imposant — à trancher à la table. Vous pouvez **regrouper les doublons** dans les paramètres pour refléter la fusion au livre.",
     mergedEstablishmentLabel: "Immense",
     rerollCard: "Relancer cette carte",
     copyOneLiner: "Copier le résumé",
@@ -325,7 +322,7 @@ export const copy = {
       mushroomJungle: "Jungle de champignons",
       fieldSea: "Mer champêtre",
       silentDesert: "Désert silencieux",
-      giganticGardens: "Jardins gigantesques",
+      giganticGardens: "Jardins titanesques",
     },
     mapRandomBiomeDiscoveredTitle: "Nouveau biome découvert",
     mapRandomBiomeDiscoveredDescription(
@@ -405,10 +402,15 @@ export const copy = {
       "Réglez les préférences globales de l’application. Elles sont enregistrées localement dans ce navigateur.",
     sectionSheet: "Feuille de personnage",
     sectionJournal: "Journal",
+    sectionVillage: "Générateur de village",
     journalTimelineReverseChronologicalLabel:
       "Afficher le journal du plus récent au plus ancien",
     journalTimelineReverseChronologicalHelp:
       "Décochez pour un ordre chronologique (du plus ancien au plus récent).",
+    villageMergeDuplicateEstablishmentsLabel:
+      "Regrouper les doublons d’établissements",
+    villageMergeDuplicateEstablishmentsHelp:
+      "Fusionne les lignes identiques dans le résumé du village (petite + petite → grande, etc.) et compte les établissements de la même façon dans les liens du journal.",
     adaptiveNightModeLabel:
       "Assombrir la feuille quand l’horloge est à la nuit",
     adaptiveNightModeHelp:

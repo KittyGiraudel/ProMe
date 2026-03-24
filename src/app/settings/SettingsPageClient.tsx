@@ -8,6 +8,7 @@ import { copy } from '@/messages/fr'
 type SettingsFormValues = {
   adaptiveNightMode: boolean
   timelineReverseChronological: boolean
+  villageMergeDuplicateEstablishments: boolean
 }
 
 export function SettingsPageClient() {
@@ -16,6 +17,8 @@ export function SettingsPageClient() {
   const initialValues: SettingsFormValues = {
     adaptiveNightMode: settings.sheet.adaptiveNightMode,
     timelineReverseChronological: settings.journal.timelineReverseChronological,
+    villageMergeDuplicateEstablishments:
+      settings.village.mergeDuplicateEstablishments,
   }
 
   const handleValuesChange = (_: unknown, allValues: SettingsFormValues) => {
@@ -30,13 +33,18 @@ export function SettingsPageClient() {
         timelineReverseChronological:
           allValues.timelineReverseChronological === true,
       },
+      village: {
+        ...prev.village,
+        mergeDuplicateEstablishments:
+          allValues.villageMergeDuplicateEstablishments === true,
+      },
     }))
   }
 
   return (
     <Layout title={copy.settings.pageTitle} pageCoverBiome='silentDesert'>
       <Form<SettingsFormValues>
-        key={`${settings.sheet.adaptiveNightMode}-${settings.journal.timelineReverseChronological}`}
+        key={`${settings.sheet.adaptiveNightMode}-${settings.journal.timelineReverseChronological}-${settings.village.mergeDuplicateEstablishments}`}
         layout='vertical'
         initialValues={initialValues}
         onValuesChange={handleValuesChange}>
@@ -65,6 +73,21 @@ export function SettingsPageClient() {
             </Form.Item>
             <Typography.Text type='secondary'>
               {copy.settings.journalTimelineReverseChronologicalHelp}
+            </Typography.Text>
+          </Space>
+        </Card>
+        <Card title={copy.settings.sectionVillage} style={{ marginTop: 16 }}>
+          <Space orientation='vertical' size='small'>
+            <Form.Item
+              name='villageMergeDuplicateEstablishments'
+              valuePropName='checked'
+              style={{ marginBottom: 0 }}>
+              <Checkbox>
+                {copy.settings.villageMergeDuplicateEstablishmentsLabel}
+              </Checkbox>
+            </Form.Item>
+            <Typography.Text type='secondary'>
+              {copy.settings.villageMergeDuplicateEstablishmentsHelp}
             </Typography.Text>
           </Space>
         </Card>

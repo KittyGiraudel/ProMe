@@ -1,16 +1,10 @@
 'use client'
 
 import { RedoOutlined } from '@ant-design/icons'
-import { useMemo, useState } from 'react'
-import { Card, Checkbox, Empty, Tooltip, Typography } from 'antd'
+import { useMemo } from 'react'
+import { Card, Empty, Typography } from 'antd'
 import { encodePlayingCard } from '@/lib/codec/cards'
 import type { PlayingCard } from '@/lib/types'
-import { suitIsRed } from '@/lib/suitGlyphs'
-import {
-  establishmentLineFromSizeTier,
-  rankUsesEstablishmentSizeTiers,
-} from '@/lib/village/data/establishments'
-import { mergeEstablishmentSizeTiers } from '@/lib/village/mergeEstablishmentSizeTiers'
 import type { VillageRoll } from '@/lib/village/generate'
 import type { InhabitantRoll } from '@/lib/inhabitant/generate'
 import type { VillageEstablishmentRow } from '@/lib/village/resolveDisplay'
@@ -18,12 +12,14 @@ import {
   ownerSlotIndexByEstablishmentIndex,
   resolveVillageDisplay,
 } from '@/lib/village/resolveDisplay'
+import { groupEstablishments } from '@/lib/village/groupEstablishments'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { RichText } from '@/components/RichText/RichText'
 import { copy } from '@/messages/fr'
 import { formatVillageRulebookPagesJoined } from '@/messages/formatCopy'
 import { VillageEstablishmentLine } from './VillageEstablishmentLine'
 import { Button } from '@/components/Button/Button'
+import { useSettings } from '@/app/contexts/SettingsContext'
 import './VillageSummary.css'
 
 type VillageSummaryProps = {
@@ -35,75 +31,6 @@ type VillageSummaryProps = {
   onRerollOwner?: (ownerIndex: number) => void
 }
 
-function groupEstablishments(rows: VillageEstablishmentRow[]): {
-  key: string
-  text: string
-  count: number
-  card: PlayingCard
-  rerollPrimarySlot: number | null
-  rulebookPages: number[]
-  ownerIndices: number[]
-}[] {
-  const order: string[] = []
-  const map = new Map<
-    string,
-    { rows: VillageEstablishmentRow[]; ownerIndices: number[] }
-  >()
-  rows.forEach((r, idx) => {
-    const tiered = rankUsesEstablishmentSizeTiers(r.card.rank)
-    const key = tiered ? `tier:${r.card.rank}` : `plain:${r.text}`
-    const cur = map.get(key)
-    if (!cur) {
-      map.set(key, { rows: [r], ownerIndices: [idx] })
-      order.push(key)
-    } else {
-      cur.rows.push(r)
-      cur.ownerIndices.push(idx)
-    }
-  })
-  return order.map(key => {
-    const { rows, ownerIndices } = map.get(key)!
-    const count = rows.length
-    const first = rows[0]!
-    let text: string
-    if (key.startsWith('tier:')) {
-      const tiers = rows.map(rr => (suitIsRed(rr.card.suit) ? 2 : 1) as 1 | 2)
-      const merged = mergeEstablishmentSizeTiers(tiers)
-      text = establishmentLineFromSizeTier(first.card.rank, merged)
-    } else {
-      const baseText = first.text
-      if (count === 1) {
-        text = baseText
-      } else if (count === 2) {
-        text = `${copy.village.mergedEstablishmentLabel}${copy.common.emDashSpaced}${baseText}`
-      } else {
-        text = `${copy.village.mergedEstablishmentLabel} (×${count})${copy.common.emDashSpaced}${baseText}`
-      }
-    }
-    const slots = rows.flatMap(rr =>
-      rr.rerollPrimarySlot != null ? [rr.rerollPrimarySlot] : []
-    )
-    const rulebookPages: number[] = []
-    for (const rr of rows) {
-      if (!rulebookPages.includes(rr.rulebookPage)) {
-        rulebookPages.push(rr.rulebookPage)
-      }
-    }
-    rulebookPages.sort((a, b) => a - b)
-    const rerollPrimarySlot =
-      count === 1 && slots.length === 1 ? slots[0]! : null
-    return {
-      key,
-      text,
-      count,
-      card: first.card,
-      rerollPrimarySlot,
-      rulebookPages,
-      ownerIndices,
-    }
-  })
-}
-
 export function VillageSummary({
   roll,
   owners,
@@ -111,7 +38,8 @@ export function VillageSummary({
   onRerollPrimarySlot,
   onRerollOwner,
 }: VillageSummaryProps) {
-  const [grouped, setGrouped] = useState(false)
+  const { settings } = useSettings()
+  const grouped = settings.village.mergeDuplicateEstablishments
 
   const display = useMemo(
     () => (roll ? resolveVillageDisplay(roll) : null),
@@ -289,24 +217,11 @@ export function VillageSummary({
         ) : null}
 
         <div className='village-summary__hint'>
-          <div className='village-summary__dupes-block'>
-            <RichText
-              as='p'
-              className='village-summary__dupes-explanation'
-              text={copy.village.duplicateRuleHint}
-            />
-            <div className='village-summary__dupes-toggle'>
-              <Tooltip title={copy.village.groupedToggleTooltip}>
-                <span className='village-summary__dupes-toggle-tooltip-target'>
-                  <Checkbox
-                    checked={grouped}
-                    onChange={e => setGrouped(e.target.checked)}>
-                    {copy.village.groupedToggle}
-                  </Checkbox>
-                </span>
-              </Tooltip>
-            </div>
-          </div>
+          <RichText
+            as='p'
+            className='village-summary__dupes-explanation'
+            text={copy.village.duplicateRuleHint}
+          />
         </div>
       </Card>
       {villageFootnote}

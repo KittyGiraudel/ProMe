@@ -9,4 +9,11 @@ export type AppSettings = {
     /** When true, journal timeline is reverse chronological (newest first). */
     timelineReverseChronological: boolean
   }
+  village: {
+    /**
+     * When true, duplicate establishment rows are merged in the village generator
+     * summary and in journal link labels for village URLs.
+     */
+    mergeDuplicateEstablishments: boolean
+  }
 }

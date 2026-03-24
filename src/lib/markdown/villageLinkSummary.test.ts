@@ -16,6 +16,15 @@ describe('markdown/villageLinkSummary', () => {
     expect(summary).toBe('Village, 5 établissements')
   })
 
+  /** Two red aces (HA, DA) share one establishment line; grouped count is 4 lines vs 5 rows. */
+  it('uses merged establishment count when mergeDuplicateEstablishments is true', () => {
+    const url = 'https://example.com/generators/village?v=HADAC3S4H5'
+    expect(getVillageSummaryFromUrl(url)).toBe('Village, 5 établissements')
+    expect(
+      getVillageSummaryFromUrl(url, { mergeDuplicateEstablishments: true })
+    ).toBe('Village, 4 établissements')
+  })
+
   it('returns null for invalid village URLs', () => {
     expect(
       getVillageSummaryFromUrl('https://example.com/generators/village?v=bad')

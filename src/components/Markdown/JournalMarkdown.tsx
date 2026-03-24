@@ -12,6 +12,7 @@ import {
 import { extractDisplayedCellReferences } from '@/lib/hex/coordinates'
 import { getInhabitantSummaryFromUrl } from '@/lib/markdown/inhabitantLinkSummary'
 import { getVillageSummaryFromUrl } from '@/lib/markdown/villageLinkSummary'
+import { useSettings } from '@/app/contexts/SettingsContext'
 import { BIOME_ROLL_TABLE } from '@/lib/constants/biomeRollTable'
 import { copy } from '@/messages/fr'
 import { DICE, SUITS } from '@/lib/constants/misc'
@@ -160,6 +161,7 @@ function buildCoordinateRules(text: string): JournalInlineTokenRule[] {
 
 export function JournalMarkdown({ markdown }: { markdown: string }) {
   const { getCellData } = useCharacterContext()
+  const { settings } = useSettings()
 
   const renderTokenSegment = (
     tokenKey: string,
@@ -243,7 +245,12 @@ export function JournalMarkdown({ markdown }: { markdown: string }) {
     a: ({ children, node: _node, href, ...props }) => {
       const inhabitantSummary = href ? getInhabitantSummaryFromUrl(href) : null
       const villageSummary =
-        !inhabitantSummary && href ? getVillageSummaryFromUrl(href) : null
+        !inhabitantSummary && href
+          ? getVillageSummaryFromUrl(href, {
+              mergeDuplicateEstablishments:
+                settings.village.mergeDuplicateEstablishments,
+            })
+          : null
       return (
         <a {...props} href={href}>
           {inhabitantSummary ??

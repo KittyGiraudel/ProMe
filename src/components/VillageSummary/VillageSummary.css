@@ -50,29 +50,12 @@
   color: var(--lsdp-muted);
 }
 
-.village-summary__dupes-block {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 0.65rem;
-}
-
 .village-summary__dupes-explanation {
   margin: 0;
 }
 
 .village-summary__dupes-explanation.rich-text {
   margin: 0;
-}
-
-.village-summary__dupes-toggle .ant-checkbox-wrapper {
-  align-items: flex-start;
-  line-height: 1.45;
-}
-
-.village-summary__dupes-toggle-tooltip-target {
-  display: inline-block;
-  max-width: 100%;
 }
 
 .village-summary__line {

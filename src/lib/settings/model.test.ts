@@ -21,4 +21,12 @@ describe('settings/model', () => {
       }).journal.timelineReverseChronological
     ).toBe(true)
   })
+
+  it('keeps mergeDuplicateEstablishments when payload enables it', () => {
+    expect(
+      normalizeSettings({
+        village: { mergeDuplicateEstablishments: true },
+      }).village.mergeDuplicateEstablishments
+    ).toBe(true)
+  })
 })
