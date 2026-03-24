@@ -15,6 +15,8 @@ export const copy = {
   common: {
     loading: "Chargement…",
     emDashSpaced: " — ",
+    checkSuccessWord: "succès",
+    checkFailureWord: "échec",
   },
   hub: {
     title: "Companion du Protecteur",

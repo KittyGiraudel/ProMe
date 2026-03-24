@@ -13,6 +13,10 @@
   padding: 0;
 }
 
+.journal-markdown ul ul {
+  margin-bottom: 0;
+}
+
 .journal-markdown li {
   margin: 0.2rem 0;
 }
@@ -64,11 +68,25 @@
 }
 
 .journal-markdown__biome-tag {
-  display: inline-flex;
-  align-items: center;
   margin: 0 0.5ch;
-  gap: 0.4em;
   border-color: var(--biome-dark);
   background: var(--biome-light);
   color: var(--biome-contrast);
+}
+
+.journal-markdown span[style] {
+  color: var(--color, currentColor);
+  font-weight: 700;
+}
+
+.journal-markdown span[data-zoom] {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  top: -0.5px;
+}
+
+.journal-markdown span[data-zoom]:hover {
+  transform: scale(2);
+  transition: transform 0.1s ease-in-out;
 }

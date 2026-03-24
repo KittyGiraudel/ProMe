@@ -6,111 +6,205 @@ import { cloneElement, isValidElement } from 'react'
 import type { Components } from 'react-markdown'
 import ReactMarkdown from 'react-markdown'
 import { createJournalMarkdownRendererConfig } from '@/lib/markdown/journalMarkdown'
+import {
+  tokenizeJournalInlineText,
+  type JournalInlineTokenRule,
+} from '@/lib/markdown/journalInlineTokens'
+import { BIOME_ROLL_TABLE } from '@/lib/constants/biomeRollTable'
 import { copy } from '@/messages/fr'
 import '@/components/Markdown/JournalMarkdown.css'
-import { BiomeBubble } from '../BiomeBubble/BiomeBubble'
+import { DICE, SUITS } from '@/lib/constants/misc'
+import { suitIsRed } from '@/lib/suitGlyphs'
+import { Suit } from '@/lib/types'
 
-const BIOME_ENTRIES = [
-  {
-    label: copy.characters.mapBiomes.shadowForest,
-    biomeId: 'shadowForest',
-  },
-  {
-    label: copy.characters.mapBiomes.floodedPlains,
-    biomeId: 'floodedPlains',
-  },
-  {
-    label: copy.characters.mapBiomes.mushroomJungle,
-    biomeId: 'mushroomJungle',
-  },
-  {
-    label: copy.characters.mapBiomes.fieldSea,
-    biomeId: 'fieldSea',
-  },
-  {
-    label: copy.characters.mapBiomes.silentDesert,
-    biomeId: 'silentDesert',
-  },
-  {
-    label: copy.characters.mapBiomes.giganticGardens,
-    biomeId: 'giganticGardens',
-  },
-] as const
+const BIOME_ENTRIES = BIOME_ROLL_TABLE.map(biome => ({
+  label: copy.characters.mapBiomes[biome.biome],
+  biomeId: biome.biome,
+}))
 
-const BIOME_BY_LABEL = new Map<string, (typeof BIOME_ENTRIES)[number]>(
-  BIOME_ENTRIES.map(entry => [entry.label, entry])
+const SUIT_ENTRIES = Object.entries(SUITS).map(([suitId, label]) => ({
+  label,
+  suitId,
+}))
+
+const DICE_ENTRIES = DICE.map((label, index) => ({
+  label,
+  value: index + 1,
+}))
+
+const TOKEN_RULES: JournalInlineTokenRule[] = [
+  ...BIOME_ENTRIES.map(entry => ({
+    key: `biome:${entry.biomeId}`,
+    match: entry.label,
+    wordBoundary: true,
+  })),
+  {
+    key: 'word:success',
+    match: copy.common.checkSuccessWord,
+    wordBoundary: true,
+  },
+  {
+    key: 'word:failure',
+    match: copy.common.checkFailureWord,
+    wordBoundary: true,
+  },
+  { key: 'symbol:sun', match: '☼' },
+  { key: 'symbol:moon', match: '☾' },
+  ...SUIT_ENTRIES.map(entry => ({
+    key: `symbol:${entry.suitId}`,
+    match: entry.label,
+  })),
+  ...DICE_ENTRIES.map(entry => ({
+    key: `symbol:${entry.value}`,
+    match: entry.label,
+  })),
+]
+
+const BIOME_BY_TOKEN_KEY = new Map<string, (typeof BIOME_ENTRIES)[number]>(
+  BIOME_ENTRIES.map(entry => [`biome:${entry.biomeId}`, entry])
 )
-const BIOME_MATCH_RE = new RegExp(
-  `(${BIOME_ENTRIES.map(entry => escapeRegExp(entry.label))
-    .sort((a, b) => b.length - a.length)
-    .join('|')})`,
-  'gi'
-)
 
-function escapeRegExp(value: string): string {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-}
+const TOKEN_RENDERER_ENTRIES: Array<
+  [string, (value: string, key: string) => ReactNode]
+> = [
+  [
+    'word:success',
+    (value, key) => (
+      <span key={key} style={{ '--color': 'green' } as React.CSSProperties}>
+        {value}
+      </span>
+    ),
+  ],
+  [
+    'word:failure',
+    (value, key) => (
+      <span key={key} style={{ '--color': 'red' } as React.CSSProperties}>
+        {value}
+      </span>
+    ),
+  ],
+  [
+    'symbol:sun',
+    (value, key) => (
+      <span key={key} style={{ '--color': '#d4a017' } as React.CSSProperties}>
+        {value}
+      </span>
+    ),
+  ],
+  [
+    'symbol:moon',
+    (value, key) => (
+      <span key={key} style={{ '--color': '#1f3f8b' } as React.CSSProperties}>
+        {value}
+      </span>
+    ),
+  ],
+  ...SUIT_ENTRIES.map(
+    (entry): [string, (value: string, key: string) => ReactNode] => [
+      `symbol:${entry.suitId}`,
+      (value: string, key: string) => (
+        <span
+          key={key}
+          data-zoom
+          style={
+            {
+              '--color': suitIsRed(entry.suitId as Suit) ? 'red' : 'black',
+            } as React.CSSProperties
+          }>
+          {value}
+        </span>
+      ),
+    ]
+  ),
+  ...DICE_ENTRIES.map(
+    (entry): [string, (value: string, key: string) => ReactNode] => [
+      `symbol:${entry.value}`,
+      (value: string, key: string) => (
+        <span key={key} data-zoom>
+          {value}
+        </span>
+      ),
+    ]
+  ),
+]
 
-function renderBiomeText(text: string): ReactNode {
-  if (!text) return text
+const TOKEN_RENDERERS = new Map<
+  string,
+  (value: string, key: string) => ReactNode
+>(TOKEN_RENDERER_ENTRIES)
 
-  const parts = text.split(BIOME_MATCH_RE)
-  if (parts.length === 1) return text
-
-  return parts.map((part, index) => {
-    const biome = BIOME_BY_LABEL.get(part)
-    if (!biome) return part
-
+function renderTokenSegment(
+  tokenKey: string,
+  value: string,
+  key: string
+): ReactNode {
+  const biome = BIOME_BY_TOKEN_KEY.get(tokenKey)
+  if (biome) {
     return (
       <Tag
-        key={`${biome.biomeId}-${index}`}
-        className='journal-markdown__biome-tag'
-        data-biome={biome.biomeId}>
+        key={key}
+        data-biome={biome.biomeId}
+        className='journal-markdown__biome-tag'>
         {biome.label}
       </Tag>
     )
-  })
+  }
+  const renderer = TOKEN_RENDERERS.get(tokenKey)
+  if (!renderer) return value
+  return renderer(value, key)
 }
 
-function renderWithBiomeHighlights(node: ReactNode): ReactNode {
-  if (typeof node === 'string') return renderBiomeText(node)
-  if (Array.isArray(node)) return node.map(renderWithBiomeHighlights)
+function renderHighlightedText(text: string): ReactNode {
+  if (!text) return text
+
+  const segments = tokenizeJournalInlineText(text, TOKEN_RULES)
+  const output: ReactNode[] = segments.map((segment, index) => {
+    if (segment.type === 'text') return segment.value
+    return renderTokenSegment(segment.key, segment.value, `token-${index}`)
+  })
+  if (output.length === 1 && output[0] === text) return text
+  return output
+}
+
+function renderWithHighlights(node: ReactNode): ReactNode {
+  if (typeof node === 'string') return renderHighlightedText(node)
+  if (Array.isArray(node)) return node.map(renderWithHighlights)
   if (!isValidElement<{ children?: ReactNode }>(node)) return node
   if (!node.props.children) return node
 
   return cloneElement(
     node,
     undefined,
-    renderWithBiomeHighlights(node.props.children)
+    renderWithHighlights(node.props.children)
   )
 }
 
-const biomeAwareComponents: Components = {
-  p: ({ children, ...props }) => (
-    <p {...props}>{renderWithBiomeHighlights(children)}</p>
+const markdownComponents: Components = {
+  p: ({ children, node: _node, ...props }) => (
+    <p {...props}>{renderWithHighlights(children)}</p>
   ),
-  li: ({ children, ...props }) => (
-    <li {...props}>{renderWithBiomeHighlights(children)}</li>
+  li: ({ children, node: _node, ...props }) => (
+    <li {...props}>{renderWithHighlights(children)}</li>
   ),
-  blockquote: ({ children, ...props }) => (
-    <blockquote {...props}>{renderWithBiomeHighlights(children)}</blockquote>
+  blockquote: ({ children, node: _node, ...props }) => (
+    <blockquote {...props}>{renderWithHighlights(children)}</blockquote>
   ),
-  h1: ({ children, ...props }) => (
-    <h1 {...props}>{renderWithBiomeHighlights(children)}</h1>
+  h1: ({ children, node: _node, ...props }) => (
+    <h1 {...props}>{renderWithHighlights(children)}</h1>
   ),
-  h2: ({ children, ...props }) => (
-    <h2 {...props}>{renderWithBiomeHighlights(children)}</h2>
+  h2: ({ children, node: _node, ...props }) => (
+    <h2 {...props}>{renderWithHighlights(children)}</h2>
   ),
-  h3: ({ children, ...props }) => (
-    <h3 {...props}>{renderWithBiomeHighlights(children)}</h3>
+  h3: ({ children, node: _node, ...props }) => (
+    <h3 {...props}>{renderWithHighlights(children)}</h3>
   ),
-  h4: ({ children, ...props }) => (
-    <h4 {...props}>{renderWithBiomeHighlights(children)}</h4>
+  h4: ({ children, node: _node, ...props }) => (
+    <h4 {...props}>{renderWithHighlights(children)}</h4>
   ),
 }
 
 const rendererConfig = createJournalMarkdownRendererConfig({
-  components: biomeAwareComponents,
+  components: markdownComponents,
 })
 
 export function JournalMarkdown({ markdown }: { markdown: string }) {

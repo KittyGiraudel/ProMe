@@ -2,6 +2,7 @@ import type { Suit, PlayingCard } from '@/lib/types'
 import { suitIsRed } from '@/lib/suitGlyphs'
 import { copy, playingCardAriaLabel } from '@/messages/fr'
 import './PlayingCardLabel.css'
+import { SUITS } from '@/lib/constants/misc'
 
 type PlayingCardLabelProps = {
   card: PlayingCard
@@ -38,17 +39,8 @@ export function PlayingCardLabel({
       </span>
       <span className={suitClass} aria-hidden>
         {'\u00a0'}
-        {suitGlyph(card.suit)}
+        {SUITS[card.suit]}
       </span>
     </span>
   )
-}
-
-function suitGlyph(suit: Suit): string {
-  return {
-    spades: '♠',
-    hearts: '♥',
-    diamonds: '♦',
-    clubs: '♣',
-  }[suit]
 }

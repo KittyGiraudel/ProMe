@@ -1,5 +1,6 @@
 import { copy } from '@/messages/fr'
 import './DiceFaces.css'
+import { DICE } from '@/lib/constants/misc'
 
 function defaultDiceFacesAriaLabel(values: readonly number[]): string {
   if (values.length === 0) {
@@ -49,7 +50,7 @@ export function DiceFaces({ values, ariaLabel, className }: DiceFacesProps) {
 
 function diceFaceGlyph(value: number): string {
   if (value >= 1 && value <= 6) {
-    return ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'][value - 1]!
+    return DICE[value - 1]!
   }
 
   return String(value)
