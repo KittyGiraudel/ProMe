@@ -108,7 +108,11 @@ export function normalizeCharacterMapState(value: unknown): CharacterMapState {
     for (const entry of raw.cells) {
       const normalized = normalizeCharacterMapCell(entry)
       if (!normalized) continue
-      byCoord.set(`${normalized.q},${normalized.r}`, normalized)
+      const atCore =
+        normalized.q === DEFAULT_MAP_POSITION.q &&
+        normalized.r === DEFAULT_MAP_POSITION.r
+      const cell = atCore ? { ...normalized, biome: undefined } : normalized
+      byCoord.set(`${cell.q},${cell.r}`, cell)
     }
   }
 
@@ -447,6 +451,14 @@ export function validateCharacterForPersistence(
     }
     seenCoords.add(key)
 
+    if (
+      cell.q === DEFAULT_MAP_POSITION.q &&
+      cell.r === DEFAULT_MAP_POSITION.r &&
+      cell.biome !== undefined
+    ) {
+      errors.push('core map cell must not have a biome')
+      break
+    }
     if (cell.biome && !(BIOME_IDS as readonly string[]).includes(cell.biome)) {
       errors.push('map cell biome is invalid')
       break
