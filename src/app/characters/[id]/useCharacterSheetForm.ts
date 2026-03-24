@@ -52,13 +52,6 @@ export function useCharacterSheetForm({ characterId }: { characterId: string }) 
     resetToken: `${characterId}|${character?.updatedAt ?? ''}`,
   })
 
-  const getCharacterFromForm = useCallback((): Character => {
-    if (!character) {
-      throw new Error('Character not loaded')
-    }
-    const values = form.getFieldsValue(true) as SheetFormValues
-    return { ...character, ...values }
-  }, [character, form])
 
   const onSaved = useCallback((saved: Character) => setCharacter(saved), [])
 
@@ -68,7 +61,6 @@ export function useCharacterSheetForm({ characterId }: { characterId: string }) 
     hydratedFromStore,
     saveErrors,
     setSaveErrors,
-    getCharacterFromForm,
     onSaved,
   }
 }

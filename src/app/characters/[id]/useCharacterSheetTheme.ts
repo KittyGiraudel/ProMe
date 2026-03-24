@@ -1,8 +1,10 @@
 'use client'
 
-import { theme as antdTheme } from 'antd'
+import { theme as antdTheme, FormInstance } from 'antd'
 import { computeClockSegmentsPerHalfFromStamina } from '@/lib/character/model'
 import { useSettings } from '@/app/contexts/SettingsContext'
+import { Character } from '@/lib/character/types'
+import { useCharacterSheetDerived } from './useCharacterSheetDerived'
 
 const CHARACTER_SHEET_NIGHT_THEME = {
   algorithm: antdTheme.darkAlgorithm,
@@ -28,14 +30,15 @@ const CHARACTER_SHEET_NIGHT_THEME = {
 }
 
 export function useCharacterSheetTheme({
-  watchedClock,
-  staminaCurrent,
-  clockTotalSegments,
+  form,
+  character,
 }: {
-  watchedClock: number
-  staminaCurrent: number
-  clockTotalSegments: number
+  form: FormInstance
+  character: Character | null,
 }) {
+  const { watchedClock, clockTotalSegments, staminaCurrent } =
+    useCharacterSheetDerived({ form, character })
+
   const { settings } = useSettings()
   const adaptiveNightMode = settings.sheet.adaptiveNightMode
   const clockSegmentsPerHalf = computeClockSegmentsPerHalfFromStamina(

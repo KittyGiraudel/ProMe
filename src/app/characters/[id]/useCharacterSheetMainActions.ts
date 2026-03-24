@@ -6,6 +6,9 @@ import { getCharacterStore } from '@/lib/character/store'
 import { stringifyCharacters } from '@/lib/character/store/migrations'
 import type { Character } from '@/lib/character/types'
 import { copy } from '@/messages/fr'
+import { FormInstance } from 'antd/lib/form'
+import { SheetFormValues } from './characterSheetForm'
+import { useCharacterFromForm } from './useCharacterFromForm'
 
 function sanitizeFileNamePart(value: string): string {
   return value
@@ -33,18 +36,19 @@ function downloadJsonFile(content: string, fileName: string): void {
 
 export function useCharacterSheetMainActions({
   character,
-  getCharacterFromForm,
+  form,
   onSaved,
   setSaveErrors,
 }: {
   character: Character | null
-  getCharacterFromForm: () => Character
+  form: FormInstance
   onSaved: (saved: Character) => void
   setSaveErrors: (errors: string[] | null) => void
 }) {
   const { message } = App.useApp()
   const store = useMemo(() => getCharacterStore(), [])
-
+  const getCharacterFromForm = useCharacterFromForm({ character, form })
+  
   const handleSave = useCallback(() => {
     if (!character) return
     if (character.lifeStatus === 'dead') {

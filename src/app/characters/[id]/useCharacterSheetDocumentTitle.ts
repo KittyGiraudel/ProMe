@@ -39,14 +39,13 @@ export function useCharacterSheetDocumentTitle({
   useEffect(() => {
     if (!hydratedFromStore) return
 
-    const brand = copy.metadata.tabBrand
     if (!character) {
-      document.title = `${copy.characters.notFoundTitle} — ${brand}`
+      document.title = `${copy.characters.notFoundTitle} — ${copy.metadata.tabBrand}`
       return
     }
 
     const displayName = character.name?.trim() || copy.characters.unnamed
-    document.title = `${displayName}${getTabSuffix(activeTabKey)} — ${brand}`
+    document.title = `${displayName}${getTabSuffix(activeTabKey)} — ${copy.metadata.tabBrand}`
   }, [hydratedFromStore, character, activeTabKey])
 }
 

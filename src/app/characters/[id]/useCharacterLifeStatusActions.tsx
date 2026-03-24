@@ -4,33 +4,36 @@ import { useCallback, useEffect, useMemo, useRef } from 'react'
 import type { Character } from '@/lib/character/types'
 import { copy } from '@/messages/fr'
 import { Button } from '@/components/Button/Button'
-import { App } from 'antd'
+import { App, FormInstance } from 'antd'
 import { getCharacterStore } from '@/lib/character/store'
+import { useCharacterSheetDerived } from './useCharacterSheetDerived'
+import { useCharacterFromForm } from './useCharacterFromForm'
+
+const DEATH_SUGGESTION_KEY = 'death-suggestion'
 
 export function useCharacterLifeStatusActions({
-  getCharacter,
-  healthCurrent,
   onSaved,
-  clearSaveErrors,
+  setSaveErrors,
+  form,
+  character,
 }: {
-  getCharacter: () => Character
-  healthCurrent: number | undefined
   onSaved: (saved: Character) => void
-  clearSaveErrors: () => void
+  setSaveErrors: (errors: string[] | null) => void
+  form: FormInstance
+  character: Character | null
 }) {
-  const deathSuggestionNotificationKeyRef = useRef('death-suggestion')
   const { message, modal, notification } = App.useApp()
-  const prevHealthCurrentRef = useRef<number | null>(null)
   const store = useMemo(() => getCharacterStore(), [])
+  const getCharacterFromForm = useCharacterFromForm({ character, form })
 
   const onConfirmDeath = useCallback(() => {
     try {
-      const character = getCharacter()
+      const character = getCharacterFromForm()
       if (character.lifeStatus === 'dead') return
-      notification.destroy(deathSuggestionNotificationKeyRef.current)
+      notification.destroy(DEATH_SUGGESTION_KEY)
       const payload: Character = { ...character, lifeStatus: 'dead' }
       const saved = store.save(payload)
-      clearSaveErrors()
+      setSaveErrors(null)
       onSaved(saved)
       message.success(copy.characters.markDeadSuccess)
     } catch (e) {
@@ -38,10 +41,9 @@ export function useCharacterLifeStatusActions({
       message.error(msg)
     }
   }, [
-    clearSaveErrors,
-    getCharacter,
+    setSaveErrors,
+    getCharacterFromForm,
     message,
-    modal,
     notification,
     onSaved,
     store,
@@ -60,18 +62,18 @@ export function useCharacterLifeStatusActions({
 
   const onConfirmRevive = useCallback(() => {
     try {
-      const character = getCharacter()
+      const character = getCharacterFromForm()
       if (character.lifeStatus === 'alive') return
       const payload: Character = { ...character, lifeStatus: 'alive' }
       const saved = store.save(payload)
-      clearSaveErrors()
+      setSaveErrors(null)
       onSaved(saved)
       message.success(copy.characters.reviveSuccess)
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e)
       message.error(msg)
     }
-  }, [clearSaveErrors, getCharacter, message, onSaved, store])
+  }, [setSaveErrors, getCharacterFromForm, message, onSaved, store])
 
   const handleRevive = useCallback(() => {
     modal.confirm({
@@ -83,18 +85,30 @@ export function useCharacterLifeStatusActions({
     })
   }, [modal, onConfirmRevive])
 
-  useEffect(() => {
-    if (healthCurrent == null) return
+  return {
+    handleMarkAsDead,
+    handleRevive,
+  }
+}
 
-    let character: Character
-    try {
-      character = getCharacter()
-    } catch {
-      return
-    }
+export const useWarnDeath = ({
+  form,
+  character,
+  handleMarkAsDead,
+}: {
+  form: FormInstance
+  character: Character | null
+  handleMarkAsDead: () => void
+}) => {
+  const { notification } = App.useApp()
+  const { healthCurrent } = useCharacterSheetDerived({ form, character })
+  const prevHealthCurrentRef = useRef<number | null>(null)
+
+  useEffect(() => {
+    if (healthCurrent == null || character == null) return
 
     if (character.lifeStatus === 'dead') {
-      notification.destroy(deathSuggestionNotificationKeyRef.current)
+      notification.destroy(DEATH_SUGGESTION_KEY)
       prevHealthCurrentRef.current = healthCurrent
       return
     }
@@ -102,7 +116,7 @@ export function useCharacterLifeStatusActions({
     const previous = prevHealthCurrentRef.current
     if (previous != null && previous > 0 && healthCurrent <= 0) {
       notification.warning({
-        key: deathSuggestionNotificationKeyRef.current,
+        key: DEATH_SUGGESTION_KEY,
         title: copy.characters.deathSuggestionTitle,
         description: copy.characters.deathSuggestionDescription,
         placement: 'bottomRight',
@@ -112,7 +126,7 @@ export function useCharacterLifeStatusActions({
             danger
             htmlType='button'
             onClick={() => {
-              notification.destroy(deathSuggestionNotificationKeyRef.current)
+              notification.destroy(DEATH_SUGGESTION_KEY)
               handleMarkAsDead()
             }}>
             {copy.characters.markDeadAction}
@@ -121,13 +135,8 @@ export function useCharacterLifeStatusActions({
       })
     }
     if (healthCurrent > 0) {
-      notification.destroy(deathSuggestionNotificationKeyRef.current)
+      notification.destroy(DEATH_SUGGESTION_KEY)
     }
     prevHealthCurrentRef.current = healthCurrent
-  }, [getCharacter, handleMarkAsDead, healthCurrent, notification])
-
-  return {
-    handleMarkAsDead,
-    handleRevive,
-  }
+  }, [character, healthCurrent, handleMarkAsDead, notification])
 }

@@ -15,7 +15,10 @@ import { useCharacterSheetForm } from './useCharacterSheetForm'
 import { useCharacterSheetFormSync } from './useCharacterSheetFormSync'
 import { useCharacterSheetMainActions } from './useCharacterSheetMainActions'
 import { useCharacterSheetTheme } from './useCharacterSheetTheme'
-import { useCharacterLifeStatusActions } from './useCharacterLifeStatusActions'
+import {
+  useCharacterLifeStatusActions,
+  useWarnDeath,
+} from './useCharacterLifeStatusActions'
 import { CharacterSheetTabNav } from './CharacterSheetTabNav'
 import { biomeAtCurrentMapPosition } from '@/lib/character/biomeAtCurrentMapPosition'
 
@@ -26,66 +29,64 @@ export function CharacterSheetShell({
   characterId: string
   children: ReactNode
 }) {
+  // Ant Design form + character from client store; unsaved-navigation guard;
+  // merge form → Character for save/export; `onSaved` refreshes local character
+  // state after persistence.
   const {
     form,
     character,
     hydratedFromStore,
     saveErrors,
     setSaveErrors,
-    getCharacterFromForm,
     onSaved,
   } = useCharacterSheetForm({ characterId })
 
-  const {
-    watchedClock,
-    clockTotalSegments,
-    healthCurrent,
-    healthMax,
-    courageCurrent,
-    courageMax,
-    staminaCurrent,
-    staminaMax,
-  } = useCharacterSheetDerived({ form, character })
-
+  // Watches clock/stamina (preserve-aware) to drive adaptive sheet “night”
+  // chrome and Ant Design theme.
   const { characterSheetNightMode, configTheme } = useCharacterSheetTheme({
-    watchedClock,
-    staminaCurrent,
-    clockTotalSegments,
+    form,
+    character,
   })
 
+  // Side effects: remap clock index when stamina changes total segments; clamp
+  // health/courage/stamina current values so they never exceed max (also uses
+  // derived watches internally).
   useCharacterSheetFormSync({
     form,
-    characterId,
-    watchedClock,
-    clockTotalSegments,
-    healthCurrent,
-    healthMax,
-    courageCurrent,
-    courageMax,
-    staminaCurrent,
-    staminaMax,
+    character,
   })
 
+  // `generateMetadata` can’t see store-backed names; this sets `document.title`
+  // after hydration (+ tab suffix).
   useCharacterSheetDocumentTitle({
     hydratedFromStore,
     character,
     characterId,
   })
 
+  // Mark dead / revive and death-suggestion flow; reads live health from the
+  // form via derived watches.
   const { handleMarkAsDead, handleRevive } = useCharacterLifeStatusActions({
-    getCharacter: getCharacterFromForm,
-    healthCurrent,
-    onSaved,
-    clearSaveErrors: () => setSaveErrors(null),
-  })
-
-  const { handleSave, handleExport } = useCharacterSheetMainActions({
+    form,
     character,
-    getCharacterFromForm,
     onSaved,
     setSaveErrors,
   })
 
+  // Warn the user when their health crosses to non-positive and suggest
+  // marking the character as dead.
+  useWarnDeath({ form, character, handleMarkAsDead })
+
+  // Form `onFinish` save to store and JSON export download (both use full
+  // `getCharacterFromForm()` snapshot).
+  const { handleSave, handleExport } = useCharacterSheetMainActions({
+    form,
+    character,
+    onSaved,
+    setSaveErrors,
+  })
+
+  // Layout page-cover biome follows map position even when the active tab is not the map.
   const watchedMap = Form.useWatch('map', form)
   const pageCoverBiome = useMemo(
     () => biomeAtCurrentMapPosition(watchedMap),

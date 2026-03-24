@@ -6,44 +6,38 @@ import {
   computeClockTotalSegmentsFromStamina,
   remapClockPositionForTotalSegments,
 } from '@/lib/character/model'
+import { useCharacterSheetDerived } from './useCharacterSheetDerived'
+import { Character } from '@/lib/character/types'
 
 export function useCharacterSheetFormSync({
   form,
-  characterId,
-  watchedClock,
-  clockTotalSegments,
-  healthCurrent,
-  healthMax,
-  courageCurrent,
-  courageMax,
-  staminaCurrent,
-  staminaMax,
+  character,
 }: {
   form: FormInstance
-  characterId: string | undefined
-  watchedClock: number
-  clockTotalSegments: number
-  healthCurrent: number | undefined
-  healthMax: number | undefined
-  courageCurrent: number | undefined
-  courageMax: number | undefined
-  staminaCurrent: number | undefined
-  staminaMax: number | undefined
+  character: Character | null,
 }) {
+  const {
+    watchedClock,
+    clockTotalSegments,
+    healthCurrent,
+    healthMax,
+    courageCurrent,
+    courageMax,
+    staminaCurrent,
+    staminaMax,
+  } = useCharacterSheetDerived({ form, character })
   const prevClockTotalSegmentsRef = useRef<number | null>(null)
 
   useEffect(() => {
-    if (!characterId) return
     const currentStamina = form.getFieldValue(['stamina', 'current']) as
       | number
       | undefined
     prevClockTotalSegmentsRef.current = computeClockTotalSegmentsFromStamina(
       currentStamina ?? 0
     )
-  }, [characterId, form])
+  }, [form])
 
   useEffect(() => {
-    if (!characterId) return
     const previous = prevClockTotalSegmentsRef.current
     if (previous === null) {
       prevClockTotalSegmentsRef.current = clockTotalSegments
@@ -57,7 +51,7 @@ export function useCharacterSheetFormSync({
     )
     form.setFieldValue('clock', remapped)
     prevClockTotalSegmentsRef.current = clockTotalSegments
-  }, [characterId, clockTotalSegments, watchedClock, form])
+  }, [clockTotalSegments, watchedClock, form])
 
   useEffect(() => {
     if (healthCurrent == null || healthMax == null) return
