@@ -123,10 +123,8 @@ export const copy = {
     sheetDescription:
       "Modifiez les valeurs pendant la partie. Les changements sont sauvegardés localement.",
     create: "Créer un personnage",
-    import: "Importer JSON",
-    export: "Copier export JSON",
-    exportAll: "Copier export JSON",
-    exportOne: "Copier export JSON",
+    import: "Importer un personnage",
+    export: "Exporter JSON",
     open: "Ouvrir",
     save: "Sauvegarder",
     deadStatusLabel: "Mort·e",
@@ -161,7 +159,13 @@ export const copy = {
     deleteSuccess: "Personnage supprimé.",
     exportCopied: "Export JSON copié dans le presse-papiers.",
     exportCopyError: "Impossible de copier l’export JSON.",
+    exportDownloaded: "Fichier JSON exporté.",
+    exportDownloadError: "Impossible de télécharger le fichier JSON.",
     importError: "Import impossible. Vérifiez le fichier JSON.",
+    importFormatError:
+      "Format invalide. Le fichier doit contenir exactement un personnage exporté.",
+    importDataError:
+      "Le personnage importé est invalide et ne peut pas être sauvegardé.",
     importSuccess(total: number, created: number, updated: number): string {
       return `Import terminé (${total} lus, ${created} créés, ${updated} mis à jour).`;
     },

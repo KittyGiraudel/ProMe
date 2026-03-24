@@ -7,6 +7,30 @@ import { stringifyCharacters } from '@/lib/character/store/migrations'
 import type { Character } from '@/lib/character/types'
 import { copy } from '@/messages/fr'
 
+function sanitizeFileNamePart(value: string): string {
+  return value
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/[^A-Za-z0-9_-]/g, '')
+}
+
+function buildCharacterExportFileName(character: Character): string {
+  const safeName = sanitizeFileNamePart(character.name) || 'sans-nom'
+  const safeId = sanitizeFileNamePart(character.id) || 'id'
+  const date = new Date().toISOString().slice(0, 10)
+  return `${safeName}-${safeId}-${date}.json`
+}
+
+function downloadJsonFile(content: string, fileName: string): void {
+  const blob = new Blob([content], { type: 'application/json' })
+  const url = URL.createObjectURL(blob)
+  const anchor = document.createElement('a')
+  anchor.href = url
+  anchor.download = fileName
+  anchor.click()
+  URL.revokeObjectURL(url)
+}
+
 export function useCharacterSheetMainActions({
   character,
   getCharacterFromForm,
@@ -52,15 +76,15 @@ export function useCharacterSheetMainActions({
     store,
   ])
 
-  const handleExport = useCallback(async () => {
+  const handleExport = useCallback(() => {
     if (!character) return
     const payload = getCharacterFromForm()
     const content = stringifyCharacters([payload])
     try {
-      await navigator.clipboard.writeText(content)
-      message.success(copy.characters.exportCopied)
+      downloadJsonFile(content, buildCharacterExportFileName(payload))
+      message.success(copy.characters.exportDownloaded)
     } catch {
-      message.error(copy.characters.exportCopyError)
+      message.error(copy.characters.exportDownloadError)
     }
   }, [character, getCharacterFromForm, message])
 

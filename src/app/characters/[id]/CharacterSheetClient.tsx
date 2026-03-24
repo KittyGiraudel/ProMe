@@ -194,7 +194,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
                     {copy.characters.save}
                   </Button>
                   <Button onClick={handleExport}>
-                    {copy.characters.exportOne}
+                    {copy.characters.export}
                   </Button>
                   <Button
                     danger
@@ -218,7 +218,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
             onClick={handleRevive}>
             {copy.characters.reviveAction}
           </Button>
-          <Button onClick={handleExport}>{copy.characters.exportOne}</Button>
+          <Button onClick={handleExport}>{copy.characters.export}</Button>
         </Space>
       )}
     </Layout>

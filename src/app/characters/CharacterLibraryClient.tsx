@@ -1,7 +1,7 @@
 'use client'
 
-import { App, Card, Empty, Popconfirm, Space, Typography } from 'antd'
-import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react'
+import { Card, Empty, Popconfirm, Space, Typography } from 'antd'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { getCharacterStore } from '@/lib/character/store'
@@ -9,9 +9,9 @@ import type { Character } from '@/lib/character/types'
 import { copy } from '@/messages/fr'
 import { Button } from '@/components/Button/Button'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
+import { useCharacterLibraryActions } from './useCharacterLibraryActions'
 
 export function CharacterLibraryClient() {
-  const { message } = App.useApp()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const store = useMemo(() => getCharacterStore(), [])
   // Keep initial render consistent with the server (no localStorage access on SSR).
@@ -23,46 +23,11 @@ export function CharacterLibraryClient() {
 
   const refresh = () => setCharacters(store.list())
 
-  const handleDelete = (id: string) => {
-    store.delete(id)
-    refresh()
-    message.success(copy.characters.deleteSuccess)
-  }
+  const { handleDelete, handleImportFile } = useCharacterLibraryActions({
+    refresh,
+  })
 
-  const handleExport = async () => {
-    const content = store.exportAll()
-    try {
-      await navigator.clipboard.writeText(content)
-      message.success(copy.characters.exportCopied)
-    } catch {
-      message.error(copy.characters.exportCopyError)
-    }
-  }
-
-  const handleImportClick = () => {
-    fileInputRef.current?.click()
-  }
-
-  const handleImportFile = async (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (!file) return
-    try {
-      const raw = await file.text()
-      const result = store.importAll(raw, 'upsert')
-      refresh()
-      message.success(
-        copy.characters.importSuccess(
-          result.totalRead,
-          result.created,
-          result.updated
-        )
-      )
-    } catch {
-      message.error(copy.characters.importError)
-    } finally {
-      event.target.value = ''
-    }
-  }
+  const handleImportClick = () => fileInputRef.current?.click()
 
   return (
     <Layout
@@ -73,7 +38,6 @@ export function CharacterLibraryClient() {
           {copy.characters.create}
         </Button>
         <Button onClick={handleImportClick}>{copy.characters.import}</Button>
-        <Button onClick={handleExport}>{copy.characters.exportAll}</Button>
       </Space>
 
       <input
