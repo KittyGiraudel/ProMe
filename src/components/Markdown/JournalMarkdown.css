@@ -13,8 +13,38 @@
   padding: 0;
 }
 
+/* Distinct markers for nested lists (up to 4 levels of the same list type). */
+.journal-markdown ul {
+  list-style-type: disc;
+}
+
 .journal-markdown ul ul {
+  list-style-type: circle;
   margin-bottom: 0;
+}
+
+.journal-markdown ul ul ul {
+  list-style-type: square;
+}
+
+.journal-markdown ul ul ul ul {
+  list-style-type: disclosure-closed;
+}
+
+.journal-markdown ol {
+  list-style-type: decimal;
+}
+
+.journal-markdown ol ol {
+  list-style-type: lower-alpha;
+}
+
+.journal-markdown ol ol ol {
+  list-style-type: lower-roman;
+}
+
+.journal-markdown ol ol ol ol {
+  list-style-type: lower-greek;
 }
 
 .journal-markdown li {
