@@ -3,6 +3,7 @@
 import { App, Card, ConfigProvider, Divider, Empty, Form, Space } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
 import { useEffect, useRef } from 'react'
+import { useSettings } from '@/app/contexts/SettingsContext'
 import { copy } from '@/messages/fr'
 import { Button } from '@/components/Button/Button'
 import { Journal } from '@/components/Journal/Journal'
@@ -18,8 +19,11 @@ export function NotesCard({
   onRemoveEntry: (index: number | number[]) => void
 }) {
   const { modal } = App.useApp()
+  const { settings } = useSettings()
   const { componentDisabled } = ConfigProvider.useConfig()
   const form = Form.useFormInstance()
+  const journalReverseChronological =
+    settings.journal.timelineReverseChronological
   const { isEditing, setEditingMode } = useJournalEntryViewModes()
   const previousFieldCountRef = useRef(fields.length)
 
@@ -40,8 +44,15 @@ export function NotesCard({
       timeStyle: 'short',
     }).format(date)
   }
+  const addEntryButton =
+    !componentDisabled && journalReverseChronological ? (
+      <Button type='dashed' onClick={onAddEntry} htmlType='button'>
+        {copy.characters.addJournalEntry}
+      </Button>
+    ) : undefined
+
   return (
-    <Card title={copy.characters.notesSection}>
+    <Card title={copy.characters.notesSection} extra={addEntryButton}>
       <div>
         {fields.length === 0 ? (
           <Empty description={copy.characters.journalEmpty} />
@@ -69,7 +80,7 @@ export function NotesCard({
           formatTimestamp={formatTimestamp}
         />
       </div>
-      {!componentDisabled && (
+      {!componentDisabled && !journalReverseChronological && (
         <>
           <Divider />
           <Space
