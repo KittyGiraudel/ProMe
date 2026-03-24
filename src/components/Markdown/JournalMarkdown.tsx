@@ -1,6 +1,5 @@
 'use client'
 
-import type { CharacterMapState } from '@/lib/character/types'
 import type { ReactNode } from 'react'
 import { cloneElement, isValidElement } from 'react'
 import type { Components } from 'react-markdown'
@@ -10,11 +9,7 @@ import {
   tokenizeJournalInlineText,
   type JournalInlineTokenRule,
 } from '@/lib/markdown/journalInlineTokens'
-import { buildJournalCoordinateTokenData } from '@/lib/markdown/journalCoordinateTokens'
-import {
-  getGlobalFromDisplayedCellLabel,
-  getSheetCoordinate,
-} from '@/lib/hex/coordinates'
+import { extractDisplayedCellReferences } from '@/lib/hex/coordinates'
 import { getInhabitantSummaryFromUrl } from '@/lib/markdown/inhabitantLinkSummary'
 import { getVillageSummaryFromUrl } from '@/lib/markdown/villageLinkSummary'
 import { BIOME_ROLL_TABLE } from '@/lib/constants/biomeRollTable'
@@ -22,6 +17,7 @@ import { copy } from '@/messages/fr'
 import { DICE, SUITS } from '@/lib/constants/misc'
 import { suitIsRed } from '@/lib/suitGlyphs'
 import type { Suit } from '@/lib/types'
+import { useCharacterContext } from '@/components/CharacterSheet/CharacterContext'
 import './JournalMarkdown.css'
 import { BiomeTag } from '../BiomeTag/BiomeTag'
 import { CoordChip } from '../CoordChip/CoordChip'
@@ -154,18 +150,16 @@ const TOKEN_RENDERERS = new Map<
   (value: string, key: string) => ReactNode
 >(TOKEN_RENDERER_ENTRIES)
 
-export function JournalMarkdown({
-  markdown,
-  mapState,
-}: {
-  markdown: string
-  mapState?: CharacterMapState | null
-}) {
-  const coordTokenData = buildJournalCoordinateTokenData(mapState)
-  const tokenRules = [...STATIC_TOKEN_RULES, ...coordTokenData.rules]
-  const currentSheet = mapState
-    ? getSheetCoordinate(mapState.currentPosition)
-    : undefined
+function buildCoordinateRules(text: string): JournalInlineTokenRule[] {
+  return extractDisplayedCellReferences(text).map(reference => ({
+    key: `coord:${reference}`,
+    match: reference,
+    wordBoundary: true,
+  }))
+}
+
+export function JournalMarkdown({ markdown }: { markdown: string }) {
+  const { getCellData } = useCharacterContext()
 
   const renderTokenSegment = (
     tokenKey: string,
@@ -177,19 +171,20 @@ export function JournalMarkdown({
       return <BiomeTag key={key} biome={biome.biomeId} />
     }
 
-    const coordBiome = coordTokenData.biomeByTokenKey.get(tokenKey)
-    if (coordBiome) {
-      const coord = currentSheet
-        ? getGlobalFromDisplayedCellLabel(currentSheet, value)
-        : null
-      return (
-        <CoordChip
-          key={key}
-          biome={coordBiome}
-          value={value}
-          coord={coord ?? undefined}
-        />
-      )
+    if (tokenKey.startsWith('coord:')) {
+      const reference = tokenKey.slice('coord:'.length)
+      const cellData = getCellData(reference)
+      if (cellData) {
+        return (
+          <CoordChip
+            key={key}
+            biome={cellData.biome}
+            value={cellData.ref}
+            coord={cellData.coord}
+          />
+        )
+      }
+      return <CoordChip key={key} biome='unexplored' value={reference} />
     }
 
     const renderer = TOKEN_RENDERERS.get(tokenKey)
@@ -200,6 +195,7 @@ export function JournalMarkdown({
   const renderHighlightedText = (text: string): ReactNode => {
     if (!text) return text
 
+    const tokenRules = [...STATIC_TOKEN_RULES, ...buildCoordinateRules(text)]
     const segments = tokenizeJournalInlineText(text, tokenRules)
     const output: ReactNode[] = segments.map((segment, index) => {
       if (segment.type === 'text') return segment.value

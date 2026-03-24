@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import {
   areHexNeighbors,
+  extractDisplayedCellReferences,
   getDisplayedCellLabel,
+  parseDisplayedCellReference,
   getGlobalFromDisplayedCellLabel,
   getGlobalFromSheetCell,
   parseDisplayedCellLabel,
@@ -79,5 +81,27 @@ describe('displayed cell label helpers', () => {
     expect(parseDisplayedCellLabel('F13')).toBeNull()
     expect(parseDisplayedCellLabel('Z13')).toBeNull()
     expect(parseDisplayedCellLabel('E99')).toBeNull()
+  })
+
+  it('parses displayed cell references with optional sheet suffix', () => {
+    expect(parseDisplayedCellReference('E13')).toEqual({
+      label: 'E13',
+      sheetQ: 0,
+      sheetR: 0,
+    })
+    expect(parseDisplayedCellReference('e13@1,-2')).toEqual({
+      label: 'E13',
+      sheetQ: 1,
+      sheetR: -2,
+    })
+    expect(parseDisplayedCellReference('F13')).toBeNull()
+  })
+
+  it('extracts and normalizes displayed cell references from text', () => {
+    expect(
+      extractDisplayedCellReferences(
+        'Move E13 then E13@1,-2 and invalid F13 and duplicate e13.'
+      )
+    ).toEqual(['E13', 'E13@1,-2'])
   })
 })

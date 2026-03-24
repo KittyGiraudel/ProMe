@@ -7,6 +7,11 @@ export const MAP_COLS = 12
 // in the 4th row (E) at the 6th column (13).
 export const ORIGIN_POSITION = { r: 4, q: 6 }
 
+const DISPLAYED_CELL_REFERENCE_PARSE_PATTERN =
+  /^([A-I][0-9]{2})(?:@(-?\d+),(-?\d+))?$/iu
+const DISPLAYED_CELL_REFERENCE_EXTRACT_PATTERN =
+  /([A-I][0-9]{2}(?:@-?\d+,-?\d+)?)/giu
+
 export type SheetCoordinate = {
   sheetQ: number
   sheetR: number
@@ -171,6 +176,95 @@ export function getGlobalFromDisplayedCellLabel(
   }
 
   return getGlobalFromSheetCell(sheet, parsed.rowIndex, colIndex)
+}
+
+/**
+ * Parses a cell reference in `LABEL` or `LABEL@sheetQ,sheetR` format.
+ *
+ * Examples:
+ * - `E13` -> `{ label: 'E13', sheetQ: 0, sheetR: 0 }`
+ * - `E13@1,-2` -> `{ label: 'E13', sheetQ: 1, sheetR: -2 }`
+ */
+export function parseDisplayedCellReference(value: string): {
+  label: string
+  sheetQ: number
+  sheetR: number
+} | null {
+  const match = DISPLAYED_CELL_REFERENCE_PARSE_PATTERN.exec(value.trim())
+  if (!match) return null
+
+  const label = (match[1] ?? '').toUpperCase()
+  const sheetQ = Number.parseInt(match[2] ?? '0', 10)
+  const sheetR = Number.parseInt(match[3] ?? '0', 10)
+  if (!Number.isFinite(sheetQ) || !Number.isFinite(sheetR)) return null
+  if (!parseDisplayedCellLabel(label)) return null
+
+  return { label, sheetQ, sheetR }
+}
+
+function normalizeDisplayedCellReference(parts: {
+  label: string
+  sheetQ: number
+  sheetR: number
+}): string {
+  if (parts.sheetQ === 0 && parts.sheetR === 0) return parts.label
+  return `${parts.label}@${parts.sheetQ},${parts.sheetR}`
+}
+
+/**
+ * Finds and normalizes all valid displayed cell references contained in text.
+ *
+ * Returned references are unique and preserve first-seen order.
+ */
+export function extractDisplayedCellReferences(text: string): string[] {
+  const matches = new Set<string>()
+
+  for (const match of text.matchAll(DISPLAYED_CELL_REFERENCE_EXTRACT_PATTERN)) {
+    const raw = (match[1] ?? '').toUpperCase()
+    const parsed = parseDisplayedCellReference(raw)
+    if (!parsed) continue
+
+    matches.add(normalizeDisplayedCellReference(parsed))
+  }
+
+  return Array.from(matches)
+}
+
+/**
+ * Formats a global coordinate as a displayed cell reference.
+ *
+ * By default, sheet `(0,0)` is omitted (`E13`). Set `includeDefaultSheet` to
+ * include it explicitly (`E13@0,0`).
+ */
+export function formatDisplayedCellReference(
+  coord: HexCoordinate,
+  options?: { includeDefaultSheet?: boolean }
+): string {
+  const label = getDisplayedCellLabel(coord)
+  const sheet = getSheetCoordinate(coord)
+  if (
+    !options?.includeDefaultSheet &&
+    sheet.sheetQ === 0 &&
+    sheet.sheetR === 0
+  ) {
+    return label
+  }
+  return `${label}@${sheet.sheetQ},${sheet.sheetR}`
+}
+
+/**
+ * Resolves a displayed cell reference (`E13` or `E13@sheetQ,sheetR`) to a
+ * global coordinate.
+ */
+export function resolveDisplayedCellReference(
+  value: string
+): HexCoordinate | null {
+  const parsed = parseDisplayedCellReference(value)
+  if (!parsed) return null
+  return getGlobalFromDisplayedCellLabel(
+    { sheetQ: parsed.sheetQ, sheetR: parsed.sheetR },
+    parsed.label
+  )
 }
 
 export function buildSheetViewport(sheet: SheetCoordinate): SheetCellAddress[] {

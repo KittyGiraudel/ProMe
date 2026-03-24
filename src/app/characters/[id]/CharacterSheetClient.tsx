@@ -44,6 +44,7 @@ import { SpellbookCard } from '@/components/CharacterSheet/SpellbookCard'
 import { NotesCard } from '@/components/CharacterSheet/NotesCard'
 import { Button } from '@/components/Button/Button'
 import { useUnsavedChangesGuard } from '@/hooks/useUnsavedChangesGuard'
+import { CharacterProvider } from '@/components/CharacterSheet/CharacterContext'
 
 const CHARACTER_SHEET_NIGHT_THEME = {
   algorithm: antdTheme.darkAlgorithm,
@@ -356,11 +357,12 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
         onFinish={handleFinish}
         layout='vertical'
         colon={false}>
-        <ConfigProvider
-          theme={
-            characterSheetNightMode ? CHARACTER_SHEET_NIGHT_THEME : undefined
-          }>
-          <div data-sheet-night={characterSheetNightMode ? 'true' : undefined}>
+        <CharacterProvider form={form}>
+          <ConfigProvider
+            theme={
+              characterSheetNightMode ? CHARACTER_SHEET_NIGHT_THEME : undefined
+            }>
+            <div data-sheet-night={characterSheetNightMode ? 'true' : undefined}>
             <Space
               orientation='vertical'
               size='middle'
@@ -433,8 +435,9 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
                 {copy.characters.exportOne}
               </Button>
             </Space>
-          </div>
-        </ConfigProvider>
+            </div>
+          </ConfigProvider>
+        </CharacterProvider>
       </Form>
     </Layout>
   )

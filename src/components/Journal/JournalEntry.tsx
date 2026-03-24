@@ -3,7 +3,6 @@
 import { Form, Input, Space, Typography } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
 import type { FormInstance } from 'antd'
-import type { CharacterMapState } from '@/lib/character/types'
 import { copy } from '@/messages/fr'
 import { Button } from '@/components/Button/Button'
 import { JournalMarkdown } from '@/components/Markdown/JournalMarkdown'
@@ -41,7 +40,6 @@ export function JournalEntry({
   const entryId = form.getFieldValue(['journalEntries', field.name, 'id']) as
     | string
     | undefined
-  const mapState = Form.useWatch('map', form) as CharacterMapState | undefined
 
   const hasContent = Boolean(content?.trim())
   const createdLabel = formatTimestamp(createdAt)
@@ -112,7 +110,7 @@ export function JournalEntry({
       ) : (
         <>
           {hasContent ? (
-            <JournalMarkdown markdown={content ?? ''} mapState={mapState} />
+            <JournalMarkdown markdown={content ?? ''} />
           ) : (
             <Typography.Text type='secondary'>
               {copy.characters.journalPreviewEmpty}
