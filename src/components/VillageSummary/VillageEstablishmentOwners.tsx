@@ -1,7 +1,7 @@
 'use client'
 
 import { RedoOutlined } from '@ant-design/icons'
-import { Button, Typography } from 'antd'
+import { Typography } from 'antd'
 import { encodeInhabitantRoll } from '@/lib/inhabitant/inhabitantUrlCodec'
 import {
   getAgeBand,
@@ -11,6 +11,7 @@ import {
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 import { copy } from '@/messages/fr'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
+import { Button } from '@/components/Button/Button'
 
 export type VillageOwnerEntry = { roll: InhabitantRoll; ownerIndex: number }
 

@@ -1,18 +1,10 @@
 'use client'
 
 import { QuestionCircleOutlined } from '@ant-design/icons'
-import {
-  Button,
-  Card,
-  Divider,
-  Form,
-  Input,
-  Space,
-  Tooltip,
-  Typography,
-} from 'antd'
+import { Card, Divider, Form, Input, Space, Tooltip, Typography } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
 import { copy } from '@/messages/fr'
+import { Button } from '@/components/Button/Button'
 
 const SPELLBOOK_MAX = 6
 

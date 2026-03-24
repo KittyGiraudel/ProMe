@@ -2,15 +2,7 @@
 
 import { RedoOutlined } from '@ant-design/icons'
 import { useMemo, type ReactNode } from 'react'
-import {
-  Button,
-  Card,
-  Descriptions,
-  Empty,
-  Select,
-  Tooltip,
-  Typography,
-} from 'antd'
+import { Card, Descriptions, Empty, Select, Tooltip, Typography } from 'antd'
 import { lookupName } from '@/lib/inhabitant/data/namesByFaction'
 import {
   type InhabitantRerollPart,
@@ -39,6 +31,7 @@ import { DiceFaces } from '@/components/DiceFaces/DiceFaces'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { RichText } from '@/components/RichText/RichText'
 import { copy } from '@/messages/fr'
+import { Button } from '@/components/Button/Button'
 import './InhabitantSummary.css'
 
 /** Wider popup than the trigger + full option labels (antd defaults ellipsis). */

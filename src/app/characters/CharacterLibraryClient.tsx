@@ -1,12 +1,13 @@
 'use client'
 
-import { App, Button, Card, Empty, Popconfirm, Space, Typography } from 'antd'
+import { App, Card, Empty, Popconfirm, Space, Typography } from 'antd'
 import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react'
 import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { getCharacterStore } from '@/lib/character/store'
 import type { Character } from '@/lib/character/types'
 import { copy } from '@/messages/fr'
+import { Button } from '@/components/Button/Button'
 
 export function CharacterLibraryClient() {
   const { message } = App.useApp()

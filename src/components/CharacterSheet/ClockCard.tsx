@@ -1,17 +1,7 @@
 'use client'
 
 import { QuestionCircleOutlined } from '@ant-design/icons'
-import {
-  App,
-  Button,
-  Card,
-  Form,
-  Input,
-  Popover,
-  Space,
-  Tag,
-  Typography,
-} from 'antd'
+import { App, Card, Form, Input, Popover, Space, Tag, Typography } from 'antd'
 import {
   computeClockSegmentsPerHalfFromStamina,
   computeClockTotalSegmentsFromStamina,
@@ -19,6 +9,7 @@ import {
 import { ClockDisplay } from '@/components/ClockDisplay/ClockDisplay'
 import type { StatPool } from '@/lib/character/types'
 import { copy } from '@/messages/fr'
+import { Button } from '@/components/Button/Button'
 
 export function ClockCard() {
   const { notification } = App.useApp()

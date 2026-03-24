@@ -3,7 +3,6 @@
 import { QuestionCircleOutlined, RedoOutlined } from '@ant-design/icons'
 import {
   App,
-  Button,
   Card,
   Col,
   Divider,
@@ -15,6 +14,7 @@ import {
   Typography,
 } from 'antd'
 import { copy } from '@/messages/fr'
+import { Button } from '@/components/Button/Button'
 
 type PoolKey = 'health' | 'courage' | 'stamina'
 type ResourceKey = 'honor' | 'inspiration' | 'money'

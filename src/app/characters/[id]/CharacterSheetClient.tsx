@@ -3,7 +3,6 @@
 import {
   Alert,
   App,
-  Button,
   ConfigProvider,
   Divider,
   Form,
@@ -43,6 +42,7 @@ import { MapCard } from '@/components/CharacterSheet/MapCard'
 import { InventoryCard } from '@/components/CharacterSheet/InventoryCard'
 import { SpellbookCard } from '@/components/CharacterSheet/SpellbookCard'
 import { NotesCard } from '@/components/CharacterSheet/NotesCard'
+import { Button } from '@/components/Button/Button'
 
 const CHARACTER_SHEET_NIGHT_THEME = {
   algorithm: antdTheme.darkAlgorithm,

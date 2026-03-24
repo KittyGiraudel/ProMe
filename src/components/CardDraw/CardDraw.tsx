@@ -1,9 +1,10 @@
-import { randomCard, rollD6 } from '@/lib/rng'
+import { randomCard } from '@/lib/rng'
 import { copy } from '@/messages/fr'
-import { Button, Card, Empty } from 'antd'
+import { Card, Empty } from 'antd'
 import { useEffect, useRef, useState } from 'react'
 import { PlayingCardLabel } from '../PlayingCardLabel/PlayingCardLabel'
 import { PlayingCard } from '@/lib/types'
+import { Button } from '@/components/Button/Button'
 import './CardDraw.css'
 
 export function CardDraw() {

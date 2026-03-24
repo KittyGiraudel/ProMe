@@ -1,8 +1,9 @@
 import { rollD6 } from '@/lib/rng'
 import { copy } from '@/messages/fr'
-import { Button, Card, Empty } from 'antd'
+import { Card, Empty } from 'antd'
 import { useEffect, useRef, useState } from 'react'
 import { DiceFaces } from '../DiceFaces/DiceFaces'
+import { Button } from '@/components/Button/Button'
 import './DiceRoll.css'
 
 export function DiceRoll() {

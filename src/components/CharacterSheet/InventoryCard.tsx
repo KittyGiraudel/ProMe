@@ -2,7 +2,6 @@
 
 import { QuestionCircleOutlined } from '@ant-design/icons'
 import {
-  Button,
   Card,
   Divider,
   Form,
@@ -14,6 +13,7 @@ import {
 } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
 import { copy } from '@/messages/fr'
+import { Button } from '@/components/Button/Button'
 
 export function InventoryCard({
   fields,

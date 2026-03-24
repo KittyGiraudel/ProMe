@@ -1,13 +1,13 @@
 'use client'
 
-import { Button, Form, Space } from 'antd'
+import { Form, Space } from 'antd'
 import type { Archetype } from '@/lib/character/types'
 import type { Gender } from '@/lib/types'
 import { Layout } from '@/components/Layout/Layout'
 import { IdentityCard } from '@/components/CharacterSheet/IdentityCard'
-import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { copy } from '@/messages/fr'
 import { useCharacterCreate } from './useCharacterCreate'
+import { Button } from '@/components/Button/Button'
 
 type CharacterCreateFormValues = {
   name: string

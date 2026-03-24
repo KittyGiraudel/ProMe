@@ -1,6 +1,6 @@
 'use client'
 
-import { App, Button, Card, Form, Space, Tag } from 'antd'
+import { App, Card, Form, Space, Tag } from 'antd'
 import { InfoCircleFilled } from '@ant-design/icons'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { MapDisplay } from '@/components/MapDisplay/MapDisplay'
@@ -22,6 +22,7 @@ import { DEFAULT_MAP_POSITION } from '@/lib/character/model'
 import { getRandomBiomeResult } from '@/lib/map/randomBiome'
 import { moveWithAutoBiome } from '@/lib/map/movement'
 import { MapFormValueAnchor } from './MapFormValueAnchor'
+import { Button } from '@/components/Button/Button'
 
 function normalizeMapState(
   value: CharacterMapState | undefined

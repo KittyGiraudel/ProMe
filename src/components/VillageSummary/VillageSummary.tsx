@@ -2,7 +2,7 @@
 
 import { RedoOutlined } from '@ant-design/icons'
 import { useMemo, useState } from 'react'
-import { Button, Card, Checkbox, Empty, Tooltip, Typography } from 'antd'
+import { Card, Checkbox, Empty, Tooltip, Typography } from 'antd'
 import { encodePlayingCard } from '@/lib/codec/cards'
 import type { PlayingCard } from '@/lib/types'
 import { suitIsRed } from '@/lib/suitGlyphs'
@@ -23,6 +23,7 @@ import { RichText } from '@/components/RichText/RichText'
 import { copy } from '@/messages/fr'
 import { formatVillageRulebookPagesJoined } from '@/messages/formatCopy'
 import { VillageEstablishmentLine } from './VillageEstablishmentLine'
+import { Button } from '@/components/Button/Button'
 import './VillageSummary.css'
 
 type VillageSummaryProps = {
