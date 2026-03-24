@@ -265,7 +265,7 @@ export const copy = {
       biomeName: string,
       additionalTilesToMark: number
     ): string {
-      return `Vous découvrez ${biomeName}. Marquez ${additionalTilesToMark} cases adjacentes du même biome (${biomeName}).`
+      return `Vous découvrez ${biomeName}. Marquez ${additionalTilesToMark} case${additionalTilesToMark > 1 ? 's' : ''} adjacente${additionalTilesToMark > 1 ? 's' : ''} du même biome (${biomeName}).`
     },
   },
   genders: {

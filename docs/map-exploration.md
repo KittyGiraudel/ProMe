@@ -7,6 +7,7 @@ This document covers the map interaction behavior used in the character sheet ma
 - **Select tile**: left click toggles tile selection.
 - **Context menu**: right click opens the tile context menu.
 - **Quick move**: double-click moves to that tile when it is adjacent to the current position.
+- **Auto-discovery on move**: moving to an adjacent unexplored tile automatically rolls and assigns a random biome (except the Core tile).
 - **Selection guard**: map cells disable text selection to avoid accidental highlight artifacts while navigating.
 
 ## Context menu groups
@@ -37,6 +38,8 @@ After rolling from the tile menu:
 - the tile is assigned the rolled biome immediately
 - a notification explains which biome was discovered
 - the notification includes guidance about how many additional tiles must be marked for that biome shape
+
+The same roll + notification behavior also runs automatically when movement enters an adjacent unexplored tile.
 
 Implementation is centralized in `src/lib/map/randomBiome.ts`, with:
 

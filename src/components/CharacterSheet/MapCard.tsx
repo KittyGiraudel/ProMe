@@ -5,7 +5,6 @@ import { InfoCircleFilled } from '@ant-design/icons'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { MapDisplay } from '@/components/MapDisplay/MapDisplay'
 import {
-  areHexNeighbors,
   toHexKey,
   getDisplayedCellLabel,
   getSheetCoordinate,
@@ -21,6 +20,7 @@ import {
 import { copy } from '@/messages/fr'
 import { DEFAULT_MAP_POSITION } from '@/lib/character/model'
 import { getRandomBiomeResult } from '@/lib/map/randomBiome'
+import { moveWithAutoBiome } from '@/lib/map/movement'
 import { MapFormValueAnchor } from './MapFormValueAnchor'
 
 function normalizeMapState(
@@ -150,10 +150,30 @@ export function MapCard() {
   }
 
   const moveToCell = (target: HexCoordinate) => {
+    let discoveredBiome: ReturnType<typeof getRandomBiomeResult> | undefined
     updateMap(current => {
-      if (!areHexNeighbors(current.currentPosition, target)) return current
-      return { ...current, currentPosition: target }
+      const result = moveWithAutoBiome(current, target)
+      discoveredBiome = result.discoveredBiome
+      return result.next
     })
+    if (discoveredBiome) {
+      const biomeName = copy.characters.mapBiomes[discoveredBiome.biome]
+      notification.info({
+        icon: (
+          <span
+            className='Map__NotificationIcon'
+            data-biome={discoveredBiome.biome}>
+            <InfoCircleFilled />
+          </span>
+        ),
+        message: copy.characters.mapRandomBiomeDiscoveredTitle,
+        description: copy.characters.mapRandomBiomeDiscoveredDescription(
+          biomeName,
+          discoveredBiome.additionalTilesToMark
+        ),
+        placement: 'bottomRight',
+      })
+    }
   }
 
   const sheetForCurrentPosition = getSheetCoordinate(mapState.currentPosition)
