@@ -80,22 +80,33 @@ export function JournalEntry({
       </div>
 
       {editing ? (
-        <Form.Item
-          name={[field.name, 'content']}
-          label={copy.characters.journalEntryContentLabel}
-          style={{ marginBottom: 0 }}
-          className='journal__entry-editor'>
-          <Input.TextArea
-            rows={8}
-            placeholder={copy.characters.journalEntryContentPlaceholder}
-            onChange={() => {
-              form.setFieldValue(
-                ['journalEntries', field.name, 'updatedAt'],
-                new Date().toISOString()
-              )
-            }}
-          />
-        </Form.Item>
+        <>
+          <Form.Item
+            name={[field.name, 'content']}
+            label={copy.characters.journalEntryContentLabel}
+            style={{ marginBottom: 0 }}
+            className='journal__entry-editor'>
+            <Input.TextArea
+              rows={8}
+              placeholder={copy.characters.journalEntryContentPlaceholder}
+              onChange={() => {
+                form.setFieldValue(
+                  ['journalEntries', field.name, 'updatedAt'],
+                  new Date().toISOString()
+                )
+              }}
+            />
+          </Form.Item>
+          <div className='journal__entry-symbols'>
+            <Typography.Text type='secondary'>
+              {copy.characters.journalSymbols}{' '}
+              <span style={{ transform: 'scale(1.2)' }}>⚀ ⚁ ⚂ ⚃ ⚄ ⚅</span>
+              <span>♠ ♥ ♦ ♣</span>
+              <span style={{ transform: 'scale(0.8)' }}>☼ ☾</span>
+              <span>« »</span>
+            </Typography.Text>
+          </div>
+        </>
       ) : (
         <>
           {hasContent ? (
