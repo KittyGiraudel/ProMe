@@ -44,3 +44,11 @@ export function toFormValues(pc: Character): SheetFormValues {
     journalEntries: pc.journalEntries,
   }
 }
+
+/** Compares live form values to the last saved character (for guards; not tied to Ant Design "touched"). */
+export function sheetFormMatchesSavedCharacter(
+  values: SheetFormValues,
+  saved: Character
+): boolean {
+  return JSON.stringify(values) === JSON.stringify(toFormValues(saved))
+}

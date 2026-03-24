@@ -7,6 +7,7 @@ import { createCharacterFromIdentity } from '@/lib/character/createFromIdentity'
 import { getCharacterStore } from '@/lib/character/store'
 import type { Archetype } from '@/lib/character/types'
 import type { Gender } from '@/lib/types'
+import { characterSheetTabHref } from '@/app/characters/[id]/characterSheetRoutes'
 import { copy } from '@/messages/fr'
 
 export type CharacterCreateValues = {
@@ -36,7 +37,7 @@ export function useCharacterCreate() {
     )
     const saved = store.save(created)
     message.success(copy.characters.createSuccess)
-    router.push(`/characters/${saved.id}`)
+    router.push(characterSheetTabHref(saved.id, 'identity'))
   }
 
   return { handleCreate }

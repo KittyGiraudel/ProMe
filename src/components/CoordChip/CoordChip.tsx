@@ -1,7 +1,8 @@
 import type { BiomeId, HexCoordinate } from '@/lib/character/types'
-import { getMapCellHash } from '@/lib/map/hashTargets'
+import { getDisplayedCellHash } from '@/lib/map/hashTargets'
 import { BiomeBubble } from '../BiomeBubble/BiomeBubble'
 import './CoordChip.css'
+import Link from 'next/link'
 
 export function CoordChip({
   biome,
@@ -12,14 +13,13 @@ export function CoordChip({
   value: string
   coord?: HexCoordinate
 }) {
-  const isInteractive = Boolean(coord)
-
-  if (isInteractive && coord) {
+  if (coord) {
+    const fragment = getDisplayedCellHash(coord)
     return (
-      <a className='coord-chip coord-chip--link' href={getMapCellHash(coord)}>
+      <Link className='coord-chip coord-chip--link' href={'./map' + fragment}>
         <BiomeBubble biome={biome} />
         <span className='coord-chip__label'>{value}</span>
-      </a>
+      </Link>
     )
   }
 

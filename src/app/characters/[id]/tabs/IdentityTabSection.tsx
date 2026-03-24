@@ -5,14 +5,16 @@ import { IdentityCard } from '@/components/CharacterSheet/IdentityCard'
 import { CharacteristicsCard } from '@/components/CharacterSheet/CharacteristicsCard'
 import { copy } from '@/messages/fr'
 import { Button } from '@/components/Button/Button'
+import { useCharacterContext } from '@/components/CharacterSheet/CharacterContext'
+import { useMemo } from 'react'
 
-export function IdentityStatsTabSection({
-  isDead,
-  onMarkAsDead,
-}: {
-  isDead: boolean
-  onMarkAsDead: () => void
-}) {
+export function IdentityTabSection() {
+  const { getCharacterValue, onMarkAsDead } = useCharacterContext()
+  const isDead = useMemo(
+    () => getCharacterValue('lifeStatus') === 'dead',
+    [getCharacterValue]
+  )
+
   return (
     <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
       <IdentityCard isArchetypeReadonly />

@@ -10,28 +10,8 @@ import './HomeHub.css'
 import { DiceRoll } from '../DiceRoll/DiceRoll'
 import { CardDraw } from '../CardDraw/CardDraw'
 import { Layout } from '../Layout/Layout'
+import { characterSheetTabHref } from '@/app/characters/[id]/characterSheetRoutes'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
-
-const generators = [
-  {
-    href: '/generators/inhabitant',
-    title: copy.hub.inhabitantCardTitle,
-    description: copy.hub.inhabitantCardDescription,
-  },
-  {
-    href: '/generators/village',
-    title: copy.hub.villageCardTitle,
-    description: copy.hub.villageCardDescription,
-  },
-] as const
-
-const managers = [
-  {
-    href: '/characters',
-    title: copy.hub.characterCardTitle,
-    description: copy.hub.characterCardDescription,
-  },
-] as const
 
 const CharacterManager = () => {
   const store = useMemo(() => getCharacterStore(), [])
@@ -62,7 +42,7 @@ const CharacterManager = () => {
           <Col span={8} key={character.id}>
             <BlockedLink
               key={character.id}
-              href={`/characters/${character.id}`}
+              href={characterSheetTabHref(character.id, 'identity')}
               className='home-hub__recent-link'>
               <Card
                 size='small'

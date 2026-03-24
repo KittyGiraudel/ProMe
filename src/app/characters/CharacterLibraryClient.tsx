@@ -9,6 +9,7 @@ import type { Character } from '@/lib/character/types'
 import { copy } from '@/messages/fr'
 import { Button } from '@/components/Button/Button'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
+import { characterSheetTabHref } from '@/app/characters/[id]/characterSheetRoutes'
 import { useCharacterLibraryActions } from './useCharacterLibraryActions'
 
 export function CharacterLibraryClient() {
@@ -84,7 +85,8 @@ export function CharacterLibraryClient() {
                 }
                 extra={
                   <Space>
-                    <BlockedLink href={`/characters/${character.id}`}>
+                    <BlockedLink
+                      href={characterSheetTabHref(character.id, 'identity')}>
                       {copy.characters.open}
                     </BlockedLink>
                     <Popconfirm

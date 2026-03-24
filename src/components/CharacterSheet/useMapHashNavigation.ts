@@ -3,17 +3,20 @@
 import { useEffect, useRef, useState } from 'react'
 import type { RefObject } from 'react'
 import type { HexCoordinate } from '@/lib/character/types'
-import { getSheetCoordinate, isSameHex, type SheetCoordinate } from '@/lib/hex/coordinates'
 import {
-  getMapCellHash,
-  getMapCellId,
+  formatDisplayedCellReference,
+  getSheetCoordinate,
+  isSameHex,
+  type SheetCoordinate,
+} from '@/lib/hex/coordinates'
+import {
+  getDisplayedCellHash,
   parseMapCellHash,
 } from '@/lib/map/hashTargets'
 
 /**
  * Keeps map selection/sheet state synchronized with location hash targets
- * like `#map-E13` or `#map-E13@1,-2`, and reveals the target cell once the
- * corresponding sheet is rendered.
+ * like `#E13`, and reveals the target cell once the corresponding sheet is rendered.
  */
 export function useMapHashNavigation({
   selectedCell,
@@ -45,7 +48,7 @@ export function useMapHashNavigation({
       return
     }
 
-    const normalizedHash = getMapCellHash(target)
+    const normalizedHash = getDisplayedCellHash(target)
     const targetSheet = getSheetCoordinate(target)
     const alreadySelected = selectedCell ? isSameHex(selectedCell, target) : false
     const alreadyVisible =
@@ -61,7 +64,9 @@ export function useMapHashNavigation({
 
     if (lastHandledHashRef.current === normalizedHash) return
 
-    const targetEl = document.getElementById(getMapCellId(target))
+    const targetEl = document.getElementById(
+      formatDisplayedCellReference(target)
+    )
     if (!targetEl) return
 
     if (window.location.hash !== normalizedHash) {

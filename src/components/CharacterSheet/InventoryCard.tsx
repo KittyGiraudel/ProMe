@@ -15,19 +15,19 @@ import {
 import type { FormListFieldData } from 'antd/es/form'
 import { copy } from '@/messages/fr'
 import { Button } from '@/components/Button/Button'
+import { useInventoryLimit } from '@/app/characters/[id]/useInventoryLimit'
 
 export function InventoryCard({
   fields,
-  inventoryLimit,
   onAddItem,
   onRemoveItem,
 }: {
   fields: FormListFieldData[]
-  inventoryLimit: number
   onAddItem: () => void
   onRemoveItem: (index: number | number[]) => void
 }) {
   const { componentDisabled } = ConfigProvider.useConfig()
+  const inventoryLimit = useInventoryLimit()
   const atCap = inventoryLimit > 0 && fields.length >= inventoryLimit
   const cannotAdd = inventoryLimit <= 0 || atCap
 

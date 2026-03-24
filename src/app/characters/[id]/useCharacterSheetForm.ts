@@ -6,7 +6,7 @@ import { useUnsavedChangesGuard } from '@/hooks/useUnsavedChangesGuard'
 import { getCharacterStore } from '@/lib/character/store'
 import type { Character } from '@/lib/character/types'
 import { copy } from '@/messages/fr'
-import type { SheetFormValues } from './characterSheetForm'
+import { sheetFormMatchesSavedCharacter, type SheetFormValues } from './characterSheetForm'
 
 export function useCharacterSheetForm({ characterId }: { characterId: string }) {
   const { modal } = App.useApp()
@@ -25,7 +25,6 @@ export function useCharacterSheetForm({ characterId }: { characterId: string }) 
     })
   }, [characterId])
 
-  const isFormDirty = useCallback(() => form.isFieldsTouched(), [form])
   const confirmUnsavedLeave = useCallback(
     ({ onLeave, onStay }: { onLeave: () => void; onStay: () => void }) => {
       modal.confirm({
@@ -39,6 +38,13 @@ export function useCharacterSheetForm({ characterId }: { characterId: string }) 
     },
     [modal]
   )
+
+  const isFormDirty = useCallback(() => {
+    if (!character) return false
+    if (form.isFieldsTouched()) return true
+    const values = form.getFieldsValue(true) as SheetFormValues
+    return !sheetFormMatchesSavedCharacter(values, character)
+  }, [character, form])
 
   useUnsavedChangesGuard({
     isDirty: isFormDirty,

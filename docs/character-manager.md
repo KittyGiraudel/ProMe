@@ -65,7 +65,7 @@ The UI also mirrors caps (inventory add button disabled at current computed limi
 
 ### 2.5 Editing mode
 
-`CharacterSheetClient` loads state in this order:
+`CharacterSheetShell` loads state in this order:
 
 1. saved character by route id (`store.get`)
 2. none (not found state)
@@ -88,8 +88,9 @@ flowchart LR
   subgraph app
     listPage["characters/page.tsx"]
     listClient["CharacterLibraryClient.tsx"]
-    sheetPage["characters/[id]/page.tsx"]
-    sheetClient["CharacterSheetClient.tsx"]
+    sheetLayout["characters/[id]/layout.tsx"]
+    sheetTabPages["characters/[id]/*/page.tsx"]
+    sheetClient["CharacterSheetShell.tsx"]
     navCtx["NavigationBlockerContext.tsx"]
     blocked["BlockedLink.tsx"]
   end
@@ -108,7 +109,8 @@ flowchart LR
     notes["CharacterSheet/NotesCard.tsx"]
   end
   listPage --> listClient
-  sheetPage --> sheetClient
+  sheetLayout --> sheetClient
+  sheetTabPages --> sheetClient
   listClient --> storeIdx
   listClient --> model
   sheetClient --> storeIdx
@@ -126,19 +128,19 @@ flowchart LR
   model --> types
 ```
 
-| Path                                               | Role                                                                          |
-| -------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `src/lib/character/types.ts`                       | Core types (`character`, `StatPool`, `InventoryItem`, import result/mode)     |
-| `src/lib/character/model.ts`                       | Defaults, normalization, id generation, validation, inventory cap computation |
-| `src/lib/character/lifeStatus.ts`                  | Life status normalization and dead-freeze update rules                        |
-| `src/lib/character/store/localStorageStore.ts`     | CRUD + import/export against `localStorage`                                   |
-| `src/lib/character/store/migrations.ts`            | JSON parse/stringify envelope + merge strategy for imports                    |
-| `src/lib/character/store/index.ts`                 | In-memory singleton accessor `getCharacterStore()`                            |
-| `src/app/characters/CharacterLibraryClient.tsx`    | Library list, create, delete, import, export, open sheet                      |
-| `src/app/characters/[id]/CharacterSheetClient.tsx` | Sheet load/edit/save, draft handling, unsaved navigation guard                |
-| `src/components/CharacterSheet/*.tsx`              | Form sub-sections: identity, characteristics, inventory, spellbook, journal   |
-| `src/components/Navigation/BlockedLink.tsx`        | Link wrapper that consults navigation blocker handler                         |
-| `src/app/contexts/NavigationBlockerContext.tsx`    | Shared blocker handler context                                                |
+| Path                                              | Role                                                                          |
+| ------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `src/lib/character/types.ts`                      | Core types (`character`, `StatPool`, `InventoryItem`, import result/mode)     |
+| `src/lib/character/model.ts`                      | Defaults, normalization, id generation, validation, inventory cap computation |
+| `src/lib/character/lifeStatus.ts`                 | Life status normalization and dead-freeze update rules                        |
+| `src/lib/character/store/localStorageStore.ts`    | CRUD + import/export against `localStorage`                                   |
+| `src/lib/character/store/migrations.ts`           | JSON parse/stringify envelope + merge strategy for imports                    |
+| `src/lib/character/store/index.ts`                | In-memory singleton accessor `getCharacterStore()`                            |
+| `src/app/characters/CharacterLibraryClient.tsx`   | Library list, create, delete, import, export, open sheet                      |
+| `src/app/characters/[id]/CharacterSheetShell.tsx` | Sheet load/edit/save, draft handling, unsaved navigation guard                |
+| `src/components/CharacterSheet/*.tsx`             | Form sub-sections: identity, characteristics, inventory, spellbook, journal   |
+| `src/components/Navigation/BlockedLink.tsx`       | Link wrapper that consults navigation blocker handler                         |
+| `src/app/contexts/NavigationBlockerContext.tsx`   | Shared blocker handler context                                                |
 
 ### 3.2 Creation and first edit flow
 
@@ -156,7 +158,7 @@ On `/characters/new` submit:
 
 ### 3.3 Save flow
 
-`handleFinish` in `CharacterSheetClient`:
+`handleFinish` in `CharacterSheetShell`:
 
 1. Merge current form values into the loaded character object.
 2. Call `store.save(payload)`.
@@ -208,7 +210,7 @@ The sheet blocks accidental navigation when form fields are dirty:
 - **Browser close/refresh**: `beforeunload` prompt when touched and interception is armed.
 - **Back/forward (`popstate`)**: if user cancels leave, URL is restored to a stable snapshot.
 
-Important details in `CharacterSheetClient`:
+Important details in `CharacterSheetShell`:
 
 - Interception is delayed until after initial form settle (`setTimeout(..., 0)`) to avoid prompts during hydration/setup.
 - `leaveConfirmingRef` prevents stacked modals.
@@ -220,8 +222,8 @@ Important details in `CharacterSheetClient`:
 
 Saved mode sheet sections are grouped in cosmetic tabs over one shared form state:
 
-- `Identity/Stats`: `IdentityCard`, `CharacteristicsCard`.
-- `Cartography`: `ClockCard`, `MapCard`.
+- `Identity`: `IdentityCard`, `CharacteristicsCard`.
+- `Map`: `ClockCard`, `MapCard`.
 - `Inventory/Spellbook`: `InventoryCard`, `SpellbookCard`.
 - `Journal`: `NotesCard`.
 - `Tools`: `DiceRoll`, `CardDraw`.
@@ -246,7 +248,7 @@ Draft mode currently renders only `IdentityCard` plus cancel/save actions.
 1. **Adding fields to `character`**
    - update `types.ts`,
    - update defaults + normalization in `model.ts`,
-   - update `SheetFormValues`, `toFormValues`, and save merge path in `CharacterSheetClient`,
+   - update `SheetFormValues`, `toFormValues`, and save merge path in `CharacterSheetShell`,
    - update relevant section components and copy strings.
 2. **Schema/version changes**
    - bump storage keys or add migration support in `migrations.ts`,
@@ -271,7 +273,7 @@ Draft mode currently renders only `IdentityCard` plus cancel/save actions.
 | Question                                       | Where to look                                      |
 | ---------------------------------------------- | -------------------------------------------------- |
 | How are default character values chosen?       | `createDefaultcharacterInput` in `model.ts`        |
-| Why does archetype change reset pools?         | Archetype watcher effect in `CharacterSheetClient` |
+| Why does archetype change reset pools?         | Archetype watcher effect in `CharacterSheetShell`  |
 | Why can inventory save fail?                   | `validatecharacterForPersistence`                  |
 | Where is local persistence implemented?        | `store/localStorageStore.ts`                       |
 | What JSON shape does import/export use?        | `store/migrations.ts`                              |

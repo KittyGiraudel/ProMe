@@ -10,13 +10,13 @@ import {
   MAP_ROWS,
   areHexNeighbors,
   colLabelFromIndex,
+  formatDisplayedCellReference,
   getDisplayedCellLabel,
   getGlobalFromSheetCell,
   rowLabelFromIndex,
   toHexKey,
   type SheetCoordinate,
 } from '@/lib/hex/coordinates'
-import { getMapCellId } from '@/lib/map/hashTargets'
 import './MapDisplay.css'
 import React from 'react'
 import { MapCellContextMenu } from './MapCellContextMenu'
@@ -93,7 +93,7 @@ export function MapDisplay({
               return (
                 <div
                   key={localLabel}
-                  id={getMapCellId(global)}
+                  id={formatDisplayedCellReference(global)}
                   className='Map__Hex'
                   data-q={global.q}
                   data-r={global.r}

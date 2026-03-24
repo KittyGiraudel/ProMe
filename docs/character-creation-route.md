@@ -17,7 +17,7 @@ Keep character creation simple and isolated from full sheet editing:
 - `src/app/characters/CharacterLibraryClient.tsx` now sends "Créer un personnage" to `/characters/new`.
 - `src/app/characters/new/page.tsx` renders `CharacterCreateClient`.
 - `src/app/characters/new/CharacterCreateClient.tsx` owns the minimal creation form.
-- `src/app/characters/[id]/CharacterSheetClient.tsx` is now edit-only.
+- `src/app/characters/[id]/CharacterSheetShell.tsx` is now edit-only.
 
 ## Create form contract
 

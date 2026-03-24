@@ -9,7 +9,7 @@ import {
 
 export function useCharacterSheetFormSync({
   form,
-  sheetCharacterId,
+  characterId,
   watchedClock,
   clockTotalSegments,
   healthCurrent,
@@ -20,7 +20,7 @@ export function useCharacterSheetFormSync({
   staminaMax,
 }: {
   form: FormInstance
-  sheetCharacterId: string | undefined
+  characterId: string | undefined
   watchedClock: number
   clockTotalSegments: number
   healthCurrent: number | undefined
@@ -33,17 +33,17 @@ export function useCharacterSheetFormSync({
   const prevClockTotalSegmentsRef = useRef<number | null>(null)
 
   useEffect(() => {
-    if (!sheetCharacterId) return
+    if (!characterId) return
     const currentStamina = form.getFieldValue(['stamina', 'current']) as
       | number
       | undefined
     prevClockTotalSegmentsRef.current = computeClockTotalSegmentsFromStamina(
       currentStamina ?? 0
     )
-  }, [sheetCharacterId, form])
+  }, [characterId, form])
 
   useEffect(() => {
-    if (!sheetCharacterId) return
+    if (!characterId) return
     const previous = prevClockTotalSegmentsRef.current
     if (previous === null) {
       prevClockTotalSegmentsRef.current = clockTotalSegments
@@ -57,7 +57,7 @@ export function useCharacterSheetFormSync({
     )
     form.setFieldValue('clock', remapped)
     prevClockTotalSegmentsRef.current = clockTotalSegments
-  }, [sheetCharacterId, clockTotalSegments, watchedClock, form])
+  }, [characterId, clockTotalSegments, watchedClock, form])
 
   useEffect(() => {
     if (healthCurrent == null || healthMax == null) return

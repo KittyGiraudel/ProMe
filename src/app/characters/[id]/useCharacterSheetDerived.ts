@@ -31,8 +31,6 @@ export function useCharacterSheetDerived({
   const watchedCourage =
     watchedCourageRaw ?? character?.courage ?? FALLBACK_STAT_POOL
 
-  const inventoryCap = Math.max(0, watchedStamina.current) * 6
-  const inventoryLimit = Math.min(30, inventoryCap)
   const clockTotalSegments = computeClockTotalSegmentsFromStamina(
     watchedStamina.current
   )
@@ -42,7 +40,6 @@ export function useCharacterSheetDerived({
     watchedHealth,
     watchedCourage,
     watchedStamina,
-    inventoryLimit,
     clockTotalSegments,
     healthCurrent: watchedHealth.current,
     healthMax: watchedHealth.max,

@@ -1,8 +1,7 @@
 'use client'
 
-import { Alert, ConfigProvider, Divider, Form, Space, Tabs } from 'antd'
-import { useEffect, useMemo } from 'react'
-import type { TabsProps } from 'antd'
+import { Alert, ConfigProvider, Form, Space } from 'antd'
+import { useMemo, type ReactNode } from 'react'
 import { Layout } from '@/components/Layout/Layout'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
 import { copy } from '@/messages/fr'
@@ -11,23 +10,22 @@ import { CharacterProvider } from '@/components/CharacterSheet/CharacterContext'
 import { toFormValues } from './characterSheetForm'
 import { useCharacterSheetDerived } from './useCharacterSheetDerived'
 import { CharacterSheetEmptyState } from './CharacterSheetEmptyState'
+import { useCharacterSheetDocumentTitle } from './useCharacterSheetDocumentTitle'
 import { useCharacterSheetForm } from './useCharacterSheetForm'
 import { useCharacterSheetFormSync } from './useCharacterSheetFormSync'
 import { useCharacterSheetMainActions } from './useCharacterSheetMainActions'
 import { useCharacterSheetTheme } from './useCharacterSheetTheme'
 import { useCharacterLifeStatusActions } from './useCharacterLifeStatusActions'
-import type { CharacterSheetTabKey } from './characterSheetTabs'
-import { useCharacterSheetActiveTab } from './useCharacterSheetActiveTab'
-import { IdentityStatsTabSection } from './tabs/IdentityStatsTabSection'
-import { CartographyTabSection } from './tabs/CartographyTabSection'
-import { InventorySpellbookTabSection } from './tabs/InventorySpellbookTabSection'
-import { JournalTabSection } from './tabs/JournalTabSection'
-import { ToolsTabSection } from './tabs/ToolsTabSection'
+import { CharacterSheetTabNav } from './CharacterSheetTabNav'
 import { biomeAtCurrentMapPosition } from '@/lib/character/biomeAtCurrentMapPosition'
 
-export function CharacterSheetClient({ characterId }: { characterId: string }) {
-  const { activeTabKey, setActiveTabKey } = useCharacterSheetActiveTab()
-
+export function CharacterSheetShell({
+  characterId,
+  children,
+}: {
+  characterId: string
+  children: ReactNode
+}) {
   const {
     form,
     character,
@@ -37,12 +35,9 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     getCharacterFromForm,
     onSaved,
   } = useCharacterSheetForm({ characterId })
-  const isDead = character ? isCharacterDead(character) : false
 
-  const sheetCharacterId = character?.id
   const {
     watchedClock,
-    inventoryLimit,
     clockTotalSegments,
     healthCurrent,
     healthMax,
@@ -60,7 +55,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
 
   useCharacterSheetFormSync({
     form,
-    sheetCharacterId,
+    characterId,
     watchedClock,
     clockTotalSegments,
     healthCurrent,
@@ -71,27 +66,11 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     staminaMax,
   })
 
-  useEffect(() => {
-    if (!hydratedFromStore) return
-    const brand = copy.metadata.tabBrand
-    if (!character) {
-      document.title = `${copy.characters.notFoundTitle} — ${brand}`
-      return
-    }
-    const displayName = character.name?.trim() || copy.characters.unnamed
-    const tabSuffix =
-      activeTabKey === 'identityStats'
-        ? ''
-        : ` · ${
-            {
-              cartography: copy.characters.tabCartography,
-              inventorySpellbook: copy.characters.tabInventorySpellbook,
-              journal: copy.characters.tabJournal,
-              tools: copy.characters.tabTools,
-            }[activeTabKey]
-          }`
-    document.title = `${displayName}${tabSuffix} — ${brand}`
-  }, [hydratedFromStore, character, activeTabKey])
+  useCharacterSheetDocumentTitle({
+    hydratedFromStore,
+    character,
+    characterId,
+  })
 
   const { handleMarkAsDead, handleRevive } = useCharacterLifeStatusActions({
     getCharacter: getCharacterFromForm,
@@ -117,48 +96,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     return <CharacterSheetEmptyState />
   }
 
-  const tabItems: TabsProps['items'] = [
-    {
-      key: 'identityStats',
-      label: copy.characters.tabIdentityStats,
-      children: (
-        <IdentityStatsTabSection
-          isDead={isDead}
-          onMarkAsDead={handleMarkAsDead}
-        />
-      ),
-      forceRender: true,
-    },
-    {
-      key: 'cartography',
-      label: copy.characters.tabCartography,
-      children: <CartographyTabSection />,
-      forceRender: true,
-    },
-    {
-      key: 'inventorySpellbook',
-      label: copy.characters.tabInventorySpellbook,
-      children: (
-        <InventorySpellbookTabSection
-          isDead={isDead}
-          inventoryLimit={inventoryLimit}
-        />
-      ),
-      forceRender: true,
-    },
-    {
-      key: 'journal',
-      label: copy.characters.tabJournal,
-      children: <JournalTabSection />,
-      forceRender: true,
-    },
-    {
-      key: 'tools',
-      label: copy.characters.tabTools,
-      children: <ToolsTabSection />,
-      forceRender: true,
-    },
-  ]
+  const isDead = character ? isCharacterDead(character) : false
 
   return (
     <Layout
@@ -201,8 +139,9 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
         onFinish={handleSave}
         disabled={isDead}
         layout='vertical'
-        colon={false}>
-        <CharacterProvider form={form}>
+        colon={false}
+        preserve>
+        <CharacterProvider form={form} onMarkAsDead={handleMarkAsDead}>
           <ConfigProvider theme={configTheme}>
             <div
               data-sheet-night={characterSheetNightMode ? 'true' : undefined}>
@@ -221,12 +160,8 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
                   />
                 ) : null}
 
-                <Tabs
-                  activeKey={activeTabKey}
-                  onChange={key => setActiveTabKey(key as CharacterSheetTabKey)}
-                  destroyOnHidden={false}
-                  items={tabItems}
-                />
+                <CharacterSheetTabNav characterId={character.id} />
+                {children}
               </Space>
             </div>
           </ConfigProvider>
