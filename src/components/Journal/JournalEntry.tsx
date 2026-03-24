@@ -90,6 +90,12 @@ export function JournalEntry({
             <Input.TextArea
               rows={8}
               placeholder={copy.characters.journalEntryContentPlaceholder}
+              onKeyDown={e => {
+                if (e.key !== 'Enter') return
+                if (!e.metaKey && !e.ctrlKey) return
+                e.preventDefault()
+                if (!componentDisabled) setEditingMode(field.key, false)
+              }}
               onChange={() => {
                 form.setFieldValue(
                   ['journalEntries', field.name, 'updatedAt'],
