@@ -11,7 +11,6 @@ export function IdentityCard({
   isArchetypeReadonly?: boolean
 }) {
   const watchedArchetype = Form.useWatch('archetype') as Archetype | undefined
-
   const archetypePower = watchedArchetype
     ? copy.characters.archetypePowers[watchedArchetype]
     : null

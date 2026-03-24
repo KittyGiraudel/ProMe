@@ -1,6 +1,6 @@
 # Character manager
 
-This document describes **what** the character manager implements (drafts, saved sheets, constraints, import/export) and **how** it is wired in code (route flow, storage, normalization, navigation blocking). It is meant for maintainers and for AI assistants editing this repo.
+This document describes **what** the character manager implements (creation, saved sheets, constraints, import/export) and **how** it is wired in code (route flow, storage, normalization, navigation blocking). It is meant for maintainers and for AI assistants editing this repo.
 
 Game: _Les Souvenirs du Protecteur_ (LSDP). UI strings live in `src/messages/fr.ts` (`copy.characters`).
 
@@ -12,8 +12,8 @@ Adaptive sheet night-mode preference is now global and documented in `docs/setti
 
 | Area                | In scope                                                                                                     |
 | ------------------- | ------------------------------------------------------------------------------------------------------------ |
-| Character lifecycle | Create draft → edit sheet → save to local library                                                            |
-| Persistence         | Saved characters in **`localStorage`** (`lsdp:characters:v1`), drafts in **`sessionStorage`** per tab        |
+| Character lifecycle | Create on `/characters/new` → persist → edit sheet on `/characters/[id]`                                     |
+| Persistence         | Saved characters in **`localStorage`** (`lsdp:characters:v1`)                                                |
 | Data model          | Typed `character` with archetype, stat pools, inventory, spellbook, notes, metadata timestamps               |
 | Validation          | Domain validation before persistence (money >= 0, pool bounds, inventory/spellbook limits, non-empty labels) |
 | Import/export       | JSON copy/export and file import with upsert/replace semantics in store                                      |
@@ -26,12 +26,10 @@ Out of scope (today): cloud sync, multi-device persistence, server-side storage,
 
 ## 2. Conceptual model
 
-### 2.1 Two persistence tiers
+### 2.1 Persistence tier
 
 - **Saved characters**: canonical list persisted in `localStorage` under `lsdp:characters:v1`.
-- **Draft character**: transient entry persisted in `sessionStorage` under `lsdp:characterDraft:v1:<id>`.
-
-The creation flow intentionally starts in draft mode so a user can cancel without adding anything to the library.
+- Creation starts on `/characters/new` and only persists after explicit submit.
 
 ### 2.2 Character identity and timestamps
 
@@ -64,15 +62,12 @@ When the archetype field changes in the sheet UI, pools are reset to archetype d
 
 The UI also mirrors caps (inventory add button disabled at current computed limit, spellbook add disabled at 6), but store validation is the authoritative guard.
 
-### 2.5 Draft vs saved editing modes
+### 2.5 Editing mode
 
 `CharacterSheetClient` loads state in this order:
 
 1. saved character by route id (`store.get`)
-2. draft by id (`loadDraft`)
-3. none (not found state)
-
-This gives route URLs stable behavior while preserving unsaved newly-created draft sheets.
+2. none (not found state)
 
 ---
 
@@ -93,7 +88,6 @@ flowchart LR
   subgraph domain
     model["character/model.ts"]
     types["character/types.ts"]
-    draft["character/draftStorage.ts"]
     store["character/store/localStorageStore.ts"]
     mig["character/store/migrations.ts"]
     storeIdx["character/store/index.ts"]
@@ -109,9 +103,7 @@ flowchart LR
   sheetPage --> sheetClient
   listClient --> storeIdx
   listClient --> model
-  listClient --> draft
   sheetClient --> storeIdx
-  sheetClient --> draft
   sheetClient --> model
   sheetClient --> navCtx
   blocked --> navCtx
@@ -123,7 +115,6 @@ flowchart LR
   storeIdx --> store
   store --> mig
   store --> model
-  draft --> model
   model --> types
 ```
 
@@ -131,7 +122,6 @@ flowchart LR
 | -------------------------------------------------- | ----------------------------------------------------------------------------- |
 | `src/lib/character/types.ts`                       | Core types (`character`, `StatPool`, `InventoryItem`, import result/mode)     |
 | `src/lib/character/model.ts`                       | Defaults, normalization, id generation, validation, inventory cap computation |
-| `src/lib/character/draftStorage.ts`                | Draft save/load/clear in `sessionStorage`                                     |
 | `src/lib/character/store/localStorageStore.ts`     | CRUD + import/export against `localStorage`                                   |
 | `src/lib/character/store/migrations.ts`            | JSON parse/stringify envelope + merge strategy for imports                    |
 | `src/lib/character/store/index.ts`                 | In-memory singleton accessor `getCharacterStore()`                            |
@@ -145,17 +135,13 @@ flowchart LR
 
 On `/characters`:
 
-1. `handleCreate` builds a default character with `createcharacter()`.
-2. It writes that object to draft storage (`saveDraft`).
-3. It navigates to `/characters/<id>`.
+1. `handleCreate` navigates to `/characters/new`.
 
-On `/characters/<id>` load:
+On `/characters/new` submit:
 
-1. Try persisted store entry.
-2. Else try draft entry.
-3. If in draft mode, UI shows identity-only form with `Annuler` and `Sauvegarder`.
-
-`Annuler` in draft mode clears draft and returns to library.
+1. Build character from minimal identity fields.
+2. Persist with `store.save`.
+3. Navigate to `/characters/<id>`.
 
 ### 3.3 Save flow
 
@@ -164,8 +150,7 @@ On `/characters/<id>` load:
 1. Merge current form values into the loaded character object.
 2. Call `store.save(payload)`.
 3. Store normalizes + validates + touches timestamp.
-4. If mode was draft, clear session draft.
-5. Set local state to saved mode and show success toast.
+4. Set local state and show success toast.
 
 Validation errors are thrown as semicolon-separated messages and surfaced both in a toast and in an error alert block.
 
@@ -243,14 +228,6 @@ Draft mode currently renders only `IdentityCard` plus cancel/save actions.
   - `schemaVersion: 1`
   - `characters: character[]`
 
-### 6.2 Draft (`sessionStorage`)
-
-- key prefix: `lsdp:characterDraft:v1:`
-- full key: `<prefix><characterId>`
-- value: serialized single `character` JSON blob
-
----
-
 ## 7. Extension notes
 
 1. **Adding fields to `character`**
@@ -286,8 +263,8 @@ Draft mode currently renders only `IdentityCard` plus cancel/save actions.
 | Where is local persistence implemented?        | `store/localStorageStore.ts`                       |
 | What JSON shape does import/export use?        | `store/migrations.ts`                              |
 | Why are unsaved-change prompts shown on links? | `BlockedLink` + `NavigationBlockerContext` + sheet |
-| What happens when draft is cancelled?          | `handleCancel` + `clearDraft`                      |
+| Where is character creation handled?           | `/characters/new` + `createFromIdentity`           |
 
 ---
 
-_Last updated to match the character manager revision with draft-vs-saved modes, local/session storage split, import/export JSON, and unsaved navigation interception._
+_Last updated to match dedicated `/characters/new` creation, localStorage persistence, import/export JSON, and unsaved navigation interception in sheet editing._

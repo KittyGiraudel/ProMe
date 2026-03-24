@@ -1,19 +1,15 @@
 'use client'
 
 import { App, Button, Card, Empty, Popconfirm, Space, Typography } from 'antd'
-import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react'
 import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { getCharacterStore } from '@/lib/character/store'
-import { saveDraft } from '@/lib/character/draftStorage'
-import { createCharacter } from '@/lib/character/model'
 import type { Character } from '@/lib/character/types'
 import { copy } from '@/messages/fr'
 
 export function CharacterLibraryClient() {
   const { message } = App.useApp()
-  const router = useRouter()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const store = useMemo(() => getCharacterStore(), [])
   // Keep initial render consistent with the server (no localStorage access on SSR).
@@ -24,12 +20,6 @@ export function CharacterLibraryClient() {
   }, [store])
 
   const refresh = () => setCharacters(store.list())
-
-  const handleCreate = () => {
-    const draft = createCharacter()
-    saveDraft(draft)
-    router.push(`/characters/${draft.id}`)
-  }
 
   const handleDelete = (id: string) => {
     store.delete(id)
@@ -77,7 +67,7 @@ export function CharacterLibraryClient() {
       title={copy.characters.pageTitle}
       description={copy.characters.pageDescription}>
       <Space style={{ marginBottom: 16, flexWrap: 'wrap' }}>
-        <Button type='primary' onClick={handleCreate}>
+        <Button type='primary' href='/characters/new'>
           {copy.characters.create}
         </Button>
         <Button onClick={handleImportClick}>{copy.characters.import}</Button>

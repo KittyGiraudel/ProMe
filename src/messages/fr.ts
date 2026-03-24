@@ -109,6 +109,9 @@ export const copy = {
     pageTitle: "Gestionnaire de personnages",
     pageDescription:
       "Créez et gérez vos personnages jouables. Les fiches sont enregistrées localement dans ce navigateur.",
+    createPageTitle: "Nouveau personnage",
+    createPageDescription:
+      "Renseignez l’identité de base de votre personnage. Vous pourrez compléter la fiche ensuite.",
     sheetTitle: "Fiche personnage",
     sheetDescription:
       "Modifiez les valeurs pendant la partie. Les changements sont sauvegardés localement.",
@@ -119,6 +122,7 @@ export const copy = {
     exportOne: "Copier export JSON",
     open: "Ouvrir",
     save: "Sauvegarder",
+    createSuccess: "Personnage créé.",
     saveSuccess: "Fiche sauvegardée.",
     delete: "Jeter",
     cancel: "Annuler",

@@ -24,7 +24,6 @@ import {
   randomId,
   remapClockPositionForTotalSegments,
 } from '@/lib/character/model'
-import { loadDraft, clearDraft } from '@/lib/character/draftStorage'
 import { getCharacterStore } from '@/lib/character/store'
 import { stringifyCharacters } from '@/lib/character/store/migrations'
 import type {
@@ -77,7 +76,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
 
   const [sheetState, setSheetState] = useState<{
     character: Character | null
-    mode: 'draft' | 'saved' | 'none'
+    mode: 'saved' | 'none'
   }>({ character: null, mode: 'none' })
 
   // Avoid hydration mismatches by deferring localStorage/sessionStorage reads to the client.
@@ -86,12 +85,6 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
       const saved = store.get(characterId)
       if (saved) {
         setSheetState({ character: saved, mode: 'saved' })
-        return
-      }
-
-      const draft = loadDraft(characterId)
-      if (draft) {
-        setSheetState({ character: draft, mode: 'draft' })
         return
       }
 
@@ -179,8 +172,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
   )
   const isClockNight = clockPositionForPhase >= clockSegmentsPerHalf
   const sheetDarkWithClockNightEnabled = settings.sheet.adaptiveNightMode
-  const characterSheetNightMode =
-    isClockNight && sheetDarkWithClockNightEnabled && mode === 'saved'
+  const characterSheetNightMode = isClockNight && sheetDarkWithClockNightEnabled
 
   const prevArchetypeRef = useRef<Archetype | null>(null)
   const prevClockTotalSegmentsRef = useRef<number | null>(null)
@@ -344,30 +336,17 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     return () => window.removeEventListener('popstate', onPopState)
   }, [form, attemptLeave])
 
-  const handleCancel = () => {
-    if (mode !== 'draft') return
-    attemptLeave(() => {
-      clearDraft(characterId)
-      router.push('/characters')
-    })
-  }
-
   const handleFinish = (values: SheetFormValues) => {
     if (!character) return
     setSaveErrors(null)
 
     try {
-      const archetype =
-        mode === 'saved' ? character.archetype : values.archetype
-
       const payload: Character = {
         ...character,
         ...values,
-        archetype,
       }
 
       const saved = store.save(payload)
-      if (mode === 'draft') clearDraft(character.id)
       setSaveErrors(null)
       setSheetState({ character: saved, mode: 'saved' })
       message.success(copy.characters.saveSuccess)
@@ -421,41 +400,6 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
             </Space>
           }
         />
-      </Layout>
-    )
-  }
-
-  if (mode === 'draft') {
-    return (
-      <Layout
-        title={character.name || copy.characters.unnamed}
-        description={copy.characters.sheetDescription}
-        breadcrumbs={[
-          { label: copy.nav.homeLink, href: '/' },
-          { label: copy.characters.pageTitle, href: '/characters' },
-        ]}>
-        <Form
-          key={`${character.id}-${mode}-${character.updatedAt}`}
-          form={form}
-          initialValues={toFormValues(character)}
-          onFinish={handleFinish}
-          layout='vertical'
-          colon={false}>
-          <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
-            {saveErrors ? (
-              <Alert type='error' title={saveErrors.join('; ')} />
-            ) : null}
-            <IdentityCard isArchetypeReadonly={false} />
-            <Space wrap>
-              <Button htmlType='button' onClick={handleCancel}>
-                {copy.characters.cancel}
-              </Button>
-              <Button type='primary' htmlType='submit'>
-                {copy.characters.save}
-              </Button>
-            </Space>
-          </Space>
-        </Form>
       </Layout>
     )
   }
