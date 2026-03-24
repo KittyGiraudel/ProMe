@@ -1,6 +1,6 @@
 'use client'
 
-import { Tag } from 'antd'
+import type { CharacterMapState } from '@/lib/character/types'
 import type { ReactNode } from 'react'
 import { cloneElement, isValidElement } from 'react'
 import type { Components } from 'react-markdown'
@@ -10,13 +10,16 @@ import {
   tokenizeJournalInlineText,
   type JournalInlineTokenRule,
 } from '@/lib/markdown/journalInlineTokens'
+import { buildJournalCoordinateTokenData } from '@/lib/markdown/journalCoordinateTokens'
 import { getInhabitantSummaryFromUrl } from '@/lib/markdown/inhabitantLinkSummary'
 import { BIOME_ROLL_TABLE } from '@/lib/constants/biomeRollTable'
 import { copy } from '@/messages/fr'
 import { DICE, SUITS } from '@/lib/constants/misc'
 import { suitIsRed } from '@/lib/suitGlyphs'
-import { Suit } from '@/lib/types'
+import type { Suit } from '@/lib/types'
 import './JournalMarkdown.css'
+import { BiomeTag } from '../BiomeTag/BiomeTag'
+import { CoordChip } from '../CoordChip/CoordChip'
 
 const BIOME_ENTRIES = BIOME_ROLL_TABLE.map(biome => ({
   label: copy.characters.mapBiomes[biome.biome],
@@ -33,7 +36,7 @@ const DICE_ENTRIES = DICE.map((label, index) => ({
   value: index + 1,
 }))
 
-const TOKEN_RULES: JournalInlineTokenRule[] = [
+const STATIC_TOKEN_RULES: JournalInlineTokenRule[] = [
   ...BIOME_ENTRIES.map(entry => ({
     key: `biome:${entry.biomeId}`,
     match: entry.label,
@@ -134,89 +137,97 @@ const TOKEN_RENDERERS = new Map<
   (value: string, key: string) => ReactNode
 >(TOKEN_RENDERER_ENTRIES)
 
-function renderTokenSegment(
-  tokenKey: string,
-  value: string,
-  key: string
-): ReactNode {
-  const biome = BIOME_BY_TOKEN_KEY.get(tokenKey)
-  if (biome) {
-    return (
-      <Tag
-        key={key}
-        data-biome={biome.biomeId}
-        className='journal-markdown__biome-tag'>
-        {biome.label}
-      </Tag>
+export function JournalMarkdown({
+  markdown,
+  mapState,
+}: {
+  markdown: string
+  mapState?: CharacterMapState | null
+}) {
+  const coordTokenData = buildJournalCoordinateTokenData(mapState)
+  const tokenRules = [...STATIC_TOKEN_RULES, ...coordTokenData.rules]
+
+  const renderTokenSegment = (
+    tokenKey: string,
+    value: string,
+    key: string
+  ): ReactNode => {
+    const biome = BIOME_BY_TOKEN_KEY.get(tokenKey)
+    if (biome) {
+      return <BiomeTag key={key} biome={biome.biomeId} />
+    }
+
+    const coordBiome = coordTokenData.biomeByTokenKey.get(tokenKey)
+    if (coordBiome) {
+      return <CoordChip key={key} biome={coordBiome} value={value} />
+    }
+
+    const renderer = TOKEN_RENDERERS.get(tokenKey)
+    if (!renderer) return value
+    return renderer(value, key)
+  }
+
+  const renderHighlightedText = (text: string): ReactNode => {
+    if (!text) return text
+
+    const segments = tokenizeJournalInlineText(text, tokenRules)
+    const output: ReactNode[] = segments.map((segment, index) => {
+      if (segment.type === 'text') return segment.value
+      return renderTokenSegment(segment.key, segment.value, `token-${index}`)
+    })
+    if (output.length === 1 && output[0] === text) return text
+    return output
+  }
+
+  const renderWithHighlights = (node: ReactNode): ReactNode => {
+    if (typeof node === 'string') return renderHighlightedText(node)
+    if (Array.isArray(node)) return node.map(renderWithHighlights)
+    if (!isValidElement<{ children?: ReactNode }>(node)) return node
+    if (!node.props.children) return node
+
+    return cloneElement(
+      node,
+      undefined,
+      renderWithHighlights(node.props.children)
     )
   }
-  const renderer = TOKEN_RENDERERS.get(tokenKey)
-  if (!renderer) return value
-  return renderer(value, key)
-}
 
-function renderHighlightedText(text: string): ReactNode {
-  if (!text) return text
+  const markdownComponents: Components = {
+    p: ({ children, node: _node, ...props }) => (
+      <p {...props}>{renderWithHighlights(children)}</p>
+    ),
+    li: ({ children, node: _node, ...props }) => (
+      <li {...props}>{renderWithHighlights(children)}</li>
+    ),
+    blockquote: ({ children, node: _node, ...props }) => (
+      <blockquote {...props}>{renderWithHighlights(children)}</blockquote>
+    ),
+    h1: ({ children, node: _node, ...props }) => (
+      <h1 {...props}>{renderWithHighlights(children)}</h1>
+    ),
+    h2: ({ children, node: _node, ...props }) => (
+      <h2 {...props}>{renderWithHighlights(children)}</h2>
+    ),
+    h3: ({ children, node: _node, ...props }) => (
+      <h3 {...props}>{renderWithHighlights(children)}</h3>
+    ),
+    h4: ({ children, node: _node, ...props }) => (
+      <h4 {...props}>{renderWithHighlights(children)}</h4>
+    ),
+    a: ({ children, node: _node, href, ...props }) => {
+      const inhabitantSummary = href ? getInhabitantSummaryFromUrl(href) : null
+      return (
+        <a {...props} href={href}>
+          {inhabitantSummary ?? renderWithHighlights(children)}
+        </a>
+      )
+    },
+  }
 
-  const segments = tokenizeJournalInlineText(text, TOKEN_RULES)
-  const output: ReactNode[] = segments.map((segment, index) => {
-    if (segment.type === 'text') return segment.value
-    return renderTokenSegment(segment.key, segment.value, `token-${index}`)
+  const rendererConfig = createJournalMarkdownRendererConfig({
+    components: markdownComponents,
   })
-  if (output.length === 1 && output[0] === text) return text
-  return output
-}
 
-function renderWithHighlights(node: ReactNode): ReactNode {
-  if (typeof node === 'string') return renderHighlightedText(node)
-  if (Array.isArray(node)) return node.map(renderWithHighlights)
-  if (!isValidElement<{ children?: ReactNode }>(node)) return node
-  if (!node.props.children) return node
-
-  return cloneElement(
-    node,
-    undefined,
-    renderWithHighlights(node.props.children)
-  )
-}
-
-const markdownComponents: Components = {
-  p: ({ children, node: _node, ...props }) => (
-    <p {...props}>{renderWithHighlights(children)}</p>
-  ),
-  li: ({ children, node: _node, ...props }) => (
-    <li {...props}>{renderWithHighlights(children)}</li>
-  ),
-  blockquote: ({ children, node: _node, ...props }) => (
-    <blockquote {...props}>{renderWithHighlights(children)}</blockquote>
-  ),
-  h1: ({ children, node: _node, ...props }) => (
-    <h1 {...props}>{renderWithHighlights(children)}</h1>
-  ),
-  h2: ({ children, node: _node, ...props }) => (
-    <h2 {...props}>{renderWithHighlights(children)}</h2>
-  ),
-  h3: ({ children, node: _node, ...props }) => (
-    <h3 {...props}>{renderWithHighlights(children)}</h3>
-  ),
-  h4: ({ children, node: _node, ...props }) => (
-    <h4 {...props}>{renderWithHighlights(children)}</h4>
-  ),
-  a: ({ children, node: _node, href, ...props }) => {
-    const inhabitantSummary = href ? getInhabitantSummaryFromUrl(href) : null
-    return (
-      <a {...props} href={href}>
-        {inhabitantSummary ?? renderWithHighlights(children)}
-      </a>
-    )
-  },
-}
-
-const rendererConfig = createJournalMarkdownRendererConfig({
-  components: markdownComponents,
-})
-
-export function JournalMarkdown({ markdown }: { markdown: string }) {
   return (
     <div className='journal-markdown'>
       <ReactMarkdown

@@ -1,0 +1,6 @@
+.biome-tag.biome-tag {
+  margin: 0 0.5ch;
+  border-color: var(--biome-dark);
+  background-color: var(--biome-light);
+  color: var(--biome-contrast);
+}

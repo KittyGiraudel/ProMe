@@ -27,6 +27,7 @@
 
 .journal-markdown h1 {
   font-size: 1.5em;
+  vertical-align: middle;
 }
 
 .journal-markdown h1,
@@ -65,13 +66,6 @@
 .journal-markdown a {
   color: var(--ant-colorLink);
   text-decoration: underline;
-}
-
-.journal-markdown__biome-tag {
-  margin: 0 0.5ch;
-  border-color: var(--biome-dark) !important;
-  background-color: var(--biome-light) !important;
-  color: var(--biome-contrast) !important;
 }
 
 .journal-markdown span[style] {
