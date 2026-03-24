@@ -138,6 +138,7 @@
 
   box-shadow: inset 0 0 20px var(--biome-dark);
   user-select: none;
+  overflow: hidden;
 }
 
 .Map__Hex[data-current="true"] {
@@ -145,6 +146,13 @@
   border-color: white;
   z-index: 1;
   position: relative;
+}
+
+.Map__Hex[data-reachable="true"] {
+}
+
+.Map__Hex[data-reachable="false"]:not([data-current="true"]) {
+  opacity: 0.7;
 }
 
 .Map__Hex[data-selected="true"] {

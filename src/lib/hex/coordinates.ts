@@ -134,9 +134,30 @@ export function isSameHex(a: HexCoordinate, b: HexCoordinate): boolean {
   return a.q === b.q && a.r === b.r
 }
 
-/** True when `to` is exactly one step away from `from` on the axial hex grid. */
+/**
+ * True when `to` is exactly one step away from `from` on the rendered
+ * odd/even-row offset hex grid used by the map sheet.
+ */
 export function areHexNeighbors(from: HexCoordinate, to: HexCoordinate): boolean {
-  for (const d of AXIAL_DIRECTIONS) {
+  const isEvenRow = from.r % 2 === 0
+  const deltas: readonly HexCoordinate[] = isEvenRow
+    ? [
+        { q: -1, r: 0 },
+        { q: 1, r: 0 },
+        { q: -1, r: -1 },
+        { q: 0, r: -1 },
+        { q: -1, r: 1 },
+        { q: 0, r: 1 },
+      ]
+    : [
+        { q: -1, r: 0 },
+        { q: 1, r: 0 },
+        { q: 0, r: -1 },
+        { q: 1, r: -1 },
+        { q: 0, r: 1 },
+        { q: 1, r: 1 },
+      ]
+  for (const d of deltas) {
     if (from.q + d.q === to.q && from.r + d.r === to.r) return true
   }
   return false

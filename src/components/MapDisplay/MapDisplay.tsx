@@ -99,7 +99,8 @@ export function MapDisplay({
                   data-biome={biome ?? 'unexplored'}
                   data-icon={icon ?? ''}
                   data-current={isCurrent ? 'true' : 'false'}
-                  data-selected={isSelected ? 'true' : 'false'}>
+                  data-selected={isSelected ? 'true' : 'false'}
+                  data-reachable={canMoveHere ? 'true' : 'false'}>
                   <MapCellContextMenu
                     coord={global}
                     currentBiome={biome}
