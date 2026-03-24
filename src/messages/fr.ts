@@ -17,6 +17,7 @@ export const copy = {
     emDashSpaced: " — ",
     checkSuccessWord: "succès",
     checkFailureWord: "échec",
+    apply: 'Effectuer'
   },
   hub: {
     title: "Companion du Protecteur",
@@ -183,6 +184,16 @@ export const copy = {
     inventorySection: "Inventaire",
     spellbookSection: "Grimoire",
     notesSection: "Journal",
+    tabIdentityStats: "Identité & Stats",
+    tabCartography: "Cartographie",
+    tabInventorySpellbook: "Inventaire & Grimoire",
+    tabJournal: "Journal",
+    tabTools: "Outils",
+    dangerSectionTitle: "Zone de danger",
+    dangerSectionDescription:
+      "Actions sensibles de cycle de vie du Protecteur. À utiliser avec prudence.",
+    dangerMarkDeadHelp:
+      "Cette action fige la fiche en lecture seule tant que le Protecteur n’est pas ranime.",
     inheritanceSection: "Héritage des souvenirs",
     inheritanceSelectLabel: "Hériter les souvenirs de …",
     inheritanceSelectHelp:

@@ -11,6 +11,7 @@ import './Layout.css'
 type LayoutProps = {
   title: string
   description?: string
+  headerActions?: ReactNode
   backHref?: string
   backLabel?: string
   sheetNightChrome?: boolean
@@ -24,6 +25,7 @@ type LayoutProps = {
 export function Layout({
   title,
   description,
+  headerActions,
   backHref,
   backLabel,
   sheetNightChrome = false,
@@ -73,9 +75,14 @@ export function Layout({
           aria-label={copy.a11y.generatorBreadcrumb}
           items={breadcrumbItems}
         />
-        <Typography.Title level={2} className='layout__title'>
-          {title}
-        </Typography.Title>
+        <div className='layout__title-row'>
+          <Typography.Title level={2} className='layout__title'>
+            {title}
+          </Typography.Title>
+          {headerActions ? (
+            <div className='layout__header-actions'>{headerActions}</div>
+          ) : null}
+        </div>
         {description ? (
           <p className='layout__description'>{description}</p>
         ) : null}

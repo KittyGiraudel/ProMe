@@ -19,3 +19,4 @@ I think it will be interesting to create some tabs within that page. Top of my h
 ## Open questions
 
 - I don’t know whether these tabs should be routes — I don’t think so. The reason I’m saying this is because the whole character sheet acts as a gigantic form, and we don’t want to manage sub-forms for individual sections, I think it would be complicated maybe? So perhaps it’s better if the tab navigation is strictly cosmetic.
+- We need to preserve the behavior where clicking on a cell label in the journal shows the map.

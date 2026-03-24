@@ -1,17 +1,10 @@
 'use client'
 
-import { Alert, App, ConfigProvider, Divider, Form, Space } from 'antd'
+import { Alert, ConfigProvider, Divider, Form, Space, Tabs } from 'antd'
+import type { TabsProps } from 'antd'
 import { Layout } from '@/components/Layout/Layout'
-import { randomId } from '@/lib/character/model'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
 import { copy } from '@/messages/fr'
-import { IdentityCard } from '@/components/CharacterSheet/IdentityCard'
-import { CharacteristicsCard } from '@/components/CharacterSheet/CharacteristicsCard'
-import { ClockCard } from '@/components/CharacterSheet/ClockCard'
-import { MapCard } from '@/components/CharacterSheet/MapCard'
-import { InventoryCard } from '@/components/CharacterSheet/InventoryCard'
-import { SpellbookCard } from '@/components/CharacterSheet/SpellbookCard'
-import { NotesCard } from '@/components/CharacterSheet/NotesCard'
 import { Button } from '@/components/Button/Button'
 import { CharacterProvider } from '@/components/CharacterSheet/CharacterContext'
 import { toFormValues } from './characterSheetForm'
@@ -22,8 +15,17 @@ import { useCharacterSheetFormSync } from './useCharacterSheetFormSync'
 import { useCharacterSheetMainActions } from './useCharacterSheetMainActions'
 import { useCharacterSheetTheme } from './useCharacterSheetTheme'
 import { useCharacterLifeStatusActions } from './useCharacterLifeStatusActions'
+import type { CharacterSheetTabKey } from './characterSheetTabs'
+import { useCharacterSheetActiveTab } from './useCharacterSheetActiveTab'
+import { IdentityStatsTabSection } from './tabs/IdentityStatsTabSection'
+import { CartographyTabSection } from './tabs/CartographyTabSection'
+import { InventorySpellbookTabSection } from './tabs/InventorySpellbookTabSection'
+import { JournalTabSection } from './tabs/JournalTabSection'
+import { ToolsTabSection } from './tabs/ToolsTabSection'
 
 export function CharacterSheetClient({ characterId }: { characterId: string }) {
+  const { activeTabKey, setActiveTabKey } = useCharacterSheetActiveTab()
+
   const {
     form,
     character,
@@ -84,6 +86,49 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     return <CharacterSheetEmptyState />
   }
 
+  const tabItems: TabsProps['items'] = [
+    {
+      key: 'identityStats',
+      label: copy.characters.tabIdentityStats,
+      children: (
+        <IdentityStatsTabSection
+          isDead={isDead}
+          onMarkAsDead={handleMarkAsDead}
+        />
+      ),
+      forceRender: true,
+    },
+    {
+      key: 'cartography',
+      label: copy.characters.tabCartography,
+      children: <CartographyTabSection />,
+      forceRender: true,
+    },
+    {
+      key: 'inventorySpellbook',
+      label: copy.characters.tabInventorySpellbook,
+      children: (
+        <InventorySpellbookTabSection
+          isDead={isDead}
+          inventoryLimit={inventoryLimit}
+        />
+      ),
+      forceRender: true,
+    },
+    {
+      key: 'journal',
+      label: copy.characters.tabJournal,
+      children: <JournalTabSection />,
+      forceRender: true,
+    },
+    {
+      key: 'tools',
+      label: copy.characters.tabTools,
+      children: <ToolsTabSection />,
+      forceRender: true,
+    },
+  ]
+
   return (
     <Layout
       sheetNightChrome={characterSheetNightMode}
@@ -92,8 +137,33 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
       breadcrumbs={[
         { label: copy.nav.homeLink, href: '/' },
         { label: copy.characters.pageTitle, href: '/characters' },
+      ]}
+      headerActions={[
+        !isDead ? (
+          <Button
+            key='save'
+            type='primary'
+            htmlType='submit'
+            form={character.id}>
+            {copy.characters.save}
+          </Button>
+        ) : null,
+        <Button key='export' onClick={handleExport}>
+          {copy.characters.export}
+        </Button>,
+        isDead ? (
+          <Button
+            key='revive'
+            htmlType='button'
+            type='primary'
+            danger
+            onClick={handleRevive}>
+            {copy.characters.reviveAction}
+          </Button>
+        ) : null,
       ]}>
       <Form
+        id={character.id}
         key={`${character.id}-${character.updatedAt}`}
         form={form}
         initialValues={toFormValues(character)}
@@ -120,107 +190,19 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
                   />
                 ) : null}
 
-                <IdentityCard isArchetypeReadonly />
-                <CharacteristicsCard />
-                <ClockCard />
-                <MapCard />
-                <Form.List name='inventory'>
-                  {(fields, { add, remove }) => (
-                    <InventoryCard
-                      fields={fields}
-                      inventoryLimit={inventoryLimit}
-                      onAddItem={() => {
-                        if (isDead) return
-                        add({
-                          id: randomId(),
-                          label: '',
-                          quantity: 1,
-                          note: '',
-                        })
-                      }}
-                      onRemoveItem={index => {
-                        if (isDead) return
-                        remove(index)
-                      }}
-                    />
-                  )}
-                </Form.List>
-                <Form.List name='spellbook'>
-                  {(fields, { add, remove }) => (
-                    <SpellbookCard
-                      fields={fields}
-                      onAddSpell={() => {
-                        if (isDead) return
-                        add({
-                          id: randomId(),
-                          name: '',
-                          note: '',
-                        })
-                      }}
-                      onRemoveSpell={index => {
-                        if (isDead) return
-                        remove(index)
-                      }}
-                    />
-                  )}
-                </Form.List>
-                <Form.List name='journalEntries'>
-                  {(fields, { add, remove }) => (
-                    <NotesCard
-                      fields={fields}
-                      onAddEntry={() => {
-                        if (isDead) return
-                        add({
-                          id: randomId(),
-                          content: '',
-                          createdAt: new Date().toISOString(),
-                          updatedAt: new Date().toISOString(),
-                        })
-                      }}
-                      onRemoveEntry={index => {
-                        if (isDead) return
-                        remove(index)
-                      }}
-                    />
-                  )}
-                </Form.List>
+                <Tabs
+                  activeKey={activeTabKey}
+                  onChange={key => setActiveTabKey(key as CharacterSheetTabKey)}
+                  destroyOnHidden={false}
+                  items={tabItems}
+                />
               </Space>
 
               <Divider />
-
-              {!isDead ? (
-                <Space wrap>
-                  <Button type='primary' htmlType='submit'>
-                    {copy.characters.save}
-                  </Button>
-                  <Button onClick={handleExport}>
-                    {copy.characters.export}
-                  </Button>
-                  <Button
-                    danger
-                    htmlType='button'
-                    type='link'
-                    onClick={handleMarkAsDead}>
-                    {copy.characters.markDeadAction}
-                  </Button>
-                </Space>
-              ) : null}
             </div>
           </ConfigProvider>
         </CharacterProvider>
       </Form>
-      {isDead && (
-        <Space wrap>
-          <Button
-            htmlType='button'
-            type='primary'
-            danger
-            onClick={handleRevive}>
-            {copy.characters.reviveAction}
-          </Button>
-          <Button onClick={handleExport}>{copy.characters.export}</Button>
-        </Space>
-      )}
     </Layout>
   )
 }

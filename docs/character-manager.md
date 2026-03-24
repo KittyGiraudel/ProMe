@@ -218,13 +218,15 @@ Important details in `CharacterSheetClient`:
 
 ## 5. UI composition
 
-Saved mode sheet sections:
+Saved mode sheet sections are grouped in cosmetic tabs over one shared form state:
 
-- `IdentityCard`: name, archetype, optional gender.
-- `CharacteristicsCard`: honor, inspiration, money, and three current/max pools.
-- `InventoryCard`: dynamic limit text + add/remove lines (name, quantity, note).
-- `SpellbookCard`: max 6 entries (name, note).
-- `NotesCard`: journal entry collection with per-entry Markdown edit/preview toggle.
+- `Identity/Stats`: `IdentityCard`, `CharacteristicsCard`.
+- `Cartography`: `ClockCard`, `MapCard`.
+- `Inventory/Spellbook`: `InventoryCard`, `SpellbookCard`.
+- `Journal`: `NotesCard`.
+- `Tools`: `DiceRoll`, `CardDraw`.
+
+Tab layout details and component boundaries are documented in `docs/character-tabs.md`.
 
 Draft mode currently renders only `IdentityCard` plus cancel/save actions.
 
