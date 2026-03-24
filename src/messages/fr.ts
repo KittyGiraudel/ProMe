@@ -270,6 +270,7 @@ export const copy = {
     mapEmojiSearchPlaceholder: "Rechercher une emoji…",
     mapIconPlaceholder: "Emoji ou symbole",
     mapBiomes: {
+      unexplored: "Inexploré",
       shadowForest: "Forêt des ombres",
       floodedPlains: "Plaines inondées",
       mushroomJungle: "Jungle de champignons",

@@ -62,3 +62,13 @@
   color: var(--ant-colorLink);
   text-decoration: underline;
 }
+
+.journal-markdown__biome-tag {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0.5ch;
+  gap: 0.4em;
+  border-color: var(--biome-dark);
+  background: var(--biome-light);
+  color: var(--biome-contrast);
+}

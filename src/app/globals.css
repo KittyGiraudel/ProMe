@@ -62,25 +62,74 @@ a {
 
 
 :root {
-  --unexplored-light: #f5f5f5;
-  --unexplored-dark: #d8e5df;
-  --unexplored-contrast: #262626;
-  --shadow-forest-light: #7dc8a0;
-  --shadow-forest-dark: #4a9f72;
-  --shadow-forest-contrast: #12381f;
-  --flooded-plains-light: #a793c3;
-  --flooded-plains-dark: #57446f;
-  --flooded-plains-contrast: #ffffff;
-  --mushroom-jungle-light: #ae9178;
-  --mushroom-jungle-dark: #624838;
-  --mushroom-jungle-contrast: #ffffff;
-  --field-sea-light: #5ec4e8;
-  --field-sea-dark: #1a6f94;
-  --field-sea-contrast: #ffffff;
-  --silent-desert-light: #f3d58e;
-  --silent-desert-dark: #af8c43;
-  --silent-desert-contrast: #262626;
-  --gigantic-gardens-light: #ffb3a7;
-  --gigantic-gardens-dark: #a64b3c;
-  --gigantic-gardens-contrast: #262626;
+  --biome-unexplored-light: #f5f5f5;
+  --biome-unexplored-dark: #d8e5df;
+  --biome-unexplored-contrast: #262626;
+  --biome-shadowForest-light: #7dc8a0;
+  --biome-shadowForest-dark: #4a9f72;
+  --biome-shadowForest-contrast: #12381f;
+  --biome-floodedPlains-light: #a793c3;
+  --biome-floodedPlains-dark: #57446f;
+  --biome-floodedPlains-contrast: #ffffff;
+  --biome-mushroomJungle-light: #ae9178;
+  --biome-mushroomJungle-dark: #624838;
+  --biome-mushroomJungle-contrast: #ffffff;
+  --biome-fieldSea-light: #5ec4e8;
+  --biome-fieldSea-dark: #1a6f94;
+  --biome-fieldSea-contrast: #ffffff;
+  --biome-silentDesert-light: #f3d58e;
+  --biome-silentDesert-dark: #af8c43;
+  --biome-silentDesert-contrast: #262626;
+  --biome-giganticGardens-light: #ffb3a7;
+  --biome-giganticGardens-dark: #a64b3c;
+  --biome-giganticGardens-contrast: #262626;
   }
+
+
+[data-biome="unexplored"] {
+  --biome-light: var(--biome-unexplored-light);
+  --biome-dark: var(--biome-unexplored-dark);
+  --biome-contrast: var(--biome-unexplored-contrast);
+}
+
+[data-sheet-night='true'] [data-biome='unexplored'] {
+  --biome-light: #2c3834;
+  --biome-dark: #1a2320;
+  --biome-contrast: #b8c9c2;
+}
+
+[data-biome="shadowForest"] {
+  --biome-light: var(--biome-shadowForest-light);
+  --biome-dark: var(--biome-shadowForest-dark);
+  --biome-contrast: var(--biome-shadowForest-contrast);
+}
+
+[data-biome="floodedPlains"] {
+  --biome-light: var(--biome-floodedPlains-light);
+  --biome-dark: var(--biome-floodedPlains-dark);
+  --biome-contrast: var(--biome-floodedPlains-contrast);
+}
+
+[data-biome="mushroomJungle"] {
+  --biome-light: var(--biome-mushroomJungle-light);
+  --biome-dark: var(--biome-mushroomJungle-dark);
+  --biome-contrast: var(--biome-mushroomJungle-contrast);
+}
+
+[data-biome="fieldSea"] {
+  --biome-light: var(--biome-fieldSea-light);
+  --biome-dark: var(--biome-fieldSea-dark);
+  --biome-contrast: var(--biome-fieldSea-contrast);
+}
+
+[data-biome="silentDesert"] {
+  --biome-light: var(--biome-silentDesert-light);
+  --biome-dark: var(--biome-silentDesert-dark);
+  --biome-contrast: var(--biome-silentDesert-contrast);
+}
+
+[data-biome="giganticGardens"] {
+  --biome-light: var(--biome-giganticGardens-light);
+  --biome-dark: var(--biome-giganticGardens-dark);
+  --biome-contrast: var(--biome-giganticGardens-contrast);
+}

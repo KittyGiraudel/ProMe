@@ -8,6 +8,7 @@ import type { BiomeId, HexCoordinate } from '@/lib/character/types'
 import { BIOME_IDS } from '@/lib/character/types'
 import { copy } from '@/messages/fr'
 import { EmojiStyle, Theme, type EmojiClickData } from 'emoji-picker-react'
+import { BiomeBubble } from '../BiomeBubble/BiomeBubble'
 
 const EmojiPicker = dynamic(
   () => import('emoji-picker-react').then(m => m.default),
@@ -128,7 +129,7 @@ export function MapCellContextMenu({
                 key: `biome:${id}`,
                 label: (
                   <span className='Map__BiomeMenuItem'>
-                    <span data-biome={id} className='Map__BiomeSwatch' />
+                    <BiomeBubble biome={id} />
                     <span>{copy.characters.mapBiomes[id]}</span>
                   </span>
                 ),
@@ -140,10 +141,7 @@ export function MapCellContextMenu({
                 key: 'biome:clear',
                 label: (
                   <span className='Map__BiomeMenuItem'>
-                    <span
-                      data-biome='unexplored'
-                      className='Map__BiomeSwatch'
-                    />
+                    <BiomeBubble biome='unexplored' />
                     <span>{copy.characters.mapUnexplored}</span>
                   </span>
                 ),
@@ -152,10 +150,7 @@ export function MapCellContextMenu({
                 key: 'biome:random',
                 label: (
                   <span className='Map__BiomeMenuItem'>
-                    <span
-                      data-biome='unexplored'
-                      className='Map__BiomeSwatch'
-                    />
+                    <BiomeBubble biome='unexplored' />
                     <span>{copy.characters.mapRandomBiome}</span>
                   </span>
                 ),

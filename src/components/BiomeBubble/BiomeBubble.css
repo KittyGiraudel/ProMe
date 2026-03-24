@@ -1,0 +1,10 @@
+.biome-bubble {
+  display: block;
+  width: 1em;
+  height: 1em;
+  font-size: 10px;
+  border-radius: 50%;
+  background: var(--biome-light);
+  color: var(--biome-contrast);
+  border: 1px solid var(--biome-dark);
+}

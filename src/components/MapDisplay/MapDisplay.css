@@ -162,54 +162,6 @@
   position: relative;
 }
 
-[data-biome="unexplored"] {
-  --biome-light: var(--unexplored-light);
-  --biome-dark: var(--unexplored-dark);
-  --biome-contrast: var(--unexplored-contrast);
-}
-
-[data-sheet-night='true'] [data-biome='unexplored'] {
-  --biome-light: #2c3834;
-  --biome-dark: #1a2320;
-  --biome-contrast: #b8c9c2;
-}
-
-[data-biome="shadowForest"] {
-  --biome-light: var(--shadow-forest-light);
-  --biome-dark: var(--shadow-forest-dark);
-  --biome-contrast: var(--shadow-forest-contrast);
-}
-
-[data-biome="floodedPlains"] {
-  --biome-light: var(--flooded-plains-light);
-  --biome-dark: var(--flooded-plains-dark);
-  --biome-contrast: var(--flooded-plains-contrast);
-}
-
-[data-biome="mushroomJungle"] {
-  --biome-light: var(--mushroom-jungle-light);
-  --biome-dark: var(--mushroom-jungle-dark);
-  --biome-contrast: var(--mushroom-jungle-contrast);
-}
-
-[data-biome="fieldSea"] {
-  --biome-light: var(--field-sea-light);
-  --biome-dark: var(--field-sea-dark);
-  --biome-contrast: var(--field-sea-contrast);
-}
-
-[data-biome="silentDesert"] {
-  --biome-light: var(--silent-desert-light);
-  --biome-dark: var(--silent-desert-dark);
-  --biome-contrast: var(--silent-desert-contrast);
-}
-
-[data-biome="giganticGardens"] {
-  --biome-light: var(--gigantic-gardens-light);
-  --biome-dark: var(--gigantic-gardens-dark);
-  --biome-contrast: var(--gigantic-gardens-contrast);
-}
-
 .Map__DropdownOverlay .ant-dropdown-menu {
   min-width: 220px;
 }
@@ -227,14 +179,6 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-}
-
-.Map__BiomeSwatch {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 1px solid var(--biome-dark);
-  background: var(--biome-light);
 }
 
 .Map__NotificationIcon[data-biome] {
