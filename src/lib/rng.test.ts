@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { isFaceRank } from "./types";
 import {
+  pickRandom,
   defaultRng,
   randomCard,
   randomInt,
@@ -64,5 +65,15 @@ describe("rng", () => {
       const c = randomNumberedCard(rng);
       expect(isFaceRank(c.rank)).toBe(false);
     }
+  });
+
+  it("pickRandom returns undefined for empty arrays", () => {
+    expect(pickRandom(() => 0.5, [])).toBeUndefined();
+  });
+
+  it("pickRandom selects from array bounds", () => {
+    const values = ["a", "b", "c"] as const;
+    expect(pickRandom(() => 0, values)).toBe("a");
+    expect(pickRandom(() => 0.999, values)).toBe("c");
   });
 });

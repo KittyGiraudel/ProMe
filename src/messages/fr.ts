@@ -243,7 +243,10 @@ export const copy = {
     mapMoveHere: "Se déplacer ici",
     mapMoveNeighborOnly: "Uniquement vers un hexagone adjacent",
     mapClearCell: "Effacer la case",
+    mapMenuMarkingGroup: "Marquage",
+    mapMenuActionsGroup: "Actions",
     mapBiomeLabel: "Biome",
+    mapRandomBiome: "Biome aléatoire (1D6)",
     mapIconLabel: "Icône",
     mapPickEmoji: "Choisir une icône…",
     mapClearIcon: "Retirer l’icône",
@@ -256,6 +259,13 @@ export const copy = {
       fieldSea: "Mer champêtre",
       silentDesert: "Désert silencieux",
       giganticGardens: "Jardins gigantesques",
+    },
+    mapRandomBiomeDiscoveredTitle: "Nouveau biome découvert",
+    mapRandomBiomeDiscoveredDescription(
+      biomeName: string,
+      additionalTilesToMark: number
+    ): string {
+      return `Vous découvrez ${biomeName}. Marquez ${additionalTilesToMark} cases adjacentes du même biome (${biomeName}).`
     },
   },
   genders: {

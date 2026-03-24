@@ -26,12 +26,15 @@ type MapCellContextMenuProps = {
   currentBiome?: BiomeId
   /** True when this cell has a persisted map icon. */
   hasStoredIcon: boolean
+  /** True when this cell has any explored state (biome or icon). */
+  hasCellContent: boolean
   /** When false, moving the character to this hex is blocked (not adjacent). */
   canMoveHere: boolean
   title: string
   coordLabel: string
   onSelectCell: (coord: HexCoordinate) => void
   onAssignBiome: (coord: HexCoordinate, biome: BiomeId | undefined) => void
+  onAssignRandomBiome: (coord: HexCoordinate) => void
   onMoveTo: (coord: HexCoordinate) => void
   onSetIcon: (coord: HexCoordinate, icon: string | undefined) => void
   onClearCell: (coord: HexCoordinate) => void
@@ -50,11 +53,13 @@ export function MapCellContextMenu({
   coord,
   currentBiome,
   hasStoredIcon,
+  hasCellContent,
   canMoveHere,
   title,
   coordLabel,
   onSelectCell,
   onAssignBiome,
+  onAssignRandomBiome,
   onMoveTo,
   onSetIcon,
   onClearCell,
@@ -88,19 +93,18 @@ export function MapCellContextMenu({
       children: iconChildren,
     }
 
-    const baseItems: NonNullable<MenuProps['items']> = [
+    const actionItems: NonNullable<MenuProps['items']> = [
       {
         key: 'move',
         label: copy.characters.mapMoveHere,
         disabled: !canMoveHere,
         title: canMoveHere ? undefined : copy.characters.mapMoveNeighborOnly,
       },
-      iconSubmenu,
-      { type: 'divider' as const },
       {
         key: 'clear',
         danger: true,
         label: copy.characters.mapClearCell,
+        disabled: !hasCellContent,
       },
     ]
 
@@ -112,35 +116,63 @@ export function MapCellContextMenu({
         children: [],
       },
       {
-        key: 'biome',
-        label: copy.characters.mapBiomeLabel,
+        key: 'marking-group',
+        type: 'group',
+        label: copy.characters.mapMenuMarkingGroup,
         children: [
-          ...BIOME_IDS.map(id => ({
-            key: `biome:${id}`,
-            label: (
-              <span className='Map__BiomeMenuItem'>
-                <span data-biome={id} className='Map__BiomeSwatch' />
-                <span>{copy.characters.mapBiomes[id]}</span>
-              </span>
-            ),
-          })),
           {
-            type: 'divider' as const,
+            key: 'biome',
+            label: copy.characters.mapBiomeLabel,
+            children: [
+              ...BIOME_IDS.map(id => ({
+                key: `biome:${id}`,
+                label: (
+                  <span className='Map__BiomeMenuItem'>
+                    <span data-biome={id} className='Map__BiomeSwatch' />
+                    <span>{copy.characters.mapBiomes[id]}</span>
+                  </span>
+                ),
+              })),
+              {
+                type: 'divider' as const,
+              },
+              {
+                key: 'biome:clear',
+                label: (
+                  <span className='Map__BiomeMenuItem'>
+                    <span
+                      data-biome='unexplored'
+                      className='Map__BiomeSwatch'
+                    />
+                    <span>{copy.characters.mapUnexplored}</span>
+                  </span>
+                ),
+              },
+              {
+                key: 'biome:random',
+                label: (
+                  <span className='Map__BiomeMenuItem'>
+                    <span
+                      data-biome='unexplored'
+                      className='Map__BiomeSwatch'
+                    />
+                    <span>{copy.characters.mapRandomBiome}</span>
+                  </span>
+                ),
+              },
+            ],
           },
-          {
-            key: 'biome:clear',
-            label: (
-              <span className='Map__BiomeMenuItem'>
-                <span data-biome='unexplored' className='Map__BiomeSwatch' />
-                <span>{copy.characters.mapUnexplored}</span>
-              </span>
-            ),
-          },
+          iconSubmenu,
         ],
       },
-      ...baseItems,
+      {
+        key: 'actions-group',
+        type: 'group',
+        label: copy.characters.mapMenuActionsGroup,
+        children: [...actionItems],
+      },
     ]
-  }, [canMoveHere, coordLabel, currentBiome, hasStoredIcon])
+  }, [canMoveHere, coordLabel, hasCellContent, hasStoredIcon])
 
   const onEmojiPicked = (data: EmojiClickData) => {
     onSetIcon(coord, firstGrapheme(data.emoji))
@@ -172,6 +204,11 @@ export function MapCellContextMenu({
     }
     if (typeof key === 'string' && key.startsWith('biome:')) {
       const biomeValue = key.slice('biome:'.length)
+      if (biomeValue === 'random') {
+        onAssignRandomBiome(coord)
+        setOpen(false)
+        return
+      }
       if (biomeValue === 'clear') onAssignBiome(coord, undefined)
       else onAssignBiome(coord, biomeValue as BiomeId)
       setOpen(false)
@@ -181,7 +218,7 @@ export function MapCellContextMenu({
   return (
     <>
       <Dropdown
-        trigger={['click']}
+        trigger={['contextMenu']}
         menu={{
           items,
           onClick: onMenuClick,
@@ -195,6 +232,10 @@ export function MapCellContextMenu({
         <button
           type='button'
           onClick={() => onSelectCell(coord)}
+          onDoubleClick={() => {
+            if (!canMoveHere) return
+            onMoveTo(coord)
+          }}
           title={title}
           className='Map__Button'
           aria-label={`${title} ${copy.characters.mapCell}`}>

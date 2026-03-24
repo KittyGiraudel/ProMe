@@ -27,6 +27,7 @@ type MapDisplayProps = {
   selectedPosition: HexCoordinate | null
   onSelectCell: (coord: HexCoordinate) => void
   onAssignBiome: (coord: HexCoordinate, biome: BiomeId | undefined) => void
+  onAssignRandomBiome: (coord: HexCoordinate) => void
   onMoveTo: (coord: HexCoordinate) => void
   onSetIcon: (coord: HexCoordinate, icon: string | undefined) => void
   onClearCell: (coord: HexCoordinate) => void
@@ -39,6 +40,7 @@ export function MapDisplay({
   selectedPosition,
   onSelectCell,
   onAssignBiome,
+  onAssignRandomBiome,
   onMoveTo,
   onSetIcon,
   onClearCell,
@@ -102,11 +104,13 @@ export function MapDisplay({
                     coord={global}
                     currentBiome={biome}
                     hasStoredIcon={Boolean(icon)}
+                    hasCellContent={Boolean(biome || icon)}
                     canMoveHere={canMoveHere}
                     title={localLabel}
                     coordLabel={localLabel}
                     onSelectCell={onSelectCell}
                     onAssignBiome={onAssignBiome}
+                    onAssignRandomBiome={onAssignRandomBiome}
                     onMoveTo={onMoveTo}
                     onSetIcon={onSetIcon}
                     onClearCell={onClearCell}

@@ -1,6 +1,7 @@
 'use client'
 
-import { Button, Card, Form, Space, Tag, Typography } from 'antd'
+import { App, Button, Card, Form, Space, Tag } from 'antd'
+import { InfoCircleFilled } from '@ant-design/icons'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { MapDisplay } from '@/components/MapDisplay/MapDisplay'
 import {
@@ -19,6 +20,7 @@ import {
 } from '@/lib/character/types'
 import { copy } from '@/messages/fr'
 import { DEFAULT_MAP_POSITION } from '@/lib/character/model'
+import { getRandomBiomeResult } from '@/lib/map/randomBiome'
 import { MapFormValueAnchor } from './MapFormValueAnchor'
 
 function normalizeMapState(
@@ -34,6 +36,7 @@ function normalizeMapState(
 }
 
 export function MapCard() {
+  const { notification } = App.useApp()
   const form = Form.useFormInstance()
   const watchedMap = Form.useWatch('map', {
     form,
@@ -94,6 +97,25 @@ export function MapCard() {
       if (!nextCell.biome && !nextCell.icon) nextByKey.delete(key)
       else nextByKey.set(key, nextCell)
       return { ...current, cells: Array.from(nextByKey.values()) }
+    })
+  }
+
+  const assignRandomBiomeAt = (target: HexCoordinate) => {
+    const rolled = getRandomBiomeResult()
+    const biomeName = copy.characters.mapBiomes[rolled.biome]
+    setBiomeAt(target, rolled.biome)
+    notification.info({
+      icon: (
+        <span className='Map__NotificationIcon' data-biome={rolled.biome}>
+          <InfoCircleFilled />
+        </span>
+      ),
+      title: copy.characters.mapRandomBiomeDiscoveredTitle,
+      description: copy.characters.mapRandomBiomeDiscoveredDescription(
+        biomeName,
+        rolled.additionalTilesToMark
+      ),
+      placement: 'bottomRight',
     })
   }
 
@@ -201,6 +223,7 @@ export function MapCard() {
           selectedPosition={selectedCell}
           onSelectCell={toggleSelectCell}
           onAssignBiome={setBiomeAt}
+          onAssignRandomBiome={assignRandomBiomeAt}
           onMoveTo={moveToCell}
           onSetIcon={setIconAt}
           onClearCell={clearCellAt}

@@ -21,6 +21,15 @@ export function randomCard(rng: () => number): PlayingCard {
   return { suit, rank };
 }
 
+export function pickRandom<T>(
+  rng: () => number,
+  values: readonly T[]
+): T | undefined {
+  if (values.length === 0) return undefined;
+  const index = randomInt(rng, 0, values.length - 1);
+  return values[index];
+}
+
 /** Random card whose rank is A–10 (rulebook: redraw until numbered after a face). */
 export function randomNumberedCard(rng: () => number): PlayingCard {
   let card: PlayingCard;
