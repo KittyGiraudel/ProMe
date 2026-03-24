@@ -17,21 +17,21 @@ import {
   computeClockTotalSegmentsFromStamina,
 } from '@/lib/character/model'
 import { ClockDisplay } from '@/components/ClockDisplay/ClockDisplay'
-import type { CharacterClock, StatPool } from '@/lib/character/types'
+import type { StatPool } from '@/lib/character/types'
 import { copy } from '@/messages/fr'
 
 export function ClockCard() {
   const { notification } = App.useApp()
   const form = Form.useFormInstance()
   const stamina = Form.useWatch('stamina', form) as StatPool | undefined
-  const clock = Form.useWatch('clock', form) as CharacterClock | undefined
+  const clock = Form.useWatch('clock', form) as number | undefined
 
   const staminaCurrent = stamina?.current ?? 0
   const segmentsPerHalf = computeClockSegmentsPerHalfFromStamina(staminaCurrent)
   const totalSegments = computeClockTotalSegmentsFromStamina(staminaCurrent)
 
   const position = Math.min(
-    Math.max(0, Math.trunc(clock?.position ?? 0)),
+    Math.max(0, Math.trunc(clock ?? 0)),
     totalSegments - 1
   )
   const isDay = position < segmentsPerHalf
@@ -43,7 +43,7 @@ export function ClockCard() {
     const wrapped =
       ((nextPosition % totalSegments) + totalSegments) % totalSegments
     const nextIsDay = wrapped < segmentsPerHalf
-    form.setFieldValue(['clock', 'position'], wrapped)
+    form.setFieldValue('clock', wrapped)
     if (nextIsDay !== isDay) {
       notification.warning({
         title: copy.characters.clockPhaseShiftTitle(
@@ -121,7 +121,7 @@ export function ClockCard() {
           segmentsPerHalf={segmentsPerHalf}
           position={position}
         />
-        <Form.Item name={['clock', 'position']} hidden>
+        <Form.Item name='clock' hidden>
           <Input />
         </Form.Item>
         <Space wrap style={{ width: '100%', justifyContent: 'space-between' }}>

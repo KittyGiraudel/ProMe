@@ -28,10 +28,6 @@ export type SpellEntry = {
   note?: string
 }
 
-export type CharacterClock = {
-  position: number
-}
-
 export type BiomeId =
   | 'shadowForest'
   | 'floodedPlains'
@@ -78,7 +74,7 @@ export type Character = {
   health: StatPool
   courage: StatPool
   stamina: StatPool
-  clock: CharacterClock
+  clock: number
   map: CharacterMapState
   inventory: InventoryItem[]
   spellbook: SpellEntry[]

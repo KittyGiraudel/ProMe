@@ -4,7 +4,6 @@ import {
   type CharacterMapCell,
   type CharacterMapState,
   CHARACTER_SCHEMA_VERSION,
-  type CharacterClock,
   type CharacterImportMode,
   type InventoryItem,
   type Character,
@@ -176,11 +175,15 @@ export function remapClockPositionForTotalSegments(
 export function normalizeCharacterClock(
   value: unknown,
   staminaCurrent: number,
-): CharacterClock {
-  const source = value as Partial<CharacterClock> | undefined
+): number {
+  const source =
+    typeof value === 'object' && value !== null
+      ? (value as { position?: unknown })
+      : undefined
+  const candidatePosition =
+    source && 'position' in source ? source.position : value
   const totalSegments = computeClockTotalSegmentsFromStamina(staminaCurrent)
-  const position = normalizeClockPosition(source?.position, totalSegments)
-  return { position }
+  return normalizeClockPosition(candidatePosition, totalSegments)
 }
 
 function defaultPoolsForArchetype(archetype: Archetype): {
@@ -236,7 +239,7 @@ export function createDefaultCharacterInput(
     health: pools.health,
     courage: pools.courage,
     stamina: pools.stamina,
-    clock: { position: 0 },
+    clock: 0,
     map: {
       currentPosition: DEFAULT_MAP_POSITION,
       cells: [],
@@ -377,7 +380,7 @@ export function validateCharacterForPersistence(
     errors.push('stamina.current <= stamina.max')
 
   const totalSegments = computeClockTotalSegmentsFromStamina(character.stamina.current)
-  if (character.clock.position < 0 || character.clock.position >= totalSegments) {
+  if (character.clock < 0 || character.clock >= totalSegments) {
     errors.push(`clock.position must be between 0 and ${totalSegments - 1}`)
   }
 

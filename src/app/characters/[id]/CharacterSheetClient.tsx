@@ -28,7 +28,6 @@ import { loadDraft, clearDraft } from '@/lib/character/draftStorage'
 import { getCharacterStore } from '@/lib/character/store'
 import { stringifyCharacters } from '@/lib/character/store/migrations'
 import type {
-  CharacterClock,
   CharacterMapState,
   InventoryItem,
   Archetype,
@@ -42,7 +41,6 @@ import { IdentityCard } from '@/components/CharacterSheet/IdentityCard'
 import { CharacteristicsCard } from '@/components/CharacterSheet/CharacteristicsCard'
 import { ClockCard } from '@/components/CharacterSheet/ClockCard'
 import { MapCard } from '@/components/CharacterSheet/MapCard'
-import { MapFormValueAnchor } from '@/components/CharacterSheet/MapFormValueAnchor'
 import { InventoryCard } from '@/components/CharacterSheet/InventoryCard'
 import { SpellbookCard } from '@/components/CharacterSheet/SpellbookCard'
 import { NotesCard } from '@/components/CharacterSheet/NotesCard'
@@ -114,7 +112,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     health: StatPool
     courage: StatPool
     stamina: StatPool
-    clock: CharacterClock
+    clock: number
     map: CharacterMapState
     inventory: InventoryItem[]
     spellbook: SpellEntry[]
@@ -134,9 +132,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     health: pc.health,
     courage: pc.courage,
     stamina: pc.stamina,
-    clock: {
-      position: pc.clock.position,
-    },
+    clock: pc.clock,
     map: pc.map,
     inventory: pc.inventory,
     spellbook: pc.spellbook,
@@ -153,9 +149,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
   const watchedStaminaRaw = Form.useWatch('stamina', form) as
     | StatPool
     | undefined
-  const watchedClockRaw = Form.useWatch('clock', form) as
-    | CharacterClock
-    | undefined
+  const watchedClockRaw = Form.useWatch('clock', form) as number | undefined
   const watchedHealthRaw = Form.useWatch('health', form) as StatPool | undefined
   const watchedCourageRaw = Form.useWatch('courage', form) as
     | StatPool
@@ -165,7 +159,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     watchedArchetypeRaw ?? character?.archetype ?? fallbackArchetype
   const watchedStamina =
     watchedStaminaRaw ?? character?.stamina ?? fallbackStatPool
-  const watchedClock = watchedClockRaw ?? character?.clock ?? { position: 0 }
+  const watchedClock = watchedClockRaw ?? character?.clock ?? 0
   const watchedHealth =
     watchedHealthRaw ?? character?.health ?? fallbackStatPool
   const watchedCourage =
@@ -180,7 +174,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     watchedStamina.current
   )
   const clockPositionForPhase = Math.min(
-    Math.max(0, Math.trunc(watchedClock.position ?? 0)),
+    Math.max(0, Math.trunc(watchedClock)),
     Math.max(0, clockTotalSegments - 1)
   )
   const isClockNight = clockPositionForPhase >= clockSegmentsPerHalf
@@ -242,13 +236,13 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     }
     if (previous === clockTotalSegments) return
     const remapped = remapClockPositionForTotalSegments(
-      watchedClock.position,
+      watchedClock,
       previous,
       clockTotalSegments
     )
-    form.setFieldValue(['clock', 'position'], remapped)
+    form.setFieldValue('clock', remapped)
     prevClockTotalSegmentsRef.current = clockTotalSegments
-  }, [sheetCharacterId, clockTotalSegments, watchedClock.position, form])
+  }, [sheetCharacterId, clockTotalSegments, watchedClock, form])
 
   useEffect(() => {
     if (healthCurrent == null || healthMax == null) return

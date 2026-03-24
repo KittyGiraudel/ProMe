@@ -194,8 +194,7 @@ describe('character/model', () => {
 
     expect(normalized).not.toBeNull()
     if (!normalized) return
-    expect(normalized.clock).toEqual({ position: 2 })
-    expect('sheetDarkWithClockNight' in normalized.clock).toBe(false)
+    expect(normalized.clock).toBe(2)
   })
 })
 
