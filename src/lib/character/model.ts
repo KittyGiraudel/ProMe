@@ -14,6 +14,7 @@ import {
   type StatPool,
   HexCoordinate,
 } from './types'
+import { normalizeLifeStatus } from './lifeStatus'
 
 const MAX_INVENTORY_ITEMS = 30
 const MAX_SPELLBOOK_ITEMS = 6
@@ -286,6 +287,7 @@ export function createDefaultCharacterInput(
     inventory: [],
     spellbook: [],
     journalEntries: [],
+    lifeStatus: 'alive',
   }
 }
 
@@ -341,6 +343,7 @@ export function normalizeCharacterInput(
     inventory,
     spellbook,
     journalEntries,
+    lifeStatus: normalizeLifeStatus(source.lifeStatus),
   }
 }
 

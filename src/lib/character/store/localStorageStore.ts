@@ -4,6 +4,7 @@ import {
   touchCharacter,
   validateCharacterForPersistence,
 } from '@/lib/character/model'
+import { canPersistCharacterUpdate } from '@/lib/character/lifeStatus'
 import {
   mergeImportedCharacters,
   parseCharacters,
@@ -64,6 +65,11 @@ export function createLocalStorageCharacterStore(): CharacterStore {
       if (!normalized) {
         throw new Error('Invalid character payload')
       }
+      const all = readAll()
+      const existing = all.find(item => item.id === normalized.id) ?? null
+      if (!canPersistCharacterUpdate(existing, normalized)) {
+        throw new Error('Dead characters are frozen and cannot be modified')
+      }
 
       const validation = validateCharacterForPersistence(normalized)
       if (!validation.ok) {
@@ -71,7 +77,6 @@ export function createLocalStorageCharacterStore(): CharacterStore {
       }
 
       const touched = touchCharacter(normalized)
-      const all = readAll()
       const index = all.findIndex(item => item.id === touched.id)
       if (index >= 0) {
         all[index] = touched

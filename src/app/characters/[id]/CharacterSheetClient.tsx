@@ -11,7 +11,6 @@ import {
   theme as antdTheme,
 } from 'antd'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { useSettings } from '@/app/contexts/SettingsContext'
@@ -33,6 +32,7 @@ import type {
   SpellEntry,
   StatPool,
 } from '@/lib/character/types'
+import { isCharacterDead } from '@/lib/character/lifeStatus'
 import type { Gender } from '@/lib/types'
 import { copy } from '@/messages/fr'
 import { IdentityCard } from '@/components/CharacterSheet/IdentityCard'
@@ -45,6 +45,7 @@ import { NotesCard } from '@/components/CharacterSheet/NotesCard'
 import { Button } from '@/components/Button/Button'
 import { useUnsavedChangesGuard } from '@/hooks/useUnsavedChangesGuard'
 import { CharacterProvider } from '@/components/CharacterSheet/CharacterContext'
+import { useCharacterLifeStatusActions } from './useCharacterLifeStatusActions'
 
 const CHARACTER_SHEET_NIGHT_THEME = {
   algorithm: antdTheme.darkAlgorithm,
@@ -72,7 +73,6 @@ const CHARACTER_SHEET_NIGHT_THEME = {
 export function CharacterSheetClient({ characterId }: { characterId: string }) {
   const { message, modal } = App.useApp()
   const store = useMemo(() => getCharacterStore(), [])
-  const router = useRouter()
   const { settings } = useSettings()
 
   const [sheetState, setSheetState] = useState<{
@@ -95,6 +95,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
 
   const character = sheetState.character
   const mode = sheetState.mode
+  const isDead = character ? isCharacterDead(character) : false
 
   type SheetFormValues = {
     name: string
@@ -177,6 +178,9 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
 
   const prevArchetypeRef = useRef<Archetype | null>(null)
   const prevClockTotalSegmentsRef = useRef<number | null>(null)
+  const deathSuggestionNotificationKeyRef = useRef(
+    `death-suggestion-${characterId}`
+  )
 
   const sheetCharacterId = character?.id
   const characterArchetype = character?.archetype
@@ -272,18 +276,32 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
     resetToken: `${characterId}|${mode}|${character?.updatedAt ?? ''}`,
   })
 
+  const getCurrentCharacterFromForm = useCallback((): Character => {
+    if (!character) {
+      throw new Error('Character not loaded')
+    }
+    const values = form.getFieldsValue(true) as SheetFormValues
+    return { ...character, ...values }
+  }, [character, form])
+
+  const { handleMarkAsDead, handleRevive } = useCharacterLifeStatusActions({
+    getCharacter: getCurrentCharacterFromForm,
+    deathSuggestionNotificationKey: deathSuggestionNotificationKeyRef.current,
+    healthCurrent,
+    onSaved: saved => setSheetState({ character: saved, mode: 'saved' }),
+    clearSaveErrors: () => setSaveErrors(null),
+  })
+
   const handleFinish = () => {
     if (!character) return
+    if (isDead) {
+      message.warning(copy.characters.deadReadonlyDescription)
+      return
+    }
     setSaveErrors(null)
 
     try {
-      const values = form.getFieldsValue(true) as SheetFormValues
-      const payload: Character = {
-        ...character,
-        ...values,
-      }
-
-      const saved = store.save(payload)
+      const saved = store.save(getCurrentCharacterFromForm())
       setSaveErrors(null)
       setSheetState({ character: saved, mode: 'saved' })
       message.success(copy.characters.saveSuccess)
@@ -355,6 +373,7 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
         form={form}
         initialValues={toFormValues(character)}
         onFinish={handleFinish}
+        disabled={isDead}
         layout='vertical'
         colon={false}>
         <CharacterProvider form={form}>
@@ -362,83 +381,126 @@ export function CharacterSheetClient({ characterId }: { characterId: string }) {
             theme={
               characterSheetNightMode ? CHARACTER_SHEET_NIGHT_THEME : undefined
             }>
-            <div data-sheet-night={characterSheetNightMode ? 'true' : undefined}>
-            <Space
-              orientation='vertical'
-              size='middle'
-              style={{ width: '100%' }}>
-              {saveErrors ? (
-                <Alert type='error' title={saveErrors.join('; ')} />
+            <div
+              data-sheet-night={characterSheetNightMode ? 'true' : undefined}>
+              <Space
+                orientation='vertical'
+                size='middle'
+                style={{ width: '100%' }}>
+                {saveErrors ? (
+                  <Alert type='error' title={saveErrors.join('; ')} />
+                ) : null}
+                {isDead ? (
+                  <Alert
+                    type='error'
+                    title={copy.characters.deadReadonlyTitle}
+                    description={copy.characters.deadReadonlyDescription}
+                  />
+                ) : null}
+
+                <IdentityCard isArchetypeReadonly />
+                <CharacteristicsCard />
+                <ClockCard />
+                <MapCard />
+                <Form.List name='inventory'>
+                  {(fields, { add, remove }) => (
+                    <InventoryCard
+                      fields={fields}
+                      inventoryLimit={inventoryLimit}
+                      onAddItem={() => {
+                        if (isDead) return
+                        add({
+                          id: randomId(),
+                          label: '',
+                          quantity: 1,
+                          note: '',
+                        })
+                      }}
+                      onRemoveItem={index => {
+                        if (isDead) return
+                        remove(index)
+                      }}
+                    />
+                  )}
+                </Form.List>
+                <Form.List name='spellbook'>
+                  {(fields, { add, remove }) => (
+                    <SpellbookCard
+                      fields={fields}
+                      onAddSpell={() => {
+                        if (isDead) return
+                        add({
+                          id: randomId(),
+                          name: '',
+                          note: '',
+                        })
+                      }}
+                      onRemoveSpell={index => {
+                        if (isDead) return
+                        remove(index)
+                      }}
+                    />
+                  )}
+                </Form.List>
+                <Form.List name='journalEntries'>
+                  {(fields, { add, remove }) => (
+                    <NotesCard
+                      fields={fields}
+                      onAddEntry={() => {
+                        if (isDead) return
+                        add({
+                          id: randomId(),
+                          content: '',
+                          createdAt: new Date().toISOString(),
+                          updatedAt: new Date().toISOString(),
+                        })
+                      }}
+                      onRemoveEntry={index => {
+                        if (isDead) return
+                        remove(index)
+                      }}
+                    />
+                  )}
+                </Form.List>
+              </Space>
+
+              <Divider />
+
+              {!isDead ? (
+                <Space wrap>
+                  <Button type='primary' htmlType='submit'>
+                    {copy.characters.save}
+                  </Button>
+                  <Button onClick={handleExportCharacter}>
+                    {copy.characters.exportOne}
+                  </Button>
+                  <Button
+                    danger
+                    htmlType='button'
+                    type='link'
+                    onClick={handleMarkAsDead}>
+                    {copy.characters.markDeadAction}
+                  </Button>
+                </Space>
               ) : null}
-
-              <IdentityCard isArchetypeReadonly />
-              <CharacteristicsCard />
-              <ClockCard />
-              <MapCard />
-              <Form.List name='inventory'>
-                {(fields, { add, remove }) => (
-                  <InventoryCard
-                    fields={fields}
-                    inventoryLimit={inventoryLimit}
-                    onAddItem={() =>
-                      add({
-                        id: randomId(),
-                        label: '',
-                        quantity: 1,
-                        note: '',
-                      })
-                    }
-                    onRemoveItem={remove}
-                  />
-                )}
-              </Form.List>
-              <Form.List name='spellbook'>
-                {(fields, { add, remove }) => (
-                  <SpellbookCard
-                    fields={fields}
-                    onAddSpell={() =>
-                      add({
-                        id: randomId(),
-                        name: '',
-                        note: '',
-                      })
-                    }
-                    onRemoveSpell={remove}
-                  />
-                )}
-              </Form.List>
-              <Form.List name='journalEntries'>
-                {(fields, { add, remove }) => (
-                  <NotesCard
-                    fields={fields}
-                    onAddEntry={() =>
-                      add({
-                        id: randomId(),
-                        content: '',
-                        createdAt: new Date().toISOString(),
-                        updatedAt: new Date().toISOString(),
-                      })
-                    }
-                    onRemoveEntry={remove}
-                  />
-                )}
-              </Form.List>
-            </Space>
-
-            <Divider />
-
-            <Space wrap>
-              <Button type='primary' htmlType='submit'>
-                {copy.characters.save}
-              </Button>
-              <Button onClick={handleExportCharacter}>
-                {copy.characters.exportOne}
-              </Button>
-            </Space>
             </div>
           </ConfigProvider>
         </CharacterProvider>
       </Form>
+      {isDead && (
+        <Space wrap>
+          <Button
+            htmlType='button'
+            type='primary'
+            danger
+            onClick={handleRevive}>
+            {copy.characters.reviveAction}
+          </Button>
+          <Button onClick={handleExportCharacter}>
+            {copy.characters.exportOne}
+          </Button>
+        </Space>
+      )}
     </Layout>
   )
 }

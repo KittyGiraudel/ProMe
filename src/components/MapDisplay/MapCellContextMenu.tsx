@@ -1,6 +1,6 @@
 'use client'
 
-import { Dropdown, Modal, Spin } from 'antd'
+import { ConfigProvider, Dropdown, Modal, Spin } from 'antd'
 import type { MenuProps } from 'antd'
 import dynamic from 'next/dynamic'
 import { useMemo, useState } from 'react'
@@ -65,6 +65,7 @@ export function MapCellContextMenu({
   onSetIcon,
   onClearCell,
 }: MapCellContextMenuProps) {
+  const { componentDisabled } = ConfigProvider.useConfig()
   const [open, setOpen] = useState(false)
   const [emojiModalOpen, setEmojiModalOpen] = useState(false)
   const selectedBiomeKey = currentBiome
@@ -214,6 +215,7 @@ export function MapCellContextMenu({
     <>
       <Dropdown
         trigger={['contextMenu']}
+        disabled={componentDisabled}
         menu={{
           items,
           onClick: onMenuClick,
@@ -233,7 +235,8 @@ export function MapCellContextMenu({
           }}
           title={title}
           className='Map__Button'
-          aria-label={`${title} ${copy.characters.mapCell}`}>
+          aria-label={`${title} ${copy.characters.mapCell}`}
+          disabled={componentDisabled}>
           {coordLabel}
         </button>
       </Dropdown>

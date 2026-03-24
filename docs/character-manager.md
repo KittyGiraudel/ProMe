@@ -37,6 +37,7 @@ Each character has:
 
 - stable `id` (`randomUUID` when available, fallback timestamp/random),
 - `createdAt` and `updatedAt` ISO strings,
+- lifecycle status `lifeStatus` (`alive` or `dead`),
 - fixed `schemaVersion` (`CHARACTER_SCHEMA_VERSION = 1`).
 
 `updatedAt` is refreshed on every save (`touchcharacter`) and is used for list ordering (latest first).
@@ -68,6 +69,13 @@ The UI also mirrors caps (inventory add button disabled at current computed limi
 
 1. saved character by route id (`store.get`)
 2. none (not found state)
+
+### 2.6 Dead protector freeze
+
+- Alive protectors can be marked as dead from the sheet.
+- Once dead, the sheet becomes read-only and mutation actions are disabled.
+- Store-level guard also blocks updates that try to mutate an already dead record.
+- Dead protectors remain listed in the library with distinct styling.
 
 ---
 
@@ -122,6 +130,7 @@ flowchart LR
 | -------------------------------------------------- | ----------------------------------------------------------------------------- |
 | `src/lib/character/types.ts`                       | Core types (`character`, `StatPool`, `InventoryItem`, import result/mode)     |
 | `src/lib/character/model.ts`                       | Defaults, normalization, id generation, validation, inventory cap computation |
+| `src/lib/character/lifeStatus.ts`                  | Life status normalization and dead-freeze update rules                        |
 | `src/lib/character/store/localStorageStore.ts`     | CRUD + import/export against `localStorage`                                   |
 | `src/lib/character/store/migrations.ts`            | JSON parse/stringify envelope + merge strategy for imports                    |
 | `src/lib/character/store/index.ts`                 | In-memory singleton accessor `getCharacterStore()`                            |

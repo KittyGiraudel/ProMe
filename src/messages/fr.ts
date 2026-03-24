@@ -129,6 +129,24 @@ export const copy = {
     exportOne: "Copier export JSON",
     open: "Ouvrir",
     save: "Sauvegarder",
+    deadStatusLabel: "Mort·e",
+    deadListSymbol: "✝",
+    deadReadonlyTitle: "Protecteur décédé",
+    deadReadonlyDescription:
+      "Ce Protecteur est décédé. Par conséquent, cette fiche est figée et entièrement en lecture seule.",
+    markDeadAction: "Marquer comme mort·e",
+    markDeadConfirmTitle: "Marquer ce Protecteur comme mort ?",
+    markDeadConfirmDescription:
+      "Cette action fige définitivement la fiche en lecture seule.",
+    markDeadSuccess: "Le Protecteur est désormais marqué comme mort.",
+    deathSuggestionTitle: "Points d’Âme à 0",
+    deathSuggestionDescription:
+      "Votre Protecteur n’a plus de Points d’Âme. Vous pouvez le marquer comme mort.",
+    reviveAction: "Réanimer",
+    reviveConfirmTitle: "Réanimer ce Protecteur ?",
+    reviveConfirmDescription:
+      "Le Protecteur deviendra jouable et sa fiche sera modifiable à nouveau.",
+    reviveSuccess: "Le Protecteur est de nouveau vivant.",
     createSuccess: "Personnage créé.",
     saveSuccess: "Fiche sauvegardée.",
     delete: "Supprimer",

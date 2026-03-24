@@ -3,6 +3,7 @@ import type { Gender } from '@/lib/types'
 export const CHARACTER_SCHEMA_VERSION = 1 as const
 
 export type Archetype = 'warrior' | 'pilgrim' | 'bard'
+export type LifeStatus = 'alive' | 'dead'
 
 export const ARCHETYPES: readonly Archetype[] = [
   'warrior',
@@ -86,6 +87,7 @@ export type Character = {
   inventory: InventoryItem[]
   spellbook: SpellEntry[]
   journalEntries: JournalEntry[]
+  lifeStatus: LifeStatus
 }
 
 export type CharacterInput = Omit<

@@ -1,6 +1,6 @@
 'use client'
 
-import { App, Card, Form, Space, Tag } from 'antd'
+import { App, Card, ConfigProvider, Form, Space, Tag } from 'antd'
 import { InfoCircleFilled } from '@ant-design/icons'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { MapDisplay } from '@/components/MapDisplay/MapDisplay'
@@ -39,6 +39,7 @@ function normalizeMapState(
 
 export function MapCard() {
   const { notification } = App.useApp()
+  const { componentDisabled } = ConfigProvider.useConfig()
   const form = Form.useFormInstance()
   const watchedMap = Form.useWatch('map', {
     form,
@@ -61,6 +62,10 @@ export function MapCard() {
     const normalized = normalizeMapState(watchedMap)
     setVisibleSheet(getSheetCoordinate(normalized.currentPosition))
   }, [watchedMap])
+
+  useEffect(() => {
+    if (componentDisabled) setSelectedCell(null)
+  }, [componentDisabled])
 
   useMapHashNavigation({
     selectedCell,
@@ -210,6 +215,7 @@ export function MapCard() {
             </Tag>
             <Button
               htmlType='button'
+              disabled={false}
               onClick={() =>
                 setVisibleSheet(sheet => ({
                   ...sheet,
@@ -220,6 +226,7 @@ export function MapCard() {
             </Button>
             <Button
               htmlType='button'
+              disabled={false}
               onClick={() =>
                 setVisibleSheet(sheet => ({
                   ...sheet,
@@ -230,6 +237,7 @@ export function MapCard() {
             </Button>
             <Button
               htmlType='button'
+              disabled={false}
               onClick={() =>
                 setVisibleSheet(sheet => ({
                   ...sheet,
@@ -240,6 +248,7 @@ export function MapCard() {
             </Button>
             <Button
               htmlType='button'
+              disabled={false}
               onClick={() =>
                 setVisibleSheet(sheet => ({
                   ...sheet,
@@ -251,6 +260,7 @@ export function MapCard() {
             {!isViewingCurrentSheet ? (
               <Button
                 htmlType='button'
+                disabled={false}
                 onClick={() =>
                   setVisibleSheet(getSheetCoordinate(mapState.currentPosition))
                 }>

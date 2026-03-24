@@ -211,14 +211,17 @@
   background: transparent;
   border: 0;
   padding: 0;
-  cursor: pointer;
   font-family: monospace;
   font-variant-numeric: tabular-nums;
   transition: transform 0.1s ease-in-out;
   user-select: none;
 }
 
-.Map__Hex:hover .Map__Button {
+.Map__Button:not(:disabled) {
+  cursor: pointer;
+}
+
+.Map__Hex:hover .Map__Button:not(:disabled) {
   transform: scale(1.15);
 }
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { App, Card, Divider, Empty, Form, Space, Typography } from 'antd'
+import { App, Card, ConfigProvider, Divider, Empty, Form, Space } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
 import { useEffect, useRef } from 'react'
 import { copy } from '@/messages/fr'
@@ -18,6 +18,7 @@ export function NotesCard({
   onRemoveEntry: (index: number | number[]) => void
 }) {
   const { modal } = App.useApp()
+  const { componentDisabled } = ConfigProvider.useConfig()
   const form = Form.useFormInstance()
   const { isEditing, setEditingMode } = useJournalEntryViewModes()
   const previousFieldCountRef = useRef(fields.length)
@@ -68,12 +69,20 @@ export function NotesCard({
           formatTimestamp={formatTimestamp}
         />
       </div>
-      <Divider />
-      <Space wrap align='end' style={{ width: '100%' }} orientation='vertical'>
-        <Button type='dashed' onClick={onAddEntry} htmlType='button'>
-          {copy.characters.addJournalEntry}
-        </Button>
-      </Space>
+      {!componentDisabled && (
+        <>
+          <Divider />
+          <Space
+            wrap
+            align='end'
+            style={{ width: '100%' }}
+            orientation='vertical'>
+            <Button type='dashed' onClick={onAddEntry} htmlType='button'>
+              {copy.characters.addJournalEntry}
+            </Button>
+          </Space>
+        </>
+      )}
     </Card>
   )
 }

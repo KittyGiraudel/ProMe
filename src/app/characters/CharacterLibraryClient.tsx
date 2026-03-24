@@ -8,6 +8,7 @@ import { getCharacterStore } from '@/lib/character/store'
 import type { Character } from '@/lib/character/types'
 import { copy } from '@/messages/fr'
 import { Button } from '@/components/Button/Button'
+import { isCharacterDead } from '@/lib/character/lifeStatus'
 
 export function CharacterLibraryClient() {
   const { message } = App.useApp()
@@ -89,39 +90,66 @@ export function CharacterLibraryClient() {
         </Card>
       ) : (
         <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
-          {characters.map(character => (
-            <Card
-              key={character.id}
-              title={character.name || copy.characters.unnamed}
-              extra={
-                <Space>
-                  <BlockedLink href={`/characters/${character.id}`}>
-                    {copy.characters.open}
-                  </BlockedLink>
-                  <Popconfirm
-                    title={copy.characters.deleteConfirmTitle}
-                    description={copy.characters.deleteConfirmDescription}
-                    okText={copy.characters.delete}
-                    cancelText={copy.characters.cancel}
-                    onConfirm={() => handleDelete(character.id)}>
-                    <Button type='link' danger>
-                      {copy.characters.delete}
-                    </Button>
-                  </Popconfirm>
+          {characters.map(character => {
+            const dead = isCharacterDead(character)
+
+            return (
+              <Card
+                key={character.id}
+                title={
+                  <>
+                    {dead && copy.characters.deadListSymbol}{' '}
+                    {character.name || copy.characters.unnamed}
+                    {dead ? (
+                      <>
+                        <span style={{ opacity: 0.5 }}>
+                          {copy.common.emDashSpaced}
+                        </span>
+                        <Typography.Text type='danger'>
+                          {copy.characters.deadStatusLabel}
+                        </Typography.Text>
+                      </>
+                    ) : null}
+                  </>
+                }
+                styles={
+                  dead
+                    ? {
+                        header: { opacity: 0.75 },
+                        body: { opacity: 0.75 },
+                      }
+                    : undefined
+                }
+                extra={
+                  <Space>
+                    <BlockedLink href={`/characters/${character.id}`}>
+                      {copy.characters.open}
+                    </BlockedLink>
+                    <Popconfirm
+                      title={copy.characters.deleteConfirmTitle}
+                      description={copy.characters.deleteConfirmDescription}
+                      okText={copy.characters.delete}
+                      cancelText={copy.characters.cancel}
+                      onConfirm={() => handleDelete(character.id)}>
+                      <Button type='link' danger>
+                        {copy.characters.delete}
+                      </Button>
+                    </Popconfirm>
+                  </Space>
+                }>
+                <Space orientation='vertical' size={4}>
+                  <Typography.Text>
+                    {copy.characters.archetypeLabel}:{' '}
+                    {copy.characters.archetypes[character.archetype]}
+                  </Typography.Text>
+                  <Typography.Text type='secondary'>
+                    {copy.characters.updatedLabel}:{' '}
+                    {new Date(character.updatedAt).toLocaleString('fr-FR')}
+                  </Typography.Text>
                 </Space>
-              }>
-              <Space orientation='vertical' size={4}>
-                <Typography.Text>
-                  {copy.characters.archetypeLabel}:{' '}
-                  {copy.characters.archetypes[character.archetype]}
-                </Typography.Text>
-                <Typography.Text type='secondary'>
-                  {copy.characters.updatedLabel}:{' '}
-                  {new Date(character.updatedAt).toLocaleString('fr-FR')}
-                </Typography.Text>
-              </Space>
-            </Card>
-          ))}
+              </Card>
+            )
+          })}
         </Space>
       )}
     </Layout>

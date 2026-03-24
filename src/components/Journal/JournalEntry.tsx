@@ -1,6 +1,6 @@
 'use client'
 
-import { Form, Input, Space, Typography } from 'antd'
+import { ConfigProvider, Form, Input, Space, Typography } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
 import type { FormInstance } from 'antd'
 import { copy } from '@/messages/fr'
@@ -22,6 +22,7 @@ export function JournalEntry({
   onConfirmDelete: (entryIndex: number, hasContent: boolean) => void
   formatTimestamp: (value: string | undefined) => string | null
 }) {
+  const { componentDisabled } = ConfigProvider.useConfig()
   const content = form.getFieldValue([
     'journalEntries',
     field.name,
@@ -53,7 +54,7 @@ export function JournalEntry({
         editing ? 'journal__entry--edit' : 'journal__entry--preview'
       }`}>
       <div className='journal__entry-actions'>
-        {editing ? (
+        {!componentDisabled && editing ? (
           <Space>
             <Button
               danger
@@ -69,14 +70,14 @@ export function JournalEntry({
               {copy.characters.journalDoneEditing}
             </Button>
           </Space>
-        ) : (
+        ) : !componentDisabled ? (
           <Button
             className='journal__entry-edit-button'
             htmlType='button'
             onClick={() => setEditingMode(field.key, true)}>
             {copy.characters.journalEditEntry}
           </Button>
-        )}
+        ) : null}
       </div>
 
       {editing ? (

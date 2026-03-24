@@ -1,6 +1,6 @@
 'use client'
 
-import { Alert, Card, Col, Form, Input, Row, Select, Typography } from 'antd'
+import { Alert, Card, Col, Form, Input, Row, Select } from 'antd'
 import { GENDERS } from '@/lib/types'
 import type { Archetype } from '@/lib/character/types'
 import { copy } from '@/messages/fr'

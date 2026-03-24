@@ -3,6 +3,7 @@
 import { QuestionCircleOutlined } from '@ant-design/icons'
 import {
   Card,
+  ConfigProvider,
   Divider,
   Form,
   Input,
@@ -26,6 +27,7 @@ export function InventoryCard({
   onAddItem: () => void
   onRemoveItem: (index: number | number[]) => void
 }) {
+  const { componentDisabled } = ConfigProvider.useConfig()
   const atCap = inventoryLimit > 0 && fields.length >= inventoryLimit
   const cannotAdd = inventoryLimit <= 0 || atCap
 
@@ -99,16 +101,24 @@ export function InventoryCard({
           </div>
         ))}
       </Space>
-      <Divider />
-      <Space wrap align='end' style={{ width: '100%' }} orientation='vertical'>
-        <Button
-          type='dashed'
-          onClick={onAddItem}
-          disabled={cannotAdd}
-          htmlType='button'>
-          {copy.characters.addItem}
-        </Button>
-      </Space>
+      {!componentDisabled && (
+        <>
+          <Divider />
+          <Space
+            wrap
+            align='end'
+            style={{ width: '100%' }}
+            orientation='vertical'>
+            <Button
+              type='dashed'
+              onClick={onAddItem}
+              disabled={cannotAdd}
+              htmlType='button'>
+              {copy.characters.addItem}
+            </Button>
+          </Space>
+        </>
+      )}
     </Card>
   )
 }

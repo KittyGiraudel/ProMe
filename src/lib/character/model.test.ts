@@ -35,6 +35,19 @@ describe('character/model', () => {
     expect(input.honor).toBe(0)
     expect(input.inspiration).toBe(0)
     expect(input.journalEntries).toEqual([])
+    expect(input.lifeStatus).toBe('alive')
+  })
+
+  it('normalize defaults life status to alive for invalid payloads', () => {
+    const normalized = normalizeCharacter({
+      id: 'pc-life-status',
+      name: 'Status',
+      archetype: 'warrior',
+      lifeStatus: 'ghost',
+    })
+    expect(normalized).not.toBeNull()
+    if (!normalized) return
+    expect(normalized.lifeStatus).toBe('alive')
   })
 
   it('normalize migrates legacy notes string to one journal entry', () => {

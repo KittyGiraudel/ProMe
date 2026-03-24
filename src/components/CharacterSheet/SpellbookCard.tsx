@@ -1,7 +1,16 @@
 'use client'
 
 import { QuestionCircleOutlined } from '@ant-design/icons'
-import { Card, Divider, Form, Input, Space, Tooltip, Typography } from 'antd'
+import {
+  Card,
+  ConfigProvider,
+  Divider,
+  Form,
+  Input,
+  Space,
+  Tooltip,
+  Typography,
+} from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
 import { copy } from '@/messages/fr'
 import { Button } from '@/components/Button/Button'
@@ -17,6 +26,8 @@ export function SpellbookCard({
   onAddSpell: () => void
   onRemoveSpell: (index: number | number[]) => void
 }) {
+  const { componentDisabled } = ConfigProvider.useConfig()
+
   return (
     <Card
       title={
@@ -82,16 +93,24 @@ export function SpellbookCard({
           </div>
         ))}
       </Space>
-      <Divider />
-      <Space wrap align='end' style={{ width: '100%' }} orientation='vertical'>
-        <Button
-          type='dashed'
-          onClick={onAddSpell}
-          disabled={fields.length >= SPELLBOOK_MAX}
-          htmlType='button'>
-          {copy.characters.addSpell}
-        </Button>
-      </Space>
+      {!componentDisabled && (
+        <>
+          <Divider />
+          <Space
+            wrap
+            align='end'
+            style={{ width: '100%' }}
+            orientation='vertical'>
+            <Button
+              type='dashed'
+              onClick={onAddSpell}
+              disabled={fields.length >= SPELLBOOK_MAX}
+              htmlType='button'>
+              {copy.characters.addSpell}
+            </Button>
+          </Space>
+        </>
+      )}
     </Card>
   )
 }
