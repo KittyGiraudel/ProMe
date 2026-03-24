@@ -69,9 +69,9 @@
 
 .journal-markdown__biome-tag {
   margin: 0 0.5ch;
-  border-color: var(--biome-dark);
-  background: var(--biome-light);
-  color: var(--biome-contrast);
+  border-color: var(--biome-dark) !important;
+  background-color: var(--biome-light) !important;
+  color: var(--biome-contrast) !important;
 }
 
 .journal-markdown span[style] {

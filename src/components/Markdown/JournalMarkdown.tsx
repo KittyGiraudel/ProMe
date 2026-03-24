@@ -10,12 +10,13 @@ import {
   tokenizeJournalInlineText,
   type JournalInlineTokenRule,
 } from '@/lib/markdown/journalInlineTokens'
+import { getInhabitantSummaryFromUrl } from '@/lib/markdown/inhabitantLinkSummary'
 import { BIOME_ROLL_TABLE } from '@/lib/constants/biomeRollTable'
 import { copy } from '@/messages/fr'
-import '@/components/Markdown/JournalMarkdown.css'
 import { DICE, SUITS } from '@/lib/constants/misc'
 import { suitIsRed } from '@/lib/suitGlyphs'
 import { Suit } from '@/lib/types'
+import './JournalMarkdown.css'
 
 const BIOME_ENTRIES = BIOME_ROLL_TABLE.map(biome => ({
   label: copy.characters.mapBiomes[biome.biome],
@@ -201,6 +202,14 @@ const markdownComponents: Components = {
   h4: ({ children, node: _node, ...props }) => (
     <h4 {...props}>{renderWithHighlights(children)}</h4>
   ),
+  a: ({ children, node: _node, href, ...props }) => {
+    const inhabitantSummary = href ? getInhabitantSummaryFromUrl(href) : null
+    return (
+      <a {...props} href={href}>
+        {inhabitantSummary ?? renderWithHighlights(children)}
+      </a>
+    )
+  },
 }
 
 const rendererConfig = createJournalMarkdownRendererConfig({
