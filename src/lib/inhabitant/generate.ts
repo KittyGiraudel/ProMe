@@ -11,7 +11,6 @@ import {
   rankFromPersonality,
   suitFromAgeBand,
 } from "./maps";
-import { Localize } from "../localization/localize";
 import { _Translator } from "next-intl";
 
 export type InhabitantRerollPart =

@@ -1,6 +1,5 @@
 import type { PlayingCard, Rank } from "../../types";
 import { suitIsRed } from "../../suitGlyphs";
-import { Localize } from "@/lib/localization/localize";
 import { _Translator } from "next-intl";
 
 /** Ranks 2–8: establishment type has three size tiers in the rulebook. */
