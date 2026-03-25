@@ -6,8 +6,7 @@ import {
 } from '@/lib/village/data/establishments'
 import type { VillageRoll } from '@/lib/village/generate'
 import { mergeEstablishmentSizeTiers } from '@/lib/village/mergeEstablishmentSizeTiers'
-import { Localize } from '../localization/localize'
-import { resolveVillageDisplay, VillageEstablishmentRow } from '@/app/[locale]/generators/village/useVillageGenerator'
+import { resolveVillageDisplay, type VillageEstablishmentRow } from '@/lib/village/resolveVillageDisplay'
 import { _Translator } from 'next-intl'
 
 export type VillageEstablishmentGroup = {
@@ -16,7 +15,7 @@ export type VillageEstablishmentGroup = {
   count: number
   card: PlayingCard
   rerollPrimarySlot: number | null
-  rulebookPages: number[]
+  /** Indices into the original (un-grouped) establishment rows array. */
   ownerIndices: number[]
 }
 
@@ -65,13 +64,6 @@ export function groupEstablishments(
     const slots = groupRows.flatMap(rr =>
       rr.rerollPrimarySlot != null ? [rr.rerollPrimarySlot] : []
     )
-    const rulebookPages: number[] = []
-    for (const rr of groupRows) {
-      if (!rulebookPages.includes(rr.rulebookPage)) {
-        rulebookPages.push(rr.rulebookPage)
-      }
-    }
-    rulebookPages.sort((a, b) => a - b)
     const rerollPrimarySlot =
       count === 1 && slots.length === 1 ? slots[0]! : null
     return {
@@ -80,7 +72,6 @@ export function groupEstablishments(
       count,
       card: first.card,
       rerollPrimarySlot,
-      rulebookPages,
       ownerIndices,
     }
   })

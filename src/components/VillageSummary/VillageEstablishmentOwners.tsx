@@ -17,11 +17,9 @@ export type VillageOwnerEntry = { roll: InhabitantRoll; ownerIndex: number }
 
 export function VillageEstablishmentOwners({
   entries,
-  inhabitantPageVillageQuery,
   onRerollOwner,
 }: {
   entries: VillageOwnerEntry[] | undefined
-  inhabitantPageVillageQuery?: string | null
   onRerollOwner?: (ownerIndex: number) => void
 }) {
   const t = useTranslations()

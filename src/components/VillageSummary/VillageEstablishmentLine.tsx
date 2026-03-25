@@ -5,6 +5,7 @@ import { Typography } from 'antd'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import type { PlayingCard } from '@/lib/types'
 import { formatRulebookReference } from '@/lib/village/formatRulebookReference'
+import { establishmentDetailRulebookPage } from '@/lib/constants/rulebookPages'
 import {
   VillageEstablishmentOwners,
   type VillageOwnerEntry,
@@ -16,10 +17,16 @@ export type VillageEstablishmentLineProps = {
   lineNumber: number
   title: string
   card: PlayingCard
-  rulebookPages: number[]
+  /**
+   * Optional rulebook citations for this line.
+   *
+   * - When omitted, we derive the page from `card.rank` (simple, non-grouped case).
+   * - When grouping merges multiple underlying establishments, pass the full set of
+   *   pages so the UI can cite everything represented by this single rendered line.
+   */
+  rulebookPages?: number[]
   rerollPrimarySlot: number | null
   onRerollPrimarySlot?: (slotIndex: number) => void
-  inhabitantPageVillageQuery?: string | null
   ownerEntries?: VillageOwnerEntry[]
   onRerollOwner?: (ownerIndex: number) => void
 }
@@ -31,12 +38,12 @@ export function VillageEstablishmentLine({
   rulebookPages,
   rerollPrimarySlot,
   onRerollPrimarySlot,
-  inhabitantPageVillageQuery,
   ownerEntries,
   onRerollOwner,
 }: VillageEstablishmentLineProps) {
   const t = useTranslations()
-  const pagesLabel = formatRulebookReference(rulebookPages, t)
+  const pages = rulebookPages ?? [establishmentDetailRulebookPage(card.rank)]
+  const pagesLabel = formatRulebookReference(pages, t)
 
   return (
     <div className='village-summary__line'>
@@ -71,7 +78,6 @@ export function VillageEstablishmentLine({
         </div>
         <VillageEstablishmentOwners
           entries={ownerEntries}
-          inhabitantPageVillageQuery={inhabitantPageVillageQuery}
           onRerollOwner={onRerollOwner}
         />
       </div>

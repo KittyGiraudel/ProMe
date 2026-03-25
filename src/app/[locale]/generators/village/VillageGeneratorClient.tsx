@@ -2,191 +2,122 @@
 
 import { useCallback, useEffect, useMemo } from 'react'
 import { App, Select, Typography } from 'antd'
-import { Layout } from '@/components/Layout/Layout'
-import { RollActions } from '@/components/RollActions/RollActions'
-import { VillageSummary } from '@/components/VillageSummary/VillageSummary'
-import { useReplaceSearchParams } from '@/hooks/useReplaceSearchParams'
-import { encodeInhabitantRoll } from '@/lib/inhabitant/inhabitantUrlCodec'
-import {
-  generateInhabitantWithFaction,
-  type InhabitantRoll,
-} from '@/lib/inhabitant/generate'
+import { useTranslations } from 'next-intl'
+import type { InhabitantRoll } from '@/lib/inhabitant/generate'
+import { generateInhabitantWithFaction } from '@/lib/inhabitant/generate'
 import type { Faction } from '@/lib/types'
 import { FACTIONS } from '@/lib/types'
+import { decodeVillageFactionParam } from '@/lib/village/villageUrlCodec'
+import type { VillageRoll } from '@/lib/village/generate'
 import {
   generateVillageRoll,
   rerollVillagePrimarySlot,
-  type VillageRoll,
 } from '@/lib/village/generate'
-import {
-  decodeVillageFactionParam,
-  decodeVillageRollParam,
-  encodeVillageRoll,
-  encodeVillageOwners,
-  decodeVillageOwnersParam,
-} from '@/lib/village/villageUrlCodec'
-import { useVillageGenerator } from './useVillageGenerator'
-import './VillageGeneratorClient.css'
+import { generateOwnersForVillage } from '@/lib/village/ownersGenerate'
+import { VillageSummary } from '@/components/VillageSummary/VillageSummary'
+import { Layout } from '@/components/Layout/Layout'
+import { RollActions } from '@/components/RollActions/RollActions'
 import { formatVillageOneLiner } from '@/lib/village/formatOneLiner'
-import { useTranslations } from 'next-intl'
-
-const VILLAGE_QUERY_KEY = 'v'
-const OWNERS_QUERY_KEY = 'o'
-const FACTION_QUERY_KEY = 'f'
+import { useRouter } from '@/i18n/navigation'
+import { useSearchParams } from 'next/navigation'
+import { encodeVillageId } from '@/lib/village/villageIdCodec'
+import './VillageGeneratorClient.css'
 
 const DEFAULT_VILLAGE_FACTION: Faction = 'bruja'
 
-export function VillageGeneratorClient() {
+export function VillageGeneratorClient({
+  initialRoll: roll,
+  initialOwners: owners,
+}: {
+  initialRoll: VillageRoll | null
+  initialOwners: InhabitantRoll[] | null
+}) {
   const t = useTranslations()
-  const { generateOwnersForVillage, countVillageOwnerSlots } =
-    useVillageGenerator()
   const { message } = App.useApp()
-  const { replaceSearchParams, pathname, searchParams } =
-    useReplaceSearchParams()
-  const encoded = searchParams.get(VILLAGE_QUERY_KEY)
-  const ownersEncoded = searchParams.get(OWNERS_QUERY_KEY)
-  const factionEncoded = searchParams.get(FACTION_QUERY_KEY)
+  const router = useRouter()
+  const searchParams = useSearchParams()
 
-  const roll = useMemo(
-    () => (encoded ? decodeVillageRollParam(encoded) : null),
-    [encoded]
+  const factionEncoded = searchParams.get('f')
+  const villageFaction = useMemo<Faction>(
+    () => decodeVillageFactionParam(factionEncoded) ?? DEFAULT_VILLAGE_FACTION,
+    [factionEncoded]
   )
 
-  const ownersDecoded = useMemo(() => {
-    if (!roll || !ownersEncoded) return null
-    const n = countVillageOwnerSlots(roll)
-    const list = decodeVillageOwnersParam(t, ownersEncoded)
-    if (!list || list.length !== n) return null
-    return list
-  }, [roll, ownersEncoded, t, countVillageOwnerSlots])
-
-  const factionInferredFromOwners = useMemo((): Faction | null => {
-    if (!ownersDecoded?.length) return null
-    const r = ownersDecoded[0]!.faction
-    return ownersDecoded.every(o => o.faction === r) ? r : null
-  }, [ownersDecoded])
-
-  const villageFaction = useMemo(() => {
-    const fromParam = decodeVillageFactionParam(factionEncoded)
-    if (fromParam !== null) return fromParam
-    if (factionInferredFromOwners !== null) return factionInferredFromOwners
-    return DEFAULT_VILLAGE_FACTION
-  }, [factionEncoded, factionInferredFromOwners])
-
-  const ownersValid = useMemo(() => {
-    if (!ownersDecoded) return null
-    if (!ownersDecoded.every(o => o.faction === villageFaction)) return null
-    return ownersDecoded
-  }, [ownersDecoded, villageFaction])
-
-  useEffect(() => {
-    if (factionEncoded === null) return
-    if (decodeVillageFactionParam(factionEncoded) !== null) return
-    replaceSearchParams(p => {
-      p.delete(FACTION_QUERY_KEY)
-    })
-  }, [factionEncoded, replaceSearchParams])
-
-  useEffect(() => {
-    if (!roll || !ownersValid) return
-    if (factionEncoded !== null) return
-    replaceSearchParams(p => {
-      p.set(FACTION_QUERY_KEY, villageFaction)
-    })
-  }, [ownersValid, factionEncoded, replaceSearchParams, roll, villageFaction])
-
-  useEffect(() => {
-    if (!encoded || roll !== null) return
-    replaceSearchParams(p => {
-      p.delete(VILLAGE_QUERY_KEY)
-      p.delete(OWNERS_QUERY_KEY)
-    })
-  }, [encoded, replaceSearchParams, roll])
-
-  useEffect(() => {
-    if (!roll) return
-    if (ownersValid !== null) return
-    const fresh = generateOwnersForVillage(roll, villageFaction)
-    replaceSearchParams(p => {
-      p.set(VILLAGE_QUERY_KEY, encodeVillageRoll(roll))
-      p.set(OWNERS_QUERY_KEY, encodeVillageOwners(fresh))
-      p.set(FACTION_QUERY_KEY, villageFaction)
-    })
-  }, [ownersValid, replaceSearchParams, roll, villageFaction])
-
-  const pushVillageParams = useCallback(
+  const pushVillage = useCallback(
     (
       nextRoll: VillageRoll,
       nextOwners: InhabitantRoll[],
       nextFaction: Faction
     ) => {
-      replaceSearchParams(p => {
-        p.set(VILLAGE_QUERY_KEY, encodeVillageRoll(nextRoll))
-        p.set(OWNERS_QUERY_KEY, encodeVillageOwners(nextOwners))
-        p.set(FACTION_QUERY_KEY, nextFaction)
+      const id = encodeVillageId(nextRoll, nextOwners)
+      void router.push(`/generators/village/${id}?f=${nextFaction}`, {
+        scroll: false,
       })
     },
-    [replaceSearchParams]
+    [router]
   )
+
+  // If a user manually loads with mismatched `?f=...`, re-sync owners once.
+  useEffect(() => {
+    if (!roll || !owners) return
+    if (owners.every(o => o.faction === villageFaction)) return
+    const freshOwners = generateOwnersForVillage(roll, villageFaction, t)
+    pushVillage(roll, freshOwners, villageFaction)
+  }, [owners, pushVillage, roll, t, villageFaction])
 
   const handleGenerate = useCallback(() => {
     const next = generateVillageRoll()
-    const owners = generateOwnersForVillage(next, villageFaction)
-    pushVillageParams(next, owners, villageFaction)
-  }, [pushVillageParams, villageFaction, generateOwnersForVillage])
+    const nextOwners = generateOwnersForVillage(next, villageFaction, t)
+    pushVillage(next, nextOwners, villageFaction)
+  }, [pushVillage, t, villageFaction])
 
   const handleFactionChange = useCallback(
     (nextFaction: Faction) => {
       if (!roll) {
-        replaceSearchParams(p => {
-          p.set(FACTION_QUERY_KEY, nextFaction)
+        return router.replace(`/generators/village?f=${nextFaction}`, {
+          scroll: false,
         })
-        return
       }
-      const owners = generateOwnersForVillage(roll, nextFaction)
-      pushVillageParams(roll, owners, nextFaction)
+      pushVillage(
+        roll,
+        generateOwnersForVillage(roll, nextFaction, t),
+        nextFaction
+      )
     },
-    [pushVillageParams, replaceSearchParams, roll, generateOwnersForVillage]
+    [pushVillage, roll, router, t]
   )
 
-  const handleRerollSlot = useCallback(
+  const handleRerollPrimarySlot = useCallback(
     (slotIndex: number) => {
       if (!roll) return
       const next = rerollVillagePrimarySlot(roll, slotIndex)
-      const owners = generateOwnersForVillage(next, villageFaction)
-      pushVillageParams(next, owners, villageFaction)
+      const nextOwners = generateOwnersForVillage(next, villageFaction, t)
+      pushVillage(next, nextOwners, villageFaction)
     },
-    [pushVillageParams, roll, villageFaction, generateOwnersForVillage]
+    [pushVillage, roll, t, villageFaction]
   )
 
   const handleRerollOwner = useCallback(
     (ownerIndex: number) => {
-      if (!roll || !ownersValid) return
-      const nextOwners = ownersValid.slice()
+      if (!roll || !owners) return
+      const nextOwners = owners.slice()
       nextOwners[ownerIndex] = generateInhabitantWithFaction(villageFaction, t)
-      pushVillageParams(roll, nextOwners, villageFaction)
+      pushVillage(roll, nextOwners, villageFaction)
     },
-    [t, ownersValid, pushVillageParams, roll, villageFaction]
+    [owners, pushVillage, roll, t, villageFaction]
   )
 
   const handleCopyOneLiner = useCallback(async () => {
-    if (!roll || !ownersValid) return
-    const params = new URLSearchParams(searchParams.toString())
-    params.set(VILLAGE_QUERY_KEY, encodeVillageRoll(roll))
-    params.set(OWNERS_QUERY_KEY, encodeVillageOwners(ownersValid))
-    params.set(FACTION_QUERY_KEY, villageFaction)
-    const shareUrl = `${window.location.origin}${pathname}?${params.toString()}`
-    const line = formatVillageOneLiner(roll, shareUrl, t, ownersValid, {
-      inhabitantShareUrl: inhabitantRoll =>
-        `${window.location.origin}/generators/npc/${encodeInhabitantRoll(inhabitantRoll)}`,
-    })
+    if (!roll || !owners) return
     try {
-      await navigator.clipboard.writeText(line)
+      await navigator.clipboard.writeText(
+        formatVillageOneLiner(roll, t, owners)
+      )
       message.success(t('village.copy_one_liner_success'))
     } catch {
       message.error(t('village.copy_one_liner_error'))
     }
-  }, [t, message, ownersValid, pathname, roll, searchParams, villageFaction])
+  }, [message, owners, roll, t])
 
   const factionOptions = useMemo(
     () =>
@@ -197,15 +128,6 @@ export function VillageGeneratorClient() {
     [t]
   )
 
-  const inhabitantPageVillageQuery = useMemo(() => {
-    if (!roll || !ownersValid) return null
-    const p = new URLSearchParams()
-    p.set(VILLAGE_QUERY_KEY, encodeVillageRoll(roll))
-    p.set(OWNERS_QUERY_KEY, encodeVillageOwners(ownersValid))
-    p.set(FACTION_QUERY_KEY, villageFaction)
-    return p.toString()
-  }, [ownersValid, roll, villageFaction])
-
   return (
     <Layout
       title={t('village.title')}
@@ -214,7 +136,7 @@ export function VillageGeneratorClient() {
         <RollActions
           onRoll={handleGenerate}
           label={t('village.generate')}
-          onCopyOneLiner={roll && ownersValid ? handleCopyOneLiner : undefined}
+          onCopyOneLiner={roll && owners ? handleCopyOneLiner : undefined}
           copyOneLinerLabel={t('village.copy_one_liner')}
         />
       }>
@@ -230,10 +152,9 @@ export function VillageGeneratorClient() {
       </div>
       <VillageSummary
         roll={roll}
-        owners={ownersValid}
-        inhabitantPageVillageQuery={inhabitantPageVillageQuery}
-        onRerollPrimarySlot={roll ? handleRerollSlot : undefined}
-        onRerollOwner={roll && ownersValid ? handleRerollOwner : undefined}
+        owners={owners}
+        onRerollPrimarySlot={roll ? handleRerollPrimarySlot : undefined}
+        onRerollOwner={roll && owners ? handleRerollOwner : undefined}
       />
     </Layout>
   )

@@ -1,15 +1,16 @@
 import { Suspense } from 'react'
 import { AppConfig, useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
+import { notFound } from 'next/navigation'
 import { Layout } from '@/components/Layout/Layout'
-import { VillageGeneratorClient } from './VillageGeneratorClient'
+import { VillageGeneratorClient } from '../VillageGeneratorClient'
+import { decodeVillageIdParam } from '@/lib/village/villageIdCodec'
 
-type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
+type Props = { params: Promise<{ locale: AppConfig['Locale']; id: string }> }
 
 export async function generateMetadata({ params }: Props) {
   const { locale } = await params
   const t = await getTranslations({ locale })
-
   return {
     title: t('village.title'),
   }
@@ -24,10 +25,19 @@ function VillageGeneratorFallback() {
   )
 }
 
-export default function VillageGeneratorPage() {
+export default async function VillageGeneratorIdPage({ params }: Props) {
+  const { locale, id } = await params
+  const t = await getTranslations({ locale })
+
+  const decoded = decodeVillageIdParam(id, t)
+  if (!decoded) notFound()
+
   return (
     <Suspense fallback={<VillageGeneratorFallback />}>
-      <VillageGeneratorClient initialRoll={null} initialOwners={null} />
+      <VillageGeneratorClient
+        initialRoll={decoded.roll}
+        initialOwners={decoded.owners}
+      />
     </Suspense>
   )
 }

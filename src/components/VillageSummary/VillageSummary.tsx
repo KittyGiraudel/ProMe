@@ -10,38 +10,131 @@ import { groupEstablishments } from '@/lib/village/groupEstablishments'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { RichText } from '@/components/RichText/RichText'
 import { formatRulebookReference } from '@/lib/village/formatRulebookReference'
+import {
+  establishmentDetailRulebookPage,
+  RULEBOOK_PAGES,
+} from '@/lib/constants/rulebookPages'
 import { VillageEstablishmentLine } from './VillageEstablishmentLine'
 import { Button } from '@/components/Button/Button'
 import { useSettings } from '@/app/[locale]/contexts/SettingsContext'
 import { useTranslations } from 'next-intl'
-import { useVillageGenerator } from '@/app/[locale]/generators/village/useVillageGenerator'
+import {
+  ownerSlotIndexByEstablishmentIndex,
+  resolveVillageDisplay,
+  type VillageEstablishmentRow,
+} from '@/lib/village/resolveVillageDisplay'
 import './VillageSummary.css'
 
 type VillageSummaryProps = {
   roll: VillageRoll | null
   owners: InhabitantRoll[] | null
-  /** Appended to inhabitant links so the inhabitant page can offer « Retour au village ». */
-  inhabitantPageVillageQuery?: string | null
   onRerollPrimarySlot?: (slotIndex: number) => void
   onRerollOwner?: (ownerIndex: number) => void
+}
+
+type OwnerEntry = { roll: InhabitantRoll; ownerIndex: number }
+
+function UngroupedEstablishmentsList({
+  establishments,
+  ownerSlotByEstIndex,
+  owners,
+  ownersOk,
+  onRerollPrimarySlot,
+  onRerollOwner,
+}: {
+  establishments: readonly VillageEstablishmentRow[]
+  ownerSlotByEstIndex: readonly (number | null)[]
+  owners: InhabitantRoll[] | null
+  ownersOk: boolean
+  onRerollPrimarySlot?: (slotIndex: number) => void
+  onRerollOwner?: (ownerIndex: number) => void
+}) {
+  return establishments.map((row, i) => {
+    const ownerSlot = ownerSlotByEstIndex[i] ?? null
+    const ownerEntries: OwnerEntry[] | undefined =
+      ownersOk && ownerSlot !== null && owners
+        ? [{ roll: owners[ownerSlot]!, ownerIndex: ownerSlot }]
+        : undefined
+
+    return (
+      <VillageEstablishmentLine
+        key={`${encodePlayingCard(row.card)}-${i}`}
+        lineNumber={i + 1}
+        title={row.text}
+        card={row.card}
+        rerollPrimarySlot={row.rerollPrimarySlot ?? null}
+        onRerollPrimarySlot={onRerollPrimarySlot}
+        ownerEntries={ownerEntries}
+        onRerollOwner={onRerollOwner}
+      />
+    )
+  })
+}
+
+function GroupedEstablishmentsList({
+  groupedEstablishments,
+  establishments,
+  ownerSlotByEstIndex,
+  owners,
+  ownersOk,
+  onRerollPrimarySlot,
+  onRerollOwner,
+}: {
+  groupedEstablishments: ReturnType<typeof groupEstablishments>
+  establishments: readonly VillageEstablishmentRow[]
+  ownerSlotByEstIndex: readonly (number | null)[]
+  owners: InhabitantRoll[] | null
+  ownersOk: boolean
+  onRerollPrimarySlot?: (slotIndex: number) => void
+  onRerollOwner?: (ownerIndex: number) => void
+}) {
+  return groupedEstablishments.map((g, i) => {
+    const rulebookPages = Array.from(
+      new Set(
+        g.ownerIndices.map(estIdx =>
+          establishmentDetailRulebookPage(establishments[estIdx]!.card.rank)
+        )
+      )
+    ).sort((a, b) => a - b)
+
+    const ownerEntries: OwnerEntry[] | undefined =
+      ownersOk && owners
+        ? g.ownerIndices.flatMap(estIdx => {
+            const ownerIndex = ownerSlotByEstIndex[estIdx] ?? null
+            if (ownerIndex === null) return []
+            return [{ roll: owners[ownerIndex]!, ownerIndex }]
+          })
+        : undefined
+
+    return (
+      <VillageEstablishmentLine
+        key={g.key}
+        lineNumber={i + 1}
+        title={g.text}
+        card={g.card}
+        rulebookPages={rulebookPages}
+        rerollPrimarySlot={g.rerollPrimarySlot}
+        onRerollPrimarySlot={onRerollPrimarySlot}
+        ownerEntries={ownerEntries}
+        onRerollOwner={onRerollOwner}
+      />
+    )
+  })
 }
 
 export function VillageSummary({
   roll,
   owners,
-  inhabitantPageVillageQuery,
   onRerollPrimarySlot,
   onRerollOwner,
 }: VillageSummaryProps) {
-  const { resolveVillageDisplay, ownerSlotIndexByEstablishmentIndex } =
-    useVillageGenerator()
   const { settings } = useSettings()
   const t = useTranslations()
   const grouped = settings.village.mergeDuplicateEstablishments
 
   const display = useMemo(
-    () => (roll ? resolveVillageDisplay(roll) : null),
-    [roll, t, resolveVillageDisplay]
+    () => (roll ? resolveVillageDisplay(roll, t) : null),
+    [roll, t]
   )
 
   const ownerSlotByEstIndex = useMemo(
@@ -58,69 +151,10 @@ export function VillageSummary({
     ownerSlotByEstIndex &&
     owners.length === ownerSlotByEstIndex.filter(s => s !== null).length
 
-  const establishmentBlocks = useMemo(() => {
-    if (!display || !ownerSlotByEstIndex) return null
-    if (!grouped) {
-      return display.establishments.map((row, i) => {
-        const ownerSlot = ownerSlotByEstIndex[i]!
-        return (
-          <VillageEstablishmentLine
-            key={`${encodePlayingCard(row.card)}-${i}`}
-            lineNumber={i + 1}
-            title={row.text}
-            card={row.card}
-            rulebookPages={[row.rulebookPage]}
-            rerollPrimarySlot={row.rerollPrimarySlot ?? null}
-            onRerollPrimarySlot={onRerollPrimarySlot}
-            inhabitantPageVillageQuery={inhabitantPageVillageQuery}
-            ownerEntries={
-              ownersOk && ownerSlot !== null
-                ? [{ roll: owners![ownerSlot]!, ownerIndex: ownerSlot }]
-                : undefined
-            }
-            onRerollOwner={onRerollOwner}
-          />
-        )
-      })
-    }
-    return groupEstablishments(display.establishments, t).map((g, i) => (
-      <VillageEstablishmentLine
-        key={g.key}
-        lineNumber={i + 1}
-        title={g.text}
-        card={g.card}
-        rulebookPages={g.rulebookPages}
-        rerollPrimarySlot={g.rerollPrimarySlot}
-        onRerollPrimarySlot={onRerollPrimarySlot}
-        inhabitantPageVillageQuery={inhabitantPageVillageQuery}
-        ownerEntries={
-          ownersOk
-            ? g.ownerIndices.flatMap(estIdx => {
-                const ownerSlot = ownerSlotByEstIndex[estIdx]!
-                if (ownerSlot === null) return []
-                return [
-                  {
-                    roll: owners![ownerSlot]!,
-                    ownerIndex: ownerSlot,
-                  },
-                ]
-              })
-            : undefined
-        }
-        onRerollOwner={onRerollOwner}
-      />
-    ))
-  }, [
-    inhabitantPageVillageQuery,
-    display,
-    grouped,
-    onRerollOwner,
-    onRerollPrimarySlot,
-    ownerSlotByEstIndex,
-    owners,
-    ownersOk,
-    t,
-  ])
+  const groupedEstablishments = useMemo(() => {
+    if (!display || !grouped) return null
+    return groupEstablishments(display.establishments, t)
+  }, [display, grouped, t])
 
   const villageFootnote = (
     <Typography.Text type='secondary' className='generator-rulebook-footnote'>
@@ -151,7 +185,26 @@ export function VillageSummary({
         <Typography.Title level={5} className='village-summary__section-title'>
           {t('village.section_establishments')}
         </Typography.Title>
-        {establishmentBlocks}
+        {!grouped ? (
+          <UngroupedEstablishmentsList
+            establishments={display.establishments}
+            ownerSlotByEstIndex={ownerSlotByEstIndex ?? []}
+            owners={owners}
+            ownersOk={Boolean(ownersOk)}
+            onRerollPrimarySlot={onRerollPrimarySlot}
+            onRerollOwner={onRerollOwner}
+          />
+        ) : groupedEstablishments ? (
+          <GroupedEstablishmentsList
+            groupedEstablishments={groupedEstablishments}
+            establishments={display.establishments}
+            ownerSlotByEstIndex={ownerSlotByEstIndex ?? []}
+            owners={owners}
+            ownersOk={Boolean(ownersOk)}
+            onRerollPrimarySlot={onRerollPrimarySlot}
+            onRerollOwner={onRerollOwner}
+          />
+        ) : null}
 
         {display.traits.length > 0 ? (
           <div className='village-summary__traits'>
@@ -195,7 +248,10 @@ export function VillageSummary({
                         : null}
                     </div>
                     <span className='village-summary__line-page'>
-                      {formatRulebookReference([row.rulebookPage], t)}
+                      {formatRulebookReference(
+                        [RULEBOOK_PAGES.village.establishmentTable],
+                        t
+                      )}
                     </span>
                   </div>
                 </li>

@@ -5,7 +5,7 @@ import {
 } from '@/lib/inhabitant/generate'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 import type { VillageRoll } from '@/lib/village/generate'
-import { ownerSlotIndexByEstablishmentIndex, resolveVillageDisplay } from '@/app/[locale]/generators/village/useVillageGenerator'
+import { ownerSlotIndexByEstablishmentIndex, resolveVillageDisplay } from '@/lib/village/resolveVillageDisplay'
 import { _Translator } from 'next-intl'
 
 function stripBoldMarkers(s: string): string {
@@ -23,10 +23,8 @@ export type VillageCopyFormatOptions = {
  */
 export function formatVillageOneLiner(
   roll: VillageRoll,
-  shareUrl: string,
   t: _Translator,
   owners?: InhabitantRoll[] | null,
-  options?: VillageCopyFormatOptions,
 ): string {
   const { traits, establishments } = resolveVillageDisplay(roll, t)
   const ownerSlots = ownerSlotIndexByEstablishmentIndex(establishments)
@@ -42,17 +40,6 @@ export function formatVillageOneLiner(
     owners.length === ownerSlots.filter((s): s is number => s !== null).length
   const establishmentLines = establishments.map((row, i) => {
     const ownerIdx = ownerSlots[i]!
-    if (ownersOk && ownerIdx !== null && options?.inhabitantShareUrl) {
-      const owner = owners[ownerIdx]!
-      const oneLiner = t('inhabitant.one_liner', {
-        gender: genderCompactSymbol(owner.gender),
-        name: owner.name,
-        faction: t(`common.factions.${owner.faction}`),
-        age: t(`common.ageBands.${getAgeBand(owner)}`),
-        personality: t(`common.personalities.${getPersonality(owner)}`),
-      }) + ' ' + shareUrl
-      return `- ${row.text}\n  - ${t('village.owner_label')} ${oneLiner}`
-    }
     if (ownersOk && ownerIdx !== null) {
       const owner = owners[ownerIdx]!
       const oneLiner = t('inhabitant.one_liner', {
@@ -70,6 +57,5 @@ export function formatVillageOneLiner(
     `${t('village.sectionEstablishments')}\n${establishmentLines.join('\n')}`,
   )
 
-  sections.push(shareUrl)
   return sections.join('\n\n')
 }

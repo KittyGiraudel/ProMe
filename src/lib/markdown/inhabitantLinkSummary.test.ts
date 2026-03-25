@@ -11,14 +11,6 @@ describe('markdown/inhabitantLinkSummary', () => {
     expect(summary).toContain('(')
   })
 
-  it('returns null for non-inhabitant URLs', () => {
-    const summary = getInhabitantSummaryFromUrl(
-      'https://example.com/generators/village?v=abc',
-      testLocalize,
-    )
-    expect(summary).toBeNull()
-  })
-
   it('returns null for invalid NPC URLs', () => {
     const summary = getInhabitantSummaryFromUrl(
       'https://example.com/generators/npc/NOT_A_VALID_ROLL',
