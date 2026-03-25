@@ -6,7 +6,6 @@ import {
   decodePlayingCardPair as decodeCard,
   encodePlayingCard as encodeCard,
 } from "../codec/cards";
-import { Localize } from "../localization/localize";
 import { _Translator } from "next-intl";
 
 function parseFactionDie(c: string): number | null {

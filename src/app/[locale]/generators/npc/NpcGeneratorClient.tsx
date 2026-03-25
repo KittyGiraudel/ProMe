@@ -4,7 +4,6 @@ import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { App } from 'antd'
 import { useRouter, usePathname } from '@/i18n/navigation'
-import { useSearchParams } from 'next/navigation'
 import type {
   InhabitantRoll,
   InhabitantRerollPart,
@@ -22,7 +21,7 @@ import { Layout } from '@/components/Layout/Layout'
 import { RollActions } from '@/components/RollActions/RollActions'
 
 export function NpcGeneratorClient({
-  initialRoll,
+  initialRoll: roll,
 }: {
   initialRoll: InhabitantRoll | null
 }) {
@@ -30,23 +29,19 @@ export function NpcGeneratorClient({
   const { message } = App.useApp()
   const router = useRouter()
   const pathname = usePathname()
-  const searchParams = useSearchParams()
-  const roll = initialRoll
 
   const pushToRoll = useCallback(
-    (nextRoll: InhabitantRoll) => {
-      const encoded = encodeInhabitantRoll(nextRoll)
-      const qs = searchParams.toString()
-      const base = `/generators/npc/${encoded}`
-      void router.push(qs ? `${base}?${qs}` : base, { scroll: false })
-    },
-    [router, searchParams]
+    (roll: InhabitantRoll) =>
+      router.push(`/generators/npc/${encodeInhabitantRoll(roll)}`, {
+        scroll: false,
+      }),
+    [router]
   )
 
-  const handleGenerate = useCallback(() => {
-    const next = generateInhabitant(t)
-    pushToRoll(next)
-  }, [pushToRoll, t])
+  const handleGenerate = useCallback(
+    () => pushToRoll(generateInhabitant(t)),
+    [pushToRoll, t]
+  )
 
   const handleRerollPart = useCallback(
     (part: InhabitantRerollPart) => {
@@ -65,18 +60,13 @@ export function NpcGeneratorClient({
   const handleCopyOneLiner = useCallback(async () => {
     if (!roll) return
 
-    // Prefer the already-routed pathname so we include the new URL shape.
-    const shareUrl = `${window.location.origin}${pathname}`
-    const line =
-      t('inhabitant.one_liner', {
-        gender: genderCompactSymbol(roll.gender),
-        name: roll.name,
-        faction: t(`common.factions.${roll.faction}`),
-        age: t(`common.age_bands.${getAgeBand(roll)}`),
-        personality: t(`common.personalities.${getPersonality(roll)}`),
-      }) +
-      ' ' +
-      shareUrl
+    const line = t('inhabitant.one_liner', {
+      gender: genderCompactSymbol(roll.gender),
+      name: roll.name,
+      faction: t(`common.factions.${roll.faction}`),
+      age: t(`common.age_bands.${getAgeBand(roll)}`),
+      personality: t(`common.personalities.${getPersonality(roll)}`),
+    })
 
     try {
       await navigator.clipboard.writeText(line)

@@ -19,9 +19,6 @@ export function RollActions({
 }: RollActionsProps) {
   return (
     <div className='roll-actions'>
-      <Button type='primary' size='large' onClick={onRoll}>
-        {label}
-      </Button>
       {onCopyOneLiner && copyOneLinerLabel ? (
         <Button
           size='large'
@@ -30,6 +27,9 @@ export function RollActions({
           {copyOneLinerLabel}
         </Button>
       ) : null}
+      <Button type='primary' size='large' onClick={onRoll}>
+        {label}
+      </Button>
     </div>
   )
 }
