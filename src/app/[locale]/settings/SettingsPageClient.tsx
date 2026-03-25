@@ -9,6 +9,7 @@ type SettingsFormValues = {
   adaptiveNightMode: boolean
   timelineReverseChronological: boolean
   villageMergeDuplicateEstablishments: boolean
+  mapTickClockOnMove: boolean
 }
 
 export function SettingsPageClient() {
@@ -20,6 +21,7 @@ export function SettingsPageClient() {
     timelineReverseChronological: settings.journal.timelineReverseChronological,
     villageMergeDuplicateEstablishments:
       settings.village.mergeDuplicateEstablishments,
+    mapTickClockOnMove: settings.map.tickClockOnMove,
   }
 
   const handleValuesChange = (_: unknown, allValues: SettingsFormValues) => {
@@ -39,13 +41,17 @@ export function SettingsPageClient() {
         mergeDuplicateEstablishments:
           allValues.villageMergeDuplicateEstablishments === true,
       },
+      map: {
+        ...prev.map,
+        tickClockOnMove: allValues.mapTickClockOnMove === true,
+      },
     }))
   }
 
   return (
     <Layout title={t('settings.title')} pageCoverBiome='silentDesert'>
       <Form<SettingsFormValues>
-        key={`${settings.sheet.adaptiveNightMode}-${settings.journal.timelineReverseChronological}-${settings.village.mergeDuplicateEstablishments}`}
+        key={`${settings.sheet.adaptiveNightMode}-${settings.journal.timelineReverseChronological}-${settings.village.mergeDuplicateEstablishments}-${settings.map.tickClockOnMove}`}
         layout='vertical'
         initialValues={initialValues}
         onValuesChange={handleValuesChange}>
@@ -89,6 +95,19 @@ export function SettingsPageClient() {
             </Form.Item>
             <Typography.Text type='secondary'>
               {t('settings.village_merge_duplicate_establishments_help')}
+            </Typography.Text>
+          </Space>
+        </Card>
+        <Card title={t('settings.section_map')} style={{ marginTop: 16 }}>
+          <Space orientation='vertical' size='small'>
+            <Form.Item
+              name='mapTickClockOnMove'
+              valuePropName='checked'
+              style={{ marginBottom: 0 }}>
+              <Checkbox>{t('settings.map_tick_clock_on_move_label')}</Checkbox>
+            </Form.Item>
+            <Typography.Text type='secondary'>
+              {t('settings.map_tick_clock_on_move_help')}
             </Typography.Text>
           </Space>
         </Card>

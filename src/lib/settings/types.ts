@@ -16,4 +16,8 @@ export type AppSettings = {
      */
     mergeDuplicateEstablishments: boolean
   }
+  map: {
+    /** When true, moving to an adjacent hex on the character map advances the clock one slice. */
+    tickClockOnMove: boolean
+  }
 }

@@ -11,6 +11,9 @@ export const DEFAULT_SETTINGS: AppSettings = {
   village: {
     mergeDuplicateEstablishments: false,
   },
+  map: {
+    tickClockOnMove: false,
+  },
 }
 
 export function normalizeSettings(value: unknown): AppSettings {
@@ -27,6 +30,9 @@ export function normalizeSettings(value: unknown): AppSettings {
     village: {
       mergeDuplicateEstablishments:
         source?.village?.mergeDuplicateEstablishments === true,
+    },
+    map: {
+      tickClockOnMove: source?.map?.tickClockOnMove === true,
     },
   }
 }

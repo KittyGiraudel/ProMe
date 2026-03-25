@@ -2,7 +2,7 @@
 
 import { App, Card, ConfigProvider, Form, Space, Tag } from 'antd'
 import { InfoCircleFilled } from '@ant-design/icons'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { MapDisplay } from '@/components/MapDisplay/MapDisplay'
 import {
   toHexKey,
@@ -17,7 +17,10 @@ import {
   type CharacterMapState,
   type HexCoordinate,
   type JournalEntry,
+  type StatPool,
 } from '@/lib/character/types'
+import { useSetClockToRawTargetWithToast } from '@/lib/character/clockPositionNotifications'
+import { clampClockSliceIndex } from '@/lib/character/clock'
 import { DEFAULT_MAP_POSITION } from '@/lib/character/model'
 import { getRandomBiomeResult } from '@/lib/map/randomBiome'
 import { moveWithAutoBiome } from '@/lib/map/movement'
@@ -26,6 +29,7 @@ import { Button } from '@/components/Button/Button'
 import { useMapHashNavigation } from './useMapHashNavigation'
 import { useTranslations } from 'next-intl'
 import { buildCellReferenceToJournalEntriesIndex } from '@/lib/journal/cellReferenceIndex'
+import { useSettings } from '@/app/[locale]/contexts/SettingsContext'
 
 function normalizeMapState(
   value: CharacterMapState | undefined
@@ -41,6 +45,7 @@ function normalizeMapState(
 
 export function MapCard() {
   const t = useTranslations()
+  const { settings } = useSettings()
   const { notification } = App.useApp()
   const { componentDisabled } = ConfigProvider.useConfig()
   const form = Form.useFormInstance()
@@ -57,6 +62,13 @@ export function MapCard() {
   const [visibleSheet, setVisibleSheet] = useState<SheetCoordinate>(() =>
     getSheetCoordinate(mapState.currentPosition)
   )
+  const updateClock = useCallback(
+    (wrapped: number) => form.setFieldValue('clock', wrapped),
+    [form]
+  )
+  const setClockToRawTargetWithToast = useSetClockToRawTargetWithToast({
+    updateClock,
+  })
 
   const hasSyncedVisibleSheetRef = useRef(false)
   const cardRef = useRef<HTMLDivElement | null>(null)
@@ -177,11 +189,26 @@ export function MapCard() {
 
   const moveToCell = (target: HexCoordinate) => {
     let discoveredBiome: ReturnType<typeof getRandomBiomeResult> | undefined
+    let moved = false
     updateMap(current => {
       const result = moveWithAutoBiome(current, target)
       discoveredBiome = result.discoveredBiome
+      moved = !isSameHex(current.currentPosition, result.next.currentPosition)
       return result.next
     })
+    if (settings.map.tickClockOnMove && moved) {
+      const staminaCurrent =
+        (form.getFieldValue('stamina') as StatPool | undefined)?.current ?? 0
+      const position = clampClockSliceIndex(
+        staminaCurrent,
+        form.getFieldValue('clock')
+      )
+      setClockToRawTargetWithToast({
+        stamina: staminaCurrent,
+        position,
+        nextPosition: position + 1,
+      })
+    }
     if (discoveredBiome) {
       const biomeName = t(`common.biomes.${discoveredBiome.biome}`)
       notification.info({

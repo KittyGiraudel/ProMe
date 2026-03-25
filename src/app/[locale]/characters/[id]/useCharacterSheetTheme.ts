@@ -1,7 +1,11 @@
 'use client'
 
 import { theme as antdTheme, FormInstance } from 'antd'
-import { computeClockSegmentsPerHalfFromStamina } from '@/lib/character/model'
+import {
+  clampClockSliceIndex,
+  countHalfClockSegments,
+  isClockNightPhase,
+} from '@/lib/character/clock'
 import { useSettings } from '@/app/[locale]/contexts/SettingsContext'
 import { Character } from '@/lib/character/types'
 import { useCharacterSheetDerived } from './useCharacterSheetDerived'
@@ -36,19 +40,19 @@ export function useCharacterSheetTheme({
   form: FormInstance
   character: Character | null,
 }) {
-  const { watchedClock, clockTotalSegments, staminaCurrent } =
-    useCharacterSheetDerived({ form, character })
+  const { watchedClock, staminaCurrent } = useCharacterSheetDerived({ form, character })
 
   const { settings } = useSettings()
   const adaptiveNightMode = settings.sheet.adaptiveNightMode
-  const clockSegmentsPerHalf = computeClockSegmentsPerHalfFromStamina(
-    staminaCurrent
+  const clockSegmentsPerHalf = countHalfClockSegments(staminaCurrent)
+  const clockPositionForPhase = clampClockSliceIndex(
+    staminaCurrent,
+    watchedClock
   )
-  const clockPositionForPhase = Math.min(
-    Math.max(0, Math.trunc(watchedClock)),
-    Math.max(0, clockTotalSegments - 1)
+  const isClockNight = isClockNightPhase(
+    clockPositionForPhase,
+    clockSegmentsPerHalf
   )
-  const isClockNight = clockPositionForPhase >= clockSegmentsPerHalf
   const characterSheetNightMode = isClockNight && adaptiveNightMode
 
   return {

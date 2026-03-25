@@ -29,4 +29,12 @@ describe('settings/model', () => {
       }).village.mergeDuplicateEstablishments
     ).toBe(true)
   })
+
+  it('keeps tickClockOnMove when payload enables it', () => {
+    expect(
+      normalizeSettings({
+        map: { tickClockOnMove: true },
+      }).map.tickClockOnMove
+    ).toBe(true)
+  })
 })

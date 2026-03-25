@@ -14,6 +14,10 @@ import {
   type StatPool,
   HexCoordinate,
 } from './types'
+import {
+  countClockSegments,
+  normalizeClock,
+} from './clock'
 import { normalizeLifeStatus } from './lifeStatus'
 
 const MAX_INVENTORY_ITEMS = 30
@@ -183,53 +187,6 @@ function normalizeJournalEntries(source: Partial<CharacterInput> | Partial<Chara
   return []
 }
 
-export function computeClockSegmentsPerHalfFromStamina(
-  staminaCurrent: number,
-): number {
-  return Math.max(1, Math.trunc(staminaCurrent))
-}
-
-export function computeClockTotalSegmentsFromStamina(
-  staminaCurrent: number,
-): number {
-  return computeClockSegmentsPerHalfFromStamina(staminaCurrent) * 2
-}
-
-function normalizeClockPosition(position: unknown, totalSegments: number): number {
-  const asInteger = asInt(position, 0)
-  if (totalSegments <= 0) return 0
-  if (asInteger < 0) return 0
-  if (asInteger >= totalSegments) return totalSegments - 1
-  return asInteger
-}
-
-export function remapClockPositionForTotalSegments(
-  position: number,
-  fromTotalSegments: number,
-  toTotalSegments: number,
-): number {
-  if (toTotalSegments <= 0) return 0
-  if (fromTotalSegments <= 0) return normalizeClockPosition(position, toTotalSegments)
-  const normalizedFrom = normalizeClockPosition(position, fromTotalSegments)
-  const ratio = normalizedFrom / fromTotalSegments
-  const remapped = Math.floor(ratio * toTotalSegments)
-  return normalizeClockPosition(remapped, toTotalSegments)
-}
-
-export function normalizeCharacterClock(
-  value: unknown,
-  staminaCurrent: number,
-): number {
-  const source =
-    typeof value === 'object' && value !== null
-      ? (value as { position?: unknown })
-      : undefined
-  const candidatePosition =
-    source && 'position' in source ? source.position : value
-  const totalSegments = computeClockTotalSegmentsFromStamina(staminaCurrent)
-  return normalizeClockPosition(candidatePosition, totalSegments)
-}
-
 function defaultPoolsForArchetype(archetype: Archetype): {
   health: StatPool
   courage: StatPool
@@ -342,7 +299,7 @@ export function normalizeCharacterInput(
     ),
     courage: normalizeStatPool(source.courage, base.courage.max),
     stamina,
-    clock: normalizeCharacterClock(source.clock, stamina.current),
+    clock: normalizeClock(source.clock, stamina.current),
     map,
     inventory,
     spellbook,
@@ -426,7 +383,7 @@ export function validateCharacterForPersistence(
   if (character.stamina.current > character.stamina.max)
     errors.push('stamina.current <= stamina.max')
 
-  const totalSegments = computeClockTotalSegmentsFromStamina(character.stamina.current)
+  const totalSegments = countClockSegments(character.stamina.current)
   if (character.clock < 0 || character.clock >= totalSegments) {
     errors.push(`clock.position must be between 0 and ${totalSegments - 1}`)
   }

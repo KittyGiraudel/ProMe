@@ -3,9 +3,9 @@
 import { useEffect, useRef } from 'react'
 import type { FormInstance } from 'antd'
 import {
-  computeClockTotalSegmentsFromStamina,
+  countClockSegments,
   remapClockPositionForTotalSegments,
-} from '@/lib/character/model'
+} from '@/lib/character/clock'
 import { Character } from '@/lib/character/types'
 import { useCharacterSheetDerived } from './useCharacterSheetDerived'
 
@@ -18,7 +18,6 @@ export function useCharacterSheetFormSync({
 }) {
   const {
     watchedClock,
-    clockTotalSegments,
     healthCurrent,
     healthMax,
     courageCurrent,
@@ -27,23 +26,17 @@ export function useCharacterSheetFormSync({
     staminaMax,
   } = useCharacterSheetDerived({ form, character })
   const prevClockTotalSegmentsRef = useRef<number | null>(null)
-
-  useEffect(() => {
-    const currentStamina = form.getFieldValue(['stamina', 'current']) as
-      | number
-      | undefined
-    prevClockTotalSegmentsRef.current = computeClockTotalSegmentsFromStamina(
-      currentStamina ?? 0
-    )
-  }, [form])
+  const clockTotalSegments = countClockSegments(staminaCurrent)
 
   useEffect(() => {
     const previous = prevClockTotalSegmentsRef.current
+    
     if (previous === null) {
       prevClockTotalSegmentsRef.current = clockTotalSegments
       return
     }
     if (previous === clockTotalSegments) return
+
     const remapped = remapClockPositionForTotalSegments(
       watchedClock,
       previous,

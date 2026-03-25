@@ -2,6 +2,7 @@
 
 import { useId } from 'react'
 import { useTranslations } from 'next-intl'
+import { isClockDayPhase } from '@/lib/character/clock'
 
 type ClockDisplayProps = {
   label: string
@@ -118,7 +119,7 @@ export function ClockDisplay({
       {Array.from({ length: totalSegments }).map((_, index) => {
         const sliceStart = startDeg + index * stepDeg
         const sliceEnd = sliceStart + stepDeg
-        const inDay = index < segmentsPerHalf
+        const inDay = isClockDayPhase(index, segmentsPerHalf)
         const isCurrent = index === position
         const fillId = inDay
           ? isCurrent

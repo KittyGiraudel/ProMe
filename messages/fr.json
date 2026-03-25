@@ -343,12 +343,15 @@
     "section_sheet": "Feuille de Protecteur",
     "section_journal": "Journal",
     "section_village": "Générateur de village",
+    "section_map": "Carte",
     "journal_timeline_reverse_chronological_label": "Afficher le journal du plus récent au plus ancien",
     "journal_timeline_reverse_chronological_help": "Décochez pour un ordre chronologique (du plus ancien au plus récent).",
     "village_merge_duplicate_establishments_label": "Regrouper les doublons d’établissements",
     "village_merge_duplicate_establishments_help": "Fusionne les lignes identiques dans le résumé du village (petite + petite → grande, etc.) et compte les établissements de la même façon dans les liens du journal.",
     "adaptive_night_mode_label": "Assombrir la feuille quand l’horloge est à la nuit",
     "adaptive_night_mode_help": "Ce réglage s’applique à toutes les fiches Protecteur et n’est pas stocké dans les données de Protecteur.",
+    "map_tick_clock_on_move_label": "Avancer l’horloge d’un cran à chaque déplacement sur la carte",
+    "map_tick_clock_on_move_help": "Quand vous vous déplacez vers une case voisine (double-clic ou menu contextuel), la position sur l’horloge avance comme si vous aviez utilisé le bouton « Avancer ».",
     "save_success": "Paramètres enregistrés."
   },
   "inhabitant": {

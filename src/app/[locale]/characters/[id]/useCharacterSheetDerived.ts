@@ -1,7 +1,6 @@
 'use client'
 
 import { Form, type FormInstance } from 'antd'
-import { computeClockTotalSegmentsFromStamina } from '@/lib/character/model'
 import type { Character, StatPool } from '@/lib/character/types'
 
 const FALLBACK_STAT_POOL: StatPool = { current: 0, max: 0 }
@@ -31,16 +30,11 @@ export function useCharacterSheetDerived({
   const watchedCourage =
     watchedCourageRaw ?? character?.courage ?? FALLBACK_STAT_POOL
 
-  const clockTotalSegments = computeClockTotalSegmentsFromStamina(
-    watchedStamina.current
-  )
-
   return {
     watchedClock,
     watchedHealth,
     watchedCourage,
     watchedStamina,
-    clockTotalSegments,
     healthCurrent: watchedHealth.current,
     healthMax: watchedHealth.max,
     courageCurrent: watchedCourage.current,
