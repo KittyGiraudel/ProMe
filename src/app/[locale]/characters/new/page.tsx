@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: Props) {
   const t = await getTranslations({ locale })
 
   return {
-    title: t('characters.create_page_title'),
+    title: t('new_character.title'),
   }
 }
 

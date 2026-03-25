@@ -49,7 +49,7 @@ export function DiceRoll() {
   return (
     <Card
       className='DiceRoll__card home-hub__card'
-      title={t('tools.die_tool_title')}
+      title={t('characters.tools.die_tool_title')}
       extra={
         <Button
           onClick={handleRollDie}
@@ -57,8 +57,8 @@ export function DiceRoll() {
           type='link'
           className='home-hub__cta'>
           {isRollingDie
-            ? t('tools.die_tool_rolling')
-            : t('tools.die_tool_action')}
+            ? t('characters.tools.die_tool_rolling')
+            : t('characters.tools.die_tool_action')}
         </Button>
       }>
       <div
@@ -69,7 +69,7 @@ export function DiceRoll() {
           .filter(Boolean)
           .join(' ')}>
         {dieValue === null ? (
-          <Empty description={t('tools.die_tool_empty')} />
+          <Empty description={t('characters.tools.die_tool_empty')} />
         ) : (
           <DiceFaces values={[dieValue]} className='DiceRoll__die-face' />
         )}

@@ -214,7 +214,7 @@ export function VillageGeneratorClient() {
 
   return (
     <Layout
-      title={t('village.page_title')}
+      title={t('village.title')}
       pageCoverBiome='shadowForest'
       headerActions={
         <RollActions

@@ -119,20 +119,10 @@
     "village_card_description": "Établissements, et traits du village.",
     "updated_line": "Dernière mise à jour : le {value}"
   },
-  "tools": {
-    "title": "Outils",
-    "die_tool_title": "Dé",
-    "die_tool_empty": "Aucun lancer",
-    "die_tool_action": "Lancer 1D6",
-    "die_tool_rolling": "Lancer en cours…",
-    "card_tool_title": "Carte",
-    "card_tool_empty": "Aucune carte",
-    "card_tool_action": "Tirer 1 carte",
-    "card_tool_drawing": "Tirage en cours…"
-  },
   "new_character": {
-    "page_title": "Nouveau personnage",
+    "title": "Nouveau personnage",
     "create": "Créer un personnage",
+    "import": "Importer un personnage",
     "import_error": "Import impossible. Vérifiez le fichier JSON.",
     "import_format_error": "Format invalide. Le fichier doit contenir exactement un personnage exporté.",
     "import_data_error": "Le personnage importé est invalide et ne peut pas être sauvegardé.",
@@ -144,40 +134,33 @@
     "inheritance_select_placeholder": "Choisir un personnage existant",
     "inheritance_empty": "Aucun personnage existant"
   },
-  "characters": {
-    "page_title": "Personnages",
-    "create": "Créer un personnage",
-    "import": "Importer un personnage",
+  "characters_list": {
+    "title": "Personnages",
     "empty": "Aucun personnage pour le moment. Créez-en un pour commencer.",
     "dead_list_symbol": "✝",
     "dead_status_label": "Mort·e",
     "unnamed": "Sans nom",
     "archetype_line": "Archetype : {value}",
-    "updated_line": "Dernière mise à jour : le {value}",
-    "sheet_title": "Fiche personnage",
+    "updated_line": "Dernière mise à jour : le {value}"
+  },
+  "characters": {
+    "title": "Fiche personnage",
     "not_found_title": "Personnage introuvable",
     "not_found_description": "Cette fiche n’existe pas (ou plus) dans ce navigateur.",
     "back_to_library": "← Retour à la bibliothèque",
     "dead_readonly_title": "Protecteur décédé",
     "dead_readonly_description": "Ce Protecteur est décédé. Par conséquent, cette fiche est figée et entièrement en lecture seule.",
-    "tab_identity": "Identité & Stats",
-    "tab_map": "Cartographie",
-    "tab_inventory": "Inventaire & Grimoire",
-    "tab_journal": "Journal",
-    "tab_tools": "Outils",
-    "tab_actions": "Actions",
     "gender_label": "Genre",
     "archetype_power_label": "Pouvoir de l’archetype",
     "archetype_label": "Archétype",
     "name_label": "Nom",
     "identity_section": "Identité",
-    "create_page_title": "Nouveau personnage",
     "characteristics_section": "Caractéristiques",
     "clock_tooltip": "L’Horloge suit le temps et l’appétit. Elle est divisée selon votre Endurance actuelle.",
     "clock_day": "Jour",
     "clock_section": "Horloge",
     "identity": {
-      "tab_title": "Identité & Stats",
+      "title": "Identité & Stats",
       "identity_section": "Identité",
       "characteristics_section": "Caractéristiques",
       "name_label": "Nom",
@@ -204,7 +187,7 @@
       "courage_roll_result_failure": "Résultat du dé : {roll}. Courage actuel : {target}. Échec (>)."
     },
     "map": {
-      "tab_title": "Cartographie",
+      "title": "Cartographie",
       "map_section": "Carte",
       "clock_section": "Horloge",
       "clock_tooltip": "L’Horloge suit le temps et l’appétit. Elle est divisée selon votre Endurance actuelle.",
@@ -238,7 +221,7 @@
       "random_biome_discovered_description": "Vous découvrez {biomeName}. Marquez {additionalTilesToMark} case{additionalTilesToMark > 1 ? 's' : ''} adjacente{additionalTilesToMark > 1 ? 's' : ''} du même biome ({biomeName})."
     },
     "inventory": {
-      "tab_title": "Inventaire & Grimoire",
+      "title": "Inventaire & Grimoire",
       "inventory_section": "Inventaire",
       "inventory_status": "Objets : {count} / {limit}",
       "item_name_placeholder": "Nom d’objet",
@@ -252,7 +235,7 @@
       "add_spell": "Ajouter un sort"
     },
     "journal": {
-      "page_title": "Journal",
+      "title": "Journal",
       "notes_section": "Journal",
       "add_journal_entry": "Ajouter une entrée",
       "delete_confirm_title": "Supprimer cette entrée ?",
@@ -268,8 +251,19 @@
       "entry_content_placeholder": "Écrivez votre entrée ici…",
       "symbols": "Symboles :"
     },
+    "tools": {
+      "title": "Outils",
+      "die_tool_title": "Dé",
+      "die_tool_empty": "Aucun lancer",
+      "die_tool_action": "Lancer 1D6",
+      "die_tool_rolling": "Lancer en cours…",
+      "card_tool_title": "Carte",
+      "card_tool_empty": "Aucune carte",
+      "card_tool_action": "Tirer 1 carte",
+      "card_tool_drawing": "Tirage en cours…"
+    },
     "actions": {
-      "tab_title": "Actions",
+      "title": "Actions",
       "delete_confirm_title": "Supprimer ce personnage ?",
       "delete_confirm_description": "Cette action est irréversible — la fiche de personnage sera définitive supprimée.",
       "revive_action": "Réanimer",
@@ -292,7 +286,7 @@
     "back_to_village": "← Retour au village"
   },
   "village": {
-    "page_title": "Village",
+    "title": "Village",
     "create": "Créer un village",
     "import": "Importer un village",
     "empty": "Aucun village pour le moment. Créez-en un pour commencer.",
@@ -327,7 +321,7 @@
     "spellbook_footnote": "Livre de règles — La Magie : p. 14."
   },
   "settings": {
-    "page_title": "Paramètres",
+    "title": "Paramètres",
     "page_description": "Réglez les préférences globales de l’application. Elles sont enregistrées localement dans ce navigateur.",
     "section_sheet": "Feuille de personnage",
     "section_journal": "Journal",
@@ -341,7 +335,7 @@
     "save_success": "Paramètres enregistrés."
   },
   "inhabitant": {
-    "page_title": "Habitant",
+    "title": "Habitant",
     "page_description": "Générez un habitant pour votre village.",
     "section_identity": "Identité",
     "section_characteristics": "Caractéristiques",

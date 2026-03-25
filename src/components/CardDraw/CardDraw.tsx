@@ -52,7 +52,7 @@ export function CardDraw() {
   return (
     <Card
       className='CardDraw__card home-hub__card'
-      title={t('tools.card_tool_title')}
+      title={t('characters.tools.card_tool_title')}
       extra={
         <Button
           onClick={handleDrawCard}
@@ -60,8 +60,8 @@ export function CardDraw() {
           type='link'
           className='home-hub__cta'>
           {isDrawingCard
-            ? t('tools.card_tool_drawing')
-            : t('tools.card_tool_action')}
+            ? t('characters.tools.card_tool_drawing')
+            : t('characters.tools.card_tool_action')}
         </Button>
       }>
       <div
@@ -72,7 +72,7 @@ export function CardDraw() {
           .filter(Boolean)
           .join(' ')}>
         {drawnCard === null ? (
-          <Empty description={t('tools.card_tool_empty')} />
+          <Empty description={t('characters.tools.card_tool_empty')} />
         ) : (
           <PlayingCardLabel card={drawnCard} className='CardDraw__drawn-card' />
         )}

@@ -172,7 +172,7 @@ export function ClockDisplay({
         fillOpacity='0.45'
         fontWeight='700'
         letterSpacing='3'>
-        {t('characters.clock_day').toUpperCase()}
+        {t('characters.map.clock_day').toUpperCase()}
       </text>
       <text
         x={center}
@@ -183,7 +183,7 @@ export function ClockDisplay({
         fillOpacity='0.45'
         fontWeight='700'
         letterSpacing='3'>
-        {t('characters.clock_night').toUpperCase()}
+        {t('characters.map.clock_night').toUpperCase()}
       </text>
     </svg>
   )

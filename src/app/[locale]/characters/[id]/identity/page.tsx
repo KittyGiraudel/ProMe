@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: Props) {
   const t = await getTranslations({ locale })
 
   return {
-    title: t('characters.identity_title'),
+    title: t('characters.identity.title'),
   }
 }
 

@@ -33,12 +33,12 @@ export function CharacterLibraryClient() {
   const handleImportClick = () => fileInputRef.current?.click()
 
   return (
-    <Layout title={t('characters.page_title')} pageCoverBiome='floodedPlains'>
+    <Layout title={t('characters.title')} pageCoverBiome='floodedPlains'>
       <Space style={{ marginBottom: 16, flexWrap: 'wrap' }}>
         <Button type='primary' href='/characters/new'>
-          {t('characters.create')}
+          {t('new_character.create')}
         </Button>
-        <Button onClick={handleImportClick}>{t('characters.import')}</Button>
+        <Button onClick={handleImportClick}>{t('new_character.import')}</Button>
       </Space>
 
       <input
@@ -51,7 +51,7 @@ export function CharacterLibraryClient() {
 
       {characters.length === 0 ? (
         <Card>
-          <Empty description={t('characters.empty')} />
+          <Empty description={t('characters_list.empty')} />
         </Card>
       ) : (
         <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
@@ -63,13 +63,13 @@ export function CharacterLibraryClient() {
                 key={character.id}
                 title={
                   <>
-                    {dead && t('characters.dead_list_symbol')}{' '}
-                    {character.name || t('characters.unnamed')}
+                    {dead && t('characters_list.dead_list_symbol')}{' '}
+                    {character.name || t('characters_list.unnamed')}
                     {dead ? (
                       <>
                         <span style={{ opacity: 0.5 }}>—</span>
                         <Typography.Text type='danger'>
-                          {t('characters.dead_status_label')}
+                          {t('characters_list.dead_status_label')}
                         </Typography.Text>
                       </>
                     ) : null}
@@ -93,12 +93,12 @@ export function CharacterLibraryClient() {
                 }>
                 <Space orientation='vertical' size={4}>
                   <Typography.Text>
-                    {t('characters.archetype_line', {
+                    {t('characters_list.archetype_line', {
                       value: t(`common.archetypes.${character.archetype}`),
                     })}
                   </Typography.Text>
                   <Typography.Text type='secondary'>
-                    {t('characters.updated_line', {
+                    {t('characters_list.updated_line', {
                       value: format.dateTime(new Date(character.updatedAt), {
                         dateStyle: 'medium',
                       }),

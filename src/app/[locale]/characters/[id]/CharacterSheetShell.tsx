@@ -102,10 +102,10 @@ export function CharacterSheetShell({
     <Layout
       sheetNightChrome={characterSheetNightMode}
       pageCoverBiome={pageCoverBiome}
-      title={character.name || t('characters.unnamed')}
+      title={character.name || t('characters_list.unnamed')}
       breadcrumbs={[
         { label: t('nav.home_link'), href: '/' },
-        { label: t('characters.page_title'), href: '/characters' },
+        { label: t('characters_list.title'), href: '/characters' },
       ]}
       headerActions={[
         !isDead ? (

@@ -56,7 +56,7 @@ const CharacterManager = () => {
                     {character.gender
                       ? genderCompactSymbol(character.gender)
                       : ''}{' '}
-                    {character.name || t('unnamed')},{' '}
+                    {character.name || t('characters_list.unnamed')},{' '}
                     {t(`common.archetypes.${character.archetype}`)}
                   </>
                 }>
@@ -144,14 +144,8 @@ export function HomeHub() {
       </section>
 
       <section className='home-hub__section' data-testid='tools'>
-        <h2 className='home-hub__section-title'>{t('home.tools_title')}</h2>
+        <h2 className='home-hub__section-title'>{t('settings.title')}</h2>
         <Row gutter={16}>
-          <Col span={12}>
-            <DiceRoll />
-          </Col>
-          <Col span={12}>
-            <CardDraw />
-          </Col>
           <Col span={24} style={{ marginTop: 16 }}>
             <Card
               className='home-hub__card'

@@ -2,32 +2,32 @@ export const CHARACTER_SHEET_TAB_KEYS = [
   {
     key: 'identity',
     path: 'identity',
-    localizationKey: 'characters.tab_identity'
+    localizationKey: 'characters.identity.title'
   },
   {
     key: 'map',
     path: 'map',
-    localizationKey: 'characters.tab_map',
+    localizationKey: 'characters.map.title',
   },
   {
     key: 'inventory',
     path: 'inventory',
-    localizationKey: 'characters.tab_inventory',
+    localizationKey: 'characters.inventory.title',
   },
   {
     key: 'journal',
     path: 'journal',
-    localizationKey: 'characters.tab_journal',
+    localizationKey: 'characters.journal.title',
   },
   {
     key: 'tools',
     path: 'tools',
-    localizationKey: 'characters.tab_tools',
+    localizationKey: 'characters.tools.title',
   },
   {
     key: 'actions',
     path: 'actions',
-    localizationKey: 'characters.tab_actions',
+    localizationKey: 'characters.actions.title',
   },
 ] as const
 

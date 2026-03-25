@@ -11,14 +11,14 @@ export async function generateMetadata({ params }: Props) {
   const t = await getTranslations({ locale })
 
   return {
-    title: t('inhabitant.page_title'),
+    title: t('inhabitant.title'),
   }
 }
 
 function InhabitantGeneratorFallback() {
   const t = useTranslations()
   return (
-    <Layout title={t('inhabitant.page_title')} pageCoverBiome='fieldSea'>
+    <Layout title={t('inhabitant.title')} pageCoverBiome='fieldSea'>
       <p>{t('common.loading')}</p>
     </Layout>
   )

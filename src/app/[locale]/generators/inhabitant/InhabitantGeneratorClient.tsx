@@ -117,7 +117,7 @@ export function InhabitantGeneratorClient() {
 
   return (
     <Layout
-      title={t('inhabitant.page_title')}
+      title={t('inhabitant.title')}
       pageCoverBiome='fieldSea'
       breadcrumbs={breadcrumbs}
       headerActions={

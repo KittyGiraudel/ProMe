@@ -10,11 +10,11 @@ export function CharacterSheetEmptyState() {
 
   return (
     <Layout
-      title={t('characters.sheet_title')}
+      title={t('characters.title')}
       pageCoverBiome='floodedPlains'
       breadcrumbs={[
         { label: t('nav.home_link'), href: '/' },
-        { label: t('characters.page_title'), href: '/characters' },
+        { label: t('characters.title'), href: '/characters' },
       ]}>
       <Alert
         type='warning'

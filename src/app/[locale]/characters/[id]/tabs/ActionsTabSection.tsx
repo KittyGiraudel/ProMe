@@ -128,7 +128,7 @@ export function ActionsTabSection() {
   ]
 
   return (
-    <Card title={t('characters.actions.tab_title')}>
+    <Card title={t('characters.actions.title')}>
       <List
         itemLayout='horizontal'
         dataSource={items}

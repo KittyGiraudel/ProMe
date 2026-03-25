@@ -43,7 +43,7 @@ export function SettingsPageClient() {
   }
 
   return (
-    <Layout title={t('settings.page_title')} pageCoverBiome='silentDesert'>
+    <Layout title={t('settings.title')} pageCoverBiome='silentDesert'>
       <Form<SettingsFormValues>
         key={`${settings.sheet.adaptiveNightMode}-${settings.journal.timelineReverseChronological}-${settings.village.mergeDuplicateEstablishments}`}
         layout='vertical'

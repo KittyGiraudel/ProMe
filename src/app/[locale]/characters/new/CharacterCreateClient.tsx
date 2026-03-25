@@ -26,11 +26,11 @@ export function CharacterCreateClient() {
 
   return (
     <Layout
-      title={t('new_character.page_title')}
+      title={t('new_character.title')}
       pageCoverBiome='floodedPlains'
       breadcrumbs={[
         { label: t('nav.home_link'), href: '/' },
-        { label: t('new_character.page_title'), href: '/characters' },
+        { label: t('new_character.title'), href: '/characters' },
       ]}>
       <Form<CharacterCreateFormValues>
         form={form}
