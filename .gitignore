@@ -13,9 +13,6 @@
 # testing
 /coverage
 
-# playwright e2e
-/output/playwright/
-
 # next.js
 /.next/
 /out/

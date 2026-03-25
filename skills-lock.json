@@ -6,16 +6,6 @@
       "sourceType": "github",
       "computedHash": "515ba75178bd44875812d9a560bdf14651f86709f89cf1d4f209638e879807f3"
     },
-    "playwright": {
-      "source": "openai/skills",
-      "sourceType": "github",
-      "computedHash": "595a334de3bd5335f442a33d1bdefb01207c88c99fe43e3bd99b0d5435f230de"
-    },
-    "playwright-explore-website": {
-      "source": "github/awesome-copilot",
-      "sourceType": "github",
-      "computedHash": "ac361696198c2db22a0f9d3aa456d2f83c9f0110bf00d6ca529f735395fe3a5c"
-    },
     "vercel-react-best-practices": {
       "source": "vercel-labs/agent-skills",
       "sourceType": "github",

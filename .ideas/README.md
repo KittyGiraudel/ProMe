@@ -12,6 +12,5 @@ Whenever implementing an idea:
 - Create a Markdown file in `docs/` to document the feature (and list it in `AGENTS.md`) [^1]. This document can be inspired by the original idea document.
 - If necessary, update existing documentation to reflect the new information.
 - Add as many unit tests as relevant, covering the most important bits of core logic. Unit tests are cheap and efficient, so they should be used.
-- Consider whether adding end-to-end tests with Playwright makes sense.
 
 [^1]: The documentation is largely for AI agents in order to build context and understanding of what the idea is for.
