@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "LSDP — Companion de jeu",
-    "description": "Companion de jeu pour Les Souvenirs du Protecteur : gestionnaires, générateurs de personnages, villages et plus.",
+    "description": "Companion de jeu pour Les Souvenirs du Protecteur : gestionnaires, générateurs de Protecteurs, villages et plus.",
     "tab_brand": "LSDP"
   },
   "common": {
@@ -110,8 +110,8 @@
     "generators_title": "Générateurs",
     "tools_title": "Outils rapides",
     "settings_title": "Paramètres",
-    "settings_description": "Préférences locales de l’application, indépendantes des fiches de personnage.",
-    "character_card_title": "Gestionnaire de personnages",
+    "settings_description": "Préférences locales de l’application, indépendantes des fiches de Protecteurs.",
+    "character_card_title": "Gestionnaire de Protecteurs",
     "character_card_description": "Fiches jouables persistantes comprenant les ressources, l’inventaire, les sorts et les notes arbitraires.",
     "inhabitant_card_title": "Générateur d’habitant",
     "inhabitant_card_description": "Nom, faction, âge, personnalité, contexte, genre.",
@@ -120,23 +120,23 @@
     "updated_line": "Dernière mise à jour : le {value}"
   },
   "new_character": {
-    "title": "Nouveau personnage",
-    "create": "Créer un personnage",
-    "import": "Importer un personnage",
+    "title": "Nouveau Protecteur",
+    "create": "Créer un Protecteur",
+    "import": "Importer un Protecteur",
     "import_error": "Import impossible. Vérifiez le fichier JSON.",
-    "import_format_error": "Format invalide. Le fichier doit contenir exactement un personnage exporté.",
-    "import_data_error": "Le personnage importé est invalide et ne peut pas être sauvegardé.",
+    "import_format_error": "Format invalide. Le fichier doit contenir exactement un Protecteur exporté.",
+    "import_data_error": "Le Protecteur importé est invalide et ne peut pas être sauvegardé.",
     "import_success": "Import terminé ({total} lus, {created} créés, {updated} mis à jour).",
     "inheritance_section": "Héritage",
     "inheritance_card_title": "Héritage",
     "inheritance_select_label": "Hériter les souvenirs de …",
-    "inheritance_select_help": "Si vous choisissez un personnage existant, ce nouveau personnage héritera de ses souvenirs (i.e. sa carte et son journal).",
-    "inheritance_select_placeholder": "Choisir un personnage existant",
-    "inheritance_empty": "Aucun personnage existant"
+    "inheritance_select_help": "Si vous choisissez un Protecteur existant, ce nouveau Protecteur héritera de ses souvenirs (i.e. sa carte et son journal).",
+    "inheritance_select_placeholder": "Choisir un Protecteur existant",
+    "inheritance_empty": "Aucun Protecteur existant"
   },
   "characters_list": {
-    "title": "Personnages",
-    "empty": "Aucun personnage pour le moment. Créez-en un pour commencer.",
+    "title": "Protecteurs",
+    "empty": "Aucun Protecteur pour le moment. Créez-en un pour commencer.",
     "dead_list_symbol": "✝",
     "dead_status_label": "Mort·e",
     "unnamed": "Sans nom",
@@ -144,8 +144,8 @@
     "updated_line": "Dernière mise à jour : le {value}"
   },
   "characters": {
-    "title": "Fiche personnage",
-    "not_found_title": "Personnage introuvable",
+    "title": "Fiche Protecteur",
+    "not_found_title": "Protecteur introuvable",
     "not_found_description": "Cette fiche n’existe pas (ou plus) dans ce navigateur.",
     "back_to_library": "← Retour à la bibliothèque",
     "dead_readonly_title": "Protecteur décédé",
@@ -174,7 +174,7 @@
       "money_label": "Pièces",
       "money_tooltip": "Elles permettent de faire du commerce, en achetant ou vendant des objets.",
       "health_label": "Points d’Âme",
-      "health_tooltip": "Ils représentent votre force vitale.\nChaque fois que vous vous retrouvez dans un environnement hostile ou face à une créature dangereuse, vos points d’Âme seront menacés. S’ils atteignent zéro, votre personnage meurt.",
+      "health_tooltip": "Ils représentent votre force vitale.\nChaque fois que vous vous retrouvez dans un environnement hostile ou face à une créature dangereuse, vos points d’Âme seront menacés. S’ils atteignent zéro, votre Protecteur meurt.",
       "courage_label": "Points de Courage",
       "courage_tooltip": "Ils représentent votre capacité à réaliser ce que vous voulez.\nÀ chaque fois que vous avez besoin de faire quelque chose qui pourrait mal tourner — courir, sauter, vous cacher, distraire, fuir, attaquer, etc. —, vous devez utiliser votre Courage.",
       "stamina_label": "Points d’Endurance",
@@ -264,22 +264,22 @@
     },
     "actions": {
       "title": "Actions",
-      "delete_confirm_title": "Supprimer ce personnage ?",
-      "delete_confirm_description": "Cette action est irréversible — la fiche de personnage sera définitive supprimée.",
+      "delete_confirm_title": "Supprimer ce Protecteur ?",
+      "delete_confirm_description": "Cette action est irréversible — la fiche de Protecteur sera définitive supprimée.",
       "revive_action": "Réanimer",
-      "revive_confirm_title": "Réanimer ce personnage ?",
-      "revive_confirm_description": "Le personnage deviendra jouable et sa fiche sera modifiable à nouveau.",
+      "revive_confirm_title": "Réanimer ce Protecteur ?",
+      "revive_confirm_description": "Le Protecteur deviendra jouable et sa fiche sera modifiable à nouveau.",
       "mark_dead_action": "Marquer comme mort·e",
-      "mark_dead_confirm_title": "Marquer ce personnage comme mort ?",
+      "mark_dead_confirm_title": "Marquer ce Protecteur comme mort ?",
       "mark_dead_confirm_description": "Cette action fige définitivement la fiche en lecture seule.",
-      "danger_mark_dead_help": "Cette action fige la fiche en lecture seule tant que le personnage n’est pas réanimé.",
+      "danger_mark_dead_help": "Cette action fige la fiche en lecture seule tant que le Protecteur n’est pas réanimé.",
       "export": "Exporter JSON",
       "export_help": "Télécharge un export JSON de la fiche."
     }
   },
   "nav": {
     "home_link": "Accueil",
-    "characters_link": "Personnages",
+    "characters_link": "Protecteurs",
     "inhabitant_generator_link": "Générateur d’habitant",
     "village_generator_link": "Générateur de village",
     "settings_link": "Paramètres",
@@ -323,7 +323,7 @@
   "settings": {
     "title": "Paramètres",
     "page_description": "Réglez les préférences globales de l’application. Elles sont enregistrées localement dans ce navigateur.",
-    "section_sheet": "Feuille de personnage",
+    "section_sheet": "Feuille de Protecteur",
     "section_journal": "Journal",
     "section_village": "Générateur de village",
     "journal_timeline_reverse_chronological_label": "Afficher le journal du plus récent au plus ancien",
@@ -331,7 +331,7 @@
     "village_merge_duplicate_establishments_label": "Regrouper les doublons d’établissements",
     "village_merge_duplicate_establishments_help": "Fusionne les lignes identiques dans le résumé du village (petite + petite → grande, etc.) et compte les établissements de la même façon dans les liens du journal.",
     "adaptive_night_mode_label": "Assombrir la feuille quand l’horloge est à la nuit",
-    "adaptive_night_mode_help": "Ce réglage s’applique à toutes les fiches personnage et n’est pas stocké dans les données de personnage.",
+    "adaptive_night_mode_help": "Ce réglage s’applique à toutes les fiches Protecteur et n’est pas stocké dans les données de Protecteur.",
     "save_success": "Paramètres enregistrés."
   },
   "inhabitant": {
