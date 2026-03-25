@@ -9,9 +9,9 @@ import {
   type InhabitantRoll,
 } from '@/lib/inhabitant/generate'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
-import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { Button } from '@/components/Button/Button'
 import { useTranslations } from 'next-intl'
+import { GeneratorLinkPreview } from '@/components/Markdown/GeneratorLinkPreview'
 
 export type VillageOwnerEntry = { roll: InhabitantRoll; ownerIndex: number }
 
@@ -36,12 +36,12 @@ export function VillageEstablishmentOwners({
           {t.rich('inhabitant.one_liner_rich', {
             gender: genderCompactSymbol(e.roll.gender),
             name: () => (
-              <BlockedLink
+              <GeneratorLinkPreview
                 key='link'
                 href={inhabitantHref}
-                className='village-summary__owner-name-link'>
-                {e.roll.name}
-              </BlockedLink>
+                className='village-summary__owner-name-link'
+                label={e.roll.name}
+              />
             ),
             faction: t(`common.factions.${e.roll.faction}`),
             age: t(`common.age_bands.${age}`),

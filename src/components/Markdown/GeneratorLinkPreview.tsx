@@ -16,9 +16,11 @@ import { Button } from '../Button/Button'
 export function GeneratorLinkPreview({
   href,
   label,
+  className,
 }: {
   href: string
   label: string
+  className?: string
 }) {
   const t = useTranslations()
   const [open, setOpen] = useState(false)
@@ -47,6 +49,7 @@ export function GeneratorLinkPreview({
   return (
     <>
       <a
+        className={className}
         href={href}
         onClick={event => {
           // Keep link semantics for copy/open-in-new-tab, but default click opens modal.
