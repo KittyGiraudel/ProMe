@@ -248,3 +248,18 @@
   justify-content: center;
   min-height: 200px;
 }
+
+.Map__JournalCount {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 10%;
+  z-index: 4;
+  padding: 0 5px;
+  border-radius: 50%;
+  background-color: var(--biome-dark);
+  color: #fff;
+  font-size: max(10px, 0.62em);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}

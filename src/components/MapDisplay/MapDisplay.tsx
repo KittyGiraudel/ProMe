@@ -94,6 +94,7 @@ export function MapDisplay({
               const canMoveHere = areHexNeighbors(currentPosition, global)
               const cellRef = formatDisplayedCellReference(global)
               const journalLinks = journalIndexByCellRef.get(cellRef) ?? []
+              const journalEntryCount = journalLinks.length
 
               return (
                 <div
@@ -124,6 +125,11 @@ export function MapDisplay({
                     onSetIcon={onSetIcon}
                     onClearCell={onClearCell}
                   />
+                  {journalEntryCount > 0 ? (
+                    <span className='Map__JournalCount'>
+                      {journalEntryCount}
+                    </span>
+                  ) : null}
                   <span className='Map__Icon'>{icon ?? ''}</span>
                 </div>
               )
