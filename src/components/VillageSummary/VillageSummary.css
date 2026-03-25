@@ -194,16 +194,6 @@
   min-width: 1.35rem;
 }
 
-.village-summary__line-name {
-  font-size: 0.9375rem;
-  line-height: 1.45;
-}
-
-.village-summary__line-name--trait.rich-text {
-  font-size: 0.9rem;
-  line-height: 1.45;
-}
-
 .village-summary__line-card-wrap {
   display: inline-flex;
   align-items: baseline;

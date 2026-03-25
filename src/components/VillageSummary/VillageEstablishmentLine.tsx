@@ -44,9 +44,7 @@ export function VillageEstablishmentLine({
       <div className='village-summary__line-body'>
         <div className='village-summary__line-inner'>
           <div className='village-summary__line-main'>
-            <Typography.Text className='village-summary__line-name'>
-              {title}
-            </Typography.Text>
+            <Typography.Text>{title}</Typography.Text>
             <span className='village-summary__line-card-wrap'>
               {' ('}
               <PlayingCardLabel card={card} compact />

@@ -326,11 +326,7 @@ export function InhabitantSummary({
               label: t('inhabitant.section_context'),
               children: (
                 <div className='inhabitant-summary__stack'>
-                  <RichText
-                    as='p'
-                    text={roll.contextText}
-                    className='inhabitant-summary__context'
-                  />
+                  <RichText text={roll.contextText} />
                   <MetaWithReroll
                     rerollLabel={t('inhabitant.reroll_context_card')}
                     onReroll={

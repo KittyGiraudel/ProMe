@@ -167,11 +167,7 @@ export function VillageSummary({
                   className='village-summary__trait-item'>
                   <div className='village-summary__line-inner'>
                     <div className='village-summary__line-main village-summary__line-main--trait'>
-                      <RichText
-                        as='span'
-                        text={row.text}
-                        className='village-summary__line-name village-summary__line-name--trait'
-                      />
+                      <RichText text={row.text} />
                       <span className='village-summary__line-card-wrap'>
                         {' ('}
                         {row.instances.map((inst, idx) => (

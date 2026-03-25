@@ -1,21 +1,12 @@
 'use client'
 
-import { miniMarkdown } from '@/messages/miniMarkdown'
-import type { ElementType } from 'react'
-import './RichText.css'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
-type RichTextProps = {
-  text: string
-  /** Default: span */
-  as?: ElementType
-  className?: string
-}
-
-export function RichText({
-  text,
-  as: Component = 'span',
-  className,
-}: RichTextProps) {
-  const rootClass = ['rich-text', className].filter(Boolean).join(' ')
-  return <Component className={rootClass}>{miniMarkdown(text)}</Component>
+export function RichText({ text }: { text: string }) {
+  return (
+    <ReactMarkdown remarkPlugins={[remarkGfm]} skipHtml>
+      {text}
+    </ReactMarkdown>
+  )
 }
