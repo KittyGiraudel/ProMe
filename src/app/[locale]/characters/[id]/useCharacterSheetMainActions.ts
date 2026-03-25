@@ -1,14 +1,13 @@
 'use client'
 
-import { App } from 'antd'
 import { useCallback, useMemo } from 'react'
+import { useTranslations } from 'next-intl'
+import { App, type FormInstance } from 'antd'
+import { useRouter } from '@/i18n/navigation'
 import { getCharacterStore } from '@/lib/character/store'
 import { stringifyCharacters } from '@/lib/character/store/migrations'
 import type { Character } from '@/lib/character/types'
-import { FormInstance } from 'antd/lib/form'
 import { useCharacterFromForm } from './useCharacterFromForm'
-import { useRouter } from '@/i18n/navigation'
-import { useTranslations } from 'next-intl'
 
 function sanitizeFileNamePart(value: string): string {
   return value
@@ -54,7 +53,7 @@ export function useCharacterSheetMainActions({
   const onSave = useCallback(() => {
     if (!character) return
     if (character.lifeStatus === 'dead') {
-      return message.warning(t('characters.deadReadonlyDescription'))
+      return message.warning(t('characters.dead_readonly_description'))
     }
 
     setSaveErrors(null)
@@ -63,7 +62,7 @@ export function useCharacterSheetMainActions({
       const saved = store.save(getCharacterFromForm())
       setSaveErrors(null)
       onSaved(saved)
-      message.success(t('characters.saveSuccess'))
+      message.success(t('characters.actions.save_success'))
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e)
       const parts = msg
@@ -89,16 +88,16 @@ export function useCharacterSheetMainActions({
     const content = stringifyCharacters([payload])
     try {
       downloadJsonFile(content, buildCharacterExportFileName(payload))
-      message.success(t('characters.exportDownloaded'))
+      message.success(t('characters.actions.export_downloaded'))
     } catch {
-      message.error(t('characters.exportDownloadError'))
+      message.error(t('characters.actions.export_download_error'))
     }
   }, [character, getCharacterFromForm, message, t])
 
   const onDelete = useCallback(() => {
     if (!character) return
     store.delete(character.id)
-    message.success(t('characters.deleteSuccess'))
+    message.success(t('characters.actions.delete_success'))
     // Programmatic navigation is intentionally not routed through the
     // unsaved-changes blocker (which is used by `BlockedLink`).
     router.push('/characters')

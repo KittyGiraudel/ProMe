@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo } from 'react'
+import { useTranslations } from 'next-intl'
 import { App } from 'antd'
 import { InhabitantSummary } from '@/components/InhabitantSummary/InhabitantSummary'
 import { Layout } from '@/components/Layout/Layout'
@@ -19,7 +20,6 @@ import {
   encodeInhabitantRoll,
 } from '@/lib/inhabitant/inhabitantUrlCodec'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
-import { useTranslations } from 'next-intl'
 
 const INHABITANT_QUERY_KEY = 'i'
 const VILLAGE_QUERY_KEY = 'v'

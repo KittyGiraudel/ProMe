@@ -1,15 +1,15 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { Form, Space } from 'antd'
 import type { Archetype } from '@/lib/character/types'
 import type { Gender } from '@/lib/types'
 import { Layout } from '@/components/Layout/Layout'
 import { IdentityCard } from '@/components/CharacterSheet/IdentityCard'
-import { useCharacterCreate } from './useCharacterCreate'
 import { Button } from '@/components/Button/Button'
 import { useInheritanceCandidates } from './useInheritanceCandidates'
+import { useCharacterCreate } from './useCharacterCreate'
 import { InheritanceCard } from './InheritanceCard'
-import { useTranslations } from 'next-intl'
 
 type CharacterCreateFormValues = {
   name: string

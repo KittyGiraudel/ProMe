@@ -1,8 +1,8 @@
 'use client'
 
-import { Card, Form, Select, Typography } from 'antd'
-import type { InheritanceCandidate } from './useInheritanceCandidates'
 import { useTranslations } from 'next-intl'
+import { Card, Form, Select } from 'antd'
+import type { InheritanceCandidate } from './useInheritanceCandidates'
 
 export function InheritanceCard({
   candidates,

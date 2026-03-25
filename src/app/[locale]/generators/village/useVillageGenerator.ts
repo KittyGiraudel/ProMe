@@ -1,11 +1,11 @@
+import { useCallback } from "react";
+import { _Translator, useTranslations } from "next-intl";
 import { establishmentDetailRulebookPage, RULEBOOK_PAGES } from "@/lib/constants/rulebookPages";
 import { generateInhabitantWithFaction, InhabitantRoll } from "@/lib/inhabitant/generate";
 import { suitIsRed } from "@/lib/suitGlyphs";
 import { Faction, isFaceRank, PlayingCard } from "@/lib/types";
 import { establishmentLine } from "@/lib/village/data/establishments";
 import { VillageRoll } from "@/lib/village/generate";
-import { _Translator, useTranslations } from "next-intl";
-import { useCallback } from "react";
 
 function generateOwnersForVillage(
   roll: VillageRoll,

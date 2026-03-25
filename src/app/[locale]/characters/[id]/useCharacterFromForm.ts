@@ -1,6 +1,6 @@
-import { Character } from "@/lib/character/types"
 import { FormInstance } from "antd"
 import { useCallback } from "react"
+import { Character } from "@/lib/character/types"
 import { SheetFormValues } from "./characterSheetForm"
 
 export const useCharacterFromForm = ({

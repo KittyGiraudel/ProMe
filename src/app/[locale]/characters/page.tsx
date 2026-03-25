@@ -1,6 +1,6 @@
 import { AppConfig } from 'next-intl'
-import { CharacterLibraryClient } from './CharacterLibraryClient'
 import { getTranslations } from 'next-intl/server'
+import { CharacterLibraryClient } from './CharacterLibraryClient'
 
 type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
 

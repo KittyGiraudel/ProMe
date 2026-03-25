@@ -6,8 +6,8 @@ import {
   computeClockTotalSegmentsFromStamina,
   remapClockPositionForTotalSegments,
 } from '@/lib/character/model'
-import { useCharacterSheetDerived } from './useCharacterSheetDerived'
 import { Character } from '@/lib/character/types'
+import { useCharacterSheetDerived } from './useCharacterSheetDerived'
 
 export function useCharacterSheetFormSync({
   form,

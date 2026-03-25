@@ -1,7 +1,6 @@
 'use client'
 
-import { Form } from 'antd'
-import type { FormInstance } from 'antd'
+import { Form, type FormInstance } from 'antd'
 import { computeClockTotalSegmentsFromStamina } from '@/lib/character/model'
 import type { Character, StatPool } from '@/lib/character/types'
 

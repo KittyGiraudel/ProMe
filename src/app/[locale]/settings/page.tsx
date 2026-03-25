@@ -1,6 +1,6 @@
 import { AppConfig } from 'next-intl'
-import { SettingsPageClient } from './SettingsPageClient'
 import { getTranslations } from 'next-intl/server'
+import { SettingsPageClient } from './SettingsPageClient'
 
 type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
 

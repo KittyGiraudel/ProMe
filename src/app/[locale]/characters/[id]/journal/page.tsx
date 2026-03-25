@@ -1,6 +1,6 @@
+import { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { JournalTabSection } from '../tabs/JournalTabSection'
-import { AppConfig } from 'next-intl'
 
 type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
 

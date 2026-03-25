@@ -1,12 +1,12 @@
 'use client'
 
-import { App, Form } from 'antd'
 import { useCallback, useEffect, useState } from 'react'
-import { useUnsavedChangesGuard } from '@/hooks/useUnsavedChangesGuard'
+import { useTranslations } from 'next-intl'
+import { App, Form } from 'antd'
 import { getCharacterStore } from '@/lib/character/store'
 import type { Character } from '@/lib/character/types'
-import { sheetFormMatchesSavedCharacter, type SheetFormValues } from './characterSheetForm'
-import { useTranslations } from 'next-intl'
+import { useUnsavedChangesGuard } from '@/hooks/useUnsavedChangesGuard'
+import {  toFormValues, type SheetFormValues } from './characterSheetForm'
 
 export function useCharacterSheetForm({ characterId }: { characterId: string }) {
   const { modal } = App.useApp()
@@ -29,10 +29,10 @@ export function useCharacterSheetForm({ characterId }: { characterId: string }) 
   const confirmUnsavedLeave = useCallback(
     ({ onLeave, onStay }: { onLeave: () => void; onStay: () => void }) => {
       modal.confirm({
-        title: t('characters.unsavedChangesTitle'),
-        content: t('characters.unsavedChangesDescription'),
-        okText: t('characters.unsavedChangesLeave'),
-        cancelText: t('characters.unsavedChangesStay'),
+        title: t('characters.unsaved_changes_title'),
+        content: t('characters.unsaved_changes_description'),
+        okText: t('characters.unsaved_changes_leave'),
+        cancelText: t('characters.unsaved_changes_stay'),
         onOk: onLeave,
         onCancel: onStay,
       })
@@ -64,4 +64,14 @@ export function useCharacterSheetForm({ characterId }: { characterId: string }) 
     setSaveErrors,
     onSaved,
   }
+}
+
+
+/** Compares live form values to the last saved character (for guards; not tied
+ * to Ant Design "touched"). */
+function sheetFormMatchesSavedCharacter(
+  values: SheetFormValues,
+  saved: Character
+): boolean {
+  return JSON.stringify(values) === JSON.stringify(toFormValues(saved))
 }

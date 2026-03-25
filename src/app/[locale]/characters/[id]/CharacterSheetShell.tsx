@@ -1,9 +1,11 @@
 'use client'
 
-import { Alert, ConfigProvider, Form, Space, App } from 'antd'
 import { useMemo, type ReactNode } from 'react'
+import { useTranslations } from 'next-intl'
+import { Alert, ConfigProvider, Form, Space } from 'antd'
 import { Layout } from '@/components/Layout/Layout'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
+import { biomeAtCurrentMapPosition } from '@/lib/character/biomeAtCurrentMapPosition'
 import { Button } from '@/components/Button/Button'
 import { CharacterProvider } from '@/components/CharacterSheet/CharacterContext'
 import { toFormValues } from './characterSheetForm'
@@ -18,8 +20,6 @@ import {
   useWarnDeath,
 } from './useCharacterLifeStatusActions'
 import { CharacterSheetTabNav } from './CharacterSheetTabNav'
-import { biomeAtCurrentMapPosition } from '@/lib/character/biomeAtCurrentMapPosition'
-import { useTranslations } from 'next-intl'
 
 export function CharacterSheetShell({
   characterId,
@@ -29,6 +29,7 @@ export function CharacterSheetShell({
   children: ReactNode
 }) {
   const t = useTranslations()
+
   // Ant Design form + character from client store; unsaved-navigation guard;
   // merge form → Character for save/export; `onSaved` refreshes local character
   // state after persistence.

@@ -1,14 +1,13 @@
 'use client'
 
+import { useMemo } from 'react'
+import { useTranslations } from 'next-intl'
 import { App } from 'antd'
 import { useRouter } from '@/i18n/navigation'
-import { useMemo } from 'react'
 import { createCharacterFromIdentity } from '@/lib/character/createFromIdentity'
 import { getCharacterStore } from '@/lib/character/store'
 import type { Archetype } from '@/lib/character/types'
 import type { Gender } from '@/lib/types'
-import { characterSheetTabHref } from '@/app/[locale]/characters/[id]/characterSheetRoutes'
-import { useTranslations } from 'next-intl'
 
 export type CharacterCreateValues = {
   name: string
@@ -37,8 +36,8 @@ export function useCharacterCreate() {
       source ?? undefined,
     )
     const saved = store.save(created)
-    message.success(t('characters.createSuccess'))
-    router.push(characterSheetTabHref(saved.id, 'identity'))
+    message.success(t('new_character.create_success'))
+    router.push(`/characters/${saved.id}/identity`)
   }
 
   return { handleCreate }

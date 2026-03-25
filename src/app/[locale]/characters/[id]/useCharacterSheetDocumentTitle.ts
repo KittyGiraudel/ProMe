@@ -1,22 +1,21 @@
 'use client'
 
 import { useEffect } from 'react'
+import { useTranslations } from 'next-intl'
+import { usePathname } from '@/i18n/navigation'
 import type { Character } from '@/lib/character/types'
 import {
   CHARACTER_SHEET_TAB_KEYS,
-  DEFAULT_CHARACTER_SHEET_TAB,
-  type CharacterSheetTabKey,
+  type CharacterSheetTabId,
 } from './characterSheetRoutes'
-import { usePathname } from '@/i18n/navigation'
-import { useTranslations } from 'next-intl'
 
 function tabKeyFromPathname(
   pathname: string,
   characterId: string
-): CharacterSheetTabKey {
+): CharacterSheetTabId {
   const path = pathname.replace(`/characters/${characterId}/`, '')
   const tab = CHARACTER_SHEET_TAB_KEYS.find(tab => tab.path === path)
-  return tab?.key ?? DEFAULT_CHARACTER_SHEET_TAB 
+  return tab?.id ?? 'identity'
 }
 
 /**
@@ -35,7 +34,7 @@ export function useCharacterSheetDocumentTitle({
 }) {
   const t = useTranslations()
   const pathname = usePathname()
-  const activeTabKey = tabKeyFromPathname(pathname, characterId)
+  const activeTabId = tabKeyFromPathname(pathname, characterId)
 
   useEffect(() => {
     if (!hydratedFromStore) return
@@ -45,14 +44,13 @@ export function useCharacterSheetDocumentTitle({
       return
     }
 
-    const displayName = character.name?.trim() || t('characters.unnamed')
+    const displayName = character.name?.trim() || t('characters_list.unnamed')
     const suffix = (() => {
-      if (activeTabKey === DEFAULT_CHARACTER_SHEET_TAB) return ''
-      const tab = CHARACTER_SHEET_TAB_KEYS.find(tab => tab.key === activeTabKey)
+      const tab = CHARACTER_SHEET_TAB_KEYS.find(tab => tab.id === activeTabId)
       if (!tab) return ''
-      return ` · ${t(tab.localizationKey)}`
+      return ` · ${t(tab.key)}`
     })()
 
     document.title = `${displayName}${suffix} — ${t('metadata.tab_brand')}`
-  }, [hydratedFromStore, character, activeTabKey])
+  }, [hydratedFromStore, character, activeTabId])
 }

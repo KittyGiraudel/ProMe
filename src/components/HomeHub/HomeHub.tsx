@@ -6,10 +6,7 @@ import { useFormatter, useTranslations } from 'next-intl'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { getCharacterStore } from '@/lib/character/store'
 import type { Character } from '@/lib/character/types'
-import { DiceRoll } from '../DiceRoll/DiceRoll'
-import { CardDraw } from '../CardDraw/CardDraw'
 import { Layout } from '../Layout/Layout'
-import { characterSheetTabHref } from '@/app/[locale]/characters/[id]/characterSheetRoutes'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 import './HomeHub.css'
 
@@ -46,7 +43,7 @@ const CharacterManager = () => {
           <Col span={8} key={character.id}>
             <BlockedLink
               key={character.id}
-              href={characterSheetTabHref(character.id, 'identity')}
+              href={`/characters/${character.id}/identity`}
               className='home-hub__recent-link'>
               <Card
                 size='small'

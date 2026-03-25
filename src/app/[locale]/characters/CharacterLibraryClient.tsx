@@ -1,15 +1,14 @@
 'use client'
 
-import { Card, Empty, Space, Typography } from 'antd'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useFormatter, useTranslations } from 'next-intl'
-import { Layout } from '@/components/Layout/Layout'
-import { BlockedLink } from '@/components/Navigation/BlockedLink'
+import { Card, Empty, Space, Typography } from 'antd'
 import { getCharacterStore } from '@/lib/character/store'
 import type { Character } from '@/lib/character/types'
-import { Button } from '@/components/Button/Button'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
-import { characterSheetTabHref } from '@/app/[locale]/characters/[id]/characterSheetRoutes'
+import { Layout } from '@/components/Layout/Layout'
+import { BlockedLink } from '@/components/Navigation/BlockedLink'
+import { Button } from '@/components/Button/Button'
 import { useCharacterLibraryActions } from './useCharacterLibraryActions'
 
 export function CharacterLibraryClient() {
@@ -85,8 +84,7 @@ export function CharacterLibraryClient() {
                 }
                 extra={
                   <Space>
-                    <BlockedLink
-                      href={characterSheetTabHref(character.id, 'identity')}>
+                    <BlockedLink href={`/characters/${character.id}/identity`}>
                       {t('common.open')}
                     </BlockedLink>
                   </Space>

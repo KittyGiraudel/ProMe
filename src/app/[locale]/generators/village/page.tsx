@@ -1,8 +1,8 @@
 import { Suspense } from 'react'
+import { AppConfig, useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { Layout } from '@/components/Layout/Layout'
 import { VillageGeneratorClient } from './VillageGeneratorClient'
-import { getTranslations } from 'next-intl/server'
-import { AppConfig, useTranslations } from 'next-intl'
 
 type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
 

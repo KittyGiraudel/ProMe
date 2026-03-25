@@ -1,11 +1,11 @@
 'use client'
 
+import { useMemo } from 'react'
 import { Form, Space } from 'antd'
 import { randomId } from '@/lib/character/model'
 import { InventoryCard } from '@/components/CharacterSheet/InventoryCard'
 import { SpellbookCard } from '@/components/CharacterSheet/SpellbookCard'
 import { useCharacterContext } from '@/components/CharacterSheet/CharacterContext'
-import { useMemo } from 'react'
 
 export function InventoryTabSection() {
   const { getCharacterValue } = useCharacterContext()

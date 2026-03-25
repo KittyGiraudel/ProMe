@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { getCharacterStore } from '@/lib/character/store'
 import type { Character } from '@/lib/character/types'
-import { useTranslations } from 'next-intl'
 
 export type InheritanceCandidate = {
   id: string
@@ -23,7 +23,7 @@ export function useInheritanceCandidates() {
       characters.map(character => ({
         id: character.id,
         character,
-        label: character.name.trim() || t('characters.unnamed'),
+        label: character.name.trim() || t('characters_list.unnamed'),
       })),
     [characters, t],
   )

@@ -1,6 +1,6 @@
-import { CharacterCreateClient } from './CharacterCreateClient'
-import { getTranslations } from 'next-intl/server'
 import { AppConfig } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
+import { CharacterCreateClient } from './CharacterCreateClient'
 
 type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
 

@@ -1,13 +1,13 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useRef } from 'react'
-import type { Character } from '@/lib/character/types'
-import { Button } from '@/components/Button/Button'
+import { useTranslations } from 'next-intl'
 import { App, FormInstance } from 'antd'
+import type { Character } from '@/lib/character/types'
 import { getCharacterStore } from '@/lib/character/store'
+import { Button } from '@/components/Button/Button'
 import { useCharacterSheetDerived } from './useCharacterSheetDerived'
 import { useCharacterFromForm } from './useCharacterFromForm'
-import { useTranslations } from 'next-intl'
 
 const DEATH_SUGGESTION_KEY = 'death-suggestion'
 
@@ -36,7 +36,7 @@ export function useCharacterLifeStatusActions({
       const saved = store.save(payload)
       setSaveErrors(null)
       onSaved(saved)
-      message.success(t('characters.mark_dead_success'))
+      message.success(t('characters.actions.mark_dead_success'))
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e)
       message.error(msg)
@@ -59,7 +59,7 @@ export function useCharacterLifeStatusActions({
       const saved = store.save(payload)
       setSaveErrors(null)
       onSaved(saved)
-      message.success(t('characters.revive_success'))
+      message.success(t('characters.actions.revive_success'))
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e)
       message.error(msg)
@@ -99,8 +99,8 @@ export const useWarnDeath = ({
     if (previous != null && previous > 0 && healthCurrent <= 0) {
       notification.warning({
         key: DEATH_SUGGESTION_KEY,
-        title: t('characters.death_suggestion_title'),
-        description: t('characters.death_suggestion_description'),
+        title: t('characters.actions.death_suggestion_title'),
+        description: t('characters.actions.death_suggestion_description'),
         placement: 'bottomRight',
         duration: 0,
         actions: (
@@ -111,7 +111,7 @@ export const useWarnDeath = ({
               notification.destroy(DEATH_SUGGESTION_KEY)
               onKill()
             }}>
-            {t('characters.mark_dead_action')}
+            {t('characters.actions.mark_dead_action')}
           </Button>
         ),
       })

@@ -121,6 +121,7 @@
   },
   "new_character": {
     "title": "Nouveau Protecteur",
+    "create_success": "Protecteur créé.",
     "create": "Créer un Protecteur",
     "import": "Importer un Protecteur",
     "import_error": "Import impossible. Vérifiez le fichier JSON.",
@@ -147,9 +148,13 @@
     "title": "Fiche Protecteur",
     "not_found_title": "Protecteur introuvable",
     "not_found_description": "Cette fiche n’existe pas (ou plus) dans ce navigateur.",
-    "back_to_library": "← Retour à la bibliothèque",
+    "back_to_library": "Retour à la bibliothèque",
     "dead_readonly_title": "Protecteur décédé",
     "dead_readonly_description": "Ce Protecteur est décédé. Par conséquent, cette fiche est figée et entièrement en lecture seule.",
+    "unsaved_changes_title": "Modifications non enregistrées",
+    "unsaved_changes_description": "Vous avez des modifications non enregistrées. Si vous quittez cette page, ces modifications seront perdues.",
+    "unsaved_changes_leave": "Quitter",
+    "unsaved_changes_stay": "Rester",
     "gender_label": "Genre",
     "archetype_power_label": "Pouvoir de l’archetype",
     "archetype_label": "Archétype",
@@ -274,7 +279,15 @@
       "mark_dead_confirm_description": "Cette action fige définitivement la fiche en lecture seule.",
       "danger_mark_dead_help": "Cette action fige la fiche en lecture seule tant que le Protecteur n’est pas réanimé.",
       "export": "Exporter JSON",
-      "export_help": "Télécharge un export JSON de la fiche."
+      "export_help": "Télécharge un export JSON de la fiche.",
+      "mark_dead_success": "Protecteur marqué comme mort·e.",
+      "revive_success": "Protecteur réanimé.",
+      "death_suggestion_title": "Suggestion de mort",
+      "death_suggestion_description": "Le Protecteur est sur le point de mourir. Vous devez le réanimer avant qu’il ne soit trop tard.",
+      "delete_success": "Protecteur supprimé.",
+      "export_downloaded": "Export JSON téléchargé.",
+      "export_download_error": "Impossible de télécharger l’export JSON.",
+      "save_success": "Protecteur enregistré."
     }
   },
   "nav": {
