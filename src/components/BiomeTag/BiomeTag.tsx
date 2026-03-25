@@ -1,14 +1,14 @@
 import { Tag } from 'antd'
+import { useTranslations } from 'next-intl'
 import { BiomeId } from '@/lib/character/types'
-import { useLocalize } from '@/app/contexts/LocalizationContext'
 import './BiomeTag.css'
 
 export function BiomeTag({ biome }: { biome: BiomeId }) {
-  const localize = useLocalize()
+  const t = useTranslations()
 
   return (
     <Tag data-biome={biome} className='biome-tag'>
-      {localize.string(`biomes.${biome}`)}
+      {t(`biomes.${biome}`)}
     </Tag>
   )
 }

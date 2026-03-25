@@ -5,7 +5,7 @@ import type { FormListFieldData } from 'antd/es/form'
 import type { FormInstance } from 'antd'
 import { Button } from '@/components/Button/Button'
 import { JournalMarkdown } from '@/components/Markdown/JournalMarkdown'
-import { useLocalize } from '@/app/contexts/LocalizationContext'
+import { useTranslations } from 'next-intl'
 
 export function JournalEntry({
   field,
@@ -23,7 +23,7 @@ export function JournalEntry({
   formatTimestamp: (value: string | undefined) => string | null
 }) {
   const { componentDisabled } = ConfigProvider.useConfig()
-  const localize = useLocalize()
+  const t = useTranslations()
   const content = form.getFieldValue([
     'journalEntries',
     field.name,
@@ -62,13 +62,13 @@ export function JournalEntry({
               type='link'
               htmlType='button'
               onClick={() => onConfirmDelete(field.name, hasContent)}>
-              {localize.string('common.delete')}
+              {t('common.delete')}
             </Button>
             <Button
               htmlType='button'
               type='primary'
               onClick={() => setEditingMode(field.key, false)}>
-              {localize.string('characters.journalDoneEditing')}
+              {t('characters.journal_done_editing')}
             </Button>
           </Space>
         ) : !componentDisabled ? (
@@ -76,7 +76,7 @@ export function JournalEntry({
             className='journal__entry-edit-button'
             htmlType='button'
             onClick={() => setEditingMode(field.key, true)}>
-            {localize.string('characters.journalEditEntry')}
+            {t('characters.journal_edit_entry')}
           </Button>
         ) : null}
       </div>
@@ -85,14 +85,12 @@ export function JournalEntry({
         <>
           <Form.Item
             name={[field.name, 'content']}
-            label={localize.string('characters.journalEntryContentLabel')}
+            label={t('characters.journal_entry_content_label')}
             style={{ marginBottom: 0 }}
             className='journal__entry-editor'>
             <Input.TextArea
               rows={8}
-              placeholder={localize.string(
-                'characters.journalEntryContentPlaceholder'
-              )}
+              placeholder={t('characters.journalEntryContentPlaceholder')}
               onKeyDown={e => {
                 if (e.key !== 'Enter') return
                 if (!e.metaKey && !e.ctrlKey) return
@@ -109,7 +107,7 @@ export function JournalEntry({
           </Form.Item>
           <div className='journal__entry-symbols'>
             <Typography.Text type='secondary'>
-              {localize.string('characters.journalSymbols')}{' '}
+              {t('characters.journal_symbols')}{' '}
               <span style={{ transform: 'scale(1.2)' }}>⚀ ⚁ ⚂ ⚃ ⚄ ⚅</span>
               <span>♠ ♥ ♦ ♣</span>
               <span style={{ transform: 'scale(0.8)' }}>☼ ☾</span>
@@ -123,7 +121,7 @@ export function JournalEntry({
             <JournalMarkdown markdown={content ?? ''} />
           ) : (
             <Typography.Text type='secondary'>
-              {localize.string('characters.journalPreviewEmpty')}
+              {t('characters.journal_preview_empty')}
             </Typography.Text>
           )}
           <div className='journal__entry-meta'>
@@ -134,13 +132,13 @@ export function JournalEntry({
               className='journal__entry-meta-text'>
               <a href={`#${entryAnchor}`} className='journal__entry-permalink'>
                 {createdLabel
-                  ? localize.string('characters.journalCreatedAtLine', {
+                  ? t('characters.journal_created_at_line', {
                       value: createdLabel,
                     })
                   : ''}
                 {createdLabel && updatedLabel ? ' · ' : ''}
                 {updatedLabel
-                  ? localize.string('characters.journalUpdatedAtLine', {
+                  ? t('characters.journal_updated_at_line', {
                       value: updatedLabel,
                     })
                   : ''}

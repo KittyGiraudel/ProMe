@@ -8,7 +8,7 @@ import type { BiomeId, HexCoordinate } from '@/lib/character/types'
 import { BIOME_IDS } from '@/lib/character/types'
 import { EmojiStyle, Theme, type EmojiClickData } from 'emoji-picker-react'
 import { BiomeBubble } from '../BiomeBubble/BiomeBubble'
-import { useLocalize } from '@/app/contexts/LocalizationContext'
+import { useTranslations } from 'next-intl'
 
 const EmojiPicker = dynamic(
   () => import('emoji-picker-react').then(m => m.default),
@@ -65,7 +65,7 @@ export function MapCellContextMenu({
   onSetIcon,
   onClearCell,
 }: MapCellContextMenuProps) {
-  const localize = useLocalize()
+  const t = useTranslations()
   const { componentDisabled } = ConfigProvider.useConfig()
   const [open, setOpen] = useState(false)
   const [emojiModalOpen, setEmojiModalOpen] = useState(false)
@@ -77,14 +77,14 @@ export function MapCellContextMenu({
     const iconChildren: NonNullable<MenuProps['items']> = [
       {
         key: 'icon-picker',
-        label: localize.string('characters.mapPickEmoji'),
+        label: t('characters.map_pick_emoji'),
       },
       ...(hasStoredIcon
         ? [
             { type: 'divider' as const },
             {
               key: 'icon:clear',
-              label: localize.string('characters.mapClearIcon'),
+              label: t('characters.map_clear_icon'),
             },
           ]
         : []),
@@ -92,23 +92,21 @@ export function MapCellContextMenu({
 
     const iconSubmenu = {
       key: 'icon',
-      label: localize.string('characters.mapIconLabel'),
+      label: t('characters.map_icon_label'),
       children: iconChildren,
     }
 
     const actionItems: NonNullable<MenuProps['items']> = [
       {
         key: 'move',
-        label: localize.string('characters.mapMoveHere'),
+        label: t('characters.map_move_here'),
         disabled: !canMoveHere,
-        title: canMoveHere
-          ? undefined
-          : localize.string('characters.mapMoveNeighborOnly'),
+        title: canMoveHere ? undefined : t('characters.map_move_neighbor_only'),
       },
       {
         key: 'clear',
         danger: true,
-        label: localize.string('characters.mapClearCell'),
+        label: t('characters.map_clear_cell'),
         disabled: !hasCellContent,
       },
     ]
@@ -117,7 +115,7 @@ export function MapCellContextMenu({
       {
         key: 'coord-group',
         type: 'group',
-        label: localize.string('characters.mapSelectedCell', {
+        label: t('characters.map_selected_cell', {
           cell: coordLabel,
         }),
         children: [],
@@ -125,18 +123,18 @@ export function MapCellContextMenu({
       {
         key: 'marking-group',
         type: 'group',
-        label: localize.string('characters.mapMenuMarkingGroup'),
+        label: t('characters.map_menu_marking_group'),
         children: [
           {
             key: 'biome',
-            label: localize.string('characters.mapBiomeLabel'),
+            label: t('characters.map_biome_label'),
             children: [
               ...BIOME_IDS.map(id => ({
                 key: `biome:${id}`,
                 label: (
                   <span className='Map__BiomeMenuItem'>
                     <BiomeBubble biome={id} />
-                    <span>{localize.string(`biomes.${id}`)}</span>
+                    <span>{t(`biomes.${id}`)}</span>
                   </span>
                 ),
               })),
@@ -148,7 +146,7 @@ export function MapCellContextMenu({
                 label: (
                   <span className='Map__BiomeMenuItem'>
                     <BiomeBubble biome='unexplored' />
-                    <span>{localize.string('characters.mapUnexplored')}</span>
+                    <span>{t('characters.map_unexplored')}</span>
                   </span>
                 ),
               },
@@ -157,7 +155,7 @@ export function MapCellContextMenu({
                 label: (
                   <span className='Map__BiomeMenuItem'>
                     <BiomeBubble biome='unexplored' />
-                    <span>{localize.string('characters.mapRandomBiome')}</span>
+                    <span>{t('characters.map_random_biome')}</span>
                   </span>
                 ),
               },
@@ -169,11 +167,11 @@ export function MapCellContextMenu({
       {
         key: 'actions-group',
         type: 'group',
-        label: localize.string('characters.mapMenuActionsGroup'),
+        label: t('characters.map_menu_actions_group'),
         children: [...actionItems],
       },
     ]
-  }, [canMoveHere, coordLabel, hasCellContent, hasStoredIcon, localize])
+  }, [canMoveHere, coordLabel, hasCellContent, hasStoredIcon, t])
 
   const onEmojiPicked = (data: EmojiClickData) => {
     onSetIcon(coord, firstGrapheme(data.emoji))
@@ -240,7 +238,7 @@ export function MapCellContextMenu({
           }}
           title={title}
           className='Map__Button'
-          aria-label={`${title} ${localize.string('characters.mapCell')}`}
+          aria-label={`${title} ${t('characters.mapCell')}`}
           disabled={componentDisabled}>
           {coordLabel}
         </button>
@@ -248,7 +246,7 @@ export function MapCellContextMenu({
 
       <Modal
         open={emojiModalOpen}
-        title={localize.string('characters.mapIconLabel')}
+        title={t('characters.map_icon_label')}
         footer={null}
         onCancel={() => setEmojiModalOpen(false)}
         destroyOnHidden
@@ -259,9 +257,7 @@ export function MapCellContextMenu({
             onEmojiClick={onEmojiPicked}
             theme={Theme.LIGHT}
             emojiStyle={EmojiStyle.NATIVE}
-            searchPlaceHolder={localize.string(
-              'characters.mapEmojiSearchPlaceholder'
-            )}
+            searchPlaceHolder={t('characters.map_emoji_search_placeholder')}
             width={320}
             height={380}
             previewConfig={{ showPreview: false }}

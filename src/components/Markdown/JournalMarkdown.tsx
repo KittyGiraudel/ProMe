@@ -12,7 +12,7 @@ import {
 import { extractDisplayedCellReferences } from '@/lib/hex/coordinates'
 import { getInhabitantSummaryFromUrl } from '@/lib/markdown/inhabitantLinkSummary'
 import { getVillageSummaryFromUrl } from '@/lib/markdown/villageLinkSummary'
-import { useSettings } from '@/app/contexts/SettingsContext'
+import { useSettings } from '@/app/[locale]/contexts/SettingsContext'
 import { BIOME_ROLL_TABLE } from '@/lib/constants/biomeRollTable'
 import { DICE, SUITS } from '@/lib/constants/misc'
 import { suitIsRed } from '@/lib/suitGlyphs'
@@ -21,8 +21,7 @@ import { useCharacterContext } from '@/components/CharacterSheet/CharacterContex
 import './JournalMarkdown.css'
 import { BiomeTag } from '../BiomeTag/BiomeTag'
 import { CoordChip } from '../CoordChip/CoordChip'
-import { useLocalize } from '@/app/contexts/LocalizationContext'
-import { Localize } from '@/lib/localization/localize'
+import { _Translator, useTranslations } from 'next-intl'
 
 const BIOME_ENTRIES = BIOME_ROLL_TABLE.map(biome => ({
   key: `biomes.${biome.biome}`,
@@ -50,32 +49,32 @@ const SYMBOL_ALIAS_RULES: JournalInlineTokenRule[] = [
   { key: 'symbol:clubs', match: '{C}' },
 ]
 
-function getStaticTokenRules(localize: Localize): JournalInlineTokenRule[] {
+function getStaticTokenRules(t: _Translator): JournalInlineTokenRule[] {
   const STATIC_TOKEN_RULES: JournalInlineTokenRule[] = [
     ...BIOME_ENTRIES.map(entry => ({
       key: `biome:${entry.biomeId}`,
-      match: localize.string(entry.key),
+      match: t(entry.key),
       wordBoundary: true,
     })),
     {
       key: 'word:success',
-      match: localize.string('common.checkSuccessWord'),
+      match: t('common.checkSuccessWord'),
       wordBoundary: true,
     },
     {
       key: 'word:failure',
-      match: localize.string('common.checkFailureWord'),
+      match: t('common.checkFailureWord'),
       wordBoundary: true,
     },
     { key: 'symbol:sun', match: '☼' },
     { key: 'symbol:moon', match: '☾' },
     ...SUIT_ENTRIES.map(entry => ({
       key: `symbol:${entry.suitId}`,
-      match: localize.string(entry.key),
+      match: t(entry.key),
     })),
     ...DICE_ENTRIES.map(entry => ({
       key: `symbol:${entry.value}`,
-      match: localize.string(entry.key),
+      match: t(entry.key),
     })),
     ...SYMBOL_ALIAS_RULES,
   ]
@@ -167,7 +166,7 @@ function buildCoordinateRules(text: string): JournalInlineTokenRule[] {
 export function JournalMarkdown({ markdown }: { markdown: string }) {
   const { getCellData } = useCharacterContext()
   const { settings } = useSettings()
-  const localize = useLocalize()
+  const t = useTranslations()
 
   const renderTokenSegment = (
     tokenKey: string,
@@ -204,7 +203,7 @@ export function JournalMarkdown({ markdown }: { markdown: string }) {
     if (!text) return text
 
     const tokenRules = [
-      ...getStaticTokenRules(localize),
+      ...getStaticTokenRules(t),
       ...buildCoordinateRules(text),
     ]
     const segments = tokenizeJournalInlineText(text, tokenRules)
@@ -253,11 +252,11 @@ export function JournalMarkdown({ markdown }: { markdown: string }) {
     ),
     a: ({ children, node: _node, href, ...props }) => {
       const inhabitantSummary = href
-        ? getInhabitantSummaryFromUrl(href, localize)
+        ? getInhabitantSummaryFromUrl(href, t)
         : null
       const villageSummary =
         !inhabitantSummary && href
-          ? getVillageSummaryFromUrl(href, localize, {
+          ? getVillageSummaryFromUrl(href, t, {
               mergeDuplicateEstablishments:
                 settings.village.mergeDuplicateEstablishments,
             })

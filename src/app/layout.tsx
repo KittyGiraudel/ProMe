@@ -1,9 +1,8 @@
+import { NextIntlClientProvider } from 'next-intl'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
-import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { AppProviders } from '@/components/AppProviders/AppProviders'
-import { PageCover } from '@/components/PageCover/PageCover'
-import { defaultLocale, getMessages } from '@/messages/locales'
+import { getTranslations } from 'next-intl/server'
 import './globals.css'
 
 const geistSans = Geist({
@@ -16,12 +15,19 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
-export const metadata: Metadata = {
-  title: {
-    default: getMessages().metadata.title,
-    template: `%s — ${getMessages().metadata.tabBrand}`,
-  },
-  description: getMessages().metadata.description,
+type Props = { params: Promise<{ locale: string }> }
+
+export async function generateMetadata({ params }: Props) {
+  const { locale } = await params
+  const t = await getTranslations({ locale })
+
+  return {
+    title: {
+      default: t('metadata.title'),
+      template: `%s — ${t('metadata.tab_brand')}`,
+    },
+    description: t('metadata.description'),
+  }
 }
 
 export default function RootLayout({
@@ -30,15 +36,15 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html
-      lang={defaultLocale}
-      className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        <AntdRegistry>
-          <AppProviders>
-            <div className='app-shell'>{children}</div>
-          </AppProviders>
-        </AntdRegistry>
+        <NextIntlClientProvider>
+          <AntdRegistry>
+            <AppProviders>
+              <div className='app-shell'>{children}</div>
+            </AppProviders>
+          </AntdRegistry>
+        </NextIntlClientProvider>
       </body>
     </html>
   )

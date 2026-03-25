@@ -7,7 +7,8 @@ import {
 import type { VillageRoll } from '@/lib/village/generate'
 import { mergeEstablishmentSizeTiers } from '@/lib/village/mergeEstablishmentSizeTiers'
 import { Localize } from '../localization/localize'
-import { resolveVillageDisplay, VillageEstablishmentRow } from '@/app/generators/village/useVillageGenerator'
+import { resolveVillageDisplay, VillageEstablishmentRow } from '@/app/[locale]/generators/village/useVillageGenerator'
+import { _Translator } from 'next-intl'
 
 export type VillageEstablishmentGroup = {
   key: string
@@ -21,7 +22,7 @@ export type VillageEstablishmentGroup = {
 
 export function groupEstablishments(
   rows: VillageEstablishmentRow[],
-  localize: Localize
+  t: _Translator
 ): VillageEstablishmentGroup[] {
   const order: string[] = []
   const map = new Map<
@@ -50,16 +51,16 @@ export function groupEstablishments(
         (suitIsRed(rr.card.suit) ? 2 : 1) as 1 | 2
       )
       const merged = mergeEstablishmentSizeTiers(tiers)
-      text = establishmentLineFromSizeTier(first.card.rank, merged, localize)
+      text = establishmentLineFromSizeTier(first.card.rank, merged, t)
     } else {
       const baseText = first.text
       if (count === 1) {
         text = baseText
       } else if (count === 2) {
-        text = localize.string('village.mergedEstablishmentLabelTwo', { name: baseText })
+        text = t('village.mergedEstablishmentLabelTwo', { name: baseText })
         // text = `${copy.village.mergedEstablishmentLabel}${copy.common.emDashSpaced}${baseText}`
       } else {
-        text = localize.string('village.mergedEstablishmentLabelMore', { name: baseText, count })
+        text = t('village.mergedEstablishmentLabelMore', { name: baseText, count })
         // text = `${copy.village.mergedEstablishmentLabel} (×${count})${copy.common.emDashSpaced}${baseText}`
       }
     }
@@ -88,7 +89,7 @@ export function groupEstablishments(
 }
 
 /** Establishment line count when duplicate rows are merged (same rules as the village summary). */
-export function countVillageGroupedEstablishmentRows(roll: VillageRoll, localize: Localize): number {
-  const { establishments } = resolveVillageDisplay(roll, localize)
-  return groupEstablishments(establishments, localize).length
+export function countVillageGroupedEstablishmentRows(roll: VillageRoll, t: _Translator): number {
+  const { establishments } = resolveVillageDisplay(roll, t)
+  return groupEstablishments(establishments, t).length
 }

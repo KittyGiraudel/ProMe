@@ -2,7 +2,7 @@ import type { PlayingCard } from '@/lib/types'
 import { suitIsRed } from '@/lib/suitGlyphs'
 import './PlayingCardLabel.css'
 import { SUITS } from '@/lib/constants/misc'
-import { useLocalize } from '@/app/contexts/LocalizationContext'
+import { useTranslations } from 'next-intl'
 
 type PlayingCardLabelProps = {
   card: PlayingCard
@@ -16,7 +16,7 @@ export function PlayingCardLabel({
   className,
   compact,
 }: PlayingCardLabelProps) {
-  const localize = useLocalize()
+  const t = useTranslations()
   const rootClass = [
     'playing-card-label',
     compact ? 'playing-card-label--compact' : null,
@@ -24,8 +24,8 @@ export function PlayingCardLabel({
   ]
     .filter(Boolean)
     .join(' ')
-  const label = localize.string('common.card', {
-    rank: localize.string(`ranks.${card.rank}`),
+  const label = t('common.card', {
+    rank: t(`ranks.${card.rank}`),
     suit: SUITS[card.suit],
   })
   const suitClass = [

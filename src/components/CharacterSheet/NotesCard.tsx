@@ -3,11 +3,11 @@
 import { App, Card, ConfigProvider, Divider, Empty, Form, Space } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
 import { useEffect, useRef } from 'react'
-import { useSettings } from '@/app/contexts/SettingsContext'
+import { useSettings } from '@/app/[locale]/contexts/SettingsContext'
 import { Button } from '@/components/Button/Button'
 import { Journal } from '@/components/Journal/Journal'
 import { useJournalEntryViewModes } from './useJournalEntryViewModes'
-import { useLocalize } from '@/app/contexts/LocalizationContext'
+import { useTranslations } from 'next-intl'
 
 export function NotesCard({
   fields,
@@ -20,7 +20,7 @@ export function NotesCard({
 }) {
   const { modal } = App.useApp()
   const { settings } = useSettings()
-  const localize = useLocalize()
+  const t = useTranslations()
   const { componentDisabled } = ConfigProvider.useConfig()
   const form = Form.useFormInstance()
   const journalReverseChronological =
@@ -36,21 +36,18 @@ export function NotesCard({
     previousFieldCountRef.current = fields.length
   }, [fields, setEditingMode])
 
-  const formatTimestamp = (value: string | undefined) => localize.date(value)
   const addEntryButton =
     !componentDisabled && journalReverseChronological ? (
       <Button type='dashed' onClick={onAddEntry} htmlType='button'>
-        {localize.string('characters.addJournalEntry')}
+        {t('characters.add_journal_entry')}
       </Button>
     ) : undefined
 
   return (
-    <Card
-      title={localize.string('characters.notesSection')}
-      extra={addEntryButton}>
+    <Card title={t('characters.notes_section')} extra={addEntryButton}>
       <div>
         {fields.length === 0 ? (
-          <Empty description={localize.string('characters.journalEmpty')} />
+          <Empty description={t('characters.journal_empty')} />
         ) : null}
 
         <Journal
@@ -65,16 +62,13 @@ export function NotesCard({
             }
 
             modal.confirm({
-              title: localize.string('characters.journalDeleteConfirmTitle'),
-              content: localize.string(
-                'characters.journalDeleteConfirmDescription'
-              ),
-              okText: localize.string('characters.delete'),
-              cancelText: localize.string('characters.cancel'),
+              title: t('characters.journal_delete_confirm_title'),
+              content: t('characters.journal_delete_confirm_description'),
+              okText: t('characters.delete'),
+              cancelText: t('characters.cancel'),
               onOk: () => onRemoveEntry(entryIndex),
             })
           }}
-          formatTimestamp={formatTimestamp}
         />
       </div>
       {!componentDisabled && !journalReverseChronological && (
@@ -86,7 +80,7 @@ export function NotesCard({
             style={{ width: '100%' }}
             orientation='vertical'>
             <Button type='dashed' onClick={onAddEntry} htmlType='button'>
-              {localize.string('characters.addJournalEntry')}
+              {t('characters.add_journal_entry')}
             </Button>
           </Space>
         </>

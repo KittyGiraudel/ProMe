@@ -8,8 +8,8 @@ import { usePathname } from 'next/navigation'
 import type { BiomeId } from '@/lib/character/types'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { PageCover } from '../PageCover/PageCover'
+import { useTranslations } from 'next-intl'
 import './Layout.css'
-import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 type LayoutProps = {
   title: string
@@ -28,7 +28,7 @@ const useBreadcrumbs = ({
   breadcrumbs,
   title,
 }: Pick<LayoutProps, 'breadcrumbs' | 'title'>) => {
-  const localize = useLocalize()
+  const t = useTranslations()
   const breadcrumbItems = useMemo<BreadcrumbProps['items']>(() => {
     const items: NonNullable<BreadcrumbProps['items']> = breadcrumbs
       ? breadcrumbs.map(item => ({
@@ -45,9 +45,7 @@ const useBreadcrumbs = ({
     if (!breadcrumbs) {
       const resolvedBackHref = '/'
       const label =
-        resolvedBackHref === '/'
-          ? localize.string('nav.homeLink')
-          : localize.string('nav.backHome')
+        resolvedBackHref === '/' ? t('nav.home_link') : t('nav.back_home')
       items.push({
         title: (
           <BlockedLink
@@ -62,7 +60,7 @@ const useBreadcrumbs = ({
     if (breadcrumbs?.length !== 0) items.push({ title: <span>{title}</span> })
 
     return items
-  }, [breadcrumbs, localize, title])
+  }, [breadcrumbs, t, title])
 
   return breadcrumbItems
 }
@@ -76,14 +74,14 @@ export const Layout = ({
   pageCoverBiome,
 }: LayoutProps) => {
   const pathname = usePathname()
-  const localize = useLocalize()
+  const t = useTranslations()
   const items = useMemo(
     () => [
       {
         key: '/',
         label: (
           <BlockedLink href='/' data-current={pathname === '/'}>
-            {localize.string('nav.homeLink')}
+            {t('nav.home_link')}
           </BlockedLink>
         ),
       },
@@ -93,7 +91,7 @@ export const Layout = ({
           <BlockedLink
             href='/characters'
             data-current={pathname.startsWith('/characters')}>
-            {localize.string('nav.charactersLink')}
+            {t('nav.characters_link')}
           </BlockedLink>
         ),
       },
@@ -103,7 +101,7 @@ export const Layout = ({
           <BlockedLink
             href='/generators/inhabitant'
             data-current={pathname.startsWith('/generators/inhabitant')}>
-            {localize.string('nav.inhabitantGeneratorLink')}
+            {t('nav.inhabitant_generator_link')}
           </BlockedLink>
         ),
       },
@@ -113,7 +111,7 @@ export const Layout = ({
           <BlockedLink
             href='/generators/village'
             data-current={pathname.startsWith('/generators/village')}>
-            {localize.string('nav.villageGeneratorLink')}
+            {t('nav.village_generator_link')}
           </BlockedLink>
         ),
       },
@@ -123,12 +121,12 @@ export const Layout = ({
           <BlockedLink
             href='/settings'
             data-current={pathname.startsWith('/settings')}>
-            {localize.string('nav.settingsLink')}
+            {t('nav.settings_link')}
           </BlockedLink>
         ),
       },
     ],
-    [pathname, localize]
+    [pathname, t]
   )
   const breadcrumbItems = useBreadcrumbs({ breadcrumbs, title })
 
@@ -162,7 +160,7 @@ export const Layout = ({
         </div>
       </AntLayout.Content>
       <AntLayout.Footer style={{ textAlign: 'center' }}>
-        {localize.string('footer.copyright')}
+        {t('footer.copyright')}
       </AntLayout.Footer>
     </AntLayout>
   )

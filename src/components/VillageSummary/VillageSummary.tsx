@@ -12,10 +12,10 @@ import { RichText } from '@/components/RichText/RichText'
 import { formatRulebookReference } from '@/lib/village/formatRulebookReference'
 import { VillageEstablishmentLine } from './VillageEstablishmentLine'
 import { Button } from '@/components/Button/Button'
-import { useSettings } from '@/app/contexts/SettingsContext'
-import { useLocalize } from '@/app/contexts/LocalizationContext'
+import { useSettings } from '@/app/[locale]/contexts/SettingsContext'
+import { useTranslations } from 'next-intl'
+import { useVillageGenerator } from '@/app/[locale]/generators/village/useVillageGenerator'
 import './VillageSummary.css'
-import { useVillageGenerator } from '@/app/generators/village/useVillageGenerator'
 
 type VillageSummaryProps = {
   roll: VillageRoll | null
@@ -36,12 +36,12 @@ export function VillageSummary({
   const { resolveVillageDisplay, ownerSlotIndexByEstablishmentIndex } =
     useVillageGenerator()
   const { settings } = useSettings()
-  const localize = useLocalize()
+  const t = useTranslations()
   const grouped = settings.village.mergeDuplicateEstablishments
 
   const display = useMemo(
     () => (roll ? resolveVillageDisplay(roll) : null),
-    [roll, localize, resolveVillageDisplay]
+    [roll, t, resolveVillageDisplay]
   )
 
   const ownerSlotByEstIndex = useMemo(
@@ -83,7 +83,7 @@ export function VillageSummary({
         )
       })
     }
-    return groupEstablishments(display.establishments, localize).map((g, i) => (
+    return groupEstablishments(display.establishments, t).map((g, i) => (
       <VillageEstablishmentLine
         key={g.key}
         lineNumber={i + 1}
@@ -119,12 +119,12 @@ export function VillageSummary({
     ownerSlotByEstIndex,
     owners,
     ownersOk,
-    localize,
+    t,
   ])
 
   const villageFootnote = (
     <Typography.Text type='secondary' className='generator-rulebook-footnote'>
-      {localize.string('rulebook.villageFootnote')}
+      {t('rulebook.village_footnote')}
     </Typography.Text>
   )
 
@@ -135,8 +135,8 @@ export function VillageSummary({
           className='village-summary village-summary--empty'
           variant='borderless'>
           <Empty
-            description={localize.string('village.emptySummary', {
-              button: localize.string('village.generate'),
+            description={t('village.empty_summary', {
+              button: t('village.generate'),
             })}
           />
         </Card>
@@ -149,7 +149,7 @@ export function VillageSummary({
     <>
       <Card className='village-summary' variant='borderless'>
         <Typography.Title level={5} className='village-summary__section-title'>
-          {localize.string('village.sectionEstablishments')}
+          {t('village.section_establishments')}
         </Typography.Title>
         {establishmentBlocks}
 
@@ -158,7 +158,7 @@ export function VillageSummary({
             <Typography.Title
               level={5}
               className='village-summary__section-title'>
-              {localize.string('village.sectionTraits')}
+              {t('village.section_traits')}
             </Typography.Title>
             <ul className='village-summary__trait-list'>
               {display.traits.map(row => (
@@ -189,7 +189,7 @@ export function VillageSummary({
                               type='text'
                               size='small'
                               icon={<RedoOutlined />}
-                              aria-label={localize.string('common.rerollCard')}
+                              aria-label={t('common.reroll_card')}
                               onClick={() =>
                                 onRerollPrimarySlot(inst.primarySlot)
                               }
@@ -199,7 +199,7 @@ export function VillageSummary({
                         : null}
                     </div>
                     <span className='village-summary__line-page'>
-                      {formatRulebookReference([row.rulebookPage], localize)}
+                      {formatRulebookReference([row.rulebookPage], t)}
                     </span>
                   </div>
                 </li>

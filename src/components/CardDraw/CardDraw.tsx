@@ -4,11 +4,11 @@ import { useEffect, useRef, useState } from 'react'
 import { PlayingCardLabel } from '../PlayingCardLabel/PlayingCardLabel'
 import { PlayingCard } from '@/lib/types'
 import { Button } from '@/components/Button/Button'
-import { useLocalize } from '@/app/contexts/LocalizationContext'
+import { useTranslations } from 'next-intl'
 import './CardDraw.css'
 
 export function CardDraw() {
-  const localize = useLocalize()
+  const t = useTranslations()
   const [drawnCard, setDrawnCard] = useState<PlayingCard | null>(null)
   const [isDrawingCard, setIsDrawingCard] = useState(false)
   const cardDrawIntervalRef = useRef<ReturnType<typeof setInterval> | null>(
@@ -52,7 +52,7 @@ export function CardDraw() {
   return (
     <Card
       className='CardDraw__card home-hub__card'
-      title={localize.string('tools.cardToolTitle')}
+      title={t('tools.card_tool_title')}
       extra={
         <Button
           onClick={handleDrawCard}
@@ -60,8 +60,8 @@ export function CardDraw() {
           type='link'
           className='home-hub__cta'>
           {isDrawingCard
-            ? localize.string('tools.cardToolDrawing')
-            : localize.string('tools.cardToolAction')}
+            ? t('tools.card_tool_drawing')
+            : t('tools.card_tool_action')}
         </Button>
       }>
       <div
@@ -72,7 +72,7 @@ export function CardDraw() {
           .filter(Boolean)
           .join(' ')}>
         {drawnCard === null ? (
-          <Empty description={localize.string('tools.cardToolEmpty')} />
+          <Empty description={t('tools.card_tool_empty')} />
         ) : (
           <PlayingCardLabel card={drawnCard} className='CardDraw__drawn-card' />
         )}

@@ -1,7 +1,7 @@
 import { countVillageGroupedEstablishmentRows } from '@/lib/village/groupEstablishments'
 import { decodeVillageFactionParam, decodeVillageRollParam } from '@/lib/village/villageUrlCodec'
-import { Localize } from '../localization/localize'
-import { resolveVillageDisplay } from '@/app/generators/village/useVillageGenerator'
+import { resolveVillageDisplay } from '@/app/[locale]/generators/village/useVillageGenerator'
+import { _Translator } from 'next-intl'
 
 export type VillageLinkSummaryOptions = {
   mergeDuplicateEstablishments?: boolean
@@ -21,7 +21,7 @@ function isVillageGeneratorPath(pathname: string): boolean {
 
 export function getVillageSummaryFromUrl(
   rawUrl: string,
-  localize: Localize,
+  t: _Translator,
   options?: VillageLinkSummaryOptions
 ): string | null {
   const parsed = normalizeUrl(rawUrl)
@@ -35,10 +35,10 @@ export function getVillageSummaryFromUrl(
   if (!roll) return null
 
   const faction = decodeVillageFactionParam(parsed.searchParams.get('f'))
-  const factionLabel = faction ? localize.string(`factions.${faction}`) : null
+  const factionLabel = faction ? t(`common.factions.${faction}`) : null
   const count =
     options?.mergeDuplicateEstablishments === true
-      ? countVillageGroupedEstablishmentRows(roll, localize)
-      : resolveVillageDisplay(roll, localize).establishments.length
-  return localize.string('village.linkSummary', factionLabel, count)
+      ? countVillageGroupedEstablishmentRows(roll, t)
+      : resolveVillageDisplay(roll, t).establishments.length
+  return t('village.linkSummary', factionLabel, count)
 }

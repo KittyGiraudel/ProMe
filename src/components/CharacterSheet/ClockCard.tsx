@@ -9,10 +9,10 @@ import {
 import { ClockDisplay } from '@/components/ClockDisplay/ClockDisplay'
 import type { StatPool } from '@/lib/character/types'
 import { Button } from '@/components/Button/Button'
-import { useLocalize } from '@/app/contexts/LocalizationContext'
+import { useTranslations } from 'next-intl'
 
 export function ClockCard() {
-  const localize = useLocalize()
+  const t = useTranslations()
   const { notification } = App.useApp()
   const form = Form.useFormInstance()
   const watchOpts = { form, preserve: true } as const
@@ -29,9 +29,9 @@ export function ClockCard() {
   )
   const isDay = position < segmentsPerHalf
   const phaseLabel = isDay
-    ? localize.string('characters.clockDay')
-    : localize.string('characters.clockNight')
-  const clockLabel = localize.string('characters.clockSlice', {
+    ? t('characters.clock_day')
+    : t('characters.clock_night')
+  const clockLabel = t('characters.clock_slice', {
     position: position + 1,
     total: totalSegments,
   })
@@ -43,15 +43,15 @@ export function ClockCard() {
     form.setFieldValue('clock', wrapped)
     if (nextIsDay !== isDay) {
       notification.warning({
-        title: localize.string(
+        title: t(
           nextIsDay
-            ? 'characters.clockPhaseShiftDay'
-            : 'characters.clockPhaseShiftNight'
+            ? 'characters.clock_phase_shift_day'
+            : 'characters.clock_phase_shift_night'
         ),
         description:
-          localize.string('characters.clockPhaseShiftDescription') +
+          t('characters.clock_phase_shift_description') +
           '\n' +
-          localize.string('characters.clockSlice', {
+          t('characters.clock_slice', {
             position: wrapped + 1,
             total: totalSegments,
           }),
@@ -62,8 +62,8 @@ export function ClockCard() {
     }
 
     notification.success({
-      title: localize.string('characters.clockSection'),
-      description: localize.string('characters.clockSlice', {
+      title: t('characters.clock_section'),
+      description: t('characters.clock_slice', {
         position: wrapped + 1,
         total: totalSegments,
       }),
@@ -82,13 +82,12 @@ export function ClockCard() {
             justifyContent: 'space-between',
             width: '100%',
           }}>
-          <span>{localize.string('characters.clockSection')}</span>
+          <span>{t('characters.clock_section')}</span>
           <Popover
-            title={localize.string('characters.clockSection')}
+            title={t('characters.clock_section')}
             content={
               <>
-                {localize
-                  .string('characters.clockTooltip')
+                {t('characters.clock_tooltip')
                   .split('\n')
                   .map((paragraph, index) => (
                     <Typography.Text
@@ -105,7 +104,7 @@ export function ClockCard() {
                     marginBottom: 8,
                     color: '#8c8c8c',
                   }}>
-                  {localize.string('characters.clockFootnote')}
+                  {t('characters.clock_footnote')}
                 </Typography.Text>
               </>
             }
@@ -117,7 +116,7 @@ export function ClockCard() {
               size='small'
               htmlType='button'
               icon={<QuestionCircleOutlined />}
-              aria-label={localize.string('rulebook.information')}
+              aria-label={t('rulebook.information')}
             />
           </Popover>
         </div>
@@ -134,7 +133,7 @@ export function ClockCard() {
         </Form.Item>
         <Space wrap style={{ width: '100%', justifyContent: 'space-between' }}>
           <Button htmlType='button' onClick={() => setPosition(position - 1)}>
-            {localize.string('characters.clockBack')}
+            {t('characters.clock_back')}
           </Button>
           <Space wrap>
             <Tag color={isDay ? 'gold' : 'blue'}>{phaseLabel}</Tag>
@@ -144,7 +143,7 @@ export function ClockCard() {
             type='primary'
             htmlType='button'
             onClick={() => setPosition(position + 1)}>
-            {localize.string('characters.clockAdvance')}
+            {t('characters.clock_advance')}
           </Button>
         </Space>
       </Space>

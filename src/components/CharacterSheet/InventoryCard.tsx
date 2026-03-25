@@ -14,8 +14,8 @@ import {
 } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
 import { Button } from '@/components/Button/Button'
-import { useInventoryLimit } from '@/app/characters/[id]/useInventoryLimit'
-import { useLocalize } from '@/app/contexts/LocalizationContext'
+import { useInventoryLimit } from '@/app/[locale]/characters/[id]/useInventoryLimit'
+import { useTranslations } from 'next-intl'
 
 export function InventoryCard({
   fields,
@@ -26,7 +26,7 @@ export function InventoryCard({
   onAddItem: () => void
   onRemoveItem: (index: number | number[]) => void
 }) {
-  const localize = useLocalize()
+  const t = useTranslations()
   const { componentDisabled } = ConfigProvider.useConfig()
   const inventoryLimit = useInventoryLimit()
   const atCap = inventoryLimit > 0 && fields.length >= inventoryLimit
@@ -42,14 +42,14 @@ export function InventoryCard({
             justifyContent: 'space-between',
             width: '100%',
           }}>
-          <span>{localize.string('characters.inventorySection')}</span>
-          <Tooltip title={localize.string('characters.inventoryFootnote')}>
+          <span>{t('characters.inventory_section')}</span>
+          <Tooltip title={t('characters.inventory_footnote')}>
             <Button
               type='text'
               size='small'
               htmlType='button'
               icon={<QuestionCircleOutlined />}
-              aria-label={localize.string('rulebook.information')}
+              aria-label={t('rulebook.information')}
             />
           </Tooltip>
         </div>
@@ -57,7 +57,7 @@ export function InventoryCard({
       <Space orientation='vertical' style={{ width: '100%' }}>
         <Typography.Text
           type={fields.length >= inventoryLimit ? 'danger' : 'secondary'}>
-          {localize.string('characters.inventoryStatus', {
+          {t('characters.inventory_status', {
             count: fields.length,
             limit: inventoryLimit,
           })}
@@ -74,27 +74,27 @@ export function InventoryCard({
             }}>
             <Form.Item
               name={[field.name, 'label']}
-              label={localize.string('characters.itemNamePlaceholder')}
+              label={t('characters.item_name_placeholder')}
               noStyle>
               <Input
-                placeholder={localize.string('characters.itemNamePlaceholder')}
+                placeholder={t('characters.item_name_placeholder')}
                 style={{ flex: 1, minWidth: 220 }}
               />
             </Form.Item>
 
             <Form.Item
               name={[field.name, 'quantity']}
-              label={localize.string('characters.itemQuantityPlaceholder')}
+              label={t('characters.item_quantity_placeholder')}
               noStyle>
               <InputNumber min={1} style={{ width: 110 }} />
             </Form.Item>
 
             <Form.Item
               name={[field.name, 'note']}
-              label={localize.string('characters.itemNotePlaceholder')}
+              label={t('characters.item_note_placeholder')}
               noStyle>
               <Input
-                placeholder={localize.string('characters.itemNotePlaceholder')}
+                placeholder={t('characters.item_note_placeholder')}
                 style={{ width: 240 }}
               />
             </Form.Item>
@@ -103,7 +103,7 @@ export function InventoryCard({
               danger
               onClick={() => onRemoveItem(field.name)}
               htmlType='button'>
-              {localize.string('common.delete')}
+              {t('common.delete')}
             </Button>
           </div>
         ))}
@@ -121,7 +121,7 @@ export function InventoryCard({
               onClick={onAddItem}
               disabled={cannotAdd}
               htmlType='button'>
-              {localize.string('characters.addItem')}
+              {t('characters.add_item')}
             </Button>
           </Space>
         </>

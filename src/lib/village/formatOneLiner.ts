@@ -6,7 +6,8 @@ import {
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 import type { VillageRoll } from '@/lib/village/generate'
 import { Localize } from '@/lib/localization/localize'
-import { ownerSlotIndexByEstablishmentIndex, resolveVillageDisplay } from '@/app/generators/village/useVillageGenerator'
+import { ownerSlotIndexByEstablishmentIndex, resolveVillageDisplay } from '@/app/[locale]/generators/village/useVillageGenerator'
+import { _Translator } from 'next-intl'
 
 function stripBoldMarkers(s: string): string {
   return s.replace(/\*\*(.+?)\*\*/g, '$1')
@@ -25,17 +26,17 @@ export type VillageCopyFormatOptions = {
 export function formatVillageOneLiner(
   roll: VillageRoll,
   shareUrl: string,
-  localize: Localize,
+  t: _Translator,
   owners?: InhabitantRoll[] | null,
   options?: VillageCopyFormatOptions,
 ): string {
-  const { traits, establishments } = resolveVillageDisplay(roll, localize)
+  const { traits, establishments } = resolveVillageDisplay(roll, t)
   const ownerSlots = ownerSlotIndexByEstablishmentIndex(establishments)
   const sections: string[] = []
 
   if (traits.length > 0) {
     const lines = traits.map((row) => `- ${stripBoldMarkers(row.text)}`)
-    sections.push(`${localize.string('village.sectionTraits')}\n${lines.join('\n')}`)
+    sections.push(`${t('village.sectionTraits')}\n${lines.join('\n')}`)
   }
 
   const ownersOk =
@@ -45,30 +46,30 @@ export function formatVillageOneLiner(
     const ownerIdx = ownerSlots[i]!
     if (ownersOk && ownerIdx !== null && options?.inhabitantShareUrl) {
       const owner = owners[ownerIdx]!
-      const oneLiner = localize.string('inhabitant.oneLiner', {
+      const oneLiner = t('inhabitant.one_liner', {
         gender: genderCompactSymbol(owner.gender),
         name: owner.name,
-        faction: localize.string(`factions.${owner.faction}`),
-        age: localize.string(`ageBands.${getAgeBand(owner)}`),
-        personality: localize.string(`personalities.${getPersonality(owner)}`),
+        faction: t(`common.factions.${owner.faction}`),
+        age: t(`common.ageBands.${getAgeBand(owner)}`),
+        personality: t(`common.personalities.${getPersonality(owner)}`),
       }) + ' ' + shareUrl
-      return `- ${row.text}\n  - ${localize.string('village.ownerLabel')} ${oneLiner}`
+      return `- ${row.text}\n  - ${t('village.owner_label')} ${oneLiner}`
     }
     if (ownersOk && ownerIdx !== null) {
       const owner = owners[ownerIdx]!
-      const oneLiner = localize.string('inhabitant.oneLiner', {
+      const oneLiner = t('inhabitant.one_liner', {
         gender: genderCompactSymbol(owner.gender),
         name: owner.name,
-        age: localize.string(`ageBands.${getAgeBand(owner)}`),
-        personality: localize.string(`personalities.${getPersonality(owner)}`),
-        faction: localize.string(`factions.${owner.faction}`)
+        age: t(`common.age_bands.${getAgeBand(owner)}`),
+        personality: t(`common.personalities.${getPersonality(owner)}`),
+        faction: t(`common.factions.${owner.faction}`)
       })
-      return `- ${row.text}\n  - ${localize.string('village.ownerLabel')} ${oneLiner}`
+      return `- ${row.text}\n  - ${t('village.owner_label')} ${oneLiner}`
     }
     return `- ${row.text}`
   })
   sections.push(
-    `${localize.string('village.sectionEstablishments')}\n${establishmentLines.join('\n')}`,
+    `${t('village.sectionEstablishments')}\n${establishmentLines.join('\n')}`,
   )
 
   sections.push(shareUrl)

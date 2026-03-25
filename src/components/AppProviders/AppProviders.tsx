@@ -3,11 +3,8 @@
 import { App, ConfigProvider } from 'antd'
 import antdLocale from 'antd/locale/fr_FR'
 import type { ReactNode } from 'react'
-import { NavigationBlockerProvider } from '@/app/contexts/NavigationBlockerContext'
-import { LocalizationProvider } from '@/app/contexts/LocalizationContext'
-import { SettingsProvider } from '@/app/contexts/SettingsContext'
-import { defaultLocale, type Locale } from '@/messages/locales'
-import { useEffect, useState } from 'react'
+import { NavigationBlockerProvider } from '@/app/[locale]/contexts/NavigationBlockerContext'
+import { SettingsProvider } from '@/app/[locale]/contexts/SettingsContext'
 
 const theme = {
   token: {
@@ -25,32 +22,14 @@ const theme = {
   },
 }
 
-function antdLocaleFor(locale: Locale) {
-  // For now, only French is supported.
-  if (locale === 'fr') return antdLocale
-  return antdLocale
-}
-
 export function AppProviders({ children }: { children: ReactNode }) {
-  const [locale, setLocale] = useState<Locale>(defaultLocale)
-
-  useEffect(() => {
-    // Basic locale detection; only French exists today.
-    const navLang = navigator.language?.toLowerCase() ?? ''
-    void Promise.resolve().then(() => {
-      if (navLang.startsWith('fr')) setLocale('fr')
-    })
-  }, [])
-
   return (
-    <LocalizationProvider locale={locale}>
-      <ConfigProvider locale={antdLocaleFor(locale)} theme={theme}>
-        <SettingsProvider>
-          <NavigationBlockerProvider>
-            <App>{children}</App>
-          </NavigationBlockerProvider>
-        </SettingsProvider>
-      </ConfigProvider>
-    </LocalizationProvider>
+    <ConfigProvider locale={antdLocale} theme={theme}>
+      <SettingsProvider>
+        <NavigationBlockerProvider>
+          <App>{children}</App>
+        </NavigationBlockerProvider>
+      </SettingsProvider>
+    </ConfigProvider>
   )
 }

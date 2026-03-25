@@ -1,7 +1,7 @@
 'use client'
 
 import { useId } from 'react'
-import { useLocalize } from '@/app/contexts/LocalizationContext'
+import { useTranslations } from 'next-intl'
 
 type ClockDisplayProps = {
   label: string
@@ -45,7 +45,7 @@ export function ClockDisplay({
   segmentsPerHalf,
   position,
 }: ClockDisplayProps) {
-  const localize = useLocalize()
+  const t = useTranslations()
   const uid = useId().replace(/:/g, '')
   const svgSize = 220
   const center = svgSize / 2
@@ -172,7 +172,7 @@ export function ClockDisplay({
         fillOpacity='0.45'
         fontWeight='700'
         letterSpacing='3'>
-        {localize.string('characters.clockDay').toUpperCase()}
+        {t('characters.clock_day').toUpperCase()}
       </text>
       <text
         x={center}
@@ -183,7 +183,7 @@ export function ClockDisplay({
         fillOpacity='0.45'
         fontWeight='700'
         letterSpacing='3'>
-        {localize.string('characters.clockNight').toUpperCase()}
+        {t('characters.clock_night').toUpperCase()}
       </text>
     </svg>
   )

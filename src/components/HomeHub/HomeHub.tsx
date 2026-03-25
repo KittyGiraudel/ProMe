@@ -1,20 +1,21 @@
 'use client'
 
-import { Card, Col, Row, Space, Typography } from 'antd'
+import { Card, Col, Row, Typography } from 'antd'
 import { useEffect, useMemo, useState } from 'react'
+import { useLocale, useTranslations } from 'next-intl'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { getCharacterStore } from '@/lib/character/store'
 import type { Character } from '@/lib/character/types'
-import './HomeHub.css'
 import { DiceRoll } from '../DiceRoll/DiceRoll'
 import { CardDraw } from '../CardDraw/CardDraw'
 import { Layout } from '../Layout/Layout'
-import { characterSheetTabHref } from '@/app/characters/[id]/characterSheetRoutes'
+import { characterSheetTabHref } from '@/app/[locale]/characters/[id]/characterSheetRoutes'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
-import { useLocalize } from '@/app/contexts/LocalizationContext'
+import './HomeHub.css'
 
 const CharacterManager = () => {
-  const localize = useLocalize()
+  const t = useTranslations()
+  const locale = useLocale()
   const store = useMemo(() => getCharacterStore(), [])
   const [recentCharacters, setRecentCharacters] = useState<Character[]>([])
 
@@ -31,14 +32,14 @@ const CharacterManager = () => {
   return (
     <Card
       className='home-hub__card'
-      title={localize.string('hub.characterCardTitle')}
+      title={t('home.character_card_title')}
       extra={
         <BlockedLink href='/characters' className='home-hub__cta'>
-          {localize.string('hub.open')}
+          {t('common.open')}
         </BlockedLink>
       }>
       <p className='home-hub__card-text'>
-        {localize.string('hub.characterCardDescription')}
+        {t('home.character_card_description')}
       </p>
       <Row style={{ marginTop: 16 }} gutter={16}>
         {recentCharacters.map(character => (
@@ -55,16 +56,16 @@ const CharacterManager = () => {
                     {character.gender
                       ? genderCompactSymbol(character.gender)
                       : ''}{' '}
-                    {character.name || localize.string('characters.unnamed')},{' '}
-                    {localize.string(`archetypes.${character.archetype}`)}
+                    {character.name || t('unnamed')},{' '}
+                    {t(`common.archetypes.${character.archetype}`)}
                   </>
                 }>
                 <Typography.Text type='secondary'>
-                  {localize.string('characters.updatedLine', {
-                    value:
-                      localize.date(character.updatedAt, {
-                        dateStyle: 'medium',
-                      }) ?? '',
+                  {t('home.updated_line', {
+                    value: new Date(character.updatedAt).toLocaleDateString(
+                      locale,
+                      { dateStyle: 'medium' }
+                    ),
                   })}
                 </Typography.Text>
               </Card>
@@ -77,52 +78,51 @@ const CharacterManager = () => {
 }
 
 const InhabitantGenerator = () => {
-  const localize = useLocalize()
+  const t = useTranslations()
   return (
     <Card
       className='home-hub__card'
-      title={localize.string('hub.inhabitantCardTitle')}
+      title={t('home.inhabitant_card_title')}
       extra={
         <BlockedLink href='/generators/inhabitant' className='home-hub__cta'>
-          {localize.string('hub.open')}
+          {t('common.open')}
         </BlockedLink>
       }>
       <p className='home-hub__card-text'>
-        {localize.string('hub.inhabitantCardDescription')}
+        {t('home.inhabitant_card_description')}
       </p>
     </Card>
   )
 }
 
 const VillageGenerator = () => {
-  const localize = useLocalize()
+  const t = useTranslations()
   return (
     <Card
       className='home-hub__card'
-      title={localize.string('hub.villageCardTitle')}
+      title={t('home.village_card_title')}
       extra={
         <BlockedLink href='/generators/village' className='home-hub__cta'>
-          {localize.string('hub.open')}
+          {t('common.open')}
         </BlockedLink>
       }>
       <p className='home-hub__card-text'>
-        {localize.string('hub.villageCardDescription')}
+        {t('home.village_card_description')}
       </p>
     </Card>
   )
 }
 
 export function HomeHub() {
-  const localize = useLocalize()
+  const t = useTranslations()
+
   return (
     <Layout
-      title={localize.string('hub.title')}
+      title={t('home.title')}
       breadcrumbs={[]}
       pageCoverBiome='giganticGardens'>
       <section className='home-hub__section' data-testid='managers'>
-        <h2 className='home-hub__section-title'>
-          {localize.string('hub.managersTitle')}
-        </h2>
+        <h2 className='home-hub__section-title'>{t('home.managers_title')}</h2>
         <Row gutter={16}>
           <Col span={24}>
             <CharacterManager />
@@ -132,7 +132,7 @@ export function HomeHub() {
 
       <section className='home-hub__section' data-testid='generators'>
         <h2 className='home-hub__section-title'>
-          {localize.string('hub.generatorsTitle')}
+          {t('home.generators_title')}
         </h2>
         <Row gutter={16}>
           <Col span={12}>
@@ -145,9 +145,7 @@ export function HomeHub() {
       </section>
 
       <section className='home-hub__section' data-testid='tools'>
-        <h2 className='home-hub__section-title'>
-          {localize.string('tools.title')}
-        </h2>
+        <h2 className='home-hub__section-title'>{t('home.tools_title')}</h2>
         <Row gutter={16}>
           <Col span={12}>
             <DiceRoll />
@@ -158,14 +156,14 @@ export function HomeHub() {
           <Col span={24} style={{ marginTop: 16 }}>
             <Card
               className='home-hub__card'
-              title={localize.string('hub.settingsCardTitle')}
+              title={t('home.settings_title')}
               extra={
                 <BlockedLink href='/settings' className='home-hub__cta'>
-                  {localize.string('hub.open')}
+                  {t('common.open')}
                 </BlockedLink>
               }>
               <p className='home-hub__card-text'>
-                {localize.string('hub.settingsCardDescription')}
+                {t('home.settings_description')}
               </p>
             </Card>
           </Col>

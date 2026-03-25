@@ -14,13 +14,13 @@ import {
   Typography,
 } from 'antd'
 import { Button } from '@/components/Button/Button'
-import { useLocalize } from '@/app/contexts/LocalizationContext'
+import { useTranslations } from 'next-intl'
 
 type PoolKey = 'health' | 'courage' | 'stamina'
 type ResourceKey = 'honor' | 'inspiration' | 'money'
 
 export function CharacteristicsCard() {
-  const localize = useLocalize()
+  const t = useTranslations()
   const { notification } = App.useApp()
   const form = Form.useFormInstance()
   const courageCurrent = Form.useWatch(['courage', 'current'], form) as
@@ -28,39 +28,19 @@ export function CharacteristicsCard() {
     | undefined
 
   const resources: readonly [ResourceKey, string, string][] = [
-    [
-      'honor',
-      localize.string('characters.honorLabel'),
-      localize.string('characters.honorTooltip'),
-    ],
+    ['honor', t('characters.honor_label'), t('characters.honor_tooltip')],
     [
       'inspiration',
-      localize.string('characters.inspirationLabel'),
-      localize.string('characters.inspirationTooltip'),
+      t('characters.inspiration_label'),
+      t('characters.inspiration_tooltip'),
     ],
-    [
-      'money',
-      localize.string('characters.moneyLabel'),
-      localize.string('characters.moneyTooltip'),
-    ],
+    ['money', t('characters.money_label'), t('characters.money_tooltip')],
   ]
 
   const pools: readonly [PoolKey, string, string][] = [
-    [
-      'health',
-      localize.string('characters.healthLabel'),
-      localize.string('characters.healthTooltip'),
-    ],
-    [
-      'courage',
-      localize.string('characters.courageLabel'),
-      localize.string('characters.courageTooltip'),
-    ],
-    [
-      'stamina',
-      localize.string('characters.staminaLabel'),
-      localize.string('characters.staminaTooltip'),
-    ],
+    ['health', t('characters.health_label'), t('characters.health_tooltip')],
+    ['courage', t('characters.courage_label'), t('characters.courage_tooltip')],
+    ['stamina', t('characters.stamina_label'), t('characters.stamina_tooltip')],
   ]
 
   function renderLabelWithHelp(label: string, tooltip: string) {
@@ -91,7 +71,7 @@ export function CharacteristicsCard() {
                   color: '#8c8c8c',
                 }}
                 italic>
-                {localize.string('characters.characteristicsFootnote')}
+                {t('characters.characteristics_footnote')}
               </Typography.Text>
             </>
           }
@@ -103,7 +83,7 @@ export function CharacteristicsCard() {
             size='small'
             htmlType='button'
             icon={<QuestionCircleOutlined />}
-            aria-label={localize.string('rulebook.information')}
+            aria-label={t('rulebook.information')}
             style={{
               padding: 0,
               width: 18,
@@ -123,12 +103,12 @@ export function CharacteristicsCard() {
 
     notification[success ? 'success' : 'error']({
       title: success
-        ? localize.string('characters.courageRollSuccessTitle')
-        : localize.string('characters.courageRollFailureTitle'),
-      description: localize.string(
+        ? t('characters.courage_roll_success_title')
+        : t('characters.courage_roll_failure_title'),
+      description: t(
         roll <= target
-          ? 'characters.courageRollResultSuccess'
-          : 'characters.courageRollResultFailure',
+          ? 'characters.courage_roll_result_success'
+          : 'characters.courage_roll_result_failure',
         { roll, target }
       ),
       placement: 'bottomRight',
@@ -147,15 +127,14 @@ export function CharacteristicsCard() {
               justifyContent: 'space-between',
               width: '100%',
             }}>
-            <span>{localize.string('characters.characteristicsSection')}</span>
-            <Tooltip
-              title={localize.string('characters.characteristicsFootnote')}>
+            <span>{t('characters.characteristics_section')}</span>
+            <Tooltip title={t('characters.characteristics_footnote')}>
               <Button
                 type='text'
                 size='small'
                 htmlType='button'
                 icon={<QuestionCircleOutlined />}
-                aria-label={localize.string('rulebook.information')}
+                aria-label={t('rulebook.information')}
               />
             </Tooltip>
           </div>
@@ -188,14 +167,13 @@ export function CharacteristicsCard() {
                 }}>
                 {renderLabelWithHelp(label, tooltip)}
                 {poolKey === 'courage' ? (
-                  <Tooltip
-                    title={localize.string('characters.courageRollTooltip')}>
+                  <Tooltip title={t('characters.courage_roll_tooltip')}>
                     <Button
                       type='text'
                       size='small'
                       htmlType='button'
                       icon={<RedoOutlined />}
-                      aria-label={localize.string('characters.courageRollAria')}
+                      aria-label={t('characters.courage_roll_aria')}
                       onClick={handleCourageRoll}
                     />
                   </Tooltip>
@@ -206,7 +184,7 @@ export function CharacteristicsCard() {
                 <Col xs={24} sm={12}>
                   <Form.Item
                     name={[poolKey, 'current']}
-                    label={localize.string('characters.currentLabel')}
+                    label={t('characters.current_label')}
                     style={{ marginBottom: 0 }}>
                     <InputNumber min={0} style={{ width: '100%' }} />
                   </Form.Item>
@@ -215,7 +193,7 @@ export function CharacteristicsCard() {
                 <Col xs={24} sm={12}>
                   <Form.Item
                     name={[poolKey, 'max']}
-                    label={localize.string('characters.maxLabel')}
+                    label={t('characters.max_label')}
                     style={{ marginBottom: 0 }}>
                     <InputNumber min={0} style={{ width: '100%' }} />
                   </Form.Item>

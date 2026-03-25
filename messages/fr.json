@@ -1,0 +1,151 @@
+{
+  "metadata": {
+    "title": "LSDP — Companion de jeu",
+    "description": "Companion de jeu pour Les Souvenirs du Protecteur : gestionnaires, générateurs de personnages, villages et plus.",
+    "tab_brand": "LSDP"
+  },
+  "common": {
+    "loading": "Chargement…",
+    "open": "Ouvrir",
+    "save": "Sauvegarder",
+    "delete": "Supprimer",
+    "cancel": "Annuler",
+    "archetypes": {
+      "warrior": "Guerrier·e",
+      "pilgrim": "Pèlerin·e",
+      "bard": "Troubadour·esse"
+    },
+    "factions": {
+      "bruja": "Bruja",
+      "cucurbitus": "Cucurbitus",
+      "kiore": "Kiore",
+      "mousseron": "Mousseron"
+    },
+    "age_bands": {
+      "child": "Enfant",
+      "teenager": "Adolescent·e",
+      "adult": "Adulte",
+      "elderly": "Personne âgée"
+    },
+    "personalities": {
+      "enthusiast": "Enthousiaste",
+      "poetic": "Poétique",
+      "sarcastic": "Sarcastique",
+      "charismatic": "Charismatique",
+      "grumpy": "Grincheux·se",
+      "curious": "Curieux·se",
+      "friendly": "Amical·e",
+      "embarrassed": "Gêné·e",
+      "hasty": "Pressé·e",
+      "dreamy": "Rêveur·se",
+      "calm": "Calme",
+      "joyful": "Joyeux·se",
+      "sad": "Triste"
+    }
+  },
+  
+  "footer": {
+    "copyright": "© Les Souvenirs du Protecteur par Enzo Salviato — Application par Kitty"
+  },
+  "home": {
+    "title": "Accueil",
+    "managers_title": "Gestionnaires",
+    "generators_title": "Générateurs",
+    "tools_title": "Outils rapides",
+    "settings_title": "Paramètres",
+    "settings_description": "Préférences locales de l’application, indépendantes des fiches de personnage.",
+    "character_card_title": "Gestionnaire de personnages",
+    "character_card_description": "Fiches jouables persistantes comprenant les ressources, l’inventaire, les sorts et les notes arbitraires.",
+    "inhabitant_card_title": "Générateur d’habitant",
+    "inhabitant_card_description": "Nom, faction, âge, personnalité, contexte, genre.",
+    "village_card_title": "Générateur de village",
+    "village_card_description": "Établissements, et traits du village.",
+    "updated_line": "Dernière mise à jour : le {value}"
+  },
+  "tools": {
+    "die_tool_title": "Dé",
+    "die_tool_empty": "Aucun lancer",
+    "die_tool_action": "Lancer 1D6",
+    "die_tool_rolling": "Lancer en cours…",
+    "card_tool_title": "Carte",
+    "card_tool_empty": "Aucune carte",
+    "card_tool_action": "Tirer 1 carte",
+    "card_tool_drawing": "Tirage en cours…"
+  },
+  "characters": {
+    "page_title": "Personnages",
+    "create": "Créer un personnage",
+    "import": "Importer un personnage",
+    "empty": "Aucun personnage pour le moment. Créez-en un pour commencer.",
+    "dead_list_symbol": "✝",
+    "dead_status_label": "Mort·e",
+    "unnamed": "Sans nom",
+    "archetype_line": "Archetype : {value}",
+    "updated_line": "Dernière mise à jour : le {value}",
+    "import_error": "Import impossible. Vérifiez le fichier JSON.",
+    "import_format_error": "Format invalide. Le fichier doit contenir exactement un personnage exporté.",
+    "import_data_error": "Le personnage importé est invalide et ne peut pas être sauvegardé.",
+    "import_success": "Import terminé ({total} lus, {created} créés, {updated} mis à jour).",
+    "sheet_title": "Fiche personnage",
+    "not_found_title": "Personnage introuvable",
+    "not_found_description": "Cette fiche n’existe pas (ou plus) dans ce navigateur.",
+    "back_to_library": "← Retour à la bibliothèque",
+    "dead_readonly_title": "Protecteur décédé",
+    "dead_readonly_description": "Ce Protecteur est décédé. Par conséquent, cette fiche est figée et entièrement en lecture seule.",
+    "tab_identity": "Identité & Stats",
+    "tab_map": "Cartographie",
+    "tab_inventory": "Inventaire & Grimoire",
+    "tab_journal": "Journal",
+    "tab_tools": "Outils",
+    "tab_actions": "Actions",
+    "delete_confirm_title": "Supprimer ce personnage ?",
+    "delete_confirm_description": "Cette action est irréversible — la fiche de personnage sera définitive supprimée.",
+    "revive_confirm_title": "Réanimer ce personnage ?",
+    "revive_confirm_description": "Le personnage deviendra jouable et sa fiche sera modifiable à nouveau.",
+    "revive_action": "Réanimer",
+    "mark_dead_confirm_title": "Marquer ce personnage comme mort ?",
+    "mark_dead_confirm_description": "Cette action fige définitivement la fiche en lecture seule.",
+    "mark_dead_action": "Marquer comme mort·e",
+    "danger_mark_dead_help": "Cette action fige la fiche en lecture seule tant que le personnage n’est pas réanimé.",
+    "export": "Exporter JSON",
+    "export_help": "Télécharge un export JSON de la fiche."
+  },
+  "nav": {
+    "home_link": "Accueil",
+    "characters_link": "Personnages",
+    "inhabitant_generator_link": "Générateur d’habitant",
+    "village_generator_link": "Générateur de village",
+    "settings_link": "Paramètres"
+  },
+  "village": {
+    "page_title": "Village",
+    "create": "Créer un village",
+    "import": "Importer un village",
+    "empty": "Aucun village pour le moment. Créez-en un pour commencer.",
+    "dead_list_symbol": "✝",
+    "dead_status_label": "Mort·e",
+    "unnamed": "Sans nom",
+    "archetype_line": "Archétype : {value}",
+    "updated_line": "Dernière mise à jour : le {value}",
+    "empty_summary": "Cliquez sur « {button} » pour générer un village.",
+    "section_traits": "Traits du village",
+    "section_establishments": "Établissements",
+    "owner_label": "Propriétaire :",
+    "co_owners_label": "Copropriétaires :",
+    "reroll_owner": "Regénérer cette habitant·e",
+    "merged_establishment_label_two": "Immense {name}",
+    "merged_establishment_label_more": "Immense {name} (×{count})",
+    "copy_one_liner": "Copier le résumé",
+    "copy_one_liner_success": "Résumé copié dans le presse-papiers.",
+    "copy_one_liner_error": "Impossible de copier (autorisez le presse-papiers).",
+    "link_summary": "Village ({factionLabel}, {establishmentCount} établissement{establishmentCount > 1 ? 's' : ''})",
+    "village_faction_label": "Peuple du village",
+    "generate": "Générer"
+  },
+  "rulebook": {
+    "information": "Information dans le livre de règles",
+    "page_citation": "p. {page}",
+    "village_footnote": "Livre de règles — Les villages : p. 42. Table « Établissement » : p. 43.",
+    "inhabitant_footnote": "Livre de règles — Les habitants : p. 56–58. Table des noms : p. 60."
+  }
+}

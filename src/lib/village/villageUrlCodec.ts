@@ -12,6 +12,7 @@ import {
 } from '../inhabitant/inhabitantUrlCodec'
 import type { InhabitantRoll } from '../inhabitant/generate'
 import { Localize } from '../localization/localize';
+import { _Translator } from "next-intl";
 
 /** Not used in `encodeInhabitantRoll` output. */
 const BLOB_SEP = "~";
@@ -20,13 +21,13 @@ export function encodeVillageOwners(owners: InhabitantRoll[]): string {
   return owners.map(encodeInhabitantRoll).join(BLOB_SEP);
 }
 
-export function decodeVillageOwnersParam(localize: Localize, raw: string): InhabitantRoll[] | null {
+export function decodeVillageOwnersParam(t: _Translator, raw: string): InhabitantRoll[] | null {
   const trimmed = raw.trim();
   if (!trimmed) return null;
   const parts = trimmed.split(BLOB_SEP).filter(Boolean);
   const out: InhabitantRoll[] = [];
   for (const p of parts) {
-    const c = decodeInhabitantRollParam(p, localize);
+    const c = decodeInhabitantRollParam(p, t);
     if (!c) return null;
     out.push(c);
   }

@@ -10,7 +10,7 @@ import {
   type VillageOwnerEntry,
 } from './VillageEstablishmentOwners'
 import { Button } from '@/components/Button/Button'
-import { useLocalize } from '@/app/contexts/LocalizationContext'
+import { useTranslations } from 'next-intl'
 
 export type VillageEstablishmentLineProps = {
   lineNumber: number
@@ -35,8 +35,8 @@ export function VillageEstablishmentLine({
   ownerEntries,
   onRerollOwner,
 }: VillageEstablishmentLineProps) {
-  const localize = useLocalize()
-  const pagesLabel = formatRulebookReference(rulebookPages, localize)
+  const t = useTranslations()
+  const pagesLabel = formatRulebookReference(rulebookPages, t)
 
   return (
     <div className='village-summary__line'>
@@ -57,7 +57,7 @@ export function VillageEstablishmentLine({
                 type='text'
                 size='small'
                 icon={<RedoOutlined />}
-                aria-label={localize.string('common.rerollCard')}
+                aria-label={t('common.reroll_card')}
                 onClick={() => onRerollPrimarySlot(rerollPrimarySlot)}
                 className='village-summary__line-reroll'
               />
@@ -65,7 +65,7 @@ export function VillageEstablishmentLine({
           </div>
           <span
             className='village-summary__line-page'
-            aria-label={localize.string('common.rulebookPageLine', {
+            aria-label={t('common.rulebook_page_line', {
               pages: pagesLabel,
             })}>
             {pagesLabel}
