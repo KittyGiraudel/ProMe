@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { SettingsPageClient } from './SettingsPageClient'
-import { copy } from '@/messages/fr'
+import { getMessages } from '@/messages/locales'
+
+const copy = getMessages()
 
 export const metadata: Metadata = {
   title: copy.settings.pageTitle,

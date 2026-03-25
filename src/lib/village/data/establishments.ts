@@ -1,6 +1,6 @@
-import { copy } from "@/messages/fr";
 import type { PlayingCard, Rank } from "../../types";
 import { suitIsRed } from "../../suitGlyphs";
+import { Localize } from "@/lib/localization/localize";
 
 /** Ranks 2–8: establishment type has three size tiers in the rulebook. */
 const ESTABLISHMENT_SIZE_TIER_RANKS = [
@@ -25,38 +25,35 @@ type EstablishmentSizeTierRank = (typeof ESTABLISHMENT_SIZE_TIER_RANKS)[number];
 export function establishmentLineFromSizeTier(
   rank: Rank,
   tier: EstablishmentSizeTier,
+  localize: Localize
 ): string {
   if (!rankUsesEstablishmentSizeTiers(rank)) {
     throw new Error(`establishmentLineFromSizeTier: rank ${rank}`);
   }
-  const lines =
-    copy.game.villageEstablishments.establishmentSizeTierLines[
-      rank as EstablishmentSizeTierRank
-    ];
-  return lines[tier - 1];
+  
+  return localize.string(`game.villageEstablishments.establishmentSizeTierLines.${rank}`)[tier - 1];
 }
 
 /** Label for an establishment card (A–10 only). */
-export function establishmentLine(card: PlayingCard): string {
+export function establishmentLine(card: PlayingCard, localize: Localize): string {
   const { suit, rank } = card;
   if (rank === "J" || rank === "Q" || rank === "K") {
     throw new Error("establishmentLine: face card");
   }
   if (rankUsesEstablishmentSizeTiers(rank)) {
-    return establishmentLineFromSizeTier(rank, suitIsRed(suit) ? 2 : 1);
+    return establishmentLineFromSizeTier(rank, suitIsRed(suit) ? 2 : 1, localize);
   }
-  return lineForRankOther(rank, suitIsRed(suit));
+  return lineForRankOther(rank, suitIsRed(suit), localize);
 }
 
-function lineForRankOther(rank: Rank, red: boolean): string {
-  const est = copy.game.villageEstablishments;
+function lineForRankOther(rank: Rank, red: boolean, localize: Localize): string {
   switch (rank) {
     case "A":
-      return red ? est.rankA.red : est.rankA.black;
+      return red ? localize.string('game.villageEstablishments.rankA.red') : localize.string('game.villageEstablishments.rankA.black');
     case "9":
-      return red ? est.rank9.red : est.rank9.black;
+      return red ? localize.string('game.villageEstablishments.rank9.red') : localize.string('game.villageEstablishments.rank9.black');
     case "10":
-      return est.rank10;
+      return localize.string('game.villageEstablishments.rank10')
     default:
       throw new Error(`establishmentLine: unexpected rank ${rank}`);
   }

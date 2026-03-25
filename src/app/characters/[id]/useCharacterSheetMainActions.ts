@@ -5,10 +5,10 @@ import { useCallback, useMemo } from 'react'
 import { getCharacterStore } from '@/lib/character/store'
 import { stringifyCharacters } from '@/lib/character/store/migrations'
 import type { Character } from '@/lib/character/types'
-import { copy } from '@/messages/fr'
 import { FormInstance } from 'antd/lib/form'
 import { useCharacterFromForm } from './useCharacterFromForm'
 import { useRouter } from 'next/navigation'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 function sanitizeFileNamePart(value: string): string {
   return value
@@ -45,6 +45,7 @@ export function useCharacterSheetMainActions({
   onSaved: (saved: Character) => void
   setSaveErrors: (errors: string[] | null) => void
 }) {
+  const localize = useLocalize()
   const router = useRouter()
   const { message } = App.useApp()
   const store = useMemo(() => getCharacterStore(), [])
@@ -53,7 +54,7 @@ export function useCharacterSheetMainActions({
   const onSave = useCallback(() => {
     if (!character) return
     if (character.lifeStatus === 'dead') {
-      return message.warning(copy.characters.deadReadonlyDescription)
+      return message.warning(localize.string('characters.deadReadonlyDescription'))
     }
 
     setSaveErrors(null)
@@ -62,7 +63,7 @@ export function useCharacterSheetMainActions({
       const saved = store.save(getCharacterFromForm())
       setSaveErrors(null)
       onSaved(saved)
-      message.success(copy.characters.saveSuccess)
+      message.success(localize.string('characters.saveSuccess'))
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e)
       const parts = msg
@@ -87,20 +88,20 @@ export function useCharacterSheetMainActions({
     const content = stringifyCharacters([payload])
     try {
       downloadJsonFile(content, buildCharacterExportFileName(payload))
-      message.success(copy.characters.exportDownloaded)
+      message.success(localize.string('characters.exportDownloaded'))
     } catch {
-      message.error(copy.characters.exportDownloadError)
+      message.error(localize.string('characters.exportDownloadError'))
     }
-  }, [character, getCharacterFromForm, message])
+  }, [character, getCharacterFromForm, message, localize])
 
   const onDelete = useCallback(() => {
     if (!character) return
     store.delete(character.id)
-    message.success(copy.characters.deleteSuccess)
+    message.success(localize.string('characters.deleteSuccess'))
     // Programmatic navigation is intentionally not routed through the
     // unsaved-changes blocker (which is used by `BlockedLink`).
     router.push('/characters')
-  }, [])
+  }, [character, localize, message, router, store])
 
   return {
     onDelete,

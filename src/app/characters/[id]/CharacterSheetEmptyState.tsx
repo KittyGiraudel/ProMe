@@ -3,27 +3,28 @@
 import { Alert, Space, Typography } from 'antd'
 import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
-import { copy } from '@/messages/fr'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 export function CharacterSheetEmptyState() {
+  const localize = useLocalize()
   return (
     <Layout
-      title={copy.characters.sheetTitle}
+      title={localize.string('characters.sheetTitle')}
       pageCoverBiome='floodedPlains'
       breadcrumbs={[
-        { label: copy.nav.homeLink, href: '/' },
-        { label: copy.characters.pageTitle, href: '/characters' },
+        { label: localize.string('nav.homeLink'), href: '/' },
+        { label: localize.string('characters.pageTitle'), href: '/characters' },
       ]}>
       <Alert
         type='warning'
-        title={copy.characters.notFoundTitle}
+        title={localize.string('characters.notFoundTitle')}
         description={
           <Space orientation='vertical'>
             <Typography.Text>
-              {copy.characters.notFoundDescription}
+              {localize.string('characters.notFoundDescription')}
             </Typography.Text>
             <BlockedLink href='/characters'>
-              {copy.characters.backToLibrary}
+              {localize.string('characters.backToLibrary')}
             </BlockedLink>
           </Space>
         }

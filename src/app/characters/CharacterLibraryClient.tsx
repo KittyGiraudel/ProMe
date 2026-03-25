@@ -6,13 +6,14 @@ import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { getCharacterStore } from '@/lib/character/store'
 import type { Character } from '@/lib/character/types'
-import { copy } from '@/messages/fr'
 import { Button } from '@/components/Button/Button'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
 import { characterSheetTabHref } from '@/app/characters/[id]/characterSheetRoutes'
 import { useCharacterLibraryActions } from './useCharacterLibraryActions'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 export function CharacterLibraryClient() {
+  const localize = useLocalize()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const store = useMemo(() => getCharacterStore(), [])
   // Keep initial render consistent with the server (no localStorage access on SSR).
@@ -31,12 +32,16 @@ export function CharacterLibraryClient() {
   const handleImportClick = () => fileInputRef.current?.click()
 
   return (
-    <Layout title={copy.characters.pageTitle} pageCoverBiome='floodedPlains'>
+    <Layout
+      title={localize.string('characters.pageTitle')}
+      pageCoverBiome='floodedPlains'>
       <Space style={{ marginBottom: 16, flexWrap: 'wrap' }}>
         <Button type='primary' href='/characters/new'>
-          {copy.characters.create}
+          {localize.string('characters.create')}
         </Button>
-        <Button onClick={handleImportClick}>{copy.characters.import}</Button>
+        <Button onClick={handleImportClick}>
+          {localize.string('characters.import')}
+        </Button>
       </Space>
 
       <input
@@ -49,7 +54,7 @@ export function CharacterLibraryClient() {
 
       {characters.length === 0 ? (
         <Card>
-          <Empty description={copy.characters.empty} />
+          <Empty description={localize.string('characters.empty')} />
         </Card>
       ) : (
         <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
@@ -61,15 +66,13 @@ export function CharacterLibraryClient() {
                 key={character.id}
                 title={
                   <>
-                    {dead && copy.characters.deadListSymbol}{' '}
-                    {character.name || copy.characters.unnamed}
+                    {dead && localize.string('characters.deadListSymbol')}{' '}
+                    {character.name || localize.string('characters.unnamed')}
                     {dead ? (
                       <>
-                        <span style={{ opacity: 0.5 }}>
-                          {copy.common.emDashSpaced}
-                        </span>
+                        <span style={{ opacity: 0.5 }}>—</span>
                         <Typography.Text type='danger'>
-                          {copy.characters.deadStatusLabel}
+                          {localize.string('characters.deadStatusLabel')}
                         </Typography.Text>
                       </>
                     ) : null}
@@ -87,18 +90,22 @@ export function CharacterLibraryClient() {
                   <Space>
                     <BlockedLink
                       href={characterSheetTabHref(character.id, 'identity')}>
-                      {copy.characters.open}
+                      {localize.string('characters.open')}
                     </BlockedLink>
                   </Space>
                 }>
                 <Space orientation='vertical' size={4}>
                   <Typography.Text>
-                    {copy.characters.archetypeLabel}:{' '}
-                    {copy.characters.archetypes[character.archetype]}
+                    {localize.template('characters.archetypeLine', {
+                      value: localize.string(
+                        `archetypes.${character.archetype}`
+                      ),
+                    })}
                   </Typography.Text>
                   <Typography.Text type='secondary'>
-                    {copy.characters.updatedLabel} :{' '}
-                    {new Date(character.updatedAt).toLocaleString('fr-FR')}
+                    {localize.string('characters.updatedLine', {
+                      value: localize.date(character.updatedAt) ?? '',
+                    })}
                   </Typography.Text>
                 </Space>
               </Card>

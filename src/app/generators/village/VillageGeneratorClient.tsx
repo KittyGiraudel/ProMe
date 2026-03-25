@@ -18,20 +18,17 @@ import {
   rerollVillagePrimarySlot,
   type VillageRoll,
 } from '@/lib/village/generate'
-import { generateOwnersForVillage } from '@/lib/village/ownersGenerate'
-import { countVillageOwnerSlots } from '@/lib/village/resolveDisplay'
-import { decodeVillageFactionParam } from '@/lib/village/villageFactionCodec'
 import {
+  decodeVillageFactionParam,
   decodeVillageRollParam,
   encodeVillageRoll,
-} from '@/lib/village/villageUrlCodec'
-import {
-  decodeVillageOwnersParam,
   encodeVillageOwners,
-} from '@/lib/village/villageOwnersCodec'
-import { copy } from '@/messages/fr'
-import { formatVillageCopyOneLiner } from '@/messages/formatCopy'
+  decodeVillageOwnersParam,
+} from '@/lib/village/villageUrlCodec'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
+import { useVillageGenerator } from './useVillageGenerator'
 import './VillageGeneratorClient.css'
+import { formatVillageOneLiner } from '@/lib/village/formatOneLiner'
 
 const VILLAGE_QUERY_KEY = 'v'
 const OWNERS_QUERY_KEY = 'o'
@@ -40,6 +37,9 @@ const FACTION_QUERY_KEY = 'f'
 const DEFAULT_VILLAGE_FACTION: Faction = 'bruja'
 
 export function VillageGeneratorClient() {
+  const localize = useLocalize()
+  const { generateOwnersForVillage, countVillageOwnerSlots } =
+    useVillageGenerator()
   const { message } = App.useApp()
   const { replaceSearchParams, pathname, searchParams } =
     useReplaceSearchParams()
@@ -55,10 +55,10 @@ export function VillageGeneratorClient() {
   const ownersDecoded = useMemo(() => {
     if (!roll || !ownersEncoded) return null
     const n = countVillageOwnerSlots(roll)
-    const list = decodeVillageOwnersParam(ownersEncoded)
+    const list = decodeVillageOwnersParam(localize, ownersEncoded)
     if (!list || list.length !== n) return null
     return list
-  }, [roll, ownersEncoded])
+  }, [roll, ownersEncoded, localize, countVillageOwnerSlots])
 
   const factionInferredFromOwners = useMemo((): Faction | null => {
     if (!ownersDecoded?.length) return null
@@ -129,7 +129,7 @@ export function VillageGeneratorClient() {
     [replaceSearchParams]
   )
 
-  const handleRollAll = useCallback(() => {
+  const handleGenerate = useCallback(() => {
     const next = generateVillageRoll()
     const owners = generateOwnersForVillage(next, villageFaction)
     pushVillageParams(next, owners, villageFaction)
@@ -163,7 +163,10 @@ export function VillageGeneratorClient() {
     (ownerIndex: number) => {
       if (!roll || !ownersValid) return
       const nextOwners = ownersValid.slice()
-      nextOwners[ownerIndex] = generateInhabitantWithFaction(villageFaction)
+      nextOwners[ownerIndex] = generateInhabitantWithFaction(
+        villageFaction,
+        localize
+      )
       pushVillageParams(roll, nextOwners, villageFaction)
     },
     [ownersValid, pushVillageParams, roll, villageFaction]
@@ -176,7 +179,7 @@ export function VillageGeneratorClient() {
     params.set(OWNERS_QUERY_KEY, encodeVillageOwners(ownersValid))
     params.set(FACTION_QUERY_KEY, villageFaction)
     const shareUrl = `${window.location.origin}${pathname}?${params.toString()}`
-    const line = formatVillageCopyOneLiner(roll, shareUrl, ownersValid, {
+    const line = formatVillageOneLiner(roll, shareUrl, localize, ownersValid, {
       inhabitantShareUrl: inhabitantRoll => {
         const p = new URLSearchParams()
         p.set('i', encodeInhabitantRoll(inhabitantRoll))
@@ -188,9 +191,9 @@ export function VillageGeneratorClient() {
     })
     try {
       await navigator.clipboard.writeText(line)
-      message.success(copy.village.copyOneLinerSuccess)
+      message.success(localize.string('village.copyOneLinerSuccess'))
     } catch {
-      message.error(copy.village.copyOneLinerError)
+      message.error(localize.string('village.copyOneLinerError'))
     }
   }, [message, ownersValid, pathname, roll, searchParams, villageFaction])
 
@@ -198,7 +201,7 @@ export function VillageGeneratorClient() {
     () =>
       FACTIONS.map(r => ({
         value: r,
-        label: copy.factions[r],
+        label: localize.string(`factions.${r}`),
       })),
     []
   )
@@ -214,24 +217,26 @@ export function VillageGeneratorClient() {
 
   return (
     <Layout
-      title={copy.village.pageTitle}
+      title={localize.string('village.pageTitle')}
       pageCoverBiome='shadowForest'
       headerActions={
         <RollActions
-          onRollAll={handleRollAll}
-          label={copy.village.rollAll}
+          onRoll={handleGenerate}
+          label={localize.string('village.generate')}
           onCopyOneLiner={roll && ownersValid ? handleCopyOneLiner : undefined}
-          copyOneLinerLabel={copy.village.copyOneLiner}
+          copyOneLinerLabel={localize.string('village.copyOneLiner')}
         />
       }>
       <div className='village-generator__toolbar'>
-        <Typography.Text>{copy.village.villageFactionLabel}</Typography.Text>
+        <Typography.Text>
+          {localize.string('village.villageFactionLabel')}
+        </Typography.Text>
         <Select<Faction>
           value={villageFaction}
           onChange={handleFactionChange}
           options={factionOptions}
           style={{ minWidth: 200 }}
-          aria-label={copy.village.villageFactionLabel}
+          aria-label={localize.string('village.villageFactionLabel')}
         />
       </div>
       <VillageSummary

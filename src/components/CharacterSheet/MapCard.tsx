@@ -17,13 +17,13 @@ import {
   type CharacterMapState,
   type HexCoordinate,
 } from '@/lib/character/types'
-import { copy } from '@/messages/fr'
 import { DEFAULT_MAP_POSITION } from '@/lib/character/model'
 import { getRandomBiomeResult } from '@/lib/map/randomBiome'
 import { moveWithAutoBiome } from '@/lib/map/movement'
 import { MapFormValueAnchor } from './MapFormValueAnchor'
 import { Button } from '@/components/Button/Button'
 import { useMapHashNavigation } from './useMapHashNavigation'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 function normalizeMapState(
   value: CharacterMapState | undefined
@@ -38,6 +38,7 @@ function normalizeMapState(
 }
 
 export function MapCard() {
+  const localize = useLocalize()
   const { notification } = App.useApp()
   const { componentDisabled } = ConfigProvider.useConfig()
   const form = Form.useFormInstance()
@@ -116,7 +117,7 @@ export function MapCard() {
 
   const assignRandomBiomeAt = (target: HexCoordinate) => {
     const rolled = getRandomBiomeResult()
-    const biomeName = copy.characters.mapBiomes[rolled.biome]
+    const biomeName = localize.string(`biomes.${rolled.biome}`)
     setBiomeAt(target, rolled.biome)
     notification.info({
       icon: (
@@ -124,8 +125,9 @@ export function MapCard() {
           <InfoCircleFilled />
         </span>
       ),
-      title: copy.characters.mapRandomBiomeDiscoveredTitle,
-      description: copy.characters.mapRandomBiomeDiscoveredDescription(
+      title: localize.string('characters.mapRandomBiomeDiscoveredTitle'),
+      description: localize.string(
+        'characters.mapRandomBiomeDiscoveredDescription',
         biomeName,
         rolled.additionalTilesToMark
       ),
@@ -171,7 +173,7 @@ export function MapCard() {
       return result.next
     })
     if (discoveredBiome) {
-      const biomeName = copy.characters.mapBiomes[discoveredBiome.biome]
+      const biomeName = localize.string(`biomes.${discoveredBiome.biome}`)
       notification.info({
         icon: (
           <span
@@ -180,8 +182,9 @@ export function MapCard() {
             <InfoCircleFilled />
           </span>
         ),
-        title: copy.characters.mapRandomBiomeDiscoveredTitle,
-        description: copy.characters.mapRandomBiomeDiscoveredDescription(
+        title: localize.string('characters.mapRandomBiomeDiscoveredTitle'),
+        description: localize.string(
+          'characters.mapRandomBiomeDiscoveredDescription',
           biomeName,
           discoveredBiome.additionalTilesToMark
         ),
@@ -196,20 +199,20 @@ export function MapCard() {
     visibleSheet.sheetR === sheetForCurrentPosition.sheetR
 
   return (
-    <Card title={copy.characters.mapSection}>
+    <Card title={localize.string('characters.mapSection')}>
       <div ref={cardRef} tabIndex={-1}>
         <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
           <Space wrap>
             <Tag>
-              {copy.characters.mapSheet(
-                visibleSheet.sheetQ,
-                visibleSheet.sheetR
-              )}
+              {localize.string('characters.mapSheet', {
+                sheetQ: visibleSheet.sheetQ,
+                sheetR: visibleSheet.sheetR,
+              })}
             </Tag>
             <Tag>
-              {copy.characters.mapCharacterPosition}
-              {' : '}
-              {getDisplayedCellLabel(mapState.currentPosition)}
+              {localize.string('characters.mapCharacterPosition', {
+                position: getDisplayedCellLabel(mapState.currentPosition),
+              })}
             </Tag>
             <Button
               htmlType='button'
@@ -262,7 +265,7 @@ export function MapCard() {
                 onClick={() =>
                   setVisibleSheet(getSheetCoordinate(mapState.currentPosition))
                 }>
-                {copy.characters.mapCenterOnCurrent}
+                {localize.string('characters.mapCenterOnCurrent')}
               </Button>
             ) : null}
           </Space>

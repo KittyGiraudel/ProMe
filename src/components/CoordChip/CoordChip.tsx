@@ -1,8 +1,8 @@
+import Link from 'next/link'
 import type { BiomeId, HexCoordinate } from '@/lib/character/types'
 import { getDisplayedCellHash } from '@/lib/map/hashTargets'
 import { BiomeBubble } from '../BiomeBubble/BiomeBubble'
 import './CoordChip.css'
-import Link from 'next/link'
 
 export function CoordChip({
   biome,

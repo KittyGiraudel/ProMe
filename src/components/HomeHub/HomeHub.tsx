@@ -2,7 +2,6 @@
 
 import { Card, Col, Row, Space, Typography } from 'antd'
 import { useEffect, useMemo, useState } from 'react'
-import { copy } from '@/messages/fr'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { getCharacterStore } from '@/lib/character/store'
 import type { Character } from '@/lib/character/types'
@@ -12,8 +11,10 @@ import { CardDraw } from '../CardDraw/CardDraw'
 import { Layout } from '../Layout/Layout'
 import { characterSheetTabHref } from '@/app/characters/[id]/characterSheetRoutes'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 const CharacterManager = () => {
+  const localize = useLocalize()
   const store = useMemo(() => getCharacterStore(), [])
   const [recentCharacters, setRecentCharacters] = useState<Character[]>([])
 
@@ -30,13 +31,15 @@ const CharacterManager = () => {
   return (
     <Card
       className='home-hub__card'
-      title={copy.hub.characterCardTitle}
+      title={localize.string('hub.characterCardTitle')}
       extra={
         <BlockedLink href='/characters' className='home-hub__cta'>
-          {copy.hub.open}
+          {localize.string('hub.open')}
         </BlockedLink>
       }>
-      <p className='home-hub__card-text'>{copy.hub.characterCardDescription}</p>
+      <p className='home-hub__card-text'>
+        {localize.string('hub.characterCardDescription')}
+      </p>
       <Row style={{ marginTop: 16 }} gutter={16}>
         {recentCharacters.map(character => (
           <Col span={8} key={character.id}>
@@ -52,13 +55,17 @@ const CharacterManager = () => {
                     {character.gender
                       ? genderCompactSymbol(character.gender)
                       : ''}{' '}
-                    {character.name || copy.characters.unnamed},{' '}
-                    {copy.characters.archetypes[character.archetype]}
+                    {character.name || localize.string('characters.unnamed')},{' '}
+                    {localize.string(`archetypes.${character.archetype}`)}
                   </>
                 }>
                 <Typography.Text type='secondary'>
-                  {copy.characters.updatedLabel} :{' '}
-                  {new Date(character.updatedAt).toLocaleDateString('fr-FR')}
+                  {localize.string('characters.updatedLine', {
+                    value:
+                      localize.date(character.updatedAt, {
+                        dateStyle: 'medium',
+                      }) ?? '',
+                  })}
                 </Typography.Text>
               </Card>
             </BlockedLink>
@@ -70,45 +77,52 @@ const CharacterManager = () => {
 }
 
 const InhabitantGenerator = () => {
+  const localize = useLocalize()
   return (
     <Card
       className='home-hub__card'
-      title={copy.hub.inhabitantCardTitle}
+      title={localize.string('hub.inhabitantCardTitle')}
       extra={
         <BlockedLink href='/generators/inhabitant' className='home-hub__cta'>
-          {copy.hub.open}
+          {localize.string('hub.open')}
         </BlockedLink>
       }>
       <p className='home-hub__card-text'>
-        {copy.hub.inhabitantCardDescription}
+        {localize.string('hub.inhabitantCardDescription')}
       </p>
     </Card>
   )
 }
 
 const VillageGenerator = () => {
+  const localize = useLocalize()
   return (
     <Card
       className='home-hub__card'
-      title={copy.hub.villageCardTitle}
+      title={localize.string('hub.villageCardTitle')}
       extra={
         <BlockedLink href='/generators/village' className='home-hub__cta'>
-          {copy.hub.open}
+          {localize.string('hub.open')}
         </BlockedLink>
       }>
-      <p className='home-hub__card-text'>{copy.hub.villageCardDescription}</p>
+      <p className='home-hub__card-text'>
+        {localize.string('hub.villageCardDescription')}
+      </p>
     </Card>
   )
 }
 
 export function HomeHub() {
+  const localize = useLocalize()
   return (
     <Layout
-      title={copy.hub.title}
+      title={localize.string('hub.title')}
       breadcrumbs={[]}
       pageCoverBiome='giganticGardens'>
       <section className='home-hub__section' data-testid='managers'>
-        <h2 className='home-hub__section-title'>{copy.hub.managersTitle}</h2>
+        <h2 className='home-hub__section-title'>
+          {localize.string('hub.managersTitle')}
+        </h2>
         <Row gutter={16}>
           <Col span={24}>
             <CharacterManager />
@@ -117,7 +131,9 @@ export function HomeHub() {
       </section>
 
       <section className='home-hub__section' data-testid='generators'>
-        <h2 className='home-hub__section-title'>{copy.hub.generatorsTitle}</h2>
+        <h2 className='home-hub__section-title'>
+          {localize.string('hub.generatorsTitle')}
+        </h2>
         <Row gutter={16}>
           <Col span={12}>
             <InhabitantGenerator />
@@ -129,7 +145,9 @@ export function HomeHub() {
       </section>
 
       <section className='home-hub__section' data-testid='tools'>
-        <h2 className='home-hub__section-title'>{copy.hub.quickToolsTitle}</h2>
+        <h2 className='home-hub__section-title'>
+          {localize.string('tools.title')}
+        </h2>
         <Row gutter={16}>
           <Col span={12}>
             <DiceRoll />
@@ -140,14 +158,14 @@ export function HomeHub() {
           <Col span={24} style={{ marginTop: 16 }}>
             <Card
               className='home-hub__card'
-              title={copy.hub.settingsCardTitle}
+              title={localize.string('hub.settingsCardTitle')}
               extra={
                 <BlockedLink href='/settings' className='home-hub__cta'>
-                  {copy.hub.open}
+                  {localize.string('hub.open')}
                 </BlockedLink>
               }>
               <p className='home-hub__card-text'>
-                {copy.hub.settingsCardDescription}
+                {localize.string('hub.settingsCardDescription')}
               </p>
             </Card>
           </Col>

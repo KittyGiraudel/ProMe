@@ -1,8 +1,8 @@
-import type { Suit, PlayingCard } from '@/lib/types'
+import type { PlayingCard } from '@/lib/types'
 import { suitIsRed } from '@/lib/suitGlyphs'
-import { copy, playingCardAriaLabel } from '@/messages/fr'
 import './PlayingCardLabel.css'
 import { SUITS } from '@/lib/constants/misc'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 type PlayingCardLabelProps = {
   card: PlayingCard
@@ -16,6 +16,7 @@ export function PlayingCardLabel({
   className,
   compact,
 }: PlayingCardLabelProps) {
+  const localize = useLocalize()
   const rootClass = [
     'playing-card-label',
     compact ? 'playing-card-label--compact' : null,
@@ -23,8 +24,10 @@ export function PlayingCardLabel({
   ]
     .filter(Boolean)
     .join(' ')
-  const ariaLabel = playingCardAriaLabel(card.suit, card.rank)
-  const rankText = copy.ranks[card.rank]
+  const label = localize.string('common.card', {
+    rank: localize.string(`ranks.${card.rank}`),
+    suit: SUITS[card.suit],
+  })
   const suitClass = [
     'playing-card-label__suit',
     suitIsRed(card.suit)
@@ -33,11 +36,11 @@ export function PlayingCardLabel({
   ].join(' ')
 
   return (
-    <span className={rootClass} role='img' aria-label={ariaLabel}>
-      <span className='playing-card-label__rank' aria-hidden>
-        {rankText}
+    <span className={rootClass} role='img' aria-label={label} title={label}>
+      <span className='playing-card-label__rank' aria-hidden='true'>
+        {card.rank}
       </span>
-      <span className={suitClass} aria-hidden>
+      <span className={suitClass} aria-hidden='true'>
         {'\u00a0'}
         {SUITS[card.suit]}
       </span>

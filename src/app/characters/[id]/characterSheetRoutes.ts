@@ -1,20 +1,34 @@
-import { copy } from '@/messages/fr'
-
 export const CHARACTER_SHEET_TAB_KEYS = [
-  { key: 'identity', path: 'identity', label: copy.characters.tabIdentity },
+  {
+    key: 'identity',
+    path: 'identity',
+    localizationKey: 'characters.tabIdentity'
+  },
   {
     key: 'map',
     path: 'map',
-    label: copy.characters.tabMap,
+    localizationKey: 'characters.tabMap',
   },
   {
     key: 'inventory',
     path: 'inventory',
-    label: copy.characters.tabInventory,
+    localizationKey: 'characters.tabInventory',
   },
-  { key: 'journal', path: 'journal', label: copy.characters.tabJournal },
-  { key: 'tools', path: 'tools', label: copy.characters.tabTools },
-  { key: 'actions', path: 'actions', label: copy.characters.tabActions },
+  {
+    key: 'journal',
+    path: 'journal',
+    localizationKey: 'characters.tabJournal',
+  },
+  {
+    key: 'tools',
+    path: 'tools',
+    localizationKey: 'characters.tabTools',
+  },
+  {
+    key: 'actions',
+    path: 'actions',
+    localizationKey: 'characters.tabActions',
+  },
 ] as const
 
 export type CharacterSheetTabKey =

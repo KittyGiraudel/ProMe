@@ -1,7 +1,7 @@
 import { getAgeBand, getPersonality, type InhabitantRoll } from '@/lib/inhabitant/generate'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 import { decodeInhabitantRollParam } from '@/lib/inhabitant/inhabitantUrlCodec'
-import { copy } from '@/messages/fr'
+import { Localize } from '../localization/localize'
 
 function normalizeUrl(rawUrl: string): URL | null {
   try {
@@ -15,14 +15,7 @@ function isInhabitantGeneratorPath(pathname: string): boolean {
   return pathname.replace(/\/+$/, '') === '/generators/inhabitant'
 }
 
-export function formatInhabitantSummaryLabel(roll: InhabitantRoll): string {
-  const age = getAgeBand(roll)
-  const personality = getPersonality(roll)
-  const g = genderCompactSymbol(roll.gender)
-  return `${g} ${roll.name} (${copy.factions[roll.faction]}), ${copy.ageBands[age]} ${copy.personalities[personality]}`
-}
-
-export function getInhabitantSummaryFromUrl(rawUrl: string): string | null {
+export function getInhabitantSummaryFromUrl(rawUrl: string, localize: Localize): string | null {
   const parsed = normalizeUrl(rawUrl)
   if (!parsed) return null
   if (!isInhabitantGeneratorPath(parsed.pathname)) return null
@@ -30,8 +23,14 @@ export function getInhabitantSummaryFromUrl(rawUrl: string): string | null {
   const encoded = parsed.searchParams.get('i')
   if (!encoded) return null
 
-  const roll = decodeInhabitantRollParam(encoded)
+  const roll = decodeInhabitantRollParam(encoded, localize)
   if (!roll) return null
 
-  return formatInhabitantSummaryLabel(roll)
+  return localize.string('inhabitant.oneLiner', {
+    gender: genderCompactSymbol(roll.gender),
+    name: roll.name, 
+    faction: localize.string(`factions.${roll.faction}`),
+    age: localize.string(`ageBands.${getAgeBand(roll)}`),
+    personality: localize.string(`personalities.${getPersonality(roll)}`)
+  })
 }

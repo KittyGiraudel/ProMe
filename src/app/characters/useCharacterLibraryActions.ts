@@ -3,14 +3,15 @@
 import { App } from 'antd'
 import { useCallback, useMemo } from 'react'
 import type { ChangeEvent } from 'react'
-import { copy } from '@/messages/fr'
 import { getCharacterStore } from '@/lib/character/store'
+import { useLocalize } from '../contexts/LocalizationContext'
 
 export function useCharacterLibraryActions({
   refresh,
 }: {
   refresh: () => void
 }) {
+  const localize = useLocalize()
   const store = useMemo(() => getCharacterStore(), [])
   const { message } = App.useApp()
 
@@ -25,7 +26,7 @@ export function useCharacterLibraryActions({
         try {
           parsed = JSON.parse(raw) as { characters?: unknown }
         } catch {
-          message.error(copy.characters.importError)
+          message.error(localize.string('characters.importError'))
           return
         }
 
@@ -35,30 +36,30 @@ export function useCharacterLibraryActions({
           !Array.isArray(parsed.characters) ||
           parsed.characters.length !== 1
         ) {
-          message.error(copy.characters.importFormatError)
+          message.error(localize.string('characters.importFormatError'))
           return
         }
 
         const result = store.importAll(raw, 'upsert')
         if (result.totalRead !== 1) {
-          message.error(copy.characters.importFormatError)
+          message.error(localize.string('characters.importFormatError'))
           return
         }
         if (result.discarded > 0) {
-          message.error(copy.characters.importDataError)
+          message.error(localize.string('characters.importDataError'))
           return
         }
 
         refresh()
         message.success(
-          copy.characters.importSuccess(
-            result.totalRead,
-            result.created,
-            result.updated,
-          ),
+          localize.string('characters.simportSuccess', {
+            total: result.totalRead,
+            created: result.created,
+            updated: result.updated,
+          }),
         )
       } catch {
-        message.error(copy.characters.importError)
+        message.error(localize.string('characters.importError'))
       } finally {
         event.target.value = ''
       }

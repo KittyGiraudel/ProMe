@@ -1,12 +1,14 @@
-import { BiomeId } from '@/lib/character/types'
 import { Tag } from 'antd'
+import { BiomeId } from '@/lib/character/types'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 import './BiomeTag.css'
-import { copy } from '@/messages/fr'
 
 export function BiomeTag({ biome }: { biome: BiomeId }) {
+  const localize = useLocalize()
+
   return (
     <Tag data-biome={biome} className='biome-tag'>
-      {copy.characters.mapBiomes[biome]}
+      {localize.string(`biomes.${biome}`)}
     </Tag>
   )
 }

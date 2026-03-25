@@ -3,7 +3,7 @@
 import { Card, Checkbox, Form, Space, Typography } from 'antd'
 import { Layout } from '@/components/Layout/Layout'
 import { useSettings } from '@/app/contexts/SettingsContext'
-import { copy } from '@/messages/fr'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 type SettingsFormValues = {
   adaptiveNightMode: boolean
@@ -13,6 +13,7 @@ type SettingsFormValues = {
 
 export function SettingsPageClient() {
   const { settings, updateSettings } = useSettings()
+  const localize = useLocalize()
 
   const initialValues: SettingsFormValues = {
     adaptiveNightMode: settings.sheet.adaptiveNightMode,
@@ -42,52 +43,68 @@ export function SettingsPageClient() {
   }
 
   return (
-    <Layout title={copy.settings.pageTitle} pageCoverBiome='silentDesert'>
+    <Layout
+      title={localize.string('settings.pageTitle')}
+      pageCoverBiome='silentDesert'>
       <Form<SettingsFormValues>
         key={`${settings.sheet.adaptiveNightMode}-${settings.journal.timelineReverseChronological}-${settings.village.mergeDuplicateEstablishments}`}
         layout='vertical'
         initialValues={initialValues}
         onValuesChange={handleValuesChange}>
-        <Card title={copy.settings.sectionSheet}>
+        <Card title={localize.string('settings.sectionSheet')}>
           <Space orientation='vertical' size='small'>
             <Form.Item
               name='adaptiveNightMode'
               valuePropName='checked'
               style={{ marginBottom: 0 }}>
-              <Checkbox>{copy.settings.adaptiveNightModeLabel}</Checkbox>
+              <Checkbox>
+                {localize.string('settings.adaptiveNightModeLabel')}
+              </Checkbox>
             </Form.Item>
             <Typography.Text type='secondary'>
-              {copy.settings.adaptiveNightModeHelp}
+              {localize.string('settings.adaptiveNightModeHelp')}
             </Typography.Text>
           </Space>
         </Card>
-        <Card title={copy.settings.sectionJournal} style={{ marginTop: 16 }}>
+        <Card
+          title={localize.string('settings.sectionJournal')}
+          style={{ marginTop: 16 }}>
           <Space orientation='vertical' size='small'>
             <Form.Item
               name='timelineReverseChronological'
               valuePropName='checked'
               style={{ marginBottom: 0 }}>
               <Checkbox>
-                {copy.settings.journalTimelineReverseChronologicalLabel}
+                {localize.string(
+                  'settings.journalTimelineReverseChronologicalLabel'
+                )}
               </Checkbox>
             </Form.Item>
             <Typography.Text type='secondary'>
-              {copy.settings.journalTimelineReverseChronologicalHelp}
+              {localize.string(
+                'settings.journalTimelineReverseChronologicalHelp'
+              )}
             </Typography.Text>
           </Space>
         </Card>
-        <Card title={copy.settings.sectionVillage} style={{ marginTop: 16 }}>
+        <Card
+          title={localize.string('settings.sectionVillage')}
+          style={{ marginTop: 16 }}>
           <Space orientation='vertical' size='small'>
             <Form.Item
               name='villageMergeDuplicateEstablishments'
               valuePropName='checked'
               style={{ marginBottom: 0 }}>
               <Checkbox>
-                {copy.settings.villageMergeDuplicateEstablishmentsLabel}
+                {localize.string(
+                  'settings.villageMergeDuplicateEstablishmentsLabel'
+                )}
               </Checkbox>
             </Form.Item>
             <Typography.Text type='secondary'>
-              {copy.settings.villageMergeDuplicateEstablishmentsHelp}
+              {localize.string(
+                'settings.villageMergeDuplicateEstablishmentsHelp'
+              )}
             </Typography.Text>
           </Space>
         </Card>

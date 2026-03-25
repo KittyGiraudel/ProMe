@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import { HomeHub } from '@/components/HomeHub/HomeHub'
-import { copy } from '@/messages/fr'
+import { getMessages } from '@/messages/locales'
 
 export const metadata: Metadata = {
-  title: copy.hub.title,
+  title: getMessages().hub.title,
 }
 
 export default function Home() {

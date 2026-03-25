@@ -2,13 +2,13 @@
 
 import { useEffect } from 'react'
 import type { Character } from '@/lib/character/types'
-import { copy } from '@/messages/fr'
 import {
   CHARACTER_SHEET_TAB_KEYS,
   DEFAULT_CHARACTER_SHEET_TAB,
   type CharacterSheetTabKey,
 } from './characterSheetRoutes'
 import { usePathname } from 'next/navigation'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 function tabKeyFromPathname(
   pathname: string,
@@ -33,6 +33,7 @@ export function useCharacterSheetDocumentTitle({
   character: Character | null,
   characterId: string
 }) {
+  const localize = useLocalize()
   const pathname = usePathname()
   const activeTabKey = tabKeyFromPathname(pathname, characterId)
 
@@ -40,20 +41,18 @@ export function useCharacterSheetDocumentTitle({
     if (!hydratedFromStore) return
 
     if (!character) {
-      document.title = `${copy.characters.notFoundTitle} — ${copy.metadata.tabBrand}`
+      document.title = `${localize.string('characters.notFoundTitle')} — ${localize.string('metadata.tabBrand')}`
       return
     }
 
-    const displayName = character.name?.trim() || copy.characters.unnamed
-    document.title = `${displayName}${getTabSuffix(activeTabKey)} — ${copy.metadata.tabBrand}`
-  }, [hydratedFromStore, character, activeTabKey])
-}
+    const displayName = character.name?.trim() || localize.string('characters.unnamed')
+    const suffix = (() => {
+      if (activeTabKey === DEFAULT_CHARACTER_SHEET_TAB) return ''
+      const tab = CHARACTER_SHEET_TAB_KEYS.find(tab => tab.key === activeTabKey)
+      if (!tab) return ''
+      return ` · ${localize.string(tab.localizationKey)}`
+    })()
 
-function getTabSuffix(
-  tabKey: CharacterSheetTabKey
-): string {
-  if (tabKey === DEFAULT_CHARACTER_SHEET_TAB) return ''
-  const tab = CHARACTER_SHEET_TAB_KEYS.find(tab => tab.key === tabKey)
-  if (!tab) return ''
-  return ` · ${tab.label}`
+    document.title = `${displayName}${suffix} — ${localize.string('metadata.tabBrand')}`
+  }, [hydratedFromStore, character, activeTabKey])
 }

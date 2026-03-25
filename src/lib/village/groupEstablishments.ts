@@ -1,4 +1,3 @@
-import { copy } from '@/messages/fr'
 import type { PlayingCard } from '@/lib/types'
 import { suitIsRed } from '@/lib/suitGlyphs'
 import {
@@ -7,8 +6,8 @@ import {
 } from '@/lib/village/data/establishments'
 import type { VillageRoll } from '@/lib/village/generate'
 import { mergeEstablishmentSizeTiers } from '@/lib/village/mergeEstablishmentSizeTiers'
-import type { VillageEstablishmentRow } from '@/lib/village/resolveDisplay'
-import { resolveVillageDisplay } from '@/lib/village/resolveDisplay'
+import { Localize } from '../localization/localize'
+import { resolveVillageDisplay, VillageEstablishmentRow } from '@/app/generators/village/useVillageGenerator'
 
 export type VillageEstablishmentGroup = {
   key: string
@@ -21,7 +20,8 @@ export type VillageEstablishmentGroup = {
 }
 
 export function groupEstablishments(
-  rows: VillageEstablishmentRow[]
+  rows: VillageEstablishmentRow[],
+  localize: Localize
 ): VillageEstablishmentGroup[] {
   const order: string[] = []
   const map = new Map<
@@ -50,15 +50,17 @@ export function groupEstablishments(
         (suitIsRed(rr.card.suit) ? 2 : 1) as 1 | 2
       )
       const merged = mergeEstablishmentSizeTiers(tiers)
-      text = establishmentLineFromSizeTier(first.card.rank, merged)
+      text = establishmentLineFromSizeTier(first.card.rank, merged, localize)
     } else {
       const baseText = first.text
       if (count === 1) {
         text = baseText
       } else if (count === 2) {
-        text = `${copy.village.mergedEstablishmentLabel}${copy.common.emDashSpaced}${baseText}`
+        text = localize.string('village.mergedEstablishmentLabelTwo', { name: baseText })
+        // text = `${copy.village.mergedEstablishmentLabel}${copy.common.emDashSpaced}${baseText}`
       } else {
-        text = `${copy.village.mergedEstablishmentLabel} (×${count})${copy.common.emDashSpaced}${baseText}`
+        text = localize.string('village.mergedEstablishmentLabelMore', { name: baseText, count })
+        // text = `${copy.village.mergedEstablishmentLabel} (×${count})${copy.common.emDashSpaced}${baseText}`
       }
     }
     const slots = groupRows.flatMap(rr =>
@@ -86,7 +88,7 @@ export function groupEstablishments(
 }
 
 /** Establishment line count when duplicate rows are merged (same rules as the village summary). */
-export function countVillageGroupedEstablishmentRows(roll: VillageRoll): number {
-  const { establishments } = resolveVillageDisplay(roll)
-  return groupEstablishments(establishments).length
+export function countVillageGroupedEstablishmentRows(roll: VillageRoll, localize: Localize): number {
+  const { establishments } = resolveVillageDisplay(roll, localize)
+  return groupEstablishments(establishments, localize).length
 }

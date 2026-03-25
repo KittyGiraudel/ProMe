@@ -6,10 +6,10 @@ import type { ReactNode } from 'react'
 import { useMemo } from 'react'
 import { usePathname } from 'next/navigation'
 import type { BiomeId } from '@/lib/character/types'
-import { copy } from '@/messages/fr'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { PageCover } from '../PageCover/PageCover'
 import './Layout.css'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 type LayoutProps = {
   title: string
@@ -28,6 +28,7 @@ const useBreadcrumbs = ({
   breadcrumbs,
   title,
 }: Pick<LayoutProps, 'breadcrumbs' | 'title'>) => {
+  const localize = useLocalize()
   const breadcrumbItems = useMemo<BreadcrumbProps['items']>(() => {
     const items: NonNullable<BreadcrumbProps['items']> = breadcrumbs
       ? breadcrumbs.map(item => ({
@@ -44,7 +45,9 @@ const useBreadcrumbs = ({
     if (!breadcrumbs) {
       const resolvedBackHref = '/'
       const label =
-        resolvedBackHref === '/' ? copy.nav.homeLink : copy.nav.backHome
+        resolvedBackHref === '/'
+          ? localize.string('nav.homeLink')
+          : localize.string('nav.backHome')
       items.push({
         title: (
           <BlockedLink
@@ -73,13 +76,14 @@ export const Layout = ({
   pageCoverBiome,
 }: LayoutProps) => {
   const pathname = usePathname()
+  const localize = useLocalize()
   const items = useMemo(
     () => [
       {
         key: '/',
         label: (
           <BlockedLink href='/' data-current={pathname === '/'}>
-            {copy.nav.homeLink}
+            {localize.string('nav.homeLink')}
           </BlockedLink>
         ),
       },
@@ -89,7 +93,7 @@ export const Layout = ({
           <BlockedLink
             href='/characters'
             data-current={pathname.startsWith('/characters')}>
-            {copy.nav.charactersLink}
+            {localize.string('nav.charactersLink')}
           </BlockedLink>
         ),
       },
@@ -99,7 +103,7 @@ export const Layout = ({
           <BlockedLink
             href='/generators/inhabitant'
             data-current={pathname.startsWith('/generators/inhabitant')}>
-            {copy.nav.inhabitantGeneratorLink}
+            {localize.string('nav.inhabitantGeneratorLink')}
           </BlockedLink>
         ),
       },
@@ -109,7 +113,7 @@ export const Layout = ({
           <BlockedLink
             href='/generators/village'
             data-current={pathname.startsWith('/generators/village')}>
-            {copy.nav.villageGeneratorLink}
+            {localize.string('nav.villageGeneratorLink')}
           </BlockedLink>
         ),
       },
@@ -119,12 +123,12 @@ export const Layout = ({
           <BlockedLink
             href='/settings'
             data-current={pathname.startsWith('/settings')}>
-            {copy.nav.settingsLink}
+            {localize.string('nav.settingsLink')}
           </BlockedLink>
         ),
       },
     ],
-    [pathname]
+    [pathname, localize]
   )
   const breadcrumbItems = useBreadcrumbs({ breadcrumbs, title })
 
@@ -158,7 +162,7 @@ export const Layout = ({
         </div>
       </AntLayout.Content>
       <AntLayout.Footer style={{ textAlign: 'center' }}>
-        © Les Souvenirs du Protecteur par Enzo Salviato — Application par Kitty
+        {localize.string('footer.copyright')}
       </AntLayout.Footer>
     </AntLayout>
   )

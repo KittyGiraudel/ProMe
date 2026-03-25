@@ -1,13 +1,28 @@
-import type { PlayingCard } from "../types";
-import { isFaceRank } from "../types";
-import { suitIsRed } from "../suitGlyphs";
-import {
-  establishmentDetailRulebookPage,
-  RULEBOOK_PAGES,
-} from "../constants/rulebookPages";
-import { establishmentLine } from "./data/establishments";
-import { villageTraitText } from "./data/traits";
-import type { VillageRoll } from "./generate";
+import { useLocalize } from "@/app/contexts/LocalizationContext";
+import { establishmentDetailRulebookPage, RULEBOOK_PAGES } from "@/lib/constants/rulebookPages";
+import { generateInhabitantWithFaction, InhabitantRoll } from "@/lib/inhabitant/generate";
+import { Localize } from "@/lib/localization/localize";
+import { suitIsRed } from "@/lib/suitGlyphs";
+import { Faction, isFaceRank, PlayingCard } from "@/lib/types";
+import { establishmentLine } from "@/lib/village/data/establishments";
+import { VillageRoll } from "@/lib/village/generate";
+import { useCallback } from "react";
+
+function generateOwnersForVillage(
+  roll: VillageRoll,
+  faction: Faction,
+  localize: Localize,
+  rng: () => number = Math.random,
+): InhabitantRoll[] {
+  const n = resolveVillageDisplay(roll, localize).establishments.filter(
+    establishmentRowHasOwner,
+  ).length;
+  const out: InhabitantRoll[] = [];
+  for (let i = 0; i < n; i++) {
+    out.push(generateInhabitantWithFaction(faction, localize, rng));
+  }
+  return out;
+}
 
 export type VillageTraitRow = {
   text: string;
@@ -26,7 +41,7 @@ export type VillageEstablishmentRow = {
   rulebookPage: number;
 };
 
-export function resolveVillageDisplay(roll: VillageRoll): {
+export function resolveVillageDisplay(roll: VillageRoll, localize: Localize): {
   traits: VillageTraitRow[];
   establishments: VillageEstablishmentRow[];
 } {
@@ -37,7 +52,8 @@ export function resolveVillageDisplay(roll: VillageRoll): {
   for (let i = 0; i < roll.primary.length; i++) {
     const card = roll.primary[i]!;
     if (isFaceRank(card.rank)) {
-      const text = villageTraitText(card);
+      const color = suitIsRed(card.suit) ? 'red' : 'black'
+      const text = localize.string(`game.villageTraits.${card.rank}.${color}`);
       const inst = { card, primarySlot: i };
       const cur = traitGroups.get(text);
       if (cur) cur.push(inst);
@@ -45,11 +61,15 @@ export function resolveVillageDisplay(roll: VillageRoll): {
     }
   }
   const traits: VillageTraitRow[] = [...traitGroups.values()].map(
-    (instances) => ({
-      text: villageTraitText(instances[0]!.card),
-      instances,
-      rulebookPage: RULEBOOK_PAGES.village.establishmentTable,
-    }),
+    (instances) => {
+      const {card} = instances[0]!
+      const color = suitIsRed(card.suit) ? 'red' : 'black'
+      return {
+        text: localize.string(`game.villageTraits.${card.rank}.${color}`),
+        instances,
+        rulebookPage: RULEBOOK_PAGES.village.establishmentTable,
+      }
+    },
   );
 
   let expIdx = 0;
@@ -60,7 +80,7 @@ export function resolveVillageDisplay(roll: VillageRoll): {
     if (!isFaceRank(card.rank)) {
       establishments.push({
         card,
-        text: establishmentLine(card),
+        text: establishmentLine(card, localize),
         rerollPrimarySlot: i,
         rulebookPage: establishmentDetailRulebookPage(card.rank),
       });
@@ -69,7 +89,7 @@ export function resolveVillageDisplay(roll: VillageRoll): {
         const ec = roll.expansion[expIdx++]!;
         establishments.push({
           card: ec,
-          text: establishmentLine(ec),
+          text: establishmentLine(ec, localize),
           rerollPrimarySlot: null,
           rulebookPage: establishmentDetailRulebookPage(ec.rank),
         });
@@ -85,7 +105,7 @@ export function resolveVillageDisplay(roll: VillageRoll): {
 }
 
 /** Ruines (rank 10) have no proprietor in the generator. */
-export function establishmentRowHasOwner(row: VillageEstablishmentRow): boolean {
+function establishmentRowHasOwner(row: VillageEstablishmentRow): boolean {
   return row.card.rank !== "10";
 }
 
@@ -105,14 +125,23 @@ export function ownerSlotIndexByEstablishmentIndex(
   });
 }
 
-/** Number of establishment rows in resolution order. */
-export function countVillageEstablishments(roll: VillageRoll): number {
-  return resolveVillageDisplay(roll).establishments.length;
-}
-
 /** How many proprietor rolls the village URL holds (all numbered establishments except Ruines). */
-export function countVillageOwnerSlots(roll: VillageRoll): number {
-  return resolveVillageDisplay(roll).establishments.filter(
+function countVillageOwnerSlots(roll: VillageRoll, localize: Localize): number {
+  return resolveVillageDisplay(roll, localize).establishments.filter(
     establishmentRowHasOwner,
   ).length;
+}
+
+export const useVillageGenerator = () => {
+  const localize = useLocalize();
+  const _countVillageOwnerSlots = useCallback((roll: VillageRoll) => countVillageOwnerSlots(roll, localize), [localize])
+  const _resolveVillageDisplay = useCallback((roll: VillageRoll) => resolveVillageDisplay(roll, localize), [localize])
+  const _generateOwnersForVillage = useCallback((roll: VillageRoll, faction: Faction) => generateOwnersForVillage(roll, faction, localize), [localize])
+
+  return {
+    countVillageOwnerSlots: _countVillageOwnerSlots,
+    resolveVillageDisplay: _resolveVillageDisplay,
+    ownerSlotIndexByEstablishmentIndex,
+    generateOwnersForVillage: _generateOwnersForVillage
+  }
 }

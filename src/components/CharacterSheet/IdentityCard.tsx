@@ -3,26 +3,27 @@
 import { Alert, Card, Col, Form, Input, Row, Select } from 'antd'
 import { GENDERS } from '@/lib/types'
 import type { Archetype } from '@/lib/character/types'
-import { copy } from '@/messages/fr'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 export function IdentityCard({
   isArchetypeReadonly = false,
 }: {
   isArchetypeReadonly?: boolean
 }) {
+  const localize = useLocalize()
   const watchedArchetype = Form.useWatch('archetype') as Archetype | undefined
   const archetypePower = watchedArchetype
-    ? copy.characters.archetypePowers[watchedArchetype]
+    ? localize.string(`characters.archetypePowers.${watchedArchetype}`)
     : null
 
   return (
-    <Card title={copy.characters.identitySection}>
+    <Card title={localize.string('characters.identitySection')}>
       <Row gutter={[16, 16]}>
         <Col xs={24} md={8}>
           <Form.Item
             rules={[{ required: true }]}
             name='name'
-            label={copy.characters.nameLabel}
+            label={localize.string('characters.nameLabel')}
             style={{ marginBottom: 0 }}>
             <Input />
           </Form.Item>
@@ -32,7 +33,7 @@ export function IdentityCard({
           <Form.Item
             rules={[{ required: true }]}
             name='archetype'
-            label={copy.characters.archetypeLabel}
+            label={localize.string('characters.archetypeLabel')}
             style={{ marginBottom: archetypePower ? 8 : 0 }}>
             <Select
               disabled={isArchetypeReadonly}
@@ -40,15 +41,15 @@ export function IdentityCard({
               options={[
                 {
                   value: 'warrior',
-                  label: copy.characters.archetypes.warrior,
+                  label: localize.string('archetypes.warrior'),
                 },
                 {
                   value: 'pilgrim',
-                  label: copy.characters.archetypes.pilgrim,
+                  label: localize.string('archetypes.pilgrim'),
                 },
                 {
                   value: 'bard',
-                  label: copy.characters.archetypes.bard,
+                  label: localize.string('archetypes.bard'),
                 },
               ]}
             />
@@ -58,14 +59,14 @@ export function IdentityCard({
         <Col xs={24} md={8}>
           <Form.Item
             name='gender'
-            label={copy.characters.genderLabel}
+            label={localize.string('characters.genderLabel')}
             style={{ marginBottom: 0 }}>
             <Select
               allowClear
               style={{ width: '100%' }}
               options={GENDERS.map(gender => ({
                 value: gender,
-                label: copy.genders[gender],
+                label: localize.string(`genders.${gender}`),
               }))}
             />
           </Form.Item>
@@ -79,7 +80,9 @@ export function IdentityCard({
               type='info'
               title={
                 <>
-                  <strong>{copy.characters.archetypePowerLabel} :</strong>{' '}
+                  <strong>
+                    {localize.string('characters.archetypePowerLabel')} :
+                  </strong>{' '}
                   {archetypePower}
                 </>
               }

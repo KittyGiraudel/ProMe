@@ -1,3 +1,4 @@
+import { BiomeId } from "@/lib/character/types";
 import type { Gender, Faction, Rank, Suit } from "@/lib/types";
 
 /**
@@ -11,19 +12,95 @@ export const copy = {
     title: "LSDP — Companion de jeu",
     description:
       "Companion de jeu pour Les Souvenirs du Protecteur : gestionnaires, générateurs de personnages, villages et plus.",
-    /** Short brand suffix for nested routes (`Page — tabBrand`) and client `document.title` updates. */
     tabBrand: "LSDP",
   },
   common: {
     loading: "Chargement…",
-    emDashSpaced: " — ",
     checkSuccessWord: "succès",
     checkFailureWord: "échec",
-    apply: 'Effectuer'
+    apply: 'Effectuer',
+    rerollCard: "Relancer cette carte",
+    rerollDie: "Relancer ce dé",
+    rulebookPageLine: "Référence livre : {pages}",
+    card: "{value} de {suit}",
+    die: 'Dé {value}',
+    collection(commaJoinedRest: string, last: number): string {
+      return `${commaJoinedRest} et ${last}`;
+    },
+  },
+  archetypes: {
+    warrior: "Guerrier·e",
+    pilgrim: "Pèlerin·e",
+    bard: "Troubadour·esse",
+  },
+  biomes: {
+    unexplored: "Inexploré",
+    shadowForest: "Forêt des ombres",
+    floodedPlains: "Plaines inondées",
+    mushroomJungle: "Jungle de champignons",
+    fieldSea: "Mer champêtre",
+    silentDesert: "Désert silencieux",
+    giganticGardens: "Jardins titanesques",
+  } satisfies Record<BiomeId | 'unexplored', string>,
+  genders: {
+    man: "Homme",
+    woman: "Femme",
+    nonBinary: "Non-binaire",
+    indeterminate: "Indéterminé",
+  } satisfies Record<Gender, string>,
+  factions: {
+    bruja: "Bruja",
+    cucurbitus: "Cucurbitus",
+    kiore: "Kiore",
+    mousseron: "Mousseron",
+  } satisfies Record<Faction, string>,
+  ageBands: {
+    child: "Enfant",
+    teenager: "Adolescent·e",
+    adult: "Adulte",
+    elderly: "Personne âgée",
+  },
+  personalities: {
+    enthusiast: "Enthousiaste",
+    poetic: "Poétique",
+    sarcastic: "Sarcastique",
+    charismatic: "Charismatique",
+    grumpy: "Grincheux·se",
+    curious: "Curieux·se",
+    friendly: "Amical·e",
+    embarrassed: "Gêné·e",
+    hasty: "Pressé·e",
+    dreamy: "Rêveur·se",
+    calm: "Calme",
+    joyful: "Joyeux·se",
+    sad: "Triste",
+  },
+  suits: {
+    hearts: "Cœur",
+    diamonds: "Carreau",
+    clubs: "Trèfle",
+    spades: "Pique",
+  },
+  ranks: {
+    "2": "2",
+    "3": "3",
+    "4": "4",
+    "5": "5",
+    "6": "6",
+    "7": "7",
+    "8": "8",
+    "9": "9",
+    "10": "10",
+    J: "Valet",
+    Q: "Dame",
+    K: "Roi",
+    A: "As",
+  },
+  footer: {
+    copyright: '© Les Souvenirs du Protecteur par Enzo Salviato — Application par Kitty'
   },
   hub: {
     title: "Accueil",
-    subtitle: "Ce site rassemble des outils, un gestionnaires de personnages et des générateurs aléatoires d’habitants et villages, et davantage pour accompagner une partie du jeu « Les Souvenirs du Protecteur », par Enzo Salviato.",
     inhabitantCardTitle: "Générateur d’habitant",
     inhabitantCardDescription:
       "Nom, faction, âge, personnalité, contexte, genre.",
@@ -41,7 +118,9 @@ export const copy = {
     open: "Ouvrir",
     generatorsTitle: "Générateurs",
     managersTitle: "Gestionnaires",
-    quickToolsTitle: "Outils rapides",
+  },
+  tools: {
+    title: "Outils rapides",
     dieToolTitle: "Dé",
     dieToolEmpty: "Aucun lancer",
     dieToolAction: "Lancer 1D6",
@@ -55,7 +134,7 @@ export const copy = {
     pageTitle: "Générateur d’habitant",
     pageDescription:
       "Générez un personnage pour le jeu, puis copiez son lien unique. Vous pouvez relancer certaines caractéristiques à souhait.",
-    rollAll: "Générer",
+    generate: "Générer",
     emptySummary: "Cliquez sur « {button} » pour générer un habitant.",
     sectionFaction: "Faction",
     sectionGender: "Genre",
@@ -63,9 +142,9 @@ export const copy = {
     sectionPersonality: "Personnalité",
     sectionContext: "Contexte",
     sectionName: "Nom",
-    factionDieLabel: "1D6",
-    nameDiceLabel: "2D6",
-    cardLabel: "Carte",
+    factionDieMeta: "1D6 : {dice}",
+    nameDiceMeta: "2D6 : {dice}",
+    cardMeta: "Carte : {card}",
     contextCardNote: "Seule la hauteur de la carte compte pour le contexte ; la couleur est ignorée.",
     rerollFaction: "Relancer la faction (D6)",
     rerollName: "Relancer le nom (2D6)",
@@ -79,29 +158,28 @@ export const copy = {
     rollContextSevenDie: "Lancer le D6 (type de carte)",
     rerollContextSevenDie: "Relancer le D6 (carte offerte)",
     contextSpokenNameLabel: "Nom prononcé (2D6, p. 60)",
+    contextSpokenNameLine: "Nom prononcé (2D6, p. 60) : {name}",
     rollContextSpokenNameDice: "Lancer les 2D6 (nom prononcé)",
     rerollContextSpokenNameDice: "Relancer le nom prononcé (2D6)",
     copyOneLiner: "Copier le résumé",
     copyOneLinerSuccess: "Résumé copié dans le presse-papiers.",
     copyOneLinerError: "Impossible de copier (autorisez le presse-papiers).",
+    oneLiner: "{gender} {name} ({faction}) — {age}, {personality}"
   },
   village: {
     pageTitle: "Générateur de village",
     pageDescription:
       "Tirez 5 cartes comme au livre : chaque carte indique un établissement ou un trait. Un habitant est généré par établissement (copropriété si fusion). Partagez via l’URL.",
     villageFactionLabel: "Faction du village",
-    rollAll: "Générer",
+    generate: "Générer",
     emptySummary: "Cliquez sur « {button} » pour générer un village.",
     sectionTraits: "Traits du village",
     sectionEstablishments: "Établissements",
-    ownerLabel: "Propriétaire",
-    coOwnersLabel: "Copropriétaires",
-    openInInhabitantBuilder: "Ouvrir dans le générateur d’habitant",
+    ownerLabel: "Propriétaire :",
+    coOwnersLabel: "Copropriétaires :",
     rerollOwner: "Regénérer cette habitant·e",
-    duplicateRuleHint:
-      "Si vous tirez deux fois le même établissement : soit **deux** lieux du même type, soit **un seul** plus grand et imposant — à trancher à la table. Vous pouvez **regrouper les doublons** dans les paramètres pour refléter la fusion au livre.",
-    mergedEstablishmentLabel: "Immense",
-    rerollCard: "Relancer cette carte",
+    mergedEstablishmentLabelTwo: "Immense {name}",
+    mergedEstablishmentLabelMore: "Immense {name} (×{count})",
     copyOneLiner: "Copier le résumé",
     copyOneLinerSuccess: "Résumé copié dans le presse-papiers.",
     copyOneLinerError: "Impossible de copier (autorisez le presse-papiers).",
@@ -110,7 +188,6 @@ export const copy = {
       if (factionLabel) return `Village (${factionLabel}), ${establishmentCount} ${noun}`
       return `Village, ${establishmentCount} ${noun}`
     },
-    rulebookPageAria: "Référence livre",
   },
   characters: {
     pageTitle: "Personnages",
@@ -167,12 +244,11 @@ export const copy = {
       "Format invalide. Le fichier doit contenir exactement un personnage exporté.",
     importDataError:
       "Le personnage importé est invalide et ne peut pas être sauvegardé.",
-    importSuccess(total: number, created: number, updated: number): string {
-      return `Import terminé (${total} lus, ${created} créés, ${updated} mis à jour).`;
-    },
+    importSuccess: 'Import terminé ({total} lus, {created} créés, {updated} mis à jour).',
     empty: "Aucun personnage pour le moment. Créez-en un pour commencer.",
     unnamed: "Sans nom",
     updatedLabel: "Mis à jour",
+    updatedLine: "Mis à jour : {value}",
     backToLibrary: "← Retour à la bibliothèque",
     notFoundTitle: "Personnage introuvable",
     notFoundDescription:
@@ -211,6 +287,8 @@ export const copy = {
     journalPreviewEmpty: "Ajoutez du contenu pour afficher l’aperçu.",
     journalCreatedAtLabel: "Créé",
     journalUpdatedAtLabel: "Modifié",
+    journalCreatedAtLine: "Créé : {value}",
+    journalUpdatedAtLine: "Modifié : {value}",
     journalPermalink: "#",
     journalDeleteConfirmTitle: "Supprimer cette entrée ?",
     journalDeleteConfirmDescription:
@@ -218,11 +296,7 @@ export const copy = {
     mapSection: "Carte",
     nameLabel: "Nom",
     archetypeLabel: "Archétype",
-    archetypes: {
-      warrior: "Guerrier·e",
-      pilgrim: "Pèlerin·e",
-      bard: "Troubadour·esse",
-    },
+    archetypeLine: "Archétype : {value}",
     archetypePowerLabel: "Pouvoir d’archétype",
     archetypePowers: {
       warrior:
@@ -255,9 +329,8 @@ export const copy = {
     courageRollTooltip: "Effectuer un Test de Courage",
     courageRollSuccessTitle: "Test de Courage réussi",
     courageRollFailureTitle: "Test de Courage échoué",
-    courageRollResult(roll: number, target: number): string {
-      return `Résultat du dé : ${roll}. Courage actuel : ${target}. ${roll <= target ? "Réussite (≤)." : "Échec (>)."}`;
-    },
+    courageRollResultSuccess: 'Résultat du dé : {roll}. Courage actuel : {target}. Réussite (≤).',
+    courageRollResultFailure: 'Résultat du dé : {roll}. Courage actuel : {target}. Échec (>).',
     currentLabel: "Actuel",
     maxLabel: "Max",
     addItem: "Ajouter un objet",
@@ -266,12 +339,8 @@ export const copy = {
     itemNotePlaceholder: "Note",
     spellNamePlaceholder: "Nom du sort",
     spellNotePlaceholder: "Note",
-    inventoryStatus(count: number, cap: number): string {
-      return `Objets : ${count} / ${cap}`;
-    },
-    spellbookStatus(count: number): string {
-      return `Sorts : ${count} / 6`;
-    },
+    inventoryStatus: 'Objets : {count} / {cap}',
+    spellbookStatus: 'Sorts : {count} / 6',
     inventoryFootnote: "Livre de règles — Les autres valeurs du jeu → L’inventaire : p. 8.",
     spellbookFootnote: "Livre de règles — La Magie : p. 14.",
     characteristicsFootnote: "Livre de règles — Les Attributs de votre Protecteur : p. 7–8.",
@@ -286,22 +355,14 @@ export const copy = {
     clockNight: "Nuit",
     clockAdvance: "Avancer",
     clockBack: "Revenir",
-    clockPhaseShiftTitle(nextPhase: string) {
-      if (nextPhase === 'Jour') return `Levée du jour`
-       else return `Tombée de la nuit`
-    },
-    clockPhaseShiftDescription(slice: string): string {
-        return `N’oubliez pas de consommer de la nourriture pour ne pas avoir faim.\n${slice}`
-    },
-    clockSlice(position: number, total: number): string {
-      return `Tranche : ${position} / ${total}`;
-    },
-    mapSheet(sheetQ: number, sheetR: number): string {
-      return `Feuille : (${sheetQ}, ${sheetR})`;
-    },
+    clockPhaseShiftDay: 'Levée du jour',
+    clockPhaseShiftNight: 'Tombée de la nuit',
+    clockPhaseShiftDescription: 'N’oubliez pas de consommer de la nourriture pour ne pas avoir faim.',
+    clockSlice: 'Tranche : {position} / {total}',
+    mapSheet: 'Feuille : ({sheetQ}, {sheetR})',
     mapCenterOnCurrent: "Centrer sur ma position",
-    mapCharacterPosition: "Position",
-    mapSelectedCell: "Case sélectionnée",
+    mapCharacterPosition: "Position : {position}",
+    mapSelectedCell: "Case sélectionnée : {cell}",
     mapCell: "Hexagone",
     mapCore: "Le Noyau",
     mapUnexplored: "Inexploré",
@@ -317,15 +378,6 @@ export const copy = {
     mapClearIcon: "Retirer l’icône",
     mapEmojiSearchPlaceholder: "Rechercher une emoji…",
     mapIconPlaceholder: "Emoji ou symbole",
-    mapBiomes: {
-      unexplored: "Inexploré",
-      shadowForest: "Forêt des ombres",
-      floodedPlains: "Plaines inondées",
-      mushroomJungle: "Jungle de champignons",
-      fieldSea: "Mer champêtre",
-      silentDesert: "Désert silencieux",
-      giganticGardens: "Jardins titanesques",
-    },
     mapRandomBiomeDiscoveredTitle: "Nouveau biome découvert",
     mapRandomBiomeDiscoveredDescription(
       biomeName: string,
@@ -333,60 +385,6 @@ export const copy = {
     ): string {
       return `Vous découvrez ${biomeName}. Marquez ${additionalTilesToMark} case${additionalTilesToMark > 1 ? 's' : ''} adjacente${additionalTilesToMark > 1 ? 's' : ''} du même biome (${biomeName}).`
     },
-  },
-  genders: {
-    man: "♂ Homme",
-    woman: "♀ Femme",
-    nonBinary: "⚥ Non-binaire",
-    indeterminate: "☿ Indéterminé",
-  } satisfies Record<Gender, string>,
-  factions: {
-    bruja: "Bruja",
-    cucurbitus: "Cucurbitus",
-    kiore: "Kiore",
-    mousseron: "Mousseron",
-  } satisfies Record<Faction, string>,
-  ageBands: {
-    child: "Enfant",
-    teenager: "Adolescent·e",
-    adult: "Adulte",
-    elderly: "Personne âgée",
-  },
-  personalities: {
-    enthusiast: "Enthousiaste",
-    poetic: "Poétique",
-    sarcastic: "Sarcastique",
-    charismatic: "Charismatique",
-    grumpy: "Grincheux·se",
-    curious: "Curieux·se",
-    friendly: "Amical·e",
-    embarrassed: "Gêné·e",
-    hasty: "Pressé·e",
-    dreamy: "Rêveur·se",
-    calm: "Calme",
-    joyful: "Joyeux·se",
-    sad: "Triste",
-  },
-  suits: {
-    hearts: "Cœur",
-    diamonds: "Carreau",
-    clubs: "Trèfle",
-    spades: "Pique",
-  },
-  ranks: {
-    "2": "2",
-    "3": "3",
-    "4": "4",
-    "5": "5",
-    "6": "6",
-    "7": "7",
-    "8": "8",
-    "9": "9",
-    "10": "10",
-    J: "Valet",
-    Q: "Dame",
-    K: "Roi",
-    A: "As",
   },
   nav: {
     backHome: "← Accueil",
@@ -419,19 +417,9 @@ export const copy = {
       "Ce réglage s’applique à toutes les fiches personnage et n’est pas stocké dans les données de personnage.",
     saveSuccess: "Paramètres enregistrés.",
   },
-  a11y: {
-    generatorBreadcrumb: "Navigation",
-    dieSingle(value: number): string {
-      return `Dé ${value}`;
-    },
-    diceList(commaJoinedRest: string, last: number): string {
-      return `Dés ${commaJoinedRest} et ${last}`;
-    },
-  },
   rulebook: {
-    pageCitation(page: number): string {
-      return `p. ${page}`;
-    },
+    information: 'Information dans le livre de règles',
+    pageCitation: 'p. {page}',
     villageFootnote:
       "Livre de règles — Les villages : p. 42. Table « Établissement » : p. 43.",
     inhabitantFootnote:
@@ -520,12 +508,3 @@ export const copy = {
     },
   },
 } as const;
-
-/** Context hook by card rank (suit ignored); alias of `copy.game.inhabitantContextByRank`. */
-export const contextByRank: Record<Rank, string> =
-  copy.game.inhabitantContextByRank as Record<Rank, string>;
-
-/** Screen reader label: « {rang} de {couleur} » (wording lives in `copy.ranks` / `copy.suits`). */
-export function playingCardAriaLabel(suit: Suit, rank: Rank): string {
-  return `${copy.ranks[rank]} de ${copy.suits[suit]}`;
-}

@@ -4,9 +4,9 @@ import { Alert, ConfigProvider, Form, Space, App } from 'antd'
 import { useMemo, type ReactNode } from 'react'
 import { Layout } from '@/components/Layout/Layout'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
-import { copy } from '@/messages/fr'
 import { Button } from '@/components/Button/Button'
 import { CharacterProvider } from '@/components/CharacterSheet/CharacterContext'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 import { toFormValues } from './characterSheetForm'
 import { CharacterSheetEmptyState } from './CharacterSheetEmptyState'
 import { useCharacterSheetDocumentTitle } from './useCharacterSheetDocumentTitle'
@@ -28,6 +28,7 @@ export function CharacterSheetShell({
   characterId: string
   children: ReactNode
 }) {
+  const localize = useLocalize()
   // Ant Design form + character from client store; unsaved-navigation guard;
   // merge form → Character for save/export; `onSaved` refreshes local character
   // state after persistence.
@@ -101,10 +102,10 @@ export function CharacterSheetShell({
     <Layout
       sheetNightChrome={characterSheetNightMode}
       pageCoverBiome={pageCoverBiome}
-      title={character.name || copy.characters.unnamed}
+      title={character.name || localize.string('characters.unnamed')}
       breadcrumbs={[
-        { label: copy.nav.homeLink, href: '/' },
-        { label: copy.characters.pageTitle, href: '/characters' },
+        { label: localize.string('nav.homeLink'), href: '/' },
+        { label: localize.string('characters.pageTitle'), href: '/characters' },
       ]}
       headerActions={[
         !isDead ? (
@@ -113,7 +114,7 @@ export function CharacterSheetShell({
             type='primary'
             htmlType='submit'
             form={character.id}>
-            {copy.characters.save}
+            {localize.string('characters.save')}
           </Button>
         ) : null,
       ]}>
@@ -147,8 +148,10 @@ export function CharacterSheetShell({
                 {isDead ? (
                   <Alert
                     type='error'
-                    title={copy.characters.deadReadonlyTitle}
-                    description={copy.characters.deadReadonlyDescription}
+                    title={localize.string('characters.deadReadonlyTitle')}
+                    description={localize.string(
+                      'characters.deadReadonlyDescription'
+                    )}
                   />
                 ) : null}
 

@@ -3,9 +3,9 @@
 import { ConfigProvider, Form, Input, Space, Typography } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
 import type { FormInstance } from 'antd'
-import { copy } from '@/messages/fr'
 import { Button } from '@/components/Button/Button'
 import { JournalMarkdown } from '@/components/Markdown/JournalMarkdown'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 export function JournalEntry({
   field,
@@ -23,6 +23,7 @@ export function JournalEntry({
   formatTimestamp: (value: string | undefined) => string | null
 }) {
   const { componentDisabled } = ConfigProvider.useConfig()
+  const localize = useLocalize()
   const content = form.getFieldValue([
     'journalEntries',
     field.name,
@@ -61,13 +62,13 @@ export function JournalEntry({
               type='link'
               htmlType='button'
               onClick={() => onConfirmDelete(field.name, hasContent)}>
-              {copy.characters.delete}
+              {localize.string('common.delete')}
             </Button>
             <Button
               htmlType='button'
               type='primary'
               onClick={() => setEditingMode(field.key, false)}>
-              {copy.characters.journalDoneEditing}
+              {localize.string('characters.journalDoneEditing')}
             </Button>
           </Space>
         ) : !componentDisabled ? (
@@ -75,7 +76,7 @@ export function JournalEntry({
             className='journal__entry-edit-button'
             htmlType='button'
             onClick={() => setEditingMode(field.key, true)}>
-            {copy.characters.journalEditEntry}
+            {localize.string('characters.journalEditEntry')}
           </Button>
         ) : null}
       </div>
@@ -84,12 +85,14 @@ export function JournalEntry({
         <>
           <Form.Item
             name={[field.name, 'content']}
-            label={copy.characters.journalEntryContentLabel}
+            label={localize.string('characters.journalEntryContentLabel')}
             style={{ marginBottom: 0 }}
             className='journal__entry-editor'>
             <Input.TextArea
               rows={8}
-              placeholder={copy.characters.journalEntryContentPlaceholder}
+              placeholder={localize.string(
+                'characters.journalEntryContentPlaceholder'
+              )}
               onKeyDown={e => {
                 if (e.key !== 'Enter') return
                 if (!e.metaKey && !e.ctrlKey) return
@@ -106,7 +109,7 @@ export function JournalEntry({
           </Form.Item>
           <div className='journal__entry-symbols'>
             <Typography.Text type='secondary'>
-              {copy.characters.journalSymbols}{' '}
+              {localize.string('characters.journalSymbols')}{' '}
               <span style={{ transform: 'scale(1.2)' }}>⚀ ⚁ ⚂ ⚃ ⚄ ⚅</span>
               <span>♠ ♥ ♦ ♣</span>
               <span style={{ transform: 'scale(0.8)' }}>☼ ☾</span>
@@ -120,7 +123,7 @@ export function JournalEntry({
             <JournalMarkdown markdown={content ?? ''} />
           ) : (
             <Typography.Text type='secondary'>
-              {copy.characters.journalPreviewEmpty}
+              {localize.string('characters.journalPreviewEmpty')}
             </Typography.Text>
           )}
           <div className='journal__entry-meta'>
@@ -131,11 +134,15 @@ export function JournalEntry({
               className='journal__entry-meta-text'>
               <a href={`#${entryAnchor}`} className='journal__entry-permalink'>
                 {createdLabel
-                  ? `${copy.characters.journalCreatedAtLabel} : ${createdLabel}`
+                  ? localize.string('characters.journalCreatedAtLine', {
+                      value: createdLabel,
+                    })
                   : ''}
                 {createdLabel && updatedLabel ? ' · ' : ''}
                 {updatedLabel
-                  ? `${copy.characters.journalUpdatedAtLabel} : ${updatedLabel}`
+                  ? localize.string('characters.journalUpdatedAtLine', {
+                      value: updatedLabel,
+                    })
                   : ''}
               </a>
             </Typography.Text>

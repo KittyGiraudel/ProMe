@@ -5,11 +5,11 @@ import type { Archetype } from '@/lib/character/types'
 import type { Gender } from '@/lib/types'
 import { Layout } from '@/components/Layout/Layout'
 import { IdentityCard } from '@/components/CharacterSheet/IdentityCard'
-import { copy } from '@/messages/fr'
 import { useCharacterCreate } from './useCharacterCreate'
 import { Button } from '@/components/Button/Button'
 import { useInheritanceCandidates } from './useInheritanceCandidates'
 import { InheritanceCard } from './InheritanceCard'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 type CharacterCreateFormValues = {
   name: string
@@ -19,17 +19,18 @@ type CharacterCreateFormValues = {
 }
 
 export function CharacterCreateClient() {
+  const localize = useLocalize()
   const [form] = Form.useForm<CharacterCreateFormValues>()
   const { handleCreate } = useCharacterCreate()
   const { candidates } = useInheritanceCandidates()
 
   return (
     <Layout
-      title={copy.characters.createPageTitle}
+      title={localize.string('characters.createPageTitle')}
       pageCoverBiome='floodedPlains'
       breadcrumbs={[
-        { label: copy.nav.homeLink, href: '/' },
-        { label: copy.characters.pageTitle, href: '/characters' },
+        { label: localize.string('nav.homeLink'), href: '/' },
+        { label: localize.string('characters.pageTitle'), href: '/characters' },
       ]}>
       <Form<CharacterCreateFormValues>
         form={form}
@@ -47,10 +48,10 @@ export function CharacterCreateClient() {
           <InheritanceCard candidates={candidates} />
           <Space wrap>
             <Button type='primary' htmlType='submit'>
-              {copy.characters.create}
+              {localize.string('characters.create')}
             </Button>
             <Button htmlType='button' type='link' href='/characters'>
-              {copy.characters.cancel}
+              {localize.string('characters.cancel')}
             </Button>
           </Space>
         </Space>

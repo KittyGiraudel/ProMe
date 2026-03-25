@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
-import { copy } from '@/messages/fr'
 import { characterSheetMetadataTitle } from './characterSheetTitle'
 import { CharacterSheetShell } from './CharacterSheetShell'
+import { getMessages } from '@/messages/locales'
 
 type CharacterIdLayoutProps = {
   children: ReactNode
@@ -15,7 +15,7 @@ export async function generateMetadata({
   await params
   return {
     title: characterSheetMetadataTitle('identity'),
-    description: copy.characters.sheetDescription,
+    description: getMessages().characters.sheetDescription,
   }
 }
 

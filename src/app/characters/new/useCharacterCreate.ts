@@ -8,7 +8,7 @@ import { getCharacterStore } from '@/lib/character/store'
 import type { Archetype } from '@/lib/character/types'
 import type { Gender } from '@/lib/types'
 import { characterSheetTabHref } from '@/app/characters/[id]/characterSheetRoutes'
-import { copy } from '@/messages/fr'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 export type CharacterCreateValues = {
   name: string
@@ -21,6 +21,7 @@ export function useCharacterCreate() {
   const { message } = App.useApp()
   const router = useRouter()
   const store = useMemo(() => getCharacterStore(), [])
+  const localize = useLocalize()
 
   const handleCreate = (values: CharacterCreateValues) => {
     const source = values.inheritFromCharacterId
@@ -36,7 +37,7 @@ export function useCharacterCreate() {
       source ?? undefined,
     )
     const saved = store.save(created)
-    message.success(copy.characters.createSuccess)
+    message.success(localize.string('characters.createSuccess'))
     router.push(characterSheetTabHref(saved.id, 'identity'))
   }
 

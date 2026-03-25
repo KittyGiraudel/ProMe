@@ -4,23 +4,18 @@ import { RedoOutlined } from '@ant-design/icons'
 import { useMemo } from 'react'
 import { Card, Empty, Typography } from 'antd'
 import { encodePlayingCard } from '@/lib/codec/cards'
-import type { PlayingCard } from '@/lib/types'
 import type { VillageRoll } from '@/lib/village/generate'
 import type { InhabitantRoll } from '@/lib/inhabitant/generate'
-import type { VillageEstablishmentRow } from '@/lib/village/resolveDisplay'
-import {
-  ownerSlotIndexByEstablishmentIndex,
-  resolveVillageDisplay,
-} from '@/lib/village/resolveDisplay'
 import { groupEstablishments } from '@/lib/village/groupEstablishments'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { RichText } from '@/components/RichText/RichText'
-import { copy } from '@/messages/fr'
-import { formatVillageRulebookPagesJoined } from '@/messages/formatCopy'
+import { formatRulebookReference } from '@/lib/village/formatRulebookReference'
 import { VillageEstablishmentLine } from './VillageEstablishmentLine'
 import { Button } from '@/components/Button/Button'
 import { useSettings } from '@/app/contexts/SettingsContext'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 import './VillageSummary.css'
+import { useVillageGenerator } from '@/app/generators/village/useVillageGenerator'
 
 type VillageSummaryProps = {
   roll: VillageRoll | null
@@ -38,12 +33,15 @@ export function VillageSummary({
   onRerollPrimarySlot,
   onRerollOwner,
 }: VillageSummaryProps) {
+  const { resolveVillageDisplay, ownerSlotIndexByEstablishmentIndex } =
+    useVillageGenerator()
   const { settings } = useSettings()
+  const localize = useLocalize()
   const grouped = settings.village.mergeDuplicateEstablishments
 
   const display = useMemo(
     () => (roll ? resolveVillageDisplay(roll) : null),
-    [roll]
+    [roll, localize]
   )
 
   const ownerSlotByEstIndex = useMemo(
@@ -85,7 +83,7 @@ export function VillageSummary({
         )
       })
     }
-    return groupEstablishments(display.establishments).map((g, i) => (
+    return groupEstablishments(display.establishments, localize).map((g, i) => (
       <VillageEstablishmentLine
         key={g.key}
         lineNumber={i + 1}
@@ -125,7 +123,7 @@ export function VillageSummary({
 
   const villageFootnote = (
     <Typography.Text type='secondary' className='generator-rulebook-footnote'>
-      {copy.rulebook.villageFootnote}
+      {localize.string('rulebook.villageFootnote')}
     </Typography.Text>
   )
 
@@ -136,14 +134,9 @@ export function VillageSummary({
           className='village-summary village-summary--empty'
           variant='borderless'>
           <Empty
-            description={
-              <>
-                {copy.village.emptySummary.replace(
-                  '{button}',
-                  copy.village.rollAll
-                )}
-              </>
-            }
+            description={localize.string('village.emptySummary', {
+              button: localize.string('village.generate'),
+            })}
           />
         </Card>
         {villageFootnote}
@@ -155,7 +148,7 @@ export function VillageSummary({
     <>
       <Card className='village-summary' variant='borderless'>
         <Typography.Title level={5} className='village-summary__section-title'>
-          {copy.village.sectionEstablishments}
+          {localize.string('village.sectionEstablishments')}
         </Typography.Title>
         {establishmentBlocks}
 
@@ -164,7 +157,7 @@ export function VillageSummary({
             <Typography.Title
               level={5}
               className='village-summary__section-title'>
-              {copy.village.sectionTraits}
+              {localize.string('village.sectionTraits')}
             </Typography.Title>
             <ul className='village-summary__trait-list'>
               {display.traits.map(row => (
@@ -195,7 +188,7 @@ export function VillageSummary({
                               type='text'
                               size='small'
                               icon={<RedoOutlined />}
-                              aria-label={copy.village.rerollCard}
+                              aria-label={localize.string('common.rerollCard')}
                               onClick={() =>
                                 onRerollPrimarySlot(inst.primarySlot)
                               }
@@ -204,10 +197,8 @@ export function VillageSummary({
                           ))
                         : null}
                     </div>
-                    <span
-                      className='village-summary__line-page'
-                      aria-label={`${copy.village.rulebookPageAria}: ${formatVillageRulebookPagesJoined([row.rulebookPage])}`}>
-                      {formatVillageRulebookPagesJoined([row.rulebookPage])}
+                    <span className='village-summary__line-page'>
+                      {formatRulebookReference([row.rulebookPage], localize)}
                     </span>
                   </div>
                 </li>
@@ -215,14 +206,6 @@ export function VillageSummary({
             </ul>
           </div>
         ) : null}
-
-        <div className='village-summary__hint'>
-          <RichText
-            as='p'
-            className='village-summary__dupes-explanation'
-            text={copy.village.duplicateRuleHint}
-          />
-        </div>
       </Card>
       {villageFootnote}
     </>

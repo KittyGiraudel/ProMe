@@ -11,13 +11,15 @@ import {
   type InhabitantRerollPart,
   generateInhabitant,
   rerollInhabitantPart,
+  getAgeBand,
+  getPersonality,
 } from '@/lib/inhabitant/generate'
 import {
   decodeInhabitantRollParam,
   encodeInhabitantRoll,
 } from '@/lib/inhabitant/inhabitantUrlCodec'
-import { copy } from '@/messages/fr'
-import { formatInhabitantCopyOneLiner } from '@/messages/formatCopy'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
+import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 
 const INHABITANT_QUERY_KEY = 'i'
 const VILLAGE_QUERY_KEY = 'v'
@@ -25,6 +27,7 @@ const OWNERS_QUERY_KEY = 'o'
 const FACTION_QUERY_KEY = 'f'
 
 export function InhabitantGeneratorClient() {
+  const localize = useLocalize()
   const { message } = App.useApp()
   const { replaceSearchParams, pathname, searchParams } =
     useReplaceSearchParams()
@@ -45,13 +48,13 @@ export function InhabitantGeneratorClient() {
   const breadcrumbs = useMemo(() => {
     if (!villageBackHref) return undefined
     return [
-      { label: copy.nav.homeLink, href: '/' },
-      { label: copy.nav.backToVillage, href: villageBackHref },
+      { label: localize.string('nav.homeLink'), href: '/' },
+      { label: localize.string('nav.backToVillage'), href: villageBackHref },
     ]
   }, [villageBackHref])
 
   const roll = useMemo(
-    () => (encoded ? decodeInhabitantRollParam(encoded) : null),
+    () => (encoded ? decodeInhabitantRollParam(encoded, localize) : null),
     [encoded]
   )
 
@@ -62,8 +65,8 @@ export function InhabitantGeneratorClient() {
     })
   }, [encoded, replaceSearchParams, roll])
 
-  const handleRollAll = useCallback(() => {
-    const next = generateInhabitant()
+  const handleGenerate = useCallback(() => {
+    const next = generateInhabitant(localize)
     replaceSearchParams(p => {
       p.set(INHABITANT_QUERY_KEY, encodeInhabitantRoll(next))
     })
@@ -72,7 +75,7 @@ export function InhabitantGeneratorClient() {
   const handleRerollPart = useCallback(
     (part: InhabitantRerollPart) => {
       if (!roll) return
-      const next = rerollInhabitantPart(roll, part)
+      const next = rerollInhabitantPart(roll, part, localize)
       replaceSearchParams(p => {
         p.set(INHABITANT_QUERY_KEY, encodeInhabitantRoll(next))
       })
@@ -94,26 +97,35 @@ export function InhabitantGeneratorClient() {
     const params = new URLSearchParams(searchParams.toString())
     params.set(INHABITANT_QUERY_KEY, encodeInhabitantRoll(roll))
     const shareUrl = `${window.location.origin}${pathname}?${params.toString()}`
-    const line = formatInhabitantCopyOneLiner(roll, shareUrl)
+    const line =
+      localize.string('inhabitant.oneLiner', {
+        gender: genderCompactSymbol(roll.gender),
+        name: roll.name,
+        faction: localize.string(`factions.${roll.faction}`),
+        age: localize.string(`ageBands.${getAgeBand(roll)}`),
+        personality: localize.string(`personalities.${getPersonality(roll)}`),
+      }) +
+      ' ' +
+      shareUrl
     try {
       await navigator.clipboard.writeText(line)
-      message.success(copy.inhabitant.copyOneLinerSuccess)
+      message.success(localize.string('inhabitant.copyOneLinerSuccess'))
     } catch {
-      message.error(copy.inhabitant.copyOneLinerError)
+      message.error(localize.string('inhabitant.copyOneLinerError'))
     }
   }, [message, pathname, roll, searchParams])
 
   return (
     <Layout
-      title={copy.inhabitant.pageTitle}
+      title={localize.string('inhabitant.pageTitle')}
       pageCoverBiome='fieldSea'
       breadcrumbs={breadcrumbs}
       headerActions={
         <RollActions
-          onRollAll={handleRollAll}
-          label={copy.inhabitant.rollAll}
+          onRoll={handleGenerate}
+          label={localize.string('inhabitant.generate')}
           onCopyOneLiner={roll ? handleCopyOneLiner : undefined}
-          copyOneLinerLabel={copy.inhabitant.copyOneLiner}
+          copyOneLinerLabel={localize.string('inhabitant.copyOneLiner')}
         />
       }>
       <InhabitantSummary

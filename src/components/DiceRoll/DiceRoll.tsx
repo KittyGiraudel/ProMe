@@ -1,12 +1,13 @@
 import { rollD6 } from '@/lib/rng'
-import { copy } from '@/messages/fr'
 import { Card, Empty } from 'antd'
 import { useEffect, useRef, useState } from 'react'
 import { DiceFaces } from '../DiceFaces/DiceFaces'
 import { Button } from '@/components/Button/Button'
 import './DiceRoll.css'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 export function DiceRoll() {
+  const localize = useLocalize()
   const [dieValue, setDieValue] = useState<number | null>(null)
   const [isRollingDie, setIsRollingDie] = useState(false)
   const dieRollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
@@ -48,14 +49,16 @@ export function DiceRoll() {
   return (
     <Card
       className='DiceRoll__card home-hub__card'
-      title={copy.hub.dieToolTitle}
+      title={localize.string('tools.dieToolTitle')}
       extra={
         <Button
           onClick={handleRollDie}
           loading={isRollingDie}
           type='link'
           className='home-hub__cta'>
-          {isRollingDie ? copy.hub.dieToolRolling : copy.hub.dieToolAction}
+          {isRollingDie
+            ? localize.string('tools.dieToolRolling')
+            : localize.string('tools.dieToolAction')}
         </Button>
       }>
       <div
@@ -66,7 +69,7 @@ export function DiceRoll() {
           .filter(Boolean)
           .join(' ')}>
         {dieValue === null ? (
-          <Empty description={copy.hub.dieToolEmpty} />
+          <Empty description={localize.string('tools.dieToolEmpty')} />
         ) : (
           <DiceFaces values={[dieValue]} className='DiceRoll__die-face' />
         )}

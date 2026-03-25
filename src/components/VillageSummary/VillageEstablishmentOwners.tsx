@@ -9,9 +9,9 @@ import {
   type InhabitantRoll,
 } from '@/lib/inhabitant/generate'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
-import { copy } from '@/messages/fr'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { Button } from '@/components/Button/Button'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 export type VillageOwnerEntry = { roll: InhabitantRoll; ownerIndex: number }
 
@@ -24,6 +24,7 @@ export function VillageEstablishmentOwners({
   inhabitantPageVillageQuery?: string | null
   onRerollOwner?: (ownerIndex: number) => void
 }) {
+  const localize = useLocalize()
   if (!entries?.length) return null
   const multi = entries.length > 1
 
@@ -36,21 +37,19 @@ export function VillageEstablishmentOwners({
     return (
       <div className='village-summary__owner-row'>
         <span className='village-summary__owner-main'>
-          <span className='village-summary__owner-line-start'>
-            {genderCompactSymbol(e.roll.gender)}{' '}
-            <BlockedLink
-              href={inhabitantHref}
-              className='village-summary__owner-name-link'>
-              {e.roll.name}
-            </BlockedLink>
-            {` (${copy.factions[e.roll.faction]})`}
-          </span>
-          <span className='village-summary__owner-sep'>
-            {copy.common.emDashSpaced}
-          </span>
-          <span className='village-summary__owner-age-personality'>
-            {copy.ageBands[age]}, {copy.personalities[personality]}
-          </span>
+          {localize.template('inhabitant.oneLiner', {
+            gender: genderCompactSymbol(e.roll.gender),
+            name: (
+              <BlockedLink
+                href={inhabitantHref}
+                className='village-summary__owner-name-link'>
+                {e.roll.name}
+              </BlockedLink>
+            ),
+            faction: localize.string(`factions.${e.roll.faction}`),
+            age: localize.string(`ageBands.${age}`),
+            personality: localize.string(`personalities.${personality}`),
+          })}
         </span>
         <span className='village-summary__owner-actions'>
           {onRerollOwner ? (
@@ -58,7 +57,7 @@ export function VillageEstablishmentOwners({
               type='text'
               size='small'
               icon={<RedoOutlined />}
-              aria-label={copy.village.rerollOwner}
+              aria-label={localize.string('village.rerollOwner')}
               onClick={() => onRerollOwner(e.ownerIndex)}
               className='village-summary__owner-reroll'
             />
@@ -73,8 +72,9 @@ export function VillageEstablishmentOwners({
       <Typography.Text
         type='secondary'
         className='village-summary__owners-heading'>
-        {multi ? copy.village.coOwnersLabel : copy.village.ownerLabel}
-        {' :'}
+        {localize.string(
+          multi ? 'village.coOwnersLabel' : 'village.ownerLabel'
+        )}
       </Typography.Text>
       {multi ? (
         <ul className='village-summary__owners-list'>

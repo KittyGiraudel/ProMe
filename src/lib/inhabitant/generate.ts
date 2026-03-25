@@ -1,6 +1,5 @@
 import { randomCard, roll2D6, rollD6 } from "../rng";
 import type { AgeBand, Gender, Personality, PlayingCard, Faction } from "../types";
-import { contextByRank } from "@/messages/fr";
 import { lookupName } from "./data/namesByFaction";
 import {
   ageBandFromSuit,
@@ -12,6 +11,7 @@ import {
   rankFromPersonality,
   suitFromAgeBand,
 } from "./maps";
+import { Localize } from "../localization/localize";
 
 export type InhabitantRerollPart =
   | "faction"
@@ -75,6 +75,7 @@ function rollContextFollowups(
 function rollInhabitantRoll(
   factionDie: number,
   faction: Faction,
+  localize: Localize,
   rng: () => number,
 ): InhabitantRoll {
   const ageCard = randomCard(rng);
@@ -82,7 +83,7 @@ function rollInhabitantRoll(
   const contextCard = randomCard(rng);
   const nameDice = roll2D6(rng);
   const name = lookupName(faction, nameDice[0], nameDice[1]);
-  const contextText = contextByRank[contextCard.rank];
+  const contextText = localize.string(`game.inhabitantContextByRank.${contextCard.rank}`);
   const genderDie = rollD6(rng);
   const gender = genderFromD6(genderDie);
   const follow = rollContextFollowups({ faction, contextCard }, rng);
@@ -104,17 +105,19 @@ function rollInhabitantRoll(
 
 export function generateInhabitantWithFaction(
   faction: Faction,
+  localize: Localize,
   rng: () => number = Math.random,
 ): InhabitantRoll {
-  return rollInhabitantRoll(canonicalFactionDie(faction), faction, rng);
+  return rollInhabitantRoll(canonicalFactionDie(faction), faction, rng, localize);
 }
 
 export function generateInhabitant(
+  localize: Localize,
   rng: () => number = Math.random,
 ): InhabitantRoll {
   const factionDie = rollD6(rng);
   const faction = factionFromD6(factionDie);
-  return rollInhabitantRoll(factionDie, faction, rng);
+  return rollInhabitantRoll(factionDie, faction, rng, localize);
 }
 
 export function setInhabitantFaction(roll: InhabitantRoll, faction: Faction): InhabitantRoll {
@@ -173,6 +176,7 @@ export function setInhabitantGender(
 export function rerollInhabitantPart(
   roll: InhabitantRoll,
   part: InhabitantRerollPart,
+  localize: Localize,
   rng: () => number = Math.random,
 ): InhabitantRoll {
   switch (part) {
@@ -203,7 +207,7 @@ export function rerollInhabitantPart(
     }
     case "contextCard": {
       const contextCard = randomCard(rng);
-      const contextText = contextByRank[contextCard.rank];
+      const contextText = localize.string(`game.inhabitantContextByRank.${contextCard.rank}`);
       const follow = rollContextFollowups({ faction: roll.faction, contextCard }, rng);
       return {
         ...roll,

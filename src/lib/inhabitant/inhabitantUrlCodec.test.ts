@@ -4,7 +4,7 @@ import {
   encodeInhabitantRoll,
 } from "./inhabitantUrlCodec";
 import { lookupName } from "./data/namesByFaction";
-import { contextByRank } from "@/messages/fr";
+import { copy } from "@/messages/fr";
 import { genderFromD6, factionFromD6 } from "./maps";
 
 describe("inhabitantUrlCodec", () => {
@@ -50,7 +50,7 @@ describe("inhabitantUrlCodec", () => {
       contextCard: { suit: "clubs" as const, rank: "3" as const },
       nameDice,
       name: lookupName(faction, nameDice[0], nameDice[1]),
-      contextText: contextByRank["3"],
+      contextText: copy.game.inhabitantContextByRank["3"],
       genderDie: 4,
       gender: genderFromD6(4),
     };

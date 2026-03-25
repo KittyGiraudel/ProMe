@@ -30,9 +30,9 @@ import {
 import { DiceFaces } from '@/components/DiceFaces/DiceFaces'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { RichText } from '@/components/RichText/RichText'
-import { copy } from '@/messages/fr'
 import { Button } from '@/components/Button/Button'
 import './InhabitantSummary.css'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 /** Wider popup than the trigger + full option labels (antd defaults ellipsis). */
 const INHABITANT_SUMMARY_SELECT_PROPS = {
@@ -80,9 +80,10 @@ export function InhabitantSummary({
   onRerollPart,
   onSetRoll,
 }: InhabitantSummaryProps) {
+  const localize = useLocalize()
   const inhabitantFootnote = (
     <Typography.Text type='secondary' className='generator-rulebook-footnote'>
-      {copy.rulebook.inhabitantFootnote}
+      {localize.string('rulebook.inhabitantFootnote')}
     </Typography.Text>
   )
 
@@ -104,7 +105,7 @@ export function InhabitantSummary({
     () =>
       RANKS.map(rank => {
         const p = personalityFromRank(rank)
-        return { value: p, label: copy.personalities[p] }
+        return { value: p, label: localize.string(`personalities.${p}`) }
       }),
     []
   )
@@ -116,14 +117,9 @@ export function InhabitantSummary({
           className='inhabitant-summary inhabitant-summary--empty'
           variant='borderless'>
           <Empty
-            description={
-              <>
-                {copy.inhabitant.emptySummary.replace(
-                  '{button}',
-                  copy.inhabitant.rollAll
-                )}
-              </>
-            }
+            description={localize.string('inhabitant.emptySummary', {
+              button: localize.string('inhabitant.generate'),
+            })}
           />
         </Card>
         {inhabitantFootnote}
@@ -146,7 +142,7 @@ export function InhabitantSummary({
           items={[
             {
               key: 'name',
-              label: copy.inhabitant.sectionName,
+              label: localize.string('inhabitant.sectionName'),
               children: (
                 <div className='inhabitant-summary__field-row'>
                   <Select
@@ -165,17 +161,18 @@ export function InhabitantSummary({
                       ]
                       onSetRoll(setInhabitantNameDice(roll, [a, b]))
                     }}
-                    aria-label={copy.inhabitant.sectionName}
+                    aria-label={localize.string('inhabitant.sectionName')}
                   />
                   <div className='inhabitant-summary__field-meta'>
                     <MetaWithReroll
-                      rerollLabel={copy.inhabitant.rerollName}
+                      rerollLabel={localize.string('inhabitant.rerollName')}
                       onReroll={
                         onRerollPart && (() => onRerollPart('nameDice'))
                       }>
                       <>
-                        {copy.inhabitant.nameDiceLabel} :{' '}
-                        <DiceFaces values={roll.nameDice} />
+                        {localize.template('inhabitant.nameDiceMeta', {
+                          dice: <DiceFaces values={roll.nameDice} />,
+                        })}
                       </>
                     </MetaWithReroll>
                   </div>
@@ -184,7 +181,7 @@ export function InhabitantSummary({
             },
             {
               key: 'faction',
-              label: copy.inhabitant.sectionFaction,
+              label: localize.string('inhabitant.sectionFaction'),
               children: (
                 <div className='inhabitant-summary__field-row'>
                   <Select
@@ -194,23 +191,24 @@ export function InhabitantSummary({
                     value={roll.faction}
                     options={FACTIONS.map(r => ({
                       value: r,
-                      label: copy.factions[r],
+                      label: localize.string(`factions.${r}`),
                     }))}
                     onChange={(r: Faction) => {
                       if (!onSetRoll) return
                       onSetRoll(setInhabitantFaction(roll, r))
                     }}
-                    aria-label={copy.inhabitant.sectionFaction}
+                    aria-label={localize.string('inhabitant.sectionFaction')}
                   />
                   <div className='inhabitant-summary__field-meta'>
                     <MetaWithReroll
-                      rerollLabel={copy.inhabitant.rerollFaction}
+                      rerollLabel={localize.string('inhabitant.rerollFaction')}
                       onReroll={
                         onRerollPart && (() => onRerollPart('faction'))
                       }>
                       <>
-                        {copy.inhabitant.factionDieLabel} :{' '}
-                        <DiceFaces values={[roll.factionDie]} />
+                        {localize.template('inhabitant.factionDieMeta', {
+                          dice: <DiceFaces values={[roll.factionDie]} />,
+                        })}
                       </>
                     </MetaWithReroll>
                   </div>
@@ -219,7 +217,7 @@ export function InhabitantSummary({
             },
             {
               key: 'gender',
-              label: copy.inhabitant.sectionGender,
+              label: localize.string('inhabitant.sectionGender'),
               children: (
                 <div className='inhabitant-summary__field-row'>
                   <Select
@@ -229,21 +227,22 @@ export function InhabitantSummary({
                     value={roll.gender}
                     options={GENDERS.map(g => ({
                       value: g,
-                      label: copy.genders[g],
+                      label: localize.string(`genders.${g}`),
                     }))}
                     onChange={(g: Gender) => {
                       if (!onSetRoll) return
                       onSetRoll(setInhabitantGender(roll, g))
                     }}
-                    aria-label={copy.inhabitant.sectionGender}
+                    aria-label={localize.string('inhabitant.sectionGender')}
                   />
                   <div className='inhabitant-summary__field-meta'>
                     <MetaWithReroll
-                      rerollLabel={copy.inhabitant.rerollGender}
+                      rerollLabel={localize.string('inhabitant.rerollGender')}
                       onReroll={onRerollPart && (() => onRerollPart('gender'))}>
                       <>
-                        {copy.inhabitant.factionDieLabel} :{' '}
-                        <DiceFaces values={[roll.genderDie]} />
+                        {localize.template('inhabitant.factionDieMeta', {
+                          dice: <DiceFaces values={[roll.genderDie]} />,
+                        })}
                       </>
                     </MetaWithReroll>
                   </div>
@@ -252,7 +251,7 @@ export function InhabitantSummary({
             },
             {
               key: 'age',
-              label: copy.inhabitant.sectionAge,
+              label: localize.string('inhabitant.sectionAge'),
               children: (
                 <div className='inhabitant-summary__field-row'>
                   <Select
@@ -262,23 +261,24 @@ export function InhabitantSummary({
                     value={age}
                     options={AGE_BANDS.map(band => ({
                       value: band,
-                      label: copy.ageBands[band],
+                      label: localize.string(`ageBands.${band}`),
                     }))}
                     onChange={(band: AgeBand) => {
                       if (!onSetRoll) return
                       onSetRoll(setInhabitantAgeBand(roll, band))
                     }}
-                    aria-label={copy.inhabitant.sectionAge}
+                    aria-label={localize.string('inhabitant.sectionAge')}
                   />
                   <div className='inhabitant-summary__field-meta'>
                     <MetaWithReroll
-                      rerollLabel={copy.inhabitant.rerollAgeCard}
+                      rerollLabel={localize.string('inhabitant.rerollAgeCard')}
                       onReroll={
                         onRerollPart && (() => onRerollPart('ageCard'))
                       }>
                       <>
-                        {copy.inhabitant.cardLabel} :{' '}
-                        <PlayingCardLabel card={roll.ageCard} />
+                        {localize.template('inhabitant.cardMeta', {
+                          card: <PlayingCardLabel card={roll.ageCard} />,
+                        })}
                       </>
                     </MetaWithReroll>
                   </div>
@@ -287,7 +287,7 @@ export function InhabitantSummary({
             },
             {
               key: 'personality',
-              label: copy.inhabitant.sectionPersonality,
+              label: localize.string('inhabitant.sectionPersonality'),
               children: (
                 <div className='inhabitant-summary__field-row'>
                   <Select
@@ -300,17 +300,24 @@ export function InhabitantSummary({
                       if (!onSetRoll) return
                       onSetRoll(setInhabitantPersonality(roll, p))
                     }}
-                    aria-label={copy.inhabitant.sectionPersonality}
+                    aria-label={localize.string(
+                      'inhabitant.sectionPersonality'
+                    )}
                   />
                   <div className='inhabitant-summary__field-meta'>
                     <MetaWithReroll
-                      rerollLabel={copy.inhabitant.rerollPersonalityCard}
+                      rerollLabel={localize.string(
+                        'inhabitant.rerollPersonalityCard'
+                      )}
                       onReroll={
                         onRerollPart && (() => onRerollPart('personalityCard'))
                       }>
                       <>
-                        {copy.inhabitant.cardLabel} :{' '}
-                        <PlayingCardLabel card={roll.personalityCard} />
+                        {localize.template('inhabitant.cardMeta', {
+                          card: (
+                            <PlayingCardLabel card={roll.personalityCard} />
+                          ),
+                        })}
                       </>
                     </MetaWithReroll>
                   </div>
@@ -319,7 +326,7 @@ export function InhabitantSummary({
             },
             {
               key: 'context',
-              label: copy.inhabitant.sectionContext,
+              label: localize.string('inhabitant.sectionContext'),
               children: (
                 <div className='inhabitant-summary__stack'>
                   <RichText
@@ -328,25 +335,35 @@ export function InhabitantSummary({
                     className='inhabitant-summary__context'
                   />
                   <MetaWithReroll
-                    rerollLabel={copy.inhabitant.rerollContextCard}
+                    rerollLabel={localize.string(
+                      'inhabitant.rerollContextCard'
+                    )}
                     onReroll={
                       onRerollPart && (() => onRerollPart('contextCard'))
                     }>
                     <>
-                      {copy.inhabitant.cardLabel} :{' '}
-                      <Tooltip title={copy.inhabitant.contextCardNote}>
-                        <span
-                          className='inhabitant-summary__context-card-hit'
-                          tabIndex={0}>
-                          <PlayingCardLabel card={roll.contextCard} />
-                        </span>
-                      </Tooltip>
+                      {localize.template('inhabitant.cardMeta', {
+                        card: (
+                          <Tooltip
+                            title={localize.string(
+                              'inhabitant.contextCardNote'
+                            )}>
+                            <span
+                              className='inhabitant-summary__context-card-hit'
+                              tabIndex={0}>
+                              <PlayingCardLabel card={roll.contextCard} />
+                            </span>
+                          </Tooltip>
+                        ),
+                      })}
                     </>
                   </MetaWithReroll>
                   {roll.contextCard.rank === '7' ? (
                     <div className='inhabitant-summary__context-followup'>
                       <span className='inhabitant-summary__followup-label'>
-                        {copy.inhabitant.contextSevenFollowupLabel}
+                        {localize.string(
+                          'inhabitant.contextSevenFollowupLabel'
+                        )}
                       </span>
                       {roll.contextSevenDie == null ? (
                         onRerollPart ? (
@@ -354,12 +371,14 @@ export function InhabitantSummary({
                             size='small'
                             type='default'
                             onClick={() => onRerollPart('contextSevenDie')}>
-                            {copy.inhabitant.rollContextSevenDie}
+                            {localize.string('inhabitant.rollContextSevenDie')}
                           </Button>
                         ) : null
                       ) : (
                         <MetaWithReroll
-                          rerollLabel={copy.inhabitant.rerollContextSevenDie}
+                          rerollLabel={localize.string(
+                            'inhabitant.rerollContextSevenDie'
+                          )}
                           onReroll={
                             onRerollPart &&
                             (() => onRerollPart('contextSevenDie'))
@@ -369,12 +388,19 @@ export function InhabitantSummary({
                               {mapKindFromContextSevenDie(
                                 roll.contextSevenDie
                               ) === 'localisation'
-                                ? copy.inhabitant.contextSevenMapLocalisation
-                                : copy.inhabitant.contextSevenMapBiome}
+                                ? localize.string(
+                                    'inhabitant.contextSevenMapLocalisation'
+                                  )
+                                : localize.string(
+                                    'inhabitant.contextSevenMapBiome'
+                                  )}
                             </strong>
                             {' · '}
-                            {copy.inhabitant.factionDieLabel} :{' '}
-                            <DiceFaces values={[roll.contextSevenDie]} />
+                            {localize.template('inhabitant.factionDieMeta', {
+                              dice: (
+                                <DiceFaces values={[roll.contextSevenDie]} />
+                              ),
+                            })}
                           </>
                         </MetaWithReroll>
                       )}
@@ -383,7 +409,7 @@ export function InhabitantSummary({
                   {roll.contextCard.rank === '10' ? (
                     <div className='inhabitant-summary__context-followup'>
                       <span className='inhabitant-summary__followup-label'>
-                        {copy.inhabitant.contextSpokenNameLabel}
+                        {localize.string('inhabitant.contextSpokenNameLabel')}
                       </span>
                       {roll.contextSpokenNameDice == null ? (
                         onRerollPart ? (
@@ -393,7 +419,9 @@ export function InhabitantSummary({
                             onClick={() =>
                               onRerollPart('contextSpokenNameDice')
                             }>
-                            {copy.inhabitant.rollContextSpokenNameDice}
+                            {localize.string(
+                              'inhabitant.rollContextSpokenNameDice'
+                            )}
                           </Button>
                         ) : null
                       ) : (
@@ -402,16 +430,21 @@ export function InhabitantSummary({
                             {roll.contextSpokenName}
                           </strong>
                           <MetaWithReroll
-                            rerollLabel={
-                              copy.inhabitant.rerollContextSpokenNameDice
-                            }
+                            rerollLabel={localize.string(
+                              'inhabitant.rerollContextSpokenNameDice'
+                            )}
                             onReroll={
                               onRerollPart &&
                               (() => onRerollPart('contextSpokenNameDice'))
                             }>
                             <>
-                              {copy.inhabitant.nameDiceLabel} :{' '}
-                              <DiceFaces values={roll.contextSpokenNameDice} />
+                              {localize.template('inhabitant.nameDiceMeta', {
+                                dice: (
+                                  <DiceFaces
+                                    values={roll.contextSpokenNameDice}
+                                  />
+                                ),
+                              })}
                             </>
                           </MetaWithReroll>
                         </div>

@@ -13,13 +13,14 @@ import {
   Tooltip,
   Typography,
 } from 'antd'
-import { copy } from '@/messages/fr'
 import { Button } from '@/components/Button/Button'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 type PoolKey = 'health' | 'courage' | 'stamina'
 type ResourceKey = 'honor' | 'inspiration' | 'money'
 
 export function CharacteristicsCard() {
+  const localize = useLocalize()
   const { notification } = App.useApp()
   const form = Form.useFormInstance()
   const courageCurrent = Form.useWatch(['courage', 'current'], form) as
@@ -27,19 +28,39 @@ export function CharacteristicsCard() {
     | undefined
 
   const resources: readonly [ResourceKey, string, string][] = [
-    ['honor', copy.characters.honorLabel, copy.characters.honorTooltip],
+    [
+      'honor',
+      localize.string('characters.honorLabel'),
+      localize.string('characters.honorTooltip'),
+    ],
     [
       'inspiration',
-      copy.characters.inspirationLabel,
-      copy.characters.inspirationTooltip,
+      localize.string('characters.inspirationLabel'),
+      localize.string('characters.inspirationTooltip'),
     ],
-    ['money', copy.characters.moneyLabel, copy.characters.moneyTooltip],
+    [
+      'money',
+      localize.string('characters.moneyLabel'),
+      localize.string('characters.moneyTooltip'),
+    ],
   ]
 
   const pools: readonly [PoolKey, string, string][] = [
-    ['health', copy.characters.healthLabel, copy.characters.healthTooltip],
-    ['courage', copy.characters.courageLabel, copy.characters.courageTooltip],
-    ['stamina', copy.characters.staminaLabel, copy.characters.staminaTooltip],
+    [
+      'health',
+      localize.string('characters.healthLabel'),
+      localize.string('characters.healthTooltip'),
+    ],
+    [
+      'courage',
+      localize.string('characters.courageLabel'),
+      localize.string('characters.courageTooltip'),
+    ],
+    [
+      'stamina',
+      localize.string('characters.staminaLabel'),
+      localize.string('characters.staminaTooltip'),
+    ],
   ]
 
   function renderLabelWithHelp(label: string, tooltip: string) {
@@ -70,7 +91,7 @@ export function CharacteristicsCard() {
                   color: '#8c8c8c',
                 }}
                 italic>
-                {copy.characters.characteristicsFootnote}
+                {localize.string('characters.characteristicsFootnote')}
               </Typography.Text>
             </>
           }
@@ -82,7 +103,7 @@ export function CharacteristicsCard() {
             size='small'
             htmlType='button'
             icon={<QuestionCircleOutlined />}
-            aria-label={`Informations sur ${label}`}
+            aria-label={localize.string('rulebook.information')}
             style={{
               padding: 0,
               width: 18,
@@ -102,9 +123,14 @@ export function CharacteristicsCard() {
 
     notification[success ? 'success' : 'error']({
       title: success
-        ? copy.characters.courageRollSuccessTitle
-        : copy.characters.courageRollFailureTitle,
-      description: copy.characters.courageRollResult(roll, target),
+        ? localize.string('characters.courageRollSuccessTitle')
+        : localize.string('characters.courageRollFailureTitle'),
+      description: localize.string(
+        roll <= target
+          ? 'characters.courageRollResultSuccess'
+          : 'characters.courageRollResultFailure',
+        { roll, target }
+      ),
       placement: 'bottomRight',
       duration: 15,
     })
@@ -121,14 +147,15 @@ export function CharacteristicsCard() {
               justifyContent: 'space-between',
               width: '100%',
             }}>
-            <span>{copy.characters.characteristicsSection}</span>
-            <Tooltip title={copy.characters.characteristicsFootnote}>
+            <span>{localize.string('characters.characteristicsSection')}</span>
+            <Tooltip
+              title={localize.string('characters.characteristicsFootnote')}>
               <Button
                 type='text'
                 size='small'
                 htmlType='button'
                 icon={<QuestionCircleOutlined />}
-                aria-label='Informations du livre de règles'
+                aria-label={localize.string('rulebook.information')}
               />
             </Tooltip>
           </div>
@@ -161,13 +188,14 @@ export function CharacteristicsCard() {
                 }}>
                 {renderLabelWithHelp(label, tooltip)}
                 {poolKey === 'courage' ? (
-                  <Tooltip title={copy.characters.courageRollTooltip}>
+                  <Tooltip
+                    title={localize.string('characters.courageRollTooltip')}>
                     <Button
                       type='text'
                       size='small'
                       htmlType='button'
                       icon={<RedoOutlined />}
-                      aria-label={copy.characters.courageRollAria}
+                      aria-label={localize.string('characters.courageRollAria')}
                       onClick={handleCourageRoll}
                     />
                   </Tooltip>
@@ -178,7 +206,7 @@ export function CharacteristicsCard() {
                 <Col xs={24} sm={12}>
                   <Form.Item
                     name={[poolKey, 'current']}
-                    label={copy.characters.currentLabel}
+                    label={localize.string('characters.currentLabel')}
                     style={{ marginBottom: 0 }}>
                     <InputNumber min={0} style={{ width: '100%' }} />
                   </Form.Item>
@@ -187,7 +215,7 @@ export function CharacteristicsCard() {
                 <Col xs={24} sm={12}>
                   <Form.Item
                     name={[poolKey, 'max']}
-                    label={copy.characters.maxLabel}
+                    label={localize.string('characters.maxLabel')}
                     style={{ marginBottom: 0 }}>
                     <InputNumber min={0} style={{ width: '100%' }} />
                   </Form.Item>

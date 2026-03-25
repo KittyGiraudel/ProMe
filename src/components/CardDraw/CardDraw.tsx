@@ -1,13 +1,14 @@
 import { randomCard } from '@/lib/rng'
-import { copy } from '@/messages/fr'
 import { Card, Empty } from 'antd'
 import { useEffect, useRef, useState } from 'react'
 import { PlayingCardLabel } from '../PlayingCardLabel/PlayingCardLabel'
 import { PlayingCard } from '@/lib/types'
 import { Button } from '@/components/Button/Button'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 import './CardDraw.css'
 
 export function CardDraw() {
+  const localize = useLocalize()
   const [drawnCard, setDrawnCard] = useState<PlayingCard | null>(null)
   const [isDrawingCard, setIsDrawingCard] = useState(false)
   const cardDrawIntervalRef = useRef<ReturnType<typeof setInterval> | null>(
@@ -51,14 +52,16 @@ export function CardDraw() {
   return (
     <Card
       className='CardDraw__card home-hub__card'
-      title={copy.hub.cardToolTitle}
+      title={localize.string('tools.cardToolTitle')}
       extra={
         <Button
           onClick={handleDrawCard}
           loading={isDrawingCard}
           type='link'
           className='home-hub__cta'>
-          {isDrawingCard ? copy.hub.cardToolDrawing : copy.hub.cardToolAction}
+          {isDrawingCard
+            ? localize.string('tools.cardToolDrawing')
+            : localize.string('tools.cardToolAction')}
         </Button>
       }>
       <div
@@ -69,7 +72,7 @@ export function CardDraw() {
           .filter(Boolean)
           .join(' ')}>
         {drawnCard === null ? (
-          <Empty description={copy.hub.cardToolEmpty} />
+          <Empty description={localize.string('tools.cardToolEmpty')} />
         ) : (
           <PlayingCardLabel card={drawnCard} className='CardDraw__drawn-card' />
         )}

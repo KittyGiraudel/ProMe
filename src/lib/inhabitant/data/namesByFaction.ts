@@ -2,7 +2,7 @@ import type { Faction } from "../../types";
 
 /**
  * 6×6 grid: names[d1 - 1][d2 - 1] for a D66 roll (X.Y = first die, second die).
- * Rulebook proper nouns — kept here (not in `messages/fr.ts`) because they are not localized.
+ * Rulebook proper nouns — kept here because they are not localized.
  */
 export const namesByFaction: Record<Faction, string[][]> = {
   bruja: [

@@ -2,7 +2,9 @@ import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { Layout } from '@/components/Layout/Layout'
 import { InhabitantGeneratorClient } from './InhabitantGeneratorClient'
-import { copy } from '@/messages/fr'
+import { getMessages } from '@/messages/locales'
+
+const copy = getMessages()
 
 export const metadata: Metadata = {
   title: copy.inhabitant.pageTitle,

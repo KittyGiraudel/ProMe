@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { AppProviders } from '@/components/AppProviders/AppProviders'
 import { PageCover } from '@/components/PageCover/PageCover'
-import { copy } from '@/messages/fr'
+import { defaultLocale, getMessages } from '@/messages/locales'
 import './globals.css'
 
 const geistSans = Geist({
@@ -18,10 +18,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: copy.metadata.title,
-    template: `%s — ${copy.metadata.tabBrand}`,
+    default: getMessages().metadata.title,
+    template: `%s — ${getMessages().metadata.tabBrand}`,
   },
-  description: copy.metadata.description,
+  description: getMessages().metadata.description,
 }
 
 export default function RootLayout({
@@ -30,7 +30,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='fr' className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html
+      lang={defaultLocale}
+      className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
         <AntdRegistry>
           <AppProviders>

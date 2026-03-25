@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { getCharacterStore } from '@/lib/character/store'
 import type { Character } from '@/lib/character/types'
-import { copy } from '@/messages/fr'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 export type InheritanceCandidate = {
   id: string
@@ -12,6 +12,7 @@ export type InheritanceCandidate = {
 export function useInheritanceCandidates() {
   const store = useMemo(() => getCharacterStore(), [])
   const [characters, setCharacters] = useState<Character[]>([])
+  const localize = useLocalize()
 
   useEffect(() => {
     setCharacters(store.list())
@@ -22,7 +23,7 @@ export function useInheritanceCandidates() {
       characters.map(character => ({
         id: character.id,
         character,
-        label: character.name.trim() || copy.characters.unnamed,
+        label: character.name.trim() || localize.string('characters.unnamed'),
       })),
     [characters],
   )

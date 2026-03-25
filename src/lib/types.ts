@@ -19,7 +19,6 @@ export const GENDERS: readonly Gender[] = [
 
 export type Suit = "hearts" | "diamonds" | "clubs" | "spades";
 
-/** Playing-card rank (display names in `messages/fr.ts` → `copy.ranks`). */
 export type Rank =
   | "2"
   | "3"

@@ -12,8 +12,8 @@ import {
   Typography,
 } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
-import { copy } from '@/messages/fr'
 import { Button } from '@/components/Button/Button'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 const SPELLBOOK_MAX = 6
 
@@ -27,7 +27,7 @@ export function SpellbookCard({
   onRemoveSpell: (index: number | number[]) => void
 }) {
   const { componentDisabled } = ConfigProvider.useConfig()
-
+  const localize = useLocalize()
   return (
     <Card
       title={
@@ -38,21 +38,23 @@ export function SpellbookCard({
             justifyContent: 'space-between',
             width: '100%',
           }}>
-          <span>{copy.characters.spellbookSection}</span>
-          <Tooltip title={copy.characters.spellbookFootnote}>
+          <span>{localize.string('characters.spellbookSection')}</span>
+          <Tooltip title={localize.string('characters.spellbookFootnote')}>
             <Button
               type='text'
               size='small'
               htmlType='button'
               icon={<QuestionCircleOutlined />}
-              aria-label='Informations du livre de règles'
+              aria-label={localize.string('rulebook.information')}
             />
           </Tooltip>
         </div>
       }>
       <Space orientation='vertical' style={{ width: '100%' }}>
         <Typography.Text type='secondary'>
-          {copy.characters.spellbookStatus(fields.length)}
+          {localize.string('characters.spellbookStatus', {
+            count: fields.length,
+          })}
         </Typography.Text>
         {fields.map(field => (
           <div
@@ -66,20 +68,20 @@ export function SpellbookCard({
             }}>
             <Form.Item
               name={[field.name, 'name']}
-              label={copy.characters.spellNamePlaceholder}
+              label={localize.string('characters.spellNamePlaceholder')}
               noStyle>
               <Input
-                placeholder={copy.characters.spellNamePlaceholder}
+                placeholder={localize.string('characters.spellNamePlaceholder')}
                 style={{ flex: 1, minWidth: 220 }}
               />
             </Form.Item>
 
             <Form.Item
               name={[field.name, 'note']}
-              label={copy.characters.spellNotePlaceholder}
+              label={localize.string('characters.spellNotePlaceholder')}
               noStyle>
               <Input
-                placeholder={copy.characters.spellNotePlaceholder}
+                placeholder={localize.string('characters.spellNotePlaceholder')}
                 style={{ width: 240 }}
               />
             </Form.Item>
@@ -88,7 +90,7 @@ export function SpellbookCard({
               danger
               onClick={() => onRemoveSpell(field.name)}
               htmlType='button'>
-              {copy.characters.delete}
+              {localize.string('common.delete')}
             </Button>
           </div>
         ))}
@@ -106,7 +108,7 @@ export function SpellbookCard({
               onClick={onAddSpell}
               disabled={fields.length >= SPELLBOOK_MAX}
               htmlType='button'>
-              {copy.characters.addSpell}
+              {localize.string('characters.addSpell')}
             </Button>
           </Space>
         </>

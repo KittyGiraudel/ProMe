@@ -1,4 +1,4 @@
-import { copy } from '@/messages/fr'
+import { getMessages } from '@/messages/locales'
 import { type CharacterSheetTabKey, CHARACTER_SHEET_TAB_KEYS } from './characterSheetRoutes'
 
 /**
@@ -8,6 +8,7 @@ import { type CharacterSheetTabKey, CHARACTER_SHEET_TAB_KEYS } from './character
 export function characterSheetMetadataTitle(
   tabKey: CharacterSheetTabKey
 ): string {
+  const copy = getMessages()
   if (tabKey === 'identity')
     return `${copy.characters.sheetTitle} — ${copy.metadata.tabBrand}`
 

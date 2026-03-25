@@ -2,12 +2,12 @@
 
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 import type { Character } from '@/lib/character/types'
-import { copy } from '@/messages/fr'
 import { Button } from '@/components/Button/Button'
 import { App, FormInstance } from 'antd'
 import { getCharacterStore } from '@/lib/character/store'
 import { useCharacterSheetDerived } from './useCharacterSheetDerived'
 import { useCharacterFromForm } from './useCharacterFromForm'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 const DEATH_SUGGESTION_KEY = 'death-suggestion'
 
@@ -22,6 +22,7 @@ export function useCharacterLifeStatusActions({
   form: FormInstance
   character: Character | null
 }) {
+  const localize = useLocalize()
   const { message, notification } = App.useApp()
   const store = useMemo(() => getCharacterStore(), [])
   const getCharacterFromForm = useCharacterFromForm({ character, form })
@@ -35,7 +36,7 @@ export function useCharacterLifeStatusActions({
       const saved = store.save(payload)
       setSaveErrors(null)
       onSaved(saved)
-      message.success(copy.characters.markDeadSuccess)
+      message.success(localize.string('characters.markDeadSuccess'))
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e)
       message.error(msg)
@@ -57,12 +58,12 @@ export function useCharacterLifeStatusActions({
       const saved = store.save(payload)
       setSaveErrors(null)
       onSaved(saved)
-      message.success(copy.characters.reviveSuccess)
+      message.success(localize.string('characters.reviveSuccess'))
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e)
       message.error(msg)
     }
-  }, [setSaveErrors, getCharacterFromForm, message, onSaved, store])
+  }, [setSaveErrors, getCharacterFromForm, message, onSaved, store, localize])
 
   return {
     onKill,
@@ -79,6 +80,7 @@ export const useWarnDeath = ({
   character: Character | null
   onKill: () => void
 }) => {
+  const localize = useLocalize()
   const { notification } = App.useApp()
   const { healthCurrent } = useCharacterSheetDerived({ form, character })
   const prevHealthCurrentRef = useRef<number | null>(null)
@@ -96,8 +98,8 @@ export const useWarnDeath = ({
     if (previous != null && previous > 0 && healthCurrent <= 0) {
       notification.warning({
         key: DEATH_SUGGESTION_KEY,
-        title: copy.characters.deathSuggestionTitle,
-        description: copy.characters.deathSuggestionDescription,
+        title: localize.string('characters.deathSuggestionTitle'),
+        description: localize.string('characters.deathSuggestionDescription'),
         placement: 'bottomRight',
         duration: 0,
         actions: (
@@ -108,7 +110,7 @@ export const useWarnDeath = ({
               notification.destroy(DEATH_SUGGESTION_KEY)
               onKill()
             }}>
-            {copy.characters.markDeadAction}
+            {localize.string('characters.markDeadAction')}
           </Button>
         ),
       })

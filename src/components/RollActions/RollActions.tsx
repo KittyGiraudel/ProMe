@@ -5,21 +5,21 @@ import { Button } from '@/components/Button/Button'
 import './RollActions.css'
 
 type RollActionsProps = {
-  onRollAll: () => void
+  onRoll: () => void
   label: string
   onCopyOneLiner?: () => void | Promise<void>
   copyOneLinerLabel?: string
 }
 
 export function RollActions({
-  onRollAll,
+  onRoll,
   label,
   onCopyOneLiner,
   copyOneLinerLabel,
 }: RollActionsProps) {
   return (
     <div className='roll-actions'>
-      <Button type='primary' size='large' onClick={onRollAll}>
+      <Button type='primary' size='large' onClick={onRoll}>
         {label}
       </Button>
       {onCopyOneLiner && copyOneLinerLabel ? (

@@ -5,11 +5,12 @@ import { useCallback, useEffect, useState } from 'react'
 import { useUnsavedChangesGuard } from '@/hooks/useUnsavedChangesGuard'
 import { getCharacterStore } from '@/lib/character/store'
 import type { Character } from '@/lib/character/types'
-import { copy } from '@/messages/fr'
 import { sheetFormMatchesSavedCharacter, type SheetFormValues } from './characterSheetForm'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 export function useCharacterSheetForm({ characterId }: { characterId: string }) {
   const { modal } = App.useApp()
+  const localize = useLocalize()
   const [form] = Form.useForm<SheetFormValues>()
   const [character, setCharacter] = useState<Character | null>(null)
   const [hydratedFromStore, setHydratedFromStore] = useState(false)
@@ -28,15 +29,15 @@ export function useCharacterSheetForm({ characterId }: { characterId: string }) 
   const confirmUnsavedLeave = useCallback(
     ({ onLeave, onStay }: { onLeave: () => void; onStay: () => void }) => {
       modal.confirm({
-        title: copy.characters.unsavedChangesTitle,
-        content: copy.characters.unsavedChangesDescription,
-        okText: copy.characters.unsavedChangesLeave,
-        cancelText: copy.characters.unsavedChangesStay,
+        title: localize.string('characters.unsavedChangesTitle'),
+        content: localize.string('characters.unsavedChangesDescription'),
+        okText: localize.string('characters.unsavedChangesLeave'),
+        cancelText: localize.string('characters.unsavedChangesStay'),
         onOk: onLeave,
         onCancel: onStay,
       })
     },
-    [modal]
+    [modal, localize]
   )
 
   const isFormDirty = useCallback(() => {

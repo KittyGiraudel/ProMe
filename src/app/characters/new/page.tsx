@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { CharacterCreateClient } from './CharacterCreateClient'
-import { copy } from '@/messages/fr'
+import { getMessages } from '@/messages/locales'
+
+const copy = getMessages()
 
 export const metadata: Metadata = {
   title: copy.characters.createPageTitle,

@@ -1,10 +1,10 @@
 'use client'
 
 import { useId } from 'react'
-
-import { copy } from '@/messages/fr'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 type ClockDisplayProps = {
+  label: string
   totalSegments: number
   segmentsPerHalf: number
   position: number
@@ -40,10 +40,12 @@ function describeSectorPath(
 }
 
 export function ClockDisplay({
+  label,
   totalSegments,
   segmentsPerHalf,
   position,
 }: ClockDisplayProps) {
+  const localize = useLocalize()
   const uid = useId().replace(/:/g, '')
   const svgSize = 220
   const center = svgSize / 2
@@ -70,7 +72,7 @@ export function ClockDisplay({
       width='100%'
       style={{ maxWidth: 280, display: 'block', margin: 'auto' }}
       role='img'
-      aria-label={copy.characters.clockSlice(position + 1, totalSegments)}>
+      aria-label={label}>
       <defs>
         <radialGradient
           id={grad.dayBase}
@@ -170,7 +172,7 @@ export function ClockDisplay({
         fillOpacity='0.45'
         fontWeight='700'
         letterSpacing='3'>
-        {copy.characters.clockDay.toUpperCase()}
+        {localize.string('characters.clockDay').toUpperCase()}
       </text>
       <text
         x={center}
@@ -181,7 +183,7 @@ export function ClockDisplay({
         fillOpacity='0.45'
         fontWeight='700'
         letterSpacing='3'>
-        {copy.characters.clockNight.toUpperCase()}
+        {localize.string('characters.clockNight').toUpperCase()}
       </text>
     </svg>
   )

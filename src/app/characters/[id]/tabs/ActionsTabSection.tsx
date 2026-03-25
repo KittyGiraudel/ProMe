@@ -13,19 +13,20 @@ import {
 } from '@ant-design/icons'
 import { Button } from '@/components/Button/Button'
 import { useCharacterContext } from '@/components/CharacterSheet/CharacterContext'
-import { copy } from '@/messages/fr'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 import './ActionsTabSection.css'
 
 export function ActionsTabSection() {
+  const localize = useLocalize()
   const { onKill, onExport, onRevive, onDelete, isDead } = useCharacterContext()
   const { modal } = App.useApp()
 
   const handleRequestDelete = () => {
     modal.confirm({
-      title: copy.characters.deleteConfirmTitle,
-      content: copy.characters.deleteConfirmDescription,
-      okText: copy.characters.delete,
-      cancelText: copy.characters.cancel,
+      title: localize.string('characters.deleteConfirmTitle'),
+      content: localize.string('characters.deleteConfirmDescription'),
+      okText: localize.string('characters.delete'),
+      cancelText: localize.string('characters.cancel'),
       okButtonProps: { danger: true, type: 'primary' },
       onOk: onDelete,
     })
@@ -33,20 +34,20 @@ export function ActionsTabSection() {
 
   const handleRequestRevive = () => {
     modal.confirm({
-      title: copy.characters.reviveConfirmTitle,
-      content: copy.characters.reviveConfirmDescription,
-      okText: copy.characters.reviveAction,
-      cancelText: copy.characters.cancel,
+      title: localize.string('characters.reviveConfirmTitle'),
+      content: localize.string('characters.reviveConfirmDescription'),
+      okText: localize.string('characters.reviveAction'),
+      cancelText: localize.string('characters.cancel'),
       onOk: onRevive,
     })
   }
 
   const handleRequestMarkAsDead = () => {
     modal.confirm({
-      title: copy.characters.markDeadConfirmTitle,
-      content: copy.characters.markDeadConfirmDescription,
-      okText: copy.characters.markDeadAction,
-      cancelText: copy.characters.cancel,
+      title: localize.string('characters.markDeadConfirmTitle'),
+      content: localize.string('characters.markDeadConfirmDescription'),
+      okText: localize.string('characters.markDeadAction'),
+      cancelText: localize.string('characters.cancel'),
       okButtonProps: { danger: true },
       onOk: onKill,
     })
@@ -59,11 +60,11 @@ export function ActionsTabSection() {
       icon: (
         <DownloadOutlined className='actions-tab__icon actions-tab__icon--neutral' />
       ),
-      title: copy.characters.export,
-      description: copy.characters.exportHelp,
+      title: localize.string('characters.export'),
+      description: localize.string('characters.exportHelp'),
       action: (
         <Button htmlType='button' onClick={onExport} disabled={false}>
-          {copy.characters.export}
+          {localize.string('characters.export')}
         </Button>
       ),
     },
@@ -75,15 +76,15 @@ export function ActionsTabSection() {
             icon: (
               <HeartOutlined className='actions-tab__icon actions-tab__icon--success' />
             ),
-            title: copy.characters.reviveAction,
-            description: copy.characters.reviveConfirmDescription,
+            title: localize.string('characters.reviveAction'),
+            description: localize.string('characters.reviveConfirmDescription'),
             action: (
               <Button
                 type='primary'
                 htmlType='button'
                 onClick={handleRequestRevive}
                 disabled={false}>
-                {copy.characters.reviveAction}
+                {localize.string('characters.reviveAction')}
               </Button>
             ),
           },
@@ -95,8 +96,8 @@ export function ActionsTabSection() {
             icon: (
               <FrownOutlined className='actions-tab__icon actions-tab__icon--warning' />
             ),
-            title: copy.characters.markDeadAction,
-            description: copy.characters.dangerMarkDeadHelp,
+            title: localize.string('characters.markDeadAction'),
+            description: localize.string('characters.dangerMarkDeadHelp'),
             action: (
               <Button
                 danger
@@ -104,7 +105,7 @@ export function ActionsTabSection() {
                 htmlType='button'
                 onClick={handleRequestMarkAsDead}
                 disabled={false}>
-                {copy.characters.markDeadAction}
+                {localize.string('characters.markDeadAction')}
               </Button>
             ),
           },
@@ -115,8 +116,8 @@ export function ActionsTabSection() {
       icon: (
         <DeleteOutlined className='actions-tab__icon actions-tab__icon--danger' />
       ),
-      title: copy.characters.delete,
-      description: copy.characters.deleteConfirmDescription,
+      title: localize.string('characters.delete'),
+      description: localize.string('characters.deleteConfirmDescription'),
       action: (
         <Button
           danger
@@ -124,14 +125,14 @@ export function ActionsTabSection() {
           htmlType='button'
           disabled={false}
           onClick={handleRequestDelete}>
-          {copy.characters.delete}
+          {localize.string('characters.delete')}
         </Button>
       ),
     },
   ]
 
   return (
-    <Card title={copy.characters.tabActions}>
+    <Card title={localize.string('characters.tabActions')}>
       <List
         itemLayout='horizontal'
         dataSource={items}

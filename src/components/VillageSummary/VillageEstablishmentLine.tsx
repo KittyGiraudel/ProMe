@@ -4,13 +4,13 @@ import { RedoOutlined } from '@ant-design/icons'
 import { Typography } from 'antd'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import type { PlayingCard } from '@/lib/types'
-import { copy } from '@/messages/fr'
-import { formatVillageRulebookPagesJoined } from '@/messages/formatCopy'
+import { formatRulebookReference } from '@/lib/village/formatRulebookReference'
 import {
   VillageEstablishmentOwners,
   type VillageOwnerEntry,
 } from './VillageEstablishmentOwners'
 import { Button } from '@/components/Button/Button'
+import { useLocalize } from '@/app/contexts/LocalizationContext'
 
 export type VillageEstablishmentLineProps = {
   lineNumber: number
@@ -35,7 +35,9 @@ export function VillageEstablishmentLine({
   ownerEntries,
   onRerollOwner,
 }: VillageEstablishmentLineProps) {
-  const pagesLabel = formatVillageRulebookPagesJoined(rulebookPages)
+  const localize = useLocalize()
+  const pagesLabel = formatRulebookReference(rulebookPages, localize)
+
   return (
     <div className='village-summary__line'>
       <span className='village-summary__line-num'>{lineNumber}.</span>
@@ -55,7 +57,7 @@ export function VillageEstablishmentLine({
                 type='text'
                 size='small'
                 icon={<RedoOutlined />}
-                aria-label={copy.village.rerollCard}
+                aria-label={localize.string('common.rerollCard')}
                 onClick={() => onRerollPrimarySlot(rerollPrimarySlot)}
                 className='village-summary__line-reroll'
               />
@@ -63,7 +65,9 @@ export function VillageEstablishmentLine({
           </div>
           <span
             className='village-summary__line-page'
-            aria-label={`${copy.village.rulebookPageAria}: ${pagesLabel}`}>
+            aria-label={localize.string('common.rulebookPageLine', {
+              pages: pagesLabel,
+            })}>
             {pagesLabel}
           </span>
         </div>

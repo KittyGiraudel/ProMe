@@ -44,12 +44,6 @@
   color: var(--lsdp-muted);
 }
 
-.village-summary__hint {
-  margin-top: 1rem;
-  font-size: 0.875rem;
-  color: var(--lsdp-muted);
-}
-
 .village-summary__dupes-explanation {
   margin: 0;
 }
