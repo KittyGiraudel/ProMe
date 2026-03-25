@@ -206,9 +206,7 @@ export function InhabitantSummary({
                         onRerollPart && (() => onRerollPart('faction'))
                       }>
                       {t.rich('inhabitant.faction_die_meta', {
-                        dice: () => (
-                          <DiceFaces key='dice' values={[roll.factionDie]} />
-                        ),
+                        dice: () => <DiceFaces values={[roll.factionDie]} />,
                       })}
                     </MetaWithReroll>
                   </div>
