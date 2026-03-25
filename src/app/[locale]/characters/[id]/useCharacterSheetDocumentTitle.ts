@@ -52,5 +52,5 @@ export function useCharacterSheetDocumentTitle({
     })()
 
     document.title = `${displayName}${suffix} — ${t('metadata.tab_brand')}`
-  }, [hydratedFromStore, character, activeTabId])
+  }, [hydratedFromStore, character, activeTabId, t])
 }

@@ -142,7 +142,7 @@ export function VillageSummary({
       display
         ? ownerSlotIndexByEstablishmentIndex(display.establishments)
         : null,
-    [display, ownerSlotIndexByEstablishmentIndex]
+    [display]
   )
 
   const ownersOk =

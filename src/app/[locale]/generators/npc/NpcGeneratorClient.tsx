@@ -3,7 +3,7 @@
 import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { App } from 'antd'
-import { useRouter, usePathname } from '@/i18n/navigation'
+import { useRouter } from '@/i18n/navigation'
 import type {
   InhabitantRoll,
   InhabitantRerollPart,
@@ -28,7 +28,6 @@ export function NpcGeneratorClient({
   const t = useTranslations()
   const { message } = App.useApp()
   const router = useRouter()
-  const pathname = usePathname()
 
   const pushToRoll = useCallback(
     (roll: InhabitantRoll) =>
@@ -74,7 +73,7 @@ export function NpcGeneratorClient({
     } catch {
       message.error(t('inhabitant.copy_one_liner_error'))
     }
-  }, [message, pathname, roll, t])
+  }, [message, roll, t])
 
   return (
     <Layout

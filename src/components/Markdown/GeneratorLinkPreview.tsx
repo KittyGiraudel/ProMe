@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { Empty, Modal, Typography } from 'antd'
+import { Empty, Modal } from 'antd'
 import { useTranslations } from 'next-intl'
 import { parseGeneratorLink } from '@/lib/markdown/generatorLink'
 import { decodeInhabitantRollParam } from '@/lib/inhabitant/inhabitantUrlCodec'

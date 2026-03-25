@@ -63,7 +63,7 @@ export function useCharacterLibraryActions({
         event.target.value = ''
       }
     },
-    [message, refresh, store],
+    [message, refresh, store, t],
   )
 
   return {
