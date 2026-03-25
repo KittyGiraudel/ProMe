@@ -96,7 +96,7 @@ export function CharacterLibraryClient() {
                 }>
                 <Space orientation='vertical' size={4}>
                   <Typography.Text>
-                    {localize.template('characters.archetypeLine', {
+                    {localize.string('characters.archetypeLine', {
                       value: localize.string(
                         `archetypes.${character.archetype}`
                       ),

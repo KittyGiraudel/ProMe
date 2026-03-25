@@ -26,8 +26,10 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   const [hydrated, setHydrated] = useState(false)
 
   useEffect(() => {
-    setSettings(loadSettings())
-    setHydrated(true)
+    void Promise.resolve().then(() => {
+      setSettings(loadSettings())
+      setHydrated(true)
+    })
   }, [])
 
   const updateSettings = useCallback(

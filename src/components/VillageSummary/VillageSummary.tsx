@@ -41,7 +41,7 @@ export function VillageSummary({
 
   const display = useMemo(
     () => (roll ? resolveVillageDisplay(roll) : null),
-    [roll, localize]
+    [roll, localize, resolveVillageDisplay]
   )
 
   const ownerSlotByEstIndex = useMemo(
@@ -49,7 +49,7 @@ export function VillageSummary({
       display
         ? ownerSlotIndexByEstablishmentIndex(display.establishments)
         : null,
-    [display]
+    [display, ownerSlotIndexByEstablishmentIndex]
   )
 
   const ownersOk =
@@ -119,6 +119,7 @@ export function VillageSummary({
     ownerSlotByEstIndex,
     owners,
     ownersOk,
+    localize,
   ])
 
   const villageFootnote = (

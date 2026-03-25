@@ -107,7 +107,7 @@ export function InhabitantSummary({
         const p = personalityFromRank(rank)
         return { value: p, label: localize.string(`personalities.${p}`) }
       }),
-    []
+    [localize]
   )
 
   if (!roll) {
@@ -171,7 +171,7 @@ export function InhabitantSummary({
                       }>
                       <>
                         {localize.template('inhabitant.nameDiceMeta', {
-                          dice: <DiceFaces values={roll.nameDice} />,
+                          dice: <DiceFaces key='dice' values={roll.nameDice} />,
                         })}
                       </>
                     </MetaWithReroll>
@@ -207,7 +207,9 @@ export function InhabitantSummary({
                       }>
                       <>
                         {localize.template('inhabitant.factionDieMeta', {
-                          dice: <DiceFaces values={[roll.factionDie]} />,
+                          dice: (
+                            <DiceFaces key='dice' values={[roll.factionDie]} />
+                          ),
                         })}
                       </>
                     </MetaWithReroll>
@@ -241,7 +243,9 @@ export function InhabitantSummary({
                       onReroll={onRerollPart && (() => onRerollPart('gender'))}>
                       <>
                         {localize.template('inhabitant.factionDieMeta', {
-                          dice: <DiceFaces values={[roll.genderDie]} />,
+                          dice: (
+                            <DiceFaces key='dice' values={[roll.genderDie]} />
+                          ),
                         })}
                       </>
                     </MetaWithReroll>
@@ -277,7 +281,9 @@ export function InhabitantSummary({
                       }>
                       <>
                         {localize.template('inhabitant.cardMeta', {
-                          card: <PlayingCardLabel card={roll.ageCard} />,
+                          card: (
+                            <PlayingCardLabel key='card' card={roll.ageCard} />
+                          ),
                         })}
                       </>
                     </MetaWithReroll>
@@ -315,7 +321,10 @@ export function InhabitantSummary({
                       <>
                         {localize.template('inhabitant.cardMeta', {
                           card: (
-                            <PlayingCardLabel card={roll.personalityCard} />
+                            <PlayingCardLabel
+                              key='card'
+                              card={roll.personalityCard}
+                            />
                           ),
                         })}
                       </>
@@ -345,6 +354,7 @@ export function InhabitantSummary({
                       {localize.template('inhabitant.cardMeta', {
                         card: (
                           <Tooltip
+                            key='tooltip'
                             title={localize.string(
                               'inhabitant.contextCardNote'
                             )}>
@@ -398,7 +408,10 @@ export function InhabitantSummary({
                             {' · '}
                             {localize.template('inhabitant.factionDieMeta', {
                               dice: (
-                                <DiceFaces values={[roll.contextSevenDie]} />
+                                <DiceFaces
+                                  key='dicefaces'
+                                  values={[roll.contextSevenDie]}
+                                />
                               ),
                             })}
                           </>
@@ -441,6 +454,7 @@ export function InhabitantSummary({
                               {localize.template('inhabitant.nameDiceMeta', {
                                 dice: (
                                   <DiceFaces
+                                    key='dicefaces'
                                     values={roll.contextSpokenNameDice}
                                   />
                                 ),

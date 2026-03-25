@@ -108,7 +108,12 @@ export function generateInhabitantWithFaction(
   localize: Localize,
   rng: () => number = Math.random,
 ): InhabitantRoll {
-  return rollInhabitantRoll(canonicalFactionDie(faction), faction, rng, localize);
+  return rollInhabitantRoll(
+    canonicalFactionDie(faction),
+    faction,
+    localize,
+    rng,
+  );
 }
 
 export function generateInhabitant(
@@ -117,7 +122,7 @@ export function generateInhabitant(
 ): InhabitantRoll {
   const factionDie = rollD6(rng);
   const faction = factionFromD6(factionDie);
-  return rollInhabitantRoll(factionDie, faction, rng, localize);
+  return rollInhabitantRoll(factionDie, faction, localize, rng);
 }
 
 export function setInhabitantFaction(roll: InhabitantRoll, faction: Faction): InhabitantRoll {

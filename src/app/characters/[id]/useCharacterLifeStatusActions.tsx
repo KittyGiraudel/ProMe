@@ -48,6 +48,7 @@ export function useCharacterLifeStatusActions({
     notification,
     onSaved,
     store,
+    localize,
   ])
 
   const onRevive = useCallback(() => {

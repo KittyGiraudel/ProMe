@@ -6,36 +6,43 @@ import {
 import { lookupName } from "./data/namesByFaction";
 import { copy } from "@/messages/fr";
 import { genderFromD6, factionFromD6 } from "./maps";
+import { testLocalize } from "@/lib/localization/testLocalize";
 
 describe("inhabitantUrlCodec", () => {
   it("decodes legacy 8-char and round-trips through v2 encode", () => {
     const legacy = "1H2C3111";
-    const roll = decodeInhabitantRollParam(legacy);
+    const roll = decodeInhabitantRollParam(legacy, testLocalize);
     expect(roll).not.toBeNull();
     expect(roll!.ageCard).toEqual(roll!.personalityCard);
     expect(encodeInhabitantRoll(roll!)).toBe("1H2H2C3111");
-    expect(decodeInhabitantRollParam(encodeInhabitantRoll(roll!))).toEqual(roll);
+    expect(decodeInhabitantRollParam(encodeInhabitantRoll(roll!), testLocalize)).toEqual(
+      roll,
+    );
   });
 
   it("decodes legacy context rank 7 and round-trips", () => {
     const legacy = "1H2C71115";
-    const roll = decodeInhabitantRollParam(legacy);
+    const roll = decodeInhabitantRollParam(legacy, testLocalize);
     expect(roll).not.toBeNull();
     expect(roll!.contextCard.rank).toBe("7");
     expect(roll!.contextSevenDie).toBe(5);
     expect(encodeInhabitantRoll(roll!)).toBe("1H2H2C71115");
-    expect(decodeInhabitantRollParam(encodeInhabitantRoll(roll!))).toEqual(roll);
+    expect(
+      decodeInhabitantRollParam(encodeInhabitantRoll(roll!), testLocalize),
+    ).toEqual(roll);
   });
 
   it("decodes legacy context rank 10 with two spoken-name dice", () => {
     const legacy = "1H2DT31111";
-    const roll = decodeInhabitantRollParam(legacy);
+    const roll = decodeInhabitantRollParam(legacy, testLocalize);
     expect(roll).not.toBeNull();
     expect(roll!.contextCard.rank).toBe("10");
     expect(roll!.contextSpokenNameDice).toEqual([1, 1]);
     expect(roll!.contextSpokenName).toBeDefined();
     expect(encodeInhabitantRoll(roll!)).toBe("1H2H2DT31111");
-    expect(decodeInhabitantRollParam(encodeInhabitantRoll(roll!))).toEqual(roll);
+    expect(
+      decodeInhabitantRollParam(encodeInhabitantRoll(roll!), testLocalize),
+    ).toEqual(roll);
   });
 
   it("round-trips v2 when age and personality cards differ", () => {
@@ -56,17 +63,17 @@ describe("inhabitantUrlCodec", () => {
     };
     const encoded = encodeInhabitantRoll(roll);
     expect(encoded).toBe("1H5SKC3234");
-    expect(decodeInhabitantRollParam(encoded)).toEqual(roll);
+    expect(decodeInhabitantRollParam(encoded, testLocalize)).toEqual(roll);
   });
 
   it("rejects wrong tail for context rank", () => {
-    expect(decodeInhabitantRollParam("1H2C31115")).toBeNull();
-    expect(decodeInhabitantRollParam("1H2C711112")).toBeNull();
+    expect(decodeInhabitantRollParam("1H2C31115", testLocalize)).toBeNull();
+    expect(decodeInhabitantRollParam("1H2C711112", testLocalize)).toBeNull();
   });
 
   it("rejects bad lengths and garbage", () => {
-    expect(decodeInhabitantRollParam("")).toBeNull();
-    expect(decodeInhabitantRollParam("1H2C311")).toBeNull();
-    expect(decodeInhabitantRollParam("1H2C31111X")).toBeNull();
+    expect(decodeInhabitantRollParam("", testLocalize)).toBeNull();
+    expect(decodeInhabitantRollParam("1H2C311", testLocalize)).toBeNull();
+    expect(decodeInhabitantRollParam("1H2C31111X", testLocalize)).toBeNull();
   });
 });

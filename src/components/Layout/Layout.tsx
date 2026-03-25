@@ -62,7 +62,7 @@ const useBreadcrumbs = ({
     if (breadcrumbs?.length !== 0) items.push({ title: <span>{title}</span> })
 
     return items
-  }, [breadcrumbs, title])
+  }, [breadcrumbs, localize, title])
 
   return breadcrumbItems
 }

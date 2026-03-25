@@ -51,11 +51,11 @@ export function InhabitantGeneratorClient() {
       { label: localize.string('nav.homeLink'), href: '/' },
       { label: localize.string('nav.backToVillage'), href: villageBackHref },
     ]
-  }, [villageBackHref])
+  }, [localize, villageBackHref])
 
   const roll = useMemo(
     () => (encoded ? decodeInhabitantRollParam(encoded, localize) : null),
-    [encoded]
+    [encoded, localize]
   )
 
   useEffect(() => {
@@ -70,7 +70,7 @@ export function InhabitantGeneratorClient() {
     replaceSearchParams(p => {
       p.set(INHABITANT_QUERY_KEY, encodeInhabitantRoll(next))
     })
-  }, [replaceSearchParams])
+  }, [localize, replaceSearchParams])
 
   const handleRerollPart = useCallback(
     (part: InhabitantRerollPart) => {
@@ -80,7 +80,7 @@ export function InhabitantGeneratorClient() {
         p.set(INHABITANT_QUERY_KEY, encodeInhabitantRoll(next))
       })
     },
-    [replaceSearchParams, roll]
+    [localize, replaceSearchParams, roll]
   )
 
   const handleSetRoll = useCallback(
@@ -113,7 +113,7 @@ export function InhabitantGeneratorClient() {
     } catch {
       message.error(localize.string('inhabitant.copyOneLinerError'))
     }
-  }, [message, pathname, roll, searchParams])
+  }, [localize, message, pathname, roll, searchParams])
 
   return (
     <Layout

@@ -80,6 +80,7 @@ export function useCharacterSheetMainActions({
     onSaved,
     setSaveErrors,
     store,
+    localize,
   ])
 
   const onExport = useCallback(() => {

@@ -133,7 +133,11 @@ export function VillageGeneratorClient() {
     const next = generateVillageRoll()
     const owners = generateOwnersForVillage(next, villageFaction)
     pushVillageParams(next, owners, villageFaction)
-  }, [pushVillageParams, villageFaction])
+  }, [
+    pushVillageParams,
+    villageFaction,
+    generateOwnersForVillage,
+  ])
 
   const handleFactionChange = useCallback(
     (nextFaction: Faction) => {
@@ -146,7 +150,7 @@ export function VillageGeneratorClient() {
       const owners = generateOwnersForVillage(roll, nextFaction)
       pushVillageParams(roll, owners, nextFaction)
     },
-    [pushVillageParams, replaceSearchParams, roll]
+    [pushVillageParams, replaceSearchParams, roll, generateOwnersForVillage]
   )
 
   const handleRerollSlot = useCallback(
@@ -156,7 +160,7 @@ export function VillageGeneratorClient() {
       const owners = generateOwnersForVillage(next, villageFaction)
       pushVillageParams(next, owners, villageFaction)
     },
-    [pushVillageParams, roll, villageFaction]
+    [pushVillageParams, roll, villageFaction, generateOwnersForVillage]
   )
 
   const handleRerollOwner = useCallback(
@@ -169,7 +173,7 @@ export function VillageGeneratorClient() {
       )
       pushVillageParams(roll, nextOwners, villageFaction)
     },
-    [ownersValid, pushVillageParams, roll, villageFaction]
+    [localize, ownersValid, pushVillageParams, roll, villageFaction]
   )
 
   const handleCopyOneLiner = useCallback(async () => {
@@ -195,7 +199,15 @@ export function VillageGeneratorClient() {
     } catch {
       message.error(localize.string('village.copyOneLinerError'))
     }
-  }, [message, ownersValid, pathname, roll, searchParams, villageFaction])
+  }, [
+    localize,
+    message,
+    ownersValid,
+    pathname,
+    roll,
+    searchParams,
+    villageFaction,
+  ])
 
   const factionOptions = useMemo(
     () =>
@@ -203,7 +215,7 @@ export function VillageGeneratorClient() {
         value: r,
         label: localize.string(`factions.${r}`),
       })),
-    []
+    [localize]
   )
 
   const inhabitantPageVillageQuery = useMemo(() => {

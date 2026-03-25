@@ -13,6 +13,7 @@ import {
   setInhabitantFaction,
   type InhabitantRoll,
 } from "./generate";
+import { testLocalize } from "@/lib/localization/testLocalize";
 
 function makeRoll(over: Partial<InhabitantRoll> = {}): InhabitantRoll {
   return {
@@ -40,7 +41,7 @@ describe("inhabitant/generate", () => {
 
   it("generateInhabitantWithFaction uses canonical faction die", () => {
     const rng = () => 0.0001;
-    const roll = generateInhabitantWithFaction("cucurbitus", rng);
+    const roll = generateInhabitantWithFaction("cucurbitus", testLocalize, rng);
     expect(roll.faction).toBe("cucurbitus");
     expect(roll.factionDie).toBe(3);
   });
@@ -56,15 +57,15 @@ describe("inhabitant/generate", () => {
 
   it("rerollInhabitantPart ageCard and personalityCard are independent", () => {
     const roll = makeRoll();
-    const nextAge = rerollInhabitantPart(roll, "ageCard", () => 0.5);
+    const nextAge = rerollInhabitantPart(roll, "ageCard", testLocalize, () => 0.5);
     expect(nextAge.personalityCard).toEqual(roll.personalityCard);
-    const nextPers = rerollInhabitantPart(roll, "personalityCard", () => 0.5);
+    const nextPers = rerollInhabitantPart(roll, "personalityCard", testLocalize, () => 0.5);
     expect(nextPers.ageCard).toEqual(roll.ageCard);
   });
 
   it("rerollInhabitantPart faction updates name for new faction grid", () => {
     const roll = makeRoll({ faction: "bruja", nameDice: [1, 1] });
-    const next = rerollInhabitantPart(roll, "faction", () => 0.999);
+    const next = rerollInhabitantPart(roll, "faction", testLocalize, () => 0.999);
     expect(next.factionDie).toBe(6);
     expect(next.faction).toBe("mousseron");
     expect(next.name).toBe(lookupName("mousseron", 1, 1));
@@ -72,13 +73,13 @@ describe("inhabitant/generate", () => {
 
   it("rerollInhabitantPart contextSevenDie is a no-op when context is not 7", () => {
     const roll = makeRoll();
-    const next = rerollInhabitantPart(roll, "contextSevenDie", () => 0.99);
+    const next = rerollInhabitantPart(roll, "contextSevenDie", testLocalize, () => 0.99);
     expect(next).toBe(roll);
   });
 
   it("rerollInhabitantPart contextSpokenNameDice is a no-op when context is not 10", () => {
     const roll = makeRoll();
-    const next = rerollInhabitantPart(roll, "contextSpokenNameDice", () => 0.99);
+    const next = rerollInhabitantPart(roll, "contextSpokenNameDice", testLocalize, () => 0.99);
     expect(next).toBe(roll);
   });
 

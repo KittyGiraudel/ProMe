@@ -1,5 +1,6 @@
 import { getMessages } from '@/messages/locales'
 import { type CharacterSheetTabKey, CHARACTER_SHEET_TAB_KEYS } from './characterSheetRoutes'
+import { resolveByPath } from '@/lib/localization/localize'
 
 /**
  * Default `metadata.title` for a sheet tab (no character name — that data lives
@@ -14,5 +15,9 @@ export function characterSheetMetadataTitle(
 
   const tab = CHARACTER_SHEET_TAB_KEYS.find(tab => tab.key === tabKey)
 
-  return `${tab?.label ?? copy.characters.sheetTitle} — ${copy.metadata.tabBrand}`
+  const label = tab?.localizationKey
+    ? resolveByPath(copy, tab.localizationKey)
+    : undefined
+
+  return `${typeof label === 'string' ? label : copy.characters.sheetTitle} — ${copy.metadata.tabBrand}`
 }

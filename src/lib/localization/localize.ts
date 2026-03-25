@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import type { Locale, Messages } from '@/messages/locales'
 
-function resolveByPath(obj: unknown, path: string): unknown {
+export function resolveByPath(obj: unknown, path: string): unknown {
   const parts = path.split('.').filter(Boolean)
   let cur = obj as unknown
   for (const part of parts) {
@@ -59,6 +59,11 @@ export type Localize = {
   string: (key: string, ...args: unknown[]) => string
   /** Same as `string`, but allows ReactNode placeholders. */
   template: (key: string, ...args: unknown[]) => ReactNode
+  /**
+   * Resolve a copy value by key without enforcing it is a string.
+   * Useful for tables / lookup arrays that are not authored as translations.
+   */
+  resolve: (key: string) => unknown
   /** Locale-aware date formatter wrapper. */
   date: (
     value: string | Date | number | undefined | null,
@@ -75,6 +80,7 @@ export function createLocalize({
 }): Localize {
   return {
     locale,
+    resolve: (key: string) => resolveByPath(copy, key),
     string: (key: string, ...args: unknown[]) => {
       const resolved = resolveByPath(copy, key)
       if (typeof resolved === 'function') {
@@ -142,4 +148,3 @@ export function createLocalize({
     },
   }
 }
-

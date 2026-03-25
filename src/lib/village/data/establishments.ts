@@ -20,8 +20,6 @@ export function rankUsesEstablishmentSizeTiers(rank: Rank): boolean {
 /** Game tier 1–3 (ascending size); indexes `establishmentSizeTierLines` copy at `tier - 1`. */
 export type EstablishmentSizeTier = 1 | 2 | 3;
 
-type EstablishmentSizeTierRank = (typeof ESTABLISHMENT_SIZE_TIER_RANKS)[number];
-
 export function establishmentLineFromSizeTier(
   rank: Rank,
   tier: EstablishmentSizeTier,
@@ -30,8 +28,17 @@ export function establishmentLineFromSizeTier(
   if (!rankUsesEstablishmentSizeTiers(rank)) {
     throw new Error(`establishmentLineFromSizeTier: rank ${rank}`);
   }
-  
-  return localize.string(`game.villageEstablishments.establishmentSizeTierLines.${rank}`)[tier - 1];
+
+  const resolved = localize.resolve(
+    `game.villageEstablishments.establishmentSizeTierLines.${rank}`,
+  );
+  if (!Array.isArray(resolved) || !resolved.every((v) => typeof v === 'string')) {
+    throw new Error(
+      `establishmentLineFromSizeTier: copy key "game.villageEstablishments.establishmentSizeTierLines.${rank}" did not resolve to string[]`,
+    );
+  }
+
+  return resolved[tier - 1]!;
 }
 
 /** Label for an establishment card (A–10 only). */

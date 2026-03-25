@@ -173,7 +173,7 @@ export function MapCellContextMenu({
         children: [...actionItems],
       },
     ]
-  }, [canMoveHere, coordLabel, hasCellContent, hasStoredIcon])
+  }, [canMoveHere, coordLabel, hasCellContent, hasStoredIcon, localize])
 
   const onEmojiPicked = (data: EmojiClickData) => {
     onSetIcon(coord, firstGrapheme(data.emoji))

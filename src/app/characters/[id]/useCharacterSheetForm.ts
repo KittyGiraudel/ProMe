@@ -18,8 +18,8 @@ export function useCharacterSheetForm({ characterId }: { characterId: string }) 
 
   // Avoid hydration mismatches by deferring localStorage/sessionStorage reads to the client.
   useEffect(() => {
-    setHydratedFromStore(false)
     void Promise.resolve().then(() => {
+      setHydratedFromStore(false)
       const saved = getCharacterStore().get(characterId)
       setCharacter(saved ?? null)
       setHydratedFromStore(true)

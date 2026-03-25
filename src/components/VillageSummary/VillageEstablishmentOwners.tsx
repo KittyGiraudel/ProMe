@@ -41,6 +41,7 @@ export function VillageEstablishmentOwners({
             gender: genderCompactSymbol(e.roll.gender),
             name: (
               <BlockedLink
+                key='link'
                 href={inhabitantHref}
                 className='village-summary__owner-name-link'>
                 {e.roll.name}

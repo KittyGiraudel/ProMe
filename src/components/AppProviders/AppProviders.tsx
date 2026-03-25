@@ -37,7 +37,9 @@ export function AppProviders({ children }: { children: ReactNode }) {
   useEffect(() => {
     // Basic locale detection; only French exists today.
     const navLang = navigator.language?.toLowerCase() ?? ''
-    if (navLang.startsWith('fr')) setLocale('fr')
+    void Promise.resolve().then(() => {
+      if (navLang.startsWith('fr')) setLocale('fr')
+    })
   }, [])
 
   return (

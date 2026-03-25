@@ -1,6 +1,7 @@
 import { lookupName } from "./data/namesByFaction";
 import { genderFromD6, factionFromD6 } from "./maps";
 import type { InhabitantRoll } from "./generate";
+import type { PlayingCard } from "../types";
 import {
   decodePlayingCardPair as decodeCard,
   encodePlayingCard as encodeCard,
@@ -21,8 +22,58 @@ function parseNameDie(c: string): number | null {
   return n;
 }
 
+function dualFromLegacyMerged(merged: PlayingCard): {
+  ageCard: PlayingCard;
+  personalityCard: PlayingCard;
+} {
+  return { ageCard: merged, personalityCard: merged };
+}
+
+/** Pre–split URL: 1D6 faction, 1 card (age+personality), context, 2D6 name, 1D6 gender — 8 chars. */
+function decodeInhabitantRollBaseLegacy(compact: string, localize: Localize): InhabitantRoll | null {
+  if (compact.length !== 8) return null;
+
+  const factionDie = parseFactionDie(compact[0]!);
+  const merged = decodeCard(compact.slice(1, 3));
+  const contextCard = decodeCard(compact.slice(3, 5));
+  const n1 = parseNameDie(compact[5]!);
+  const n2 = parseNameDie(compact[6]!);
+  const genderDie = parseFactionDie(compact[7]!);
+
+  if (
+    factionDie === null ||
+    merged === null ||
+    contextCard === null ||
+    n1 === null ||
+    n2 === null ||
+    genderDie === null
+  ) {
+    return null;
+  }
+
+  const { ageCard, personalityCard } = dualFromLegacyMerged(merged);
+  const faction = factionFromD6(factionDie);
+  const nameDice: [number, number] = [n1, n2];
+  const name = lookupName(faction, n1, n2);
+  const contextText = localize.string(`game.inhabitantContextByRank.${contextCard.rank}`);
+  const gender = genderFromD6(genderDie);
+
+  return {
+    factionDie,
+    faction,
+    ageCard,
+    personalityCard,
+    contextCard,
+    nameDice,
+    name,
+    contextText,
+    genderDie,
+    gender,
+  };
+}
+
 /** Current URL: faction, age card, personality card, context, 2D6 name, 1D6 gender — 10 chars. */
-function decodeInhabitantRollBaseV2(compact: string, localize: Localize): InhabitantRoll | null {
+function decodeInhabitantRollBaseV2(compact: string, localize:Localize): InhabitantRoll | null {
   if (compact.length !== 10) return null;
 
   const factionDie = parseFactionDie(compact[0]!);
@@ -84,9 +135,40 @@ export function encodeInhabitantRoll(roll: InhabitantRoll): string {
   return s;
 }
 
+function tryDecodeLegacyLength10(compact: string, localize: Localize): InhabitantRoll | null {
+  if (compact.length !== 10) return null;
+  const base = decodeInhabitantRollBaseLegacy(compact.slice(0, 8), localize);
+  if (!base || base.contextCard.rank !== "10") return null;
+  const a = parseNameDie(compact[8]!);
+  const b = parseNameDie(compact[9]!);
+  if (a === null || b === null) return null;
+  const contextSpokenNameDice: [number, number] = [a, b];
+  const contextSpokenName = lookupName(base.faction, a, b);
+  return { ...base, contextSpokenNameDice, contextSpokenName };
+}
+
 export function decodeInhabitantRollParam(raw: string, localize: Localize): InhabitantRoll | null {
   const compact = raw.trim().toUpperCase();
   const len = compact.length;
+
+  if (len === 8) {
+    return decodeInhabitantRollBaseLegacy(compact, localize);
+  }
+
+  if (len === 9) {
+    const base = decodeInhabitantRollBaseLegacy(compact.slice(0, 8), localize);
+    if (!base) return null;
+    if (base.contextCard.rank !== "7") return null;
+    const contextSevenDie = parseFactionDie(compact[8]!);
+    if (contextSevenDie === null) return null;
+    return { ...base, contextSevenDie };
+  }
+
+  if (len === 10) {
+    const legacyRank10 = tryDecodeLegacyLength10(compact, localize);
+    if (legacyRank10) return legacyRank10;
+    return decodeInhabitantRollBaseV2(compact, localize);
+  }
 
   if (len === 11) {
     const base = decodeInhabitantRollBaseV2(compact.slice(0, 10), localize);
