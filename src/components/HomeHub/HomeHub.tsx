@@ -1,11 +1,10 @@
 'use client'
 
 import { Card, Col, Row, Typography } from 'antd'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useFormatter, useTranslations } from 'next-intl'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { getCharacterStore } from '@/lib/character/store'
-import type { Character } from '@/lib/character/types'
 import { Layout } from '../Layout/Layout'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 import './HomeHub.css'
@@ -14,17 +13,16 @@ const CharacterManager = () => {
   const t = useTranslations()
   const format = useFormatter()
   const store = useMemo(() => getCharacterStore(), [])
-  const [recentCharacters, setRecentCharacters] = useState<Character[]>([])
-
-  useEffect(() => {
-    const latest = [...store.list()]
-      .sort(
-        (a, b) =>
-          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-      )
-      .slice(0, 3)
-    setRecentCharacters(latest)
-  }, [store])
+  const recentCharacters = useMemo(
+    () =>
+      [...store.list()]
+        .sort(
+          (a, b) =>
+            new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+        )
+        .slice(0, 3),
+    [store]
+  )
 
   return (
     <Card

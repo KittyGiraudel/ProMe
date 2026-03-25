@@ -215,6 +215,8 @@
       "unexplored": "Inexploré",
       "move_here": "Se déplacer ici",
       "move_neighbor_only": "Uniquement vers un hexagone adjacent",
+      "journal_links_label": "Journal",
+      "journal_links_overflow": "+ {count} entrée{count > 1 ? 's' : ''} plus ancienne{count > 1 ? 's' : ''}",
       "clear_cell": "Effacer la case",
       "menu_marking_group": "Marquage",
       "menu_actions_group": "Actions",

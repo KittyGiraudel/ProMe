@@ -16,6 +16,7 @@ import {
   type CharacterMapCell,
   type CharacterMapState,
   type HexCoordinate,
+  type JournalEntry,
 } from '@/lib/character/types'
 import { DEFAULT_MAP_POSITION } from '@/lib/character/model'
 import { getRandomBiomeResult } from '@/lib/map/randomBiome'
@@ -24,6 +25,7 @@ import { MapFormValueAnchor } from './MapFormValueAnchor'
 import { Button } from '@/components/Button/Button'
 import { useMapHashNavigation } from './useMapHashNavigation'
 import { useTranslations } from 'next-intl'
+import { buildCellReferenceToJournalEntriesIndex } from '@/lib/journal/cellReferenceIndex'
 
 function normalizeMapState(
   value: CharacterMapState | undefined
@@ -46,6 +48,10 @@ export function MapCard() {
     form,
     preserve: true,
   }) as CharacterMapState | undefined
+  const watchedJournalEntries = Form.useWatch('journalEntries', {
+    form,
+    preserve: true,
+  }) as JournalEntry[] | undefined
   const mapState = normalizeMapState(watchedMap)
   const [selectedCell, setSelectedCell] = useState<HexCoordinate | null>(null)
   const [visibleSheet, setVisibleSheet] = useState<SheetCoordinate>(() =>
@@ -81,6 +87,11 @@ export function MapCard() {
     }
     return next
   }, [mapState.cells])
+
+  const journalIndexByCellRef = useMemo(
+    () => buildCellReferenceToJournalEntriesIndex(watchedJournalEntries),
+    [watchedJournalEntries]
+  )
 
   const toggleSelectCell = (coord: HexCoordinate) => {
     setSelectedCell(prev => (prev && isSameHex(prev, coord) ? null : coord))
@@ -275,6 +286,7 @@ export function MapCard() {
           <MapDisplay
             sheet={visibleSheet}
             cellsByKey={cellsByKey}
+            journalIndexByCellRef={journalIndexByCellRef}
             currentPosition={mapState.currentPosition}
             selectedPosition={selectedCell}
             onSelectCell={toggleSelectCell}

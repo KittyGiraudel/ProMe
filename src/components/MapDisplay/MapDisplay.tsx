@@ -17,6 +17,7 @@ import {
   toHexKey,
   type SheetCoordinate,
 } from '@/lib/hex/coordinates'
+import type { JournalEntryLink } from '@/lib/journal/cellReferenceIndex'
 import './MapDisplay.css'
 import React from 'react'
 import { MapCellContextMenu } from './MapCellContextMenu'
@@ -24,6 +25,7 @@ import { MapCellContextMenu } from './MapCellContextMenu'
 type MapDisplayProps = {
   sheet: SheetCoordinate
   cellsByKey: Map<string, CharacterMapCell>
+  journalIndexByCellRef: Map<string, JournalEntryLink[]>
   currentPosition: HexCoordinate
   selectedPosition: HexCoordinate | null
   onSelectCell: (coord: HexCoordinate) => void
@@ -37,6 +39,7 @@ type MapDisplayProps = {
 export function MapDisplay({
   sheet,
   cellsByKey,
+  journalIndexByCellRef,
   currentPosition,
   selectedPosition,
   onSelectCell,
@@ -89,6 +92,8 @@ export function MapDisplay({
               const icon = cell?.icon
               const localLabel = getDisplayedCellLabel(global)
               const canMoveHere = areHexNeighbors(currentPosition, global)
+              const cellRef = formatDisplayedCellReference(global)
+              const journalLinks = journalIndexByCellRef.get(cellRef) ?? []
 
               return (
                 <div
@@ -111,6 +116,7 @@ export function MapDisplay({
                     canMoveHere={canMoveHere}
                     title={localLabel}
                     coordLabel={localLabel}
+                    journalLinks={journalLinks}
                     onSelectCell={onSelectCell}
                     onAssignBiome={onAssignBiome}
                     onAssignRandomBiome={onAssignRandomBiome}
