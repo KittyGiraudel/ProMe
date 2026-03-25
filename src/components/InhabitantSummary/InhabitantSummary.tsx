@@ -169,11 +169,11 @@ export function InhabitantSummary({
                       onReroll={
                         onRerollPart && (() => onRerollPart('nameDice'))
                       }>
-                      <>
-                        {t('inhabitant.name_dice_meta', {
-                          dice: <DiceFaces key='dice' values={roll.nameDice} />,
-                        })}
-                      </>
+                      {t.rich('inhabitant.name_dice_meta', {
+                        dice: () => (
+                          <DiceFaces key='dice' values={roll.nameDice} />
+                        ),
+                      })}
                     </MetaWithReroll>
                   </div>
                 </div>
@@ -205,13 +205,11 @@ export function InhabitantSummary({
                       onReroll={
                         onRerollPart && (() => onRerollPart('faction'))
                       }>
-                      <>
-                        {t('inhabitant.faction_die_meta', {
-                          dice: (
-                            <DiceFaces key='dice' values={[roll.factionDie]} />
-                          ),
-                        })}
-                      </>
+                      {t.rich('inhabitant.faction_die_meta', {
+                        dice: () => (
+                          <DiceFaces key='dice' values={[roll.factionDie]} />
+                        ),
+                      })}
                     </MetaWithReroll>
                   </div>
                 </div>
@@ -229,7 +227,7 @@ export function InhabitantSummary({
                     value={roll.gender}
                     options={GENDERS.map(g => ({
                       value: g,
-                      label: t(`genders.${g}`),
+                      label: t(`common.genders.${g}`),
                     }))}
                     onChange={(g: Gender) => {
                       if (!onSetRoll) return
@@ -241,13 +239,11 @@ export function InhabitantSummary({
                     <MetaWithReroll
                       rerollLabel={t('inhabitant.reroll_gender')}
                       onReroll={onRerollPart && (() => onRerollPart('gender'))}>
-                      <>
-                        {t('inhabitant.faction_die_meta', {
-                          dice: (
-                            <DiceFaces key='dice' values={[roll.genderDie]} />
-                          ),
-                        })}
-                      </>
+                      {t.rich('inhabitant.faction_die_meta', {
+                        dice: () => (
+                          <DiceFaces key='dice' values={[roll.genderDie]} />
+                        ),
+                      })}
                     </MetaWithReroll>
                   </div>
                 </div>
@@ -265,7 +261,7 @@ export function InhabitantSummary({
                     value={age}
                     options={AGE_BANDS.map(band => ({
                       value: band,
-                      label: t(`age_bands.${band}`),
+                      label: t(`common.age_bands.${band}`),
                     }))}
                     onChange={(band: AgeBand) => {
                       if (!onSetRoll) return
@@ -279,13 +275,11 @@ export function InhabitantSummary({
                       onReroll={
                         onRerollPart && (() => onRerollPart('ageCard'))
                       }>
-                      <>
-                        {t('inhabitant.card_meta', {
-                          card: (
-                            <PlayingCardLabel key='card' card={roll.ageCard} />
-                          ),
-                        })}
-                      </>
+                      {t.rich('inhabitant.card_meta', {
+                        card: () => (
+                          <PlayingCardLabel key='card' card={roll.ageCard} />
+                        ),
+                      })}
                     </MetaWithReroll>
                   </div>
                 </div>
@@ -314,16 +308,14 @@ export function InhabitantSummary({
                       onReroll={
                         onRerollPart && (() => onRerollPart('personalityCard'))
                       }>
-                      <>
-                        {t('inhabitant.card_meta', {
-                          card: (
-                            <PlayingCardLabel
-                              key='card'
-                              card={roll.personalityCard}
-                            />
-                          ),
-                        })}
-                      </>
+                      {t.rich('inhabitant.card_meta', {
+                        card: () => (
+                          <PlayingCardLabel
+                            key='card'
+                            card={roll.personalityCard}
+                          />
+                        ),
+                      })}
                     </MetaWithReroll>
                   </div>
                 </div>
@@ -344,21 +336,19 @@ export function InhabitantSummary({
                     onReroll={
                       onRerollPart && (() => onRerollPart('contextCard'))
                     }>
-                    <>
-                      {t('inhabitant.card_meta', {
-                        card: (
-                          <Tooltip
-                            key='tooltip'
-                            title={t('inhabitant.context_card_note')}>
-                            <span
-                              className='inhabitant-summary__context-card-hit'
-                              tabIndex={0}>
-                              <PlayingCardLabel card={roll.contextCard} />
-                            </span>
-                          </Tooltip>
-                        ),
-                      })}
-                    </>
+                    {t.rich('inhabitant.card_meta', {
+                      card: () => (
+                        <Tooltip
+                          key='tooltip'
+                          title={t('inhabitant.context_card_note')}>
+                          <span
+                            className='inhabitant-summary__context-card-hit'
+                            tabIndex={0}>
+                            <PlayingCardLabel card={roll.contextCard} />
+                          </span>
+                        </Tooltip>
+                      ),
+                    })}
                   </MetaWithReroll>
                   {roll.contextCard.rank === '7' ? (
                     <div className='inhabitant-summary__context-followup'>
@@ -390,11 +380,11 @@ export function InhabitantSummary({
                                 : t('inhabitant.context_seven_map_biome')}
                             </strong>
                             {' · '}
-                            {t('inhabitant.faction_die_meta', {
-                              dice: (
+                            {t.rich('inhabitant.faction_die_meta', {
+                              dice: () => (
                                 <DiceFaces
                                   key='dicefaces'
-                                  values={[roll.contextSevenDie]}
+                                  values={[roll.contextSevenDie!]}
                                 />
                               ),
                             })}
@@ -432,16 +422,14 @@ export function InhabitantSummary({
                               onRerollPart &&
                               (() => onRerollPart('contextSpokenNameDice'))
                             }>
-                            <>
-                              {t('inhabitant.name_dice_meta', {
-                                dice: (
-                                  <DiceFaces
-                                    key='dicefaces'
-                                    values={roll.contextSpokenNameDice}
-                                  />
-                                ),
-                              })}
-                            </>
+                            {t.rich('inhabitant.name_dice_meta', {
+                              dice: () => (
+                                <DiceFaces
+                                  key='dicefaces'
+                                  values={roll.contextSpokenNameDice!}
+                                />
+                              ),
+                            })}
                           </MetaWithReroll>
                         </div>
                       )}

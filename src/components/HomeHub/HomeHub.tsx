@@ -2,7 +2,7 @@
 
 import { Card, Col, Row, Typography } from 'antd'
 import { useEffect, useMemo, useState } from 'react'
-import { useLocale, useTranslations } from 'next-intl'
+import { useFormatter, useTranslations } from 'next-intl'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { getCharacterStore } from '@/lib/character/store'
 import type { Character } from '@/lib/character/types'
@@ -15,7 +15,7 @@ import './HomeHub.css'
 
 const CharacterManager = () => {
   const t = useTranslations()
-  const locale = useLocale()
+  const format = useFormatter()
   const store = useMemo(() => getCharacterStore(), [])
   const [recentCharacters, setRecentCharacters] = useState<Character[]>([])
 
@@ -62,10 +62,9 @@ const CharacterManager = () => {
                 }>
                 <Typography.Text type='secondary'>
                   {t('home.updated_line', {
-                    value: new Date(character.updatedAt).toLocaleDateString(
-                      locale,
-                      { dateStyle: 'medium' }
-                    ),
+                    value: format.dateTime(new Date(character.updatedAt), {
+                      dateStyle: 'medium',
+                    }),
                   })}
                 </Typography.Text>
               </Card>

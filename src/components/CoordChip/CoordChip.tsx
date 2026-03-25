@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import type { BiomeId, HexCoordinate } from '@/lib/character/types'
 import { getDisplayedCellHash } from '@/lib/map/hashTargets'
 import { BiomeBubble } from '../BiomeBubble/BiomeBubble'

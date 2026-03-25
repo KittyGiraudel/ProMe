@@ -29,9 +29,9 @@ export function ClockCard() {
   )
   const isDay = position < segmentsPerHalf
   const phaseLabel = isDay
-    ? t('characters.clock_day')
-    : t('characters.clock_night')
-  const clockLabel = t('characters.clock_slice', {
+    ? t('characters.map.clock_day')
+    : t('characters.map.clock_night')
+  const clockLabel = t('characters.map.clock_slice', {
     position: position + 1,
     total: totalSegments,
   })
@@ -45,13 +45,13 @@ export function ClockCard() {
       notification.warning({
         title: t(
           nextIsDay
-            ? 'characters.clock_phase_shift_day'
-            : 'characters.clock_phase_shift_night'
+            ? 'characters.map.clock_phase_shift_day'
+            : 'characters.map.clock_phase_shift_night'
         ),
         description:
-          t('characters.clock_phase_shift_description') +
+          t('characters.map.clock_phase_shift_description') +
           '\n' +
-          t('characters.clock_slice', {
+          t('characters.map.clock_slice', {
             position: wrapped + 1,
             total: totalSegments,
           }),
@@ -62,8 +62,8 @@ export function ClockCard() {
     }
 
     notification.success({
-      title: t('characters.clock_section'),
-      description: t('characters.clock_slice', {
+      title: t('characters.map.clock_section'),
+      description: t('characters.map.clock_slice', {
         position: wrapped + 1,
         total: totalSegments,
       }),
@@ -82,12 +82,12 @@ export function ClockCard() {
             justifyContent: 'space-between',
             width: '100%',
           }}>
-          <span>{t('characters.clock_section')}</span>
+          <span>{t('characters.map.clock_section')}</span>
           <Popover
-            title={t('characters.clock_section')}
+            title={t('characters.map.clock_section')}
             content={
               <>
-                {t('characters.clock_tooltip')
+                {t('characters.map.clock_tooltip')
                   .split('\n')
                   .map((paragraph, index) => (
                     <Typography.Text
@@ -104,7 +104,7 @@ export function ClockCard() {
                     marginBottom: 8,
                     color: '#8c8c8c',
                   }}>
-                  {t('characters.clock_footnote')}
+                  {t('rulebook.clock_footnote')}
                 </Typography.Text>
               </>
             }
@@ -133,7 +133,7 @@ export function ClockCard() {
         </Form.Item>
         <Space wrap style={{ width: '100%', justifyContent: 'space-between' }}>
           <Button htmlType='button' onClick={() => setPosition(position - 1)}>
-            {t('characters.clock_back')}
+            {t('characters.map.clock_back')}
           </Button>
           <Space wrap>
             <Tag color={isDay ? 'gold' : 'blue'}>{phaseLabel}</Tag>
@@ -143,7 +143,7 @@ export function ClockCard() {
             type='primary'
             htmlType='button'
             onClick={() => setPosition(position + 1)}>
-            {t('characters.clock_advance')}
+            {t('characters.map.clock_advance')}
           </Button>
         </Space>
       </Space>

@@ -10,8 +10,8 @@ export function BiomeBubble({ biome }: { biome: BiomeId | 'unexplored' }) {
     <span
       className='biome-bubble'
       data-biome={biome}
-      title={t(`biomes.${biome}`)}>
-      <VisuallyHidden>{t(`biomes.${biome}`)}</VisuallyHidden>
+      title={t(`common.biomes.${biome}`)}>
+      <VisuallyHidden>{t(`common.biomes.${biome}`)}</VisuallyHidden>
     </span>
   )
 }

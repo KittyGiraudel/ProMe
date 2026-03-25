@@ -1,7 +1,8 @@
+import { AppConfig } from 'next-intl'
 import { CharacterLibraryClient } from './CharacterLibraryClient'
 import { getTranslations } from 'next-intl/server'
 
-type Props = { params: Promise<{ locale: string }> }
+type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
 
 export async function generateMetadata({ params }: Props) {
   const { locale } = await params

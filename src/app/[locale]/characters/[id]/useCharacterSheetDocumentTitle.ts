@@ -7,7 +7,7 @@ import {
   DEFAULT_CHARACTER_SHEET_TAB,
   type CharacterSheetTabKey,
 } from './characterSheetRoutes'
-import { usePathname } from 'next/navigation'
+import { usePathname } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
 
 function tabKeyFromPathname(
@@ -41,7 +41,7 @@ export function useCharacterSheetDocumentTitle({
     if (!hydratedFromStore) return
 
     if (!character) {
-      document.title = `${t('characters.notFoundTitle')} — ${t('metadata.tabBrand')}`
+      document.title = `${t('characters.not_found_title')} — ${t('metadata.tab_brand')}`
       return
     }
 
@@ -53,6 +53,6 @@ export function useCharacterSheetDocumentTitle({
       return ` · ${t(tab.localizationKey)}`
     })()
 
-    document.title = `${displayName}${suffix} — ${t('metadata.tabBrand')}`
+    document.title = `${displayName}${suffix} — ${t('metadata.tab_brand')}`
   }, [hydratedFromStore, character, activeTabKey])
 }

@@ -1,4 +1,4 @@
-import { NextIntlClientProvider } from 'next-intl'
+import { AppConfig, NextIntlClientProvider } from 'next-intl'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { AppProviders } from '@/components/AppProviders/AppProviders'
@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
-type Props = { params: Promise<{ locale: string }> }
+type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
 
 export async function generateMetadata({ params }: Props) {
   const { locale } = await params

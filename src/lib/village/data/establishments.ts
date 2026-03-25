@@ -30,16 +30,9 @@ export function establishmentLineFromSizeTier(
     throw new Error(`establishmentLineFromSizeTier: rank ${rank}`);
   }
 
-  const resolved = t(
-    `game.establishments.tiers.${rank}`,
+  return t(
+    `game.establishments.${rank}.${tier - 1}`,
   );
-  if (!Array.isArray(resolved) || !resolved.every((v) => typeof v === 'string')) {
-    throw new Error(
-      `establishmentLineFromSizeTier: copy key "game.villageEstablishments.establishmentSizeTierLines.${rank}" did not resolve to string[]`,
-    );
-  }
-
-  return resolved[tier - 1]!;
 }
 
 /** Label for an establishment card (A–10 only). */
@@ -57,11 +50,11 @@ export function establishmentLine(card: PlayingCard, t: _Translator): string {
 function lineForRankOther(rank: Rank, red: boolean, t: _Translator): string {
   switch (rank) {
     case "A":
-      return red ? t('game.establishments.rankA.red') : t('game.establishments.rankA.black');
+      return red ? t('game.establishments.A.red') : t('game.establishments.A.black');
     case "9":
-      return red ? t('game.establishments.rank9.red') : t('game.establishments.rank9.black');
+      return red ? t('game.establishments.9.red') : t('game.establishments.9.black');
     case "10":
-      return t('game.establishments.rank10')
+      return t('game.establishments.10')
     default:
       throw new Error(`establishmentLine: unexpected rank ${rank}`);
   }

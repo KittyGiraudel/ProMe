@@ -26,7 +26,7 @@ export function useCharacterLibraryActions({
         try {
           parsed = JSON.parse(raw) as { characters?: unknown }
         } catch {
-          message.error(t('characters.import_error'))
+          message.error(t('new_character.import_error'))
           return
         }
 
@@ -36,30 +36,30 @@ export function useCharacterLibraryActions({
           !Array.isArray(parsed.characters) ||
           parsed.characters.length !== 1
         ) {
-          message.error(t('characters.import_format_error'))
+          message.error(t('new_character.import_format_error'))
           return
         }
 
         const result = store.importAll(raw, 'upsert')
         if (result.totalRead !== 1) {
-          message.error(t('characters.import_format_error'))
+          message.error(t('new_character.import_format_error'))
           return
         }
         if (result.discarded > 0) {
-          message.error(t('characters.import_data_error'))
+          message.error(t('new_character.import_data_error'))
           return
         }
 
         refresh()
         message.success(
-          t('characters.import_success', {
+          t('new_character.import_success', {
             total: result.totalRead,
             created: result.created,
             updated: result.updated,
           }),
         )
       } catch {
-        message.error(t('characters.import_error'))
+        message.error(t('new_character.import_error'))
       } finally {
         event.target.value = ''
       }

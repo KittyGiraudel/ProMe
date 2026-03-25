@@ -65,8 +65,8 @@ export function VillageEstablishmentLine({
           </div>
           <span
             className='village-summary__line-page'
-            aria-label={t('common.rulebook_page_line', {
-              pages: pagesLabel,
+            aria-label={t('rulebook.page_citation', {
+              page: pagesLabel,
             })}>
             {pagesLabel}
           </span>

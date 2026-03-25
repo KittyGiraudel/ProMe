@@ -52,7 +52,7 @@ export function resolveVillageDisplay(roll: VillageRoll, t: _Translator): {
     const card = roll.primary[i]!;
     if (isFaceRank(card.rank)) {
       const color = suitIsRed(card.suit) ? 'red' : 'black'
-      const text = t(`game.villageTraits.${card.rank}.${color}`);
+      const text = t(`game.village_traits.${card.rank}.${color}`);
       const inst = { card, primarySlot: i };
       const cur = traitGroups.get(text);
       if (cur) cur.push(inst);
@@ -64,7 +64,7 @@ export function resolveVillageDisplay(roll: VillageRoll, t: _Translator): {
       const {card} = instances[0]!
       const color = suitIsRed(card.suit) ? 'red' : 'black'
       return {
-        text: t(`game.villageTraits.${card.rank}.${color}`),
+        text: t(`game.village_traits.${card.rank}.${color}`),
         instances,
         rulebookPage: RULEBOOK_PAGES.village.establishmentTable,
       }

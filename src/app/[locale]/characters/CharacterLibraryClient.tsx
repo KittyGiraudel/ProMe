@@ -2,7 +2,7 @@
 
 import { Card, Empty, Space, Typography } from 'antd'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useLocale, useTranslations } from 'next-intl'
+import { useFormatter, useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { getCharacterStore } from '@/lib/character/store'
@@ -14,7 +14,7 @@ import { useCharacterLibraryActions } from './useCharacterLibraryActions'
 
 export function CharacterLibraryClient() {
   const t = useTranslations()
-  const locale = useLocale()
+  const format = useFormatter()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const store = useMemo(() => getCharacterStore(), [])
   // Keep initial render consistent with the server (no localStorage access on SSR).
@@ -99,10 +99,9 @@ export function CharacterLibraryClient() {
                   </Typography.Text>
                   <Typography.Text type='secondary'>
                     {t('characters.updated_line', {
-                      value: new Date(character.updatedAt).toLocaleDateString(
-                        locale,
-                        { dateStyle: 'medium' }
-                      ),
+                      value: format.dateTime(new Date(character.updatedAt), {
+                        dateStyle: 'medium',
+                      }),
                     })}
                   </Typography.Text>
                 </Space>

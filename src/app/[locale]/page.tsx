@@ -1,9 +1,10 @@
 import { use } from 'react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { HomeHub } from '@/components/HomeHub/HomeHub'
+import { AppConfig } from 'next-intl'
 
 type Props = {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: AppConfig['Locale'] }>
 }
 
 export async function generateMetadata({ params }: Props) {

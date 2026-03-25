@@ -14,7 +14,10 @@ function defaultDiceFacesLabel(
   const last = values.at(-1)!
   const rest = values.slice(0, -1)
 
-  return t('common.collection', rest.join(', '), last)
+  return t('common.collection', {
+    commaJoinedRest: rest.join(', '),
+    last,
+  })
 }
 
 export type DiceFacesProps = {

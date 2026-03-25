@@ -39,15 +39,15 @@ export function NotesCard({
   const addEntryButton =
     !componentDisabled && journalReverseChronological ? (
       <Button type='dashed' onClick={onAddEntry} htmlType='button'>
-        {t('characters.add_journal_entry')}
+        {t('characters.journal.add_journal_entry')}
       </Button>
     ) : undefined
 
   return (
-    <Card title={t('characters.notes_section')} extra={addEntryButton}>
+    <Card title={t('characters.journal.notes_section')} extra={addEntryButton}>
       <div>
         {fields.length === 0 ? (
-          <Empty description={t('characters.journal_empty')} />
+          <Empty description={t('characters.journal.empty')} />
         ) : null}
 
         <Journal
@@ -62,10 +62,10 @@ export function NotesCard({
             }
 
             modal.confirm({
-              title: t('characters.journal_delete_confirm_title'),
-              content: t('characters.journal_delete_confirm_description'),
-              okText: t('characters.delete'),
-              cancelText: t('characters.cancel'),
+              title: t('characters.journal.delete_confirm_title'),
+              content: t('characters.journal.delete_confirm_description'),
+              okText: t('common.delete'),
+              cancelText: t('common.cancel'),
               onOk: () => onRemoveEntry(entryIndex),
             })
           }}
@@ -80,7 +80,7 @@ export function NotesCard({
             style={{ width: '100%' }}
             orientation='vertical'>
             <Button type='dashed' onClick={onAddEntry} htmlType='button'>
-              {t('characters.add_journal_entry')}
+              {t('characters.journal.add_journal_entry')}
             </Button>
           </Space>
         </>

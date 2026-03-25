@@ -12,20 +12,20 @@ export function InheritanceCard({
   const t = useTranslations()
 
   return (
-    <Card title={t('characters.inheritance_section')}>
+    <Card title={t('new_character.inheritance_section')}>
       <Form.Item
         name='inheritFromCharacterId'
-        label={t('characters.inheritance_select_label')}
-        help={t('characters.inheritance_select_help')}
+        label={t('new_character.inheritance_select_label')}
+        help={t('new_character.inheritance_select_help')}
         style={{ marginBottom: 0 }}>
         <Select
           allowClear
-          placeholder={t('characters.inheritance_select_placeholder')}
+          placeholder={t('new_character.inheritance_select_placeholder')}
           options={candidates.map(candidate => ({
             value: candidate.id,
             label: candidate.label,
           }))}
-          notFoundContent={t('characters.inheritance_empty')}
+          notFoundContent={t('new_character.inheritance_empty')}
         />
       </Form.Item>
     </Card>

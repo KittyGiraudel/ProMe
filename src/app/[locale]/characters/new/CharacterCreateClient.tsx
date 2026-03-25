@@ -26,11 +26,11 @@ export function CharacterCreateClient() {
 
   return (
     <Layout
-      title={t('characters.create_page_title')}
+      title={t('new_character.page_title')}
       pageCoverBiome='floodedPlains'
       breadcrumbs={[
         { label: t('nav.home_link'), href: '/' },
-        { label: t('characters.page_title'), href: '/characters' },
+        { label: t('new_character.page_title'), href: '/characters' },
       ]}>
       <Form<CharacterCreateFormValues>
         form={form}
@@ -48,7 +48,7 @@ export function CharacterCreateClient() {
           <InheritanceCard candidates={candidates} />
           <Space wrap>
             <Button type='primary' htmlType='submit'>
-              {t('characters.create')}
+              {t('new_character.create')}
             </Button>
             <Button htmlType='button' type='link' href='/characters'>
               {t('common.cancel')}

@@ -28,19 +28,39 @@ export function CharacteristicsCard() {
     | undefined
 
   const resources: readonly [ResourceKey, string, string][] = [
-    ['honor', t('characters.honor_label'), t('characters.honor_tooltip')],
+    [
+      'honor',
+      t('characters.identity.honor_label'),
+      t('characters.identity.honor_tooltip'),
+    ],
     [
       'inspiration',
-      t('characters.inspiration_label'),
-      t('characters.inspiration_tooltip'),
+      t('characters.identity.inspiration_label'),
+      t('characters.identity.inspiration_tooltip'),
     ],
-    ['money', t('characters.money_label'), t('characters.money_tooltip')],
+    [
+      'money',
+      t('characters.identity.money_label'),
+      t('characters.identity.money_tooltip'),
+    ],
   ]
 
   const pools: readonly [PoolKey, string, string][] = [
-    ['health', t('characters.health_label'), t('characters.health_tooltip')],
-    ['courage', t('characters.courage_label'), t('characters.courage_tooltip')],
-    ['stamina', t('characters.stamina_label'), t('characters.stamina_tooltip')],
+    [
+      'health',
+      t('characters.identity.health_label'),
+      t('characters.identity.health_tooltip'),
+    ],
+    [
+      'courage',
+      t('characters.identity.courage_label'),
+      t('characters.identity.courage_tooltip'),
+    ],
+    [
+      'stamina',
+      t('characters.identity.stamina_label'),
+      t('characters.identity.stamina_tooltip'),
+    ],
   ]
 
   function renderLabelWithHelp(label: string, tooltip: string) {
@@ -71,7 +91,7 @@ export function CharacteristicsCard() {
                   color: '#8c8c8c',
                 }}
                 italic>
-                {t('characters.characteristics_footnote')}
+                {t('rulebook.characteristics_footnote')}
               </Typography.Text>
             </>
           }
@@ -103,12 +123,12 @@ export function CharacteristicsCard() {
 
     notification[success ? 'success' : 'error']({
       title: success
-        ? t('characters.courage_roll_success_title')
-        : t('characters.courage_roll_failure_title'),
+        ? t('characters.identity.courage_roll_success_title')
+        : t('characters.identity.courage_roll_failure_title'),
       description: t(
         roll <= target
-          ? 'characters.courage_roll_result_success'
-          : 'characters.courage_roll_result_failure',
+          ? 'characters.identity.courage_roll_result_success'
+          : 'characters.identity.courage_roll_result_failure',
         { roll, target }
       ),
       placement: 'bottomRight',
@@ -128,7 +148,7 @@ export function CharacteristicsCard() {
               width: '100%',
             }}>
             <span>{t('characters.characteristics_section')}</span>
-            <Tooltip title={t('characters.characteristics_footnote')}>
+            <Tooltip title={t('rulebook.characteristics_footnote')}>
               <Button
                 type='text'
                 size='small'
@@ -167,13 +187,14 @@ export function CharacteristicsCard() {
                 }}>
                 {renderLabelWithHelp(label, tooltip)}
                 {poolKey === 'courage' ? (
-                  <Tooltip title={t('characters.courage_roll_tooltip')}>
+                  <Tooltip
+                    title={t('characters.identity.courage_roll_tooltip')}>
                     <Button
                       type='text'
                       size='small'
                       htmlType='button'
                       icon={<RedoOutlined />}
-                      aria-label={t('characters.courage_roll_aria')}
+                      aria-label={t('characters.identity.courage_roll_aria')}
                       onClick={handleCourageRoll}
                     />
                   </Tooltip>
@@ -184,7 +205,7 @@ export function CharacteristicsCard() {
                 <Col xs={24} sm={12}>
                   <Form.Item
                     name={[poolKey, 'current']}
-                    label={t('characters.current_label')}
+                    label={t('common.current_label')}
                     style={{ marginBottom: 0 }}>
                     <InputNumber min={0} style={{ width: '100%' }} />
                   </Form.Item>
@@ -193,7 +214,7 @@ export function CharacteristicsCard() {
                 <Col xs={24} sm={12}>
                   <Form.Item
                     name={[poolKey, 'max']}
-                    label={t('characters.max_label')}
+                    label={t('common.max_label')}
                     style={{ marginBottom: 0 }}>
                     <InputNumber min={0} style={{ width: '100%' }} />
                   </Form.Item>

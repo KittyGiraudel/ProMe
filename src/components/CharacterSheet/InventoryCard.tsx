@@ -42,8 +42,8 @@ export function InventoryCard({
             justifyContent: 'space-between',
             width: '100%',
           }}>
-          <span>{t('characters.inventory_section')}</span>
-          <Tooltip title={t('characters.inventory_footnote')}>
+          <span>{t('characters.inventory.inventory_section')}</span>
+          <Tooltip title={t('rulebook.inventory_footnote')}>
             <Button
               type='text'
               size='small'
@@ -57,7 +57,7 @@ export function InventoryCard({
       <Space orientation='vertical' style={{ width: '100%' }}>
         <Typography.Text
           type={fields.length >= inventoryLimit ? 'danger' : 'secondary'}>
-          {t('characters.inventory_status', {
+          {t('characters.inventory.inventory_status', {
             count: fields.length,
             limit: inventoryLimit,
           })}
@@ -74,27 +74,27 @@ export function InventoryCard({
             }}>
             <Form.Item
               name={[field.name, 'label']}
-              label={t('characters.item_name_placeholder')}
+              label={t('characters.inventory.item_name_placeholder')}
               noStyle>
               <Input
-                placeholder={t('characters.item_name_placeholder')}
+                placeholder={t('characters.inventory.item_name_placeholder')}
                 style={{ flex: 1, minWidth: 220 }}
               />
             </Form.Item>
 
             <Form.Item
               name={[field.name, 'quantity']}
-              label={t('characters.item_quantity_placeholder')}
+              label={t('characters.inventory.item_quantity_placeholder')}
               noStyle>
               <InputNumber min={1} style={{ width: 110 }} />
             </Form.Item>
 
             <Form.Item
               name={[field.name, 'note']}
-              label={t('characters.item_note_placeholder')}
+              label={t('characters.inventory.item_note_placeholder')}
               noStyle>
               <Input
-                placeholder={t('characters.item_note_placeholder')}
+                placeholder={t('characters.inventory.item_note_placeholder')}
                 style={{ width: 240 }}
               />
             </Form.Item>
@@ -121,7 +121,7 @@ export function InventoryCard({
               onClick={onAddItem}
               disabled={cannotAdd}
               htmlType='button'>
-              {t('characters.add_item')}
+              {t('characters.inventory.add_item')}
             </Button>
           </Space>
         </>

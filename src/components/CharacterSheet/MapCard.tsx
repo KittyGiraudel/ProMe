@@ -117,7 +117,7 @@ export function MapCard() {
 
   const assignRandomBiomeAt = (target: HexCoordinate) => {
     const rolled = getRandomBiomeResult()
-    const biomeName = t(`biomes.${rolled.biome}`)
+    const biomeName = t(`common.biomes.${rolled.biome}`)
     setBiomeAt(target, rolled.biome)
     notification.info({
       icon: (
@@ -125,8 +125,8 @@ export function MapCard() {
           <InfoCircleFilled />
         </span>
       ),
-      title: t('characters.map_random_biome_discovered_title'),
-      description: t('characters.map_random_biome_discovered_description', {
+      title: t('characters.map.random_biome_discovered_title'),
+      description: t('characters.map.random_biome_discovered_description', {
         biomeName,
         additionalTilesToMark: rolled.additionalTilesToMark,
       }),
@@ -172,7 +172,7 @@ export function MapCard() {
       return result.next
     })
     if (discoveredBiome) {
-      const biomeName = t(`biomes.${discoveredBiome.biome}`)
+      const biomeName = t(`common.biomes.${discoveredBiome.biome}`)
       notification.info({
         icon: (
           <span
@@ -181,8 +181,8 @@ export function MapCard() {
             <InfoCircleFilled />
           </span>
         ),
-        title: t('characters.map_random_biome_discovered_title'),
-        description: t('characters.map_random_biome_discovered_description', {
+        title: t('characters.map.random_biome_discovered_title'),
+        description: t('characters.map.random_biome_discovered_description', {
           biomeName,
           additionalTilesToMark: discoveredBiome.additionalTilesToMark,
         }),
@@ -197,18 +197,18 @@ export function MapCard() {
     visibleSheet.sheetR === sheetForCurrentPosition.sheetR
 
   return (
-    <Card title={t('characters.map_section')}>
+    <Card title={t('characters.map.map_section')}>
       <div ref={cardRef} tabIndex={-1}>
         <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
           <Space wrap>
             <Tag>
-              {t('characters.map_sheet', {
+              {t('characters.map.sheet', {
                 sheetQ: visibleSheet.sheetQ,
                 sheetR: visibleSheet.sheetR,
               })}
             </Tag>
             <Tag>
-              {t('characters.map_character_position', {
+              {t('characters.map.character_position', {
                 position: getDisplayedCellLabel(mapState.currentPosition),
               })}
             </Tag>
@@ -263,7 +263,7 @@ export function MapCard() {
                 onClick={() =>
                   setVisibleSheet(getSheetCoordinate(mapState.currentPosition))
                 }>
-                {t('characters.map_center_on_current')}
+                {t('characters.map.center_on_current')}
               </Button>
             ) : null}
           </Space>

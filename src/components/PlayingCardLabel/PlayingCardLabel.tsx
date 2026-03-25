@@ -25,7 +25,7 @@ export function PlayingCardLabel({
     .filter(Boolean)
     .join(' ')
   const label = t('common.card', {
-    rank: t(`ranks.${card.rank}`),
+    value: t(`common.ranks.${card.rank}`),
     suit: SUITS[card.suit],
   })
   const suitClass = [

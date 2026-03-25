@@ -38,8 +38,8 @@ export function SpellbookCard({
             justifyContent: 'space-between',
             width: '100%',
           }}>
-          <span>{t('characters.spellbook_section')}</span>
-          <Tooltip title={t('characters.spellbook_footnote')}>
+          <span>{t('characters.inventory.spellbook_section')}</span>
+          <Tooltip title={t('rulebook.spellbook_footnote')}>
             <Button
               type='text'
               size='small'
@@ -52,7 +52,7 @@ export function SpellbookCard({
       }>
       <Space orientation='vertical' style={{ width: '100%' }}>
         <Typography.Text type='secondary'>
-          {t('characters.spellbook_status', {
+          {t('characters.inventory.spellbook_status', {
             count: fields.length,
           })}
         </Typography.Text>
@@ -68,20 +68,20 @@ export function SpellbookCard({
             }}>
             <Form.Item
               name={[field.name, 'name']}
-              label={t('characters.spell_name_placeholder')}
+              label={t('characters.inventory.spell_name_placeholder')}
               noStyle>
               <Input
-                placeholder={t('characters.spell_name_placeholder')}
+                placeholder={t('characters.inventory.spell_name_placeholder')}
                 style={{ flex: 1, minWidth: 220 }}
               />
             </Form.Item>
 
             <Form.Item
               name={[field.name, 'note']}
-              label={t('characters.spell_note_placeholder')}
+              label={t('characters.inventory.spell_note_placeholder')}
               noStyle>
               <Input
-                placeholder={t('characters.spell_note_placeholder')}
+                placeholder={t('characters.inventory.spell_note_placeholder')}
                 style={{ width: 240 }}
               />
             </Form.Item>
@@ -108,7 +108,7 @@ export function SpellbookCard({
               onClick={onAddSpell}
               disabled={fields.length >= SPELLBOOK_MAX}
               htmlType='button'>
-              {t('characters.add_spell')}
+              {t('characters.inventory.add_spell')}
             </Button>
           </Space>
         </>

@@ -5,7 +5,7 @@ import type { FormListFieldData } from 'antd/es/form'
 import type { FormInstance } from 'antd'
 import { Button } from '@/components/Button/Button'
 import { JournalMarkdown } from '@/components/Markdown/JournalMarkdown'
-import { useTranslations } from 'next-intl'
+import { useFormatter, useTranslations } from 'next-intl'
 
 export function JournalEntry({
   field,
@@ -13,16 +13,23 @@ export function JournalEntry({
   editing,
   setEditingMode,
   onConfirmDelete,
-  formatTimestamp,
 }: {
   field: FormListFieldData
   form: FormInstance
   editing: boolean
   setEditingMode: (fieldKey: number, isEditing: boolean) => void
   onConfirmDelete: (entryIndex: number, hasContent: boolean) => void
-  formatTimestamp: (value: string | undefined) => string | null
 }) {
   const { componentDisabled } = ConfigProvider.useConfig()
+  const format = useFormatter()
+
+  const formatTimestamp = (value: string | undefined): string | null => {
+    if (!value) return null
+    const date = new Date(value)
+    if (Number.isNaN(date.getTime())) return null
+    return format.dateTime(date, { dateStyle: 'medium', timeStyle: 'short' })
+  }
+
   const t = useTranslations()
   const content = form.getFieldValue([
     'journalEntries',
@@ -68,7 +75,7 @@ export function JournalEntry({
               htmlType='button'
               type='primary'
               onClick={() => setEditingMode(field.key, false)}>
-              {t('characters.journal_done_editing')}
+              {t('characters.journal.done_editing')}
             </Button>
           </Space>
         ) : !componentDisabled ? (
@@ -76,7 +83,7 @@ export function JournalEntry({
             className='journal__entry-edit-button'
             htmlType='button'
             onClick={() => setEditingMode(field.key, true)}>
-            {t('characters.journal_edit_entry')}
+            {t('characters.journal.edit_entry')}
           </Button>
         ) : null}
       </div>
@@ -85,12 +92,12 @@ export function JournalEntry({
         <>
           <Form.Item
             name={[field.name, 'content']}
-            label={t('characters.journal_entry_content_label')}
+            label={t('characters.journal.entry_content_label')}
             style={{ marginBottom: 0 }}
             className='journal__entry-editor'>
             <Input.TextArea
               rows={8}
-              placeholder={t('characters.journalEntryContentPlaceholder')}
+              placeholder={t('characters.journal.entry_content_placeholder')}
               onKeyDown={e => {
                 if (e.key !== 'Enter') return
                 if (!e.metaKey && !e.ctrlKey) return
@@ -107,7 +114,7 @@ export function JournalEntry({
           </Form.Item>
           <div className='journal__entry-symbols'>
             <Typography.Text type='secondary'>
-              {t('characters.journal_symbols')}{' '}
+              {t('characters.journal.symbols')}{' '}
               <span style={{ transform: 'scale(1.2)' }}>⚀ ⚁ ⚂ ⚃ ⚄ ⚅</span>
               <span>♠ ♥ ♦ ♣</span>
               <span style={{ transform: 'scale(0.8)' }}>☼ ☾</span>
@@ -121,7 +128,7 @@ export function JournalEntry({
             <JournalMarkdown markdown={content ?? ''} />
           ) : (
             <Typography.Text type='secondary'>
-              {t('characters.journal_preview_empty')}
+              {t('characters.journal.preview_empty')}
             </Typography.Text>
           )}
           <div className='journal__entry-meta'>
@@ -132,13 +139,13 @@ export function JournalEntry({
               className='journal__entry-meta-text'>
               <a href={`#${entryAnchor}`} className='journal__entry-permalink'>
                 {createdLabel
-                  ? t('characters.journal_created_at_line', {
+                  ? t('characters.journal.created_at_line', {
                       value: createdLabel,
                     })
                   : ''}
                 {createdLabel && updatedLabel ? ' · ' : ''}
                 {updatedLabel
-                  ? t('characters.journal_updated_at_line', {
+                  ? t('characters.journal.updated_at_line', {
                       value: updatedLabel,
                     })
                   : ''}

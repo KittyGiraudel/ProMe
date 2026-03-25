@@ -19,8 +19,8 @@ export function ActionsTabSection() {
 
   const handleRequestDelete = () => {
     modal.confirm({
-      title: t('characters.delete_confirm_title'),
-      content: t('characters.delete_confirm_description'),
+      title: t('characters.actions.delete_confirm_title'),
+      content: t('characters.actions.delete_confirm_description'),
       okText: t('common.delete'),
       cancelText: t('common.cancel'),
       okButtonProps: { danger: true, type: 'primary' },
@@ -30,9 +30,9 @@ export function ActionsTabSection() {
 
   const handleRequestRevive = () => {
     modal.confirm({
-      title: t('characters.revive_confirm_title'),
-      content: t('characters.revive_confirm_description'),
-      okText: t('characters.revive_action'),
+      title: t('characters.actions.revive_confirm_title'),
+      content: t('characters.actions.revive_confirm_description'),
+      okText: t('characters.actions.revive_action'),
       cancelText: t('common.cancel'),
       onOk: onRevive,
     })
@@ -40,9 +40,9 @@ export function ActionsTabSection() {
 
   const handleRequestMarkAsDead = () => {
     modal.confirm({
-      title: t('characters.mark_dead_confirm_title'),
-      content: t('characters.mark_dead_confirm_description'),
-      okText: t('characters.mark_dead_action'),
+      title: t('characters.actions.mark_dead_confirm_title'),
+      content: t('characters.actions.mark_dead_confirm_description'),
+      okText: t('characters.actions.mark_dead_action'),
       cancelText: t('common.cancel'),
       okButtonProps: { danger: true },
       onOk: onKill,
@@ -56,11 +56,11 @@ export function ActionsTabSection() {
       icon: (
         <DownloadOutlined className='actions-tab__icon actions-tab__icon--neutral' />
       ),
-      title: t('characters.export'),
-      description: t('characters.export_help'),
+      title: t('characters.actions.export'),
+      description: t('characters.actions.export_help'),
       action: (
         <Button htmlType='button' onClick={onExport} disabled={false}>
-          {t('characters.export')}
+          {t('characters.actions.export')}
         </Button>
       ),
     },
@@ -72,15 +72,15 @@ export function ActionsTabSection() {
             icon: (
               <HeartOutlined className='actions-tab__icon actions-tab__icon--success' />
             ),
-            title: t('characters.revive_action'),
-            description: t('characters.revive_confirm_description'),
+            title: t('characters.actions.revive_action'),
+            description: t('characters.actions.revive_confirm_description'),
             action: (
               <Button
                 type='primary'
                 htmlType='button'
                 onClick={handleRequestRevive}
                 disabled={false}>
-                {t('characters.revive_action')}
+                {t('characters.actions.revive_action')}
               </Button>
             ),
           },
@@ -92,8 +92,8 @@ export function ActionsTabSection() {
             icon: (
               <FrownOutlined className='actions-tab__icon actions-tab__icon--warning' />
             ),
-            title: t('characters.mark_dead_action'),
-            description: t('characters.danger_mark_dead_help'),
+            title: t('characters.actions.mark_dead_action'),
+            description: t('characters.actions.danger_mark_dead_help'),
             action: (
               <Button
                 danger
@@ -101,7 +101,7 @@ export function ActionsTabSection() {
                 htmlType='button'
                 onClick={handleRequestMarkAsDead}
                 disabled={false}>
-                {t('characters.mark_dead_action')}
+                {t('characters.actions.mark_dead_action')}
               </Button>
             ),
           },
@@ -112,8 +112,8 @@ export function ActionsTabSection() {
       icon: (
         <DeleteOutlined className='actions-tab__icon actions-tab__icon--danger' />
       ),
-      title: t('characters.delete'),
-      description: t('characters.delete_confirm_description'),
+      title: t('common.delete'),
+      description: t('characters.actions.delete_confirm_description'),
       action: (
         <Button
           danger
@@ -121,14 +121,14 @@ export function ActionsTabSection() {
           htmlType='button'
           disabled={false}
           onClick={handleRequestDelete}>
-          {t('characters.delete')}
+          {t('common.delete')}
         </Button>
       ),
     },
   ]
 
   return (
-    <Card title={t('characters.tab_actions')}>
+    <Card title={t('characters.actions.tab_title')}>
       <List
         itemLayout='horizontal'
         dataSource={items}

@@ -1,7 +1,7 @@
 'use client'
 
 import { App } from 'antd'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/i18n/navigation'
 import { useMemo } from 'react'
 import { createCharacterFromIdentity } from '@/lib/character/createFromIdentity'
 import { getCharacterStore } from '@/lib/character/store'

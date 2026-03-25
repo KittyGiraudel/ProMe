@@ -2,9 +2,9 @@ import { Suspense } from 'react'
 import { Layout } from '@/components/Layout/Layout'
 import { InhabitantGeneratorClient } from './InhabitantGeneratorClient'
 import { getTranslations } from 'next-intl/server'
-import { useTranslations } from 'next-intl'
+import { AppConfig, useTranslations } from 'next-intl'
 
-type Props = { params: Promise<{ locale: string }> }
+type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
 
 export async function generateMetadata({ params }: Props) {
   const { locale } = await params

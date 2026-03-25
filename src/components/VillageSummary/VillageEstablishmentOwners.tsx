@@ -37,9 +37,9 @@ export function VillageEstablishmentOwners({
     return (
       <div className='village-summary__owner-row'>
         <span className='village-summary__owner-main'>
-          {t('inhabitant.one_liner', {
+          {t.rich('inhabitant.one_liner_rich', {
             gender: genderCompactSymbol(e.roll.gender),
-            name: (
+            name: () => (
               <BlockedLink
                 key='link'
                 href={inhabitantHref}

@@ -13,17 +13,17 @@ export function IdentityCard({
   const t = useTranslations()
   const watchedArchetype = Form.useWatch('archetype') as Archetype | undefined
   const archetypePower = watchedArchetype
-    ? t(`characters.archetype_powers.${watchedArchetype}`)
+    ? t(`common.archetype_powers.${watchedArchetype}`)
     : null
 
   return (
-    <Card title={t('characters.identity_section')}>
+    <Card title={t('characters.identity.identity_section')}>
       <Row gutter={[16, 16]}>
         <Col xs={24} md={8}>
           <Form.Item
             rules={[{ required: true }]}
             name='name'
-            label={t('characters.name_label')}
+            label={t('characters.identity.name_label')}
             style={{ marginBottom: 0 }}>
             <Input />
           </Form.Item>
@@ -33,7 +33,7 @@ export function IdentityCard({
           <Form.Item
             rules={[{ required: true }]}
             name='archetype'
-            label={t('characters.archetype_label')}
+            label={t('characters.identity.archetype_label')}
             style={{ marginBottom: archetypePower ? 8 : 0 }}>
             <Select
               disabled={isArchetypeReadonly}
@@ -41,15 +41,15 @@ export function IdentityCard({
               options={[
                 {
                   value: 'warrior',
-                  label: t('archetypes.warrior'),
+                  label: t('common.archetypes.warrior'),
                 },
                 {
                   value: 'pilgrim',
-                  label: t('archetypes.pilgrim'),
+                  label: t('common.archetypes.pilgrim'),
                 },
                 {
                   value: 'bard',
-                  label: t('archetypes.bard'),
+                  label: t('common.archetypes.bard'),
                 },
               ]}
             />
@@ -59,14 +59,14 @@ export function IdentityCard({
         <Col xs={24} md={8}>
           <Form.Item
             name='gender'
-            label={t('characters.gender_label')}
+            label={t('characters.identity.gender_label')}
             style={{ marginBottom: 0 }}>
             <Select
               allowClear
               style={{ width: '100%' }}
               options={GENDERS.map(gender => ({
                 value: gender,
-                label: t(`genders.${gender}`),
+                label: t(`common.genders.${gender}`),
               }))}
             />
           </Form.Item>
@@ -80,7 +80,9 @@ export function IdentityCard({
               type='info'
               title={
                 <>
-                  <strong>{t('characters.archetype_power_label')} :</strong>{' '}
+                  <strong>
+                    {t('characters.identity.archetype_power_label')} :
+                  </strong>{' '}
                   {archetypePower}
                 </>
               }

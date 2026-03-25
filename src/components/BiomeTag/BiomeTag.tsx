@@ -8,7 +8,7 @@ export function BiomeTag({ biome }: { biome: BiomeId }) {
 
   return (
     <Tag data-biome={biome} className='biome-tag'>
-      {t(`biomes.${biome}`)}
+      {t(`common.biomes.${biome}`)}
     </Tag>
   )
 }

@@ -125,7 +125,7 @@ export function InhabitantGeneratorClient() {
           onRoll={handleGenerate}
           label={t('inhabitant.generate')}
           onCopyOneLiner={roll ? handleCopyOneLiner : undefined}
-          copyOneLinerLabel={t('inhabitant.copy_one_l iner')}
+          copyOneLinerLabel={t('inhabitant.copy_one_liner')}
         />
       }>
       <InhabitantSummary

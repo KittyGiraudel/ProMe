@@ -1,8 +1,8 @@
 'use client'
 
-import NextLink from 'next/link'
+import { Link as NextLink } from '@/i18n/navigation'
 import type { UrlObject } from 'url'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/i18n/navigation'
 import type { ComponentProps } from 'react'
 import { useCallback } from 'react'
 import { useNavigationBlocker } from '@/app/[locale]/contexts/NavigationBlockerContext'

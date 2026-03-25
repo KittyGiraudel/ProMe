@@ -1,11 +1,11 @@
 import { setRequestLocale } from 'next-intl/server'
-import { hasLocale } from 'next-intl'
+import { AppConfig, hasLocale } from 'next-intl'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 
 type Props = {
   children: React.ReactNode
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: AppConfig['Locale'] }>
 }
 
 export default async function LocaleLayout({ children, params }: Props) {

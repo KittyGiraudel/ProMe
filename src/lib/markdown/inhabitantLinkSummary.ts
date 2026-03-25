@@ -27,7 +27,7 @@ export function getInhabitantSummaryFromUrl(rawUrl: string, t: _Translator): str
   const roll = decodeInhabitantRollParam(encoded, t)
   if (!roll) return null
 
-  return t('inhabitant.oneLiner', {
+  return t('inhabitant.one_liner', {
     gender: genderCompactSymbol(roll.gender),
     name: roll.name, 
     faction: t(`common.factions.${roll.faction}`),

@@ -57,11 +57,9 @@ export function groupEstablishments(
       if (count === 1) {
         text = baseText
       } else if (count === 2) {
-        text = t('village.mergedEstablishmentLabelTwo', { name: baseText })
-        // text = `${copy.village.mergedEstablishmentLabel}${copy.common.emDashSpaced}${baseText}`
+        text = t('game.establishments.merged_label_two', { name: baseText })
       } else {
-        text = t('village.mergedEstablishmentLabelMore', { name: baseText, count })
-        // text = `${copy.village.mergedEstablishmentLabel} (×${count})${copy.common.emDashSpaced}${baseText}`
+        text = t('game.establishments.merged_label_more', { name: baseText, count })
       }
     }
     const slots = groupRows.flatMap(rr =>

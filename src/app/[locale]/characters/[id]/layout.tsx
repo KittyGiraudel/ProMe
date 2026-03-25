@@ -2,10 +2,11 @@ import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import { CharacterSheetShell } from './CharacterSheetShell'
 import { getTranslations } from 'next-intl/server'
+import { AppConfig } from 'next-intl'
 
 type CharacterIdLayoutProps = {
   children: ReactNode
-  params: Promise<{ id: string; locale: string }>
+  params: Promise<{ id: string; locale: AppConfig['Locale'] }>
 }
 
 export async function generateMetadata({

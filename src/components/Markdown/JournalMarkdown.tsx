@@ -24,17 +24,19 @@ import { CoordChip } from '../CoordChip/CoordChip'
 import { _Translator, useTranslations } from 'next-intl'
 
 const BIOME_ENTRIES = BIOME_ROLL_TABLE.map(biome => ({
-  key: `biomes.${biome.biome}`,
+  key: `common.biomes.${biome.biome}`,
   biomeId: biome.biome,
 }))
 
-const SUIT_ENTRIES = Object.entries(SUITS).map(([suitId, label]) => ({
-  key: `suits.${label}`,
+const SUIT_ENTRIES = Object.entries(SUITS).map(([suitId, symbol]) => ({
+  key: `common.suits.${suitId}`,
+  label: symbol,
   suitId,
 }))
 
-const DICE_ENTRIES = DICE.map((label, index) => ({
-  key: `dice.${label}`,
+const DICE_ENTRIES = DICE.map((symbol, index) => ({
+  key: `common.dice.${index + 1}`,
+  label: symbol,
   value: index + 1,
 }))
 
@@ -58,23 +60,23 @@ function getStaticTokenRules(t: _Translator): JournalInlineTokenRule[] {
     })),
     {
       key: 'word:success',
-      match: t('common.checkSuccessWord'),
+      match: t('common.check_success_word'),
       wordBoundary: true,
     },
     {
       key: 'word:failure',
-      match: t('common.checkFailureWord'),
+      match: t('common.check_failure_word'),
       wordBoundary: true,
     },
     { key: 'symbol:sun', match: '☼' },
     { key: 'symbol:moon', match: '☾' },
     ...SUIT_ENTRIES.map(entry => ({
       key: `symbol:${entry.suitId}`,
-      match: t(entry.key),
+      match: entry.label ?? t(entry.key),
     })),
     ...DICE_ENTRIES.map(entry => ({
       key: `symbol:${entry.value}`,
-      match: t(entry.key),
+      match: entry.label ?? t(entry.key),
     })),
     ...SYMBOL_ALIAS_RULES,
   ]
@@ -133,7 +135,7 @@ const TOKEN_RENDERER_ENTRIES: Array<
               '--color': suitIsRed(entry.suitId as Suit) ? 'red' : 'black',
             } as React.CSSProperties
           }>
-          {entry.key}
+          {entry.label}
         </span>
       ),
     ]
@@ -143,7 +145,7 @@ const TOKEN_RENDERER_ENTRIES: Array<
       `symbol:${entry.value}`,
       (_value: string, key: string) => (
         <span key={key} data-zoom>
-          {entry.key}
+          {entry.label}
         </span>
       ),
     ]

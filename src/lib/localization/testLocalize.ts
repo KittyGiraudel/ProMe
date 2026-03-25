@@ -1,13 +1,15 @@
-import { defaultLocale } from '@/messages/locales'
-import { copy as frCopy } from '@/messages/fr'
-import { createLocalize, type Localize } from './localize'
+import { createTranslator } from 'use-intl/core'
+import frMessages from '../../../messages/fr.json'
 
 /**
- * Test helper: provides a stable `Localize` object without needing the React context.
- * Using real message copy keeps assertions deterministic (e.g. village link summaries).
+ * Unit-test `t()` mock for next-intl-style translators.
+ *
+ * Business-logic code (URL codecs, markdown link summaries, generators) expects
+ * an `_Translator` function. Creating a real translator via `use-intl/core`
+ * keeps formatting/ICU behavior consistent with production.
  */
-export const testLocalize: Localize = createLocalize({
-  locale: defaultLocale,
-  copy: frCopy,
+export const testLocalize = createTranslator({
+  locale: 'fr',
+  messages: frMessages,
 })
 

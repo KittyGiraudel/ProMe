@@ -7,7 +7,7 @@ import { stringifyCharacters } from '@/lib/character/store/migrations'
 import type { Character } from '@/lib/character/types'
 import { FormInstance } from 'antd/lib/form'
 import { useCharacterFromForm } from './useCharacterFromForm'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
 
 function sanitizeFileNamePart(value: string): string {

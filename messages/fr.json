@@ -10,10 +10,24 @@
     "save": "Sauvegarder",
     "delete": "Supprimer",
     "cancel": "Annuler",
+    "check_success_word": "Réussite",
+    "check_failure_word": "Échec",
+    "collection": "{commaJoinedRest} et {last}",
+    "reroll_card": "Relancer cette carte",
+    "reroll_die": "Relancer ce dé",
+    "card": "{value} de {suit}",
+    "die": "Dé {value}",
+    "max_label": "Max.",
+    "current_label": "Actuel",
     "archetypes": {
       "warrior": "Guerrier·e",
       "pilgrim": "Pèlerin·e",
       "bard": "Troubadour·esse"
+    },
+    "archetype_powers": {
+      "warrior": "Le pouvoir de l’épée : quand vous le souhaitez, vous pouvez fuir une bataille sans avoir à lancer de dés ni risquer de subir des dégâts.",
+      "pilgrim": "Le pouvoir du bâton : vous n’avez besoin de vous nourrir qu’une fois par jour, à la fin de chaque nuit.",
+      "bard": "Le pouvoir de la mandoline : lorsque vous arrivez dans un village pour la première fois, vous pouvez jouer une chanson et gagner 1D6 × 10 pièces."
     },
     "factions": {
       "bruja": "Bruja",
@@ -41,9 +55,52 @@
       "calm": "Calme",
       "joyful": "Joyeux·se",
       "sad": "Triste"
+    },
+    "genders": {
+      "man": "Homme",
+      "woman": "Femme",
+      "nonBinary": "Non-binaire",
+      "indeterminate": "Indéterminé"
+    },
+    "ranks": {
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
+      "10": "10",
+      "J": "Valet",
+      "Q": "Dame",
+      "K": "Roi",
+      "A": "As"
+    },
+    "biomes": {
+      "unexplored": "Inexploré",
+      "shadowForest": "Forêt des ombres",
+      "floodedPlains": "Plaines inondées",
+      "mushroomJungle": "Jungle de champignons",
+      "fieldSea": "Mer champêtre",
+      "silentDesert": "Désert silencieux",
+      "giganticGardens": "Jardins titanesques"
+    },
+    "suits": {
+      "spades": "Pique",
+      "hearts": "Coeur",
+      "diamonds": "Carreau",
+      "clubs": "Trèfle"
+    },
+    "dice": {
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6"
     }
   },
-  
   "footer": {
     "copyright": "© Les Souvenirs du Protecteur par Enzo Salviato — Application par Kitty"
   },
@@ -63,6 +120,7 @@
     "updated_line": "Dernière mise à jour : le {value}"
   },
   "tools": {
+    "title": "Outils",
     "die_tool_title": "Dé",
     "die_tool_empty": "Aucun lancer",
     "die_tool_action": "Lancer 1D6",
@@ -71,6 +129,20 @@
     "card_tool_empty": "Aucune carte",
     "card_tool_action": "Tirer 1 carte",
     "card_tool_drawing": "Tirage en cours…"
+  },
+  "new_character": {
+    "page_title": "Nouveau personnage",
+    "create": "Créer un personnage",
+    "import_error": "Import impossible. Vérifiez le fichier JSON.",
+    "import_format_error": "Format invalide. Le fichier doit contenir exactement un personnage exporté.",
+    "import_data_error": "Le personnage importé est invalide et ne peut pas être sauvegardé.",
+    "import_success": "Import terminé ({total} lus, {created} créés, {updated} mis à jour).",
+    "inheritance_section": "Héritage",
+    "inheritance_card_title": "Héritage",
+    "inheritance_select_label": "Hériter les souvenirs de …",
+    "inheritance_select_help": "Si vous choisissez un personnage existant, ce nouveau personnage héritera de ses souvenirs (i.e. sa carte et son journal).",
+    "inheritance_select_placeholder": "Choisir un personnage existant",
+    "inheritance_empty": "Aucun personnage existant"
   },
   "characters": {
     "page_title": "Personnages",
@@ -82,10 +154,6 @@
     "unnamed": "Sans nom",
     "archetype_line": "Archetype : {value}",
     "updated_line": "Dernière mise à jour : le {value}",
-    "import_error": "Import impossible. Vérifiez le fichier JSON.",
-    "import_format_error": "Format invalide. Le fichier doit contenir exactement un personnage exporté.",
-    "import_data_error": "Le personnage importé est invalide et ne peut pas être sauvegardé.",
-    "import_success": "Import terminé ({total} lus, {created} créés, {updated} mis à jour).",
     "sheet_title": "Fiche personnage",
     "not_found_title": "Personnage introuvable",
     "not_found_description": "Cette fiche n’existe pas (ou plus) dans ce navigateur.",
@@ -98,24 +166,130 @@
     "tab_journal": "Journal",
     "tab_tools": "Outils",
     "tab_actions": "Actions",
-    "delete_confirm_title": "Supprimer ce personnage ?",
-    "delete_confirm_description": "Cette action est irréversible — la fiche de personnage sera définitive supprimée.",
-    "revive_confirm_title": "Réanimer ce personnage ?",
-    "revive_confirm_description": "Le personnage deviendra jouable et sa fiche sera modifiable à nouveau.",
-    "revive_action": "Réanimer",
-    "mark_dead_confirm_title": "Marquer ce personnage comme mort ?",
-    "mark_dead_confirm_description": "Cette action fige définitivement la fiche en lecture seule.",
-    "mark_dead_action": "Marquer comme mort·e",
-    "danger_mark_dead_help": "Cette action fige la fiche en lecture seule tant que le personnage n’est pas réanimé.",
-    "export": "Exporter JSON",
-    "export_help": "Télécharge un export JSON de la fiche."
+    "gender_label": "Genre",
+    "archetype_power_label": "Pouvoir de l’archetype",
+    "archetype_label": "Archétype",
+    "name_label": "Nom",
+    "identity_section": "Identité",
+    "create_page_title": "Nouveau personnage",
+    "characteristics_section": "Caractéristiques",
+    "clock_tooltip": "L’Horloge suit le temps et l’appétit. Elle est divisée selon votre Endurance actuelle.",
+    "clock_day": "Jour",
+    "clock_section": "Horloge",
+    "identity": {
+      "tab_title": "Identité & Stats",
+      "identity_section": "Identité",
+      "characteristics_section": "Caractéristiques",
+      "name_label": "Nom",
+      "archetype_label": "Archétype",
+      "gender_label": "Genre",
+      "archetype_power_label": "Pouvoir de l’archetype",
+      "honor_label": "Points d’Honneur",
+      "honor_tooltip": "L’air, les cours d’eau, les créatures et les ombres perçoivent l’Honneur autour de vous. Plus votre Honneur est grand, plus vous êtes respecté.\nEn aidant les autres, en protégeant vos souvenirs et en accomplissant votre mission, vous gagnerez de l’Honneur. Mais attention, céder à la violence ou nuire à une créature vous fera perdre de l’Honneur. Les points d’Honneur peuvent être négatifs et, si c’est le cas, votre liberté d’acheter des objets ou d’entrer dans certains endroits sera limitée.",
+      "inspiration_label": "Points d’Inspiration",
+      "inspiration_tooltip": "C’est votre lien avec le monde qui vous entoure.\nÀ chaque fois que vous faites preuve de créativité, que vous aidez quelqu’un ou que vous êtes heureux de la découverte que vous venez de faire, vous pouvez vous récompenser en gagnant un point d’Inspiration. Soyez bienveillant avec vous-même à chaque fois que vous contribuez à façonner le monde qui vous entoure.",
+      "money_label": "Pièces",
+      "money_tooltip": "Elles permettent de faire du commerce, en achetant ou vendant des objets.",
+      "health_label": "Points d’Âme",
+      "health_tooltip": "Ils représentent votre force vitale.\nChaque fois que vous vous retrouvez dans un environnement hostile ou face à une créature dangereuse, vos points d’Âme seront menacés. S’ils atteignent zéro, votre personnage meurt.",
+      "courage_label": "Points de Courage",
+      "courage_tooltip": "Ils représentent votre capacité à réaliser ce que vous voulez.\nÀ chaque fois que vous avez besoin de faire quelque chose qui pourrait mal tourner — courir, sauter, vous cacher, distraire, fuir, attaquer, etc. —, vous devez utiliser votre Courage.",
+      "stamina_label": "Points d’Endurance",
+      "stamina_tooltip": "Ils représentent votre capacité à continuer d’avancer.\nVos points d’Endurance déterminent la quantité d’objets que vous pouvez porter ou le temps que l’Horloge met à avancer.",
+      "courage_roll_aria": "Lancer un test de Courage",
+      "courage_roll_tooltip": "Effectuer un Test de Courage",
+      "courage_roll_success_title": "Test de Courage réussi",
+      "courage_roll_failure_title": "Test de Courage échoué",
+      "courage_roll_result_success": "Résultat du dé : {roll}. Courage actuel : {target}. Réussite (≤).",
+      "courage_roll_result_failure": "Résultat du dé : {roll}. Courage actuel : {target}. Échec (>)."
+    },
+    "map": {
+      "tab_title": "Cartographie",
+      "map_section": "Carte",
+      "clock_section": "Horloge",
+      "clock_tooltip": "L’Horloge suit le temps et l’appétit. Elle est divisée selon votre Endurance actuelle.",
+      "clock_day": "Jour",
+      "clock_night": "Nuit",
+      "clock_advance": "Avancer",
+      "clock_back": "Revenir",
+      "clock_phase_shift_day": "Levée du jour",
+      "clock_phase_shift_night": "Tombée de la nuit",
+      "clock_phase_shift_description": "N’oubliez pas de consommer de la nourriture pour ne pas avoir faim.",
+      "clock_slice": "Tranche : {position} / {total}",
+      "sheet": "Feuille : ({sheetQ}, {sheetR})",
+      "center_on_current": "Centrer sur ma position",
+      "character_position": "Position : {position}",
+      "selected_cell": "Case sélectionnée : {cell}",
+      "cell": "Hexagone",
+      "core": "Le Noyau",
+      "unexplored": "Inexploré",
+      "move_here": "Se déplacer ici",
+      "move_neighbor_only": "Uniquement vers un hexagone adjacent",
+      "clear_cell": "Effacer la case",
+      "menu_marking_group": "Marquage",
+      "menu_actions_group": "Actions",
+      "biome_label": "Biome",
+      "random_biome": "Biome aléatoire (1D6)",
+      "icon_label": "Icône",
+      "pick_emoji": "Choisir une emoji…",
+      "clear_icon": "Retirer l’icône",
+      "emoji_search_placeholder": "Rechercher une emoji…",
+      "random_biome_discovered_title": "Nouveau biome découvert",
+      "random_biome_discovered_description": "Vous découvrez {biomeName}. Marquez {additionalTilesToMark} case{additionalTilesToMark > 1 ? 's' : ''} adjacente{additionalTilesToMark > 1 ? 's' : ''} du même biome ({biomeName})."
+    },
+    "inventory": {
+      "tab_title": "Inventaire & Grimoire",
+      "inventory_section": "Inventaire",
+      "inventory_status": "Objets : {count} / {limit}",
+      "item_name_placeholder": "Nom d’objet",
+      "item_quantity_placeholder": "Quantité",
+      "item_note_placeholder": "Note",
+      "add_item": "Ajouter un objet",
+      "spellbook_section": "Grimoire",
+      "spellbook_status": "Sorts : {count} / 6",
+      "spell_name_placeholder": "Nom du sort",
+      "spell_note_placeholder": "Note",
+      "add_spell": "Ajouter un sort"
+    },
+    "journal": {
+      "page_title": "Journal",
+      "notes_section": "Journal",
+      "add_journal_entry": "Ajouter une entrée",
+      "delete_confirm_title": "Supprimer cette entrée ?",
+      "delete_confirm_description": "Cette entrée contient du contenu. Cette suppression est irréversible.",
+      "empty": "Aucune entrée pour le moment.",
+      "edit_entry": "Éditer",
+      "done_editing": "Écrire",
+      "preview_entry": "Aperçu",
+      "preview_empty": "Aucune entrée pour le moment.",
+      "created_at_line": "Créé le {value}",
+      "updated_at_line": "Mis à jour le {value}",
+      "entry_content_label": "Contenu de l’entrée",
+      "entry_content_placeholder": "Écrivez votre entrée ici…",
+      "symbols": "Symboles :"
+    },
+    "actions": {
+      "tab_title": "Actions",
+      "delete_confirm_title": "Supprimer ce personnage ?",
+      "delete_confirm_description": "Cette action est irréversible — la fiche de personnage sera définitive supprimée.",
+      "revive_action": "Réanimer",
+      "revive_confirm_title": "Réanimer ce personnage ?",
+      "revive_confirm_description": "Le personnage deviendra jouable et sa fiche sera modifiable à nouveau.",
+      "mark_dead_action": "Marquer comme mort·e",
+      "mark_dead_confirm_title": "Marquer ce personnage comme mort ?",
+      "mark_dead_confirm_description": "Cette action fige définitivement la fiche en lecture seule.",
+      "danger_mark_dead_help": "Cette action fige la fiche en lecture seule tant que le personnage n’est pas réanimé.",
+      "export": "Exporter JSON",
+      "export_help": "Télécharge un export JSON de la fiche."
+    }
   },
   "nav": {
     "home_link": "Accueil",
     "characters_link": "Personnages",
     "inhabitant_generator_link": "Générateur d’habitant",
     "village_generator_link": "Générateur de village",
-    "settings_link": "Paramètres"
+    "settings_link": "Paramètres",
+    "back_to_village": "← Retour au village"
   },
   "village": {
     "page_title": "Village",
@@ -138,7 +312,7 @@
     "copy_one_liner": "Copier le résumé",
     "copy_one_liner_success": "Résumé copié dans le presse-papiers.",
     "copy_one_liner_error": "Impossible de copier (autorisez le presse-papiers).",
-    "link_summary": "Village ({factionLabel}, {establishmentCount} établissement{establishmentCount > 1 ? 's' : ''})",
+    "link_summary": "{has_faction_label, select, yes {Village ({factionLabel}), {establishmentCount} {establishmentCount, plural, =1 {établissement} other {établissements}}} other {Village, {establishmentCount} {establishmentCount, plural, =1 {établissement} other {établissements}}}}",
     "village_faction_label": "Peuple du village",
     "generate": "Générer"
   },
@@ -146,6 +320,146 @@
     "information": "Information dans le livre de règles",
     "page_citation": "p. {page}",
     "village_footnote": "Livre de règles — Les villages : p. 42. Table « Établissement » : p. 43.",
-    "inhabitant_footnote": "Livre de règles — Les habitants : p. 56–58. Table des noms : p. 60."
+    "inhabitant_footnote": "Livre de règles — Les habitants : p. 56–58. Table des noms : p. 60.",
+    "characteristics_footnote": "Livre de règles — Les Attributs de votre Protecteur : p. 7–8.",
+    "clock_footnote": "Livre de règles — Les Attributs de votre Protecteur : p. 7–8.",
+    "inventory_footnote": "Livre de règles — Les autres valeurs du jeu → L’inventaire : p. 8.",
+    "spellbook_footnote": "Livre de règles — La Magie : p. 14."
+  },
+  "settings": {
+    "page_title": "Paramètres",
+    "page_description": "Réglez les préférences globales de l’application. Elles sont enregistrées localement dans ce navigateur.",
+    "section_sheet": "Feuille de personnage",
+    "section_journal": "Journal",
+    "section_village": "Générateur de village",
+    "journal_timeline_reverse_chronological_label": "Afficher le journal du plus récent au plus ancien",
+    "journal_timeline_reverse_chronological_help": "Décochez pour un ordre chronologique (du plus ancien au plus récent).",
+    "village_merge_duplicate_establishments_label": "Regrouper les doublons d’établissements",
+    "village_merge_duplicate_establishments_help": "Fusionne les lignes identiques dans le résumé du village (petite + petite → grande, etc.) et compte les établissements de la même façon dans les liens du journal.",
+    "adaptive_night_mode_label": "Assombrir la feuille quand l’horloge est à la nuit",
+    "adaptive_night_mode_help": "Ce réglage s’applique à toutes les fiches personnage et n’est pas stocké dans les données de personnage.",
+    "save_success": "Paramètres enregistrés."
+  },
+  "inhabitant": {
+    "page_title": "Habitant",
+    "page_description": "Générez un habitant pour votre village.",
+    "section_identity": "Identité",
+    "section_characteristics": "Caractéristiques",
+    "section_resources": "Ressources",
+    "section_pools": "Jauges",
+    "section_inventory": "Inventaire",
+    "section_spellbook": "Grimoire",
+    "section_notes": "Journal",
+    "generate": "Générer",
+    "reroll_faction": "Relancer la faction (D6)",
+    "reroll_name": "Relancer le nom (2D6)",
+    "reroll_age_card": "Relancer la carte d’âge",
+    "reroll_personality_card": "Relancer la carte de personnalité",
+    "reroll_context_card": "Relancer la carte de contexte",
+    "reroll_gender": "Relancer le genre (1D6)",
+    "context_seven_followup_label": "Carte offerte (1D6, p. 49)",
+    "empty_summary": "Cliquez sur « {button} » pour générer un habitant.",
+    "section_faction": "Faction",
+    "section_gender": "Genre",
+    "section_age": "Âge",
+    "section_personality": "Personnalité",
+    "section_context": "Contexte",
+    "section_name": "Nom",
+    "faction_die_meta": "1D6 : {dice}",
+    "copy_one_liner": "Copier le résumé",
+    "copy_one_liner_success": "Résumé copié dans le presse-papiers.",
+    "copy_one_liner_error": "Impossible de copier (autorisez le presse-papiers).",
+    "one_liner": "{gender} {name} ({faction}) — {age}, {personality}",
+    "one_liner_rich": "{gender} <name></name> ({faction}) — {age}, {personality}",
+    "card_meta": "Carte : {card}",
+    "name_dice_meta": "2D6 : <dice></dice>",
+    "reroll_context_spoken_name_dice": "Relancer le nom prononcé (2D6)",
+    "roll_context_spoken_name_dice": "Lancer les 2D6 (nom prononcé)",
+    "context_spoken_name_meta": "2D6 : <dice></dice>",
+    "context_seven_map_localisation": "Carte de localisation (1-3)",
+    "context_seven_map_biome": "Carte de biome (4-6)",
+    "roll_context_seven_die": "Lancer le D6 (type de carte)",
+    "reroll_context_seven_die": "Relancer le D6 (carte offerte)",
+    "context_card_note": "Seule la hauteur de la carte compte pour le contexte ; la couleur est ignorée.",
+    "context_spoken_name_label": "Nom prononcé (2D6, p. 60)",
+    "context_by_rank": {
+      "2": "**Cette habitant·e est à la recherche de quelque chose.** Peut-être quelque chose qui n’est pas vendu dans ce village, ou quelque chose que l’on ne peut trouver que loin d’ici ? Mais au-delà de ça, iel semble avoir peur de l’inconnu. Il y a peut-être une histoire derrière tout ça.",
+      "3": "**Cette habitant·e rêve de voyager dans un autre village.** Peut-être pourriez-vous l’accompagner et en savoir plus sur ses motivations et ses envies !",
+      "4": "**Cette habitant·e est très malade et n’a plus que peu de temps à vivre.** Iel est seul·e et personne pour l’épauler dans ces instants difficiles. Peut-être qu’une conversation lui donnerait un peu de baume au cœur ? *Si vous avez rencontré cette habitant·e dans un village, la prochaine fois que vous visiterez cet endroit, vous devrez réussir un test de Courage pour le·a retrouver.*",
+      "5": "**Cette habitant·e cherche l’amitié — ou peut-être l’amour ?** Vous n’en êtes pas sûr·e, mais iel semble se sentir seul·e. Vous pouvez l’aider à trouver quelqu’un·e qui cherche quelque chose de similaire.",
+      "6": "**Cette habitant·e se languit d’un être cher.** Peut-être est-ce quelqu’un·e qui vit ailleurs ou qui vient juste de partir. Mais iel est aussi à la recherche d’un objet très spécial qui lui rappelle cette personne. Quel est cet objet ?",
+      "7": "Cette habitant·e est **cartographe**. Vous le·a croisez alors qu’iel va quitter le village et iel reconnaît en vous un voyageur. Iel vous offre une de ses cartes. Lancez un D6 : *Carte de localisation (1-3)* ou *Carte de biome (4-6)* (voir p. 49).",
+      "8": "Cette habitant·e est **en train de peindre un tableau**. Se rendant compte que vous êtes un voyageur, iel vous demande si vous avez un croquis représentant un endroit qui lui est inconnu, ou si vous pouvez décrire un panorama que vous avez vu au cours de votre voyage ! Iel ne s’est jamais aventuré dans des endroits éloignés de son village et recherche l’inspiration !",
+      "9": "Il existe des rumeurs sur de mystérieuses Ruines parsemées à travers le monde et **cette habitant·e est curieux·se d’en savoir plus sur le sujet**. Voyant que vous êtes un·e voyageur·se, iel s’approche de vous pour voir si vous avez des informations à partager !",
+      "10": "**Cette habitant·e prononce un nom en errant dans le village.** De qui s’agit-il ? Pourquoi cette habitant·e prononce-t-il ce nom ? Que s’est-il passé ? *Si vous devez créer un nom, consultez la table page 60.*",
+      "A": "**Cette habitant·e pleure une perte récente.** Iel a peut-être perdu un animal de compagnie ou un·e ami·e proche. Peut-être qu’une discussion serait la bienvenue ? À moins qu’iel ait besoin d’écoute pour se sentir mieux ?",
+      "J": "**Cette habitant·e achète des objets provenant d’autres endroits du monde et offre 100 pièces pour chaque objet digne de son intérêt.** Parlez-lui ! Peut-être que vous avez sur vous un objet qu’iel pourrait acquérir.",
+      "Q": "**Cette habitant·e ressemble à quelqu’un que vous avez déjà rencontré.** S’agit-il d’une impression ? Vous pouvez toujours lui demander pour en avoir le cœur net. Iel a peut-être déjà croisé votre chemin, à moins que ce ne soit un·e inconnu·e avec de nouvelles histoires à raconter !",
+      "K": "**Cette habitant·e est bâtisseur·se.** Iel vous dit qu’avec 3 bois et 3 fers ou avec 1,000 pièces, iel peut construire l’établissement de votre choix dans le village."
+    }
+  },
+  "game": {
+    "village_traits": {
+      "J": {
+        "red": "**Ville.** C’est une **grande colonie**. Tirez **3 cartes d’établissement supplémentaires** ; si vous tirez une **figure** (valet, dame, roi), **ignorez-la** et tirez à nouveau jusqu’à obtenir une **carte numérotée**.",
+        "black": "**Merveille.** Le village est **d’une beauté exceptionnelle**. Décrivez-le. Vous gagnez **2 points d’Inspiration**."
+      },
+      "Q": {
+        "red": "**Fortifié.** Le village est **entouré de murs** avec une **entrée gardée**. Vous devez avoir **au moins 1 point d’Honneur** pour y entrer.",
+        "black": "**Luxuriant.** Il comporte une **étendue d’eau** (rivière, lac, etc.) et un **jardin**. Vous pouvez utiliser la **table de collecte du biome** **sans équipement particulier**."
+      },
+      "K": {
+        "red": "**Abandonné.** Les bâtiments semblent **inhabités**. Les **établissements sont inopérants** tant que quelqu’un ne décide pas de **reconstruire le village**.",
+        "black": "**Nomade.** Le village **se déplace**. Lorsque vous revenez sur cette **case de carte**, vous devez réussir un **test de Courage**. En cas d’**échec**, le village **n’est plus là**."
+      }
+    },
+    "establishments": {
+      "2": {
+        "0": "Petite boutique de potions",
+        "1": "  Grande boutique de potions",
+        "2": "Immense boutique de potions"
+      },
+      "3": {
+        "0": "Petite boutique d’équipement",
+        "1": "Grande boutique d’équipement",
+        "2": "Immense boutique d’équipement"
+      },
+      "4": {
+        "0": "Petite boutique de vêtements",
+        "1": "Grande boutique de vêtements",
+        "2": "Immense boutique de vêtements"
+      },
+      "5": {
+        "0": "Petite taverne",
+        "1": "Grande taverne",
+        "2": "Immense taverne"
+      },
+      "6": {
+        "0": "Petit bureau de cartographie",
+        "1": "Grand bureau de cartographie",
+        "2": "Immense bureau de cartographie"
+      },
+      "7": {
+        "0": "Petite auberge",
+        "1": "Grande auberge",
+        "2": "Immense auberge"
+      },
+      "8": {
+        "0": "Petite agence de missions",
+        "1": "Grande agence de missions",
+        "2": "Immense agence de missions"
+      },
+      "9": {
+        "red": "Gare en activité",
+        "black": "Gare à l'abandon"
+      },
+      "10": "Ruines",
+      "A": {
+        "red": "Oratoire permanent",
+        "black": "Oratoire éphémère"
+      },
+      "merged_label_two": "Immense {name}",
+      "merged_label_more": "Immense {name} (×{count})"
+    }
   }
 }

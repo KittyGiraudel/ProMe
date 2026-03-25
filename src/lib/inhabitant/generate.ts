@@ -84,7 +84,7 @@ function rollInhabitantRoll(
   const contextCard = randomCard(rng);
   const nameDice = roll2D6(rng);
   const name = lookupName(faction, nameDice[0], nameDice[1]);
-  const contextText = t(`game.inhabitantContextByRank.${contextCard.rank}`);
+  const contextText = t(`inhabitant.context_by_rank.${contextCard.rank}`);
   const genderDie = rollD6(rng);
   const gender = genderFromD6(genderDie);
   const follow = rollContextFollowups({ faction, contextCard }, rng);
@@ -213,7 +213,7 @@ export function rerollInhabitantPart(
     }
     case "contextCard": {
       const contextCard = randomCard(rng);
-      const contextText = t(`game.inhabitantContextByRank.${contextCard.rank}`);
+      const contextText = t(`inhabitant.context_by_rank.${contextCard.rank}`);
       const follow = rollContextFollowups({ faction: roll.faction, contextCard }, rng);
       return {
         ...roll,

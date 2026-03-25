@@ -1,7 +1,8 @@
 import { getTranslations } from 'next-intl/server'
 import { MapTabSection } from '../tabs/MapTabSection'
+import { AppConfig } from 'next-intl'
 
-type Props = { params: Promise<{ locale: string }> }
+type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
 
 export async function generateMetadata({ params }: Props) {
   const { locale } = await params

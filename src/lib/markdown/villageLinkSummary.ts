@@ -40,5 +40,9 @@ export function getVillageSummaryFromUrl(
     options?.mergeDuplicateEstablishments === true
       ? countVillageGroupedEstablishmentRows(roll, t)
       : resolveVillageDisplay(roll, t).establishments.length
-  return t('village.linkSummary', factionLabel, count)
+  return t('village.link_summary', {
+    has_faction_label: factionLabel ? 'yes' : 'no',
+    factionLabel: factionLabel ?? '',
+    establishmentCount: count,
+  })
 }
