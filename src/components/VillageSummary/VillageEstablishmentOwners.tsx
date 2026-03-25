@@ -31,9 +31,7 @@ export function VillageEstablishmentOwners({
   const renderRow = (e: VillageOwnerEntry) => {
     const age = getAgeBand(e.roll)
     const personality = getPersonality(e.roll)
-    const params = new URLSearchParams(inhabitantPageVillageQuery ?? '')
-    params.set('i', encodeInhabitantRoll(e.roll))
-    const inhabitantHref = `/generators/inhabitant?${params.toString()}`
+    const inhabitantHref = `/generators/npc/${encodeInhabitantRoll(e.roll)}`
     return (
       <div className='village-summary__owner-row'>
         <span className='village-summary__owner-main'>

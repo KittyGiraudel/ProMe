@@ -11,7 +11,6 @@ import {
   encodeInhabitantRoll,
 } from '../inhabitant/inhabitantUrlCodec'
 import type { InhabitantRoll } from '../inhabitant/generate'
-import { Localize } from '../localization/localize';
 import { _Translator } from "next-intl";
 
 /** Not used in `encodeInhabitantRoll` output. */

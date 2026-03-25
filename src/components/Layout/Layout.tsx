@@ -44,8 +44,7 @@ const useBreadcrumbs = ({
 
     if (!breadcrumbs) {
       const resolvedBackHref = '/'
-      const label =
-        resolvedBackHref === '/' ? t('nav.home_link') : t('nav.back_home')
+      const label = t('nav.home_link')
       items.push({
         title: (
           <BlockedLink
@@ -96,11 +95,11 @@ export const Layout = ({
         ),
       },
       {
-        key: '/generators/inhabitant',
+        key: '/generators/npc',
         label: (
           <BlockedLink
-            href='/generators/inhabitant'
-            data-current={pathname.startsWith('/generators/inhabitant')}>
+            href='/generators/npc'
+            data-current={pathname.startsWith('/generators/npc')}>
             {t('nav.inhabitant_generator_link')}
           </BlockedLink>
         ),

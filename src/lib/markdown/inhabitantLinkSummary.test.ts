@@ -3,9 +3,9 @@ import { getInhabitantSummaryFromUrl } from './inhabitantLinkSummary'
 import { testLocalize } from '@/lib/localization/testLocalize'
 
 describe('markdown/inhabitantLinkSummary', () => {
-  it('returns a summary label for valid inhabitant share URLs', () => {
-    const url =
-      'https://example.com/generators/inhabitant?i=1H2H2C3111'
+
+  it('returns a summary label for valid NPC share URLs', () => {
+    const url = 'https://example.com/generators/npc/1H2H2C3111'
     const summary = getInhabitantSummaryFromUrl(url, testLocalize)
     expect(summary).toBeTruthy()
     expect(summary).toContain('(')
@@ -19,9 +19,9 @@ describe('markdown/inhabitantLinkSummary', () => {
     expect(summary).toBeNull()
   })
 
-  it('returns null for invalid or undecodable inhabitant URLs', () => {
+  it('returns null for invalid NPC URLs', () => {
     const summary = getInhabitantSummaryFromUrl(
-      'https://example.com/generators/inhabitant?i=NOT_A_VALID_ROLL',
+      'https://example.com/generators/npc/NOT_A_VALID_ROLL',
       testLocalize,
     )
     expect(summary).toBeNull()

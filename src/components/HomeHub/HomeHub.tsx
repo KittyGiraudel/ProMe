@@ -80,7 +80,7 @@ const InhabitantGenerator = () => {
       className='home-hub__card'
       title={t('home.inhabitant_card_title')}
       extra={
-        <BlockedLink href='/generators/inhabitant' className='home-hub__cta'>
+        <BlockedLink href='/generators/npc' className='home-hub__cta'>
           {t('common.open')}
         </BlockedLink>
       }>

@@ -1,7 +1,6 @@
-import { getAgeBand, getPersonality, type InhabitantRoll } from '@/lib/inhabitant/generate'
+import { getAgeBand, getPersonality } from '@/lib/inhabitant/generate'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 import { decodeInhabitantRollParam } from '@/lib/inhabitant/inhabitantUrlCodec'
-import { Localize } from '../localization/localize'
 import { _Translator } from 'next-intl'
 
 function normalizeUrl(rawUrl: string): URL | null {
@@ -13,7 +12,11 @@ function normalizeUrl(rawUrl: string): URL | null {
 }
 
 function isInhabitantGeneratorPath(pathname: string): boolean {
-  return pathname.replace(/\/+$/, '') === '/generators/inhabitant'
+  const normalized = pathname.replace(/\/+$/, '')
+  return (
+    normalized === '/generators/npc' ||
+    normalized.startsWith('/generators/npc/')
+  )
 }
 
 export function getInhabitantSummaryFromUrl(rawUrl: string, t: _Translator): string | null {
@@ -21,7 +24,18 @@ export function getInhabitantSummaryFromUrl(rawUrl: string, t: _Translator): str
   if (!parsed) return null
   if (!isInhabitantGeneratorPath(parsed.pathname)) return null
 
-  const encoded = parsed.searchParams.get('i')
+  const pathname = parsed.pathname.replace(/\/+$/, '')
+  let encoded: string | null = null
+
+  if (pathname.startsWith('/generators/npc/')) {
+    // `/generators/npc/[id]` (id is the encoded compact roll)
+    const parts = pathname.split('/').filter(Boolean)
+    encoded = parts.length >= 3 ? parts[2]! : null
+  } else {
+    // Base `/generators/npc` has no encoded id.
+    encoded = null
+  }
+
   if (!encoded) return null
 
   const roll = decodeInhabitantRollParam(encoded, t)

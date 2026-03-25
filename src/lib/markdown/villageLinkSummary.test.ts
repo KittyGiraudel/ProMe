@@ -39,11 +39,5 @@ describe('markdown/villageLinkSummary', () => {
         testLocalize,
       ),
     ).toBeNull()
-    expect(
-      getVillageSummaryFromUrl(
-        'https://example.com/generators/inhabitant?i=1H2H2C3111',
-        testLocalize,
-      )
-    ).toBeNull()
   })
 })

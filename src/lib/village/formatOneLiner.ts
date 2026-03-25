@@ -5,7 +5,6 @@ import {
 } from '@/lib/inhabitant/generate'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 import type { VillageRoll } from '@/lib/village/generate'
-import { Localize } from '@/lib/localization/localize'
 import { ownerSlotIndexByEstablishmentIndex, resolveVillageDisplay } from '@/app/[locale]/generators/village/useVillageGenerator'
 import { _Translator } from 'next-intl'
 
@@ -14,7 +13,6 @@ function stripBoldMarkers(s: string): string {
 }
 
 export type VillageCopyFormatOptions = {
-  /** Same URL shape as the inhabitant generator copy (e.g. `…/generators/inhabitant?i=…`). */
   inhabitantShareUrl: (roll: InhabitantRoll) => string
 }
 

@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import { AppConfig, useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { Layout } from '@/components/Layout/Layout'
-import { InhabitantGeneratorClient } from './InhabitantGeneratorClient'
+import { NpcGeneratorClient } from './NpcGeneratorClient'
 
 type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
 
@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props) {
   }
 }
 
-function InhabitantGeneratorFallback() {
+function NpcGeneratorFallback() {
   const t = useTranslations()
   return (
     <Layout title={t('inhabitant.title')} pageCoverBiome='fieldSea'>
@@ -24,10 +24,10 @@ function InhabitantGeneratorFallback() {
   )
 }
 
-export default function InhabitantGeneratorPage() {
+export default function NpcGeneratorPage() {
   return (
-    <Suspense fallback={<InhabitantGeneratorFallback />}>
-      <InhabitantGeneratorClient />
+    <Suspense fallback={<NpcGeneratorFallback />}>
+      <NpcGeneratorClient initialRoll={null} />
     </Suspense>
   )
 }

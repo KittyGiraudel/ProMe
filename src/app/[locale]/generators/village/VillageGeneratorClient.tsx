@@ -177,14 +177,8 @@ export function VillageGeneratorClient() {
     params.set(FACTION_QUERY_KEY, villageFaction)
     const shareUrl = `${window.location.origin}${pathname}?${params.toString()}`
     const line = formatVillageOneLiner(roll, shareUrl, t, ownersValid, {
-      inhabitantShareUrl: inhabitantRoll => {
-        const p = new URLSearchParams()
-        p.set('i', encodeInhabitantRoll(inhabitantRoll))
-        p.set(VILLAGE_QUERY_KEY, encodeVillageRoll(roll))
-        p.set(OWNERS_QUERY_KEY, encodeVillageOwners(ownersValid))
-        p.set(FACTION_QUERY_KEY, villageFaction)
-        return `${window.location.origin}/generators/inhabitant?${p.toString()}`
-      },
+      inhabitantShareUrl: inhabitantRoll =>
+        `${window.location.origin}/generators/npc/${encodeInhabitantRoll(inhabitantRoll)}`,
     })
     try {
       await navigator.clipboard.writeText(line)
