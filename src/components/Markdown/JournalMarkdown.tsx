@@ -22,6 +22,7 @@ import './JournalMarkdown.css'
 import { BiomeTag } from '../BiomeTag/BiomeTag'
 import { CoordChip } from '../CoordChip/CoordChip'
 import { _Translator, useTranslations } from 'next-intl'
+import { GeneratorLinkPreview } from '@/components/Markdown/GeneratorLinkPreview'
 
 const BIOME_ENTRIES = BIOME_ROLL_TABLE.map(biome => ({
   key: `common.biomes.${biome.biome}`,
@@ -263,6 +264,10 @@ export function JournalMarkdown({ markdown }: { markdown: string }) {
                 settings.village.mergeDuplicateEstablishments,
             })
           : null
+      const generatorLabel = inhabitantSummary ?? villageSummary ?? null
+      if (href && generatorLabel) {
+        return <GeneratorLinkPreview href={href} label={generatorLabel} />
+      }
       return (
         <a {...props} href={href}>
           {inhabitantSummary ??

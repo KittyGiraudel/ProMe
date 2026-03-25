@@ -81,6 +81,7 @@ export function InhabitantSummary({
   onSetRoll,
 }: InhabitantSummaryProps) {
   const t = useTranslations()
+  const isReadOnly = !onSetRoll
   const inhabitantFootnote = (
     <Typography.Text type='secondary' className='generator-rulebook-footnote'>
       {t('rulebook.inhabitant_footnote')}
@@ -145,24 +146,28 @@ export function InhabitantSummary({
               label: t('inhabitant.section_name'),
               children: (
                 <div className='inhabitant-summary__field-row'>
-                  <Select
-                    {...INHABITANT_SUMMARY_SELECT_PROPS}
-                    className='inhabitant-summary__field-select'
-                    showSearch
-                    optionFilterProp='label'
-                    disabled={!onSetRoll}
-                    value={nameDiceValue}
-                    options={nameDiceSelectOptions}
-                    onChange={v => {
-                      if (!onSetRoll) return
-                      const [a, b] = v.split('-').map(Number) as [
-                        number,
-                        number,
-                      ]
-                      onSetRoll(setInhabitantNameDice(roll, [a, b]))
-                    }}
-                    aria-label={t('inhabitant.section_name')}
-                  />
+                  {isReadOnly ? (
+                    <Typography.Text>{roll.name}</Typography.Text>
+                  ) : (
+                    <Select
+                      {...INHABITANT_SUMMARY_SELECT_PROPS}
+                      className='inhabitant-summary__field-select'
+                      showSearch
+                      optionFilterProp='label'
+                      disabled={!onSetRoll}
+                      value={nameDiceValue}
+                      options={nameDiceSelectOptions}
+                      onChange={v => {
+                        if (!onSetRoll) return
+                        const [a, b] = v.split('-').map(Number) as [
+                          number,
+                          number,
+                        ]
+                        onSetRoll(setInhabitantNameDice(roll, [a, b]))
+                      }}
+                      aria-label={t('inhabitant.section_name')}
+                    />
+                  )}
                   <div className='inhabitant-summary__field-meta'>
                     <MetaWithReroll
                       rerollLabel={t('inhabitant.reroll_name')}
@@ -184,21 +189,27 @@ export function InhabitantSummary({
               label: t('inhabitant.section_faction'),
               children: (
                 <div className='inhabitant-summary__field-row'>
-                  <Select
-                    {...INHABITANT_SUMMARY_SELECT_PROPS}
-                    className='inhabitant-summary__field-select'
-                    disabled={!onSetRoll}
-                    value={roll.faction}
-                    options={FACTIONS.map(r => ({
-                      value: r,
-                      label: t(`common.factions.${r}`),
-                    }))}
-                    onChange={(r: Faction) => {
-                      if (!onSetRoll) return
-                      onSetRoll(setInhabitantFaction(roll, r))
-                    }}
-                    aria-label={t('inhabitant.section_faction')}
-                  />
+                  {isReadOnly ? (
+                    <Typography.Text>
+                      {t(`common.factions.${roll.faction}`)}
+                    </Typography.Text>
+                  ) : (
+                    <Select
+                      {...INHABITANT_SUMMARY_SELECT_PROPS}
+                      className='inhabitant-summary__field-select'
+                      disabled={!onSetRoll}
+                      value={roll.faction}
+                      options={FACTIONS.map(r => ({
+                        value: r,
+                        label: t(`common.factions.${r}`),
+                      }))}
+                      onChange={(r: Faction) => {
+                        if (!onSetRoll) return
+                        onSetRoll(setInhabitantFaction(roll, r))
+                      }}
+                      aria-label={t('inhabitant.section_faction')}
+                    />
+                  )}
                   <div className='inhabitant-summary__field-meta'>
                     <MetaWithReroll
                       rerollLabel={t('inhabitant.reroll_faction')}
@@ -218,21 +229,27 @@ export function InhabitantSummary({
               label: t('inhabitant.section_gender'),
               children: (
                 <div className='inhabitant-summary__field-row'>
-                  <Select
-                    {...INHABITANT_SUMMARY_SELECT_PROPS}
-                    className='inhabitant-summary__field-select'
-                    disabled={!onSetRoll}
-                    value={roll.gender}
-                    options={GENDERS.map(g => ({
-                      value: g,
-                      label: t(`common.genders.${g}`),
-                    }))}
-                    onChange={(g: Gender) => {
-                      if (!onSetRoll) return
-                      onSetRoll(setInhabitantGender(roll, g))
-                    }}
-                    aria-label={t('inhabitant.section_gender')}
-                  />
+                  {isReadOnly ? (
+                    <Typography.Text>
+                      {t(`common.genders.${roll.gender}`)}
+                    </Typography.Text>
+                  ) : (
+                    <Select
+                      {...INHABITANT_SUMMARY_SELECT_PROPS}
+                      className='inhabitant-summary__field-select'
+                      disabled={!onSetRoll}
+                      value={roll.gender}
+                      options={GENDERS.map(g => ({
+                        value: g,
+                        label: t(`common.genders.${g}`),
+                      }))}
+                      onChange={(g: Gender) => {
+                        if (!onSetRoll) return
+                        onSetRoll(setInhabitantGender(roll, g))
+                      }}
+                      aria-label={t('inhabitant.section_gender')}
+                    />
+                  )}
                   <div className='inhabitant-summary__field-meta'>
                     <MetaWithReroll
                       rerollLabel={t('inhabitant.reroll_gender')}
@@ -252,21 +269,27 @@ export function InhabitantSummary({
               label: t('inhabitant.section_age'),
               children: (
                 <div className='inhabitant-summary__field-row'>
-                  <Select
-                    {...INHABITANT_SUMMARY_SELECT_PROPS}
-                    className='inhabitant-summary__field-select'
-                    disabled={!onSetRoll}
-                    value={age}
-                    options={AGE_BANDS.map(band => ({
-                      value: band,
-                      label: t(`common.age_bands.${band}`),
-                    }))}
-                    onChange={(band: AgeBand) => {
-                      if (!onSetRoll) return
-                      onSetRoll(setInhabitantAgeBand(roll, band))
-                    }}
-                    aria-label={t('inhabitant.section_age')}
-                  />
+                  {isReadOnly ? (
+                    <Typography.Text>
+                      {t(`common.age_bands.${age}`)}
+                    </Typography.Text>
+                  ) : (
+                    <Select
+                      {...INHABITANT_SUMMARY_SELECT_PROPS}
+                      className='inhabitant-summary__field-select'
+                      disabled={!onSetRoll}
+                      value={age}
+                      options={AGE_BANDS.map(band => ({
+                        value: band,
+                        label: t(`common.age_bands.${band}`),
+                      }))}
+                      onChange={(band: AgeBand) => {
+                        if (!onSetRoll) return
+                        onSetRoll(setInhabitantAgeBand(roll, band))
+                      }}
+                      aria-label={t('inhabitant.section_age')}
+                    />
+                  )}
                   <div className='inhabitant-summary__field-meta'>
                     <MetaWithReroll
                       rerollLabel={t('inhabitant.reroll_age_card')}
@@ -288,18 +311,24 @@ export function InhabitantSummary({
               label: t('inhabitant.section_personality'),
               children: (
                 <div className='inhabitant-summary__field-row'>
-                  <Select
-                    {...INHABITANT_SUMMARY_SELECT_PROPS}
-                    className='inhabitant-summary__field-select'
-                    disabled={!onSetRoll}
-                    value={personality}
-                    options={personalitySelectOptions}
-                    onChange={(p: Personality) => {
-                      if (!onSetRoll) return
-                      onSetRoll(setInhabitantPersonality(roll, p))
-                    }}
-                    aria-label={t('inhabitant.section_personality')}
-                  />
+                  {isReadOnly ? (
+                    <Typography.Text>
+                      {t(`common.personalities.${personality}`)}
+                    </Typography.Text>
+                  ) : (
+                    <Select
+                      {...INHABITANT_SUMMARY_SELECT_PROPS}
+                      className='inhabitant-summary__field-select'
+                      disabled={!onSetRoll}
+                      value={personality}
+                      options={personalitySelectOptions}
+                      onChange={(p: Personality) => {
+                        if (!onSetRoll) return
+                        onSetRoll(setInhabitantPersonality(roll, p))
+                      }}
+                      aria-label={t('inhabitant.section_personality')}
+                    />
+                  )}
                   <div className='inhabitant-summary__field-meta'>
                     <MetaWithReroll
                       rerollLabel={t('inhabitant.reroll_personality_card')}

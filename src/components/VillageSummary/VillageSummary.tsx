@@ -182,9 +182,6 @@ export function VillageSummary({
   return (
     <>
       <Card className='village-summary' variant='borderless'>
-        <Typography.Title level={5} className='village-summary__section-title'>
-          {t('village.section_establishments')}
-        </Typography.Title>
         {!grouped ? (
           <UngroupedEstablishmentsList
             establishments={display.establishments}

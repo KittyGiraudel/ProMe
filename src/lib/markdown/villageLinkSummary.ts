@@ -1,7 +1,7 @@
 import { countVillageGroupedEstablishmentRows } from '@/lib/village/groupEstablishments'
-import { decodeVillageFactionParam } from '@/lib/village/villageUrlCodec'
 import { decodeVillageIdRollParam } from '@/lib/village/villageIdCodec'
 import { resolveVillageDisplay } from '@/lib/village/resolveVillageDisplay'
+import { parseGeneratorLink } from '@/lib/markdown/generatorLink'
 import { _Translator } from 'next-intl'
 
 /**
@@ -9,31 +9,6 @@ import { _Translator } from 'next-intl'
  */
 export type VillageLinkSummaryOptions = {
   mergeDuplicateEstablishments?: boolean
-}
-
-/**
- * Best-effort URL parsing for journal markdown links.
- *
- * Returns `null` for invalid URLs rather than throwing, since journal content may
- * contain arbitrary text.
- */
-function normalizeUrl(rawUrl: string): URL | null {
-  try {
-    return new URL(rawUrl)
-  } catch {
-    return null
-  }
-}
-
-/**
- * True when the URL pathname points to the village generator route.
- *
- * Supported route shape:
- * - `/generators/village/<id>` where `<id>` is the village `[id]` segment
- */
-function isVillageGeneratorPath(pathname: string): boolean {
-  const normalized = pathname.replace(/\/+$/, '')
-  return normalized.startsWith('/generators/village/')
 }
 
 /**
@@ -56,20 +31,13 @@ export function getVillageSummaryFromUrl(
   t: _Translator,
   options?: VillageLinkSummaryOptions
 ): string | null {
-  const parsed = normalizeUrl(rawUrl)
-  if (!parsed) return null
-  if (!isVillageGeneratorPath(parsed.pathname)) return null
+  const parsed = parseGeneratorLink(rawUrl)
+  if (!parsed || parsed.kind !== 'village') return null
 
-  const segments = parsed.pathname.replace(/\/+$/, '').split('/').filter(Boolean)
-  // Expected: /generators/village/[id]
-  const encodedId = segments.length >= 3 ? segments[2]! : null
-  if (!encodedId) return null
-
-  const roll = decodeVillageIdRollParam(encodedId)
+  const roll = decodeVillageIdRollParam(parsed.encodedId)
   if (!roll) return null
 
-  const faction = decodeVillageFactionParam(parsed.searchParams.get('f'))
-  const factionLabel = faction ? t(`common.factions.${faction}`) : null
+  const factionLabel = parsed.faction ? t(`common.factions.${parsed.faction}`) : null
   const count =
     options?.mergeDuplicateEstablishments === true
       ? countVillageGroupedEstablishmentRows(roll, t)

@@ -1,36 +1,8 @@
 import { getAgeBand, getPersonality } from '@/lib/inhabitant/generate'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 import { decodeInhabitantRollParam } from '@/lib/inhabitant/inhabitantUrlCodec'
+import { parseGeneratorLink } from '@/lib/markdown/generatorLink'
 import { _Translator } from 'next-intl'
-
-/**
- * Best-effort URL parsing for journal markdown links.
- *
- * Returns `null` for invalid URLs rather than throwing, since journal content may
- * contain arbitrary text.
- */
-function normalizeUrl(rawUrl: string): URL | null {
-  try {
-    return new URL(rawUrl)
-  } catch {
-    return null
-  }
-}
-
-/**
- * True when the URL pathname points to the NPC generator route.
- *
- * Supported route shapes:
- * - `/generators/npc` (no encoded roll)
- * - `/generators/npc/<id>` where `<id>` is `encodeInhabitantRoll(...)`
- */
-function isInhabitantGeneratorPath(pathname: string): boolean {
-  const normalized = pathname.replace(/\/+$/, '')
-  return (
-    normalized === '/generators/npc' ||
-    normalized.startsWith('/generators/npc/')
-  )
-}
 
 /**
  * If `rawUrl` is a share URL for an NPC roll, return a human-friendly one-line summary
@@ -42,25 +14,10 @@ function isInhabitantGeneratorPath(pathname: string): boolean {
  * - decoding fails
  */
 export function getInhabitantSummaryFromUrl(rawUrl: string, t: _Translator): string | null {
-  const parsed = normalizeUrl(rawUrl)
-  if (!parsed) return null
-  if (!isInhabitantGeneratorPath(parsed.pathname)) return null
+  const parsed = parseGeneratorLink(rawUrl)
+  if (!parsed || parsed.kind !== 'npc') return null
 
-  const pathname = parsed.pathname.replace(/\/+$/, '')
-  let encoded: string | null = null
-
-  if (pathname.startsWith('/generators/npc/')) {
-    // `/generators/npc/[id]` (id is the encoded compact roll)
-    const parts = pathname.split('/').filter(Boolean)
-    encoded = parts.length >= 3 ? parts[2]! : null
-  } else {
-    // Base `/generators/npc` has no encoded id.
-    encoded = null
-  }
-
-  if (!encoded) return null
-
-  const roll = decodeInhabitantRollParam(encoded, t)
+  const roll = decodeInhabitantRollParam(parsed.encodedId, t)
   if (!roll) return null
 
   return t('inhabitant.one_liner', {

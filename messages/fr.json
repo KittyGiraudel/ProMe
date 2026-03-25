@@ -7,9 +7,11 @@
   "common": {
     "loading": "Chargement…",
     "open": "Ouvrir",
+    "open_in_new_tab": "Ouvrir dans un nouvel onglet",
     "save": "Sauvegarder",
     "delete": "Supprimer",
     "cancel": "Annuler",
+    "could_not_parse_link": "Impossible d’afficher ce lien dans une fenêtre : ouvrez-le dans le générateur.",
     "check_success_word": "Réussite",
     "check_failure_word": "Échec",
     "collection": "{commaJoinedRest} et {last}",
