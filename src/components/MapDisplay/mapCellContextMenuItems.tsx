@@ -2,7 +2,7 @@ import { Typography } from 'antd'
 import type { MenuProps } from 'antd'
 import type { ReactNode } from 'react'
 import { useMemo } from 'react'
-import { _Translator, useFormatter, useTranslations } from 'next-intl'
+import { useFormatter, useTranslations } from 'next-intl'
 import { BIOME_IDS } from '@/lib/character/types'
 import type { JournalEntryLink } from '@/lib/journal/cellReferenceIndex'
 import { BiomeBubble } from '../BiomeBubble/BiomeBubble'
@@ -159,7 +159,6 @@ export function useMapCellContextMenuItems({
   journalLinks: JournalEntryLink[]
 }): MenuProps['items'] {
   const t = useTranslations()
-  const format = useFormatter()
   const journalSubmenuChildren = useJournalSubmenuChildren(journalLinks)
   const biomeSubmenuChildren = useBiomeSubmenuChildren()
   const iconSubmenuChildren = useIconSubmenuChildren(hasStoredIcon)
@@ -223,10 +222,11 @@ export function useMapCellContextMenuItems({
   }, [
     canMoveHere,
     coordLabel,
-    format,
     hasCellContent,
-    hasStoredIcon,
     journalLinks,
     t,
+    biomeSubmenuChildren,
+    iconSubmenuChildren,
+    journalSubmenuChildren,
   ])
 }
