@@ -14,15 +14,6 @@ export function useCharacterLibraryActions({
   const store = useMemo(() => getCharacterStore(), [])
   const { message } = App.useApp()
 
-  const handleDelete = useCallback(
-    (id: string) => {
-      store.delete(id)
-      refresh()
-      message.success(copy.characters.deleteSuccess)
-    },
-    [message, refresh, store],
-  )
-
   const handleImportFile = useCallback(
     async (event: ChangeEvent<HTMLInputElement>) => {
       const file = event.target.files?.[0]
@@ -76,7 +67,6 @@ export function useCharacterLibraryActions({
   )
 
   return {
-    handleDelete,
     handleImportFile,
   }
 }

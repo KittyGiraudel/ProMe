@@ -41,7 +41,11 @@ type CharacterContextValue = {
     path: string | (string | number)[]
   ) => T | undefined
   getCellData: (ref: CellRef | string) => CharacterCellData | null
-  onMarkAsDead: () => void
+  onKill: () => void
+  onExport: () => void
+  onRevive: () => void
+  onDelete: () => void
+  isDead: boolean
 }
 
 const CharacterContext = createContext<CharacterContextValue | null>(null)
@@ -61,11 +65,19 @@ function normalizeMapState(
 export function CharacterProvider({
   form,
   children,
-  onMarkAsDead,
+  onKill,
+  onExport,
+  onRevive,
+  onDelete,
+  isDead,
 }: {
   form: FormInstance
   children: ReactNode
-  onMarkAsDead: () => void
+  onKill: VoidFunction
+  onExport: VoidFunction
+  onRevive: VoidFunction
+  onDelete: VoidFunction
+  isDead: boolean
 }) {
   const getCharacterValue = useCallback(
     <T,>(path: string | (string | number)[]): T | undefined =>
@@ -119,9 +131,21 @@ export function CharacterProvider({
     () => ({
       getCharacterValue,
       getCellData,
-      onMarkAsDead,
+      onKill,
+      onExport,
+      onRevive,
+      onDelete,
+      isDead,
     }),
-    [getCharacterValue, getCellData, onMarkAsDead]
+    [
+      getCharacterValue,
+      getCellData,
+      onKill,
+      onExport,
+      onRevive,
+      onDelete,
+      isDead,
+    ]
   )
 
   return (

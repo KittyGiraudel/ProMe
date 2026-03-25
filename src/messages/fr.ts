@@ -125,6 +125,7 @@ export const copy = {
     create: "Créer un personnage",
     import: "Importer un personnage",
     export: "Exporter JSON",
+    exportHelp: "Télécharge un export JSON de la fiche.",
     open: "Ouvrir",
     save: "Sauvegarder",
     deadStatusLabel: "Mort·e",
@@ -155,7 +156,7 @@ export const copy = {
     unsavedChangesLeave: "Quitter sans sauvegarder",
     unsavedChangesStay: "Annuler",
     deleteConfirmTitle: "Supprimer ce personnage ?",
-    deleteConfirmDescription: "Cette action est locale et irréversible.",
+    deleteConfirmDescription: "Cette action est irréversible — la fiche de personnage sera définitive supprimée.",
     deleteSuccess: "Personnage supprimé.",
     exportCopied: "Export JSON copié dans le presse-papiers.",
     exportCopyError: "Impossible de copier l’export JSON.",
@@ -188,11 +189,12 @@ export const copy = {
     tabInventory: "Inventaire & Grimoire",
     tabJournal: "Journal",
     tabTools: "Outils",
+    tabActions: "Actions",
     dangerSectionTitle: "Zone de danger",
     dangerSectionDescription:
       "Actions sensibles de cycle de vie du Protecteur. À utiliser avec prudence.",
     dangerMarkDeadHelp:
-      "Cette action fige la fiche en lecture seule tant que le Protecteur n’est pas ranime.",
+      "Cette action fige la fiche en lecture seule tant que le Protecteur n’est pas réanimé.",
     inheritanceSection: "Héritage des souvenirs",
     inheritanceSelectLabel: "Hériter les souvenirs de …",
     inheritanceSelectHelp:

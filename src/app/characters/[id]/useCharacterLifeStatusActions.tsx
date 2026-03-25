@@ -22,11 +22,11 @@ export function useCharacterLifeStatusActions({
   form: FormInstance
   character: Character | null
 }) {
-  const { message, modal, notification } = App.useApp()
+  const { message, notification } = App.useApp()
   const store = useMemo(() => getCharacterStore(), [])
   const getCharacterFromForm = useCharacterFromForm({ character, form })
 
-  const onConfirmDeath = useCallback(() => {
+  const onKill = useCallback(() => {
     try {
       const character = getCharacterFromForm()
       if (character.lifeStatus === 'dead') return
@@ -49,18 +49,7 @@ export function useCharacterLifeStatusActions({
     store,
   ])
 
-  const handleMarkAsDead = useCallback(() => {
-    modal.confirm({
-      title: copy.characters.markDeadConfirmTitle,
-      content: copy.characters.markDeadConfirmDescription,
-      okText: copy.characters.markDeadAction,
-      cancelText: copy.characters.cancel,
-      okButtonProps: { danger: true },
-      onOk: onConfirmDeath,
-    })
-  }, [modal, onConfirmDeath])
-
-  const onConfirmRevive = useCallback(() => {
+  const onRevive = useCallback(() => {
     try {
       const character = getCharacterFromForm()
       if (character.lifeStatus === 'alive') return
@@ -75,30 +64,20 @@ export function useCharacterLifeStatusActions({
     }
   }, [setSaveErrors, getCharacterFromForm, message, onSaved, store])
 
-  const handleRevive = useCallback(() => {
-    modal.confirm({
-      title: copy.characters.reviveConfirmTitle,
-      content: copy.characters.reviveConfirmDescription,
-      okText: copy.characters.reviveAction,
-      cancelText: copy.characters.cancel,
-      onOk: onConfirmRevive,
-    })
-  }, [modal, onConfirmRevive])
-
   return {
-    handleMarkAsDead,
-    handleRevive,
+    onKill,
+    onRevive,
   }
 }
 
 export const useWarnDeath = ({
   form,
   character,
-  handleMarkAsDead,
+  onKill,
 }: {
   form: FormInstance
   character: Character | null
-  handleMarkAsDead: () => void
+  onKill: () => void
 }) => {
   const { notification } = App.useApp()
   const { healthCurrent } = useCharacterSheetDerived({ form, character })
@@ -127,7 +106,7 @@ export const useWarnDeath = ({
             htmlType='button'
             onClick={() => {
               notification.destroy(DEATH_SUGGESTION_KEY)
-              handleMarkAsDead()
+              onKill()
             }}>
             {copy.characters.markDeadAction}
           </Button>
@@ -138,5 +117,5 @@ export const useWarnDeath = ({
       notification.destroy(DEATH_SUGGESTION_KEY)
     }
     prevHealthCurrentRef.current = healthCurrent
-  }, [character, healthCurrent, handleMarkAsDead, notification])
+  }, [character, healthCurrent, onKill, notification])
 }

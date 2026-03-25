@@ -57,7 +57,7 @@ const CharacterManager = () => {
                   </>
                 }>
                 <Typography.Text type='secondary'>
-                  {copy.characters.updatedLabel}:{' '}
+                  {copy.characters.updatedLabel} :{' '}
                   {new Date(character.updatedAt).toLocaleDateString('fr-FR')}
                 </Typography.Text>
               </Card>

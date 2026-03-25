@@ -7,8 +7,8 @@ import { stringifyCharacters } from '@/lib/character/store/migrations'
 import type { Character } from '@/lib/character/types'
 import { copy } from '@/messages/fr'
 import { FormInstance } from 'antd/lib/form'
-import { SheetFormValues } from './characterSheetForm'
 import { useCharacterFromForm } from './useCharacterFromForm'
+import { useRouter } from 'next/navigation'
 
 function sanitizeFileNamePart(value: string): string {
   return value
@@ -45,11 +45,12 @@ export function useCharacterSheetMainActions({
   onSaved: (saved: Character) => void
   setSaveErrors: (errors: string[] | null) => void
 }) {
+  const router = useRouter()
   const { message } = App.useApp()
   const store = useMemo(() => getCharacterStore(), [])
   const getCharacterFromForm = useCharacterFromForm({ character, form })
   
-  const handleSave = useCallback(() => {
+  const onSave = useCallback(() => {
     if (!character) return
     if (character.lifeStatus === 'dead') {
       return message.warning(copy.characters.deadReadonlyDescription)
@@ -80,7 +81,7 @@ export function useCharacterSheetMainActions({
     store,
   ])
 
-  const handleExport = useCallback(() => {
+  const onExport = useCallback(() => {
     if (!character) return
     const payload = getCharacterFromForm()
     const content = stringifyCharacters([payload])
@@ -92,8 +93,18 @@ export function useCharacterSheetMainActions({
     }
   }, [character, getCharacterFromForm, message])
 
+  const onDelete = useCallback(() => {
+    if (!character) return
+    store.delete(character.id)
+    message.success(copy.characters.deleteSuccess)
+    // Programmatic navigation is intentionally not routed through the
+    // unsaved-changes blocker (which is used by `BlockedLink`).
+    router.push('/characters')
+  }, [])
+
   return {
-    handleSave,
-    handleExport,
+    onDelete,
+    onSave,
+    onExport,
   }
 }

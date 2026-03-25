@@ -1,6 +1,6 @@
 'use client'
 
-import { Alert, ConfigProvider, Form, Space } from 'antd'
+import { Alert, ConfigProvider, Form, Space, App } from 'antd'
 import { useMemo, type ReactNode } from 'react'
 import { Layout } from '@/components/Layout/Layout'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
@@ -8,7 +8,6 @@ import { copy } from '@/messages/fr'
 import { Button } from '@/components/Button/Button'
 import { CharacterProvider } from '@/components/CharacterSheet/CharacterContext'
 import { toFormValues } from './characterSheetForm'
-import { useCharacterSheetDerived } from './useCharacterSheetDerived'
 import { CharacterSheetEmptyState } from './CharacterSheetEmptyState'
 import { useCharacterSheetDocumentTitle } from './useCharacterSheetDocumentTitle'
 import { useCharacterSheetForm } from './useCharacterSheetForm'
@@ -66,7 +65,7 @@ export function CharacterSheetShell({
 
   // Mark dead / revive and death-suggestion flow; reads live health from the
   // form via derived watches.
-  const { handleMarkAsDead, handleRevive } = useCharacterLifeStatusActions({
+  const { onKill, onRevive } = useCharacterLifeStatusActions({
     form,
     character,
     onSaved,
@@ -75,11 +74,10 @@ export function CharacterSheetShell({
 
   // Warn the user when their health crosses to non-positive and suggest
   // marking the character as dead.
-  useWarnDeath({ form, character, handleMarkAsDead })
+  useWarnDeath({ form, character, onKill })
 
-  // Form `onFinish` save to store and JSON export download (both use full
-  // `getCharacterFromForm()` snapshot).
-  const { handleSave, handleExport } = useCharacterSheetMainActions({
+  // Form `onFinish` save to store, delete from store, and JSON export download.
+  const { onSave, onExport, onDelete } = useCharacterSheetMainActions({
     form,
     character,
     onSaved,
@@ -118,31 +116,24 @@ export function CharacterSheetShell({
             {copy.characters.save}
           </Button>
         ) : null,
-        <Button key='export' onClick={handleExport}>
-          {copy.characters.export}
-        </Button>,
-        isDead ? (
-          <Button
-            key='revive'
-            htmlType='button'
-            type='primary'
-            danger
-            onClick={handleRevive}>
-            {copy.characters.reviveAction}
-          </Button>
-        ) : null,
       ]}>
       <Form
         id={character.id}
         key={`${character.id}-${character.updatedAt}`}
         form={form}
         initialValues={toFormValues(character)}
-        onFinish={handleSave}
+        onFinish={onSave}
         disabled={isDead}
         layout='vertical'
         colon={false}
         preserve>
-        <CharacterProvider form={form} onMarkAsDead={handleMarkAsDead}>
+        <CharacterProvider
+          form={form}
+          onKill={onKill}
+          onExport={onExport}
+          onRevive={onRevive}
+          onDelete={onDelete}
+          isDead={isDead}>
           <ConfigProvider theme={configTheme}>
             <div
               data-sheet-night={characterSheetNightMode ? 'true' : undefined}>

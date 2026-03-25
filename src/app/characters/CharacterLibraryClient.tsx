@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, Empty, Popconfirm, Space, Typography } from 'antd'
+import { Card, Empty, Space, Typography } from 'antd'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
@@ -24,7 +24,7 @@ export function CharacterLibraryClient() {
 
   const refresh = () => setCharacters(store.list())
 
-  const { handleDelete, handleImportFile } = useCharacterLibraryActions({
+  const { handleImportFile } = useCharacterLibraryActions({
     refresh,
   })
 
@@ -89,16 +89,6 @@ export function CharacterLibraryClient() {
                       href={characterSheetTabHref(character.id, 'identity')}>
                       {copy.characters.open}
                     </BlockedLink>
-                    <Popconfirm
-                      title={copy.characters.deleteConfirmTitle}
-                      description={copy.characters.deleteConfirmDescription}
-                      okText={copy.characters.delete}
-                      cancelText={copy.characters.cancel}
-                      onConfirm={() => handleDelete(character.id)}>
-                      <Button type='link' danger>
-                        {copy.characters.delete}
-                      </Button>
-                    </Popconfirm>
                   </Space>
                 }>
                 <Space orientation='vertical' size={4}>
@@ -107,7 +97,7 @@ export function CharacterLibraryClient() {
                     {copy.characters.archetypes[character.archetype]}
                   </Typography.Text>
                   <Typography.Text type='secondary'>
-                    {copy.characters.updatedLabel}:{' '}
+                    {copy.characters.updatedLabel} :{' '}
                     {new Date(character.updatedAt).toLocaleString('fr-FR')}
                   </Typography.Text>
                 </Space>

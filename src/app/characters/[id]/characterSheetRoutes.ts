@@ -14,6 +14,7 @@ export const CHARACTER_SHEET_TAB_KEYS = [
   },
   { key: 'journal', path: 'journal', label: copy.characters.tabJournal },
   { key: 'tools', path: 'tools', label: copy.characters.tabTools },
+  { key: 'actions', path: 'actions', label: copy.characters.tabActions },
 ] as const
 
 export type CharacterSheetTabKey =
