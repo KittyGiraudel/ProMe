@@ -25,7 +25,7 @@ import { MapCellContextMenu } from './MapCellContextMenu'
 type MapDisplayProps = {
   sheet: SheetCoordinate
   cellsByKey: Map<string, CharacterMapCell>
-  journalIndexByCellRef: Map<string, JournalEntryLink[]>
+  journalIndexByCell: Map<string, JournalEntryLink[]>
   currentPosition: HexCoordinate
   selectedPosition: HexCoordinate | null
   onSelectCell: (coord: HexCoordinate) => void
@@ -39,7 +39,7 @@ type MapDisplayProps = {
 export function MapDisplay({
   sheet,
   cellsByKey,
-  journalIndexByCellRef,
+  journalIndexByCell,
   currentPosition,
   selectedPosition,
   onSelectCell,
@@ -93,7 +93,7 @@ export function MapDisplay({
               const localLabel = getDisplayedCellLabel(global)
               const canMoveHere = areHexNeighbors(currentPosition, global)
               const cellRef = formatDisplayedCellReference(global)
-              const journalLinks = journalIndexByCellRef.get(cellRef) ?? []
+              const journalLinks = journalIndexByCell.get(cellRef) ?? []
               const journalEntryCount = journalLinks.length
 
               return (

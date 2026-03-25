@@ -21,7 +21,7 @@ import {
   toHexKey,
   type SheetCoordinate,
 } from '@/lib/hex/coordinates'
-import { DEFAULT_MAP_POSITION } from '@/lib/character/model'
+import { normalizeMapState } from '@/lib/character/mapState'
 
 export type CharacterCellData = {
   ref: string
@@ -49,18 +49,6 @@ type CharacterContextValue = {
 }
 
 const CharacterContext = createContext<CharacterContextValue | null>(null)
-
-function normalizeMapState(
-  value: CharacterMapState | undefined
-): CharacterMapState {
-  if (!value) {
-    return { currentPosition: DEFAULT_MAP_POSITION, cells: [] }
-  }
-  return {
-    currentPosition: value.currentPosition ?? DEFAULT_MAP_POSITION,
-    cells: Array.isArray(value.cells) ? value.cells : [],
-  }
-}
 
 export function CharacterProvider({
   form,
