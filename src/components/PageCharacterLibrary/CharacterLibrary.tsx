@@ -19,14 +19,21 @@ export function CharacterLibrary() {
 
   // Keep initial render consistent with the server (no localStorage access on SSR).
   const [characters, setCharacters] = useState<Character[]>([])
-  useEffect(() => refresh(), [])
 
   const refresh = useCallback(() => setCharacters(store.list()), [store])
+  useEffect(() => refresh(), [])
+
   const { handleImportFile } = useCharacterLibraryActions({ refresh })
   const handleImportClick = useCallback(() => fileInputRef.current?.click(), [])
 
   return (
-    <Layout title={t('characters.title')} bannerBiome='floodedPlains'>
+    <Layout
+      title={t('characters.title')}
+      bannerBiome='floodedPlains'
+      breadcrumbs={[
+        { title: t('nav.home'), path: '/' },
+        { title: t('nav.characters'), path: '/characters' },
+      ]}>
       <Space style={{ marginBottom: 16, flexWrap: 'wrap' }}>
         <Button type='primary' href='/characters/new'>
           {t('new_character.create')}

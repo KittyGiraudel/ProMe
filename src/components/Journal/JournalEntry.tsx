@@ -69,7 +69,7 @@ export function JournalEntry({
           onOk: () => deleteEntry(index),
         })
     },
-    [deleteEntry, hasContent]
+    [deleteEntry, hasContent, t, modal]
   )
 
   return (

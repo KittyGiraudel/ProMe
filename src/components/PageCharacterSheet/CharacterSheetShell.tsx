@@ -40,6 +40,7 @@ export function CharacterSheetShell({
     saveErrors,
     setSaveErrors,
     onSaved,
+    activeTab,
   } = useCharacterSheetForm({ characterId })
 
   // Watches clock/stamina (preserve-aware) to drive adaptive sheet “night”
@@ -62,7 +63,6 @@ export function CharacterSheetShell({
   useCharacterSheetDocumentTitle({
     hydratedFromStore,
     character,
-    characterId,
   })
 
   // Mark dead / revive and death-suggestion flow; reads live health from the
@@ -105,8 +105,13 @@ export function CharacterSheetShell({
       bannerBiome={bannerBiome}
       title={character.name || t('characters_list.unnamed')}
       breadcrumbs={[
-        { label: t('nav.home_link'), href: '/' },
-        { label: t('characters_list.title'), href: '/characters' },
+        { title: t('nav.home'), path: '/' },
+        { title: t('nav.characters'), path: '/characters' },
+        { title: character.name, path: `/characters/${character.id}/identity` },
+        {
+          title: t(`characters.${activeTab}.title`),
+          path: undefined,
+        },
       ]}
       headerActions={[
         !isDead ? (

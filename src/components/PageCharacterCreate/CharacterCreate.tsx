@@ -29,8 +29,9 @@ export function CharacterCreate() {
       title={t('new_character.title')}
       bannerBiome='floodedPlains'
       breadcrumbs={[
-        { label: t('nav.home_link'), href: '/' },
-        { label: t('new_character.title'), href: '/characters' },
+        { title: t('nav.home'), path: '/' },
+        { title: t('nav.characters'), path: '/characters' },
+        { title: t('nav.new_character'), path: '/characters/new' },
       ]}>
       <Form<CharacterCreateFormValues>
         form={form}

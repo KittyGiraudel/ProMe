@@ -19,7 +19,13 @@ export async function generateMetadata({ params }: Props) {
 function VillageGeneratorFallback() {
   const t = useTranslations()
   return (
-    <Layout title={t('village.title')} bannerBiome='shadowForest'>
+    <Layout
+      title={t('village.title')}
+      bannerBiome='shadowForest'
+      breadcrumbs={[
+        { title: t('nav.home'), path: '/' },
+        { title: t('nav.village_generator'), path: '/generators/village' },
+      ]}>
       <p>{t('common.loading')}</p>
     </Layout>
   )

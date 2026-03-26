@@ -13,8 +13,8 @@ export function CharacterSheetEmptyState() {
       title={t('characters.title')}
       bannerBiome='floodedPlains'
       breadcrumbs={[
-        { label: t('nav.home_link'), href: '/' },
-        { label: t('characters.title'), href: '/characters' },
+        { title: t('nav.home'), path: '/' },
+        { title: t('nav.characters'), path: '/characters' },
       ]}>
       <Empty
         description={

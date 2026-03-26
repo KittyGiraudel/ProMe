@@ -2,7 +2,7 @@
 
 import { useMemo, type ReactNode } from 'react'
 import { useTranslations } from 'next-intl'
-import { Layout as AntLayout, Typography, Menu } from 'antd'
+import { Layout as AntLayout, Typography, Menu, BreadcrumbProps } from 'antd'
 import { usePathname } from '@/i18n/navigation'
 import type { BiomeId } from '@/lib/character/types'
 import { Banner } from '@/components/Banner/Banner'
@@ -16,10 +16,7 @@ type LayoutProps = {
   sheetNightChrome?: boolean
   /** Tints the page cover from map palette (character sheet). */
   bannerBiome?: BiomeId | 'unexplored'
-  breadcrumbs?: Array<{
-    label: string
-    href?: string
-  }>
+  breadcrumbs: BreadcrumbProps['items']
   children: ReactNode
 }
 
@@ -39,7 +36,7 @@ export const Layout = ({
         key: '/',
         label: (
           <BlockedLink href='/' data-current={pathname === '/'}>
-            {t('nav.home_link')}
+            {t('nav.home')}
           </BlockedLink>
         ),
       },
@@ -49,7 +46,7 @@ export const Layout = ({
           <BlockedLink
             href='/characters'
             data-current={pathname.startsWith('/characters')}>
-            {t('nav.characters_link')}
+            {t('nav.characters')}
           </BlockedLink>
         ),
       },
@@ -59,7 +56,7 @@ export const Layout = ({
           <BlockedLink
             href='/generators/npc'
             data-current={pathname.startsWith('/generators/npc')}>
-            {t('nav.inhabitant_generator_link')}
+            {t('nav.inhabitant_generator')}
           </BlockedLink>
         ),
       },
@@ -69,7 +66,7 @@ export const Layout = ({
           <BlockedLink
             href='/generators/village'
             data-current={pathname.startsWith('/generators/village')}>
-            {t('nav.village_generator_link')}
+            {t('nav.village_generator')}
           </BlockedLink>
         ),
       },
@@ -79,7 +76,7 @@ export const Layout = ({
           <BlockedLink
             href='/settings'
             data-current={pathname.startsWith('/settings')}>
-            {t('nav.settings_link')}
+            {t('nav.settings')}
           </BlockedLink>
         ),
       },
@@ -104,7 +101,7 @@ export const Layout = ({
       </AntLayout.Header>
       <Banner biome={bannerBiome} />
       <AntLayout.Content style={{ padding: '16px 48px' }}>
-        <Breadcrumbs breadcrumbs={breadcrumbs} title={title} />
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
 
         <div className='Layout__content'>
           <div className='Layout__title-row'>

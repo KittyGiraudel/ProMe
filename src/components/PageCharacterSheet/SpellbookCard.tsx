@@ -11,7 +11,6 @@ import {
   Tooltip,
   Typography,
 } from 'antd'
-import type { FormListFieldData } from 'antd/es/form'
 import { Button } from '@/components/Button/Button'
 import { useTranslations } from 'next-intl'
 import { randomId } from '@/lib/character/model'

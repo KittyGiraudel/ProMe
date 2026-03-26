@@ -7,6 +7,8 @@ import { getCharacterStore } from '@/lib/character/store'
 import type { Character } from '@/lib/character/types'
 import { useUnsavedChangesGuard } from '@/hooks/useUnsavedChangesGuard'
 import {  toFormValues, type SheetFormValues } from './characterSheetForm'
+import { usePathname } from '@/i18n/navigation'
+import { tabKeyFromPathname } from './useCharacterSheetDocumentTitle'
 
 export function useCharacterSheetForm({ characterId }: { characterId: string }) {
   const { modal } = App.useApp()
@@ -15,6 +17,8 @@ export function useCharacterSheetForm({ characterId }: { characterId: string }) 
   const [character, setCharacter] = useState<Character | null>(null)
   const [hydratedFromStore, setHydratedFromStore] = useState(false)
   const [saveErrors, setSaveErrors] = useState<string[] | null>(null)
+  const pathname = usePathname()
+  const activeTab = tabKeyFromPathname(pathname)
 
   // Avoid hydration mismatches by deferring localStorage/sessionStorage reads to the client.
   useEffect(() => {
@@ -63,6 +67,7 @@ export function useCharacterSheetForm({ characterId }: { characterId: string }) 
     saveErrors,
     setSaveErrors,
     onSaved,
+    activeTab,
   }
 }
 

@@ -294,11 +294,12 @@
     }
   },
   "nav": {
-    "home_link": "Accueil",
-    "characters_link": "Protecteurs",
-    "inhabitant_generator_link": "Générateur d’habitant",
-    "village_generator_link": "Générateur de village",
-    "settings_link": "Paramètres",
+    "home": "Accueil",
+    "characters": "Protecteurs",
+    "new_character": "Nouveau Protecteur",
+    "inhabitant_generator": "Générateur d’habitant",
+    "village_generator": "Générateur de village",
+    "settings": "Paramètres",
     "back_to_village": "← Retour au village"
   },
   "village": {

@@ -9,12 +9,10 @@ import {
   type CharacterSheetTabId,
 } from './characterSheetRoutes'
 
-function tabKeyFromPathname(
+export function tabKeyFromPathname(
   pathname: string,
-  characterId: string
 ): CharacterSheetTabId {
-  const path = pathname.replace(`/characters/${characterId}/`, '')
-  const tab = CHARACTER_SHEET_TAB_KEYS.find(tab => tab.path === path)
+  const tab = CHARACTER_SHEET_TAB_KEYS.find(tab => pathname.endsWith(tab.path))
   return tab?.id ?? 'identity'
 }
 
@@ -26,15 +24,13 @@ function tabKeyFromPathname(
 export function useCharacterSheetDocumentTitle({
   hydratedFromStore,
   character,
-  characterId,
 }: {
   hydratedFromStore: boolean
   character: Character | null,
-  characterId: string
 }) {
   const t = useTranslations()
   const pathname = usePathname()
-  const activeTabId = tabKeyFromPathname(pathname, characterId)
+  const activeTabId = tabKeyFromPathname(pathname)
 
   useEffect(() => {
     if (!hydratedFromStore) return

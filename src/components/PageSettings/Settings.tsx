@@ -49,7 +49,13 @@ export function Settings() {
   }
 
   return (
-    <Layout title={t('settings.title')} bannerBiome='silentDesert'>
+    <Layout
+      title={t('settings.title')}
+      bannerBiome='silentDesert'
+      breadcrumbs={[
+        { title: t('nav.home'), path: '/' },
+        { title: t('nav.settings'), path: '/settings' },
+      ]}>
       <Form<SettingsFormValues>
         key={`${settings.sheet.adaptiveNightMode}-${settings.journal.timelineReverseChronological}-${settings.village.mergeDuplicateEstablishments}-${settings.map.tickClockOnMove}`}
         layout='vertical'

@@ -132,6 +132,10 @@ export function VillageGenerator({
     <Layout
       title={t('village.title')}
       bannerBiome='shadowForest'
+      breadcrumbs={[
+        { title: t('nav.home'), path: '/' },
+        { title: t('nav.village_generator'), path: '/generators/village' },
+      ]}
       headerActions={
         <RollActions
           onRoll={handleGenerate}

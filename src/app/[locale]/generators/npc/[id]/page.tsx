@@ -20,7 +20,13 @@ export async function generateMetadata({ params }: Props) {
 function NpcGeneratorFallback() {
   const t = useTranslations()
   return (
-    <Layout title={t('inhabitant.title')} bannerBiome='fieldSea'>
+    <Layout
+      title={t('inhabitant.title')}
+      bannerBiome='fieldSea'
+      breadcrumbs={[
+        { title: t('nav.home'), path: '/' },
+        { title: t('nav.inhabitant_generator'), path: '/generators/npc' },
+      ]}>
       <p>{t('common.loading')}</p>
     </Layout>
   )

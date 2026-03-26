@@ -79,7 +79,10 @@ export function NpcGenerator({
     <Layout
       title={t('inhabitant.title')}
       bannerBiome='fieldSea'
-      breadcrumbs={[{ label: t('nav.home_link'), href: '/' }]}
+      breadcrumbs={[
+        { title: t('nav.home'), path: '/' },
+        { title: t('nav.inhabitant_generator'), path: '/generators/npc' },
+      ]}
       headerActions={
         <RollActions
           onRoll={handleGenerate}
