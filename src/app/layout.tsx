@@ -1,8 +1,8 @@
 import { AppConfig, NextIntlClientProvider } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { AppProviders } from '@/components/AppProviders/AppProviders'
-import { getTranslations } from 'next-intl/server'
 import './globals.css'
 
 const geistSans = Geist({

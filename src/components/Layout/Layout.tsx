@@ -7,7 +7,7 @@ import { useMemo } from 'react'
 import { usePathname } from '@/i18n/navigation'
 import type { BiomeId } from '@/lib/character/types'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
-import { PageCover } from '../PageCover/PageCover'
+import { Banner } from '@/components/Banner/Banner'
 import { useTranslations } from 'next-intl'
 import './Layout.css'
 
@@ -16,7 +16,7 @@ type LayoutProps = {
   headerActions?: ReactNode
   sheetNightChrome?: boolean
   /** Tints the page cover from map palette (character sheet). */
-  pageCoverBiome?: BiomeId | 'unexplored'
+  bannerBiome?: BiomeId | 'unexplored'
   breadcrumbs?: Array<{
     label: string
     href?: string
@@ -70,7 +70,7 @@ export const Layout = ({
   children,
   headerActions,
   sheetNightChrome,
-  pageCoverBiome,
+  bannerBiome,
 }: LayoutProps) => {
   const pathname = usePathname()
   const t = useTranslations()
@@ -142,7 +142,7 @@ export const Layout = ({
           style={{ flex: 1, minWidth: 0 }}
         />
       </AntLayout.Header>
-      <PageCover biome={pageCoverBiome} />
+      <Banner biome={bannerBiome} />
       <AntLayout.Content style={{ padding: '16px 48px' }}>
         <Breadcrumb items={breadcrumbItems} />
 

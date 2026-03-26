@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef } from 'react'
-import { useNavigationBlocker } from '@/app/[locale]/contexts/NavigationBlockerContext'
+import { useNavigationBlocker } from '@/components/AppProviders/NavigationBlockerContext'
 
 type AttemptLeave = (onLeave: () => void, onStay?: () => void) => void
 

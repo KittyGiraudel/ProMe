@@ -1,7 +1,9 @@
+'use client'
+
 import { randomCard } from '@/lib/rng'
 import { Card, Empty } from 'antd'
 import { useEffect, useRef, useState } from 'react'
-import { PlayingCardLabel } from '../PlayingCardLabel/PlayingCardLabel'
+import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { PlayingCard } from '@/lib/types'
 import { Button } from '@/components/Button/Button'
 import { useTranslations } from 'next-intl'

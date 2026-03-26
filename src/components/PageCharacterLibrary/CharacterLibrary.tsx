@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useFormatter, useTranslations } from 'next-intl'
 import { Card, Empty, Space, Typography } from 'antd'
 import { getCharacterStore } from '@/lib/character/store'
@@ -11,28 +11,22 @@ import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { Button } from '@/components/Button/Button'
 import { useCharacterLibraryActions } from './useCharacterLibraryActions'
 
-export function CharacterLibraryClient() {
+export function CharacterLibrary() {
   const t = useTranslations()
   const format = useFormatter()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const store = useMemo(() => getCharacterStore(), [])
+
   // Keep initial render consistent with the server (no localStorage access on SSR).
   const [characters, setCharacters] = useState<Character[]>([])
+  useEffect(() => refresh(), [])
 
-  useEffect(() => {
-    setCharacters(store.list())
-  }, [store])
-
-  const refresh = () => setCharacters(store.list())
-
-  const { handleImportFile } = useCharacterLibraryActions({
-    refresh,
-  })
-
-  const handleImportClick = () => fileInputRef.current?.click()
+  const refresh = useCallback(() => setCharacters(store.list()), [store])
+  const { handleImportFile } = useCharacterLibraryActions({ refresh })
+  const handleImportClick = useCallback(() => fileInputRef.current?.click(), [])
 
   return (
-    <Layout title={t('characters.title')} pageCoverBiome='floodedPlains'>
+    <Layout title={t('characters.title')} bannerBiome='floodedPlains'>
       <Space style={{ marginBottom: 16, flexWrap: 'wrap' }}>
         <Button type='primary' href='/characters/new'>
           {t('new_character.create')}
@@ -56,23 +50,27 @@ export function CharacterLibraryClient() {
         <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
           {characters.map(character => {
             const dead = isCharacterDead(character)
+            const name = character.name || t('characters_list.unnamed')
 
             return (
               <Card
                 key={character.id}
                 title={
-                  <>
-                    {dead && t('characters_list.dead_list_symbol')}{' '}
-                    {character.name || t('characters_list.unnamed')}
-                    {dead ? (
-                      <>
-                        <span style={{ opacity: 0.5 }}>—</span>
-                        <Typography.Text type='danger'>
-                          {t('characters_list.dead_status_label')}
-                        </Typography.Text>
-                      </>
-                    ) : null}
-                  </>
+                  dead
+                    ? t.rich('characters_list.dead_character_name', {
+                        name,
+                        separator: parts => (
+                          <Typography.Text type='secondary'>
+                            {parts}
+                          </Typography.Text>
+                        ),
+                        status: parts => (
+                          <Typography.Text type='danger'>
+                            {parts}
+                          </Typography.Text>
+                        ),
+                      })
+                    : name
                 }
                 styles={
                   dead

@@ -1,5 +1,5 @@
-import { randomCard, roll2D6, rollD6 } from "../rng";
-import type { AgeBand, Gender, Personality, PlayingCard, Faction } from "../types";
+import { randomCard, roll2D6, rollD6 } from "@/lib/rng";
+import type { AgeBand, Gender, Personality, PlayingCard, Faction } from "@/lib/types";
 import { lookupName } from "./data/namesByFaction";
 import {
   ageBandFromSuit,

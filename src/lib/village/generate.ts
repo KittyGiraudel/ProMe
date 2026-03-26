@@ -1,7 +1,7 @@
-import { randomCard, randomNumberedCard } from "../rng";
-import type { PlayingCard } from "../types";
-import { isFaceRank } from "../types";
-import { suitIsRed } from "../suitGlyphs";
+import { randomCard, randomNumberedCard } from "@/lib/rng";
+import type { PlayingCard } from "@/lib/types";
+import { isFaceRank } from "@/lib/types";
+import { suitIsRed } from "@/lib/suitGlyphs";
 import { toVillagePrimaryTuple } from "./primaryTuple";
 
 export type VillageRoll = {

@@ -1,16 +1,16 @@
 import {
   decodePlayingCardString,
   encodePlayingCard,
-} from "../codec/cards";
-import { Faction, FACTIONS } from "../types";
+} from "@/lib/codec/cards";
+import { Faction, FACTIONS } from "@/lib/types";
 import type { VillageRoll } from "./generate";
 import { countRedJacksInPrimary, isValidExpansionCard } from "./generate";
 import { toVillagePrimaryTuple } from "./primaryTuple";
 import {
   decodeInhabitantRollParam,
   encodeInhabitantRoll,
-} from '../inhabitant/inhabitantUrlCodec'
-import type { InhabitantRoll } from '../inhabitant/generate'
+} from '@/lib/inhabitant/inhabitantUrlCodec'
+import type { InhabitantRoll } from '@/lib/inhabitant/generate'
 import { _Translator } from "next-intl";
 
 /**

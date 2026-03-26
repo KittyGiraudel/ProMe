@@ -1,4 +1,4 @@
-import type { PlayingCard } from "../types";
+import type { PlayingCard } from "@/lib/types";
 import type { VillageRoll } from "./generate";
 
 /**

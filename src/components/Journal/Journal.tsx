@@ -3,11 +3,11 @@
 import { Timeline } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
 import type { FormInstance } from 'antd'
-import { useSettings } from '@/app/[locale]/contexts/SettingsContext'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { JournalEntry } from '@/components/Journal/JournalEntry'
 import '@/components/Journal/Journal.css'
 import { useEffect, useRef } from 'react'
-import { useJournalEntryViewModes } from '../CharacterSheet/useJournalEntryViewModes'
+import { useJournalEntryViewModes } from '@/components/PageCharacterSheet/useJournalEntryViewModes'
 
 export function Journal({
   fields,

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { PlayingCard, Rank, Suit } from "../types";
+import type { PlayingCard, Rank, Suit } from "@/lib/types";
 import {
   decodePlayingCardPair,
   decodePlayingCardString,

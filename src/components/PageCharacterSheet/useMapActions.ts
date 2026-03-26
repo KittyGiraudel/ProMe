@@ -19,7 +19,7 @@ import {
 } from '@/lib/character/mapState'
 import { getRandomBiomeResult } from '@/lib/map/randomBiome'
 import { moveWithAutoBiome } from '@/lib/map/movement'
-import { useSettings } from '@/app/[locale]/contexts/SettingsContext'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { showRandomBiomeDiscoveredNotification } from './mapRandomBiomeNotification'
 
 export function useMapActions() {

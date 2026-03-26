@@ -140,11 +140,10 @@
   "characters_list": {
     "title": "Protecteurs",
     "empty": "Aucun Protecteur pour le moment. Créez-en un pour commencer.",
-    "dead_list_symbol": "✝",
-    "dead_status_label": "Mort·e",
     "unnamed": "Sans nom",
     "archetype_line": "Archetype : {value}",
-    "updated_line": "Dernière mise à jour : le {value}"
+    "updated_line": "Dernière mise à jour : le {value}",
+    "dead_character_name": "✝ {name} <separator>—</separator> <status>Mort·e</status>"
   },
   "characters": {
     "title": "Fiche Protecteur",

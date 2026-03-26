@@ -21,11 +21,11 @@ import { formatVillageOneLiner } from '@/lib/village/formatOneLiner'
 import { useRouter } from '@/i18n/navigation'
 import { useSearchParams } from 'next/navigation'
 import { encodeVillageId } from '@/lib/village/villageIdCodec'
-import './VillageGeneratorClient.css'
+import './VillageGenerator.css'
 
 const DEFAULT_VILLAGE_FACTION: Faction = 'bruja'
 
-export function VillageGeneratorClient({
+export function VillageGenerator({
   initialRoll: roll,
   initialOwners: owners,
 }: {
@@ -131,7 +131,7 @@ export function VillageGeneratorClient({
   return (
     <Layout
       title={t('village.title')}
-      pageCoverBiome='shadowForest'
+      bannerBiome='shadowForest'
       headerActions={
         <RollActions
           onRoll={handleGenerate}

@@ -11,7 +11,7 @@ import {
 } from '@/lib/village/villageIdCodec'
 import { InhabitantSummary } from '@/components/InhabitantSummary/InhabitantSummary'
 import { VillageSummary } from '@/components/VillageSummary/VillageSummary'
-import { Button } from '../Button/Button'
+import { Button } from '@/components/Button/Button'
 
 export function GeneratorLinkPreview({
   href,

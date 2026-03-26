@@ -1,9 +1,9 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { Card, Checkbox, Form, Space, Typography } from 'antd'
 import { Layout } from '@/components/Layout/Layout'
-import { useSettings } from '@/app/[locale]/contexts/SettingsContext'
-import { useTranslations } from 'next-intl'
+import { useSettings } from './SettingsContext'
 
 type SettingsFormValues = {
   adaptiveNightMode: boolean
@@ -12,7 +12,7 @@ type SettingsFormValues = {
   mapTickClockOnMove: boolean
 }
 
-export function SettingsPageClient() {
+export function Settings() {
   const { settings, updateSettings } = useSettings()
   const t = useTranslations()
 
@@ -49,7 +49,7 @@ export function SettingsPageClient() {
   }
 
   return (
-    <Layout title={t('settings.title')} pageCoverBiome='silentDesert'>
+    <Layout title={t('settings.title')} bannerBiome='silentDesert'>
       <Form<SettingsFormValues>
         key={`${settings.sheet.adaptiveNightMode}-${settings.journal.timelineReverseChronological}-${settings.village.mergeDuplicateEstablishments}-${settings.map.tickClockOnMove}`}
         layout='vertical'

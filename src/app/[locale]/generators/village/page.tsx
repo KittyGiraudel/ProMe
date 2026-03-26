@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import { AppConfig, useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { Layout } from '@/components/Layout/Layout'
-import { VillageGeneratorClient } from './VillageGeneratorClient'
+import { VillageGenerator } from '@/components/PageGeneratorVillage/VillageGenerator'
 
 type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
 
@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props) {
 function VillageGeneratorFallback() {
   const t = useTranslations()
   return (
-    <Layout title={t('village.title')} pageCoverBiome='shadowForest'>
+    <Layout title={t('village.title')} bannerBiome='shadowForest'>
       <p>{t('common.loading')}</p>
     </Layout>
   )
@@ -27,7 +27,7 @@ function VillageGeneratorFallback() {
 export default function VillageGeneratorPage() {
   return (
     <Suspense fallback={<VillageGeneratorFallback />}>
-      <VillageGeneratorClient initialRoll={null} initialOwners={null} />
+      <VillageGenerator initialRoll={null} initialOwners={null} />
     </Suspense>
   )
 }

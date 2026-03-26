@@ -3,7 +3,7 @@
 import { useId } from 'react'
 
 /** Inline cover illustration so fills can follow CSS variables (background SVG cannot). */
-export function PageCoverArt() {
+export function BannerArt() {
   const raw = useId()
   const g = raw.replace(/\W/g, '')
 

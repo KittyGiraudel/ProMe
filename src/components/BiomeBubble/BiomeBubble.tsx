@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl'
 import type { BiomeId } from '@/lib/character/types'
-import { VisuallyHidden } from '../VisuallyHidden/VisuallyHidden'
+import { VisuallyHidden } from '@/components/VisuallyHidden/VisuallyHidden'
 import './BiomeBubble.css'
 
 export function BiomeBubble({ biome }: { biome: BiomeId | 'unexplored' }) {

@@ -1,7 +1,7 @@
 import { Link } from '@/i18n/navigation'
 import type { BiomeId, HexCoordinate } from '@/lib/character/types'
 import { getDisplayedCellHash } from '@/lib/map/hashTargets'
-import { BiomeBubble } from '../BiomeBubble/BiomeBubble'
+import { BiomeBubble } from '@/components/BiomeBubble/BiomeBubble'
 import './CoordChip.css'
 
 export function CoordChip({

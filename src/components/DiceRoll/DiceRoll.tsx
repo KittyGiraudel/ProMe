@@ -1,8 +1,10 @@
+'use client'
+
 import { rollD6 } from '@/lib/rng'
 import { Card, Empty } from 'antd'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { DiceFaces } from '../DiceFaces/DiceFaces'
+import { DiceFaces } from '@/components/DiceFaces/DiceFaces'
 import { Button } from '@/components/Button/Button'
 import './DiceRoll.css'
 

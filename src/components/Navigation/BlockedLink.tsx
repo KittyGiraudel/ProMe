@@ -5,7 +5,7 @@ import type { UrlObject } from 'url'
 import { useRouter } from '@/i18n/navigation'
 import type { ComponentProps } from 'react'
 import { useCallback } from 'react'
-import { useNavigationBlocker } from '@/app/[locale]/contexts/NavigationBlockerContext'
+import { useNavigationBlocker } from '@/components/AppProviders/NavigationBlockerContext'
 
 type Href = string | UrlObject
 

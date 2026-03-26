@@ -16,7 +16,7 @@ import {
 } from '@/lib/constants/rulebookPages'
 import { VillageEstablishmentLine } from './VillageEstablishmentLine'
 import { Button } from '@/components/Button/Button'
-import { useSettings } from '@/app/[locale]/contexts/SettingsContext'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { useTranslations } from 'next-intl'
 import {
   ownerSlotIndexByEstablishmentIndex,

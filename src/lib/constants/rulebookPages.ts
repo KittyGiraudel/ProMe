@@ -1,4 +1,4 @@
-import type { Rank } from "../types";
+import type { Rank } from "@/lib/types";
 
 /**
  * Rulebook page anchors for village establishment links (per-rank detail, table page).

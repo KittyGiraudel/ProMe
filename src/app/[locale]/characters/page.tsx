@@ -1,6 +1,6 @@
 import { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-import { CharacterLibraryClient } from './CharacterLibraryClient'
+import { CharacterLibrary } from '@/components/PageCharacterLibrary/CharacterLibrary'
 
 type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
 
@@ -14,5 +14,5 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default function CharactersPage() {
-  return <CharacterLibraryClient />
+  return <CharacterLibrary />
 }

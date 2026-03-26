@@ -1,6 +1,6 @@
 import { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-import { SettingsPageClient } from './SettingsPageClient'
+import { Settings } from '@/components/PageSettings/Settings'
 
 type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
 
@@ -14,5 +14,5 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default function SettingsPage() {
-  return <SettingsPageClient />
+  return <Settings />
 }

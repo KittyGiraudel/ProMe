@@ -1,4 +1,4 @@
-import type { AgeBand, Gender, Personality, Faction, Rank, Suit } from "../types";
+import type { AgeBand, Gender, Personality, Faction, Rank, Suit } from "@/lib/types";
 
 export function factionFromD6(value: number): Faction {
   if (value <= 2) return "bruja";

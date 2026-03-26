@@ -5,7 +5,7 @@ import { useMemo } from 'react'
 import { useFormatter, useTranslations } from 'next-intl'
 import { BIOME_IDS } from '@/lib/character/types'
 import type { JournalEntryLink } from '@/lib/journal/cellReferenceIndex'
-import { BiomeBubble } from '../BiomeBubble/BiomeBubble'
+import { BiomeBubble } from '@/components/BiomeBubble/BiomeBubble'
 
 const MAX_JOURNAL_LINKS_IN_MENU = 5
 

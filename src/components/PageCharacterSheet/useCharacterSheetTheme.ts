@@ -6,7 +6,7 @@ import {
   countHalfClockSegments,
   isClockNightPhase,
 } from '@/lib/character/clock'
-import { useSettings } from '@/app/[locale]/contexts/SettingsContext'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { Character } from '@/lib/character/types'
 import { useCharacterSheetDerived } from './useCharacterSheetDerived'
 

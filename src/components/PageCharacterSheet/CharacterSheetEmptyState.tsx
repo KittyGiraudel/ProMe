@@ -11,7 +11,7 @@ export function CharacterSheetEmptyState() {
   return (
     <Layout
       title={t('characters.title')}
-      pageCoverBiome='floodedPlains'
+      bannerBiome='floodedPlains'
       breadcrumbs={[
         { label: t('nav.home_link'), href: '/' },
         { label: t('characters.title'), href: '/characters' },

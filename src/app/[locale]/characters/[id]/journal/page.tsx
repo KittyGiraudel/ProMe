@@ -1,6 +1,6 @@
 import { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-import { JournalCard } from '@/components/CharacterSheet/JournalCard'
+import { JournalCard } from '@/components/PageCharacterSheet/JournalCard'
 
 type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
 
@@ -13,6 +13,6 @@ export async function generateMetadata({ params }: Props) {
   }
 }
 
-export default function CharacterSheetJournalPage() {
+export default function CharacterJournalPage() {
   return <JournalCard />
 }

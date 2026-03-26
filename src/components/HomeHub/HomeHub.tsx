@@ -5,7 +5,7 @@ import { useMemo } from 'react'
 import { useFormatter, useTranslations } from 'next-intl'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { getCharacterStore } from '@/lib/character/store'
-import { Layout } from '../Layout/Layout'
+import { Layout } from '@/components/Layout/Layout'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 import './HomeHub.css'
 
@@ -114,7 +114,7 @@ export function HomeHub() {
     <Layout
       title={t('home.title')}
       breadcrumbs={[]}
-      pageCoverBiome='giganticGardens'>
+      bannerBiome='giganticGardens'>
       <section className='home-hub__section' data-testid='managers'>
         <h2 className='home-hub__section-title'>{t('home.managers_title')}</h2>
         <Row gutter={16}>

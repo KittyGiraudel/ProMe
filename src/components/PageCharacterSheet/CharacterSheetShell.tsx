@@ -7,7 +7,7 @@ import { Layout } from '@/components/Layout/Layout'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
 import { biomeAtCurrentMapPosition } from '@/lib/character/biomeAtCurrentMapPosition'
 import { Button } from '@/components/Button/Button'
-import { CharacterProvider } from '@/components/CharacterSheet/CharacterContext'
+import { CharacterProvider } from '@/components/PageCharacterSheet/CharacterContext'
 import { toFormValues } from './characterSheetForm'
 import { CharacterSheetEmptyState } from './CharacterSheetEmptyState'
 import { useCharacterSheetDocumentTitle } from './useCharacterSheetDocumentTitle'
@@ -88,7 +88,7 @@ export function CharacterSheetShell({
 
   // Layout page-cover biome follows map position even when the active tab is not the map.
   const watchedMap = Form.useWatch('map', form)
-  const pageCoverBiome = useMemo(
+  const bannerBiome = useMemo(
     () => biomeAtCurrentMapPosition(watchedMap),
     [watchedMap]
   )
@@ -102,7 +102,7 @@ export function CharacterSheetShell({
   return (
     <Layout
       sheetNightChrome={characterSheetNightMode}
-      pageCoverBiome={pageCoverBiome}
+      bannerBiome={bannerBiome}
       title={character.name || t('characters_list.unnamed')}
       breadcrumbs={[
         { label: t('nav.home_link'), href: '/' },

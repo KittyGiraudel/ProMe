@@ -3,7 +3,7 @@ import { AppConfig, useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { Layout } from '@/components/Layout/Layout'
-import { VillageGeneratorClient } from '../VillageGeneratorClient'
+import { VillageGenerator } from '@/components/PageGeneratorVillage/VillageGenerator'
 import { decodeVillageIdParam } from '@/lib/village/villageIdCodec'
 
 type Props = { params: Promise<{ locale: AppConfig['Locale']; id: string }> }
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props) {
 function VillageGeneratorFallback() {
   const t = useTranslations()
   return (
-    <Layout title={t('village.title')} pageCoverBiome='shadowForest'>
+    <Layout title={t('village.title')} bannerBiome='shadowForest'>
       <p>{t('common.loading')}</p>
     </Layout>
   )
@@ -34,7 +34,7 @@ export default async function VillageGeneratorIdPage({ params }: Props) {
 
   return (
     <Suspense fallback={<VillageGeneratorFallback />}>
-      <VillageGeneratorClient
+      <VillageGenerator
         initialRoll={decoded.roll}
         initialOwners={decoded.owners}
       />

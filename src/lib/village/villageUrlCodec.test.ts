@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { PlayingCard } from "../types";
+import type { PlayingCard } from "@/lib/types";
 import type { VillageRoll } from "./generate";
 import { toVillagePrimaryTuple } from "./primaryTuple";
 import { decodeVillageRollParam, encodeVillageRoll } from "./villageUrlCodec";

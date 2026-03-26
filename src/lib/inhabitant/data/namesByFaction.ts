@@ -1,4 +1,4 @@
-import type { Faction } from "../../types";
+import type { Faction } from "@/lib/types";
 
 /**
  * 6×6 grid: names[d1 - 1][d2 - 1] for a D66 roll (X.Y = first die, second die).

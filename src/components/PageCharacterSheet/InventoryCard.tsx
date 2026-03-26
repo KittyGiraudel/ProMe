@@ -13,7 +13,7 @@ import {
   Typography,
 } from 'antd'
 import { Button } from '@/components/Button/Button'
-import { useInventoryLimit } from '@/app/[locale]/characters/[id]/useInventoryLimit'
+import { useInventoryLimit } from '@/components/PageCharacterSheet/useInventoryLimit'
 import { useTranslations } from 'next-intl'
 import { randomId } from '@/lib/character/model'
 

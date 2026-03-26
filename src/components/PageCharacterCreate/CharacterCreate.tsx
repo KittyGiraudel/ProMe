@@ -5,7 +5,7 @@ import { Form, Space } from 'antd'
 import type { Archetype } from '@/lib/character/types'
 import type { Gender } from '@/lib/types'
 import { Layout } from '@/components/Layout/Layout'
-import { IdentityCard } from '@/components/CharacterSheet/IdentityCard'
+import { IdentityCard } from '@/components/PageCharacterSheet/IdentityCard'
 import { Button } from '@/components/Button/Button'
 import { useInheritanceCandidates } from './useInheritanceCandidates'
 import { useCharacterCreate } from './useCharacterCreate'
@@ -18,7 +18,7 @@ type CharacterCreateFormValues = {
   inheritFromCharacterId?: string
 }
 
-export function CharacterCreateClient() {
+export function CharacterCreate() {
   const t = useTranslations()
   const [form] = Form.useForm<CharacterCreateFormValues>()
   const { handleCreate } = useCharacterCreate()
@@ -27,7 +27,7 @@ export function CharacterCreateClient() {
   return (
     <Layout
       title={t('new_character.title')}
-      pageCoverBiome='floodedPlains'
+      bannerBiome='floodedPlains'
       breadcrumbs={[
         { label: t('nav.home_link'), href: '/' },
         { label: t('new_character.title'), href: '/characters' },

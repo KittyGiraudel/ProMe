@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props) {
   }
 }
 
-export default function CharacterSheetToolsPage() {
+export default function CharacterToolsPage() {
   return (
     <Row gutter={16}>
       <Col span={12}>

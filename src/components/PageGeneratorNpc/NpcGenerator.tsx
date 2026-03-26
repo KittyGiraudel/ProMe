@@ -20,7 +20,7 @@ import { InhabitantSummary } from '@/components/InhabitantSummary/InhabitantSumm
 import { Layout } from '@/components/Layout/Layout'
 import { RollActions } from '@/components/RollActions/RollActions'
 
-export function NpcGeneratorClient({
+export function NpcGenerator({
   initialRoll: roll,
 }: {
   initialRoll: InhabitantRoll | null
@@ -78,7 +78,7 @@ export function NpcGeneratorClient({
   return (
     <Layout
       title={t('inhabitant.title')}
-      pageCoverBiome='fieldSea'
+      bannerBiome='fieldSea'
       breadcrumbs={[{ label: t('nav.home_link'), href: '/' }]}
       headerActions={
         <RollActions

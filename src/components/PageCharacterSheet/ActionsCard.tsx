@@ -9,7 +9,7 @@ import {
   DeleteOutlined,
 } from '@ant-design/icons'
 import { Button } from '@/components/Button/Button'
-import { useCharacterContext } from '@/components/CharacterSheet/CharacterContext'
+import { useCharacterContext } from '@/components/PageCharacterSheet/CharacterContext'
 import './ActionsCard.css'
 
 export function ActionsCard() {

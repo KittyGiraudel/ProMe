@@ -9,7 +9,7 @@ import {
   FormListFieldData,
   Space,
 } from 'antd'
-import { useSettings } from '@/app/[locale]/contexts/SettingsContext'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { Button } from '@/components/Button/Button'
 import { Journal } from '@/components/Journal/Journal'
 import { useTranslations } from 'next-intl'

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { RANKS } from "../types";
+import { RANKS } from "@/lib/types";
 import {
   ageBandFromSuit,
   canonicalGenderDie,

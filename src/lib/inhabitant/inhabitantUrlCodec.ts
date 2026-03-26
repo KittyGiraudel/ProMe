@@ -1,11 +1,11 @@
 import { lookupName } from "./data/namesByFaction";
 import { genderFromD6, factionFromD6 } from "./maps";
 import type { InhabitantRoll } from "./generate";
-import type { PlayingCard } from "../types";
+import type { PlayingCard } from "@/lib/types";
 import {
   decodePlayingCardPair as decodeCard,
   encodePlayingCard as encodeCard,
-} from "../codec/cards";
+} from "@/lib/codec/cards";
 import { _Translator } from "next-intl";
 
 function parseFactionDie(c: string): number | null {
