@@ -16,7 +16,7 @@ const EmojiPicker = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className='Map__EmojiPickerLoading'>
+      <div className='MapDisplay__EmojiPickerLoading'>
         <Spin size='small' />
       </div>
     ),
@@ -147,7 +147,7 @@ export function MapCellContextMenu({
         open={open}
         onOpenChange={setOpen}
         placement='topLeft'
-        classNames={{ root: 'Map__DropdownOverlay' }}>
+        classNames={{ root: 'MapDisplay__DropdownOverlay' }}>
         <button
           type='button'
           onClick={() => onSelectCell(coord)}
@@ -156,7 +156,7 @@ export function MapCellContextMenu({
             onMoveTo(coord)
           }}
           title={title}
-          className='Map__Button'
+          className='MapDisplay__Button'
           aria-label={`${title} ${t('characters.map.cell')}`}
           disabled={componentDisabled}>
           {coordLabel}
@@ -170,8 +170,8 @@ export function MapCellContextMenu({
         onCancel={() => setEmojiModalOpen(false)}
         destroyOnHidden
         width={360}
-        classNames={{ body: 'Map__EmojiModalBody' }}>
-        <div className='Map__EmojiPickerWrap'>
+        classNames={{ body: 'MapDisplay__EmojiModalBody' }}>
+        <div className='MapDisplay__EmojiPickerWrap'>
           <EmojiPicker
             onEmojiClick={onEmojiPicked}
             theme={Theme.LIGHT}

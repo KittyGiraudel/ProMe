@@ -53,14 +53,10 @@ export function CardDraw() {
 
   return (
     <Card
-      className='CardDraw__card home-hub__card'
+      className='CardDraw__card'
       title={t('characters.tools.card_tool_title')}
       extra={
-        <Button
-          onClick={handleDrawCard}
-          loading={isDrawingCard}
-          type='link'
-          className='home-hub__cta'>
+        <Button onClick={handleDrawCard} loading={isDrawingCard} type='link'>
           {isDrawingCard
             ? t('characters.tools.card_tool_drawing')
             : t('characters.tools.card_tool_action')}

@@ -11,10 +11,6 @@ export type LinkTabNavItem = {
   label: ReactNode
 }
 
-function normalizePath(value: string): string {
-  return value.replace(/\/+$/, '') || '/'
-}
-
 export function LinkTabNav({
   items,
   className,
@@ -23,26 +19,21 @@ export function LinkTabNav({
   className?: string
 }) {
   const pathname = usePathname()
-  const normalizedPath = normalizePath(pathname)
 
   return (
-    <div className={['link-tab-nav', className].filter(Boolean).join(' ')}>
-      <ul className='link-tab-nav__list'>
-        {items.map(({ id, href, label }) => {
-          const normalizedHref = normalizePath(href)
-          const isActive = normalizedPath === normalizedHref
-          return (
-            <li key={id} className='link-tab-nav__item'>
-              <Link
-                href={href}
-                className='link-tab-nav__link'
-                data-active={isActive ? 'true' : undefined}
-                scroll={false}>
-                {label}
-              </Link>
-            </li>
-          )
-        })}
+    <div className={['LinkTabNav', className].filter(Boolean).join(' ')}>
+      <ul className='LinkTabNav__list'>
+        {items.map(({ id, href, label }) => (
+          <li key={id} className='LinkTabNav__item'>
+            <Link
+              href={href}
+              className='LinkTabNav__link'
+              data-active={pathname === href}
+              scroll={false}>
+              {label}
+            </Link>
+          </li>
+        ))}
       </ul>
     </div>
   )

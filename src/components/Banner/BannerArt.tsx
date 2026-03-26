@@ -2,21 +2,21 @@
 
 import { useId } from 'react'
 
-/** Inline cover illustration so fills can follow CSS variables (background SVG cannot). */
+// Inline cover illustration so fills can follow CSS variables
 export function BannerArt() {
   const raw = useId()
   const g = raw.replace(/\W/g, '')
 
   return (
     <svg
-      className='page-cover__art'
+      className='Banner__art'
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 1600 420'
       fill='none'
       preserveAspectRatio='xMidYMax slice'
       width='100%'
       height='100%'
-      aria-hidden>
+      aria-hidden='true'>
       <defs>
         <linearGradient id={`${g}-sky`} x1={0} y1={0} x2={0} y2={1}>
           <stop offset='0%' stopColor='var(--pc-sky-top)' />

@@ -37,7 +37,7 @@ import { useTranslations } from 'next-intl'
 /** Wider popup than the trigger + full option labels (antd defaults ellipsis). */
 const INHABITANT_SUMMARY_SELECT_PROPS = {
   popupMatchSelectWidth: false as const,
-  classNames: { popup: { root: 'inhabitant-summary__select-popup' } },
+  classNames: { popup: { root: 'InhabitantSummary__select-popup' } },
 }
 
 type InhabitantSummaryProps = {
@@ -56,11 +56,11 @@ function MetaWithReroll({
   rerollLabel: string
 }) {
   if (!onReroll) {
-    return <span className='inhabitant-summary__meta'>{children}</span>
+    return <span className='InhabitantSummary__meta'>{children}</span>
   }
   return (
-    <span className='inhabitant-summary__meta inhabitant-summary__meta--with-action'>
-      <span className='inhabitant-summary__meta-main'>{children}</span>
+    <span className='InhabitantSummary__meta InhabitantSummary__meta--with-action'>
+      <span className='InhabitantSummary__meta-main'>{children}</span>
       <Tooltip title={rerollLabel}>
         <Button
           type='text'
@@ -68,7 +68,7 @@ function MetaWithReroll({
           icon={<RedoOutlined />}
           aria-label={rerollLabel}
           onClick={onReroll}
-          className='inhabitant-summary__reroll'
+          className='InhabitantSummary__reroll'
         />
       </Tooltip>
     </span>
@@ -115,7 +115,7 @@ export function InhabitantSummary({
     return (
       <>
         <Card
-          className='inhabitant-summary inhabitant-summary--empty'
+          className='InhabitantSummary InhabitantSummary--empty'
           variant='borderless'>
           <Empty
             description={t('inhabitant.empty_summary', {
@@ -134,24 +134,24 @@ export function InhabitantSummary({
 
   return (
     <>
-      <Card className='inhabitant-summary' variant='borderless'>
+      <Card className='InhabitantSummary' variant='borderless'>
         <Descriptions
           column={1}
           size='middle'
           styles={{ label: { fontWeight: 600, width: '11rem' } }}
-          className='inhabitant-summary__descriptions'
+          className='InhabitantSummary__descriptions'
           items={[
             {
               key: 'name',
               label: t('inhabitant.section_name'),
               children: (
-                <div className='inhabitant-summary__field-row'>
+                <div className='InhabitantSummary__field-row'>
                   {isReadOnly ? (
                     <Typography.Text>{roll.name}</Typography.Text>
                   ) : (
                     <Select
                       {...INHABITANT_SUMMARY_SELECT_PROPS}
-                      className='inhabitant-summary__field-select'
+                      className='InhabitantSummary__field-select'
                       showSearch
                       optionFilterProp='label'
                       disabled={!onSetRoll}
@@ -168,7 +168,7 @@ export function InhabitantSummary({
                       aria-label={t('inhabitant.section_name')}
                     />
                   )}
-                  <div className='inhabitant-summary__field-meta'>
+                  <div className='InhabitantSummary__field-meta'>
                     <MetaWithReroll
                       rerollLabel={t('inhabitant.reroll_name')}
                       onReroll={
@@ -188,7 +188,7 @@ export function InhabitantSummary({
               key: 'faction',
               label: t('inhabitant.section_faction'),
               children: (
-                <div className='inhabitant-summary__field-row'>
+                <div className='InhabitantSummary__field-row'>
                   {isReadOnly ? (
                     <Typography.Text>
                       {t(`common.factions.${roll.faction}`)}
@@ -196,7 +196,7 @@ export function InhabitantSummary({
                   ) : (
                     <Select
                       {...INHABITANT_SUMMARY_SELECT_PROPS}
-                      className='inhabitant-summary__field-select'
+                      className='InhabitantSummary__field-select'
                       disabled={!onSetRoll}
                       value={roll.faction}
                       options={FACTIONS.map(r => ({
@@ -210,7 +210,7 @@ export function InhabitantSummary({
                       aria-label={t('inhabitant.section_faction')}
                     />
                   )}
-                  <div className='inhabitant-summary__field-meta'>
+                  <div className='InhabitantSummary__field-meta'>
                     <MetaWithReroll
                       rerollLabel={t('inhabitant.reroll_faction')}
                       onReroll={
@@ -228,7 +228,7 @@ export function InhabitantSummary({
               key: 'gender',
               label: t('inhabitant.section_gender'),
               children: (
-                <div className='inhabitant-summary__field-row'>
+                <div className='InhabitantSummary__field-row'>
                   {isReadOnly ? (
                     <Typography.Text>
                       {t(`common.genders.${roll.gender}`)}
@@ -236,7 +236,7 @@ export function InhabitantSummary({
                   ) : (
                     <Select
                       {...INHABITANT_SUMMARY_SELECT_PROPS}
-                      className='inhabitant-summary__field-select'
+                      className='InhabitantSummary__field-select'
                       disabled={!onSetRoll}
                       value={roll.gender}
                       options={GENDERS.map(g => ({
@@ -250,7 +250,7 @@ export function InhabitantSummary({
                       aria-label={t('inhabitant.section_gender')}
                     />
                   )}
-                  <div className='inhabitant-summary__field-meta'>
+                  <div className='InhabitantSummary__field-meta'>
                     <MetaWithReroll
                       rerollLabel={t('inhabitant.reroll_gender')}
                       onReroll={onRerollPart && (() => onRerollPart('gender'))}>
@@ -268,7 +268,7 @@ export function InhabitantSummary({
               key: 'age',
               label: t('inhabitant.section_age'),
               children: (
-                <div className='inhabitant-summary__field-row'>
+                <div className='InhabitantSummary__field-row'>
                   {isReadOnly ? (
                     <Typography.Text>
                       {t(`common.age_bands.${age}`)}
@@ -276,7 +276,7 @@ export function InhabitantSummary({
                   ) : (
                     <Select
                       {...INHABITANT_SUMMARY_SELECT_PROPS}
-                      className='inhabitant-summary__field-select'
+                      className='InhabitantSummary__field-select'
                       disabled={!onSetRoll}
                       value={age}
                       options={AGE_BANDS.map(band => ({
@@ -290,7 +290,7 @@ export function InhabitantSummary({
                       aria-label={t('inhabitant.section_age')}
                     />
                   )}
-                  <div className='inhabitant-summary__field-meta'>
+                  <div className='InhabitantSummary__field-meta'>
                     <MetaWithReroll
                       rerollLabel={t('inhabitant.reroll_age_card')}
                       onReroll={
@@ -310,7 +310,7 @@ export function InhabitantSummary({
               key: 'personality',
               label: t('inhabitant.section_personality'),
               children: (
-                <div className='inhabitant-summary__field-row'>
+                <div className='InhabitantSummary__field-row'>
                   {isReadOnly ? (
                     <Typography.Text>
                       {t(`common.personalities.${personality}`)}
@@ -318,7 +318,7 @@ export function InhabitantSummary({
                   ) : (
                     <Select
                       {...INHABITANT_SUMMARY_SELECT_PROPS}
-                      className='inhabitant-summary__field-select'
+                      className='InhabitantSummary__field-select'
                       disabled={!onSetRoll}
                       value={personality}
                       options={personalitySelectOptions}
@@ -329,7 +329,7 @@ export function InhabitantSummary({
                       aria-label={t('inhabitant.section_personality')}
                     />
                   )}
-                  <div className='inhabitant-summary__field-meta'>
+                  <div className='InhabitantSummary__field-meta'>
                     <MetaWithReroll
                       rerollLabel={t('inhabitant.reroll_personality_card')}
                       onReroll={
@@ -352,7 +352,7 @@ export function InhabitantSummary({
               key: 'context',
               label: t('inhabitant.section_context'),
               children: (
-                <div className='inhabitant-summary__stack'>
+                <div className='InhabitantSummary__stack'>
                   <RichText text={roll.contextText} />
                   <MetaWithReroll
                     rerollLabel={t('inhabitant.reroll_context_card')}
@@ -365,7 +365,7 @@ export function InhabitantSummary({
                           key='tooltip'
                           title={t('inhabitant.context_card_note')}>
                           <span
-                            className='inhabitant-summary__context-card-hit'
+                            className='InhabitantSummary__context-card-hit'
                             tabIndex={0}>
                             <PlayingCardLabel card={roll.contextCard} />
                           </span>
@@ -374,8 +374,8 @@ export function InhabitantSummary({
                     })}
                   </MetaWithReroll>
                   {roll.contextCard.rank === '7' ? (
-                    <div className='inhabitant-summary__context-followup'>
-                      <span className='inhabitant-summary__followup-label'>
+                    <div className='InhabitantSummary__context-followup'>
+                      <span className='InhabitantSummary__followup-label'>
                         {t('inhabitant.context_seven_followup_label')}
                       </span>
                       {roll.contextSevenDie == null ? (
@@ -417,8 +417,8 @@ export function InhabitantSummary({
                     </div>
                   ) : null}
                   {roll.contextCard.rank === '10' ? (
-                    <div className='inhabitant-summary__context-followup'>
-                      <span className='inhabitant-summary__followup-label'>
+                    <div className='InhabitantSummary__context-followup'>
+                      <span className='InhabitantSummary__followup-label'>
                         {t('inhabitant.context_spoken_name_label')}
                       </span>
                       {roll.contextSpokenNameDice == null ? (
@@ -433,8 +433,8 @@ export function InhabitantSummary({
                           </Button>
                         ) : null
                       ) : (
-                        <div className='inhabitant-summary__stack inhabitant-summary__stack--tight'>
-                          <strong className='inhabitant-summary__spoken-name'>
+                        <div className='InhabitantSummary__stack InhabitantSummary__stack--tight'>
+                          <strong className='InhabitantSummary__spoken-name'>
                             {roll.contextSpokenName}
                           </strong>
                           <MetaWithReroll

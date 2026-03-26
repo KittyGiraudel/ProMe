@@ -1,58 +1,34 @@
-.village-summary {
-  border: 1px solid var(--lsdp-border) !important;
-  border-radius: 12px !important;
-  background: var(--lsdp-surface) !important;
-  box-shadow: 0 1px 2px rgba(31, 45, 42, 0.04);
-}
-
-.village-summary--empty {
-  text-align: center;
-  padding: 2rem 1rem;
-}
-
-.village-summary__section-title {
+.VillageSummary__section-title {
   margin: 0 0 0.6rem;
   font-size: 1rem;
   font-weight: 600;
   color: var(--lsdp-fg, #1f2d2a);
 }
 
-.village-summary__traits {
+.VillageSummary__traits {
   margin-top: 1.15rem;
 }
 
-.village-summary__traits .village-summary__section-title {
+.VillageSummary__traits .VillageSummary__section-title {
   margin-bottom: 0.5rem;
+  font-size: 130%;
 }
 
-.village-summary__trait-list {
-  margin: 0;
+.VillageSummary__trait-list {
   padding-left: 1.15rem;
   list-style-type: disc;
 }
 
-.village-summary__trait-item {
+.VillageSummary__trait-item {
   margin-bottom: 0.5rem;
-  padding-left: 0.25rem;
+  padding-left: 1rem;
 }
 
-.village-summary__trait-item:last-child {
+.VillageSummary__trait-item:last-child {
   margin-bottom: 0;
 }
 
-.village-summary__trait-item::marker {
-  color: var(--lsdp-muted);
-}
-
-.village-summary__dupes-explanation {
-  margin: 0;
-}
-
-.village-summary__dupes-explanation.rich-text {
-  margin: 0;
-}
-
-.village-summary__line {
+.VillageSummary__line {
   display: flex;
   flex-wrap: nowrap;
   align-items: flex-start;
@@ -60,7 +36,7 @@
   margin-bottom: 0.4rem;
 }
 
-.village-summary__line-body {
+.VillageSummary__line-body {
   flex: 1;
   min-width: 0;
   display: flex;
@@ -68,38 +44,38 @@
   gap: 0.35rem;
 }
 
-.village-summary__owners {
+.VillageSummary__owners {
   padding-left: 0.05rem;
 }
 
-.village-summary__owners-heading {
+.VillageSummary__owners-heading {
   display: block;
   font-size: 0.8125rem !important;
   line-height: 1.4;
   margin-bottom: 0.1rem;
 }
 
-.village-summary__owners-list {
+.VillageSummary__owners-list {
   margin: 0;
   padding-left: 1.15rem;
   list-style-type: disc;
 }
 
-.village-summary__owners-item {
+.VillageSummary__owners-item {
   font-size: 0.875rem;
   line-height: 1.45;
 }
 
-.village-summary__owners-item::marker {
+.VillageSummary__owners-item::marker {
   color: var(--lsdp-muted);
 }
 
-.village-summary__owners-one {
+.VillageSummary__owners-one {
   font-size: 0.875rem;
   line-height: 1.45;
 }
 
-.village-summary__owner-row {
+.VillageSummary__owner-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -107,32 +83,32 @@
   width: 100%;
 }
 
-.village-summary__owner-main {
+.VillageSummary__owner-main {
   flex: 1 1 12rem;
   min-width: 0;
   font-size: 0.875rem;
   line-height: 1.45;
 }
 
-.village-summary__owner-sep {
+.VillageSummary__owner-sep {
   color: var(--lsdp-muted);
 }
 
-.village-summary__owner-age-personality {
+.VillageSummary__owner-age-personality {
   color: var(--lsdp-fg, #1f2d2a);
 }
 
-.village-summary__owner-name-link {
+.VillageSummary__owner-name-link {
   text-decoration: underline;
   text-decoration-color: color-mix(in srgb, var(--lsdp-muted) 55%, transparent);
   text-underline-offset: 0.12em;
 }
 
-.village-summary__owner-name-link:hover {
+.VillageSummary__owner-name-link:hover {
   text-decoration-color: var(--lsdp-text);
 }
 
-.village-summary__owner-actions {
+.VillageSummary__owner-actions {
   display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
@@ -140,11 +116,11 @@
   flex-shrink: 0;
 }
 
-.village-summary__owner-reroll {
+.VillageSummary__owner-reroll {
   flex-shrink: 0;
 }
 
-.village-summary__line-inner {
+.VillageSummary__line-inner {
   display: flex;
   flex: 1;
   align-items: flex-start;
@@ -153,7 +129,7 @@
   min-width: 0;
 }
 
-.village-summary__line-main {
+.VillageSummary__line-main {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
@@ -162,11 +138,11 @@
   min-width: 0;
 }
 
-.village-summary__line-main--trait {
-  align-items: baseline;
+.VillageSummary__line-main p {
+  display: contents;
 }
 
-.village-summary__line-page {
+.VillageSummary__line-page {
   flex-shrink: 0;
   margin-left: auto;
   padding-top: 0.12rem;
@@ -178,15 +154,11 @@
   max-width: 42%;
 }
 
-.village-summary__line:last-child {
+.VillageSummary__line:last-child {
   margin-bottom: 0;
 }
 
-.village-summary__line--trait {
-  margin-bottom: 0.5rem;
-}
-
-.village-summary__line-num {
+.VillageSummary__line-num {
   flex-shrink: 0;
   font-size: 0.9375rem;
   font-weight: 500;
@@ -194,7 +166,7 @@
   min-width: 1.35rem;
 }
 
-.village-summary__line-card-wrap {
+.VillageSummary__line-card-wrap {
   display: inline-flex;
   align-items: baseline;
   gap: 0;
@@ -203,7 +175,16 @@
   white-space: nowrap;
 }
 
-.village-summary__line-reroll {
+.VillageSummary__line-reroll {
   flex-shrink: 0;
   margin-left: 0.1rem;
+}
+
+
+/* Placed below generator summary cards (village / inhabitant). */
+.VillageSummary__footnote {
+  display: block;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--lsdp-muted);
 }

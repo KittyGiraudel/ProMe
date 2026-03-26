@@ -33,7 +33,7 @@ export function Journal({
 
   return (
     <Timeline
-      className='journal'
+      className='Journal'
       reverse={settings.journal.timelineReverseChronological}
       items={fields.map(field => ({
         key: String(field.key),

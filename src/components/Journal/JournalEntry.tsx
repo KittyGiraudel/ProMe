@@ -4,7 +4,7 @@ import { App, ConfigProvider, Form, Input, Space, Typography } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
 import type { FormInstance } from 'antd'
 import { Button } from '@/components/Button/Button'
-import { JournalMarkdown } from '@/components/Markdown/JournalMarkdown'
+import { JournalMarkdown } from '@/components/JournalMarkdown/JournalMarkdown'
 import { useFormatter, useTranslations } from 'next-intl'
 import { useCallback } from 'react'
 
@@ -75,10 +75,9 @@ export function JournalEntry({
   return (
     <div
       id={entryAnchor}
-      className={`journal__entry ${
-        editing ? 'journal__entry--edit' : 'journal__entry--preview'
-      }`}>
-      <div className='journal__entry-actions'>
+      data-mode={editing ? 'edit' : 'preview'}
+      className='Journal__entry'>
+      <div className='Journal__actions'>
         {!componentDisabled && editing ? (
           <Space>
             <Button
@@ -97,7 +96,7 @@ export function JournalEntry({
           </Space>
         ) : !componentDisabled ? (
           <Button
-            className='journal__entry-edit-button'
+            className='Journal__edit'
             htmlType='button'
             onClick={() => setEditingMode(field.key, true)}>
             {t('characters.journal.edit_entry')}
@@ -111,7 +110,7 @@ export function JournalEntry({
             name={[field.name, 'content']}
             label={t('characters.journal.entry_content_label')}
             style={{ marginBottom: 0 }}
-            className='journal__entry-editor'>
+            className='Journal__editor'>
             <Input.TextArea
               rows={8}
               placeholder={t('characters.journal.entry_content_placeholder')}
@@ -129,7 +128,7 @@ export function JournalEntry({
               }}
             />
           </Form.Item>
-          <div className='journal__entry-symbols'>
+          <div className='Journal__symbols'>
             <Typography.Text type='secondary'>
               {t('characters.journal.symbols')}{' '}
               <span style={{ transform: 'scale(1.2)' }}>⚀ ⚁ ⚂ ⚃ ⚄ ⚅</span>
@@ -148,27 +147,14 @@ export function JournalEntry({
               {t('characters.journal.preview_empty')}
             </Typography.Text>
           )}
-          <div className='journal__entry-meta'>
-            <Typography.Text
-              type='secondary'
-              italic
-              style={{ fontSize: '12px' }}
-              className='journal__entry-meta-text'>
-              <a href={`#${entryAnchor}`} className='journal__entry-permalink'>
-                {createdLabel
-                  ? t('characters.journal.created_at_line', {
-                      value: createdLabel,
-                    })
-                  : ''}
-                {createdLabel && updatedLabel ? ' · ' : ''}
-                {updatedLabel
-                  ? t('characters.journal.updated_at_line', {
-                      value: updatedLabel,
-                    })
-                  : ''}
-              </a>
-            </Typography.Text>
-          </div>
+          <Typography.Text type='secondary' italic className='Journal__meta'>
+            <a href={`#${entryAnchor}`} className='Journal__permalink'>
+              {t('characters.journal.metadata', {
+                createdAt: createdLabel ?? '',
+                updatedAt: updatedLabel ?? '',
+              })}
+            </a>
+          </Typography.Text>
         </>
       )}
     </div>

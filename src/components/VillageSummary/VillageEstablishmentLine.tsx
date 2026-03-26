@@ -46,13 +46,13 @@ export function VillageEstablishmentLine({
   const pagesLabel = formatRulebookReference(pages, t)
 
   return (
-    <div className='village-summary__line'>
-      <span className='village-summary__line-num'>{lineNumber}.</span>
-      <div className='village-summary__line-body'>
-        <div className='village-summary__line-inner'>
-          <div className='village-summary__line-main'>
+    <div className='VillageSummary__line'>
+      <span className='VillageSummary__line-num'>{lineNumber}.</span>
+      <div className='VillageSummary__line-body'>
+        <div className='VillageSummary__line-inner'>
+          <div className='VillageSummary__line-main'>
             <Typography.Text>{title}</Typography.Text>
-            <span className='village-summary__line-card-wrap'>
+            <span className='VillageSummary__line-card-wrap'>
               {' ('}
               <PlayingCardLabel card={card} compact />
               {')'}
@@ -64,12 +64,12 @@ export function VillageEstablishmentLine({
                 icon={<RedoOutlined />}
                 aria-label={t('common.reroll_card')}
                 onClick={() => onRerollPrimarySlot(rerollPrimarySlot)}
-                className='village-summary__line-reroll'
+                className='VillageSummary__line-reroll'
               />
             ) : null}
           </div>
           <span
-            className='village-summary__line-page'
+            className='VillageSummary__line-page'
             aria-label={t('rulebook.page_citation', {
               page: pagesLabel,
             })}>

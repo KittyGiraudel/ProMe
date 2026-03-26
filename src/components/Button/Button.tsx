@@ -2,17 +2,17 @@
 import { Button as AntdButton, type ButtonProps as AntdButtonProps } from 'antd'
 import { useRouter } from '@/i18n/navigation'
 
-export function Button(props: AntdButtonProps) {
+export function Button({ onClick, href, ...props }: AntdButtonProps) {
   const router = useRouter()
   return (
     <AntdButton
       {...props}
       onClick={event => {
-        props.onClick?.(event)
+        onClick?.(event)
         if (event.defaultPrevented) return
-        if (!props.href || !props.href.startsWith('/')) return
+        if (!href || !href.startsWith('/')) return
         event.preventDefault()
-        router.push(props.href)
+        router.push(href)
       }}
     />
   )

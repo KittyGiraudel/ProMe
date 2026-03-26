@@ -2,7 +2,7 @@
 
 import { RedoOutlined } from '@ant-design/icons'
 import { useMemo } from 'react'
-import { Card, Empty, Typography } from 'antd'
+import { Card, Empty, Space, Typography } from 'antd'
 import { encodePlayingCard } from '@/lib/codec/cards'
 import type { VillageRoll } from '@/lib/village/generate'
 import type { InhabitantRoll } from '@/lib/inhabitant/generate'
@@ -157,7 +157,7 @@ export function VillageSummary({
   }, [display, grouped, t])
 
   const villageFootnote = (
-    <Typography.Text type='secondary' className='generator-rulebook-footnote'>
+    <Typography.Text type='secondary' className='VillageSummary__footnote'>
       {t('rulebook.village_footnote')}
     </Typography.Text>
   )
@@ -165,9 +165,7 @@ export function VillageSummary({
   if (!roll || !display) {
     return (
       <>
-        <Card
-          className='village-summary village-summary--empty'
-          variant='borderless'>
+        <Card variant='borderless'>
           <Empty
             description={t('village.empty_summary', {
               button: t('village.generate'),
@@ -180,8 +178,10 @@ export function VillageSummary({
   }
 
   return (
-    <>
-      <Card className='village-summary' variant='borderless'>
+    <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
+      <Card
+        className='VillageSummary'
+        title={t('village.section_establishments')}>
         {!grouped ? (
           <UngroupedEstablishmentsList
             establishments={display.establishments}
@@ -201,63 +201,60 @@ export function VillageSummary({
             onRerollPrimarySlot={onRerollPrimarySlot}
             onRerollOwner={onRerollOwner}
           />
-        ) : null}
-
-        {display.traits.length > 0 ? (
-          <div className='village-summary__traits'>
-            <Typography.Title
-              level={5}
-              className='village-summary__section-title'>
-              {t('village.section_traits')}
-            </Typography.Title>
-            <ul className='village-summary__trait-list'>
-              {display.traits.map(row => (
-                <li
-                  key={row.instances.map(x => x.primarySlot).join('-')}
-                  className='village-summary__trait-item'>
-                  <div className='village-summary__line-inner'>
-                    <div className='village-summary__line-main village-summary__line-main--trait'>
-                      <RichText text={row.text} />
-                      <span className='village-summary__line-card-wrap'>
-                        {' ('}
-                        {row.instances.map((inst, idx) => (
-                          <span key={inst.primarySlot}>
-                            {idx > 0 ? ' · ' : null}
-                            <PlayingCardLabel card={inst.card} compact />
-                          </span>
-                        ))}
-                        {')'}
-                      </span>
-                      {onRerollPrimarySlot
-                        ? row.instances.map(inst => (
-                            <Button
-                              key={inst.primarySlot}
-                              type='text'
-                              size='small'
-                              icon={<RedoOutlined />}
-                              aria-label={t('common.reroll_card')}
-                              onClick={() =>
-                                onRerollPrimarySlot(inst.primarySlot)
-                              }
-                              className='village-summary__line-reroll'
-                            />
-                          ))
-                        : null}
-                    </div>
-                    <span className='village-summary__line-page'>
-                      {formatRulebookReference(
-                        [RULEBOOK_PAGES.village.establishmentTable],
-                        t
-                      )}
-                    </span>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
+        ) : (
+          <Empty description={t('common.generic_error')} />
+        )}
       </Card>
+
+      {display.traits.length > 0 ? (
+        <Card title={t('village.section_traits')}>
+          <ul className='VillageSummary__trait-list'>
+            {display.traits.map(row => (
+              <li
+                key={row.instances.map(x => x.primarySlot).join('-')}
+                className='VillageSummary__trait-item'>
+                <div className='VillageSummary__line-inner'>
+                  <div className='VillageSummary__line-main'>
+                    <RichText text={row.text} />
+                    <span className='VillageSummary__line-card-wrap'>
+                      {' ('}
+                      {row.instances.map((inst, idx) => (
+                        <span key={inst.primarySlot}>
+                          {idx > 0 ? ' · ' : null}
+                          <PlayingCardLabel card={inst.card} compact />
+                        </span>
+                      ))}
+                      {')'}
+                    </span>
+                    {onRerollPrimarySlot
+                      ? row.instances.map(inst => (
+                          <Button
+                            key={inst.primarySlot}
+                            type='text'
+                            size='small'
+                            icon={<RedoOutlined />}
+                            aria-label={t('common.reroll_card')}
+                            onClick={() =>
+                              onRerollPrimarySlot(inst.primarySlot)
+                            }
+                            className='VillageSummary__line-reroll'
+                          />
+                        ))
+                      : null}
+                  </div>
+                  <span className='VillageSummary__line-page'>
+                    {formatRulebookReference(
+                      [RULEBOOK_PAGES.village.establishmentTable],
+                      t
+                    )}
+                  </span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Card>
+      ) : null}
       {villageFootnote}
-    </>
+    </Space>
   )
 }

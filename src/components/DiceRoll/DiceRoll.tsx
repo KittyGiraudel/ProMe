@@ -50,14 +50,10 @@ export function DiceRoll() {
 
   return (
     <Card
-      className='DiceRoll__card home-hub__card'
+      className='DiceRoll__card'
       title={t('characters.tools.die_tool_title')}
       extra={
-        <Button
-          onClick={handleRollDie}
-          loading={isRollingDie}
-          type='link'
-          className='home-hub__cta'>
+        <Button onClick={handleRollDie} loading={isRollingDie} type='link'>
           {isRollingDie
             ? t('characters.tools.die_tool_rolling')
             : t('characters.tools.die_tool_action')}

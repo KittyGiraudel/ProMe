@@ -50,35 +50,37 @@ export function MapDisplay({
   onClearCell,
 }: MapDisplayProps) {
   return (
-    <div className='Map'>
-      <div className='Map__Inner'>
-        <div className='Map__LegendRow Map__LegendRow--top'>
+    <div className='MapDisplay'>
+      <div className='MapDisplay__Inner'>
+        <div className='MapDisplay__LegendRow MapDisplay__LegendRow--top'>
           {Array.from({ length: MAP_COLS }, (_, ci) => (
             <React.Fragment key={`col-${ci * 2}`}>
-              <div className='Map__LegendItem'>{colLabelFromIndex(ci * 2)}</div>
+              <div className='MapDisplay__LegendItem'>
+                {colLabelFromIndex(ci * 2)}
+              </div>
             </React.Fragment>
           ))}
         </div>
-        <div className='Map__LegendRow Map__LegendRow--top'>
+        <div className='MapDisplay__LegendRow MapDisplay__LegendRow--top'>
           {Array.from({ length: MAP_COLS }, (_, ci) => (
             <React.Fragment key={`col-${ci * 2 + 1}`}>
-              <div className='Map__LegendItem'>
+              <div className='MapDisplay__LegendItem'>
                 {colLabelFromIndex(ci * 2 + 1)}
               </div>
             </React.Fragment>
           ))}
         </div>
 
-        <div className='Map__LegendCol Map__LegendCol--left'>
+        <div className='MapDisplay__LegendCol MapDisplay__LegendCol--left'>
           {Array.from({ length: MAP_ROWS }, (_, ri) => (
-            <div className='Map__LegendItem' key={`legend-left-${ri}`}>
+            <div className='MapDisplay__LegendItem' key={`legend-left-${ri}`}>
               {rowLabelFromIndex(ri)}
             </div>
           ))}
         </div>
 
         {Array.from({ length: MAP_ROWS }, (_, ri) => (
-          <div className='Map__Row' key={`row-${ri}`}>
+          <div className='MapDisplay__Row' key={`row-${ri}`}>
             {Array.from({ length: MAP_COLS }, (_, ci) => {
               const global = getGlobalFromSheetCell(sheet, ri, ci)
               const key = toHexKey(global)
@@ -100,7 +102,7 @@ export function MapDisplay({
                 <div
                   key={localLabel}
                   id={formatDisplayedCellReference(global)}
-                  className='Map__Hex'
+                  className='MapDisplay__Hex'
                   data-q={global.q}
                   data-r={global.r}
                   data-coord={localLabel}
@@ -126,38 +128,41 @@ export function MapDisplay({
                     onClearCell={onClearCell}
                   />
                   {journalEntryCount > 0 ? (
-                    <span className='Map__JournalCount'>
+                    <span className='MapDisplay__JournalCount'>
                       {journalEntryCount}
                     </span>
                   ) : null}
-                  <span className='Map__Icon'>{icon ?? ''}</span>
+                  <span className='MapDisplay__Icon'>{icon ?? ''}</span>
                 </div>
               )
             })}
           </div>
         ))}
 
-        <div className='Map__LegendCol Map__LegendCol--right'>
+        <div className='MapDisplay__LegendCol MapDisplay__LegendCol--right'>
           {Array.from({ length: MAP_ROWS }, (_, ri) => (
-            <div className='Map__LegendItem' key={`legend-right-${ri}`}>
+            <div className='MapDisplay__LegendItem' key={`legend-right-${ri}`}>
               {rowLabelFromIndex(ri)}
             </div>
           ))}
         </div>
 
-        <div className='Map__LegendRow Map__LegendRow--bottom'>
+        <div className='MapDisplay__LegendRow MapDisplay__LegendRow--bottom'>
           {Array.from({ length: MAP_COLS }, (_, ci) => (
             <React.Fragment key={`col-${ci * 2 + 1}`}>
-              <div className='Map__LegendItem'>
+              <div className='MapDisplay__LegendItem'>
                 {colLabelFromIndex(ci * 2 + 1)}
               </div>
             </React.Fragment>
           ))}
         </div>
-        <div className='Map__LegendRow Map__LegendRow--bottom'>
+
+        <div className='MapDisplay__LegendRow MapDisplay__LegendRow--bottom'>
           {Array.from({ length: MAP_COLS }, (_, ci) => (
             <React.Fragment key={`col-${ci * 2}`}>
-              <div className='Map__LegendItem'>{colLabelFromIndex(ci * 2)}</div>
+              <div className='MapDisplay__LegendItem'>
+                {colLabelFromIndex(ci * 2)}
+              </div>
             </React.Fragment>
           ))}
         </div>

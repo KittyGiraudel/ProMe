@@ -1,39 +1,28 @@
 'use client'
 
 import { Card, Col, Row, Typography } from 'antd'
-import { useMemo } from 'react'
 import { useFormatter, useTranslations } from 'next-intl'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
-import { getCharacterStore } from '@/lib/character/store'
 import { Layout } from '@/components/Layout/Layout'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
+import { useRecentCharacters } from './useRecentCharacters'
 import './HomeHub.css'
 
 const CharacterManager = () => {
   const t = useTranslations()
   const format = useFormatter()
-  const store = useMemo(() => getCharacterStore(), [])
-  const recentCharacters = useMemo(
-    () =>
-      [...store.list()]
-        .sort(
-          (a, b) =>
-            new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-        )
-        .slice(0, 3),
-    [store]
-  )
+  const recentCharacters = useRecentCharacters()
 
   return (
     <Card
-      className='home-hub__card'
+      className='HomeHub__card'
       title={t('home.character_card_title')}
       extra={
-        <BlockedLink href='/characters' className='home-hub__cta'>
+        <BlockedLink href='/characters' className='HomeHub__cta'>
           {t('common.open')}
         </BlockedLink>
       }>
-      <p className='home-hub__card-text'>
+      <p className='HomeHub__card-text'>
         {t('home.character_card_description')}
       </p>
       <Row style={{ marginTop: 16 }} gutter={16}>
@@ -42,7 +31,7 @@ const CharacterManager = () => {
             <BlockedLink
               key={character.id}
               href={`/characters/${character.id}/identity`}
-              className='home-hub__recent-link'>
+              className='HomeHub__recent-link'>
               <Card
                 size='small'
                 hoverable
@@ -75,14 +64,14 @@ const InhabitantGenerator = () => {
   const t = useTranslations()
   return (
     <Card
-      className='home-hub__card'
+      className='HomeHub__card'
       title={t('home.inhabitant_card_title')}
       extra={
-        <BlockedLink href='/generators/npc' className='home-hub__cta'>
+        <BlockedLink href='/generators/npc' className='HomeHub__cta'>
           {t('common.open')}
         </BlockedLink>
       }>
-      <p className='home-hub__card-text'>
+      <p className='HomeHub__card-text'>
         {t('home.inhabitant_card_description')}
       </p>
     </Card>
@@ -93,16 +82,14 @@ const VillageGenerator = () => {
   const t = useTranslations()
   return (
     <Card
-      className='home-hub__card'
+      className='HomeHub__card'
       title={t('home.village_card_title')}
       extra={
-        <BlockedLink href='/generators/village' className='home-hub__cta'>
+        <BlockedLink href='/generators/village' className='HomeHub__cta'>
           {t('common.open')}
         </BlockedLink>
       }>
-      <p className='home-hub__card-text'>
-        {t('home.village_card_description')}
-      </p>
+      <p className='HomeHub__card-text'>{t('home.village_card_description')}</p>
     </Card>
   )
 }
@@ -115,8 +102,8 @@ export function HomeHub() {
       title={t('home.title')}
       breadcrumbs={[]}
       bannerBiome='giganticGardens'>
-      <section className='home-hub__section' data-testid='managers'>
-        <h2 className='home-hub__section-title'>{t('home.managers_title')}</h2>
+      <section className='HomeHub__section' data-testid='managers'>
+        <h2 className='HomeHub__section-title'>{t('home.managers_title')}</h2>
         <Row gutter={16}>
           <Col span={24}>
             <CharacterManager />
@@ -124,10 +111,8 @@ export function HomeHub() {
         </Row>
       </section>
 
-      <section className='home-hub__section' data-testid='generators'>
-        <h2 className='home-hub__section-title'>
-          {t('home.generators_title')}
-        </h2>
+      <section className='HomeHub__section' data-testid='generators'>
+        <h2 className='HomeHub__section-title'>{t('home.generators_title')}</h2>
         <Row gutter={16}>
           <Col span={12}>
             <InhabitantGenerator />
@@ -138,19 +123,19 @@ export function HomeHub() {
         </Row>
       </section>
 
-      <section className='home-hub__section' data-testid='tools'>
-        <h2 className='home-hub__section-title'>{t('settings.title')}</h2>
+      <section className='HomeHub__section' data-testid='tools'>
+        <h2 className='HomeHub__section-title'>{t('settings.title')}</h2>
         <Row gutter={16}>
           <Col span={24} style={{ marginTop: 16 }}>
             <Card
-              className='home-hub__card'
+              className='HomeHub__card'
               title={t('home.settings_title')}
               extra={
-                <BlockedLink href='/settings' className='home-hub__cta'>
+                <BlockedLink href='/settings' className='HomeHub__cta'>
                   {t('common.open')}
                 </BlockedLink>
               }>
-              <p className='home-hub__card-text'>
+              <p className='HomeHub__card-text'>
                 {t('home.settings_description')}
               </p>
             </Card>

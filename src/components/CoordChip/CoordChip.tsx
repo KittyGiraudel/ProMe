@@ -16,17 +16,17 @@ export function CoordChip({
   if (coord) {
     const fragment = getDisplayedCellHash(coord)
     return (
-      <Link className='coord-chip coord-chip--link' href={'./map' + fragment}>
+      <Link className='CoordChip' href={'./map' + fragment}>
         <BiomeBubble biome={biome} />
-        <span className='coord-chip__label'>{value}</span>
+        <span className='CoordChip__label'>{value}</span>
       </Link>
     )
   }
 
   return (
-    <span className='coord-chip'>
+    <span className='CoordChip'>
       <BiomeBubble biome={biome} />
-      <span className='coord-chip__label'>{value}</span>
+      <span className='CoordChip__label'>{value}</span>
     </span>
   )
 }

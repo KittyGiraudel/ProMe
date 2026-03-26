@@ -1,8 +1,8 @@
-.link-tab-nav {
+.LinkTabNav {
   margin-bottom: 8px;
 }
 
-.link-tab-nav__list {
+.LinkTabNav__list {
   display: flex;
   flex-wrap: wrap;
   gap: 4px 8px;
@@ -11,11 +11,11 @@
   padding: 0;
 }
 
-.link-tab-nav__item {
+.LinkTabNav__item {
   margin: 0;
 }
 
-.link-tab-nav__link {
+.LinkTabNav__link {
   display: inline-block;
   padding: 6px 12px;
   border-radius: 6px;
@@ -24,11 +24,11 @@
   border: 1px solid transparent;
 }
 
-.link-tab-nav__link:hover {
+.LinkTabNav__link:hover {
   background: rgba(0, 0, 0, 0.04);
 }
 
-.link-tab-nav__link[data-active='true'] {
+.LinkTabNav__link[data-active='true'] {
   font-weight: 600;
   border-color: var(--ant-color-primary, #1677ff);
   background: rgba(22, 119, 255, 0.06);

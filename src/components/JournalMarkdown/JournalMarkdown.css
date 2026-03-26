@@ -1,86 +1,86 @@
-.journal-markdown {
+.JournalMarkdown {
   line-height: 1.6;
   margin-top: -0.5em;
 }
 
-.journal-markdown p {
+.JournalMarkdown p {
   margin: 0 0 0.75rem;
 }
 
-.journal-markdown ul,
-.journal-markdown ol {
+.JournalMarkdown ul,
+.JournalMarkdown ol {
   margin: 0 0 0.75rem 1.25rem;
   padding: 0;
 }
 
 /* Distinct markers for nested lists (up to 4 levels of the same list type). */
-.journal-markdown ul {
+.JournalMarkdown ul {
   list-style-type: disc;
 }
 
-.journal-markdown ul ul {
+.JournalMarkdown ul ul {
   list-style-type: circle;
   margin-bottom: 0;
 }
 
-.journal-markdown ul ul ul {
+.JournalMarkdown ul ul ul {
   list-style-type: square;
 }
 
-.journal-markdown ul ul ul ul {
+.JournalMarkdown ul ul ul ul {
   list-style-type: disclosure-closed;
 }
 
-.journal-markdown ol {
+.JournalMarkdown ol {
   list-style-type: decimal;
 }
 
-.journal-markdown ol ol {
+.JournalMarkdown ol ol {
   list-style-type: lower-alpha;
 }
 
-.journal-markdown ol ol ol {
+.JournalMarkdown ol ol ol {
   list-style-type: lower-roman;
 }
 
-.journal-markdown ol ol ol ol {
+.JournalMarkdown ol ol ol ol {
   list-style-type: lower-greek;
 }
 
-.journal-markdown li {
+.JournalMarkdown li {
   margin: 0.2rem 0;
 }
 
-.journal-markdown :first-child {
+.JournalMarkdown :first-child {
   margin-top: 0;
 }
 
-.journal-markdown h1 {
+.JournalMarkdown h1 {
   font-size: 1.5em;
   vertical-align: middle;
 }
 
-.journal-markdown h1,
-.journal-markdown h2,
-.journal-markdown h3,
-.journal-markdown h4 {
+.JournalMarkdown h1,
+.JournalMarkdown h2,
+.JournalMarkdown h3,
+.JournalMarkdown h4 {
   margin: 1rem 0 0.5rem;
 }
 
-.journal-markdown blockquote {
+.JournalMarkdown blockquote {
   margin: 0.75rem 0;
   padding-left: 0.75rem;
   border-left: 3px solid var(--ant-colorBorderSecondary);
   color: var(--ant-colorTextSecondary);
 }
 
-.journal-markdown code {
+.JournalMarkdown code {
   padding: 0.1rem 0.3rem;
   border-radius: 4px;
   background: var(--ant-colorFillTertiary);
 }
 
-.journal-markdown pre {
+.JournalMarkdown pre {
   margin: 0.75rem 0;
   padding: 0.75rem;
   border-radius: 6px;
@@ -88,29 +88,29 @@
   background: var(--ant-colorFillTertiary);
 }
 
-.journal-markdown pre code {
+.JournalMarkdown pre code {
   padding: 0;
   background: transparent;
 }
 
-.journal-markdown a {
+.JournalMarkdown a {
   color: var(--ant-colorLink);
   text-decoration: underline;
 }
 
-.journal-markdown span[style] {
+.JournalMarkdown span[style] {
   color: var(--color, currentColor);
   font-weight: 700;
 }
 
-.journal-markdown span[data-zoom] {
+.JournalMarkdown span[data-zoom] {
   display: inline-block;
   position: relative;
   cursor: pointer;
   top: -0.5px;
 }
 
-.journal-markdown span[data-zoom]:hover {
+.JournalMarkdown span[data-zoom]:hover {
   transform: scale(2);
   transition: transform 0.1s ease-in-out;
 }

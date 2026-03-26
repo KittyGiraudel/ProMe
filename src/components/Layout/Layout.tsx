@@ -1,14 +1,13 @@
 'use client'
 
-import { Breadcrumb, Layout as AntLayout, Typography, Menu } from 'antd'
-import type { BreadcrumbProps } from 'antd'
-import type { ReactNode } from 'react'
-import { useMemo } from 'react'
+import { useMemo, type ReactNode } from 'react'
+import { useTranslations } from 'next-intl'
+import { Layout as AntLayout, Typography, Menu } from 'antd'
 import { usePathname } from '@/i18n/navigation'
 import type { BiomeId } from '@/lib/character/types'
-import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { Banner } from '@/components/Banner/Banner'
-import { useTranslations } from 'next-intl'
+import { BlockedLink } from '../Navigation/BlockedLink'
+import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs'
 import './Layout.css'
 
 type LayoutProps = {
@@ -22,46 +21,6 @@ type LayoutProps = {
     href?: string
   }>
   children: ReactNode
-}
-
-const useBreadcrumbs = ({
-  breadcrumbs,
-  title,
-}: Pick<LayoutProps, 'breadcrumbs' | 'title'>) => {
-  const t = useTranslations()
-  const breadcrumbItems = useMemo<BreadcrumbProps['items']>(() => {
-    const items: NonNullable<BreadcrumbProps['items']> = breadcrumbs
-      ? breadcrumbs.map(item => ({
-          title: item.href ? (
-            <BlockedLink href={item.href} className='layout__breadcrumb-link'>
-              {item.label.replace(/^←\s*/, '')}
-            </BlockedLink>
-          ) : (
-            <span>{item.label.replace(/^←\s*/, '')}</span>
-          ),
-        }))
-      : []
-
-    if (!breadcrumbs) {
-      const resolvedBackHref = '/'
-      const label = t('nav.home_link')
-      items.push({
-        title: (
-          <BlockedLink
-            href={resolvedBackHref}
-            className='layout__breadcrumb-link'>
-            {label.replace(/^←\s*/, '')}
-          </BlockedLink>
-        ),
-      })
-    }
-
-    if (breadcrumbs?.length !== 0) items.push({ title: <span>{title}</span> })
-
-    return items
-  }, [breadcrumbs, t, title])
-
-  return breadcrumbItems
 }
 
 export const Layout = ({
@@ -127,14 +86,15 @@ export const Layout = ({
     ],
     [pathname, t]
   )
-  const breadcrumbItems = useBreadcrumbs({ breadcrumbs, title })
 
   return (
     <AntLayout
-      className={sheetNightChrome ? 'layout layout--dark' : 'layout'}
+      className={sheetNightChrome ? 'Layout Layout--dark' : 'Layout'}
       data-sheet-night={sheetNightChrome ? 'true' : undefined}>
       <AntLayout.Header style={{ display: 'flex', alignItems: 'center' }}>
         <Menu
+          data-biome={bannerBiome}
+          className='Layout__menu'
           theme='dark'
           mode='horizontal'
           defaultSelectedKeys={['2']}
@@ -144,15 +104,15 @@ export const Layout = ({
       </AntLayout.Header>
       <Banner biome={bannerBiome} />
       <AntLayout.Content style={{ padding: '16px 48px' }}>
-        <Breadcrumb items={breadcrumbItems} />
+        <Breadcrumbs breadcrumbs={breadcrumbs} title={title} />
 
-        <div className='layout__content'>
-          <div className='layout__title-row'>
-            <Typography.Title level={1} className='layout__title'>
+        <div className='Layout__content'>
+          <div className='Layout__title-row'>
+            <Typography.Title level={1} className='Layout__title'>
               {title}
             </Typography.Title>
             {headerActions ? (
-              <div className='layout__header-actions'>{headerActions}</div>
+              <div className='Layout__header-actions'>{headerActions}</div>
             ) : null}
           </div>
           {children}

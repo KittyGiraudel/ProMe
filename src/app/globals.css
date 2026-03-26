@@ -45,52 +45,49 @@ a {
   text-decoration: none;
 }
 
-/* Placed below generator summary cards (village / inhabitant). */
-.generator-rulebook-footnote {
-  display: block;
-  font-size: 0.8125rem;
-  line-height: 1.45;
-  margin-top: 0.5rem;
-  color: var(--lsdp-muted);
-}
-
-/* Tighten card-to-note spacing in character sheets only. */
-.character-sheet-rulebook-footnote {
-  margin-top: 0.25rem;
-  text-align: end;
-}
-
-
-
 :root {
   --biome-unexplored-light: #f5f5f5;
   --biome-unexplored-dark: #d8e5df;
-  --biome-unexplored-contrast: #262626;
+  --biome-unexplored-light-contrast: #262626;
+  --biome-unexplored-dark-contrast: #262626;
+  
   --biome-shadowForest-light: #7dc8a0;
   --biome-shadowForest-dark: #4a9f72;
-  --biome-shadowForest-contrast: #12381f;
+  --biome-shadowForest-light-contrast: #262626;
+  --biome-shadowForest-dark-contrast: #262626;
+
   --biome-floodedPlains-light: #a793c3;
   --biome-floodedPlains-dark: #57446f;
-  --biome-floodedPlains-contrast: #ffffff;
+  --biome-floodedPlains-light-contrast: #262626;
+  --biome-floodedPlains-dark-contrast: #ffffff;
+
   --biome-mushroomJungle-light: #ae9178;
   --biome-mushroomJungle-dark: #624838;
-  --biome-mushroomJungle-contrast: #ffffff;
+  --biome-mushroomJungle-light-contrast: #ffffff;
+  --biome-mushroomJungle-dark-contrast: #ffffff;
+
   --biome-fieldSea-light: #5ec4e8;
   --biome-fieldSea-dark: #1a6f94;
-  --biome-fieldSea-contrast: #ffffff;
+  --biome-fieldSea-light-contrast: #262626;
+  --biome-fieldSea-dark-contrast: #ffffff;
+
   --biome-silentDesert-light: #f3d58e;
   --biome-silentDesert-dark: #af8c43;
-  --biome-silentDesert-contrast: #262626;
+  --biome-silentDesert-light-contrast: #262626;
+  --biome-silentDesert-dark-contrast: #ffffff;
+
   --biome-giganticGardens-light: #ffb3a7;
   --biome-giganticGardens-dark: #a64b3c;
-  --biome-giganticGardens-contrast: #262626;
+  --biome-giganticGardens-light-contrast: #262626;
+  --biome-giganticGardens-dark-contrast: #ffffff;
   }
 
 
 [data-biome="unexplored"] {
   --biome-light: var(--biome-unexplored-light);
   --biome-dark: var(--biome-unexplored-dark);
-  --biome-contrast: var(--biome-unexplored-contrast);
+  --biome-dark-contrast: var(--biome-unexplored-dark-contrast);
+  --biome-light-contrast: var(--biome-unexplored-light-contrast);
 }
 
 [data-sheet-night='true'] [data-biome='unexplored'] {
@@ -102,37 +99,43 @@ a {
 [data-biome="shadowForest"] {
   --biome-light: var(--biome-shadowForest-light);
   --biome-dark: var(--biome-shadowForest-dark);
-  --biome-contrast: var(--biome-shadowForest-contrast);
+  --biome-dark-contrast: var(--biome-shadowForest-dark-contrast);
+  --biome-light-contrast: var(--biome-shadowForest-light-contrast);
 }
 
 [data-biome="floodedPlains"] {
   --biome-light: var(--biome-floodedPlains-light);
   --biome-dark: var(--biome-floodedPlains-dark);
-  --biome-contrast: var(--biome-floodedPlains-contrast);
+  --biome-dark-contrast: var(--biome-floodedPlains-dark-contrast);
+  --biome-light-contrast: var(--biome-floodedPlains-light-contrast);
 }
 
 [data-biome="mushroomJungle"] {
   --biome-light: var(--biome-mushroomJungle-light);
   --biome-dark: var(--biome-mushroomJungle-dark);
-  --biome-contrast: var(--biome-mushroomJungle-contrast);
+  --biome-dark-contrast: var(--biome-mushroomJungle-dark-contrast);
+  --biome-light-contrast: var(--biome-mushroomJungle-light-contrast);
 }
 
 [data-biome="fieldSea"] {
   --biome-light: var(--biome-fieldSea-light);
   --biome-dark: var(--biome-fieldSea-dark);
-  --biome-contrast: var(--biome-fieldSea-contrast);
+  --biome-dark-contrast: var(--biome-fieldSea-dark-contrast);
+  --biome-light-contrast: var(--biome-fieldSea-light-contrast);
 }
 
 [data-biome="silentDesert"] {
   --biome-light: var(--biome-silentDesert-light);
   --biome-dark: var(--biome-silentDesert-dark);
-  --biome-contrast: var(--biome-silentDesert-contrast);
+  --biome-dark-contrast: var(--biome-silentDesert-dark-contrast);
+  --biome-light-contrast: var(--biome-silentDesert-light-contrast);
 }
 
 [data-biome="giganticGardens"] {
   --biome-light: var(--biome-giganticGardens-light);
   --biome-dark: var(--biome-giganticGardens-dark);
-  --biome-contrast: var(--biome-giganticGardens-contrast);
+  --biome-dark-contrast: var(--biome-giganticGardens-dark-contrast);
+  --biome-light-contrast: var(--biome-giganticGardens-light-contrast);
 }
 
 .ant-form-item-explain-success {

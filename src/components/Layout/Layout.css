@@ -1,12 +1,13 @@
-.layout {
+.Layout {
+  --ant-layout-header-height: 48px !important;
 }
 
-.layout__title.layout__title {
+.Layout__title.Layout__title {
   margin-bottom: 1.5rem;
   font-size: 2rem;
 }
 
-.layout__content {
+.Layout__content {
   margin-top: 16px;
   min-height: 280px;
   padding: 24px;
@@ -15,14 +16,14 @@
   margin: 0 auto;
 }
 
-.layout__title-row {
+.Layout__title-row {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 0.75rem;
 }
 
-.layout__header-actions {
+.Layout__header-actions {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -30,20 +31,31 @@
   margin-top: 0.2rem;
 }
 
-.layout.layout.layout--dark {
+.Layout.Layout.Layout--dark {
   --ant-layout-body-bg: #1a2420;
   --ant-layout-footer-bg: #1a2420;
   --ant-color-text: #e8f0ed;
 }
 
-
-.layout.layout--dark .layout__title {
+.Layout.Layout--dark .Layout__title {
   color: inherit;
 }
 
-.layout.layout--dark .ant-breadcrumb {
-  --ant-breadcrumb-separator-color: #6d857a;
-  --ant-breadcrumb-link-color: #8aa89c;
-  --ant-breadcrumb-link-hover-color: #e8f0ed;
-  --ant-breadcrumb-last-item-color: #c5d4ce;
+.Layout__menu .ant-menu-item:has([data-current="true"]),
+.Layout__menu .ant-menu-item:has([data-current="true"]):hover {
+  background-color: var(--biome-dark);
+  color: var(--biome-dark-contrast) !important;
+}
+
+.Layout__menu[data-biome="unexplored"] .ant-menu-item:has([data-current="true"]) {
+  _color: var(--ant-layout-header-bg);
+}
+
+.Layout__menu .ant-menu-item:has([data-current="true"]):hover {
+  background-color: var(--biome-dark) !important;
+}
+
+.Layout__menu .ant-menu-item:hover [data-current]::before {
+  background-color: rgb(255 255 255 / 0.1);
+  transition: background-color 200ms;
 }

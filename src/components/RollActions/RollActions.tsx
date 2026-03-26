@@ -1,8 +1,8 @@
 'use client'
 
+import { Space } from 'antd'
 import { CopyOutlined } from '@ant-design/icons'
 import { Button } from '@/components/Button/Button'
-import './RollActions.css'
 
 type RollActionsProps = {
   onRoll: () => void
@@ -18,7 +18,7 @@ export function RollActions({
   copyOneLinerLabel,
 }: RollActionsProps) {
   return (
-    <div className='roll-actions'>
+    <Space orientation='horizontal'>
       {onCopyOneLiner && copyOneLinerLabel ? (
         <Button
           size='large'
@@ -30,6 +30,6 @@ export function RollActions({
       <Button type='primary' size='large' onClick={onRoll}>
         {label}
       </Button>
-    </div>
+    </Space>
   )
 }

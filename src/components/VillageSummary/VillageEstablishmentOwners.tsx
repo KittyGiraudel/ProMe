@@ -11,7 +11,7 @@ import {
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 import { Button } from '@/components/Button/Button'
 import { useTranslations } from 'next-intl'
-import { GeneratorLinkPreview } from '@/components/Markdown/GeneratorLinkPreview'
+import { GeneratorLinkPreview } from '@/components/GeneratorLinkPreview/GeneratorLinkPreview'
 
 export type VillageOwnerEntry = { roll: InhabitantRoll; ownerIndex: number }
 
@@ -31,15 +31,15 @@ export function VillageEstablishmentOwners({
     const personality = getPersonality(e.roll)
     const inhabitantHref = `/generators/npc/${encodeInhabitantRoll(e.roll)}`
     return (
-      <div className='village-summary__owner-row'>
-        <span className='village-summary__owner-main'>
+      <div className='VillageSummary__owner-row'>
+        <span className='VillageSummary__owner-main'>
           {t.rich('inhabitant.one_liner_rich', {
             gender: genderCompactSymbol(e.roll.gender),
             name: () => (
               <GeneratorLinkPreview
                 key='link'
                 href={inhabitantHref}
-                className='village-summary__owner-name-link'
+                className='VillageSummary__owner-name-link'
                 label={e.roll.name}
               />
             ),
@@ -48,7 +48,7 @@ export function VillageEstablishmentOwners({
             personality: t(`common.personalities.${personality}`),
           })}
         </span>
-        <span className='village-summary__owner-actions'>
+        <span className='VillageSummary__owner-actions'>
           {onRerollOwner ? (
             <Button
               type='text'
@@ -56,7 +56,7 @@ export function VillageEstablishmentOwners({
               icon={<RedoOutlined />}
               aria-label={t('village.reroll_owner')}
               onClick={() => onRerollOwner(e.ownerIndex)}
-              className='village-summary__owner-reroll'
+              className='VillageSummary__owner-reroll'
             />
           ) : null}
         </span>
@@ -65,22 +65,22 @@ export function VillageEstablishmentOwners({
   }
 
   return (
-    <div className='village-summary__owners'>
+    <div className='VillageSummary__owners'>
       <Typography.Text
         type='secondary'
-        className='village-summary__owners-heading'>
+        className='VillageSummary__owners-heading'>
         {t(multi ? 'village.co_owners_label' : 'village.owner_label')}
       </Typography.Text>
       {multi ? (
-        <ul className='village-summary__owners-list'>
+        <ul className='VillageSummary__owners-list'>
           {entries.map(e => (
-            <li key={e.ownerIndex} className='village-summary__owners-item'>
+            <li key={e.ownerIndex} className='VillageSummary__owners-item'>
               {renderRow(e)}
             </li>
           ))}
         </ul>
       ) : (
-        <div className='village-summary__owners-one'>
+        <div className='VillageSummary__owners-one'>
           {renderRow(entries[0]!)}
         </div>
       )}

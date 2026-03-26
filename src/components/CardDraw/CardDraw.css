@@ -14,7 +14,6 @@
   animation: card-flip 0.18s ease-in-out infinite;
 }
 
-
 @keyframes card-flip {
   0% {
     transform: rotateY(0deg) scale(1);

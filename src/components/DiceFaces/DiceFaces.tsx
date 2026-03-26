@@ -29,7 +29,7 @@ export type DiceFacesProps = {
 
 export function DiceFaces({ values, ariaLabel, className }: DiceFacesProps) {
   const t = useTranslations()
-  const rootClass = ['dice-faces', className].filter(Boolean).join(' ')
+  const rootClass = ['DiceFaces', className].filter(Boolean).join(' ')
 
   const announcedLabel =
     ariaLabel !== undefined
@@ -46,7 +46,7 @@ export function DiceFaces({ values, ariaLabel, className }: DiceFacesProps) {
       {values.map((v, i) => (
         <span
           key={i}
-          className='dice-faces__face'
+          className='DiceFaces__face'
           aria-hidden={!!announcedLabel}>
           {diceFaceGlyph(v)}
         </span>

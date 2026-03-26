@@ -22,7 +22,7 @@ import './JournalMarkdown.css'
 import { BiomeTag } from '@/components/BiomeTag/BiomeTag'
 import { CoordChip } from '@/components/CoordChip/CoordChip'
 import { _Translator, useTranslations } from 'next-intl'
-import { GeneratorLinkPreview } from '@/components/Markdown/GeneratorLinkPreview'
+import { GeneratorLinkPreview } from '@/components/GeneratorLinkPreview/GeneratorLinkPreview'
 
 const BIOME_ENTRIES = BIOME_ROLL_TABLE.map(biome => ({
   key: `common.biomes.${biome.biome}`,
@@ -283,7 +283,7 @@ export function JournalMarkdown({ markdown }: { markdown: string }) {
   })
 
   return (
-    <div className='journal-markdown'>
+    <div className='JournalMarkdown'>
       <ReactMarkdown
         remarkPlugins={rendererConfig.remarkPlugins}
         components={rendererConfig.components}>

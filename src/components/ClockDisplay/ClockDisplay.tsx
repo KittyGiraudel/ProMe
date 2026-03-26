@@ -3,6 +3,7 @@
 import { useId } from 'react'
 import { useTranslations } from 'next-intl'
 import { isClockDayPhase } from '@/lib/character/clock'
+import './ClockDisplay.css'
 
 type ClockDisplayProps = {
   label: string
@@ -71,7 +72,7 @@ export function ClockDisplay({
     <svg
       viewBox={`0 0 ${svgSize} ${svgSize}`}
       width='100%'
-      style={{ maxWidth: 280, display: 'block', margin: 'auto' }}
+      className='ClockDisplay'
       role='img'
       aria-label={label}>
       <defs>

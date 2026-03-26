@@ -1,4 +1,4 @@
-.coord-chip {
+.CoordChip {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
@@ -6,12 +6,12 @@
   vertical-align: bottom;
 }
 
-.coord-chip__label {
+.CoordChip__label {
   font-weight: 700;
   letter-spacing: 0.01em;
 }
 
-.coord-chip--link.coord-chip--link {
+a.CoordChip.CoordChip {
   color: inherit;
   text-decoration: none;
   cursor: pointer;

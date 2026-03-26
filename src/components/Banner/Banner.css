@@ -1,4 +1,4 @@
-.page-cover {
+.Banner {
   flex-shrink: 0;
   width: 100%;
   height: clamp(132px, 26vw, 250px);
@@ -39,12 +39,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .page-cover {
+  .Banner {
     transition: none;
   }
 }
 
-.page-cover__art {
+.Banner__art {
   display: block;
 }
 
@@ -52,7 +52,7 @@
  * Biome-driven cover: globals.css sets --biome-light / --biome-dark on [data-biome].
  * Remap the whole scene from those two anchors so the shift is obvious.
  */
-.page-cover[data-biome] {
+.Banner[data-biome] {
   --pc-sky-top: color-mix(in srgb, var(--biome-light) 38%, white);
   --pc-sky-mid: color-mix(in srgb, var(--biome-light) 52%, var(--biome-dark));
   --pc-sky-bot: color-mix(in srgb, var(--biome-dark) 42%, var(--biome-light));

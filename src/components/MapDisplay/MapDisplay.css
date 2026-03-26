@@ -1,4 +1,4 @@
-.Map {
+.MapDisplay {
   --gap: 0px; 
   --size: calc(100% / 12 - var(--gap));
 }
@@ -8,14 +8,14 @@
  * 2. No idea how it works or what it does.
  * 3. Offset the grid to counter-balance the even rows’ offset towards the right.
  */
-.Map__Inner {
+.MapDisplay__Inner {
   position: relative; /* 1 */
   padding-bottom: calc(var(--size) / (4 * cos(30deg))); /* 2 */
   margin-left: calc(var(--size) / 2); /* 3 */
 }
 
 
-.Map__LegendRow {
+.MapDisplay__LegendRow {
   display: flex;
   gap: var(--gap);
   width: 100%;
@@ -24,25 +24,25 @@
 /**
  * 1. Squeeze the legend closer to the map.
  */
-.Map__LegendRow--top {
+.MapDisplay__LegendRow--top {
   margin-bottom: -0.5em; /* 1 */
 }
 
-.Map__LegendRow--top + .Map__LegendRow--top {
+.MapDisplay__LegendRow--top + .MapDisplay__LegendRow--top {
   margin-left: calc(var(--size) / 2);
 }
 
-.Map__LegendRow--bottom {
+.MapDisplay__LegendRow--bottom {
   margin-left: calc(var(--size) / 2);
   margin-top: 1em;
 }
 
-.Map__LegendRow--bottom + .Map__LegendRow--bottom {
+.MapDisplay__LegendRow--bottom + .MapDisplay__LegendRow--bottom {
   margin-left: 0;
   margin-top: 0;
 }
 
-.Map__RowLabel {
+.MapDisplay__RowLabel {
   position: absolute;
   font-weight: normal;
   text-align: center;
@@ -50,27 +50,27 @@
   opacity: 0.5;
 }
 
-.Map__RowLabel--left {
+.MapDisplay__RowLabel--left {
   left: 0;
 }
 
-.Map__RowLabel--right {
+.MapDisplay__RowLabel--right {
   right: 0;
 }
 
-.Map__LegendItem {
+.MapDisplay__LegendItem {
   font-weight: normal;
   text-align: center;
   font-size: 75%;
   opacity: 0.4;
 }
 
-.Map__LegendRow .Map__LegendItem {
+.MapDisplay__LegendRow .MapDisplay__LegendItem {
   transform: translateX(-50%);
   width: var(--size);
 }
 
-.Map__LegendCol {
+.MapDisplay__LegendCol {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -82,32 +82,32 @@
   width: var(--size);
 }
 
-.Map__LegendCol--left {
+.MapDisplay__LegendCol--left {
   right: 100%;
   transform: translateX(-50%);
   align-items: flex-end;
   margin-right: 1ch;
 }
 
-.Map__LegendCol--right {
+.MapDisplay__LegendCol--right {
   left: 100%;
   margin-left: 1ch;
   transform: translateX(-50%);
   align-items: flex-start;
 }
 
-.Map__LegendCol .Map__LegendItem {
+.MapDisplay__LegendCol .MapDisplay__LegendItem {
   position: relative;
 }
 
-.Map__LegendItem:nth-of-type(even) {
+.MapDisplay__LegendItem:nth-of-type(even) {
   left: 50%;
 }
 
 /**
  * 1. Apply the same gap both horizontally and vertically.
  */
-.Map__Row {
+.MapDisplay__Row {
   display: flex;
   gap: var(--gap); /* 1 */
   margin-bottom: var(--gap); /* 1 */
@@ -118,11 +118,11 @@
 /**
  * 1. Offset the odd rows to the right to fit the hexagons neatly.
  */
-.Map__Row:nth-of-type(even) {
+.MapDisplay__Row:nth-of-type(even) {
   left: calc(var(--size) / 2 * -1);
 }
 
-.Map__Hex {
+.MapDisplay__Hex {
   position: relative;
   width: var(--size);
   aspect-ratio: cos(30deg);
@@ -141,35 +141,35 @@
   transition: 0.1s ease-in-out;
 
   background-color: var(--biome-light);
-  color: var(--biome-contrast);
+  color: var(--biome-light-contrast);
 
   box-shadow: inset 0 0 20px var(--biome-dark);
   user-select: none;
   overflow: hidden;
 }
 
-.Map__Hex[data-current="true"] {
+.MapDisplay__Hex[data-current="true"] {
   box-shadow: inset 0 0 10px 5px white;
   border-color: white;
   z-index: 1;
   position: relative;
 }
 
-.Map__Hex[data-reachable="true"] {
+.MapDisplay__Hex[data-reachable="true"] {
 }
 
-.Map__Hex[data-reachable="false"]:not([data-current="true"]) {
+.MapDisplay__Hex[data-reachable="false"]:not([data-current="true"]) {
   opacity: 0.7;
 }
 
-.Map__Hex[data-selected="true"] {
+.MapDisplay__Hex[data-selected="true"] {
   outline: 3px solid #722ed1;
   outline-offset: 3px;
   z-index: 2;
   position: relative;
 }
 
-.Map__DropdownOverlay .ant-dropdown-menu {
+.MapDisplay__DropdownOverlay .ant-dropdown-menu {
   min-width: 220px;
 }
 
@@ -178,21 +178,21 @@
  * selectedKeys on biome children, the parent gets *-submenu-selected and primary
  * color on the title — reset to normal item text. !important beats injected menu styles.
  */
-.Map__DropdownOverlay .ant-dropdown-menu-submenu-selected > .ant-dropdown-menu-submenu-title {
+.MapDisplay__DropdownOverlay .ant-dropdown-menu-submenu-selected > .ant-dropdown-menu-submenu-title {
   color: var(--ant-color-text) !important;
 }
 
-.Map__BiomeMenuItem {
+.MapDisplay__BiomeMenuItem {
   display: inline-flex;
   align-items: center;
   gap: 8px;
 }
 
-.Map__NotificationIcon[data-biome] {
+.MapDisplay__NotificationIcon[data-biome] {
   color: var(--biome-dark);
 }
 
-.Map__Icon {
+.MapDisplay__Icon {
   grid-row: 1;
   grid-column: 1;
   text-align: center;
@@ -201,7 +201,7 @@
   pointer-events: none;
 }
 
-.Map__Button {
+.MapDisplay__Button {
   position: absolute;
   inset: 0;
   display: flex;
@@ -224,32 +224,32 @@
   user-select: none;
 }
 
-.Map__Button:not(:disabled) {
+.MapDisplay__Button:not(:disabled) {
   cursor: pointer;
 }
 
-.Map__Hex:hover .Map__Button:not(:disabled) {
+.MapDisplay__Hex:hover .MapDisplay__Button:not(:disabled) {
   transform: scale(1.15);
 }
 
-.Map__EmojiModalBody {
+.MapDisplay__EmojiModalBody {
   padding-top: 8px;
 }
 
-.Map__EmojiPickerWrap {
+.MapDisplay__EmojiPickerWrap {
   display: flex;
   justify-content: center;
   margin: 0 -8px;
 }
 
-.Map__EmojiPickerLoading {
+.MapDisplay__EmojiPickerLoading {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 200px;
 }
 
-.Map__JournalCount {
+.MapDisplay__JournalCount {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);

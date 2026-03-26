@@ -1,10 +1,10 @@
+import { useTranslations } from 'next-intl'
 import type { PlayingCard } from '@/lib/types'
 import { suitIsRed } from '@/lib/suitGlyphs'
-import './PlayingCardLabel.css'
 import { SUITS } from '@/lib/constants/misc'
-import { useTranslations } from 'next-intl'
+import './PlayingCardLabel.css'
 
-type PlayingCardLabelProps = {
+type PlayingPlayingCardLabelProps = {
   card: PlayingCard
   className?: string
   /** Smaller suit glyph for inline / parenthetical use. */
@@ -15,11 +15,11 @@ export function PlayingCardLabel({
   card,
   className,
   compact,
-}: PlayingCardLabelProps) {
+}: PlayingPlayingCardLabelProps) {
   const t = useTranslations()
   const rootClass = [
-    'playing-card-label',
-    compact ? 'playing-card-label--compact' : null,
+    'PlayingCardLabel',
+    compact ? 'PlayingCardLabel--compact' : null,
     className,
   ]
     .filter(Boolean)
@@ -29,15 +29,15 @@ export function PlayingCardLabel({
     suit: SUITS[card.suit],
   })
   const suitClass = [
-    'playing-card-label__suit',
+    'PlayingCardLabel__suit',
     suitIsRed(card.suit)
-      ? 'playing-card-label__suit--red'
-      : 'playing-card-label__suit--black',
+      ? 'PlayingCardLabel__suit--red'
+      : 'PlayingCardLabel__suit--black',
   ].join(' ')
 
   return (
     <span className={rootClass} role='img' aria-label={label} title={label}>
-      <span className='playing-card-label__rank' aria-hidden='true'>
+      <span className='PlayingCardLabel__rank' aria-hidden='true'>
         {card.rank}
       </span>
       <span className={suitClass} aria-hidden='true'>
