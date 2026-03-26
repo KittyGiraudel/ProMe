@@ -57,7 +57,7 @@ function useBiomeSubmenuChildren(): NonNullable<MenuProps['items']> {
       ...BIOME_IDS.map(id => ({
         key: `biome:${id}`,
         label: (
-          <span className='MapDisplay__BiomeMenuItem'>
+          <span className='Map__BiomeMenuItem'>
             <BiomeBubble biome={id} />
             <span>{t(`common.biomes.${id}`)}</span>
           </span>
@@ -67,7 +67,7 @@ function useBiomeSubmenuChildren(): NonNullable<MenuProps['items']> {
       {
         key: 'biome:clear',
         label: (
-          <span className='MapDisplay__BiomeMenuItem'>
+          <span className='Map__BiomeMenuItem'>
             <BiomeBubble biome='unexplored' />
             <span>{t('characters.map.unexplored')}</span>
           </span>
@@ -76,7 +76,7 @@ function useBiomeSubmenuChildren(): NonNullable<MenuProps['items']> {
       {
         key: 'biome:random',
         label: (
-          <span className='MapDisplay__BiomeMenuItem'>
+          <span className='Map__BiomeMenuItem'>
             <BiomeBubble biome='unexplored' />
             <span>{t('characters.map.random_biome')}</span>
           </span>
