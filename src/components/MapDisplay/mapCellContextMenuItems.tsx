@@ -57,7 +57,7 @@ function useBiomeSubmenuChildren(): NonNullable<MenuProps['items']> {
       ...BIOME_IDS.map(id => ({
         key: `biome:${id}`,
         label: (
-          <span className='Map__BiomeMenuItem'>
+          <span className='MapDisplay__BiomeMenuItem'>
             <BiomeBubble biome={id} />
             <span>{t(`common.biomes.${id}`)}</span>
           </span>
@@ -67,7 +67,7 @@ function useBiomeSubmenuChildren(): NonNullable<MenuProps['items']> {
       {
         key: 'biome:clear',
         label: (
-          <span className='Map__BiomeMenuItem'>
+          <span className='MapDisplay__BiomeMenuItem'>
             <BiomeBubble biome='unexplored' />
             <span>{t('characters.map.unexplored')}</span>
           </span>
@@ -76,7 +76,7 @@ function useBiomeSubmenuChildren(): NonNullable<MenuProps['items']> {
       {
         key: 'biome:random',
         label: (
-          <span className='Map__BiomeMenuItem'>
+          <span className='MapDisplay__BiomeMenuItem'>
             <BiomeBubble biome='unexplored' />
             <span>{t('characters.map.random_biome')}</span>
           </span>
@@ -171,15 +171,6 @@ export function useMapCellContextMenuItems({
         disabled: !canMoveHere,
         title: canMoveHere ? undefined : t('characters.map.move_neighbor_only'),
       },
-      ...(journalLinks.length > 0
-        ? [
-            {
-              key: 'journal',
-              label: t('characters.map.journal_links_label'),
-              children: journalSubmenuChildren,
-            },
-          ]
-        : []),
       {
         key: 'clear',
         danger: true,
@@ -210,6 +201,15 @@ export function useMapCellContextMenuItems({
             label: t('characters.map.icon_label'),
             children: iconSubmenuChildren,
           },
+          ...(journalLinks.length > 0
+            ? [
+                {
+                  key: 'journal',
+                  label: t('characters.map.journal_links_label'),
+                  children: journalSubmenuChildren,
+                },
+              ]
+            : []),
         ],
       },
       {

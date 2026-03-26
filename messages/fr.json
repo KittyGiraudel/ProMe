@@ -218,7 +218,7 @@
       "journal_links_label": "Journal",
       "journal_links_overflow": "+ {count} entrée{count > 1 ? 's' : ''} plus ancienne{count > 1 ? 's' : ''}",
       "clear_cell": "Effacer la case",
-      "menu_marking_group": "Marquage",
+      "menu_marking_group": "Reconnaissance",
       "menu_actions_group": "Actions",
       "biome_label": "Biome",
       "random_biome": "Biome aléatoire (1D6)",

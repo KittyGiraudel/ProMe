@@ -136,7 +136,8 @@ export function MapCellContextMenu({
   return (
     <>
       <Dropdown
-        trigger={['contextMenu']}
+        trigger={['click']}
+        arrow={{ pointAtCenter: true }}
         disabled={componentDisabled}
         menu={{
           items,
