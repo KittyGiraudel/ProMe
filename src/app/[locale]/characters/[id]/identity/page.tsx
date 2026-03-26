@@ -1,6 +1,8 @@
 import { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-import { IdentityTabSection } from '../tabs/IdentityTabSection'
+import { Space } from 'antd'
+import { IdentityCard } from '@/components/CharacterSheet/IdentityCard'
+import { CharacteristicsCard } from '@/components/CharacterSheet/CharacteristicsCard'
 
 type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
 
@@ -14,5 +16,10 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default function CharacterSheetIdentityPage() {
-  return <IdentityTabSection />
+  return (
+    <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
+      <IdentityCard isArchetypeReadonly />
+      <CharacteristicsCard />
+    </Space>
+  )
 }

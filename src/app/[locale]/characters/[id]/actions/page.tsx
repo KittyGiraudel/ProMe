@@ -1,6 +1,6 @@
 import { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-import { ActionsTabSection } from '../tabs/ActionsTabSection'
+import { ActionsCard } from '@/components/CharacterSheet/ActionsCard'
 
 type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
 
@@ -14,5 +14,5 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default function CharacterSheetActionsPage() {
-  return <ActionsTabSection />
+  return <ActionsCard />
 }

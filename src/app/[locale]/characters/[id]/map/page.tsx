@@ -1,6 +1,8 @@
 import { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-import { MapTabSection } from '../tabs/MapTabSection'
+import { Space } from 'antd'
+import { ClockCard } from '@/components/CharacterSheet/ClockCard'
+import { MapCard } from '@/components/CharacterSheet/MapCard'
 
 type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
 
@@ -14,5 +16,10 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default function CharacterSheetMapPage() {
-  return <MapTabSection />
+  return (
+    <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
+      <MapCard />
+      <ClockCard />
+    </Space>
+  )
 }

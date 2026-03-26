@@ -1,25 +1,27 @@
 'use client'
 
-import { ConfigProvider, Form, Input, Space, Typography } from 'antd'
+import { App, ConfigProvider, Form, Input, Space, Typography } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
 import type { FormInstance } from 'antd'
 import { Button } from '@/components/Button/Button'
 import { JournalMarkdown } from '@/components/Markdown/JournalMarkdown'
 import { useFormatter, useTranslations } from 'next-intl'
+import { useCallback } from 'react'
 
 export function JournalEntry({
   field,
   form,
   editing,
   setEditingMode,
-  onConfirmDelete,
+  deleteEntry,
 }: {
   field: FormListFieldData
   form: FormInstance
   editing: boolean
   setEditingMode: (fieldKey: number, isEditing: boolean) => void
-  onConfirmDelete: (entryIndex: number, hasContent: boolean) => void
+  deleteEntry: (entryIndex: number) => void
 }) {
+  const { modal } = App.useApp()
   const { componentDisabled } = ConfigProvider.useConfig()
   const format = useFormatter()
 
@@ -55,6 +57,21 @@ export function JournalEntry({
   const updatedLabel = formatTimestamp(updatedAt)
   const entryAnchor = entryId ? `journal-entry-${entryId}` : undefined
 
+  const handleDelete = useCallback(
+    (index: number) => {
+      if (!hasContent) deleteEntry(index)
+      else
+        modal.confirm({
+          title: t('characters.journal.delete_confirm_title'),
+          content: t('characters.journal.delete_confirm_description'),
+          okText: t('common.delete'),
+          cancelText: t('common.cancel'),
+          onOk: () => deleteEntry(index),
+        })
+    },
+    [deleteEntry, hasContent]
+  )
+
   return (
     <div
       id={entryAnchor}
@@ -68,7 +85,7 @@ export function JournalEntry({
               danger
               type='link'
               htmlType='button'
-              onClick={() => onConfirmDelete(field.name, hasContent)}>
+              onClick={() => handleDelete(field.name)}>
               {t('common.delete')}
             </Button>
             <Button

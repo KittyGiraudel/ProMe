@@ -6,21 +6,30 @@ import type { FormInstance } from 'antd'
 import { useSettings } from '@/app/[locale]/contexts/SettingsContext'
 import { JournalEntry } from '@/components/Journal/JournalEntry'
 import '@/components/Journal/Journal.css'
+import { useEffect, useRef } from 'react'
+import { useJournalEntryViewModes } from '../CharacterSheet/useJournalEntryViewModes'
 
 export function Journal({
   fields,
   form,
-  isEditing,
-  setEditingMode,
-  onConfirmDelete,
+  deleteEntry,
 }: {
   fields: FormListFieldData[]
   form: FormInstance
-  isEditing: (fieldKey: number) => boolean
-  setEditingMode: (fieldKey: number, isEditing: boolean) => void
-  onConfirmDelete: (entryIndex: number, hasContent: boolean) => void
+  deleteEntry: (entryIndex: number) => void
 }) {
   const { settings } = useSettings()
+  const { isEditing, setEditingMode } = useJournalEntryViewModes()
+  const previousFieldCountRef = useRef(fields.length)
+
+  // Automatically turn on the edit mode for the newly created entry
+  useEffect(() => {
+    if (fields.length > previousFieldCountRef.current) {
+      const latest = fields[fields.length - 1]
+      if (latest) setEditingMode(latest.key, true)
+      previousFieldCountRef.current = fields.length
+    }
+  }, [fields, setEditingMode])
 
   return (
     <Timeline
@@ -34,7 +43,7 @@ export function Journal({
             form={form}
             editing={isEditing(field.key)}
             setEditingMode={setEditingMode}
-            onConfirmDelete={onConfirmDelete}
+            deleteEntry={deleteEntry}
           />
         ),
       }))}
