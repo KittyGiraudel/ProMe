@@ -52,13 +52,17 @@ export function DiceRoll() {
     <Card
       className='DiceRoll__card'
       title={t('characters.tools.die_tool_title')}
-      extra={
-        <Button onClick={handleRollDie} loading={isRollingDie} type='link'>
+      actions={[
+        <Button
+          key='action'
+          onClick={handleRollDie}
+          loading={isRollingDie}
+          type='link'>
           {isRollingDie
             ? t('characters.tools.die_tool_rolling')
             : t('characters.tools.die_tool_action')}
-        </Button>
-      }>
+        </Button>,
+      ]}>
       <div
         className={[
           'DiceRoll__value',

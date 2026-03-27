@@ -81,6 +81,6 @@ export function useSetClockToRawTargetWithToast({
         2
       )
     },
-    [message, notification, t, updateClock]
+    [message, notification, t, updateClock, characterId]
   )
 }

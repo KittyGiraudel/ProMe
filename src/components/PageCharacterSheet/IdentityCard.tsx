@@ -72,9 +72,9 @@ export function IdentityCard({
           </Form.Item>
         </Col>
       </Row>
-      <Row>
-        <Col xs={24}>
-          {archetypePower ? (
+      {archetypePower ? (
+        <Row>
+          <Col xs={24}>
             <Alert
               style={{ marginTop: 16 }}
               type='info'
@@ -87,9 +87,9 @@ export function IdentityCard({
                 </>
               }
             />
-          ) : null}
-        </Col>
-      </Row>
+          </Col>
+        </Row>
+      ) : null}
     </Card>
   )
 }

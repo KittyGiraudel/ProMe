@@ -61,62 +61,66 @@ export function Settings() {
         layout='vertical'
         initialValues={initialValues}
         onValuesChange={handleValuesChange}>
-        <Card title={t('settings.section_sheet')}>
-          <Space orientation='vertical' size='small'>
-            <Form.Item
-              name='adaptiveNightMode'
-              valuePropName='checked'
-              style={{ marginBottom: 0 }}>
-              <Checkbox>{t('settings.adaptive_night_mode_label')}</Checkbox>
-            </Form.Item>
-            <Typography.Text type='secondary'>
-              {t('settings.adaptive_night_mode_help')}
-            </Typography.Text>
-          </Space>
-        </Card>
-        <Card title={t('settings.section_journal')} style={{ marginTop: 16 }}>
-          <Space orientation='vertical' size='small'>
-            <Form.Item
-              name='timelineReverseChronological'
-              valuePropName='checked'
-              style={{ marginBottom: 0 }}>
-              <Checkbox>
-                {t('settings.journal_timeline_reverse_chronological_label')}
-              </Checkbox>
-            </Form.Item>
-            <Typography.Text type='secondary'>
-              {t('settings.journal_timeline_reverse_chronological_help')}
-            </Typography.Text>
-          </Space>
-        </Card>
-        <Card title={t('settings.section_village')} style={{ marginTop: 16 }}>
-          <Space orientation='vertical' size='small'>
-            <Form.Item
-              name='villageMergeDuplicateEstablishments'
-              valuePropName='checked'
-              style={{ marginBottom: 0 }}>
-              <Checkbox>
-                {t('settings.village_merge_duplicate_establishments_label')}
-              </Checkbox>
-            </Form.Item>
-            <Typography.Text type='secondary'>
-              {t('settings.village_merge_duplicate_establishments_help')}
-            </Typography.Text>
-          </Space>
-        </Card>
-        <Card title={t('settings.section_map')} style={{ marginTop: 16 }}>
-          <Space orientation='vertical' size='small'>
-            <Form.Item
-              name='mapTickClockOnMove'
-              valuePropName='checked'
-              style={{ marginBottom: 0 }}>
-              <Checkbox>{t('settings.map_tick_clock_on_move_label')}</Checkbox>
-            </Form.Item>
-            <Typography.Text type='secondary'>
-              {t('settings.map_tick_clock_on_move_help')}
-            </Typography.Text>
-          </Space>
-        </Card>
+        <Space orientation='vertical' size='large'>
+          <Card title={t('settings.section_sheet')}>
+            <Space orientation='vertical' size='small'>
+              <Form.Item
+                name='adaptiveNightMode'
+                valuePropName='checked'
+                noStyle>
+                <Checkbox>{t('settings.adaptive_night_mode_label')}</Checkbox>
+              </Form.Item>
+              <Typography.Text type='secondary'>
+                {t('settings.adaptive_night_mode_help')}
+              </Typography.Text>
+            </Space>
+          </Card>
+          <Card title={t('settings.section_journal')}>
+            <Space orientation='vertical' size='small'>
+              <Form.Item
+                name='timelineReverseChronological'
+                valuePropName='checked'
+                noStyle>
+                <Checkbox>
+                  {t('settings.journal_timeline_reverse_chronological_label')}
+                </Checkbox>
+              </Form.Item>
+              <Typography.Text type='secondary'>
+                {t('settings.journal_timeline_reverse_chronological_help')}
+              </Typography.Text>
+            </Space>
+          </Card>
+          <Card title={t('settings.section_village')}>
+            <Space orientation='vertical' size='small'>
+              <Form.Item
+                name='villageMergeDuplicateEstablishments'
+                valuePropName='checked'
+                noStyle>
+                <Checkbox>
+                  {t('settings.village_merge_duplicate_establishments_label')}
+                </Checkbox>
+              </Form.Item>
+              <Typography.Text type='secondary'>
+                {t('settings.village_merge_duplicate_establishments_help')}
+              </Typography.Text>
+            </Space>
+          </Card>
+          <Card title={t('settings.section_map')}>
+            <Space orientation='vertical' size='small'>
+              <Form.Item
+                name='mapTickClockOnMove'
+                valuePropName='checked'
+                noStyle>
+                <Checkbox>
+                  {t('settings.map_tick_clock_on_move_label')}
+                </Checkbox>
+              </Form.Item>
+              <Typography.Text type='secondary'>
+                {t('settings.map_tick_clock_on_move_help')}
+              </Typography.Text>
+            </Space>
+          </Card>
+        </Space>
       </Form>
     </Layout>
   )

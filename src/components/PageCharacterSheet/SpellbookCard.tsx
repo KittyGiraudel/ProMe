@@ -4,7 +4,6 @@ import { QuestionCircleOutlined } from '@ant-design/icons'
 import {
   Card,
   ConfigProvider,
-  Divider,
   Form,
   Input,
   Space,
@@ -28,9 +27,7 @@ export function SpellbookCard() {
         <Card
           title={t.rich('characters.inventory.spellbook_section', {
             status: content => (
-              <Typography.Text style={{ color: 'var(--lsdp-muted)' }}>
-                {content}
-              </Typography.Text>
+              <Typography.Text type='secondary'>{content}</Typography.Text>
             ),
             count: fields.length,
           })}
@@ -49,6 +46,7 @@ export function SpellbookCard() {
             !componentDisabled
               ? [
                   <Button
+                    key='add'
                     onClick={() =>
                       add({
                         id: randomId(),

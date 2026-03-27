@@ -4,7 +4,6 @@ import { QuestionCircleOutlined } from '@ant-design/icons'
 import {
   Card,
   ConfigProvider,
-  Divider,
   Form,
   Input,
   InputNumber,
@@ -29,9 +28,7 @@ export function InventoryCard() {
         <Card
           title={t.rich('characters.inventory.inventory_section', {
             status: content => (
-              <Typography.Text style={{ color: 'var(--lsdp-muted)' }}>
-                {content}
-              </Typography.Text>
+              <Typography.Text type='secondary'>{content}</Typography.Text>
             ),
             limit: inventoryLimit,
             count: fields.length,
@@ -51,6 +48,7 @@ export function InventoryCard() {
             !componentDisabled
               ? [
                   <Button
+                    key='add'
                     onClick={() =>
                       add({
                         id: randomId(),

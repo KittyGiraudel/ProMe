@@ -180,11 +180,6 @@
   margin-left: 0.1rem;
 }
 
-
-/* Placed below generator summary cards (village / inhabitant). */
 .VillageSummary__footnote {
-  display: block;
-  font-size: 0.8125rem;
-  line-height: 1.45;
-  color: var(--lsdp-muted);
+  margin-top: 1em;
 }

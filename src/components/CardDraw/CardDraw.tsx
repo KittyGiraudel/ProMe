@@ -55,13 +55,17 @@ export function CardDraw() {
     <Card
       className='CardDraw__card'
       title={t('characters.tools.card_tool_title')}
-      extra={
-        <Button onClick={handleDrawCard} loading={isDrawingCard} type='link'>
+      actions={[
+        <Button
+          key='action'
+          onClick={handleDrawCard}
+          loading={isDrawingCard}
+          type='link'>
           {isDrawingCard
             ? t('characters.tools.card_tool_drawing')
             : t('characters.tools.card_tool_action')}
-        </Button>
-      }>
+        </Button>,
+      ]}>
       <div
         className={[
           'CardDraw__value',

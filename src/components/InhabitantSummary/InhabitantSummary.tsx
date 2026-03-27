@@ -2,7 +2,15 @@
 
 import { RedoOutlined } from '@ant-design/icons'
 import { useMemo, type ReactNode } from 'react'
-import { Card, Descriptions, Empty, Select, Tooltip, Typography } from 'antd'
+import {
+  Card,
+  Descriptions,
+  Empty,
+  Select,
+  Space,
+  Tooltip,
+  Typography,
+} from 'antd'
 import { lookupName } from '@/lib/inhabitant/data/namesByFaction'
 import {
   type InhabitantRerollPart,
@@ -33,46 +41,12 @@ import { RichText } from '@/components/RichText/RichText'
 import { Button } from '@/components/Button/Button'
 import './InhabitantSummary.css'
 import { useTranslations } from 'next-intl'
-
-/** Wider popup than the trigger + full option labels (antd defaults ellipsis). */
-const INHABITANT_SUMMARY_SELECT_PROPS = {
-  popupMatchSelectWidth: false as const,
-  classNames: { popup: { root: 'InhabitantSummary__select-popup' } },
-}
+import { SelectProps } from 'antd/lib/select'
 
 type InhabitantSummaryProps = {
   roll: InhabitantRoll | null
   onRerollPart?: (part: InhabitantRerollPart) => void
   onSetRoll?: (roll: InhabitantRoll) => void
-}
-
-function MetaWithReroll({
-  children,
-  onReroll,
-  rerollLabel,
-}: {
-  children: ReactNode
-  onReroll?: () => void
-  rerollLabel: string
-}) {
-  if (!onReroll) {
-    return <span className='InhabitantSummary__meta'>{children}</span>
-  }
-  return (
-    <span className='InhabitantSummary__meta InhabitantSummary__meta--with-action'>
-      <span className='InhabitantSummary__meta-main'>{children}</span>
-      <Tooltip title={rerollLabel}>
-        <Button
-          type='text'
-          size='small'
-          icon={<RedoOutlined />}
-          aria-label={rerollLabel}
-          onClick={onReroll}
-          className='InhabitantSummary__reroll'
-        />
-      </Tooltip>
-    </span>
-  )
 }
 
 export function InhabitantSummary({
@@ -83,32 +57,11 @@ export function InhabitantSummary({
   const t = useTranslations()
   const isReadOnly = !onSetRoll
   const inhabitantFootnote = (
-    <Typography.Text type='secondary' className='generator-rulebook-footnote'>
+    <Typography.Paragraph
+      type='secondary'
+      className='InhabitantSummary__footnote'>
       {t('rulebook.inhabitant_footnote')}
-    </Typography.Text>
-  )
-
-  const nameDiceSelectOptions = useMemo(() => {
-    if (!roll) return [] as { value: string; label: string }[]
-    const opts: { value: string; label: string }[] = []
-    for (let d1 = 1; d1 <= 6; d1++) {
-      for (let d2 = 1; d2 <= 6; d2++) {
-        opts.push({
-          value: `${d1}-${d2}`,
-          label: lookupName(roll.faction, d1, d2),
-        })
-      }
-    }
-    return opts
-  }, [roll])
-
-  const personalitySelectOptions = useMemo(
-    () =>
-      RANKS.map(rank => {
-        const p = personalityFromRank(rank)
-        return { value: p, label: t(`common.personalities.${p}`) }
-      }),
-    [t]
+    </Typography.Paragraph>
   )
 
   if (!roll) {
@@ -128,10 +81,6 @@ export function InhabitantSummary({
     )
   }
 
-  const age = getAgeBand(roll)
-  const personality = getPersonality(roll)
-  const nameDiceValue = `${roll.nameDice[0]}-${roll.nameDice[1]}`
-
   return (
     <>
       <Card className='InhabitantSummary' variant='borderless'>
@@ -139,326 +88,76 @@ export function InhabitantSummary({
           column={1}
           size='middle'
           styles={{ label: { fontWeight: 600, width: '11rem' } }}
-          className='InhabitantSummary__descriptions'
           items={[
             {
               key: 'name',
               label: t('inhabitant.section_name'),
               children: (
-                <div className='InhabitantSummary__field-row'>
-                  {isReadOnly ? (
-                    <Typography.Text>{roll.name}</Typography.Text>
-                  ) : (
-                    <Select
-                      {...INHABITANT_SUMMARY_SELECT_PROPS}
-                      className='InhabitantSummary__field-select'
-                      showSearch
-                      optionFilterProp='label'
-                      disabled={!onSetRoll}
-                      value={nameDiceValue}
-                      options={nameDiceSelectOptions}
-                      onChange={v => {
-                        if (!onSetRoll) return
-                        const [a, b] = v.split('-').map(Number) as [
-                          number,
-                          number,
-                        ]
-                        onSetRoll(setInhabitantNameDice(roll, [a, b]))
-                      }}
-                      aria-label={t('inhabitant.section_name')}
-                    />
-                  )}
-                  <div className='InhabitantSummary__field-meta'>
-                    <MetaWithReroll
-                      rerollLabel={t('inhabitant.reroll_name')}
-                      onReroll={
-                        onRerollPart && (() => onRerollPart('nameDice'))
-                      }>
-                      {t.rich('inhabitant.name_dice_meta', {
-                        dice: () => (
-                          <DiceFaces key='dice' values={roll.nameDice} />
-                        ),
-                      })}
-                    </MetaWithReroll>
-                  </div>
-                </div>
+                <NameRow
+                  isReadOnly={isReadOnly}
+                  roll={roll}
+                  onSetRoll={onSetRoll}
+                  onRerollPart={onRerollPart}
+                />
               ),
             },
             {
               key: 'faction',
               label: t('inhabitant.section_faction'),
               children: (
-                <div className='InhabitantSummary__field-row'>
-                  {isReadOnly ? (
-                    <Typography.Text>
-                      {t(`common.factions.${roll.faction}`)}
-                    </Typography.Text>
-                  ) : (
-                    <Select
-                      {...INHABITANT_SUMMARY_SELECT_PROPS}
-                      className='InhabitantSummary__field-select'
-                      disabled={!onSetRoll}
-                      value={roll.faction}
-                      options={FACTIONS.map(r => ({
-                        value: r,
-                        label: t(`common.factions.${r}`),
-                      }))}
-                      onChange={(r: Faction) => {
-                        if (!onSetRoll) return
-                        onSetRoll(setInhabitantFaction(roll, r))
-                      }}
-                      aria-label={t('inhabitant.section_faction')}
-                    />
-                  )}
-                  <div className='InhabitantSummary__field-meta'>
-                    <MetaWithReroll
-                      rerollLabel={t('inhabitant.reroll_faction')}
-                      onReroll={
-                        onRerollPart && (() => onRerollPart('faction'))
-                      }>
-                      {t.rich('inhabitant.faction_die_meta', {
-                        dice: () => <DiceFaces values={[roll.factionDie]} />,
-                      })}
-                    </MetaWithReroll>
-                  </div>
-                </div>
+                <FactionRow
+                  isReadOnly={isReadOnly}
+                  roll={roll}
+                  onSetRoll={onSetRoll}
+                  onRerollPart={onRerollPart}
+                />
               ),
             },
             {
               key: 'gender',
               label: t('inhabitant.section_gender'),
               children: (
-                <div className='InhabitantSummary__field-row'>
-                  {isReadOnly ? (
-                    <Typography.Text>
-                      {t(`common.genders.${roll.gender}`)}
-                    </Typography.Text>
-                  ) : (
-                    <Select
-                      {...INHABITANT_SUMMARY_SELECT_PROPS}
-                      className='InhabitantSummary__field-select'
-                      disabled={!onSetRoll}
-                      value={roll.gender}
-                      options={GENDERS.map(g => ({
-                        value: g,
-                        label: t(`common.genders.${g}`),
-                      }))}
-                      onChange={(g: Gender) => {
-                        if (!onSetRoll) return
-                        onSetRoll(setInhabitantGender(roll, g))
-                      }}
-                      aria-label={t('inhabitant.section_gender')}
-                    />
-                  )}
-                  <div className='InhabitantSummary__field-meta'>
-                    <MetaWithReroll
-                      rerollLabel={t('inhabitant.reroll_gender')}
-                      onReroll={onRerollPart && (() => onRerollPart('gender'))}>
-                      {t.rich('inhabitant.faction_die_meta', {
-                        dice: () => (
-                          <DiceFaces key='dice' values={[roll.genderDie]} />
-                        ),
-                      })}
-                    </MetaWithReroll>
-                  </div>
-                </div>
+                <GenderRow
+                  isReadOnly={isReadOnly}
+                  roll={roll}
+                  onSetRoll={onSetRoll}
+                  onRerollPart={onRerollPart}
+                />
               ),
             },
             {
               key: 'age',
               label: t('inhabitant.section_age'),
               children: (
-                <div className='InhabitantSummary__field-row'>
-                  {isReadOnly ? (
-                    <Typography.Text>
-                      {t(`common.age_bands.${age}`)}
-                    </Typography.Text>
-                  ) : (
-                    <Select
-                      {...INHABITANT_SUMMARY_SELECT_PROPS}
-                      className='InhabitantSummary__field-select'
-                      disabled={!onSetRoll}
-                      value={age}
-                      options={AGE_BANDS.map(band => ({
-                        value: band,
-                        label: t(`common.age_bands.${band}`),
-                      }))}
-                      onChange={(band: AgeBand) => {
-                        if (!onSetRoll) return
-                        onSetRoll(setInhabitantAgeBand(roll, band))
-                      }}
-                      aria-label={t('inhabitant.section_age')}
-                    />
-                  )}
-                  <div className='InhabitantSummary__field-meta'>
-                    <MetaWithReroll
-                      rerollLabel={t('inhabitant.reroll_age_card')}
-                      onReroll={
-                        onRerollPart && (() => onRerollPart('ageCard'))
-                      }>
-                      {t.rich('inhabitant.card_meta', {
-                        card: () => (
-                          <PlayingCardLabel key='card' card={roll.ageCard} />
-                        ),
-                      })}
-                    </MetaWithReroll>
-                  </div>
-                </div>
+                <AgeRow
+                  isReadOnly={isReadOnly}
+                  roll={roll}
+                  onSetRoll={onSetRoll}
+                  onRerollPart={onRerollPart}
+                />
               ),
             },
             {
               key: 'personality',
               label: t('inhabitant.section_personality'),
               children: (
-                <div className='InhabitantSummary__field-row'>
-                  {isReadOnly ? (
-                    <Typography.Text>
-                      {t(`common.personalities.${personality}`)}
-                    </Typography.Text>
-                  ) : (
-                    <Select
-                      {...INHABITANT_SUMMARY_SELECT_PROPS}
-                      className='InhabitantSummary__field-select'
-                      disabled={!onSetRoll}
-                      value={personality}
-                      options={personalitySelectOptions}
-                      onChange={(p: Personality) => {
-                        if (!onSetRoll) return
-                        onSetRoll(setInhabitantPersonality(roll, p))
-                      }}
-                      aria-label={t('inhabitant.section_personality')}
-                    />
-                  )}
-                  <div className='InhabitantSummary__field-meta'>
-                    <MetaWithReroll
-                      rerollLabel={t('inhabitant.reroll_personality_card')}
-                      onReroll={
-                        onRerollPart && (() => onRerollPart('personalityCard'))
-                      }>
-                      {t.rich('inhabitant.card_meta', {
-                        card: () => (
-                          <PlayingCardLabel
-                            key='card'
-                            card={roll.personalityCard}
-                          />
-                        ),
-                      })}
-                    </MetaWithReroll>
-                  </div>
-                </div>
+                <PersonalityRow
+                  isReadOnly={isReadOnly}
+                  roll={roll}
+                  onSetRoll={onSetRoll}
+                  onRerollPart={onRerollPart}
+                />
               ),
             },
             {
               key: 'context',
               label: t('inhabitant.section_context'),
               children: (
-                <div className='InhabitantSummary__stack'>
-                  <RichText text={roll.contextText} />
-                  <MetaWithReroll
-                    rerollLabel={t('inhabitant.reroll_context_card')}
-                    onReroll={
-                      onRerollPart && (() => onRerollPart('contextCard'))
-                    }>
-                    {t.rich('inhabitant.card_meta', {
-                      card: () => (
-                        <Tooltip
-                          key='tooltip'
-                          title={t('inhabitant.context_card_note')}>
-                          <span
-                            className='InhabitantSummary__context-card-hit'
-                            tabIndex={0}>
-                            <PlayingCardLabel card={roll.contextCard} />
-                          </span>
-                        </Tooltip>
-                      ),
-                    })}
-                  </MetaWithReroll>
-                  {roll.contextCard.rank === '7' ? (
-                    <div className='InhabitantSummary__context-followup'>
-                      <span className='InhabitantSummary__followup-label'>
-                        {t('inhabitant.context_seven_followup_label')}
-                      </span>
-                      {roll.contextSevenDie == null ? (
-                        onRerollPart ? (
-                          <Button
-                            size='small'
-                            type='default'
-                            onClick={() => onRerollPart('contextSevenDie')}>
-                            {t('inhabitant.roll_context_seven_die')}
-                          </Button>
-                        ) : null
-                      ) : (
-                        <MetaWithReroll
-                          rerollLabel={t('inhabitant.reroll_context_seven_die')}
-                          onReroll={
-                            onRerollPart &&
-                            (() => onRerollPart('contextSevenDie'))
-                          }>
-                          <>
-                            <strong>
-                              {mapKindFromContextSevenDie(
-                                roll.contextSevenDie
-                              ) === 'localisation'
-                                ? t('inhabitant.context_seven_map_localisation')
-                                : t('inhabitant.context_seven_map_biome')}
-                            </strong>
-                            {' · '}
-                            {t.rich('inhabitant.faction_die_meta', {
-                              dice: () => (
-                                <DiceFaces
-                                  key='dicefaces'
-                                  values={[roll.contextSevenDie!]}
-                                />
-                              ),
-                            })}
-                          </>
-                        </MetaWithReroll>
-                      )}
-                    </div>
-                  ) : null}
-                  {roll.contextCard.rank === '10' ? (
-                    <div className='InhabitantSummary__context-followup'>
-                      <span className='InhabitantSummary__followup-label'>
-                        {t('inhabitant.context_spoken_name_label')}
-                      </span>
-                      {roll.contextSpokenNameDice == null ? (
-                        onRerollPart ? (
-                          <Button
-                            size='small'
-                            type='default'
-                            onClick={() =>
-                              onRerollPart('contextSpokenNameDice')
-                            }>
-                            {t('inhabitant.roll_context_spoken_name_dice')}
-                          </Button>
-                        ) : null
-                      ) : (
-                        <div className='InhabitantSummary__stack InhabitantSummary__stack--tight'>
-                          <strong className='InhabitantSummary__spoken-name'>
-                            {roll.contextSpokenName}
-                          </strong>
-                          <MetaWithReroll
-                            rerollLabel={t(
-                              'inhabitant.reroll_context_spoken_name_dice'
-                            )}
-                            onReroll={
-                              onRerollPart &&
-                              (() => onRerollPart('contextSpokenNameDice'))
-                            }>
-                            {t.rich('inhabitant.name_dice_meta', {
-                              dice: () => (
-                                <DiceFaces
-                                  key='dicefaces'
-                                  values={roll.contextSpokenNameDice!}
-                                />
-                              ),
-                            })}
-                          </MetaWithReroll>
-                        </div>
-                      )}
-                    </div>
-                  ) : null}
-                </div>
+                <ContextRow
+                  isReadOnly={isReadOnly}
+                  roll={roll}
+                  onRerollPart={onRerollPart}
+                />
               ),
             },
           ]}
@@ -466,5 +165,391 @@ export function InhabitantSummary({
       </Card>
       {inhabitantFootnote}
     </>
+  )
+}
+
+function MetaWithReroll({
+  children,
+  onReroll,
+  rerollLabel,
+  isReadOnly,
+}: {
+  children: ReactNode
+  onReroll?: () => void
+  rerollLabel: string
+  isReadOnly: boolean
+}) {
+  if (!onReroll || isReadOnly) {
+    return <span className='InhabitantSummary__meta'>{children}</span>
+  }
+
+  return (
+    <span className='InhabitantSummary__meta'>
+      <span>{children}</span>
+      <Tooltip title={rerollLabel}>
+        <Button
+          type='text'
+          size='small'
+          icon={<RedoOutlined />}
+          aria-label={rerollLabel}
+          onClick={onReroll}
+          className='InhabitantSummary__reroll'
+        />
+      </Tooltip>
+    </span>
+  )
+}
+
+function InhabitantRow({
+  display,
+  isReadOnly,
+  label,
+  meta,
+  onChange,
+  onReroll,
+  options,
+  type,
+  value,
+}: {
+  display: string
+  isReadOnly: boolean
+  label: string
+  meta: ReactNode
+  onChange: SelectProps['onChange']
+  onReroll?: VoidFunction
+  options: SelectProps['options']
+  type: 'card' | 'die' | 'dice'
+  value: SelectProps['value']
+}) {
+  const t = useTranslations()
+  return (
+    <Space
+      orientation='horizontal'
+      style={{ width: '100%' }}
+      className='InhabitantSummary__row'>
+      {isReadOnly ? (
+        <Typography.Text>{display}</Typography.Text>
+      ) : (
+        <Select
+          popupMatchSelectWidth={false}
+          showSearch={{ optionFilterProp: 'label' }}
+          disabled={isReadOnly}
+          value={value}
+          options={options}
+          onChange={onChange}
+          aria-label={label}
+        />
+      )}
+
+      <MetaWithReroll
+        isReadOnly={isReadOnly}
+        rerollLabel={t(`common.reroll_${type}`)}
+        onReroll={onReroll}>
+        {meta}
+      </MetaWithReroll>
+    </Space>
+  )
+}
+
+function NameRow({
+  isReadOnly,
+  roll,
+  onSetRoll,
+  onRerollPart,
+}: {
+  isReadOnly: boolean
+  roll: InhabitantRoll
+  onSetRoll: InhabitantSummaryProps['onSetRoll']
+  onRerollPart: InhabitantSummaryProps['onRerollPart']
+}) {
+  const t = useTranslations()
+  const nameDiceValue = `${roll.nameDice[0]}-${roll.nameDice[1]}`
+  const nameDiceSelectOptions = useMemo(() => {
+    if (!roll) return [] as { value: string; label: string }[]
+    const opts: { value: string; label: string }[] = []
+    for (let d1 = 1; d1 <= 6; d1++) {
+      for (let d2 = 1; d2 <= 6; d2++) {
+        opts.push({
+          value: `${d1}-${d2}`,
+          label: lookupName(roll.faction, d1, d2),
+        })
+      }
+    }
+    return opts
+  }, [roll])
+
+  return (
+    <InhabitantRow
+      isReadOnly={isReadOnly}
+      type='die'
+      meta={t.rich('common.display_1D6', {
+        dice: () => <DiceFaces key='dice' values={roll.nameDice} />,
+      })}
+      onReroll={onRerollPart && (() => onRerollPart('nameDice'))}
+      value={nameDiceValue}
+      display={roll.name}
+      options={nameDiceSelectOptions}
+      onChange={v =>
+        onSetRoll?.(setInhabitantNameDice(roll, v.split('-').map(Number)))
+      }
+      label={t('inhabitant.section_name')}
+    />
+  )
+}
+
+function FactionRow({
+  isReadOnly,
+  roll,
+  onSetRoll,
+  onRerollPart,
+}: {
+  isReadOnly: boolean
+  roll: InhabitantRoll
+  onSetRoll: InhabitantSummaryProps['onSetRoll']
+  onRerollPart: InhabitantSummaryProps['onRerollPart']
+}) {
+  const t = useTranslations()
+
+  return (
+    <InhabitantRow
+      isReadOnly={isReadOnly}
+      type='die'
+      meta={t.rich('common.display_1D6', {
+        dice: () => <DiceFaces key='dice' values={[roll.factionDie]} />,
+      })}
+      onReroll={onRerollPart && (() => onRerollPart('faction'))}
+      value={roll.faction}
+      display={t(`common.factions.${roll.faction}`)}
+      options={FACTIONS.map(r => ({
+        value: r,
+        label: t(`common.factions.${r}`),
+      }))}
+      onChange={(r: Faction) => onSetRoll?.(setInhabitantFaction(roll, r))}
+      label={t('inhabitant.section_faction')}
+    />
+  )
+}
+
+function GenderRow({
+  isReadOnly,
+  roll,
+  onSetRoll,
+  onRerollPart,
+}: {
+  isReadOnly: boolean
+  roll: InhabitantRoll
+  onSetRoll: InhabitantSummaryProps['onSetRoll']
+  onRerollPart: InhabitantSummaryProps['onRerollPart']
+}) {
+  const t = useTranslations()
+
+  return (
+    <InhabitantRow
+      isReadOnly={isReadOnly}
+      type='die'
+      meta={t.rich('common.display_1D6', {
+        dice: () => <DiceFaces key='dice' values={[roll.genderDie]} />,
+      })}
+      onReroll={onRerollPart && (() => onRerollPart('gender'))}
+      value={roll.gender}
+      display={t(`common.genders.${roll.gender}`)}
+      options={GENDERS.map(g => ({
+        value: g,
+        label: t(`common.genders.${g}`),
+      }))}
+      onChange={(g: Gender) => onSetRoll?.(setInhabitantGender(roll, g))}
+      label={t('inhabitant.section_gender')}
+    />
+  )
+}
+
+function AgeRow({
+  isReadOnly,
+  roll,
+  onSetRoll,
+  onRerollPart,
+}: {
+  isReadOnly: boolean
+  roll: InhabitantRoll
+  onSetRoll: InhabitantSummaryProps['onSetRoll']
+  onRerollPart: InhabitantSummaryProps['onRerollPart']
+}) {
+  const t = useTranslations()
+  const age = getAgeBand(roll)
+
+  return (
+    <InhabitantRow
+      isReadOnly={isReadOnly}
+      type='die'
+      meta={t.rich('common.display_card', {
+        card: () => <PlayingCardLabel key='card' card={roll.ageCard} />,
+      })}
+      onReroll={onRerollPart && (() => onRerollPart('ageCard'))}
+      value={age}
+      display={t(`common.age_bands.${age}`)}
+      options={AGE_BANDS.map(band => ({
+        value: band,
+        label: t(`common.age_bands.${band}`),
+      }))}
+      onChange={(band: AgeBand) =>
+        onSetRoll?.(setInhabitantAgeBand(roll, band))
+      }
+      label={t('inhabitant.section_age')}
+    />
+  )
+}
+
+function PersonalityRow({
+  isReadOnly,
+  roll,
+  onSetRoll,
+  onRerollPart,
+}: {
+  isReadOnly: boolean
+  roll: InhabitantRoll
+  onSetRoll: InhabitantSummaryProps['onSetRoll']
+  onRerollPart: InhabitantSummaryProps['onRerollPart']
+}) {
+  const t = useTranslations()
+  const personality = getPersonality(roll)
+  const personalitySelectOptions = useMemo(
+    () =>
+      RANKS.map(rank => {
+        const p = personalityFromRank(rank)
+        return { value: p, label: t(`common.personalities.${p}`) }
+      }),
+    [t]
+  )
+
+  return (
+    <InhabitantRow
+      isReadOnly={isReadOnly}
+      type='die'
+      meta={t.rich('common.display_card', {
+        card: () => <PlayingCardLabel key='card' card={roll.personalityCard} />,
+      })}
+      onReroll={onRerollPart && (() => onRerollPart('personalityCard'))}
+      value={personality}
+      display={t(`common.personalities.${personality}`)}
+      options={personalitySelectOptions}
+      onChange={(p: Personality) =>
+        onSetRoll?.(setInhabitantPersonality(roll, p))
+      }
+      label={t('inhabitant.section_personality')}
+    />
+  )
+}
+
+function ContextRow({
+  isReadOnly,
+  roll,
+  onRerollPart,
+}: {
+  isReadOnly: boolean
+  roll: InhabitantRoll
+  onRerollPart: InhabitantSummaryProps['onRerollPart']
+}) {
+  const t = useTranslations()
+
+  return (
+    <div className='InhabitantSummary__stack'>
+      <RichText text={roll.contextText} />
+      <MetaWithReroll
+        isReadOnly={isReadOnly}
+        rerollLabel={t('common.reroll_card')}
+        onReroll={onRerollPart && (() => onRerollPart('contextCard'))}>
+        {t.rich('common.display_card', {
+          card: () => (
+            <Tooltip key='tooltip' title={t('inhabitant.context_card_note')}>
+              <span
+                className='InhabitantSummary__context-card-hit'
+                tabIndex={0}>
+                <PlayingCardLabel card={roll.contextCard} />
+              </span>
+            </Tooltip>
+          ),
+        })}
+      </MetaWithReroll>
+      {roll.contextCard.rank === '7' ? (
+        <div className='InhabitantSummary__context-followup'>
+          <span className='InhabitantSummary__followup-label'>
+            {t('inhabitant.context_seven_followup_label')}
+          </span>
+          {roll.contextSevenDie == null ? (
+            onRerollPart ? (
+              <Button
+                size='small'
+                type='default'
+                onClick={() => onRerollPart('contextSevenDie')}>
+                {t('inhabitant.roll_context_seven_die')}
+              </Button>
+            ) : null
+          ) : (
+            <MetaWithReroll
+              isReadOnly={isReadOnly}
+              rerollLabel={t('common.reroll_die')}
+              onReroll={
+                onRerollPart && (() => onRerollPart('contextSevenDie'))
+              }>
+              <>
+                <strong>
+                  {mapKindFromContextSevenDie(roll.contextSevenDie) ===
+                  'localisation'
+                    ? t('inhabitant.context_seven_map_localisation')
+                    : t('inhabitant.context_seven_map_biome')}
+                </strong>
+                {' · '}
+                {t.rich('common.display_1D6', {
+                  dice: () => (
+                    <DiceFaces
+                      key='dicefaces'
+                      values={[roll.contextSevenDie!]}
+                    />
+                  ),
+                })}
+              </>
+            </MetaWithReroll>
+          )}
+        </div>
+      ) : null}
+      {roll.contextCard.rank === '10' ? (
+        <div className='InhabitantSummary__context-followup'>
+          <span className='InhabitantSummary__followup-label'>
+            {t('inhabitant.context_spoken_name_label')}
+          </span>
+          {roll.contextSpokenNameDice == null ? (
+            onRerollPart ? (
+              <Button
+                size='small'
+                type='default'
+                onClick={() => onRerollPart('contextSpokenNameDice')}>
+                {t('inhabitant.roll_context_spoken_name_dice')}
+              </Button>
+            ) : null
+          ) : (
+            <div className='InhabitantSummary__stack InhabitantSummary__stack--tight'>
+              <strong className='InhabitantSummary__spoken-name'>
+                {roll.contextSpokenName}
+              </strong>
+              <MetaWithReroll
+                isReadOnly={isReadOnly}
+                rerollLabel={t('common.reroll_dice')}
+                onReroll={
+                  onRerollPart && (() => onRerollPart('contextSpokenNameDice'))
+                }>
+                {t.rich('common.display_2D6', {
+                  dice: () => (
+                    <DiceFaces
+                      key='dicefaces'
+                      values={roll.contextSpokenNameDice!}
+                    />
+                  ),
+                })}
+              </MetaWithReroll>
+            </div>
+          )}
+        </div>
+      ) : null}
+    </div>
   )
 }

@@ -157,9 +157,9 @@ export function VillageSummary({
   }, [display, grouped, t])
 
   const villageFootnote = (
-    <Typography.Text type='secondary' className='VillageSummary__footnote'>
+    <Typography.Paragraph type='secondary' className='VillageSummary__footnote'>
       {t('rulebook.village_footnote')}
-    </Typography.Text>
+    </Typography.Paragraph>
   )
 
   if (!roll || !display) {

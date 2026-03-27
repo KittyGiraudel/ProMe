@@ -1,61 +1,15 @@
-.inhabitant-summary {
-  border: 1px solid var(--lsdp-border) !important;
-  border-radius: 12px !important;
-  background: var(--lsdp-surface) !important;
-  box-shadow: 0 1px 2px rgba(31, 45, 42, 0.04);
+.InhabitantSummary__row > :last-child {
+  margin-left: auto;
 }
 
-.inhabitant-summary--empty {
-  text-align: center;
-  padding: 2rem 1rem;
-}
-
-.inhabitant-summary__descriptions .ant-descriptions-item-label {
+.InhabitantSummary__meta {
   color: var(--lsdp-muted);
-}
-
-.inhabitant-summary__stack {
   display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.inhabitant-summary__field-row {
-  display: flex;
-  flex-wrap: wrap;
+  gap: 0.5em;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.35rem 1rem;
-  width: 100%;
 }
 
-.inhabitant-summary__field-meta {
-  flex: 0 1 auto;
-  display: flex;
-  justify-content: flex-end;
-  min-width: 0;
-}
-
-.inhabitant-summary__meta {
-  font-size: 0.875rem;
-  color: var(--lsdp-muted);
-}
-
-.inhabitant-summary__meta--with-action {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.1rem 0.35rem;
-}
-
-.inhabitant-summary__meta-main {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.15rem;
-}
-
-.inhabitant-summary__reroll.ant-btn {
+.InhabitantSummary__reroll.ant-btn {
   width: 28px;
   height: 28px;
   min-width: 28px;
@@ -63,17 +17,17 @@
   color: var(--lsdp-muted);
 }
 
-.inhabitant-summary__reroll.ant-btn:hover {
+.InhabitantSummary__reroll.ant-btn:hover {
   color: var(--lsdp-text);
 }
 
-.inhabitant-summary__context {
+.InhabitantSummary__context {
   margin: 0;
   line-height: 1.55;
   white-space: pre-wrap;
 }
 
-.inhabitant-summary__context-card-hit {
+.InhabitantSummary__context-card-hit {
   cursor: help;
   display: inline-flex;
   align-items: center;
@@ -81,42 +35,11 @@
   outline: none;
 }
 
-.inhabitant-summary__context-card-hit:focus-visible {
+.InhabitantSummary__context-card-hit:focus-visible {
   box-shadow: 0 0 0 2px var(--lsdp-surface), 0 0 0 4px var(--lsdp-border);
 }
 
-/* Hug selected label; don’t stretch across the row (flex parent was growing them). */
-.inhabitant-summary__field-select {
-  flex: 0 1 auto;
-  width: auto;
-  max-width: min(18rem, 100%);
-  min-width: 0;
-}
-
-.inhabitant-summary__field-select .ant-select-selector {
-  font-weight: 600;
-}
-
-/* Popups: at least trigger width (rc-trigger minWidth) and as wide as the longest option. */
-.inhabitant-summary__select-popup.ant-select-dropdown {
-  min-width: max-content !important;
-  max-width: calc(100vw - 1.5rem);
-  overflow-x: auto;
-}
-
-.inhabitant-summary__select-popup .ant-select-item-option-content {
-  flex: none !important;
-  overflow: visible !important;
-  text-overflow: clip !important;
-  white-space: nowrap !important;
-}
-
-.inhabitant-summary__select-popup .rc-virtual-list-holder-inner {
-  width: max-content !important;
-  min-width: 100%;
-}
-
-.inhabitant-summary__context-followup {
+.InhabitantSummary__context-followup {
   margin-top: 0.5rem;
   padding: 0.5rem 0.65rem;
   border-radius: 8px;
@@ -126,16 +49,20 @@
   gap: 0.35rem;
 }
 
-.inhabitant-summary__followup-label {
+.InhabitantSummary__followup-label {
   font-size: 0.8125rem;
   color: var(--lsdp-muted);
 }
 
-.inhabitant-summary__stack--tight {
+.InhabitantSummary__stack--tight {
   gap: 0.25rem;
 }
 
-.inhabitant-summary__spoken-name {
+.InhabitantSummary__spoken-name {
   font-size: 1rem;
   font-weight: 600;
+}
+
+.InhabitantSummary__footnote {
+  margin-top: 1em;
 }

@@ -139,25 +139,17 @@ export function CharacteristicsCard() {
   return (
     <>
       <Card
-        title={
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              width: '100%',
-            }}>
-            <span>{t('characters.characteristics_section')}</span>
-            <Tooltip title={t('rulebook.characteristics_footnote')}>
-              <Button
-                type='text'
-                size='small'
-                htmlType='button'
-                icon={<QuestionCircleOutlined />}
-                aria-label={t('rulebook.information')}
-              />
-            </Tooltip>
-          </div>
+        title={t('characters.characteristics_section')}
+        extra={
+          <Tooltip title={t('rulebook.characteristics_footnote')}>
+            <Button
+              type='text'
+              size='small'
+              htmlType='button'
+              icon={<QuestionCircleOutlined />}
+              aria-label={t('rulebook.information')}
+            />
+          </Tooltip>
         }>
         <Row gutter={[16, 16]}>
           {resources.map(([resourceKey, label, tooltip]) => (
