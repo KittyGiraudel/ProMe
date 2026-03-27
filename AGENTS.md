@@ -6,15 +6,11 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 <!-- END:nextjs-agent-rules -->
 
-## LSDP project docs
+## Ant Design
 
-- **[Inhabitant builder](docs/inhabitant-builder.md)** — Inhabitant generator: book-aligned rolls, `InhabitantRoll`, URL query `i`, rerolls, and UI wiring. Read this before changing `src/lib/inhabitant/` or the generator route.
-- **[Village builder](docs/village-builder.md)** — Village generator: `VillageRoll` card resolution, `v`/`o`/`f` URL state, owners, duplicate grouping, and rerolls. Read this before changing `src/lib/village/`, `src/components/VillageSummary/`, or the village generator route.
-- **[Character manager](docs/character-manager.md)** — Character lifecycle and storage: draft vs saved modes, `character` model/store, import/export, and unsaved-navigation guards. Read this before changing `src/app/characters/` or `src/lib/character/`.
-- **[Character sheet tabs](docs/character-tabs.md)** — Path-segment tabs under `/characters/[id]/…`, `CharacterSheetShell` + nested tab `page.tsx` routes, `Form` `preserve`, in-sheet navigation guard exemption, and tab section components. Read this before changing `src/app/characters/[id]/CharacterSheetShell.tsx`, `src/app/characters/[id]/characterSheetRoutes.ts`, or `src/app/characters/[id]/tabs/`.
-- **[Character journal](docs/character-journal.md)** — Journal entry collection, Markdown edit/preview flow, normalization, and renderer extension path. Read this before changing `src/components/CharacterSheet/NotesCard.tsx` or journal model code in `src/lib/character/`.
-- **[Character death state](docs/character-death.md)** — Dead/alive lifecycle, frozen readonly behavior for dead Protectors, and dead list styling. Read this before changing death status handling in `src/lib/character/` or `/characters` list/sheet UI.
-- **[Character creation route](docs/character-creation-route.md)** — Dedicated `/characters/new` flow, minimal identity form, and separation from sheet editing concerns. Read this before changing `src/app/characters/new/` or create navigation in `src/app/characters/`.
-- **[Character inheritance](docs/character-inheritance.md)** — Creation-time memory inheritance from an existing Protector (full map + journal copy). Read this before changing `/characters/new` inheritance flow or `src/lib/character/createFromIdentity.ts`.
-- **[Map exploration UX](docs/map-exploration.md)** — Map tile interactions: right-click context menu, double-click movement, random biome roll guidance, and map menu grouping. Read this before changing `src/components/MapDisplay/` or map behavior in `src/components/CharacterSheet/MapCard.tsx`.
-- **[Settings](docs/settings.md)** — Global app settings (`/settings`), local storage schema, provider/hook wiring, and adaptive sheet night-mode preference. Read this before changing `src/app/settings/`, `src/app/contexts/SettingsContext.tsx`, or `src/lib/settings/`.
+- Default to using Ant Design components instead of creating them.
+- Do not override the Ant Design styles unless deemed necessary or requested.
+  - Do not use inline styles, use a separate stylesheet.
+  - Use PascalCase BEM style convention for CSS class names.
+- Prefer using the `Space` component for layout and spacing purposes.
+  - Remember the `direction` prop is outdated for `Space`: use `orientation`.

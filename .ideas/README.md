@@ -9,7 +9,7 @@ Whenever implementing an idea:
 - When in doubt: ask questions.
 - Make components small and atomic.
 - Extract logic in small hooks and functions — make components as dumb as possible.
-- Create a Markdown file in `docs/` to document the feature (and list it in `AGENTS.md`) [^1]. This document can be inspired by the original idea document.
+- If necessary, udpate the README with new documentation.
 - If necessary, update existing documentation to reflect the new information.
 - Add as many unit tests as relevant, covering the most important bits of core logic. Unit tests are cheap and efficient, so they should be used.
 

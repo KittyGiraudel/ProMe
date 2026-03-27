@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LSDP
 
-## Getting Started
+This application is a companion app for the game “Les Souvenirs du Protecteur”, a solo TTRPG. It is meant to have open while playing the game, as a reference, a helper and a way to keep game progress.
 
-First, run the development server:
+Here are the features:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- A NPC generator, following the rules from the rulebook.
+- A village generator, following the rules from the rulebook.
+- A Protector manager, to create, update and delete playable characters.
+- A character sheet manager for each protector, divided into sections:
+  - An identity & stats section for the main values (health, stamina…)
+  - A map module to explore and annotate the game map
+  - An inventory and spell book manager
+  - A live journal for the role playing part
+  - Some tools (like rolling a die or drawing a playing card)
+  - An administrative section to perform actions (export, kill, delete…)
+- A settings page for application wide settings.
+
+## Usage
+
+Clone the repository locally, install the dependencies, start the server and open the local URL in Chrome.
+
+```sh
+git clone git@github.com:KittyGiraudel/lsdp
+npm install
+npm run dev # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Requirements
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This application should largely work on any browser, including on mobile, but the map module is limited to Chrome. It makes use of modern CSS features that are currently not available outside of Chrome.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Data storage
 
-## Learn More
+This application does not have authentication, or a database: it stores your data, such as settings or your character sheets, in the local storage of your browser. You can always export your data as JSON to synchronize to with another browser.
 
-To learn more about Next.js, take a look at the following resources:
+## Localization
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This application is currently only in French because my copy of the game is in French. That being said, adding a new language should be trivial:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Add a new JSON file in the `messages/` directory named after the new locale.
+- Add all the keys and their translations, using the `fr.json` file as a template.
+- Add the new locale to `src/i18n/routing.ts`.
 
-## Deploy on Vercel
+## Acknowledgements
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The game itself was created and designed by Enzo Salviato — all credits go to him. This application is nothing more than a gaming companion, mostly to allow playing the game digitally (although not in full — owning and using the rulebook remains required).
