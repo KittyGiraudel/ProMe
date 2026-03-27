@@ -4,6 +4,8 @@ import { App } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
 import { computeClockMoveFromRawTarget } from './clock'
+import { useParams } from 'next/navigation'
+import { Link } from '@/i18n/navigation'
 
 /**
  * Hook for character-sheet clock changes: updates the stored slice and surfaces feedback.
@@ -20,6 +22,7 @@ export function useSetClockToRawTargetWithToast({
 }) {
   const { message, notification } = App.useApp()
   const t = useTranslations()
+  const { id: characterId } = useParams()
 
   return useCallback(
     ({
@@ -35,12 +38,8 @@ export function useSetClockToRawTargetWithToast({
        * (e.g. advance = `position + 1`, back = `position - 1`). */
       nextPosition: number
     }) => {
-      const {
-        wrapped,
-        totalSegments,
-        crossedDayNightBoundary,
-        nextIsDay,
-      } = computeClockMoveFromRawTarget(stamina, position, nextPosition)
+      const { wrapped, totalSegments, crossedDayNightBoundary, nextIsDay } =
+        computeClockMoveFromRawTarget(stamina, position, nextPosition)
 
       updateClock(wrapped)
 
@@ -60,15 +59,25 @@ export function useSetClockToRawTargetWithToast({
             }),
           placement: 'bottomRight',
           duration: 4,
+          actions: (
+            <Link href={`/characters/${characterId}/inventory`}>
+              {t('common.go_to', {
+                destination: t('characters.inventory.title'),
+              })}
+            </Link>
+          ),
         })
         return
       }
 
       message.success(
-        `${t('characters.map.clock_section')} : ${t('characters.map.clock_slice', {
-          position: wrapped + 1,
-          total: totalSegments,
-        })}`,
+        `${t('characters.map.clock_section')} : ${t(
+          'characters.map.clock_slice',
+          {
+            position: wrapped + 1,
+            total: totalSegments,
+          }
+        )}`,
         2
       )
     },

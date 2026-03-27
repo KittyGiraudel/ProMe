@@ -22,6 +22,7 @@
     "max_label": "Max.",
     "current_label": "Actuel",
     "generic_error": "Une erreur s’est produite.",
+    "go_to": "Ouvrir « {destination} »",
     "archetypes": {
       "warrior": "Guerrier·e",
       "pilgrim": "Pèlerin·e",
