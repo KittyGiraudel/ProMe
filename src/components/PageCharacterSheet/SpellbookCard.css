@@ -1,0 +1,4 @@
+.SpellbookCard__Row > :first-child,
+.SpellbookCard__Row > :nth-child(2) {
+  flex: 1;
+}

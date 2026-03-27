@@ -1,14 +1,6 @@
 'use client'
 
-import {
-  Card,
-  ConfigProvider,
-  Divider,
-  Empty,
-  Form,
-  FormListFieldData,
-  Space,
-} from 'antd'
+import { Card, ConfigProvider, Empty, Form, FormListFieldData } from 'antd'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { Button } from '@/components/Button/Button'
 import { Journal } from '@/components/Journal/Journal'
@@ -45,15 +37,16 @@ export function JournalCardInner({
   onAddEntry: () => void
   onRemoveEntry: (index: number | number[]) => void
 }) {
+  const { componentDisabled } = ConfigProvider.useConfig()
   const { settings } = useSettings()
   const t = useTranslations()
-  const { componentDisabled } = ConfigProvider.useConfig()
   const form = Form.useFormInstance()
-  const journalReverseChronological =
-    settings.journal.timelineReverseChronological
+  const buttonInHeader = settings.journal.timelineReverseChronological
+  const buttonInFooter = !buttonInHeader
+  const canAddEntry = !componentDisabled
 
   const addEntryButton = (
-    <Button type='dashed' onClick={onAddEntry} htmlType='button'>
+    <Button onClick={onAddEntry} htmlType='button'>
       {t('characters.journal.add_journal_entry')}
     </Button>
   )
@@ -61,30 +54,12 @@ export function JournalCardInner({
   return (
     <Card
       title={t('characters.journal.notes_section')}
-      extra={
-        !componentDisabled && journalReverseChronological
-          ? addEntryButton
-          : undefined
-      }>
-      <div>
-        {fields.length === 0 ? (
-          <Empty description={t('characters.journal.empty')} />
-        ) : (
-          <Journal fields={fields} form={form} deleteEntry={onRemoveEntry} />
-        )}
-      </div>
-
-      {!componentDisabled && !journalReverseChronological && (
-        <>
-          <Divider />
-          <Space
-            wrap
-            align='end'
-            style={{ width: '100%' }}
-            orientation='vertical'>
-            {addEntryButton}
-          </Space>
-        </>
+      extra={canAddEntry && buttonInHeader ? addEntryButton : undefined}
+      actions={canAddEntry && buttonInFooter ? [addEntryButton] : undefined}>
+      {fields.length === 0 ? (
+        <Empty description={t('characters.journal.empty')} />
+      ) : (
+        <Journal fields={fields} form={form} deleteEntry={onRemoveEntry} />
       )}
     </Card>
   )

@@ -16,6 +16,7 @@ import { Button } from '@/components/Button/Button'
 import { useInventoryLimit } from '@/components/PageCharacterSheet/useInventoryLimit'
 import { useTranslations } from 'next-intl'
 import { randomId } from '@/lib/character/model'
+import './InventoryCard.css'
 
 export function InventoryCard() {
   const t = useTranslations()
@@ -26,72 +27,76 @@ export function InventoryCard() {
     <Form.List name='inventory'>
       {(fields, { add, remove }) => (
         <Card
-          title={
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                width: '100%',
-              }}>
-              <span>{t('characters.inventory.inventory_section')}</span>
-              <Tooltip title={t('rulebook.inventory_footnote')}>
-                <Button
-                  type='text'
-                  size='small'
-                  htmlType='button'
-                  icon={<QuestionCircleOutlined />}
-                  aria-label={t('rulebook.information')}
-                />
-              </Tooltip>
-            </div>
+          title={t.rich('characters.inventory.inventory_section', {
+            status: content => (
+              <Typography.Text style={{ color: 'var(--lsdp-muted)' }}>
+                {content}
+              </Typography.Text>
+            ),
+            limit: inventoryLimit,
+            count: fields.length,
+          })}
+          extra={
+            <Tooltip title={t('rulebook.inventory_footnote')}>
+              <Button
+                type='text'
+                size='small'
+                htmlType='button'
+                icon={<QuestionCircleOutlined />}
+                aria-label={t('rulebook.information')}
+              />
+            </Tooltip>
+          }
+          actions={
+            !componentDisabled
+              ? [
+                  <Button
+                    onClick={() =>
+                      add({
+                        id: randomId(),
+                        label: '',
+                        quantity: 1,
+                        note: '',
+                      })
+                    }
+                    disabled={
+                      inventoryLimit <= 0 ||
+                      (inventoryLimit > 0 && fields.length >= inventoryLimit)
+                    }
+                    htmlType='button'>
+                    {t('characters.inventory.add_item')}
+                  </Button>,
+                ]
+              : undefined
           }>
           <Space orientation='vertical' style={{ width: '100%' }}>
-            <Typography.Text
-              type={fields.length >= inventoryLimit ? 'danger' : 'secondary'}>
-              {t('characters.inventory.inventory_status', {
-                count: fields.length,
-                limit: inventoryLimit,
-              })}
-            </Typography.Text>
             {fields.map(field => (
-              <div
+              <Space
+                style={{ width: '100%' }}
                 key={field.key}
-                style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: 16,
-                  width: '100%',
-                  alignItems: 'center',
-                }}>
+                className='InventoryCard__Row'>
+                <Form.Item
+                  name={[field.name, 'quantity']}
+                  label={t('characters.inventory.item_quantity_label')}
+                  noStyle>
+                  <InputNumber min={1} />
+                </Form.Item>
+
                 <Form.Item
                   name={[field.name, 'label']}
-                  label={t('characters.inventory.item_name_placeholder')}
+                  label={t('characters.inventory.item_name_label')}
                   noStyle>
                   <Input
-                    placeholder={t(
-                      'characters.inventory.item_name_placeholder'
-                    )}
-                    style={{ flex: 1, minWidth: 220 }}
+                    placeholder={t('characters.inventory.item_name_label')}
                   />
                 </Form.Item>
 
                 <Form.Item
-                  name={[field.name, 'quantity']}
-                  label={t('characters.inventory.item_quantity_placeholder')}
-                  noStyle>
-                  <InputNumber min={1} style={{ width: 110 }} />
-                </Form.Item>
-
-                <Form.Item
                   name={[field.name, 'note']}
-                  label={t('characters.inventory.item_note_placeholder')}
+                  label={t('characters.inventory.item_note_label')}
                   noStyle>
                   <Input
-                    placeholder={t(
-                      'characters.inventory.item_note_placeholder'
-                    )}
-                    style={{ width: 240 }}
+                    placeholder={t('characters.inventory.item_note_label')}
                   />
                 </Form.Item>
 
@@ -101,38 +106,9 @@ export function InventoryCard() {
                   htmlType='button'>
                   {t('common.delete')}
                 </Button>
-              </div>
+              </Space>
             ))}
           </Space>
-          {!componentDisabled && (
-            <>
-              <Divider />
-              <Space
-                wrap
-                align='end'
-                style={{ width: '100%' }}
-                orientation='vertical'>
-                <Button
-                  type='dashed'
-                  onClick={() =>
-                    add({
-                      id: randomId(),
-                      label: '',
-                      quantity: 1,
-                      note: '',
-                    })
-                  }
-                  disabled={
-                    componentDisabled ||
-                    inventoryLimit <= 0 ||
-                    (inventoryLimit > 0 && fields.length >= inventoryLimit)
-                  }
-                  htmlType='button'>
-                  {t('characters.inventory.add_item')}
-                </Button>
-              </Space>
-            </>
-          )}
         </Card>
       )}
     </Form.List>

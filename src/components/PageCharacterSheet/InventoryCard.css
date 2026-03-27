@@ -1,0 +1,4 @@
+.InventoryCard__Row > :nth-child(2),
+.InventoryCard__Row > :nth-child(3) {
+  flex: 1;
+}

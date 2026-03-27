@@ -232,16 +232,14 @@
     },
     "inventory": {
       "title": "Inventaire & Grimoire",
-      "inventory_section": "Inventaire",
-      "inventory_status": "Objets : {count} / {limit}",
-      "item_name_placeholder": "Nom d’objet",
-      "item_quantity_placeholder": "Quantité",
-      "item_note_placeholder": "Note",
+      "inventory_section": "Inventaire <status>({count} / {limit})</status>",
+      "item_name_label": "Nom d’objet",
+      "item_quantity_label": "Quantité",
+      "item_note_label": "Note",
       "add_item": "Ajouter un objet",
-      "spellbook_section": "Grimoire",
-      "spellbook_status": "Sorts : {count} / 6",
-      "spell_name_placeholder": "Nom du sort",
-      "spell_note_placeholder": "Note",
+      "spellbook_section": "Grimoire <status>({count} / 6)</status>",
+      "spell_name_label": "Nom du sort",
+      "spell_note_label": "Note",
       "add_spell": "Ajouter un sort"
     },
     "journal": {
