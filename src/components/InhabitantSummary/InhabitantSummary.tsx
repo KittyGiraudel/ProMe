@@ -56,115 +56,102 @@ export function InhabitantSummary({
 }: InhabitantSummaryProps) {
   const t = useTranslations()
   const isReadOnly = !onSetRoll
-  const inhabitantFootnote = (
-    <Typography.Paragraph
-      type='secondary'
-      className='InhabitantSummary__footnote'>
-      {t('rulebook.inhabitant_footnote')}
-    </Typography.Paragraph>
-  )
-
   if (!roll) {
     return (
-      <>
-        <Card
-          className='InhabitantSummary InhabitantSummary--empty'
-          variant='borderless'>
-          <Empty
-            description={t('inhabitant.empty_summary', {
-              button: t('inhabitant.generate'),
-            })}
-          />
-        </Card>
-        {inhabitantFootnote}
-      </>
+      <Card
+        className='InhabitantSummary InhabitantSummary--empty'
+        variant='borderless'>
+        <Empty
+          description={t('inhabitant.empty_summary', {
+            button: t('inhabitant.generate'),
+          })}
+        />
+      </Card>
     )
   }
 
   return (
-    <>
-      <Card className='InhabitantSummary' variant='borderless'>
-        <Descriptions
-          column={1}
-          size='middle'
-          styles={{ label: { fontWeight: 600, width: '11rem' } }}
-          items={[
-            {
-              key: 'name',
-              label: t('inhabitant.section_name'),
-              children: (
-                <NameRow
-                  isReadOnly={isReadOnly}
-                  roll={roll}
-                  onSetRoll={onSetRoll}
-                  onRerollPart={onRerollPart}
-                />
-              ),
-            },
-            {
-              key: 'faction',
-              label: t('inhabitant.section_faction'),
-              children: (
-                <FactionRow
-                  isReadOnly={isReadOnly}
-                  roll={roll}
-                  onSetRoll={onSetRoll}
-                  onRerollPart={onRerollPart}
-                />
-              ),
-            },
-            {
-              key: 'gender',
-              label: t('inhabitant.section_gender'),
-              children: (
-                <GenderRow
-                  isReadOnly={isReadOnly}
-                  roll={roll}
-                  onSetRoll={onSetRoll}
-                  onRerollPart={onRerollPart}
-                />
-              ),
-            },
-            {
-              key: 'age',
-              label: t('inhabitant.section_age'),
-              children: (
-                <AgeRow
-                  isReadOnly={isReadOnly}
-                  roll={roll}
-                  onSetRoll={onSetRoll}
-                  onRerollPart={onRerollPart}
-                />
-              ),
-            },
-            {
-              key: 'personality',
-              label: t('inhabitant.section_personality'),
-              children: (
-                <PersonalityRow
-                  isReadOnly={isReadOnly}
-                  roll={roll}
-                  onSetRoll={onSetRoll}
-                  onRerollPart={onRerollPart}
-                />
-              ),
-            },
-            {
-              key: 'context',
-              label: t('inhabitant.section_context'),
-              children: (
-                <ContextRow
-                  isReadOnly={isReadOnly}
-                  roll={roll}
-                  onRerollPart={onRerollPart}
-                />
-              ),
-            },
-          ]}
-        />
-      </Card>
-      {inhabitantFootnote}
-    </>
+    <Card className='InhabitantSummary' variant='borderless'>
+      <Descriptions
+        column={1}
+        size='middle'
+        className='InhabitantSummary__descriptions'
+        styles={{ label: { fontWeight: 600 } }}
+        items={[
+          {
+            key: 'name',
+            label: t('inhabitant.section_name'),
+            children: (
+              <NameRow
+                isReadOnly={isReadOnly}
+                roll={roll}
+                onSetRoll={onSetRoll}
+                onRerollPart={onRerollPart}
+              />
+            ),
+          },
+          {
+            key: 'faction',
+            label: t('inhabitant.section_faction'),
+            children: (
+              <FactionRow
+                isReadOnly={isReadOnly}
+                roll={roll}
+                onSetRoll={onSetRoll}
+                onRerollPart={onRerollPart}
+              />
+            ),
+          },
+          {
+            key: 'gender',
+            label: t('inhabitant.section_gender'),
+            children: (
+              <GenderRow
+                isReadOnly={isReadOnly}
+                roll={roll}
+                onSetRoll={onSetRoll}
+                onRerollPart={onRerollPart}
+              />
+            ),
+          },
+          {
+            key: 'age',
+            label: t('inhabitant.section_age'),
+            children: (
+              <AgeRow
+                isReadOnly={isReadOnly}
+                roll={roll}
+                onSetRoll={onSetRoll}
+                onRerollPart={onRerollPart}
+              />
+            ),
+          },
+          {
+            key: 'personality',
+            label: t('inhabitant.section_personality'),
+            children: (
+              <PersonalityRow
+                isReadOnly={isReadOnly}
+                roll={roll}
+                onSetRoll={onSetRoll}
+                onRerollPart={onRerollPart}
+              />
+            ),
+          },
+          {
+            key: 'context',
+            label: t('inhabitant.section_context'),
+            children: (
+              <ContextRow
+                isReadOnly={isReadOnly}
+                roll={roll}
+                onRerollPart={onRerollPart}
+              />
+            ),
+          },
+        ]}
+      />
+    </Card>
   )
 }
 

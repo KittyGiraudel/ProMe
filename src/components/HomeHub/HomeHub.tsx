@@ -20,9 +20,9 @@ const CharacterManager = () => {
         <Typography.Text>
           {t('home.character_card_description')}
         </Typography.Text>
-        <Row gutter={16}>
+        <Row gutter={[16, 16]}>
           {recentCharacters.map(character => (
-            <Col span={8} key={character.id}>
+            <Col xs={24} md={8} key={character.id}>
               <BlockedLink
                 key={character.id}
                 href={`/characters/${character.id}/identity`}>
@@ -89,36 +89,32 @@ export function HomeHub() {
       title={t('home.title')}
       breadcrumbs={[]}
       bannerBiome='giganticGardens'>
-      <Space orientation='vertical' size='large' style={{ width: '100%' }}>
-        <Row gutter={16}>
-          <Col span={24}>
-            <CharacterManager />
-          </Col>
-        </Row>
+      <Row gutter={16}>
+        <Col span={24}>
+          <CharacterManager />
+        </Col>
+      </Row>
 
-        <Row gutter={16}>
-          <Col span={12}>
-            <InhabitantGenerator />
-          </Col>
-          <Col span={12}>
-            <VillageGenerator />
-          </Col>
-        </Row>
+      <Row gutter={[16, 16]}>
+        <Col xs={24} md={12}>
+          <InhabitantGenerator />
+        </Col>
+        <Col xs={24} md={12}>
+          <VillageGenerator />
+        </Col>
+      </Row>
 
-        <Row gutter={16}>
-          <Col span={24}>
-            <Card
-              title={t('home.settings_title')}
-              extra={
-                <BlockedLink href='/settings'>{t('common.open')}</BlockedLink>
-              }>
-              <Typography.Text>
-                {t('home.settings_description')}
-              </Typography.Text>
-            </Card>
-          </Col>
-        </Row>
-      </Space>
+      <Row gutter={16}>
+        <Col span={24}>
+          <Card
+            title={t('home.settings_title')}
+            extra={
+              <BlockedLink href='/settings'>{t('common.open')}</BlockedLink>
+            }>
+            <Typography.Text>{t('home.settings_description')}</Typography.Text>
+          </Card>
+        </Col>
+      </Row>
     </Layout>
   )
 }

@@ -17,11 +17,11 @@ export async function generateMetadata({ params }: Props) {
 
 export default function CharacterToolsPage() {
   return (
-    <Row gutter={16}>
-      <Col span={12}>
+    <Row gutter={[16, 16]}>
+      <Col xs={24} md={12}>
         <DiceRoll />
       </Col>
-      <Col span={12}>
+      <Col xs={24} md={12}>
         <CardDraw />
       </Col>
     </Row>

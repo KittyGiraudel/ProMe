@@ -130,6 +130,7 @@ export function ActionsCard() {
   return (
     <Card title={t('characters.actions.title')}>
       <List
+        className='ActionsCard__list'
         itemLayout='horizontal'
         dataSource={items}
         renderItem={item => (

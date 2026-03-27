@@ -51,32 +51,32 @@ export function MapDisplay({
 }: MapDisplayProps) {
   return (
     <div className='Map'>
-      <div className='Map__Inner'>
-        <div className='Map__LegendRow Map__LegendRow--top'>
-          {Array.from({ length: MAP_COLS }, (_, ci) => (
-            <React.Fragment key={`col-${ci * 2}`}>
-              <div className='Map__LegendItem'>{colLabelFromIndex(ci * 2)}</div>
-            </React.Fragment>
-          ))}
-        </div>
-        <div className='Map__LegendRow Map__LegendRow--top'>
-          {Array.from({ length: MAP_COLS }, (_, ci) => (
-            <React.Fragment key={`col-${ci * 2 + 1}`}>
-              <div className='Map__LegendItem'>
-                {colLabelFromIndex(ci * 2 + 1)}
-              </div>
-            </React.Fragment>
-          ))}
-        </div>
-
-        <div className='Map__LegendCol Map__LegendCol--left'>
-          {Array.from({ length: MAP_ROWS }, (_, ri) => (
-            <div className='Map__LegendItem' key={`legend-left-${ri}`}>
-              {rowLabelFromIndex(ri)}
+      <div className='Map__LegendRow Map__LegendRow--top'>
+        {Array.from({ length: MAP_COLS }, (_, ci) => (
+          <React.Fragment key={`col-${ci * 2}`}>
+            <div className='Map__LegendItem'>{colLabelFromIndex(ci * 2)}</div>
+          </React.Fragment>
+        ))}
+      </div>
+      <div className='Map__LegendRow Map__LegendRow--top'>
+        {Array.from({ length: MAP_COLS }, (_, ci) => (
+          <React.Fragment key={`col-${ci * 2 + 1}`}>
+            <div className='Map__LegendItem'>
+              {colLabelFromIndex(ci * 2 + 1)}
             </div>
-          ))}
-        </div>
+          </React.Fragment>
+        ))}
+      </div>
 
+      <div className='Map__LegendCol Map__LegendCol--left'>
+        {Array.from({ length: MAP_ROWS }, (_, ri) => (
+          <div className='Map__LegendItem' key={`legend-left-${ri}`}>
+            {rowLabelFromIndex(ri)}
+          </div>
+        ))}
+      </div>
+
+      <div className='Map__Inner'>
         {Array.from({ length: MAP_ROWS }, (_, ri) => (
           <div className='Map__Row' key={`row-${ri}`}>
             {Array.from({ length: MAP_COLS }, (_, ci) => {
@@ -136,32 +136,32 @@ export function MapDisplay({
             })}
           </div>
         ))}
+      </div>
 
-        <div className='Map__LegendCol Map__LegendCol--right'>
-          {Array.from({ length: MAP_ROWS }, (_, ri) => (
-            <div className='Map__LegendItem' key={`legend-right-${ri}`}>
-              {rowLabelFromIndex(ri)}
+      <div className='Map__LegendCol Map__LegendCol--right'>
+        {Array.from({ length: MAP_ROWS }, (_, ri) => (
+          <div className='Map__LegendItem' key={`legend-right-${ri}`}>
+            {rowLabelFromIndex(ri)}
+          </div>
+        ))}
+      </div>
+
+      <div className='Map__LegendRow Map__LegendRow--bottom'>
+        {Array.from({ length: MAP_COLS }, (_, ci) => (
+          <React.Fragment key={`col-${ci * 2 + 1}`}>
+            <div className='Map__LegendItem'>
+              {colLabelFromIndex(ci * 2 + 1)}
             </div>
-          ))}
-        </div>
+          </React.Fragment>
+        ))}
+      </div>
 
-        <div className='Map__LegendRow Map__LegendRow--bottom'>
-          {Array.from({ length: MAP_COLS }, (_, ci) => (
-            <React.Fragment key={`col-${ci * 2 + 1}`}>
-              <div className='Map__LegendItem'>
-                {colLabelFromIndex(ci * 2 + 1)}
-              </div>
-            </React.Fragment>
-          ))}
-        </div>
-
-        <div className='Map__LegendRow Map__LegendRow--bottom'>
-          {Array.from({ length: MAP_COLS }, (_, ci) => (
-            <React.Fragment key={`col-${ci * 2}`}>
-              <div className='Map__LegendItem'>{colLabelFromIndex(ci * 2)}</div>
-            </React.Fragment>
-          ))}
-        </div>
+      <div className='Map__LegendRow Map__LegendRow--bottom'>
+        {Array.from({ length: MAP_COLS }, (_, ci) => (
+          <React.Fragment key={`col-${ci * 2}`}>
+            <div className='Map__LegendItem'>{colLabelFromIndex(ci * 2)}</div>
+          </React.Fragment>
+        ))}
       </div>
     </div>
   )

@@ -3,6 +3,7 @@ import { AppConfig, useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { Layout } from '@/components/Layout/Layout'
 import { NpcGenerator } from '@/components/PageGeneratorNpc/NpcGenerator'
+import { Typography } from 'antd'
 
 type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
 
@@ -25,7 +26,7 @@ function NpcGeneratorFallback() {
         { title: t('nav.home'), path: '/' },
         { title: t('nav.inhabitant_generator'), path: '/generators/npc' },
       ]}>
-      <p>{t('common.loading')}</p>
+      <Typography.Paragraph>{t('common.loading')}</Typography.Paragraph>
     </Layout>
   )
 }

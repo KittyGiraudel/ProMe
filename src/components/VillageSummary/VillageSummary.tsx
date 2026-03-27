@@ -156,15 +156,9 @@ export function VillageSummary({
     return groupEstablishments(display.establishments, t)
   }, [display, grouped, t])
 
-  const villageFootnote = (
-    <Typography.Paragraph type='secondary' className='VillageSummary__footnote'>
-      {t('rulebook.village_footnote')}
-    </Typography.Paragraph>
-  )
-
   if (!roll || !display) {
     return (
-      <>
+      <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
         <Card variant='borderless'>
           <Empty
             description={t('village.empty_summary', {
@@ -172,8 +166,7 @@ export function VillageSummary({
             })}
           />
         </Card>
-        {villageFootnote}
-      </>
+      </Space>
     )
   }
 
@@ -254,7 +247,6 @@ export function VillageSummary({
           </ul>
         </Card>
       ) : null}
-      {villageFootnote}
     </Space>
   )
 }

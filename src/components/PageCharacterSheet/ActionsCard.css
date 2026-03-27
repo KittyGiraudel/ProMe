@@ -3,7 +3,11 @@
 [data-variant="success"] .ant-avatar { background-color: #52c41a }
 [data-variant="danger"] .ant-avatar { background-color: #f5222d }
 
-.actions-tab__item .ant-list-item-meta-avatar {
-  align-self: center;
+@media (max-width: 767px) {
+  .ActionsCard__list .ant-list-item {
+    flex-direction: column;
+  }
+  .ActionsCard__list .ant-list-item > * {
+    width: 100%;
+  }
 }
-

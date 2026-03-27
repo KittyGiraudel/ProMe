@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo } from 'react'
-import { App, Select, Typography } from 'antd'
+import { App, Select, Space, Typography } from 'antd'
 import { useTranslations } from 'next-intl'
 import type { InhabitantRoll } from '@/lib/inhabitant/generate'
 import { generateInhabitantWithFaction } from '@/lib/inhabitant/generate'
@@ -160,6 +160,9 @@ export function VillageGenerator({
         onRerollPrimarySlot={roll ? handleRerollPrimarySlot : undefined}
         onRerollOwner={roll && owners ? handleRerollOwner : undefined}
       />
+      <Typography.Paragraph type='secondary'>
+        {t('rulebook.village_footnote')}
+      </Typography.Paragraph>
     </Layout>
   )
 }

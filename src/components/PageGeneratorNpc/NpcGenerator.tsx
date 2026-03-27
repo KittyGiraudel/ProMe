@@ -2,7 +2,7 @@
 
 import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
-import { App } from 'antd'
+import { App, Typography } from 'antd'
 import { useRouter } from '@/i18n/navigation'
 import type {
   InhabitantRoll,
@@ -96,6 +96,9 @@ export function NpcGenerator({
         onRerollPart={roll ? handleRerollPart : undefined}
         onSetRoll={roll ? handleSetRoll : undefined}
       />
+      <Typography.Paragraph type='secondary'>
+        {t('rulebook.inhabitant_footnote')}
+      </Typography.Paragraph>
     </Layout>
   )
 }

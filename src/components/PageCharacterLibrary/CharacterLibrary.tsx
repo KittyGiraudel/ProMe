@@ -34,7 +34,7 @@ export function CharacterLibrary() {
         { title: t('nav.home'), path: '/' },
         { title: t('nav.characters'), path: '/characters' },
       ]}>
-      <Space style={{ marginBottom: 16, flexWrap: 'wrap' }}>
+      <Space>
         <Button type='primary' href='/characters/new'>
           {t('new_character.create')}
         </Button>
@@ -54,64 +54,60 @@ export function CharacterLibrary() {
           <Empty description={t('characters_list.empty')} />
         </Card>
       ) : (
-        <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
-          {characters.map(character => {
-            const dead = isCharacterDead(character)
-            const name = character.name || t('characters_list.unnamed')
+        characters.map(character => {
+          const dead = isCharacterDead(character)
+          const name = character.name || t('characters_list.unnamed')
 
-            return (
-              <Card
-                key={character.id}
-                title={
-                  dead
-                    ? t.rich('characters_list.dead_character_name', {
-                        name,
-                        separator: parts => (
-                          <Typography.Text type='secondary'>
-                            {parts}
-                          </Typography.Text>
-                        ),
-                        status: parts => (
-                          <Typography.Text type='danger'>
-                            {parts}
-                          </Typography.Text>
-                        ),
-                      })
-                    : name
-                }
-                styles={
-                  dead
-                    ? {
-                        header: { opacity: 0.75 },
-                        body: { opacity: 0.75 },
-                      }
-                    : undefined
-                }
-                extra={
-                  <Space>
-                    <BlockedLink href={`/characters/${character.id}/identity`}>
-                      {t('common.open')}
-                    </BlockedLink>
-                  </Space>
-                }>
-                <Space orientation='vertical' size={4}>
-                  <Typography.Text>
-                    {t('characters_list.archetype_line', {
-                      value: t(`common.archetypes.${character.archetype}`),
-                    })}
-                  </Typography.Text>
-                  <Typography.Text type='secondary'>
-                    {t('characters_list.updated_line', {
-                      value: format.dateTime(new Date(character.updatedAt), {
-                        dateStyle: 'medium',
-                      }),
-                    })}
-                  </Typography.Text>
+          return (
+            <Card
+              key={character.id}
+              title={
+                dead
+                  ? t.rich('characters_list.dead_character_name', {
+                      name,
+                      separator: parts => (
+                        <Typography.Text type='secondary'>
+                          {parts}
+                        </Typography.Text>
+                      ),
+                      status: parts => (
+                        <Typography.Text type='danger'>{parts}</Typography.Text>
+                      ),
+                    })
+                  : name
+              }
+              styles={
+                dead
+                  ? {
+                      header: { opacity: 0.75 },
+                      body: { opacity: 0.75 },
+                    }
+                  : undefined
+              }
+              extra={
+                <Space>
+                  <BlockedLink href={`/characters/${character.id}/identity`}>
+                    {t('common.open')}
+                  </BlockedLink>
                 </Space>
-              </Card>
-            )
-          })}
-        </Space>
+              }>
+              <Space orientation='vertical' size={4}>
+                <Typography.Text>
+                  {t('characters_list.archetype_line', {
+                    value: t(`common.archetypes.${character.archetype}`),
+                  })}
+                </Typography.Text>
+                <Typography.Text type='secondary'>
+                  {t('characters_list.updated_line', {
+                    value: format.dateTime(new Date(character.updatedAt), {
+                      dateStyle: 'medium',
+                    }),
+                  })}
+                </Typography.Text>
+              </Space>
+            </Card>
+          )
+        })
       )}
     </Layout>
   )

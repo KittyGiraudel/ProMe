@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 import { Layout } from '@/components/Layout/Layout'
 import { VillageGenerator } from '@/components/PageGeneratorVillage/VillageGenerator'
 import { decodeVillageIdParam } from '@/lib/village/villageIdCodec'
+import { Typography } from 'antd'
 
 type Props = { params: Promise<{ locale: AppConfig['Locale']; id: string }> }
 
@@ -26,7 +27,7 @@ function VillageGeneratorFallback() {
         { title: t('nav.home'), path: '/' },
         { title: t('nav.village_generator'), path: '/generators/village' },
       ]}>
-      <p>{t('common.loading')}</p>
+      <Typography.Paragraph>{t('common.loading')}</Typography.Paragraph>
     </Layout>
   )
 }

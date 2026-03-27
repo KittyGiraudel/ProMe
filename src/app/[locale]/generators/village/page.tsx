@@ -3,6 +3,7 @@ import { AppConfig, useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { Layout } from '@/components/Layout/Layout'
 import { VillageGenerator } from '@/components/PageGeneratorVillage/VillageGenerator'
+import { Typography } from 'antd'
 
 type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
 
@@ -25,7 +26,7 @@ function VillageGeneratorFallback() {
         { title: t('nav.home'), path: '/' },
         { title: t('nav.village_generator'), path: '/generators/village' },
       ]}>
-      <p>{t('common.loading')}</p>
+      <Typography.Paragraph>{t('common.loading')}</Typography.Paragraph>
     </Layout>
   )
 }

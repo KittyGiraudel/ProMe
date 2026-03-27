@@ -2,7 +2,13 @@
 
 import { useMemo, type ReactNode } from 'react'
 import { useTranslations } from 'next-intl'
-import { Layout as AntLayout, Typography, Menu, BreadcrumbProps } from 'antd'
+import {
+  Layout as AntLayout,
+  Typography,
+  Menu,
+  BreadcrumbProps,
+  Space,
+} from 'antd'
 import { usePathname } from '@/i18n/navigation'
 import type { BiomeId } from '@/lib/character/types'
 import { Banner } from '@/components/Banner/Banner'
@@ -100,7 +106,7 @@ export const Layout = ({
         />
       </AntLayout.Header>
       <Banner biome={bannerBiome} />
-      <AntLayout.Content style={{ padding: '16px 48px' }}>
+      <AntLayout.Content className='Layout__wrapper'>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
 
         <div className='Layout__content'>
@@ -112,7 +118,9 @@ export const Layout = ({
               <div className='Layout__header-actions'>{headerActions}</div>
             ) : null}
           </div>
-          {children}
+          <Space orientation='vertical' size='medium' style={{ width: '100%' }}>
+            {children}
+          </Space>
         </div>
       </AntLayout.Content>
       <AntLayout.Footer style={{ textAlign: 'center' }}>
