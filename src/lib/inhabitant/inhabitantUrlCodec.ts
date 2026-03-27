@@ -55,8 +55,8 @@ function decodeInhabitantRollBaseLegacy(compact: string, t: _Translator): Inhabi
   const faction = factionFromD6(factionDie);
   const nameDice: [number, number] = [n1, n2];
   const name = lookupName(faction, n1, n2);
-  const contextText = t(`inhabitant.context_by_rank.${contextCard.rank}`);
   const gender = genderFromD6(genderDie);
+  const contextText = t(`inhabitant.context_by_rank.${contextCard.rank}`, { name, gender });
 
   return {
     factionDie,
@@ -99,8 +99,8 @@ function decodeInhabitantRollBaseV2(compact: string, t: _Translator): Inhabitant
   const faction = factionFromD6(factionDie);
   const nameDice: [number, number] = [n1, n2];
   const name = lookupName(faction, n1, n2);
-  const contextText = t(`inhabitant.context_by_rank.${contextCard.rank}`);
   const gender = genderFromD6(genderDie);
+  const contextText = t(`inhabitant.context_by_rank.${contextCard.rank}`, { name, gender });
 
   return {
     factionDie,

@@ -17,17 +17,17 @@ import type { CharacterMapState, HexCoordinate } from '@/lib/character/types'
 import { normalizeMapState } from '@/lib/character/mapState'
 import { useMapHashNavigation } from './useMapHashNavigation'
 
-type UseMapCardSheetArgs = {
+type UseMapSheetArgs = {
   currentPosition: HexCoordinate
   selectedCell: HexCoordinate | null
   setSelectedCell: Dispatch<SetStateAction<HexCoordinate | null>>
 }
 
-export function useMapCardSheet({
+export function useMapSheet({
   currentPosition,
   selectedCell,
   setSelectedCell,
-}: UseMapCardSheetArgs) {
+}: UseMapSheetArgs) {
   const form = Form.useFormInstance()
   const watchedMap = Form.useWatch('map', {
     form,

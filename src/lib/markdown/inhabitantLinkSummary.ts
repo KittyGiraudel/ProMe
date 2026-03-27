@@ -25,6 +25,6 @@ export function getInhabitantSummaryFromUrl(rawUrl: string, t: _Translator): str
     name: roll.name, 
     faction: t(`common.factions.${roll.faction}`),
     age: t(`common.age_bands.${getAgeBand(roll)}`),
-    personality: t(`common.personalities.${getPersonality(roll)}`)
+    personality: t(`common.personalities.${getPersonality(roll)}`, { gender: roll.gender })
   })
 }

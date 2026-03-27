@@ -48,6 +48,8 @@ describe("inhabitantUrlCodec", () => {
     const factionDie = 1;
     const faction = factionFromD6(factionDie);
     const nameDice: [number, number] = [2, 3];
+    const name = lookupName(faction, nameDice[0], nameDice[1])
+    const gender = genderFromD6(4)
     const roll = {
       factionDie,
       faction,
@@ -55,10 +57,10 @@ describe("inhabitantUrlCodec", () => {
       personalityCard: { suit: "spades" as const, rank: "K" as const },
       contextCard: { suit: "clubs" as const, rank: "3" as const },
       nameDice,
-      name: lookupName(faction, nameDice[0], nameDice[1]),
-      contextText: testLocalize("inhabitant.context_by_rank.3"),
+      name,
+      contextText: testLocalize("inhabitant.context_by_rank.3", { name, gender }),
       genderDie: 4,
-      gender: genderFromD6(4),
+      gender,
     };
     const encoded = encodeInhabitantRoll(roll);
     expect(encoded).toBe("1H5SKC3234");

@@ -1,0 +1,17 @@
+/**
+ * 1. Apply the same gap both horizontally and vertically.
+ */
+ .MapRow {
+  display: flex;
+  gap: var(--gap); /* 1 */
+  margin-bottom: var(--gap); /* 1 */
+  width: 100%;
+  position: relative;
+}
+
+/**
+ * 1. Offset the odd rows to the right to fit the hexagons neatly.
+ */
+.MapRow:nth-of-type(odd) {
+  left: calc(var(--size) / 2 * -1);
+}

@@ -35,7 +35,9 @@ const CharacterManager = () => {
                         ? genderCompactSymbol(character.gender)
                         : ''}{' '}
                       {character.name || t('characters_list.unnamed')},{' '}
-                      {t(`common.archetypes.${character.archetype}`)}
+                      {t(`common.archetypes.${character.archetype}`, {
+                        gender: character.gender ?? 'indeterminate',
+                      })}
                     </>
                   }>
                   <Typography.Text type='secondary'>

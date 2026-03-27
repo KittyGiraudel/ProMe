@@ -397,13 +397,17 @@ function PersonalityRow({
   onSetRoll: InhabitantSummaryProps['onSetRoll']
   onRerollPart: InhabitantSummaryProps['onRerollPart']
 }) {
+  const gender = roll.gender ?? ('indeterminate' as Gender)
   const t = useTranslations()
   const personality = getPersonality(roll)
   const personalitySelectOptions = useMemo(
     () =>
       RANKS.map(rank => {
         const p = personalityFromRank(rank)
-        return { value: p, label: t(`common.personalities.${p}`) }
+        return {
+          value: p,
+          label: t(`common.personalities.${p}`, { gender }),
+        }
       }),
     [t]
   )
@@ -417,7 +421,7 @@ function PersonalityRow({
       })}
       onReroll={onRerollPart && (() => onRerollPart('personalityCard'))}
       value={personality}
-      display={t(`common.personalities.${personality}`)}
+      display={t(`common.personalities.${personality}`, { gender })}
       options={personalitySelectOptions}
       onChange={(p: Personality) =>
         onSetRoll?.(setInhabitantPersonality(roll, p))

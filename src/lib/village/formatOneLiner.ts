@@ -46,7 +46,7 @@ export function formatVillageOneLiner(
         gender: genderCompactSymbol(owner.gender),
         name: owner.name,
         age: t(`common.age_bands.${getAgeBand(owner)}`),
-        personality: t(`common.personalities.${getPersonality(owner)}`),
+        personality: t(`common.personalities.${getPersonality(owner)}`, { gender: owner.gender }),
         faction: t(`common.factions.${owner.faction}`)
       })
       return `- ${row.text}\n  - ${t('village.owner_label')} ${oneLiner}`

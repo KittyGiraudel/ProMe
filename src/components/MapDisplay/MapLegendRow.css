@@ -1,0 +1,43 @@
+.MapLegendRow {
+  display: flex;
+  gap: var(--gap);
+  width: 100%;
+  width: calc(100% - var(--size) / 2);
+}
+
+@media (max-width: 767px) {
+  .MapLegendRow {
+    display: none;
+  }
+}
+
+/**
+ * 1. Squeeze the legend closer to the map.
+ */
+ .MapLegendRow--top {
+  margin-bottom: -0.5em; /* 1 */
+  margin-left: calc(var(--size) / 2);
+}
+
+.MapLegendRow--top + .MapLegendRow--top {
+  margin-left: calc(var(--size));
+}
+
+.MapLegendRow--bottom {
+  margin-left: calc(var(--size));
+  margin-top: -0.5em;
+}
+
+.MapLegendRow--bottom + .MapLegendRow--bottom {
+  margin-top: 0;
+  margin-left: calc(var(--size) / 2);
+}
+
+.MapLegendRow__Item {
+  font-weight: normal;
+  text-align: center;
+  font-size: 75%;
+  opacity: 0.4;
+  transform: translateX(-50%);
+  width: var(--size);
+}

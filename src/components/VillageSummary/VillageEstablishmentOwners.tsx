@@ -30,11 +30,13 @@ export function VillageEstablishmentOwners({
     const age = getAgeBand(e.roll)
     const personality = getPersonality(e.roll)
     const inhabitantHref = `/generators/npc/${encodeInhabitantRoll(e.roll)}`
+    const gender = e.roll.gender
+
     return (
       <div className='VillageSummary__owner-row'>
         <span className='VillageSummary__owner-main'>
           {t.rich('inhabitant.one_liner_rich', {
-            gender: genderCompactSymbol(e.roll.gender),
+            gender: genderCompactSymbol(gender),
             name: () => (
               <GeneratorLinkPreview
                 key='link'
@@ -45,7 +47,9 @@ export function VillageEstablishmentOwners({
             ),
             faction: t(`common.factions.${e.roll.faction}`),
             age: t(`common.age_bands.${age}`),
-            personality: t(`common.personalities.${personality}`),
+            personality: t(`common.personalities.${personality}`, {
+              gender,
+            }),
           })}
         </span>
         <span className='VillageSummary__owner-actions'>

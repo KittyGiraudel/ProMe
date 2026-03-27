@@ -28,9 +28,9 @@
     "display_2D6": "2D6 : <dice></dice>",
     "display_card": "Carte : <card></card>",
     "archetypes": {
-      "warrior": "Guerrier·e",
-      "pilgrim": "Pèlerin·e",
-      "bard": "Troubadour·esse"
+      "warrior": "{gender, select, man {Guerrier} woman {Guerrière} other {Guerrier·e}}",
+      "pilgrim": "{gender, select, man {Pèlerin} woman {Pèlerine} other {Pèlerin·e}}",
+      "bard": "{gender, select, man {Troubadour} woman {Troubadouresse} other {Troubadour·esse}}"
     },
     "archetype_powers": {
       "warrior": "Le pouvoir de l’épée : quand vous le souhaitez, vous pouvez fuir une bataille sans avoir à lancer de dés ni risquer de subir des dégâts.",
@@ -54,14 +54,14 @@
       "poetic": "Poétique",
       "sarcastic": "Sarcastique",
       "charismatic": "Charismatique",
-      "grumpy": "Grincheux·se",
-      "curious": "Curieux·se",
-      "friendly": "Amical·e",
-      "embarrassed": "Gêné·e",
-      "hasty": "Pressé·e",
-      "dreamy": "Rêveur·se",
+      "grumpy": "{gender, select, man {Grincheux} woman {Grincheuse} other {Grincheux·se}}",
+      "curious": "{gender, select, man {Curieux} woman {Curieuse} other {Curieux·se}}",
+      "friendly": "{gender, select, man {Amical} woman {Amicale} other {Amical·e}}",
+      "embarrassed": "{gender, select, man {Gêné} woman {Gênée} other {Gêné·e}}",
+      "hasty": "{gender, select, man {Pressé} woman {Pressée} other {Pressé·e}}",
+      "dreamy": "{gender, select, man {Rêveur} woman {Rêveuse} other {Rêveur·se}}",
       "calm": "Calme",
-      "joyful": "Joyeux·se",
+      "joyful": "{gender, select, man {Joyeux} woman {Joyeuse} other {Joyeux·se}}",
       "sad": "Triste"
     },
     "genders": {
@@ -232,7 +232,7 @@
       "clear_icon": "Retirer l’icône",
       "emoji_search_placeholder": "Rechercher une emoji…",
       "random_biome_discovered_title": "Nouveau biome découvert",
-      "random_biome_discovered_description": "Vous découvrez {biomeName}. Marquez {additionalTilesToMark} case{additionalTilesToMark > 1 ? 's' : ''} adjacente{additionalTilesToMark > 1 ? 's' : ''} du même biome ({biomeName})."
+      "random_biome_discovered_description": "Vous découvrez {biomeName}. Marquez {additionalTilesToMark, plural, =1 {une case adjacente} other {# cases adjacentes}} du même biome ({biomeName})."
     },
     "inventory": {
       "title": "Inventaire & Grimoire",
@@ -396,19 +396,19 @@
     "context_card_note": "Seule la hauteur de la carte compte pour le contexte ; la couleur est ignorée.",
     "context_spoken_name_label": "Nom prononcé (2D6, p. 60)",
     "context_by_rank": {
-      "2": "**Cette habitant·e est à la recherche de quelque chose.** Peut-être quelque chose qui n’est pas vendu dans ce village, ou quelque chose que l’on ne peut trouver que loin d’ici ? Mais au-delà de ça, iel semble avoir peur de l’inconnu. Il y a peut-être une histoire derrière tout ça.",
-      "3": "**Cette habitant·e rêve de voyager dans un autre village.** Peut-être pourriez-vous l’accompagner et en savoir plus sur ses motivations et ses envies !",
-      "4": "**Cette habitant·e est très malade et n’a plus que peu de temps à vivre.** Iel est seul·e et personne pour l’épauler dans ces instants difficiles. Peut-être qu’une conversation lui donnerait un peu de baume au cœur ? *Si vous avez rencontré cette habitant·e dans un village, la prochaine fois que vous visiterez cet endroit, vous devrez réussir un test de Courage pour le·a retrouver.*",
-      "5": "**Cette habitant·e cherche l’amitié — ou peut-être l’amour ?** Vous n’en êtes pas sûr·e, mais iel semble se sentir seul·e. Vous pouvez l’aider à trouver quelqu’un·e qui cherche quelque chose de similaire.",
-      "6": "**Cette habitant·e se languit d’un être cher.** Peut-être est-ce quelqu’un·e qui vit ailleurs ou qui vient juste de partir. Mais iel est aussi à la recherche d’un objet très spécial qui lui rappelle cette personne. Quel est cet objet ?",
-      "7": "Cette habitant·e est **cartographe**. Vous le·a croisez alors qu’iel va quitter le village et iel reconnaît en vous un voyageur. Iel vous offre une de ses cartes. Lancez un D6 : *Carte de localisation (1-3)* ou *Carte de biome (4-6)* (voir p. 49).",
-      "8": "Cette habitant·e est **en train de peindre un tableau**. Se rendant compte que vous êtes un voyageur, iel vous demande si vous avez un croquis représentant un endroit qui lui est inconnu, ou si vous pouvez décrire un panorama que vous avez vu au cours de votre voyage ! Iel ne s’est jamais aventuré dans des endroits éloignés de son village et recherche l’inspiration !",
-      "9": "Il existe des rumeurs sur de mystérieuses Ruines parsemées à travers le monde et **cette habitant·e est curieux·se d’en savoir plus sur le sujet**. Voyant que vous êtes un·e voyageur·se, iel s’approche de vous pour voir si vous avez des informations à partager !",
-      "10": "**Cette habitant·e prononce un nom en errant dans le village.** De qui s’agit-il ? Pourquoi cette habitant·e prononce-t-il ce nom ? Que s’est-il passé ? *Si vous devez créer un nom, consultez la table page 60.*",
-      "A": "**Cette habitant·e pleure une perte récente.** Iel a peut-être perdu un animal de compagnie ou un·e ami·e proche. Peut-être qu’une discussion serait la bienvenue ? À moins qu’iel ait besoin d’écoute pour se sentir mieux ?",
-      "J": "**Cette habitant·e achète des objets provenant d’autres endroits du monde et offre 100 pièces pour chaque objet digne de son intérêt.** Parlez-lui ! Peut-être que vous avez sur vous un objet qu’iel pourrait acquérir.",
-      "Q": "**Cette habitant·e ressemble à quelqu’un que vous avez déjà rencontré.** S’agit-il d’une impression ? Vous pouvez toujours lui demander pour en avoir le cœur net. Iel a peut-être déjà croisé votre chemin, à moins que ce ne soit un·e inconnu·e avec de nouvelles histoires à raconter !",
-      "K": "**Cette habitant·e est bâtisseur·se.** Iel vous dit qu’avec 3 bois et 3 fers ou avec 1,000 pièces, iel peut construire l’établissement de votre choix dans le village."
+      "2": "**{name} est à la recherche de quelque chose.** Peut-être quelque chose qui n’est pas vendu dans ce village, ou quelque chose que l’on ne peut trouver que loin d’ici ? Mais au-delà de ça, {gender, select, man {il} woman {elle} other {iel}} semble avoir peur de l’inconnu. Il y a peut-être une histoire derrière tout ça.",
+      "3": "**{name} rêve de voyager dans un autre village.** Peut-être pourriez-vous l’accompagner et en savoir plus sur ses motivations et ses envies !",
+      "4": "**{name} est très malade et n’a plus que peu de temps à vivre.** {gender, select, man {Il} woman {Elle} other {Iel}} est {gender, select, man {seul} woman {seule} other {seul·e}} et personne pour l’épauler dans ces instants difficiles. Peut-être qu’une conversation lui donnerait un peu de baume au cœur ? *Si vous l’avez {gender, select, man {rencontré} woman {rencontrée} other {recontré·e}} dans un village, la prochaine fois que vous visiterez cet endroit, vous devrez réussir un test de Courage pour {gender, select, man {le} woman {la} other {le·a}} retrouver.*",
+      "5": "**{name} cherche l’amitié — ou peut-être l’amour ?** Vous n’en êtes pas sûr·e, mais {gender, select, man {il} woman {elle} other {iel}} semble se sentir {gender, select, man {seul} woman {seule} other {seul·e}}. Vous pouvez l’aider à trouver quelqu’un qui cherche quelque chose de similaire.",
+      "6": "**{name} se languit d’un être cher.** Peut-être est-ce quelqu’un qui vit ailleurs ou qui vient juste de partir. Mais {gender, select, man {il} woman {elle} other {iel}} est aussi à la recherche d’un objet très spécial qui lui rappelle cette personne. Quel est cet objet ?",
+      "7": "{name} est **cartographe**. Vous {gender, select, man {le} woman {la} other {le·a}} croisez alors qu’{gender, select, man {il} woman {elle} other {iel}} va quitter le village et reconnaît en vous un voyageur. {gender, select, man {Il} woman {Elle} other {Iel}} vous offre une de ses cartes. Lancez un D6 : *Carte de localisation (1-3)* ou *Carte de biome (4-6)* (voir p. 49).",
+      "8": "{name} est **en train de peindre un tableau**. Se rendant compte que vous êtes un voyageur, {gender, select, man {il} woman {elle} other {iel}} vous demande si vous avez un croquis représentant un endroit qui lui est inconnu, ou si vous pouvez décrire un panorama que vous avez vu au cours de votre voyage ! {gender, select, man {Il} woman {Elle} other {Iel}} ne s’est jamais {gender, select, man {aventuré} woman {aventurée} other {aventuré·e}} dans des endroits éloignés de son village et recherche l’inspiration !",
+      "9": "Il existe des rumeurs sur de mystérieuses Ruines parsemées à travers le monde et **{name} est {gender, select, man {curieux} woman {curieuse} other {curieux·se}} d’en savoir plus sur le sujet**. Voyant que vous êtes un·e voyageur·se, {gender, select, man {il} woman {elle} other {iel}} s’approche de vous pour voir si vous avez des informations à partager !",
+      "10": "**{name} prononce un nom en errant dans le village.** De qui s’agit-il ? Pourquoi prononce-t-{gender, select, man {il} woman {elle} other {iel}} ce nom ? Que s’est-il passé ? *Si vous devez créer un nom, consultez la table page 60.*",
+      "A": "**{name} pleure une perte récente.** {gender, select, man {Il} woman {Elle} other {Iel}} a peut-être perdu un animal de compagnie ou un·e ami·e proche. Peut-être qu’une discussion serait la bienvenue ? À moins qu’{gender, select, man {il} woman {elle} other {iel}} ait besoin d’écoute pour se sentir mieux ?",
+      "J": "**{name} achète des objets provenant d’autres endroits du monde et offre 100 pièces pour chaque objet digne de son intérêt.** Parlez-lui ! Peut-être que vous avez sur vous un objet qu’{gender, select, man {il} woman {elle} other {iel}} pourrait acquérir.",
+      "Q": "**{name} ressemble à quelqu’un que vous avez déjà rencontré.** S’agit-il d’une impression ? Vous pouvez toujours lui demander pour en avoir le cœur net. {gender, select, man {Il} woman {Elle} other {Iel}} a peut-être déjà croisé votre chemin, à moins que ce ne soit {gender, select, man {un inconnu} woman {une inconnue} other {un·e inconnu·e}} avec de nouvelles histoires à raconter !",
+      "K": "**{name} est {gender, select, man {un bâtisseur} woman {une bâtisseuse} other {un·e bâtisseur·euse}}.** {gender, select, man {Il} woman {Elle} other {Iel}} vous dit qu’avec 3 bois et 3 fers ou avec 1,000 pièces, {gender, select, man {il} woman {elle} other {iel}} peut construire l’établissement de votre choix dans le village."
     }
   },
   "game": {

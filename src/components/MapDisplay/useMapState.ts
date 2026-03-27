@@ -15,7 +15,6 @@ const useJournalIndexByCell = () => {
     () => buildCellReferenceToJournalEntriesIndex(watchedJournalEntries),
     [watchedJournalEntries]
   )
-
 }
 
 export const useMapState = () => {

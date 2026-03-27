@@ -94,7 +94,9 @@ export function CharacterLibrary() {
               <Space orientation='vertical' size={4}>
                 <Typography.Text>
                   {t('characters_list.archetype_line', {
-                    value: t(`common.archetypes.${character.archetype}`),
+                    value: t(`common.archetypes.${character.archetype}`, {
+                      gender: character.gender ?? 'indeterminate',
+                    }),
                   })}
                 </Typography.Text>
                 <Typography.Text type='secondary'>

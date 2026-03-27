@@ -1,0 +1,43 @@
+.MapLegendCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: var(--gap);
+  position: absolute;
+  top: 2em;
+  bottom: 2em;
+  width: var(--size);
+}
+
+@media (max-width: 767px) {
+  .MapLegendCol {
+    display: none;
+  }
+}
+
+.MapLegendCol--left {
+  right: 100%;
+  align-items: flex-end;
+  margin-right: 1ch;
+}
+
+.MapLegendCol--right {
+  left: 100%;
+  margin-left: 1ch;
+  transform: translateX(-50%);
+  align-items: flex-start;
+}
+
+.MapLegendCol__Item {
+  position: relative;
+  font-weight: normal;
+  text-align: center;
+  font-size: 75%;
+  opacity: 0.4;
+}
+
+
+.MapLegendCol__Item:nth-of-type(even) {
+  left: 50%;
+}

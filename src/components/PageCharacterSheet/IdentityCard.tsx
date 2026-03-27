@@ -1,7 +1,7 @@
 'use client'
 
 import { Alert, Card, Col, Form, Input, Row, Select } from 'antd'
-import { GENDERS } from '@/lib/types'
+import { Gender, GENDERS } from '@/lib/types'
 import type { Archetype } from '@/lib/character/types'
 import { useTranslations } from 'next-intl'
 
@@ -15,6 +15,7 @@ export function IdentityCard({
   const archetypePower = watchedArchetype
     ? t(`common.archetype_powers.${watchedArchetype}`)
     : null
+  const gender = Form.useWatch('gender') ?? ('indeterminate' as Gender)
 
   return (
     <Card title={t('characters.identity.identity_section')}>
@@ -41,15 +42,15 @@ export function IdentityCard({
               options={[
                 {
                   value: 'warrior',
-                  label: t('common.archetypes.warrior'),
+                  label: t('common.archetypes.warrior', { gender }),
                 },
                 {
                   value: 'pilgrim',
-                  label: t('common.archetypes.pilgrim'),
+                  label: t('common.archetypes.pilgrim', { gender }),
                 },
                 {
                   value: 'bard',
-                  label: t('common.archetypes.bard'),
+                  label: t('common.archetypes.bard', { gender }),
                 },
               ]}
             />
