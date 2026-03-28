@@ -24,6 +24,7 @@ type LayoutProps = {
   bannerBiome?: BiomeId | 'unexplored'
   breadcrumbs: BreadcrumbProps['items']
   children: ReactNode
+  className?: string
 }
 
 export const Layout = ({
@@ -33,6 +34,7 @@ export const Layout = ({
   headerActions,
   sheetNightChrome,
   bannerBiome,
+  className = '',
 }: LayoutProps) => {
   const pathname = usePathname()
   const t = useTranslations()
@@ -77,6 +79,17 @@ export const Layout = ({
         ),
       },
       {
+        key: '/faq',
+        label: (
+          <BlockedLink
+            href='/faq'
+            data-current={pathname.startsWith('/faq')}
+            data-position='right'>
+            {t('nav.faq')}
+          </BlockedLink>
+        ),
+      },
+      {
         key: '/settings',
         label: (
           <BlockedLink
@@ -92,7 +105,11 @@ export const Layout = ({
 
   return (
     <AntLayout
-      className={sheetNightChrome ? 'Layout Layout--dark' : 'Layout'}
+      className={
+        sheetNightChrome
+          ? `Layout Layout--dark ${className}`
+          : `Layout ${className}`
+      }
       data-sheet-night={sheetNightChrome ? 'true' : undefined}>
       <AntLayout.Header style={{ display: 'flex', alignItems: 'center' }}>
         <Menu

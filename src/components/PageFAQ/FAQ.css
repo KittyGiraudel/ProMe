@@ -1,0 +1,13 @@
+.FAQ .Layout__content .ant-typography {
+  --ant-font-size-heading-2: 1.5em !important;
+  --ant-font-size: 20px !important;
+}
+
+.FAQ .Layout__content .ant-typography:not(h2) {
+  --ant-typography-title-margin-bottom: 0 !important;
+  margin-bottom: var(--ant-typography-title-margin-bottom);
+}
+
+.FAQ .Layout__content h2.ant-typography {
+  margin-top: 1.5em;
+}

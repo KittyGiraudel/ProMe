@@ -1,0 +1,47 @@
+'use client'
+
+import { Layout } from '@/components/Layout/Layout'
+import { Typography } from 'antd'
+import { AppConfig, useTranslations } from 'next-intl'
+import './FAQ.css'
+
+export function FAQ() {
+  const t = useTranslations()
+
+  return (
+    <Layout
+      title={t('faq.title')}
+      bannerBiome='mushroomJungle'
+      breadcrumbs={[
+        { title: t('nav.home'), path: '/' },
+        { title: t('nav.faq'), path: '/faq' },
+      ]}
+      className='FAQ'>
+      {Array.from({ length: 3 }, (_, i) => (
+        <Entry index={i + 1} />
+      ))}
+    </Layout>
+  )
+}
+
+function Entry({ index }: { index: number }) {
+  const t = useTranslations()
+  return (
+    <>
+      <Typography.Title level={2}>
+        {t(`faq.question_${index}` as Parameters<typeof t>[0])}
+      </Typography.Title>
+      <Paragraphs
+        translation={t(`faq.answer_${index}` as Parameters<typeof t>[0])}
+      />
+    </>
+  )
+}
+
+function Paragraphs({ translation }: { translation: string }) {
+  return translation
+    .split(/\n/g)
+    .map((paragraph, index) => (
+      <Typography.Paragraph key={index}>{paragraph}</Typography.Paragraph>
+    ))
+}

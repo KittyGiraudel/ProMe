@@ -75,3 +75,7 @@
   background-color: rgb(255 255 255 / 0.1);
   transition: background-color 200ms;
 }
+
+.Layout__menu .ant-menu-item:has([data-position="right"]) {
+  margin-left: auto;
+}
