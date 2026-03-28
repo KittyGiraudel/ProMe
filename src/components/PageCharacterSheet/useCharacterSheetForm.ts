@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { App, Form } from 'antd'
 import { getCharacterStore } from '@/lib/character/store'
@@ -31,7 +31,7 @@ export function useCharacterSheetForm({ characterId }: { characterId: string }) 
   }, [characterId])
 
   const confirmUnsavedLeave = useCallback(
-    ({ onLeave, onStay }: { onLeave: () => void; onStay: () => void }) => {
+    ({ onLeave, onStay }: { onLeave: VoidFunction; onStay: VoidFunction }) => {
       modal.confirm({
         title: t('characters.unsaved_changes_title'),
         content: t('characters.unsaved_changes_description'),
@@ -57,10 +57,9 @@ export function useCharacterSheetForm({ characterId }: { characterId: string }) 
     resetToken: `${characterId}|${character?.updatedAt ?? ''}`,
   })
 
-
   const onSaved = useCallback((saved: Character) => setCharacter(saved), [])
 
-  return {
+  return useMemo(() => ({
     form,
     character,
     hydratedFromStore,
@@ -68,7 +67,15 @@ export function useCharacterSheetForm({ characterId }: { characterId: string }) 
     setSaveErrors,
     onSaved,
     activeTab,
-  }
+  }), [
+    form,
+    character,
+    hydratedFromStore,
+    saveErrors,
+    setSaveErrors,
+    onSaved,
+    activeTab
+  ])
 }
 
 

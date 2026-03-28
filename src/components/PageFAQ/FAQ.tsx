@@ -2,7 +2,7 @@
 
 import { Layout } from '@/components/Layout/Layout'
 import { Typography } from 'antd'
-import { AppConfig, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import './FAQ.css'
 
 export function FAQ() {
@@ -18,7 +18,7 @@ export function FAQ() {
       ]}
       className='FAQ'>
       {Array.from({ length: 3 }, (_, i) => (
-        <Entry index={i + 1} />
+        <Entry index={i + 1} key={i + 1} />
       ))}
     </Layout>
   )

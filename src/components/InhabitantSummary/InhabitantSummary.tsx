@@ -409,7 +409,7 @@ function PersonalityRow({
           label: t(`common.personalities.${p}`, { gender }),
         }
       }),
-    [t]
+    [t, gender]
   )
 
   return (

@@ -2,7 +2,7 @@
 
 import { RedoOutlined } from '@ant-design/icons'
 import { useMemo } from 'react'
-import { Card, Empty, Space, Typography } from 'antd'
+import { Card, Empty, Space } from 'antd'
 import { encodePlayingCard } from '@/lib/codec/cards'
 import type { VillageRoll } from '@/lib/village/generate'
 import type { InhabitantRoll } from '@/lib/inhabitant/generate'

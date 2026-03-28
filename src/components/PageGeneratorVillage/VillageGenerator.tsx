@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo } from 'react'
-import { App, Select, Space, Typography } from 'antd'
+import { App, Select, Typography } from 'antd'
 import { useTranslations } from 'next-intl'
 import type { InhabitantRoll } from '@/lib/inhabitant/generate'
 import { generateInhabitantWithFaction } from '@/lib/inhabitant/generate'
