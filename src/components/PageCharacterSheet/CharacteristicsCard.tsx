@@ -1,6 +1,6 @@
 'use client'
 
-import { QuestionCircleOutlined, RedoOutlined } from '@ant-design/icons'
+import { RedoOutlined } from '@ant-design/icons'
 import {
   App,
   Card,
@@ -15,6 +15,7 @@ import {
 } from 'antd'
 import { Button } from '@/components/Button/Button'
 import { useTranslations } from 'next-intl'
+import { HelpButton } from '../HelpButton/HelpButton'
 
 type PoolKey = 'health' | 'courage' | 'stamina'
 type ResourceKey = 'honor' | 'inspiration' | 'money'
@@ -98,19 +99,7 @@ export function CharacteristicsCard() {
           trigger='click'
           placement='top'
           styles={{ root: { maxWidth: 360 } }}>
-          <Button
-            type='text'
-            size='small'
-            htmlType='button'
-            icon={<QuestionCircleOutlined />}
-            aria-label={t('rulebook.information')}
-            style={{
-              padding: 0,
-              width: 18,
-              height: 18,
-              color: '#8c8c8c',
-            }}
-          />
+          <HelpButton label={t('rulebook.information')} />
         </Popover>
       </Typography.Text>
     )
@@ -142,13 +131,7 @@ export function CharacteristicsCard() {
         title={t('characters.characteristics_section')}
         extra={
           <Tooltip title={t('rulebook.characteristics_footnote')}>
-            <Button
-              type='text'
-              size='small'
-              htmlType='button'
-              icon={<QuestionCircleOutlined />}
-              aria-label={t('rulebook.information')}
-            />
+            <HelpButton label={t('rulebook.information')} />
           </Tooltip>
         }>
         <Row gutter={[16, 16]}>

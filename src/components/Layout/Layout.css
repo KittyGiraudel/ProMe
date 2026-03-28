@@ -32,7 +32,6 @@
 }
 
 .Layout__title-row {
-  margin-bottom: 1.5rem;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;

@@ -21,6 +21,7 @@ import {
 } from './useCharacterLifeStatusActions'
 import { CharacterSheetTabNav } from './CharacterSheetTabNav'
 import { CharacterStats } from '../CharacterStats/CharacterStats'
+import { Link } from '@/i18n/navigation'
 
 export function CharacterSheetShell({
   characterId,
@@ -154,9 +155,19 @@ export function CharacterSheetShell({
                 ) : null}
                 {isDead ? (
                   <Alert
-                    type='error'
+                    showIcon
+                    closable
+                    type='warning'
                     title={t('characters.dead_readonly_title')}
-                    description={t('characters.dead_readonly_description')}
+                    description={t.rich(
+                      'characters.dead_readonly_description',
+                      {
+                        gender: character.gender ?? 'indeterminate',
+                        link: content => (
+                          <Link href='./actions'>{content}</Link>
+                        ),
+                      }
+                    )}
                   />
                 ) : null}
 

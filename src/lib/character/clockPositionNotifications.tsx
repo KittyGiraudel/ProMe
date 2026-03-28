@@ -60,7 +60,7 @@ export function useSetClockToRawTargetWithToast({
           placement: 'bottomRight',
           duration: 4,
           actions: (
-            <Link href={`/characters/${characterId}/inventory`}>
+            <Link href='./inventory'>
               {t('common.go_to', {
                 destination: t('characters.inventory.title'),
               })}

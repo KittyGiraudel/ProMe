@@ -1,9 +1,9 @@
 'use client'
 
-import { QuestionCircleOutlined } from '@ant-design/icons'
 import {
   Card,
   ConfigProvider,
+  Empty,
   Form,
   Input,
   Space,
@@ -14,6 +14,7 @@ import { Button } from '@/components/Button/Button'
 import { useTranslations } from 'next-intl'
 import { randomId } from '@/lib/character/model'
 import './SpellbookCard.css'
+import { HelpButton } from '../HelpButton/HelpButton'
 
 const SPELLBOOK_MAX = 6
 
@@ -33,13 +34,7 @@ export function SpellbookCard() {
           })}
           extra={
             <Tooltip title={t('rulebook.spellbook_footnote')}>
-              <Button
-                type='text'
-                size='small'
-                htmlType='button'
-                icon={<QuestionCircleOutlined />}
-                aria-label={t('rulebook.information')}
-              />
+              <HelpButton label={t('rulebook.information')} />
             </Tooltip>
           }
           actions={
@@ -61,39 +56,43 @@ export function SpellbookCard() {
                 ]
               : undefined
           }>
-          <Space orientation='vertical' style={{ width: '100%' }}>
-            {fields.map(field => (
-              <Space
-                key={field.key}
-                style={{ width: '100%' }}
-                className='SpellbookCard__Row'>
-                <Form.Item
-                  name={[field.name, 'name']}
-                  label={t('characters.inventory.spell_name_label')}
-                  noStyle>
-                  <Input
-                    placeholder={t('characters.inventory.spell_name_label')}
-                  />
-                </Form.Item>
+          {fields.length > 0 ? (
+            <Space orientation='vertical' style={{ width: '100%' }}>
+              {fields.map(field => (
+                <Space
+                  key={field.key}
+                  style={{ width: '100%' }}
+                  className='SpellbookCard__Row'>
+                  <Form.Item
+                    name={[field.name, 'name']}
+                    label={t('characters.inventory.spell_name_label')}
+                    noStyle>
+                    <Input
+                      placeholder={t('characters.inventory.spell_name_label')}
+                    />
+                  </Form.Item>
 
-                <Form.Item
-                  name={[field.name, 'note']}
-                  label={t('characters.inventory.spell_note_label')}
-                  noStyle>
-                  <Input
-                    placeholder={t('characters.inventory.spell_note_label')}
-                  />
-                </Form.Item>
+                  <Form.Item
+                    name={[field.name, 'note']}
+                    label={t('characters.inventory.spell_note_label')}
+                    noStyle>
+                    <Input
+                      placeholder={t('characters.inventory.spell_note_label')}
+                    />
+                  </Form.Item>
 
-                <Button
-                  danger
-                  onClick={() => remove(field.name)}
-                  htmlType='button'>
-                  {t('common.delete')}
-                </Button>
-              </Space>
-            ))}
-          </Space>
+                  <Button
+                    danger
+                    onClick={() => remove(field.name)}
+                    htmlType='button'>
+                    {t('common.delete')}
+                  </Button>
+                </Space>
+              ))}
+            </Space>
+          ) : (
+            <Empty description={t('characters.inventory.spellbook_empty')} />
+          )}
         </Card>
       )}
     </Form.List>

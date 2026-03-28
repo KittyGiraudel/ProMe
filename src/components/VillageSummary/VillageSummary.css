@@ -130,10 +130,6 @@
 }
 
 .VillageSummary__line-main {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.15rem 0.25rem;
   flex: 1;
   min-width: 0;
 }
@@ -172,6 +168,7 @@
   gap: 0;
   color: var(--lsdp-muted);
   font-size: 0.875rem;
+  margin-left: 1ch;
   white-space: nowrap;
 }
 

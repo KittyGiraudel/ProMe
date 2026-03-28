@@ -2,6 +2,8 @@
 import { Button as AntdButton, type ButtonProps as AntdButtonProps } from 'antd'
 import { useRouter } from '@/i18n/navigation'
 
+export type ButtonProps = AntdButtonProps
+
 export function Button({ onClick, href, ...props }: AntdButtonProps) {
   const router = useRouter()
   return (

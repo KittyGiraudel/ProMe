@@ -1,6 +1,5 @@
 'use client'
 
-import { QuestionCircleOutlined } from '@ant-design/icons'
 import { Card, Form, Input, Popover, Space, Tag, Typography } from 'antd'
 import { useSetClockToRawTargetWithToast } from '@/lib/character/clockPositionNotifications'
 import {
@@ -13,6 +12,7 @@ import type { StatPool } from '@/lib/character/types'
 import { Button } from '@/components/Button/Button'
 import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
+import { HelpButton } from '../HelpButton/HelpButton'
 
 export function ClockCard() {
   const t = useTranslations()
@@ -80,13 +80,7 @@ export function ClockCard() {
           trigger='click'
           placement='top'
           styles={{ root: { maxWidth: 360 } }}>
-          <Button
-            type='text'
-            size='small'
-            htmlType='button'
-            icon={<QuestionCircleOutlined />}
-            aria-label={t('rulebook.information')}
-          />
+          <HelpButton label={t('rulebook.information')} />
         </Popover>
       }
       actions={[

@@ -12,9 +12,6 @@ export function IdentityCard({
 }) {
   const t = useTranslations()
   const watchedArchetype = Form.useWatch('archetype') as Archetype | undefined
-  const archetypePower = watchedArchetype
-    ? t(`common.archetype_powers.${watchedArchetype}`)
-    : null
   const gender = Form.useWatch('gender') ?? ('indeterminate' as Gender)
 
   return (
@@ -34,8 +31,7 @@ export function IdentityCard({
           <Form.Item
             rules={[{ required: true }]}
             name='archetype'
-            label={t('characters.identity.archetype_label')}
-            style={{ marginBottom: archetypePower ? 8 : 0 }}>
+            label={t('characters.identity.archetype_label')}>
             <Select
               disabled={isArchetypeReadonly}
               style={{ width: '100%' }}
@@ -73,23 +69,15 @@ export function IdentityCard({
           </Form.Item>
         </Col>
       </Row>
-      {archetypePower ? (
-        <Row>
-          <Col xs={24}>
-            <Alert
-              style={{ marginTop: 16 }}
-              type='info'
-              title={
-                <>
-                  <strong>
-                    {t('characters.identity.archetype_power_label')} :
-                  </strong>{' '}
-                  {archetypePower}
-                </>
-              }
-            />
-          </Col>
-        </Row>
+
+      {watchedArchetype ? (
+        <Alert
+          type='info'
+          title={t(`common.archetype_powers.${watchedArchetype}_title`)}
+          description={t(
+            `common.archetype_powers.${watchedArchetype}_description`
+          )}
+        />
       ) : null}
     </Card>
   )

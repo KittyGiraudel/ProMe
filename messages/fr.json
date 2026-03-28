@@ -33,9 +33,12 @@
       "bard": "{gender, select, man {Troubadour} woman {Troubadouresse} other {Troubadour·esse}}"
     },
     "archetype_powers": {
-      "warrior": "Le pouvoir de l’épée : quand vous le souhaitez, vous pouvez fuir une bataille sans avoir à lancer de dés ni risquer de subir des dégâts.",
-      "pilgrim": "Le pouvoir du bâton : vous n’avez besoin de vous nourrir qu’une fois par jour, à la fin de chaque nuit.",
-      "bard": "Le pouvoir de la mandoline : lorsque vous arrivez dans un village pour la première fois, vous pouvez jouer une chanson et gagner 1D6 × 10 pièces."
+      "warrior_title": "Le pouvoir de l’épée",
+      "warrior_description": "Quand vous le souhaitez, vous pouvez fuir une bataille sans avoir à lancer de dés ni risquer de subir des dégâts.",
+      "pilgrim_title": "Le pouvoir du bâton",
+      "pilgrim_description": "Vous n’avez besoin de vous nourrir qu’une fois par jour, à la fin de chaque nuit.",
+      "bard_title": "Le pouvoir de la mandoline",
+      "bard_description": "Lorsque vous arrivez dans un village pour la première fois, vous pouvez jouer une chanson et gagner 1D6 × 10 pièces."
     },
     "factions": {
       "bruja": "Bruja",
@@ -157,13 +160,12 @@
     "not_found_description": "Cette fiche n’existe pas (ou plus) dans ce navigateur.",
     "back_to_library": "Retour à la bibliothèque",
     "dead_readonly_title": "Protecteur décédé",
-    "dead_readonly_description": "Ce Protecteur est décédé. Par conséquent, cette fiche est figée et entièrement en lecture seule.",
+    "dead_readonly_description": "{gender, select, man {Ce Protecteur est décédé} woman {Cette Protectrice est décédée} other {Ce·tte Protecteur·trice est décédé·e}}. Par conséquent, cette fiche est figée et entièrement en lecture seule. {gender, select, man {Ce Protecteur peut être réanimé} woman {Cette Protectrice peut être réanimée} other {Ce·tte Protecteur·trice peut être réanimé·e}} dans l’onglet « <link>Actions</link> » de la fiche de personnage.",
     "unsaved_changes_title": "Modifications non enregistrées",
     "unsaved_changes_description": "Vous avez des modifications non enregistrées. Si vous quittez cette page, ces modifications seront perdues.",
     "unsaved_changes_leave": "Quitter",
     "unsaved_changes_stay": "Rester",
     "gender_label": "Genre",
-    "archetype_power_label": "Pouvoir de l’archetype",
     "archetype_label": "Archétype",
     "name_label": "Nom",
     "identity_section": "Identité",
@@ -246,7 +248,9 @@
       "spellbook_section": "Grimoire <status>({count} / 6)</status>",
       "spell_name_label": "Nom du sort",
       "spell_note_label": "Note",
-      "add_spell": "Ajouter un sort"
+      "add_spell": "Ajouter un sort",
+      "inventory_empty": "L’inventaire est vide.",
+      "spellbook_empty": "Le grimoire est vide."
     },
     "journal": {
       "title": "Journal",
@@ -278,7 +282,7 @@
     "actions": {
       "title": "Actions",
       "delete_confirm_title": "Supprimer ce Protecteur ?",
-      "delete_confirm_description": "Cette action est irréversible — la fiche de Protecteur sera définitive supprimée.",
+      "delete_confirm_description": "La fiche de Protecteur sera définitive supprimée et cette action est irréversible.",
       "revive_action": "Réanimer",
       "revive_confirm_title": "Réanimer ce Protecteur ?",
       "revive_confirm_description": "Le Protecteur deviendra jouable et sa fiche sera modifiable à nouveau.",
