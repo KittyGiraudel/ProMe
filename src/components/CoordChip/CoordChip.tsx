@@ -8,25 +8,29 @@ export function CoordChip({
   biome,
   value,
   coord,
+  interactive = true,
 }: {
   biome: BiomeId | 'unexplored'
   value: string
   coord?: HexCoordinate
+  /** When false, never link to the map (e.g. journal preview inside a modal). */
+  interactive?: boolean
 }) {
-  if (coord) {
+  const inner = (
+    <>
+      <BiomeBubble biome={biome} />
+      <span className='CoordChip__label'>{value}</span>
+    </>
+  )
+
+  if (coord && interactive) {
     const fragment = getDisplayedCellHash(coord)
     return (
       <Link className='CoordChip' href={'./map' + fragment}>
-        <BiomeBubble biome={biome} />
-        <span className='CoordChip__label'>{value}</span>
+        {inner}
       </Link>
     )
   }
 
-  return (
-    <span className='CoordChip'>
-      <BiomeBubble biome={biome} />
-      <span className='CoordChip__label'>{value}</span>
-    </span>
-  )
+  return <span className='CoordChip'>{inner}</span>
 }

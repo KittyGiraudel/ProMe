@@ -11,6 +11,7 @@ export type ParsedGeneratorLink =
       faction: ReturnType<typeof decodeVillageFactionParam>
     }
 
+/** Resolve absolute URL; relative paths use a dummy origin. */
 function normalizeUrl(rawUrl: string): URL | null {
   try {
     return new URL(rawUrl)
@@ -28,6 +29,7 @@ function pathnameSegments(pathname: string): string[] {
   return pathname.replace(/\/+$/, '').split('/').filter(Boolean)
 }
 
+/** Decode `%XX` sequences (up to twice) for generator path segments. */
 function safeDecodeURIComponent(value: string): string {
   let curr = value
   // Some inputs can end up double-encoded (e.g. `%257E` instead of `%7E`).
@@ -45,13 +47,7 @@ function safeDecodeURIComponent(value: string): string {
 }
 
 /**
- * Best-effort parsing for generator share links used in journal markdown.
- *
- * Supported shapes (with optional locale prefix):
- * - `/<locale>/generators/npc/<id>`
- * - `/<locale>/generators/village/<id>?f=<faction>`
- * - `/generators/npc/<id>`
- * - `/generators/village/<id>?f=<faction>`
+ * Parse village or NPC generator share URLs (optional locale prefix, optional `?f=` for villages).
  */
 export function parseGeneratorLink(rawUrl: string): ParsedGeneratorLink | null {
   const parsed = normalizeUrl(rawUrl)

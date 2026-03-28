@@ -142,3 +142,7 @@ a {
   margin-top: 8px;
   font-size: 85%;
 }
+
+html:has([role="dialog"]) {
+  overflow: hidden;
+}

@@ -11,7 +11,7 @@ import {
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 import { Button } from '@/components/Button/Button'
 import { useTranslations } from 'next-intl'
-import { GeneratorLinkPreview } from '@/components/GeneratorLinkPreview/GeneratorLinkPreview'
+import { JournalReferencePreview } from '@/components/JournalReferencePreview/JournalReferencePreview'
 
 export type VillageOwnerEntry = { roll: InhabitantRoll; ownerIndex: number }
 
@@ -38,8 +38,10 @@ export function VillageEstablishmentOwners({
           {t.rich('inhabitant.one_liner_rich', {
             gender: genderCompactSymbol(gender),
             name: () => (
-              <GeneratorLinkPreview
+              <JournalReferencePreview
                 key='link'
+                kind='npc'
+                referenceId={encodeInhabitantRoll(e.roll)}
                 href={inhabitantHref}
                 className='VillageSummary__owner-name-link'
                 label={e.roll.name}

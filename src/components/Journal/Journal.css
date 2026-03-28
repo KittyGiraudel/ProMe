@@ -7,18 +7,11 @@
   padding-bottom: 8px;
 }
 
-.Journal__actions {
+.Journal__edit.Journal__edit {
   position: absolute;
-  top: -8px;
+  top: 0;
   right: 0;
   z-index: 1; 
-}
-
-.Journal__entry[data-mode="preview"] .Journal__actions {
-  top: 0;
-}
-
-.Journal__edit {
   opacity: 0;
   pointer-events: none;
   transition: opacity 120ms ease-in-out;
@@ -68,11 +61,89 @@
   font-size: 12px;
 }
 
-.Journal_permalink {
+.Journal__permalink {
   font-size: 12px;
   color: var(--ant-colorLink);
 }
 
-.Journal_permalink:hover {
+.Journal__permalink:hover {
   text-decoration: underline;
+}
+
+.Journal__modalMain {
+}
+
+.Journal__modalPreview {
+}
+
+.Journal__modalFooter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+@media (min-width: 992px) {
+.Journal__cheatsheet {
+    border-left: 1px solid var(--ant-color-border-secondary);
+    padding-left: 16px;
+  }
+}
+
+.Journal__cheatsheetTitle {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.Journal__cheatsheetTitle:not(:first-child) {
+  margin-top: 16px;
+}
+
+.Journal__cheatsheetBlock {
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.Journal__cheatsheetList {
+  margin: 0 0 12px;
+  padding-left: 1.25rem;
+  font-size: 1em;
+  color: var(--ant-colorTextSecondary);
+}
+
+.Journal__cheatsheetList li {
+  margin: 0.35em 0;
+}
+
+.Journal__cheatsheetCode {
+  font-size: 12px;
+}
+
+.Journal__cheatsheetGlyphs_dice {
+  font-size: 1.15em;
+}
+
+.Journal__modalEditor .Journal__textarea {
+  font-size: 1.2em;
+}
+
+.Journal__modalMain .ant-tabs,
+.Journal__modalMain .ant-tabs-tabpane,
+.Journal__modalMain .ant-tabs-content {
+  height: 100%;
+}
+
+@media (max-width: 992px) {
+  .Journal__editModal.ant-modal {
+    top: 0 !important;
+  }
+}
+
+.Journal__modalMain .Journal__modalPreview {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -34,7 +34,7 @@ function JournalEntryMenuLabel({
   const t = useTranslations()
   const snippet = journalContentFirstLine(link.content ?? '')
   const dateLabel = useFormattedDate(link.createdAt)
-  const textValue = snippet || t('characters.journal.preview_empty')
+  const textValue = snippet || t('characters.journal.entry_empty')
 
   return (
     <Link

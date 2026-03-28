@@ -1,38 +1,38 @@
 'use client'
 
-import { App, ConfigProvider, Form, Input, Space, Typography } from 'antd'
+import { App, ConfigProvider, Form, Typography } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
 import type { FormInstance } from 'antd'
 import { Button } from '@/components/Button/Button'
-import { JournalMarkdown } from '@/components/JournalMarkdown/JournalMarkdown'
+import { JournalEntryBodyPreview } from '@/components/Journal/JournalEntryBodyPreview'
+import { JournalEntryEditModal } from '@/components/Journal/JournalEntryEditModal'
 import { useFormatter, useTranslations } from 'next-intl'
-import { useCallback } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 
+type JournalEntryProps = {
+  field: FormListFieldData
+  form: FormInstance
+  editing: boolean
+  setEditingMode: (fieldKey: number, isEditing: boolean) => void
+  deleteEntry: (entryIndex: number) => void
+}
+
+/**
+ * One timeline journal row: preview, edit affordance, and modal editor wired to
+ * the character form.
+ */
 export function JournalEntry({
   field,
   form,
   editing,
   setEditingMode,
   deleteEntry,
-}: {
-  field: FormListFieldData
-  form: FormInstance
-  editing: boolean
-  setEditingMode: (fieldKey: number, isEditing: boolean) => void
-  deleteEntry: (entryIndex: number) => void
-}) {
+}: JournalEntryProps) {
   const { modal } = App.useApp()
   const { componentDisabled } = ConfigProvider.useConfig()
-  const format = useFormatter()
-
-  const formatTimestamp = (value: string | undefined): string | null => {
-    if (!value) return null
-    const date = new Date(value)
-    if (Number.isNaN(date.getTime())) return null
-    return format.dateTime(date, { dateStyle: 'medium', timeStyle: 'short' })
-  }
-
+  const initialContentRef = useRef<string | undefined>(undefined)
   const t = useTranslations()
+
   const content = form.getFieldValue([
     'journalEntries',
     field.name,
@@ -52,10 +52,23 @@ export function JournalEntry({
     | string
     | undefined
 
+  const draftContent = Form.useWatch(
+    ['journalEntries', field.name, 'content'],
+    form
+  ) as string | undefined
+
   const hasContent = Boolean(content?.trim())
-  const createdLabel = formatTimestamp(createdAt)
-  const updatedLabel = formatTimestamp(updatedAt)
   const entryAnchor = entryId ? `journal-entry-${entryId}` : undefined
+
+  useEffect(() => {
+    if (editing) {
+      initialContentRef.current = form.getFieldValue([
+        'journalEntries',
+        field.name,
+        'content',
+      ]) as string | undefined
+    }
+  }, [editing, field.name, form])
 
   const handleDelete = useCallback(
     (index: number) => {
@@ -72,91 +85,51 @@ export function JournalEntry({
     [deleteEntry, hasContent, t, modal]
   )
 
-  return (
-    <div
-      id={entryAnchor}
-      data-mode={editing ? 'edit' : 'preview'}
-      className='Journal__entry'>
-      <div className='Journal__actions'>
-        {!componentDisabled && editing ? (
-          <Space>
-            <Button
-              danger
-              type='link'
-              htmlType='button'
-              onClick={() => handleDelete(field.name)}>
-              {t('common.delete')}
-            </Button>
-            <Button
-              htmlType='button'
-              type='primary'
-              onClick={() => setEditingMode(field.key, false)}>
-              {t('characters.journal.done_editing')}
-            </Button>
-          </Space>
-        ) : !componentDisabled ? (
-          <Button
-            className='Journal__edit'
-            htmlType='button'
-            onClick={() => setEditingMode(field.key, true)}>
-            {t('characters.journal.edit_entry')}
-          </Button>
-        ) : null}
-      </div>
+  const handleModalSave = useCallback(() => {
+    if (!componentDisabled) {
+      form.setFieldValue(
+        ['journalEntries', field.name, 'updatedAt'],
+        new Date().toISOString()
+      )
+      setEditingMode(field.key, false)
+    }
+  }, [componentDisabled, field.key, field.name, form, setEditingMode])
 
-      {editing ? (
-        <>
-          <Form.Item
-            name={[field.name, 'content']}
-            label={t('characters.journal.entry_content_label')}
-            style={{ marginBottom: 0 }}
-            className='Journal__editor'>
-            <Input.TextArea
-              rows={8}
-              placeholder={t('characters.journal.entry_content_placeholder')}
-              onKeyDown={e => {
-                if (e.key !== 'Enter') return
-                if (!e.metaKey && !e.ctrlKey) return
-                e.preventDefault()
-                if (!componentDisabled) setEditingMode(field.key, false)
-              }}
-              onChange={() => {
-                form.setFieldValue(
-                  ['journalEntries', field.name, 'updatedAt'],
-                  new Date().toISOString()
-                )
-              }}
-            />
-          </Form.Item>
-          <div className='Journal__symbols'>
-            <Typography.Text type='secondary'>
-              {t('characters.journal.symbols')}{' '}
-              <span style={{ transform: 'scale(1.2)' }}>⚀ ⚁ ⚂ ⚃ ⚄ ⚅</span>
-              <span>♠ ♥ ♦ ♣</span>
-              <span style={{ transform: 'scale(0.8)' }}>☼ ☾</span>
-              <span>« »</span>
-            </Typography.Text>
-          </div>
-        </>
-      ) : (
-        <>
-          {hasContent ? (
-            <JournalMarkdown markdown={content ?? ''} />
-          ) : (
-            <Typography.Text type='secondary'>
-              {t('characters.journal.preview_empty')}
-            </Typography.Text>
-          )}
-          <Typography.Text type='secondary' italic className='Journal__meta'>
-            <a href={`#${entryAnchor}`} className='Journal__permalink'>
-              {t('characters.journal.metadata', {
-                createdAt: createdLabel ?? '',
-                updatedAt: updatedLabel ?? '',
-              })}
-            </a>
-          </Typography.Text>
-        </>
-      )}
+  const handleModalCancel = useCallback(() => {
+    form.setFieldValue(
+      ['journalEntries', field.name, 'content'],
+      initialContentRef.current
+    )
+    setEditingMode(field.key, false)
+  }, [field.key, field.name, form, setEditingMode])
+
+  return (
+    <div id={entryAnchor} className='Journal__entry'>
+      {!componentDisabled && !editing ? (
+        <Button
+          className='Journal__edit'
+          htmlType='button'
+          onClick={() => setEditingMode(field.key, true)}>
+          {t('characters.journal.edit_entry')}
+        </Button>
+      ) : null}
+
+      <JournalEntryBodyPreview
+        content={content ?? ''}
+        entryAnchor={entryAnchor}
+        createdAt={createdAt}
+        updatedAt={updatedAt}
+      />
+
+      <JournalEntryEditModal
+        open={editing}
+        fieldName={field.name}
+        form={form}
+        draftContent={draftContent}
+        onCancel={handleModalCancel}
+        onSave={handleModalSave}
+        onDelete={() => handleDelete(field.name)}
+      />
     </div>
   )
 }

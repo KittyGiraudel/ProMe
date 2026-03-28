@@ -1,0 +1,9 @@
+.JournalReferencePreview__title {
+  margin-top: 0;
+}
+
+.JournalReferencePreview__static {
+  color: var(--ant-colorLink);
+  text-decoration: underline;
+  cursor: default;
+}

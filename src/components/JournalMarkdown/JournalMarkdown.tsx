@@ -4,216 +4,56 @@ import type { ReactNode } from 'react'
 import { cloneElement, isValidElement } from 'react'
 import type { Components } from 'react-markdown'
 import ReactMarkdown from 'react-markdown'
+import { useTranslations } from 'next-intl'
 import { createJournalMarkdownRendererConfig } from '@/lib/markdown/journalMarkdown'
-import {
-  tokenizeJournalInlineText,
-  type JournalInlineTokenRule,
-} from '@/lib/markdown/journalInlineTokens'
-import { extractDisplayedCellReferences } from '@/lib/hex/coordinates'
-import { getInhabitantSummaryFromUrl } from '@/lib/markdown/inhabitantLinkSummary'
-import { getVillageSummaryFromUrl } from '@/lib/markdown/villageLinkSummary'
+import { tokenizeJournalEmbellishUiRules } from '@/lib/markdown/journalEmbellishText'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
-import { BIOME_ROLL_TABLE } from '@/lib/constants/biomeRollTable'
-import { DICE, SUITS } from '@/lib/constants/misc'
-import { suitIsRed } from '@/lib/suitGlyphs'
-import type { Suit } from '@/lib/types'
 import { useCharacterContext } from '@/components/PageCharacterSheet/CharacterContext'
+import { buildJournalMarkdownEmbellishmentRules } from '@/components/JournalMarkdown/journalMarkdownEmbellishmentRules'
 import './JournalMarkdown.css'
-import { BiomeTag } from '@/components/BiomeTag/BiomeTag'
-import { CoordChip } from '@/components/CoordChip/CoordChip'
-import { _Translator, useTranslations } from 'next-intl'
-import { GeneratorLinkPreview } from '@/components/GeneratorLinkPreview/GeneratorLinkPreview'
 
-const BIOME_ENTRIES = BIOME_ROLL_TABLE.map(biome => ({
-  key: `common.biomes.${biome.biome}`,
-  biomeId: biome.biome,
-}))
-
-const SUIT_ENTRIES = Object.entries(SUITS).map(([suitId, symbol]) => ({
-  key: `common.suits.${suitId}`,
-  label: symbol,
-  suitId,
-}))
-
-const DICE_ENTRIES = DICE.map((symbol, index) => ({
-  key: `common.dice.${index + 1}`,
-  label: symbol,
-  value: index + 1,
-}))
-
-const SYMBOL_ALIAS_RULES: JournalInlineTokenRule[] = [
-  ...DICE_ENTRIES.map(entry => ({
-    key: `symbol:${entry.value}`,
-    match: `{${entry.value}}`,
-  })),
-  { key: 'symbol:spades', match: '{S}' },
-  { key: 'symbol:hearts', match: '{H}' },
-  { key: 'symbol:diamonds', match: '{D}' },
-  { key: 'symbol:clubs', match: '{C}' },
-]
-
-function getStaticTokenRules(t: _Translator): JournalInlineTokenRule[] {
-  const STATIC_TOKEN_RULES: JournalInlineTokenRule[] = [
-    ...BIOME_ENTRIES.map(entry => ({
-      key: `biome:${entry.biomeId}`,
-      match: t(entry.key),
-      wordBoundary: true,
-    })),
-    {
-      key: 'word:success',
-      match: t('common.check_success_word'),
-      wordBoundary: true,
-    },
-    {
-      key: 'word:failure',
-      match: t('common.check_failure_word'),
-      wordBoundary: true,
-    },
-    { key: 'symbol:sun', match: '☼' },
-    { key: 'symbol:moon', match: '☾' },
-    ...SUIT_ENTRIES.map(entry => ({
-      key: `symbol:${entry.suitId}`,
-      match: entry.label ?? t(entry.key),
-    })),
-    ...DICE_ENTRIES.map(entry => ({
-      key: `symbol:${entry.value}`,
-      match: entry.label ?? t(entry.key),
-    })),
-    ...SYMBOL_ALIAS_RULES,
-  ]
-
-  return STATIC_TOKEN_RULES
-}
-
-const BIOME_BY_TOKEN_KEY = new Map<string, (typeof BIOME_ENTRIES)[number]>(
-  BIOME_ENTRIES.map(entry => [`biome:${entry.biomeId}`, entry])
-)
-
-const TOKEN_RENDERER_ENTRIES: Array<
-  [string, (value: string, key: string) => ReactNode]
-> = [
-  [
-    'word:success',
-    (value, key) => (
-      <span key={key} style={{ '--color': 'green' } as React.CSSProperties}>
-        {value}
-      </span>
-    ),
-  ],
-  [
-    'word:failure',
-    (value, key) => (
-      <span key={key} style={{ '--color': 'red' } as React.CSSProperties}>
-        {value}
-      </span>
-    ),
-  ],
-  [
-    'symbol:sun',
-    (value, key) => (
-      <span key={key} style={{ '--color': '#d4a017' } as React.CSSProperties}>
-        {value}
-      </span>
-    ),
-  ],
-  [
-    'symbol:moon',
-    (value, key) => (
-      <span key={key} style={{ '--color': '#1f3f8b' } as React.CSSProperties}>
-        {value}
-      </span>
-    ),
-  ],
-  ...SUIT_ENTRIES.map(
-    (entry): [string, (value: string, key: string) => ReactNode] => [
-      `symbol:${entry.suitId}`,
-      (_value: string, key: string) => (
-        <span
-          key={key}
-          data-zoom
-          style={
-            {
-              '--color': suitIsRed(entry.suitId as Suit) ? 'red' : 'black',
-            } as React.CSSProperties
-          }>
-          {entry.label}
-        </span>
-      ),
-    ]
-  ),
-  ...DICE_ENTRIES.map(
-    (entry): [string, (value: string, key: string) => ReactNode] => [
-      `symbol:${entry.value}`,
-      (_value: string, key: string) => (
-        <span key={key} data-zoom>
-          {entry.label}
-        </span>
-      ),
-    ]
-  ),
-]
-
-const TOKEN_RENDERERS = new Map<
-  string,
-  (value: string, key: string) => ReactNode
->(TOKEN_RENDERER_ENTRIES)
-
-function buildCoordinateRules(text: string): JournalInlineTokenRule[] {
-  return extractDisplayedCellReferences(text).map(reference => ({
-    key: `coord:${reference}`,
-    match: reference,
-    wordBoundary: true,
-  }))
-}
-
-export function JournalMarkdown({ markdown }: { markdown: string }) {
+/**
+ * Renders journal markdown with remark-gfm, then applies inline embellishment
+ * (biomes, dice, `{village/…}` tokens, etc.) inside text nodes only.
+ */
+export function JournalMarkdown({
+  markdown,
+  interactive = true,
+}: {
+  markdown: string
+  // When false, markdown and embellishment links do not navigate
+  // (e.g. edit-modal preview).
+  interactive?: boolean
+}) {
   const { getCellData } = useCharacterContext()
   const { settings } = useSettings()
   const t = useTranslations()
 
-  const renderTokenSegment = (
-    tokenKey: string,
-    value: string,
-    key: string
-  ): ReactNode => {
-    const biome = BIOME_BY_TOKEN_KEY.get(tokenKey)
-    if (biome) {
-      return <BiomeTag key={key} biome={biome.biomeId} />
-    }
-
-    if (tokenKey.startsWith('coord:')) {
-      const reference = tokenKey.slice('coord:'.length)
-      const cellData = getCellData(reference)
-      if (cellData) {
-        return (
-          <CoordChip
-            key={key}
-            biome={cellData.biome}
-            value={cellData.ref}
-            coord={cellData.coord}
-          />
-        )
-      }
-      return <CoordChip key={key} biome='unexplored' value={reference} />
-    }
-
-    const renderer = TOKEN_RENDERERS.get(tokenKey)
-    if (!renderer) return value
-    return renderer(value, key)
-  }
-
   const renderHighlightedText = (text: string): ReactNode => {
     if (!text) return text
 
-    const tokenRules = [
-      ...getStaticTokenRules(t),
-      ...buildCoordinateRules(text),
-    ]
-    const segments = tokenizeJournalInlineText(text, tokenRules)
+    const rules = buildJournalMarkdownEmbellishmentRules(
+      {
+        t,
+        getCellData,
+        mergeVillageDuplicateEstablishments:
+          settings.village.mergeDuplicateEstablishments,
+        interactive,
+      },
+      text
+    )
+
+    const segments = tokenizeJournalEmbellishUiRules(text, rules)
     const output: ReactNode[] = segments.map((segment, index) => {
       if (segment.type === 'text') return segment.value
-      return renderTokenSegment(segment.key, segment.value, `token-${index}`)
+      const rule = rules[segment.ruleIndex]!
+      return rule.render({
+        slice: segment.slice,
+        refId: segment.refId,
+        reactKey: `emb-${index}`,
+      })
     })
+
     if (output.length === 1 && output[0] === text) return text
     return output
   }
@@ -253,29 +93,11 @@ export function JournalMarkdown({ markdown }: { markdown: string }) {
     h4: ({ children, node: _node, ...props }) => (
       <h4 {...props}>{renderWithHighlights(children)}</h4>
     ),
-    a: ({ children, node: _node, href, ...props }) => {
-      const inhabitantSummary = href
-        ? getInhabitantSummaryFromUrl(href, t)
-        : null
-      const villageSummary =
-        !inhabitantSummary && href
-          ? getVillageSummaryFromUrl(href, t, {
-              mergeDuplicateEstablishments:
-                settings.village.mergeDuplicateEstablishments,
-            })
-          : null
-      const generatorLabel = inhabitantSummary ?? villageSummary ?? null
-      if (href && generatorLabel) {
-        return <GeneratorLinkPreview href={href} label={generatorLabel} />
-      }
-      return (
-        <a {...props} href={href}>
-          {inhabitantSummary ??
-            villageSummary ??
-            renderWithHighlights(children)}
-        </a>
-      )
-    },
+    a: ({ children, node: _node, href, ...props }) => (
+      <a {...props} href={interactive ? href : undefined}>
+        {renderWithHighlights(children)}
+      </a>
+    ),
   }
 
   const rendererConfig = createJournalMarkdownRendererConfig({

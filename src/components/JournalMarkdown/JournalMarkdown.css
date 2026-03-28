@@ -93,12 +93,17 @@
   background: transparent;
 }
 
-.JournalMarkdown a {
-  color: var(--ant-colorLink);
+.JournalMarkdown a,
+.JournalMarkdown__inlineLink {
+  color: var(--ant-color-link);
   text-decoration: underline;
 }
 
-.JournalMarkdown span[style] {
+.JournalMarkdown__inlineLink {
+  cursor: default;
+}
+
+.JournalMarkdown__accent {
   color: var(--color, currentColor);
   font-weight: 700;
 }

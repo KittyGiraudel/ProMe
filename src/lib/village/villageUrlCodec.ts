@@ -16,16 +16,15 @@ import { _Translator } from "next-intl";
 /**
  * Separator between compact inhabitant blobs inside the village owners payload.
  *
- * This is intentionally a character that does not appear in `encodeInhabitantRoll`
- * output, so splitting is unambiguous.
+ * Hyphen does not appear in `encodeInhabitantRoll` output, so splitting is unambiguous.
  */
-const BLOB_SEP = "~";
+const BLOB_SEP = '-'
 
 /**
  * Encode the list of village proprietors as a compact string.
  *
  * Format:
- * - join `encodeInhabitantRoll(owner)` blobs with `BLOB_SEP` (`~`)
+ * - join `encodeInhabitantRoll(owner)` blobs with `BLOB_SEP` (`-`)
  *
  * This output is used as part of the village route `[id]` (via `villageIdCodec`).
  */
