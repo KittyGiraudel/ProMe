@@ -171,6 +171,7 @@
     "clock_tooltip": "L’Horloge suit le temps et l’appétit. Elle est divisée selon votre Endurance actuelle.",
     "clock_day": "Jour",
     "clock_section": "Horloge",
+    "main_characteristics": "Caractéristiques principales",
     "identity": {
       "title": "Identité & Stats",
       "identity_section": "Identité",

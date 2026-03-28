@@ -20,6 +20,7 @@ import {
   useWarnDeath,
 } from './useCharacterLifeStatusActions'
 import { CharacterSheetTabNav } from './CharacterSheetTabNav'
+import { CharacterStats } from '../CharacterStats/CharacterStats'
 
 export function CharacterSheetShell({
   characterId,
@@ -160,6 +161,7 @@ export function CharacterSheetShell({
                 ) : null}
 
                 <CharacterSheetTabNav characterId={character.id} />
+                <CharacterStats />
                 {children}
               </Space>
             </div>
