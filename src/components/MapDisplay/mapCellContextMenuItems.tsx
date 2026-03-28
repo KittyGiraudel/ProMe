@@ -1,11 +1,14 @@
 import { Typography } from 'antd'
 import type { MenuProps } from 'antd'
-import type { ReactNode } from 'react'
-import { useMemo } from 'react'
+import type { Dispatch, ReactNode, SetStateAction } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useFormatter, useTranslations } from 'next-intl'
-import { BIOME_IDS } from '@/lib/character/types'
+import { BIOME_IDS, BiomeId, HexCoordinate } from '@/lib/character/types'
 import type { JournalEntryLink } from '@/lib/journal/cellReferenceIndex'
 import { BiomeBubble } from '@/components/BiomeBubble/BiomeBubble'
+import { useMapActions } from './useMapActions'
+import { Link } from '@/i18n/navigation'
+import { useJournalIndex, useMapState } from './useMapState'
 
 const MAX_JOURNAL_LINKS_IN_MENU = 5
 
@@ -34,7 +37,9 @@ function JournalEntryMenuLabel({
   const textValue = snippet || t('characters.journal.preview_empty')
 
   return (
-    <span style={{ display: 'flex', gap: 8, alignItems: 'baseline' }}>
+    <Link
+      href='./journal#journal-entry-${entryId}'
+      style={{ display: 'flex', gap: 8, alignItems: 'baseline' }}>
       <Typography.Text
         style={{ flex: 1, minWidth: 0 }}
         ellipsis={{ tooltip: snippet ? textValue : undefined }}>
@@ -45,75 +50,102 @@ function JournalEntryMenuLabel({
           {dateLabel}
         </Typography.Text>
       ) : null}
-    </span>
+    </Link>
   )
 }
 
-function useBiomeSubmenuChildren(): NonNullable<MenuProps['items']> {
+function useBiomeSubmenuChildren(
+  coord: HexCoordinate
+): NonNullable<MenuProps['items']> {
   const t = useTranslations()
+  const { setBiomeAt, setRandomBiomeAt } = useMapActions()
 
-  const children = useMemo(
-    () => [
-      ...BIOME_IDS.map(id => ({
-        key: `biome:${id}`,
-        label: (
-          <span className='Map__BiomeMenuItem'>
-            <BiomeBubble biome={id} />
-            <span>{t(`common.biomes.${id}`)}</span>
-          </span>
-        ),
-      })),
-      { type: 'divider' as const },
-      {
-        key: 'biome:clear',
-        label: (
-          <span className='Map__BiomeMenuItem'>
-            <BiomeBubble biome='unexplored' />
-            <span>{t('characters.map.unexplored')}</span>
-          </span>
-        ),
-      },
-      {
-        key: 'biome:random',
-        label: (
-          <span className='Map__BiomeMenuItem'>
-            <BiomeBubble biome='unexplored' />
-            <span>{t('characters.map.random_biome')}</span>
-          </span>
-        ),
-      },
-    ],
-    [t]
+  const assignBiomeItem = useCallback(
+    (id: BiomeId) => ({
+      key: `biome:${id}`,
+      label: (
+        <span className='Map__BiomeMenuItem'>
+          <BiomeBubble biome={id} />
+          <span>{t(`common.biomes.${id}` as Parameters<typeof t>[0])}</span>
+        </span>
+      ),
+      onClick: () => setBiomeAt(coord, id),
+    }),
+    [t, setBiomeAt, coord]
   )
 
-  return children
+  const assignUnexploredBiome = useMemo(
+    () => ({
+      key: 'biome:clear',
+      label: (
+        <span className='Map__BiomeMenuItem'>
+          <BiomeBubble biome='unexplored' />
+          <span>{t('characters.map.unexplored')}</span>
+        </span>
+      ),
+      onClick: () => setBiomeAt(coord, undefined),
+    }),
+    [t, setBiomeAt, coord]
+  )
+
+  const assignRandomBiomeItem = useMemo(
+    () => ({
+      key: 'biome:random',
+      label: (
+        <span className='Map__BiomeMenuItem'>
+          <BiomeBubble biome='unexplored' />
+          <span>{t('characters.map.random_biome')}</span>
+        </span>
+      ),
+      onClick: () => setRandomBiomeAt(coord),
+    }),
+    [t, setRandomBiomeAt, coord]
+  )
+
+  return useMemo(
+    () => [
+      ...BIOME_IDS.map(assignBiomeItem),
+      { type: 'divider' as const },
+      assignUnexploredBiome,
+      assignRandomBiomeItem,
+    ],
+    [assignBiomeItem, assignUnexploredBiome, assignRandomBiomeItem]
+  )
 }
 
 function useIconSubmenuChildren(
-  hasStoredIcon: boolean
+  coord: HexCoordinate,
+  hasStoredIcon: boolean,
+  setEmojiModalOpen: Dispatch<SetStateAction<boolean>>
 ): NonNullable<MenuProps['items']> {
   const t = useTranslations()
+  const { setIconAt } = useMapActions()
 
-  const children = useMemo<NonNullable<MenuProps['items']>>(
-    () => [
-      {
-        key: 'icon-picker',
-        label: t('characters.map.pick_emoji'),
-      },
-      ...(hasStoredIcon
-        ? [
-            { type: 'divider' as const },
-            {
-              key: 'icon:clear',
-              label: t('characters.map.clear_icon'),
-            },
-          ]
-        : []),
-    ],
-    [hasStoredIcon, t]
+  const openEmojiPickerItem = useMemo(
+    () => ({
+      key: 'icon-picker',
+      label: t('characters.map.pick_emoji'),
+      onClick: () => setEmojiModalOpen(true),
+    }),
+    [t, setEmojiModalOpen]
   )
 
-  return children
+  const clearEmojiItem = useMemo(
+    () => ({
+      key: 'icon:clear',
+      label: t('characters.map.clear_icon'),
+      onClick: () => setIconAt(coord, undefined),
+    }),
+    [t, setIconAt, coord]
+  )
+
+  return useMemo(
+    () => [
+      openEmojiPickerItem,
+      ...(hasStoredIcon ? [{ type: 'divider' as const }, clearEmojiItem] : []),
+    ],
+    [hasStoredIcon, openEmojiPickerItem, clearEmojiItem]
+  )
 }
 
 function useJournalSubmenuChildren(
@@ -121,90 +153,98 @@ function useJournalSubmenuChildren(
 ): NonNullable<MenuProps['items']> {
   const t = useTranslations()
 
-  const children = useMemo(
-    () => [
-      ...journalLinks.slice(0, MAX_JOURNAL_LINKS_IN_MENU).map(link => ({
-        key: `journal:${link.entryId}`,
-        label: <JournalEntryMenuLabel link={link} />,
-      })),
-      ...(journalLinks.length > MAX_JOURNAL_LINKS_IN_MENU
-        ? [
-            {
-              key: 'journal:overflow',
-              disabled: true,
-              label: t('characters.map.journal_links_overflow', {
-                count: journalLinks.length - MAX_JOURNAL_LINKS_IN_MENU,
-              }),
-            },
-          ]
-        : []),
-    ],
+  const overflowItem = useMemo(
+    () => ({
+      key: 'journal:overflow',
+      disabled: true,
+      label: t('characters.map.journal_links_overflow', {
+        count: journalLinks.length - MAX_JOURNAL_LINKS_IN_MENU,
+      }),
+    }),
     [journalLinks, t]
   )
 
-  return children
+  const journalItem = useCallback(
+    (link: JournalEntryLink) => ({
+      key: `journal:${link.entryId}`,
+      label: <JournalEntryMenuLabel link={link} />,
+    }),
+    []
+  )
+
+  return useMemo(
+    () => [
+      ...journalLinks.slice(0, MAX_JOURNAL_LINKS_IN_MENU).map(journalItem),
+      ...(journalLinks.length > MAX_JOURNAL_LINKS_IN_MENU
+        ? [overflowItem]
+        : []),
+    ],
+    [journalLinks, overflowItem, journalItem]
+  )
 }
 
 export function useMapCellContextMenuItems({
-  coordLabel,
-  canMoveHere,
-  hasCellContent,
-  hasStoredIcon,
-  journalLinks,
+  coord,
+  setEmojiModalOpen,
+  isReachable,
 }: {
-  coordLabel: string
-  canMoveHere: boolean
-  hasCellContent: boolean
-  hasStoredIcon: boolean
-  journalLinks: JournalEntryLink[]
+  coord: HexCoordinate
+  isReachable: boolean
+  setEmojiModalOpen: Dispatch<SetStateAction<boolean>>
 }): MenuProps['items'] {
   const t = useTranslations()
+  const { getLinksForCell } = useJournalIndex()
+  const { moveToCell, clearCellAt } = useMapActions()
+  const { getCellState } = useMapState()
+  const journalLinks = getLinksForCell(coord)
+  const { icon, biome } = getCellState(coord)
   const journalSubmenuChildren = useJournalSubmenuChildren(journalLinks)
-  const biomeSubmenuChildren = useBiomeSubmenuChildren()
-  const iconSubmenuChildren = useIconSubmenuChildren(hasStoredIcon)
+  const biomeSubmenuChildren = useBiomeSubmenuChildren(coord)
+  const iconSubmenuChildren = useIconSubmenuChildren(
+    coord,
+    !!icon,
+    setEmojiModalOpen
+  )
+  const hasCellContent = Boolean(icon || biome)
 
   return useMemo(() => {
     const actionItems: NonNullable<MenuProps['items']> = [
       {
         key: 'move',
         label: t('characters.map.move_here'),
-        disabled: !canMoveHere,
-        title: canMoveHere ? undefined : t('characters.map.move_neighbor_only'),
+        disabled: !isReachable,
+        title: t('characters.map.move_neighbor_only'),
+        onClick: () => moveToCell(coord),
       },
       {
         key: 'clear',
         danger: true,
         label: t('characters.map.clear_cell'),
         disabled: !hasCellContent,
+        onClick: () => clearCellAt(coord),
       },
     ]
 
     return [
-      {
-        key: 'coord-group',
-        type: 'group',
-        label: t('characters.map.selected_cell', { cell: coordLabel }),
-        children: [],
-      },
       {
         key: 'marking-group',
         type: 'group',
         label: t('characters.map.menu_marking_group'),
         children: [
           {
-            key: 'biome',
+            key: 'biome-group',
             label: t('characters.map.biome_label'),
             children: biomeSubmenuChildren,
           },
           {
-            key: 'icon',
+            key: 'icon-group',
             label: t('characters.map.icon_label'),
             children: iconSubmenuChildren,
           },
           ...(journalLinks.length > 0
             ? [
                 {
-                  key: 'journal',
+                  key: 'journal_group',
                   label: t('characters.map.journal_links_label'),
                   children: journalSubmenuChildren,
                 },
@@ -220,13 +260,15 @@ export function useMapCellContextMenuItems({
       },
     ]
   }, [
-    canMoveHere,
-    coordLabel,
+    t,
+    isReachable,
     hasCellContent,
     journalLinks,
-    t,
     biomeSubmenuChildren,
     iconSubmenuChildren,
     journalSubmenuChildren,
+    clearCellAt,
+    coord,
+    moveToCell,
   ])
 }

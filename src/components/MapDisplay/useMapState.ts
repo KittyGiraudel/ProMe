@@ -1,25 +1,31 @@
 import { normalizeMapState } from "@/lib/character/mapState"
-import { CharacterMapCell, CharacterMapState, JournalEntry } from "@/lib/character/types"
-import { toHexKey } from "@/lib/hex/coordinates"
+import { CharacterMapCell, CharacterMapState, HexCoordinate, JournalEntry } from "@/lib/character/types"
+import { formatDisplayedCellReference, toHexKey } from "@/lib/hex/coordinates"
 import { buildCellReferenceToJournalEntriesIndex } from "@/lib/journal/cellReferenceIndex"
 import { Form } from "antd"
-import { useMemo } from "react"
+import { useCallback, useMemo } from "react"
 
-const useJournalIndexByCell = () => {
+export const useJournalIndex = () => {
   const form = Form.useFormInstance()
   const watchedJournalEntries = Form.useWatch('journalEntries', {
     form,
     preserve: true,
   }) as JournalEntry[] | undefined
+  const index = useMemo(() => buildCellReferenceToJournalEntriesIndex(watchedJournalEntries), [watchedJournalEntries])
+
+  const getLinksForCell = useCallback((coord: HexCoordinate) => {
+    const cellRef = formatDisplayedCellReference(coord)
+    const journalLinks = index.get(cellRef) ?? []
+    return journalLinks
+  }, [index])
+
   return  useMemo(
-    () => buildCellReferenceToJournalEntriesIndex(watchedJournalEntries),
-    [watchedJournalEntries]
+    () => ({ index, getLinksForCell }),
+    [index, getLinksForCell]
   )
 }
 
 export const useMapState = () => {
-  const journalIndexByCell = useJournalIndexByCell()
-  
   const form = Form.useFormInstance()
   const watchedMap = Form.useWatch('map', {
     form,
@@ -35,13 +41,21 @@ export const useMapState = () => {
     return next
   }, [mapState.cells])
 
+  const getCellState = useCallback((coord: HexCoordinate) => {
+    const cell = cellsByKey.get(toHexKey(coord))
+    const icon = cell?.icon ?? undefined
+    const biome = cell?.biome
+
+    return { icon, biome }
+  }, [cellsByKey])
+
   return useMemo(() => ({
     mapState,
     cellsByKey,
-    journalIndexByCell
+    getCellState
   }), [
     mapState,
     cellsByKey,
-    journalIndexByCell
+    getCellState
   ])
 }

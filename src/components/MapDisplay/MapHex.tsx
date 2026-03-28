@@ -1,78 +1,115 @@
+import { useMemo } from 'react'
 import {
   areHexNeighbors,
   formatDisplayedCellReference,
   getDisplayedCellLabel,
   getGlobalFromSheetCell,
-  toHexKey,
 } from '@/lib/hex/coordinates'
 import { MapCellContextMenu } from './MapCellContextMenu'
 import type { MapDisplayProps } from './MapDisplay'
-import { useMapActions } from './useMapActions'
+import { useJournalIndex, useMapState } from './useMapState'
+import { BiomeId } from '@/lib/character/types'
 import './MapHex.css'
-import { useMapState } from './useMapState'
 
 type MapHexProps = MapDisplayProps & {
   ri: number
   ci: number
 }
 
+type MapHexState = {
+  label: string
+  isCurrent: boolean
+  isSelected: boolean
+  isReachable: boolean
+  icon: string | undefined
+  biome: BiomeId | 'unexplored' | undefined
+}
+
+const useHexState = ({
+  ri,
+  ci,
+  selectedCell,
+  sheet,
+}: {
+  selectedCell: MapDisplayProps['selectedCell']
+  sheet: MapDisplayProps['sheet']
+  ri: MapHexProps['ri']
+  ci: MapHexProps['ci']
+}): MapHexState => {
+  const { mapState, getCellState } = useMapState()
+  const global = useMemo(
+    () => getGlobalFromSheetCell(sheet, ri, ci),
+    [sheet, ri, ci]
+  )
+  const { currentPosition } = mapState
+  const isCurrent =
+    currentPosition.q === global.q && currentPosition.r === global.r
+  const isSelected =
+    selectedCell?.q === global.q && selectedCell?.r === global.r
+  const isReachable = useMemo(
+    () => areHexNeighbors(currentPosition, global),
+    [currentPosition, global]
+  )
+  const { icon, biome } = getCellState(global)
+  const label = useMemo(() => getDisplayedCellLabel(global), [global])
+
+  return useMemo(
+    () => ({
+      isSelected,
+      isCurrent,
+      isReachable,
+      icon,
+      biome,
+      label,
+    }),
+    [isSelected, isCurrent, isReachable, icon, biome, label]
+  )
+}
+
 export function MapHex({
   ri,
   ci,
   sheet,
-  selectedPosition,
-  onSelectCell,
+  selectedCell,
+  selectCell,
 }: MapHexProps) {
-  const { cellsByKey, journalIndexByCell, mapState } = useMapState()
-  const { setBiomeAt, setRandomBiomeAt, moveToCell, setIconAt, clearCellAt } =
-    useMapActions()
-  const { currentPosition } = mapState
+  const { getLinksForCell } = useJournalIndex()
+  const { isCurrent, isSelected, isReachable, icon, biome, label } =
+    useHexState({
+      ri,
+      ci,
+      sheet,
+      selectedCell,
+    })
+  const global = useMemo(
+    () => getGlobalFromSheetCell(sheet, ri, ci),
+    [sheet, ri, ci]
+  )
+  const journalRefCount = getLinksForCell(global).length
+  const id = useMemo(() => formatDisplayedCellReference(global), [global])
 
-  const global = getGlobalFromSheetCell(sheet, ri, ci)
-  const key = toHexKey(global)
-  const cell = cellsByKey.get(key)
-  const isCurrent =
-    currentPosition.q === global.q && currentPosition.r === global.r
-  const isSelected =
-    selectedPosition?.q === global.q && selectedPosition?.r === global.r
-  const biome = cell?.biome
-  const icon = cell?.icon
-  const localLabel = getDisplayedCellLabel(global)
-  const canMoveHere = areHexNeighbors(currentPosition, global)
-  const cellRef = formatDisplayedCellReference(global)
-  const journalLinks = journalIndexByCell.get(cellRef) ?? []
-  const journalEntryCount = journalLinks.length
-
+  if (isSelected) console.log(id, label, isSelected)
   return (
     <div
-      id={formatDisplayedCellReference(global)}
+      id={id}
       className='MapHex'
       data-q={global.q}
       data-r={global.r}
-      data-coord={localLabel}
+      data-coord={label}
       data-biome={biome ?? 'unexplored'}
       data-icon={icon ?? ''}
-      data-current={isCurrent ? 'true' : 'false'}
-      data-selected={isSelected ? 'true' : 'false'}
-      data-reachable={canMoveHere ? 'true' : 'false'}>
+      data-current={isCurrent}
+      data-selected={isSelected}
+      data-reachable={isReachable}>
       <MapCellContextMenu
         coord={global}
-        currentBiome={biome}
-        hasStoredIcon={Boolean(icon)}
-        hasCellContent={Boolean(biome || icon)}
-        canMoveHere={canMoveHere}
-        title={localLabel}
-        coordLabel={localLabel}
-        journalLinks={journalLinks}
-        onSelectCell={onSelectCell}
-        onAssignBiome={setBiomeAt}
-        onAssignRandomBiome={setRandomBiomeAt}
-        onMoveTo={moveToCell}
-        onSetIcon={setIconAt}
-        onClearCell={clearCellAt}
+        isReachable={isReachable}
+        label={label}
+        coordLabel={label}
+        selectCell={selectCell}
       />
-      {journalEntryCount > 0 ? (
-        <span className='Map__JournalCount'>{journalEntryCount}</span>
+      {journalRefCount > 0 ? (
+        <span className='Map__JournalCount'>{journalRefCount}</span>
       ) : null}
       <span className='Map__Icon'>{icon ?? ''}</span>
     </div>

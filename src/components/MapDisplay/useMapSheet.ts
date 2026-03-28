@@ -15,7 +15,6 @@ import {
 } from '@/lib/hex/coordinates'
 import type { CharacterMapState, HexCoordinate } from '@/lib/character/types'
 import { normalizeMapState } from '@/lib/character/mapState'
-import { useMapHashNavigation } from './useMapHashNavigation'
 
 type UseMapSheetArgs = {
   currentPosition: HexCoordinate
@@ -25,8 +24,6 @@ type UseMapSheetArgs = {
 
 export function useMapSheet({
   currentPosition,
-  selectedCell,
-  setSelectedCell,
 }: UseMapSheetArgs) {
   const form = Form.useFormInstance()
   const watchedMap = Form.useWatch('map', {
@@ -49,14 +46,6 @@ export function useMapSheet({
     // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time sync from form watch
     setVisibleSheet(getSheetCoordinate(normalized.currentPosition))
   }, [watchedMap])
-
-  useMapHashNavigation({
-    selectedCell,
-    setSelectedCell: coord => setSelectedCell(coord),
-    visibleSheet,
-    setVisibleSheet,
-    cardRef,
-  })
 
   const isViewingCurrentSheet = useMemo(() => {
     const sheetForCurrent = getSheetCoordinate(currentPosition)

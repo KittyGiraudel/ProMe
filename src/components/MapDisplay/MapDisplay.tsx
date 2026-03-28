@@ -1,27 +1,22 @@
 'use client'
 
-import type {
-  BiomeId,
-  CharacterMapCell,
-  HexCoordinate,
-} from '@/lib/character/types'
+import type { HexCoordinate } from '@/lib/character/types'
 import { MAP_ROWS, type SheetCoordinate } from '@/lib/hex/coordinates'
-import type { JournalEntryLink } from '@/lib/journal/cellReferenceIndex'
-import './MapDisplay.css'
 import { MapRow } from './MapRow'
 import { MapLegendRow } from './MapLegendRow'
 import { MapLegendCol } from './MapLegendCol'
+import './MapDisplay.css'
 
 export type MapDisplayProps = {
   sheet: SheetCoordinate
-  selectedPosition: HexCoordinate | null
-  onSelectCell: (coord: HexCoordinate) => void
+  selectedCell: HexCoordinate | null
+  selectCell: (coord: HexCoordinate) => void
 }
 
 export function MapDisplay({
   sheet,
-  selectedPosition,
-  onSelectCell,
+  selectedCell,
+  selectCell,
 }: MapDisplayProps) {
   return (
     <div className='Map'>
@@ -35,8 +30,8 @@ export function MapDisplay({
             key={ri}
             index={ri}
             sheet={sheet}
-            selectedPosition={selectedPosition}
-            onSelectCell={onSelectCell}
+            selectedCell={selectedCell}
+            selectCell={selectCell}
           />
         ))}
       </div>

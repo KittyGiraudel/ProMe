@@ -13,14 +13,11 @@ import { BrowserWarning } from '../BrowserWarning/BrowserWarning'
 export function MapCard() {
   const t = useTranslations()
   const { selectedCell, setSelectedCell, toggleSelectCell } = useCellSelection()
-  const { mapState } = useMapState()
-  const { currentPosition } = mapState
+  const {
+    mapState: { currentPosition },
+  } = useMapState()
   const { cardRef, visibleSheet, setVisibleSheet, isViewingCurrentSheet } =
-    useMapSheet({
-      currentPosition: currentPosition,
-      selectedCell,
-      setSelectedCell,
-    })
+    useMapSheet({ currentPosition, selectedCell, setSelectedCell })
 
   return (
     <Card title={t('characters.map.map_section')}>
@@ -37,8 +34,8 @@ export function MapCard() {
 
           <MapDisplay
             sheet={visibleSheet}
-            selectedPosition={selectedCell}
-            onSelectCell={toggleSelectCell}
+            selectedCell={selectedCell}
+            selectCell={toggleSelectCell}
           />
 
           <Form.Item name='map' noStyle>

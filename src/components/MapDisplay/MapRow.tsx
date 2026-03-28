@@ -10,8 +10,8 @@ type MapRowProps = MapDisplayProps & {
 export function MapRow({
   index,
   sheet,
-  selectedPosition,
-  onSelectCell,
+  selectedCell,
+  selectCell,
 }: MapRowProps) {
   return (
     <div className='MapRow' key={`row-${index}`}>
@@ -22,8 +22,8 @@ export function MapRow({
             ri={index}
             ci={ci}
             sheet={sheet}
-            selectedPosition={selectedPosition}
-            onSelectCell={onSelectCell}
+            selectedCell={selectedCell}
+            selectCell={selectCell}
           />
         )
       })}
