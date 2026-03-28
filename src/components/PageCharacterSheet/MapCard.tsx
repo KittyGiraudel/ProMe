@@ -8,6 +8,7 @@ import { useMapSheet as useMapSheet } from '@/components/MapDisplay/useMapSheet'
 import { useCellSelection } from '@/components/MapDisplay/useMapCellSelection'
 import { useMapState } from '@/components/MapDisplay/useMapState'
 import { MapSheetNavigation } from '@/components/MapDisplay/MapSheetNavigation'
+import { BrowserWarning } from '../BrowserWarning/BrowserWarning'
 
 export function MapCard() {
   const t = useTranslations()
@@ -24,6 +25,8 @@ export function MapCard() {
   return (
     <Card title={t('characters.map.map_section')}>
       <div ref={cardRef} tabIndex={-1}>
+        <BrowserWarning />
+
         <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
           <MapSheetNavigation
             currentPosition={currentPosition}

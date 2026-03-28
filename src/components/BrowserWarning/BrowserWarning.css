@@ -1,0 +1,9 @@
+.BrowserWarning {
+  margin-bottom: 16px;
+}
+
+@supports (corner-shape: bevel) {
+  .BrowserWarning {
+    display: none !important;
+  }
+}

@@ -29,6 +29,19 @@
   overflow: hidden;
 }
 
+@supports not (corner-shape: bevel) {
+  /**
+   * 1. Just for testing purposes: drop the ‘not’ in this @supports rule to see
+   *    how it lookswith it.
+   */
+  .MapHex {
+    corner-shape: unset; /* 1 */
+    border-radius: 50%;
+    margin-bottom: -10px;
+    aspect-ratio: 1;
+  }
+}
+
 .MapHex[data-current="true"] {
   box-shadow: inset 0 0 10px 5px white;
   border-color: white;

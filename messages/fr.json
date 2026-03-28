@@ -232,7 +232,8 @@
       "clear_icon": "Retirer l’icône",
       "emoji_search_placeholder": "Rechercher une emoji…",
       "random_biome_discovered_title": "Nouveau biome découvert",
-      "random_biome_discovered_description": "Vous découvrez {biomeName}. Marquez {additionalTilesToMark, plural, =1 {une case adjacente} other {# cases adjacentes}} du même biome ({biomeName})."
+      "random_biome_discovered_description": "Vous découvrez {biomeName}. Marquez {additionalTilesToMark, plural, =1 {une case adjacente} other {# cases adjacentes}} du même biome ({biomeName}).",
+      "browser_warning": "Le module de cartographie utilise des <link>fonctionnalités modernes</link> qui ne sont pas supportées dans tous les navigateurs. Il est recommandé d’utiliser le navigateur Chrome."
     },
     "inventory": {
       "title": "Inventaire & Grimoire",
