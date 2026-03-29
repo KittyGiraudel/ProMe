@@ -112,7 +112,7 @@ export function JournalReferencePreview(props: JournalReferencePreviewProps) {
               target='_blank'
               rel='noreferrer'
               variant='link'>
-              {t('common.open_in_new_tab')}
+              {t('common.actions.open_in_new_tab')}
             </Button>
             <OkBtn />
           </>
@@ -132,7 +132,7 @@ export function JournalReferencePreview(props: JournalReferencePreviewProps) {
             </Typography.Title>
             <Typography.Text type='secondary'>
               {t('characters.identity.archetype_label')} :{' '}
-              {t(`common.archetypes.${decoded.character.archetype}`, {
+              {t(`common.archetypes.name.${decoded.character.archetype}`, {
                 gender: decoded.character.gender ?? 'indeterminate',
               })}
             </Typography.Text>
@@ -140,7 +140,7 @@ export function JournalReferencePreview(props: JournalReferencePreviewProps) {
         ) : (
           <Empty description={t('common.could_not_parse_link')}>
             <a href={props.href} target='_blank' rel='noreferrer'>
-              {t('common.open_in_new_tab')}
+              {t('common.actions.open_in_new_tab')}
             </a>
           </Empty>
         )}

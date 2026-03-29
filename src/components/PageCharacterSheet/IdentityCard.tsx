@@ -39,15 +39,15 @@ export function IdentityCard({
               options={[
                 {
                   value: 'warrior',
-                  label: t('common.archetypes.warrior', { gender }),
+                  label: t('common.archetypes.name.warrior', { gender }),
                 },
                 {
                   value: 'pilgrim',
-                  label: t('common.archetypes.pilgrim', { gender }),
+                  label: t('common.archetypes.name.pilgrim', { gender }),
                 },
                 {
                   value: 'bard',
-                  label: t('common.archetypes.bard', { gender }),
+                  label: t('common.archetypes.name.bard', { gender }),
                 },
               ]}
             />
@@ -76,9 +76,9 @@ export function IdentityCard({
           <Col xs={24}>
             <Alert
               type='info'
-              title={t(`common.archetype_powers.${watchedArchetype}_title`)}
+              title={t(`common.archetypes.power.${watchedArchetype}_title`)}
               description={t(
-                `common.archetype_powers.${watchedArchetype}_description`
+                `common.archetypes.power.${watchedArchetype}_description`
               )}
             />
           </Col>

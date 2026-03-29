@@ -17,7 +17,7 @@ export function getNpcJournalSummary(
     gender: genderCompactSymbol(roll.gender),
     name: roll.name,
     faction: t(`common.factions.${roll.faction}`),
-    age: t(`common.age_bands.${getAgeBand(roll)}`),
+    age: t(`common.ages.${getAgeBand(roll)}`),
     personality: t(`common.personalities.${getPersonality(roll)}`, {
       gender: roll.gender,
     }),

@@ -11,6 +11,6 @@ export function getProtectorJournalSummary(
 ): string {
   const gender = character.gender ?? 'indeterminate'
   const genderSym = genderCompactSymbol(gender)
-  const arch = t(`common.archetypes.${character.archetype}`, { gender })
+  const arch = t(`common.archetypes.name.${character.archetype}`, { gender })
   return `${genderSym} ${character.name} (${arch})`
 }

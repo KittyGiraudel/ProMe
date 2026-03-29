@@ -1,9 +1,6 @@
 import type { PlayingCard } from '@/lib/types'
 import { suitIsRed } from '@/lib/suitGlyphs'
-import {
-  establishmentLineFromSizeTier,
-  rankUsesEstablishmentSizeTiers,
-} from '@/lib/village/data/establishments'
+import { rankUsesEstablishmentSizeTiers } from '@/lib/village/data/establishments'
 import type { VillageRoll } from '@/lib/village/generate'
 import { mergeEstablishmentSizeTiers } from '@/lib/village/mergeEstablishmentSizeTiers'
 import { resolveVillageDisplay, type VillageEstablishmentRow } from '@/lib/village/resolveVillageDisplay'
@@ -44,23 +41,14 @@ export function groupEstablishments(
     const { rows: groupRows, ownerIndices } = map.get(key)!
     const count = groupRows.length
     const first = groupRows[0]!
-    let text: string
+    let text =  first.text
+
     if (key.startsWith('tier:')) {
-      const tiers = groupRows.map(rr =>
-        (suitIsRed(rr.card.suit) ? 2 : 1) as 1 | 2
-      )
+      const tiers = groupRows.map(rr => suitIsRed(rr.card.suit) ? 2 : 1)
       const merged = mergeEstablishmentSizeTiers(tiers)
-      text = establishmentLineFromSizeTier(first.card.rank, merged, t)
-    } else {
-      const baseText = first.text
-      if (count === 1) {
-        text = baseText
-      } else if (count === 2) {
-        text = t('game.establishments.merged_label_two', { name: baseText })
-      } else {
-        text = t('game.establishments.merged_label_more', { name: baseText, count })
-      }
+      text = t(`village.establishments.${first.card.rank}`, { size: merged - 1 })
     }
+    
     const slots = groupRows.flatMap(rr =>
       rr.rerollPrimarySlot != null ? [rr.rerollPrimarySlot] : []
     )

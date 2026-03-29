@@ -98,7 +98,7 @@ export function InventoryCard() {
                     danger
                     onClick={() => remove(field.name)}
                     htmlType='button'>
-                    {t('common.delete')}
+                    {t('common.actions.delete')}
                   </Button>
                 </Space>
               ))}

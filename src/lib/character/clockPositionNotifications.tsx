@@ -45,11 +45,9 @@ export function useSetClockToRawTargetWithToast({
 
       if (crossedDayNightBoundary) {
         notification.warning({
-          title: t(
-            nextIsDay
-              ? 'characters.map.clock_phase_shift_day'
-              : 'characters.map.clock_phase_shift_night'
-          ),
+          title: t('characters.map.clock_phase_shift', {
+            phase: nextIsDay ? 'day' : 'night',
+          }),
           description:
             t('characters.map.clock_phase_shift_description') +
             '\n' +
@@ -61,7 +59,7 @@ export function useSetClockToRawTargetWithToast({
           duration: 4,
           actions: (
             <Link href='./inventory'>
-              {t('common.go_to', {
+              {t('common.actions.go_to', {
                 destination: t('characters.inventory.title'),
               })}
             </Link>

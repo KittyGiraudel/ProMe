@@ -21,8 +21,8 @@ export function ActionsCard() {
     modal.confirm({
       title: t('characters.actions.delete_confirm_title'),
       content: t('characters.actions.delete_confirm_description'),
-      okText: t('common.delete'),
-      cancelText: t('common.cancel'),
+      okText: t('common.actions.delete'),
+      cancelText: t('common.actions.cancel'),
       okButtonProps: { danger: true, type: 'primary' },
       onOk: onDelete,
     })
@@ -33,7 +33,7 @@ export function ActionsCard() {
       title: t('characters.actions.revive_confirm_title'),
       content: t('characters.actions.revive_confirm_description'),
       okText: t('characters.actions.revive_action'),
-      cancelText: t('common.cancel'),
+      cancelText: t('common.actions.cancel'),
       onOk: onRevive,
     })
   }
@@ -43,7 +43,7 @@ export function ActionsCard() {
       title: t('characters.actions.mark_dead_confirm_title'),
       content: t('characters.actions.mark_dead_confirm_description'),
       okText: t('characters.actions.mark_dead_action'),
-      cancelText: t('common.cancel'),
+      cancelText: t('common.actions.cancel'),
       okButtonProps: { danger: true },
       onOk: onKill,
     })
@@ -112,7 +112,7 @@ export function ActionsCard() {
       icon: (
         <DeleteOutlined className='actions-tab__icon actions-tab__icon--danger' />
       ),
-      title: t('common.delete'),
+      title: t('common.actions.delete'),
       description: t('characters.actions.delete_confirm_description'),
       action: (
         <Button
@@ -121,7 +121,7 @@ export function ActionsCard() {
           htmlType='button'
           disabled={false}
           onClick={handleRequestDelete}>
-          {t('common.delete')}
+          {t('common.actions.delete')}
         </Button>
       ),
     },

@@ -63,7 +63,7 @@ export function InhabitantSummary({
         variant='borderless'>
         <Empty
           description={t('inhabitant.empty_summary', {
-            button: t('inhabitant.generate'),
+            button: t('common.actions.generate'),
           })}
         />
       </Card>
@@ -231,7 +231,7 @@ function InhabitantRow({
 
       <MetaWithReroll
         isReadOnly={isReadOnly}
-        rerollLabel={t(`common.reroll_${type}`)}
+        rerollLabel={t(`common.actions.reroll_${type}`)}
         onReroll={onReroll}>
         {meta}
       </MetaWithReroll>
@@ -269,8 +269,8 @@ function NameRow({
   return (
     <InhabitantRow
       isReadOnly={isReadOnly}
-      type='die'
-      meta={t.rich('common.display_1D6', {
+      type='dice'
+      meta={t.rich('common.display_2D6', {
         dice: () => <DiceFaces key='dice' values={roll.nameDice} />,
       })}
       onReroll={onRerollPart && (() => onRerollPart('nameDice'))}
@@ -368,16 +368,16 @@ function AgeRow({
   return (
     <InhabitantRow
       isReadOnly={isReadOnly}
-      type='die'
+      type='card'
       meta={t.rich('common.display_card', {
         card: () => <PlayingCardLabel key='card' card={roll.ageCard} />,
       })}
       onReroll={onRerollPart && (() => onRerollPart('ageCard'))}
       value={age}
-      display={t(`common.age_bands.${age}`)}
+      display={t(`common.ages.${age}`)}
       options={AGE_BANDS.map(band => ({
         value: band,
-        label: t(`common.age_bands.${band}`),
+        label: t(`common.ages.${band}`),
       }))}
       onChange={(band: AgeBand) =>
         onSetRoll?.(setInhabitantAgeBand(roll, band))
@@ -416,7 +416,7 @@ function PersonalityRow({
   return (
     <InhabitantRow
       isReadOnly={isReadOnly}
-      type='die'
+      type='card'
       meta={t.rich('common.display_card', {
         card: () => <PlayingCardLabel key='card' card={roll.personalityCard} />,
       })}
@@ -448,7 +448,7 @@ function ContextRow({
       <RichText text={roll.contextText} />
       <MetaWithReroll
         isReadOnly={isReadOnly}
-        rerollLabel={t('common.reroll_card')}
+        rerollLabel={t('common.actions.reroll_card')}
         onReroll={onRerollPart && (() => onRerollPart('contextCard'))}>
         {t.rich('common.display_card', {
           card: () => (
@@ -464,42 +464,32 @@ function ContextRow({
       </MetaWithReroll>
       {roll.contextCard.rank === '7' ? (
         <div className='InhabitantSummary__context-followup'>
-          <span className='InhabitantSummary__followup-label'>
-            {t('inhabitant.context_seven_followup_label')}
-          </span>
+          <p className='InhabitantSummary__followup-label'>
+            {t('inhabitant.context_seven_followup', {
+              value: roll.contextSevenDie ?? 0,
+            })}
+          </p>
           {roll.contextSevenDie == null ? (
             onRerollPart ? (
               <Button
                 size='small'
                 type='default'
                 onClick={() => onRerollPart('contextSevenDie')}>
-                {t('inhabitant.roll_context_seven_die')}
+                {t('common.actions.reroll_die')}
               </Button>
             ) : null
           ) : (
             <MetaWithReroll
               isReadOnly={isReadOnly}
-              rerollLabel={t('common.reroll_die')}
+              rerollLabel={t('common.actions.reroll_die')}
               onReroll={
                 onRerollPart && (() => onRerollPart('contextSevenDie'))
               }>
-              <>
-                <strong>
-                  {mapKindFromContextSevenDie(roll.contextSevenDie) ===
-                  'localisation'
-                    ? t('inhabitant.context_seven_map_localisation')
-                    : t('inhabitant.context_seven_map_biome')}
-                </strong>
-                {' · '}
-                {t.rich('common.display_1D6', {
-                  dice: () => (
-                    <DiceFaces
-                      key='dicefaces'
-                      values={[roll.contextSevenDie!]}
-                    />
-                  ),
-                })}
-              </>
+              {t.rich('common.display_1D6', {
+                dice: () => (
+                  <DiceFaces key='dicefaces' values={[roll.contextSevenDie!]} />
+                ),
+              })}
             </MetaWithReroll>
           )}
         </div>
@@ -515,7 +505,7 @@ function ContextRow({
                 size='small'
                 type='default'
                 onClick={() => onRerollPart('contextSpokenNameDice')}>
-                {t('inhabitant.roll_context_spoken_name_dice')}
+                {t('common.actions.reroll_dice')}
               </Button>
             ) : null
           ) : (
@@ -525,7 +515,7 @@ function ContextRow({
               </strong>
               <MetaWithReroll
                 isReadOnly={isReadOnly}
-                rerollLabel={t('common.reroll_dice')}
+                rerollLabel={t('common.actions.reroll_dice')}
                 onReroll={
                   onRerollPart && (() => onRerollPart('contextSpokenNameDice'))
                 }>

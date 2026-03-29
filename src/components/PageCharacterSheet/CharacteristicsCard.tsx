@@ -109,17 +109,15 @@ export function CharacteristicsCard() {
     const target = Math.max(0, courageCurrent ?? 0)
     const roll = Math.floor(Math.random() * 6) + 1
     const success = roll <= target
+    const status = success ? 'success' : 'failure'
 
     notification[success ? 'success' : 'error']({
-      title: success
-        ? t('characters.identity.courage_roll_success_title')
-        : t('characters.identity.courage_roll_failure_title'),
-      description: t(
-        roll <= target
-          ? 'characters.identity.courage_roll_result_success'
-          : 'characters.identity.courage_roll_result_failure',
-        { roll, target }
-      ),
+      title: t('characters.identity.courage_roll_title', { status }),
+      description: t('characters.identity.courage_roll_result', {
+        roll,
+        target,
+        status,
+      }),
       placement: 'bottomRight',
       duration: 15,
     })
@@ -128,7 +126,7 @@ export function CharacteristicsCard() {
   return (
     <>
       <Card
-        title={t('characters.characteristics_section')}
+        title={t('characters.identity.characteristics_section')}
         extra={
           <Tooltip title={t('rulebook.characteristics_footnote')}>
             <HelpButton label={t('rulebook.information')} />

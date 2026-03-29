@@ -33,10 +33,10 @@ export function useCharacterSheetForm({ characterId }: { characterId: string }) 
   const confirmUnsavedLeave = useCallback(
     ({ onLeave, onStay }: { onLeave: VoidFunction; onStay: VoidFunction }) => {
       modal.confirm({
-        title: t('characters.unsaved_changes_title'),
-        content: t('characters.unsaved_changes_description'),
-        okText: t('characters.unsaved_changes_leave'),
-        cancelText: t('characters.unsaved_changes_stay'),
+        title: t('common.unsaved_changes_warning.title'),
+        content: t('common.unsaved_changes_warning.description'),
+        okText: t('common.unsaved_changes_warning.leave'),
+        cancelText: t('common.unsaved_changes_warning.stay'),
         onOk: onLeave,
         onCancel: onStay,
       })

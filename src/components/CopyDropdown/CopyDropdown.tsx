@@ -38,24 +38,24 @@ export function CopyDropdown({
         await navigator.clipboard.writeText(text)
         message.success(successMessage)
       } catch {
-        message.error(t('copy_sheet.error'))
+        message.error(t('common.copy.error'))
       }
     },
     [message, t]
   )
 
   const copyDescription = useCallback(
-    () => copyText(description, t('copy_sheet.success_description')),
+    () => copyText(description, t('common.copy.success_description')),
     [copyText, description, t]
   )
 
   const copyUrl = useCallback(
-    () => copyText(pageUrl, t('copy_sheet.success_url')),
+    () => copyText(pageUrl, t('common.copy.success_url')),
     [copyText, pageUrl, t]
   )
 
   const copyJournal = useCallback(
-    () => copyText(journalBrace, t('copy_sheet.success_journal')),
+    () => copyText(journalBrace, t('common.copy.success_journal')),
     [copyText, journalBrace, t]
   )
 
@@ -63,11 +63,15 @@ export function CopyDropdown({
     () => [
       {
         key: 'description',
-        label: t('copy_sheet.description'),
+        label: t('common.copy.description'),
         onClick: copyDescription,
       },
-      { key: 'url', label: t('copy_sheet.url'), onClick: copyUrl },
-      { key: 'journal', label: t('copy_sheet.journal'), onClick: copyJournal },
+      { key: 'url', label: t('common.copy.url'), onClick: copyUrl },
+      {
+        key: 'journal',
+        label: t('common.copy.journal'),
+        onClick: copyJournal,
+      },
     ],
     [copyDescription, copyUrl, copyJournal, t]
   )
@@ -78,7 +82,7 @@ export function CopyDropdown({
         size={size}
         icon={<CopyOutlined />}
         className='CopyDropdown__trigger'>
-        {t('copy_sheet.trigger')}
+        {t('common.copy.trigger')}
         <DownOutlined className='CopyDropdown__triggerIcon' />
       </Button>
     </Dropdown>

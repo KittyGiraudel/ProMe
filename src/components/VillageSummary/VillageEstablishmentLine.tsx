@@ -62,7 +62,7 @@ export function VillageEstablishmentLine({
                 type='text'
                 size='small'
                 icon={<RedoOutlined />}
-                aria-label={t('common.reroll_card')}
+                aria-label={t('common.actions.reroll_card')}
                 onClick={() => onRerollPrimarySlot(rerollPrimarySlot)}
                 className='VillageSummary__line-reroll'
               />

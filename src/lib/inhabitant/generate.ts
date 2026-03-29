@@ -85,8 +85,12 @@ function rollInhabitantRoll(
   const name = lookupName(faction, nameDice[0], nameDice[1]);
   const genderDie = rollD6(rng);
   const gender = genderFromD6(genderDie);
-  const contextText = t(`inhabitant.context_by_rank.${contextCard.rank}`, { name, gender });
   const follow = rollContextFollowups({ faction, contextCard }, rng);
+  const contextParams: { name: string, gender: string, type?:string } = { name, gender, type: undefined }
+  if (contextCard.rank === "7") contextParams.type = !follow?.contextSevenDie ? '' : follow.contextSevenDie <= 3 ? 'localisation' : 'biome'
+  console.log(contextCard, contextParams)
+  const contextText = t(`inhabitant.context_by_rank.${contextCard.rank}`, contextParams);
+
 
   return {
     factionDie,

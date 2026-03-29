@@ -80,18 +80,18 @@ export function JournalEntryEditModal({
             htmlType='button'
             disabled={componentDisabled}
             onClick={onDelete}>
-            {t('common.delete')}
+            {t('common.actions.delete')}
           </Button>
           <Space>
             <Button htmlType='button' onClick={onCancel}>
-              {t('common.cancel')}
+              {t('common.actions.cancel')}
             </Button>
             <Button
               type='primary'
               htmlType='button'
               disabled={componentDisabled}
               onClick={onSave}>
-              {t('characters.journal.modal_done')}
+              {t('common.actions.finish')}
             </Button>
           </Space>
         </div>

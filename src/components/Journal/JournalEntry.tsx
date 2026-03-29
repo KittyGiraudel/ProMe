@@ -77,8 +77,8 @@ export function JournalEntry({
         modal.confirm({
           title: t('characters.journal.delete_confirm_title'),
           content: t('characters.journal.delete_confirm_description'),
-          okText: t('common.delete'),
-          cancelText: t('common.cancel'),
+          okText: t('common.actions.delete'),
+          cancelText: t('common.actions.cancel'),
           onOk: () => deleteEntry(index),
         })
     },
@@ -110,7 +110,7 @@ export function JournalEntry({
           className='Journal__edit'
           htmlType='button'
           onClick={() => setEditingMode(field.key, true)}>
-          {t('characters.journal.edit_entry')}
+          {t('common.actions.edit')}
         </Button>
       ) : null}
 

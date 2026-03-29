@@ -54,7 +54,7 @@ export function CardDraw() {
   return (
     <Card
       className='CardDraw__card'
-      title={t('characters.tools.card_tool_title')}
+      title={t('characters.tools.card_title')}
       actions={[
         <Button
           key='action'
@@ -62,8 +62,8 @@ export function CardDraw() {
           loading={isDrawingCard}
           type='link'>
           {isDrawingCard
-            ? t('characters.tools.card_tool_drawing')
-            : t('characters.tools.card_tool_action')}
+            ? t('characters.tools.card_drawing')
+            : t('characters.tools.card_action')}
         </Button>,
       ]}>
       <div
@@ -74,7 +74,7 @@ export function CardDraw() {
           .filter(Boolean)
           .join(' ')}>
         {drawnCard === null ? (
-          <Empty description={t('characters.tools.card_tool_empty')} />
+          <Empty description={t('characters.tools.card_empty')} />
         ) : (
           <PlayingCardLabel card={drawnCard} className='CardDraw__drawn-card' />
         )}

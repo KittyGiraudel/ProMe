@@ -130,7 +130,7 @@ export function CharacterSheetShell({
                 type='primary'
                 htmlType='submit'
                 form={character.id}>
-                {t('common.save')}
+                {t('common.actions.save')}
               </Button>,
             ]
           : []),

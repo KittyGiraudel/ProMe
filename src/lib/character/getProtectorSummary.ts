@@ -12,14 +12,14 @@ export function getProtectorSummary(
   t: _Translator
 ): string {
   if (!data) {
-    return t('characters.journal.protector_link_unknown')
+    return t('character_list.unknown')
   }
 
   const genderPrefix = data.gender
     ? `${genderCompactSymbol(data.gender)} `
     : ''
   const displayName = data.name?.trim() ?? t('characters_list.unnamed')
-  const archetypeLabel = t(`common.archetypes.${data.archetype}`, {
+  const archetypeLabel = t(`common.archetypes.name.${data.archetype}`, {
     gender: data.gender ?? 'indeterminate',
   })
   return `${genderPrefix}${displayName}, ${archetypeLabel}`

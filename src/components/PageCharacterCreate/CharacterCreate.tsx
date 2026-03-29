@@ -52,7 +52,7 @@ export function CharacterCreate() {
               {t('new_character.create')}
             </Button>
             <Button htmlType='button' type='link' href='/characters'>
-              {t('common.cancel')}
+              {t('common.actions.cancel')}
             </Button>
           </Space>
         </Space>

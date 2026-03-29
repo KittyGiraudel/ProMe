@@ -48,7 +48,7 @@ export function VillageEstablishmentOwners({
               />
             ),
             faction: t(`common.factions.${e.roll.faction}`),
-            age: t(`common.age_bands.${age}`),
+            age: t(`common.ages.${age}`),
             personality: t(`common.personalities.${personality}`, {
               gender,
             }),

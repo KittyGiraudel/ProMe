@@ -87,14 +87,14 @@ export function CharacterLibrary() {
               extra={
                 <Space>
                   <BlockedLink href={`/characters/${character.id}/identity`}>
-                    {t('common.open')}
+                    {t('common.actions.open')}
                   </BlockedLink>
                 </Space>
               }>
               <Space orientation='vertical' size={4}>
                 <Typography.Text>
                   {t('characters_list.archetype_line', {
-                    value: t(`common.archetypes.${character.archetype}`, {
+                    value: t(`common.archetypes.name.${character.archetype}`, {
                       gender: character.gender ?? 'indeterminate',
                     }),
                   })}

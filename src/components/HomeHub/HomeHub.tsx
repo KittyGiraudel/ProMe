@@ -15,7 +15,9 @@ const CharacterManager = () => {
   return (
     <Card
       title={t('home.character_card_title')}
-      extra={<BlockedLink href='/characters'>{t('common.open')}</BlockedLink>}>
+      extra={
+        <BlockedLink href='/characters'>{t('common.actions.open')}</BlockedLink>
+      }>
       <Space orientation='vertical' style={{ width: '100%' }} size='large'>
         <Typography.Text>
           {t('home.character_card_description')}
@@ -35,7 +37,7 @@ const CharacterManager = () => {
                         ? genderCompactSymbol(character.gender)
                         : ''}{' '}
                       {character.name || t('characters_list.unnamed')},{' '}
-                      {t(`common.archetypes.${character.archetype}`, {
+                      {t(`common.archetypes.name.${character.archetype}`, {
                         gender: character.gender ?? 'indeterminate',
                       })}
                     </>
@@ -63,7 +65,9 @@ const InhabitantGenerator = () => {
     <Card
       title={t('home.inhabitant_card_title')}
       extra={
-        <BlockedLink href='/generators/npc'>{t('common.open')}</BlockedLink>
+        <BlockedLink href='/generators/npc'>
+          {t('common.actions.open')}
+        </BlockedLink>
       }>
       <Typography.Text>{t('home.inhabitant_card_description')}</Typography.Text>
     </Card>
@@ -76,7 +80,9 @@ const VillageGenerator = () => {
     <Card
       title={t('home.village_card_title')}
       extra={
-        <BlockedLink href='/generators/village'>{t('common.open')}</BlockedLink>
+        <BlockedLink href='/generators/village'>
+          {t('common.actions.open')}
+        </BlockedLink>
       }>
       <Typography.Text>{t('home.village_card_description')}</Typography.Text>
     </Card>
@@ -111,7 +117,9 @@ export function HomeHub() {
           <Card
             title={t('home.settings_title')}
             extra={
-              <BlockedLink href='/settings'>{t('common.open')}</BlockedLink>
+              <BlockedLink href='/settings'>
+                {t('common.actions.open')}
+              </BlockedLink>
             }>
             <Typography.Text>{t('home.settings_description')}</Typography.Text>
           </Card>
@@ -119,7 +127,9 @@ export function HomeHub() {
         <Col xs={24} md={12}>
           <Card
             title={t('home.faq_title')}
-            extra={<BlockedLink href='/faq'>{t('common.open')}</BlockedLink>}>
+            extra={
+              <BlockedLink href='/faq'>{t('common.actions.open')}</BlockedLink>
+            }>
             <Typography.Text>{t('home.faq_description')}</Typography.Text>
           </Card>
         </Col>

@@ -135,7 +135,7 @@ export function VillageGenerator({
       headerActions={
         <RollActions
           onRoll={handleGenerate}
-          label={t('village.generate')}
+          label={t('common.actions.generate')}
           copy={copyPayload}
         />
       }>

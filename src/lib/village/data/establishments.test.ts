@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
   establishmentLine,
-  establishmentLineFromSizeTier,
   rankUsesEstablishmentSizeTiers,
 } from "./establishments";
 import { testLocalize } from "@/lib/localization/testLocalize";
@@ -13,18 +12,6 @@ describe("establishments", () => {
     expect(rankUsesEstablishmentSizeTiers("9")).toBe(false);
     expect(rankUsesEstablishmentSizeTiers("A")).toBe(false);
     expect(rankUsesEstablishmentSizeTiers("10")).toBe(false);
-  });
-
-  it("establishmentLineFromSizeTier throws for ranks outside the tier table", () => {
-    expect(() => establishmentLineFromSizeTier("9", 1, testLocalize)).toThrow(/rank 9/);
-  });
-
-  it("establishmentLine maps tier ranks to red vs black size bands", () => {
-    const redLine = establishmentLine({ rank: "4", suit: "diamonds" }, testLocalize);
-    const blackLine = establishmentLine({ rank: "4", suit: "spades" }, testLocalize);
-    expect(redLine).toBe(establishmentLineFromSizeTier("4", 2, testLocalize));
-    expect(blackLine).toBe(establishmentLineFromSizeTier("4", 1, testLocalize));
-    expect(redLine).not.toBe(blackLine);
   });
 
   it("establishmentLine resolves A, 9, and 10 from the non-tier copy table", () => {

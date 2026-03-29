@@ -219,7 +219,7 @@ function staticJournalEmbellishmentRules(
         const ch = getCharacterStore().get(id)
         const label = ch
           ? getProtectorJournalSummary(ch, t)
-          : t('characters.journal.protector_link_unknown')
+          : t('character_list.unknown')
         return (
           <JournalReferencePreview
             key={reactKey}

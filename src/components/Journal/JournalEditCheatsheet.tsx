@@ -14,10 +14,10 @@ export function JournalEditCheatsheet() {
   return (
     <div className='Journal__cheatsheet'>
       <Typography.Title level={5} className='Journal__cheatsheetTitle'>
-        {t('characters.journal.cheatsheet_markdown_title')}
+        {t('characters.journal.cheatsheet.markdown_title')}
       </Typography.Title>
       <Typography.Paragraph className='Journal__cheatsheetBlock'>
-        {t.rich('characters.journal.cheatsheet_markdown_intro', {
+        {t.rich('characters.journal.cheatsheet.markdown_intro', {
           guide: chunks => (
             <Typography.Link
               href={MARKDOWN_GUIDE_URL}
@@ -30,25 +30,25 @@ export function JournalEditCheatsheet() {
       </Typography.Paragraph>
 
       <Typography.Title level={5} className='Journal__cheatsheetTitle'>
-        {t('characters.journal.cheatsheet_embellishment_title')}
+        {t('characters.journal.cheatsheet.embellishment_title')}
       </Typography.Title>
       <ul className='Journal__cheatsheetList'>
         <li>
-          {t('characters.journal.cheatsheet_embellishment_biome', {
+          {t('characters.journal.cheatsheet.embellishment_biome', {
             example: t('common.biomes.fieldSea'),
           })}
         </li>
         <li>
-          {t('characters.journal.cheatsheet_embellishment_checks', {
+          {t('characters.journal.cheatsheet.embellishment_checks', {
             success: t('common.check_success_word'),
             failure: t('common.check_failure_word'),
           })}
         </li>
-        <li>{t('characters.journal.cheatsheet_embellishment_stars')}</li>
-        <li>{t('characters.journal.cheatsheet_embellishment_dice')}</li>
-        <li>{t('characters.journal.cheatsheet_embellishment_cards')}</li>
+        <li>{t('characters.journal.cheatsheet.embellishment_stars')}</li>
+        <li>{t('characters.journal.cheatsheet.embellishment_dice')}</li>
+        <li>{t('characters.journal.cheatsheet.embellishment_cards')}</li>
         <li>
-          {t.rich('characters.journal.cheatsheet_embellishment_cells', {
+          {t.rich('characters.journal.cheatsheet.embellishment_cells', {
             e13: () => <code>E13</code>,
             b07: () => <code>B07@1,0</code>,
           })}
@@ -56,11 +56,11 @@ export function JournalEditCheatsheet() {
       </ul>
 
       <Typography.Title level={5} className='Journal__cheatsheetTitle'>
-        {t('characters.journal.cheatsheet_shortcuts_title')}
+        {t('characters.journal.cheatsheet.shortcuts_title')}
       </Typography.Title>
       <ul className='Journal__cheatsheetList'>
         <li>
-          {t.rich('characters.journal.cheatsheet_shortcuts_suits', {
+          {t.rich('characters.journal.cheatsheet.shortcuts_suits', {
             braceS: () => <code>{'{S}'}</code>,
             braceH: () => <code>{'{H}'}</code>,
             braceD: () => <code>{'{D}'}</code>,
@@ -68,7 +68,7 @@ export function JournalEditCheatsheet() {
           })}
         </li>
         <li>
-          {t.rich('characters.journal.cheatsheet_shortcuts_dice', {
+          {t.rich('characters.journal.cheatsheet.shortcuts_dice', {
             die1: () => <code>{'{1}'}</code>,
             die2: () => <code>{'{2}'}</code>,
             die3: () => <code>{'{3}'}</code>,
@@ -80,17 +80,17 @@ export function JournalEditCheatsheet() {
         <li>
           <code className='Journal__cheatsheetCode'>{'{village/<id>}'}</code>
           {' : '}
-          {t('characters.journal.cheatsheet_shortcuts_village')}
+          {t('characters.journal.cheatsheet.shortcuts_village')}
         </li>
         <li>
           <code className='Journal__cheatsheetCode'>{'{npc/<id>}'}</code>
           {' : '}
-          {t('characters.journal.cheatsheet_shortcuts_npc')}
+          {t('characters.journal.cheatsheet.shortcuts_npc')}
         </li>
         <li>
           <code className='Journal__cheatsheetCode'>{'{protector/<id>}'}</code>
           {' : '}
-          {t('characters.journal.cheatsheet_shortcuts_protector')}
+          {t('characters.journal.cheatsheet.shortcuts_protector')}
         </li>
       </ul>
     </div>

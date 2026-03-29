@@ -45,7 +45,7 @@ function resolveVillageTraits(
   for (let i = 0; i < primary.length; i++) {
     const card = primary[i]!
     if (!isFaceRank(card.rank)) continue
-    const text = t(`game.village_traits.${card.rank}.${getCardColor(card)}`)
+    const text = t(`village.traits.${card.rank}.${getCardColor(card)}`)
     const inst: TraitInstance = { card, primarySlot: i }
     const curr = groups.get(text)
     if (curr) curr.push(inst)
@@ -55,7 +55,7 @@ function resolveVillageTraits(
   return [...groups.values()].map(instances => {
     const { card } = instances[0]!
     return {
-      text: t(`game.village_traits.${card.rank}.${getCardColor(card)}`),
+      text: t(`village.traits.${card.rank}.${getCardColor(card)}`),
       instances,
     }
   })

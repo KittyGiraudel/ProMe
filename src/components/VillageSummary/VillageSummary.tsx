@@ -162,7 +162,7 @@ export function VillageSummary({
         <Card variant='borderless'>
           <Empty
             description={t('village.empty_summary', {
-              button: t('village.generate'),
+              button: t('common.actions.generate'),
             })}
           />
         </Card>
@@ -226,7 +226,7 @@ export function VillageSummary({
                             type='text'
                             size='small'
                             icon={<RedoOutlined />}
-                            aria-label={t('common.reroll_card')}
+                            aria-label={t('common.actions.reroll_card')}
                             onClick={() =>
                               onRerollPrimarySlot(inst.primarySlot)
                             }
