@@ -9,12 +9,13 @@ import {
   BreadcrumbProps,
   Space,
 } from 'antd'
-import { usePathname } from '@/i18n/navigation'
+import { Link, usePathname } from '@/i18n/navigation'
 import type { BiomeId } from '@/lib/character/types'
 import { Banner } from '@/components/Banner/Banner'
 import { BlockedLink } from '../Navigation/BlockedLink'
 import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs'
 import './Layout.css'
+import { Footer } from '../Footer/Footer'
 
 type LayoutProps = {
   title: string
@@ -140,8 +141,8 @@ export const Layout = ({
           </Space>
         </div>
       </AntLayout.Content>
-      <AntLayout.Footer style={{ textAlign: 'center' }}>
-        {t('footer.copyright')}
+      <AntLayout.Footer className='Layout__footer'>
+        <Footer />
       </AntLayout.Footer>
     </AntLayout>
   )

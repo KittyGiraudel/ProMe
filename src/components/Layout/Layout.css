@@ -78,3 +78,13 @@
 .Layout__menu .ant-menu-item:has([data-position="right"]) {
   margin-left: auto;
 }
+
+.Layout__footer {
+  padding: 16px 48px;
+}
+
+@media (max-width: 767px) {
+  .Layout__footer.Layout__footer {
+    padding: 16px;
+  }
+}

@@ -123,7 +123,8 @@
     }
   },
   "footer": {
-    "copyright": "© Les Souvenirs du Protecteur par Enzo Salviato — Application par Kitty"
+    "copyright": "© Les Souvenirs du Protecteur, par Enzo Salviato",
+    "application": "Application par Kitty – <link>Signaler un problème</link>"
   },
   "home": {
     "title": "Accueil",
