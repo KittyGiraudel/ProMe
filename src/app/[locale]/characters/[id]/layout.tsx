@@ -28,6 +28,3 @@ export default async function CharacterIdLayout({
   return <CharacterSheetShell characterId={id}>{children}</CharacterSheetShell>
 }
 
-export function generateStaticParams() {
-  return []
-}
