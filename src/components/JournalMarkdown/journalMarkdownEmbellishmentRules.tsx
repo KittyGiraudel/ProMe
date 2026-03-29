@@ -20,6 +20,7 @@ import { getProtectorJournalSummary } from '@/lib/markdown/protectorLinkSummary'
 import { getVillageJournalSummary } from '@/lib/markdown/villageLinkSummary'
 import { suitIsRed } from '@/lib/suitGlyphs'
 import type { Suit } from '@/lib/types'
+import { decodeVillageFactionParam } from '@/lib/village/villageUrlCodec'
 
 /** Everything needed to build journal embellishment rules for the current character sheet + locale. */
 export type JournalEmbellishmentBuildContext = {
@@ -172,15 +173,25 @@ function staticJournalEmbellishmentRules(
       ({ slice, refId, reactKey }) => {
         const id = refId?.trim()
         if (!id) return slice
-        const summary = getVillageJournalSummary(id, t, {
-          mergeDuplicateEstablishments: mergeVillageDuplicateEstablishments,
-        })
+        const queryIndex = id.indexOf('?')
+        const encodedId = queryIndex >= 0 ? id.slice(0, queryIndex) : id
+        const faction = decodeVillageFactionParam(
+          queryIndex >= 0
+            ? new URLSearchParams(id.slice(queryIndex)).get('f')
+            : null
+        )
+        const summary = getVillageJournalSummary(
+          encodedId,
+          t,
+          { mergeDuplicateEstablishments: mergeVillageDuplicateEstablishments },
+          faction
+        )
         if (!summary) return slice
         return (
           <JournalReferencePreview
             key={reactKey}
             kind='village'
-            referenceId={id}
+            referenceId={encodedId}
             href={ctx.interactive ? `/generators/village/${id}` : undefined}
             label={summary}
           />
