@@ -177,7 +177,7 @@ export function CharacteristicsCard() {
               </div>
 
               <Row gutter={[8, 8]}>
-                <Col xs={24} sm={12}>
+                <Col xs={12}>
                   <Form.Item
                     name={[poolKey, 'current']}
                     label={t('common.current_label')}
@@ -186,7 +186,7 @@ export function CharacteristicsCard() {
                   </Form.Item>
                 </Col>
 
-                <Col xs={24} sm={12}>
+                <Col xs={12}>
                   <Form.Item
                     name={[poolKey, 'max']}
                     label={t('common.max_label')}

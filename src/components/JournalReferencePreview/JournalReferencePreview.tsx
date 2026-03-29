@@ -104,6 +104,7 @@ export function JournalReferencePreview(props: JournalReferencePreviewProps) {
         centered
         width={860}
         title={modalTitle}
+        destroyOnHidden
         footer={(_, { OkBtn }) => (
           <>
             <Button

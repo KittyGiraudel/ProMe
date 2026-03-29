@@ -31,7 +31,8 @@ export function IdentityCard({
           <Form.Item
             rules={[{ required: true }]}
             name='archetype'
-            label={t('characters.identity.archetype_label')}>
+            label={t('characters.identity.archetype_label')}
+            style={{ marginBottom: 0 }}>
             <Select
               disabled={isArchetypeReadonly}
               style={{ width: '100%' }}
@@ -71,13 +72,17 @@ export function IdentityCard({
       </Row>
 
       {watchedArchetype ? (
-        <Alert
-          type='info'
-          title={t(`common.archetype_powers.${watchedArchetype}_title`)}
-          description={t(
-            `common.archetype_powers.${watchedArchetype}_description`
-          )}
-        />
+        <Row style={{ marginTop: 16 }}>
+          <Col xs={24}>
+            <Alert
+              type='info'
+              title={t(`common.archetype_powers.${watchedArchetype}_title`)}
+              description={t(
+                `common.archetype_powers.${watchedArchetype}_description`
+              )}
+            />
+          </Col>
+        </Row>
       ) : null}
     </Card>
   )

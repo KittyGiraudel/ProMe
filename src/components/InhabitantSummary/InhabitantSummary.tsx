@@ -140,6 +140,7 @@ export function InhabitantSummary({
           },
           {
             key: 'context',
+            className: 'InhabitantSummary__context-row',
             label: t('inhabitant.section_context'),
             children: (
               <ContextRow
