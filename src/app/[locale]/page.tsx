@@ -4,12 +4,12 @@ import { use } from 'react'
 import { HomeHub } from '@/components/HomeHub/HomeHub'
 
 type Props = {
-  params: Promise<{ locale: AppConfig['Locale'] }>
+  params: Promise<{ locale: string }>
 }
 
 export async function generateMetadata({ params }: Props) {
   const { locale } = await params
-  const t = await getTranslations({ locale })
+  const t = await getTranslations({ locale: locale as AppConfig['Locale'] })
 
   return {
     title: t('metadata.title'),
@@ -20,7 +20,7 @@ export default function Home({ params }: Props) {
   const { locale } = use(params)
 
   // Enable static rendering
-  setRequestLocale(locale)
+  setRequestLocale(locale as AppConfig['Locale'])
 
   return <HomeHub />
 }

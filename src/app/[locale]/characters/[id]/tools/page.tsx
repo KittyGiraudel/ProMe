@@ -4,11 +4,11 @@ import { getTranslations } from 'next-intl/server'
 import { CardDraw } from '@/components/CardDraw/CardDraw'
 import { DiceRoll } from '@/components/DiceRoll/DiceRoll'
 
-type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
+type Props = { params: Promise<{ locale: string }> }
 
 export async function generateMetadata({ params }: Props) {
   const { locale } = await params
-  const t = await getTranslations({ locale })
+  const t = await getTranslations({ locale: locale as AppConfig['Locale'] })
 
   return {
     title: t('characters.tools.title'),

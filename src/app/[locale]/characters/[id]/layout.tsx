@@ -6,7 +6,7 @@ import { CharacterSheetShell } from '@/components/PageCharacterSheet/CharacterSh
 
 type CharacterIdLayoutProps = {
   children: ReactNode
-  params: Promise<{ id: string; locale: AppConfig['Locale'] }>
+  params: Promise<{ id: string; locale: string }>
 }
 
 export async function generateMetadata({
@@ -14,7 +14,7 @@ export async function generateMetadata({
 }: CharacterIdLayoutProps): Promise<Metadata> {
   await params
   const { locale } = await params
-  const t = await getTranslations({ locale })
+  const t = await getTranslations({ locale: locale as AppConfig['Locale'] })
 
   return {
     title: t('characters.title'),

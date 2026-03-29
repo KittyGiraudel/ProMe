@@ -5,11 +5,11 @@ import { Suspense } from 'react'
 import { Layout } from '@/components/Layout/Layout'
 import { VillageGenerator } from '@/components/PageGeneratorVillage/VillageGenerator'
 
-type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
+type Props = { params: Promise<{ locale: string }> }
 
 export async function generateMetadata({ params }: Props) {
   const { locale } = await params
-  const t = await getTranslations({ locale })
+  const t = await getTranslations({ locale: locale as AppConfig['Locale'] })
 
   return {
     title: t('village.title'),

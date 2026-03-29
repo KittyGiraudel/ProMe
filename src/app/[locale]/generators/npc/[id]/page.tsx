@@ -7,11 +7,11 @@ import { Layout } from '@/components/Layout/Layout'
 import { NpcGenerator } from '@/components/PageGeneratorNpc/NpcGenerator'
 import { decodeInhabitantRollParam } from '@/lib/inhabitant/inhabitantUrlCodec'
 
-type Props = { params: Promise<{ locale: AppConfig['Locale']; id: string }> }
+type Props = { params: Promise<{ locale: string; id: string }> }
 
 export async function generateMetadata({ params }: Props) {
   const { locale } = await params
-  const t = await getTranslations({ locale })
+  const t = await getTranslations({ locale: locale as AppConfig['Locale'] })
 
   return {
     title: t('inhabitant.title'),
@@ -35,7 +35,7 @@ function NpcGeneratorFallback() {
 
 export default async function NpcGeneratorIdPage({ params }: Props) {
   const { locale, id } = await params
-  const t = await getTranslations({ locale })
+  const t = await getTranslations({ locale: locale as AppConfig['Locale'] })
 
   const roll = decodeInhabitantRollParam(id, t)
   if (!roll) notFound()

@@ -21,8 +21,8 @@ export function Settings() {
   const router = useRouter()
   const pathname = usePathname()
 
-  const handleLocaleChange = (locale: AppConfig['Locale']) =>
-    router.replace(pathname, { locale })
+  const handleLocaleChange = (locale: string) =>
+    router.replace(pathname, { locale: locale as AppConfig['Locale'] })
 
   const initialValues: SettingsFormValues = {
     adaptiveNightMode: settings.sheet.adaptiveNightMode,
