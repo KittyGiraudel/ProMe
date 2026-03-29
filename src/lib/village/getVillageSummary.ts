@@ -21,7 +21,7 @@ export type VillageCopyFormatOptions = {
  * avec sous-liste « Propriétaire » + même ligne que le copier du générateur d’habitant
  * (résumé + lien), puis URL du village seule sur la dernière ligne.
  */
-export function formatVillageOneLiner(
+export function getVillageSummary(
   roll: VillageRoll,
   t: _Translator,
   owners?: InhabitantRoll[] | null,
@@ -32,7 +32,7 @@ export function formatVillageOneLiner(
 
   if (traits.length > 0) {
     const lines = traits.map((row) => `- ${stripBoldMarkers(row.text)}`)
-    sections.push(`${t('village.sectionTraits')}\n${lines.join('\n')}`)
+    sections.push(`${t('village.section_traits')}\n${lines.join('\n')}`)
   }
 
   const ownersOk =
@@ -54,7 +54,7 @@ export function formatVillageOneLiner(
     return `- ${row.text}`
   })
   sections.push(
-    `${t('village.sectionEstablishments')}\n${establishmentLines.join('\n')}`,
+    `${t('village.section_establishments')}\n${establishmentLines.join('\n')}`,
   )
 
   return sections.join('\n\n')

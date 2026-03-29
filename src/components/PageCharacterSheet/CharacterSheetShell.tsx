@@ -3,11 +3,14 @@
 import { useMemo, type ReactNode } from 'react'
 import { useTranslations } from 'next-intl'
 import { Alert, ConfigProvider, Form, Space } from 'antd'
+import { Link } from '@/i18n/navigation'
 import { Layout } from '@/components/Layout/Layout'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
 import { biomeAtCurrentMapPosition } from '@/lib/character/biomeAtCurrentMapPosition'
 import { Button } from '@/components/Button/Button'
 import { CharacterProvider } from '@/components/PageCharacterSheet/CharacterContext'
+import { CopyDropdown } from '@/components/CopyDropdown/CopyDropdown'
+import { getProtectorSummary } from '@/lib/character/getProtectorSummary'
 import { toFormValues } from './characterSheetForm'
 import { CharacterSheetEmptyState } from './CharacterSheetEmptyState'
 import { useCharacterSheetDocumentTitle } from './useCharacterSheetDocumentTitle'
@@ -21,7 +24,6 @@ import {
 } from './useCharacterLifeStatusActions'
 import { CharacterSheetTabNav } from './CharacterSheetTabNav'
 import { CharacterStats } from '../CharacterStats/CharacterStats'
-import { Link } from '@/i18n/navigation'
 
 export function CharacterSheetShell({
   characterId,
@@ -116,15 +118,22 @@ export function CharacterSheetShell({
         },
       ]}
       headerActions={[
-        !isDead ? (
-          <Button
-            key='save'
-            type='primary'
-            htmlType='submit'
-            form={character.id}>
-            {t('common.save')}
-          </Button>
-        ) : null,
+        <CopyDropdown
+          key='sheet-copy'
+          description={getProtectorSummary(character, t)}
+          journalBrace={`{protector/${character.id}}`}
+        />,
+        ...(!isDead
+          ? [
+              <Button
+                key='save'
+                type='primary'
+                htmlType='submit'
+                form={character.id}>
+                {t('common.save')}
+              </Button>,
+            ]
+          : []),
       ]}>
       <Form
         id={character.id}

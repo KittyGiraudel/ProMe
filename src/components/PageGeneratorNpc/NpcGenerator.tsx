@@ -1,8 +1,8 @@
 'use client'
 
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
-import { App, Typography } from 'antd'
+import { Typography } from 'antd'
 import { useRouter } from '@/i18n/navigation'
 import type {
   InhabitantRoll,
@@ -26,7 +26,6 @@ export function NpcGenerator({
   initialRoll: InhabitantRoll | null
 }) {
   const t = useTranslations()
-  const { message } = App.useApp()
   const router = useRouter()
 
   const pushToRoll = useCallback(
@@ -56,10 +55,9 @@ export function NpcGenerator({
     [pushToRoll]
   )
 
-  const handleCopyOneLiner = useCallback(async () => {
-    if (!roll) return
-
-    const line = t('inhabitant.one_liner', {
+  const copyPayload = useMemo(() => {
+    if (!roll) return null
+    const description = t('inhabitant.one_liner', {
       gender: genderCompactSymbol(roll.gender),
       name: roll.name,
       faction: t(`common.factions.${roll.faction}`),
@@ -68,14 +66,11 @@ export function NpcGenerator({
         gender: roll.gender,
       }),
     })
-
-    try {
-      await navigator.clipboard.writeText(line)
-      message.success(t('inhabitant.copy_one_liner_success'))
-    } catch {
-      message.error(t('inhabitant.copy_one_liner_error'))
+    return {
+      description,
+      journalBrace: `{npc/${encodeInhabitantRoll(roll)}}`,
     }
-  }, [message, roll, t])
+  }, [roll, t])
 
   return (
     <Layout
@@ -89,8 +84,7 @@ export function NpcGenerator({
         <RollActions
           onRoll={handleGenerate}
           label={t('inhabitant.generate')}
-          onCopyOneLiner={roll ? handleCopyOneLiner : undefined}
-          copyOneLinerLabel={t('inhabitant.copy_one_liner')}
+          copy={copyPayload}
         />
       }>
       <InhabitantSummary

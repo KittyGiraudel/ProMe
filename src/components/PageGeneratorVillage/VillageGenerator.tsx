@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo } from 'react'
-import { App, Select, Typography } from 'antd'
+import { Select, Typography } from 'antd'
 import { useTranslations } from 'next-intl'
 import type { InhabitantRoll } from '@/lib/inhabitant/generate'
 import { generateInhabitantWithFaction } from '@/lib/inhabitant/generate'
@@ -17,7 +17,7 @@ import { generateOwnersForVillage } from '@/lib/village/ownersGenerate'
 import { VillageSummary } from '@/components/VillageSummary/VillageSummary'
 import { Layout } from '@/components/Layout/Layout'
 import { RollActions } from '@/components/RollActions/RollActions'
-import { formatVillageOneLiner } from '@/lib/village/formatOneLiner'
+import { getVillageSummary } from '@/lib/village/getVillageSummary'
 import { useRouter } from '@/i18n/navigation'
 import { useSearchParams } from 'next/navigation'
 import { encodeVillageId } from '@/lib/village/villageIdCodec'
@@ -33,7 +33,6 @@ export function VillageGenerator({
   initialOwners: InhabitantRoll[] | null
 }) {
   const t = useTranslations()
-  const { message } = App.useApp()
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -107,17 +106,14 @@ export function VillageGenerator({
     [owners, pushVillage, roll, t, villageFaction]
   )
 
-  const handleCopyOneLiner = useCallback(async () => {
-    if (!roll || !owners) return
-    try {
-      await navigator.clipboard.writeText(
-        formatVillageOneLiner(roll, t, owners)
-      )
-      message.success(t('village.copy_one_liner_success'))
-    } catch {
-      message.error(t('village.copy_one_liner_error'))
+  const copyPayload = useMemo(() => {
+    if (!roll || !owners) return null
+    const id = encodeVillageId(roll, owners)
+    return {
+      description: getVillageSummary(roll, t, owners),
+      journalBrace: `{village/${id}?f=${villageFaction}}`,
     }
-  }, [message, owners, roll, t])
+  }, [owners, roll, t, villageFaction])
 
   const factionOptions = useMemo(
     () =>
@@ -140,8 +136,7 @@ export function VillageGenerator({
         <RollActions
           onRoll={handleGenerate}
           label={t('village.generate')}
-          onCopyOneLiner={roll && owners ? handleCopyOneLiner : undefined}
-          copyOneLinerLabel={t('village.copy_one_liner')}
+          copy={copyPayload}
         />
       }>
       <div className='village-generator__toolbar'>

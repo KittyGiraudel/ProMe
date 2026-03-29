@@ -1,0 +1,26 @@
+import type { Character } from '@/lib/character/types'
+import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
+import type { _Translator } from 'next-intl'
+
+
+/**
+ * Plain-text line: optional gender symbol, name (or “unnamed”), comma, localized archetype —
+ * same shape as recent-character cards on the home hub.
+ */
+export function getProtectorSummary(
+  data: Character | null,
+  t: _Translator
+): string {
+  if (!data) {
+    return t('characters.journal.protector_link_unknown')
+  }
+
+  const genderPrefix = data.gender
+    ? `${genderCompactSymbol(data.gender)} `
+    : ''
+  const displayName = data.name?.trim() ?? t('characters_list.unnamed')
+  const archetypeLabel = t(`common.archetypes.${data.archetype}`, {
+    gender: data.gender ?? 'indeterminate',
+  })
+  return `${genderPrefix}${displayName}, ${archetypeLabel}`
+}
