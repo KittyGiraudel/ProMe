@@ -1,5 +1,5 @@
 import { setRequestLocale } from 'next-intl/server'
-import { AppConfig, hasLocale } from 'next-intl'
+import { AppConfig, hasLocale, NextIntlClientProvider } from 'next-intl'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 
@@ -19,7 +19,11 @@ export default async function LocaleLayout({ children, params }: Props) {
   // Enable static rendering
   setRequestLocale(locale)
 
-  return <>{children}</>
+  return (
+    <NextIntlClientProvider>
+      {children}
+    </NextIntlClientProvider>
+  )
 }
 
 export function generateStaticParams() {

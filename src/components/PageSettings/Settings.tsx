@@ -1,8 +1,10 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
-import { Card, Checkbox, Form, Space, Typography } from 'antd'
+import { AppConfig, useLocale, useTranslations } from 'next-intl'
+import { Card, Checkbox, Form, Select, Space, Typography } from 'antd'
 import { Layout } from '@/components/Layout/Layout'
+import { usePathname, useRouter } from '@/i18n/navigation'
+import { routing } from '@/i18n/routing'
 import { useSettings } from './SettingsContext'
 
 type SettingsFormValues = {
@@ -15,6 +17,12 @@ type SettingsFormValues = {
 export function Settings() {
   const { settings, updateSettings } = useSettings()
   const t = useTranslations()
+  const locale = useLocale()
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const handleLocaleChange = (locale: AppConfig['Locale']) =>
+    router.replace(pathname, { locale })
 
   const initialValues: SettingsFormValues = {
     adaptiveNightMode: settings.sheet.adaptiveNightMode,
@@ -62,6 +70,21 @@ export function Settings() {
         initialValues={initialValues}
         onValuesChange={handleValuesChange}>
         <Space orientation='vertical' size='large'>
+          <Card title={t('settings.section_language')}>
+            <Space orientation='vertical' size='small'>
+              <Select
+                value={locale}
+                onChange={handleLocaleChange}
+                options={routing.locales.map(l => ({
+                  value: l,
+                  label: t(`settings.language_${l}`),
+                }))}
+              />
+              <Typography.Text type='secondary'>
+                {t('settings.language_help')}
+              </Typography.Text>
+            </Space>
+          </Card>
           <Card title={t('settings.section_sheet')}>
             <Space orientation='vertical' size='small'>
               <Form.Item

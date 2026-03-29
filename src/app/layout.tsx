@@ -1,4 +1,4 @@
-import { AppConfig, NextIntlClientProvider } from 'next-intl'
+import { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { Geist, Geist_Mono } from 'next/font/google'
@@ -38,13 +38,11 @@ export default function RootLayout({
   return (
     <html className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        <NextIntlClientProvider>
-          <AntdRegistry>
-            <AppProviders>
-              <div className='app-shell'>{children}</div>
-            </AppProviders>
-          </AntdRegistry>
-        </NextIntlClientProvider>
+        <AntdRegistry>
+          <AppProviders>
+            <div className='app-shell'>{children}</div>
+          </AppProviders>
+        </AntdRegistry>
       </body>
     </html>
   )
