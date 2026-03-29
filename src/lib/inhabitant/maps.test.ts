@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import { RANKS } from '@/lib/types'
+import { RANKS } from '@/lib/constants/misc'
 import {
   ageBandFromSuit,
-  canonicalGenderDie,
   canonicalFactionDie,
+  canonicalGenderDie,
+  factionFromD6,
   genderFromD6,
   personalityFromRank,
-  factionFromD6,
   rankFromPersonality,
   suitFromAgeBand,
 } from './maps'
