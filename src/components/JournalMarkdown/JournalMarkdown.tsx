@@ -36,7 +36,7 @@ export function JournalMarkdown({
       {
         t,
         getCellData,
-        mergeVillageDuplicateEstablishments:
+        mergeDuplicateEstablishments:
           settings.village.mergeDuplicateEstablishments,
         interactive,
       },

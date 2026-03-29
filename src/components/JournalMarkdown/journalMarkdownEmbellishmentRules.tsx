@@ -26,7 +26,7 @@ import { decodeVillageFactionParam } from '@/lib/village/villageUrlCodec'
 export type JournalEmbellishmentBuildContext = {
   t: _Translator
   getCellData: (ref: string) => CharacterCellData | null
-  mergeVillageDuplicateEstablishments: boolean
+  mergeDuplicateEstablishments: boolean
   // When false, reference previews and coord chips do not navigate
   // (e.g. edit-modal preview).
   interactive?: boolean
@@ -93,7 +93,7 @@ function coordEmbellishmentRules(
 function staticJournalEmbellishmentRules(
   ctx: JournalEmbellishmentBuildContext
 ): JournalEmbellishUiRule[] {
-  const { t, mergeVillageDuplicateEstablishments } = ctx
+  const { t, mergeDuplicateEstablishments } = ctx
 
   const biomeRules: JournalEmbellishUiRule[] = BIOME_ROLL_TABLE.map(row =>
     journalLiteralRule(
@@ -183,7 +183,7 @@ function staticJournalEmbellishmentRules(
         const summary = getVillageJournalSummary(
           encodedId,
           t,
-          { mergeDuplicateEstablishments: mergeVillageDuplicateEstablishments },
+          { mergeDuplicateEstablishments: mergeDuplicateEstablishments },
           faction
         )
         if (!summary) return slice
