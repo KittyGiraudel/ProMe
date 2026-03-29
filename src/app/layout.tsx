@@ -30,13 +30,16 @@ export async function generateMetadata({ params }: Props) {
   }
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode
+  params: Promise<{ locale: string }>
 }>) {
+  const { locale } = await params
   return (
-    <html className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang={locale} className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
         <AntdRegistry>
           <AppProviders>
