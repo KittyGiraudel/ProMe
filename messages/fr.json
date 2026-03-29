@@ -133,6 +133,8 @@
     "tools_title": "Outils rapides",
     "settings_title": "Paramètres",
     "settings_description": "Préférences locales de l’application, indépendantes des fiches de Protecteurs.",
+    "faq_title": "FAQ",
+    "faq_description": "Réponses aux questions courantes sur l’application et le jeu.",
     "character_card_title": "Gestionnaire de Protecteurs",
     "character_card_description": "Fiches jouables persistantes comprenant les ressources, l’inventaire, les sorts et les notes arbitraires.",
     "inhabitant_card_title": "Générateur d’habitant",

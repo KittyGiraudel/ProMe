@@ -106,14 +106,21 @@ export function HomeHub() {
         </Col>
       </Row>
 
-      <Row gutter={16}>
-        <Col span={24}>
+      <Row gutter={[16, 16]}>
+        <Col xs={24} md={12}>
           <Card
             title={t('home.settings_title')}
             extra={
               <BlockedLink href='/settings'>{t('common.open')}</BlockedLink>
             }>
             <Typography.Text>{t('home.settings_description')}</Typography.Text>
+          </Card>
+        </Col>
+        <Col xs={24} md={12}>
+          <Card
+            title={t('home.faq_title')}
+            extra={<BlockedLink href='/faq'>{t('common.open')}</BlockedLink>}>
+            <Typography.Text>{t('home.faq_description')}</Typography.Text>
           </Card>
         </Col>
       </Row>
