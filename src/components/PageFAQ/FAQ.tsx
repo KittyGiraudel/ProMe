@@ -18,7 +18,7 @@ export function FAQ() {
         { title: t('nav.faq'), path: '/faq' },
       ]}
       className='FAQ'>
-      {Array.from({ length: 3 }, (_, i) => (
+      {Array.from({ length: 2 }, (_, i) => (
         <Entry index={i + 1} key={i + 1} />
       ))}
     </Layout>
