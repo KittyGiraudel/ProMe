@@ -1,29 +1,44 @@
-.Map {
-  --gap: 0px; 
-  --size: calc(100% / 12 - var(--gap));
-  position: relative;
+/**
+ * Scrollport for the hex grid: keeps the map at its intrinsic width (see
+ * .Map__Inner min-width) on narrow viewports so it stays usable via pan/scroll
+ * instead of clipping.
+ */
+@media (max-width: 1040px) {
+  .MapScroller {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
 }
 
 /**
- * 1. Position context for absolutely positioned legend items.
- * 2. No idea how it works or what it does.
- * 3. Offset the grid to counter-balance the even rows’ offset towards the right.
+ * 1. Give the map a minimum width so it stays usable on narrow viewports.
+ * 2. Position context for absolutely positioned legend items.
  */
-.Map__Inner {
-  position: relative; /* 1 */
-  padding-bottom: calc(var(--size) / (4 * cos(30deg))); /* 2 */
-  margin-left: calc(var(--size) / 2); /* 3 */
-  min-width: 800px;
+.Map {
+  --gap: 0px; 
+  --size: calc(100% / 12 - var(--gap));
+  min-width: 900px; /* 1 */
+  position: relative; /* 2 */
 }
 
-.Map__DropdownOverlay .ant-dropdown-menu {
-  min-width: 220px;
+/**
+ * 1. No idea how it works or what it does.
+ * 2. Offset the grid to counter-balance the even rows’ offset towards the right.
+ */
+.Map__Inner {
+  padding-bottom: calc(var(--size) / (4 * cos(30deg))); /* 1 */
+  margin-left: calc(var(--size) / 2); /* 2 */
 }
 
 /**
  * Dropdown menus use prefix ant-dropdown-menu (not ant-menu). With selectable +
  * selectedKeys on biome children, the parent gets *-submenu-selected and primary
- * color on the title — reset to normal item text. !important beats injected menu styles.
+ * color on the title — reset to normal item text.
+ * !important beats injected menu styles.
  */
 .Map__DropdownOverlay .ant-dropdown-menu-submenu-selected > .ant-dropdown-menu-submenu-title {
   color: var(--ant-color-text) !important;

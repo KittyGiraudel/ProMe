@@ -19,26 +19,28 @@ export function MapDisplay({
   selectCell,
 }: MapDisplayProps) {
   return (
-    <div className='Map'>
-      <MapLegendRow position='top' offset={0} />
-      <MapLegendRow position='top' offset={1} />
-      <MapLegendCol position='left' />
+    <div className='MapScroller'>
+      <div className='Map'>
+        <MapLegendRow position='top' offset={0} />
+        <MapLegendRow position='top' offset={1} />
+        <MapLegendCol position='left' />
 
-      <div className='Map__Inner'>
-        {Array.from({ length: MAP_ROWS }, (_, ri) => (
-          <MapRow
-            key={ri}
-            index={ri}
-            sheet={sheet}
-            selectedCell={selectedCell}
-            selectCell={selectCell}
-          />
-        ))}
+        <div className='Map__Inner'>
+          {Array.from({ length: MAP_ROWS }, (_, ri) => (
+            <MapRow
+              key={ri}
+              index={ri}
+              sheet={sheet}
+              selectedCell={selectedCell}
+              selectCell={selectCell}
+            />
+          ))}
+        </div>
+
+        <MapLegendCol position='right' />
+        <MapLegendRow position='bottom' offset={1} />
+        <MapLegendRow position='bottom' offset={0} />
       </div>
-
-      <MapLegendCol position='right' />
-      <MapLegendRow position='bottom' offset={1} />
-      <MapLegendRow position='bottom' offset={0} />
     </div>
   )
 }
