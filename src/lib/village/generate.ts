@@ -1,7 +1,7 @@
-import { randomCard, randomNumberedCard } from "@/lib/rng";
-import type { PlayingCard } from "@/lib/types";
-import { suitIsRed, isFaceRank } from "@/lib/suitGlyphs";
-import { toVillagePrimaryTuple } from "./primaryTuple";
+import { randomCard, randomNumberedCard } from '@/lib/rng'
+import type { PlayingCard } from '@/lib/types'
+import { suitIsRed, isFaceRank } from '@/lib/suitGlyphs'
+import { toVillagePrimaryTuple } from './primaryTuple'
 
 export type VillageRoll = {
   primary: readonly [
@@ -10,30 +10,30 @@ export type VillageRoll = {
     PlayingCard,
     PlayingCard,
     PlayingCard,
-  ];
-  expansion: PlayingCard[];
-};
+  ]
+  expansion: PlayingCard[]
+}
 
 export function countRedJacksInPrimary(
-  primary: readonly PlayingCard[],
+  primary: readonly PlayingCard[]
 ): number {
-  return primary.filter((c) => c.rank === "J" && suitIsRed(c.suit)).length;
+  return primary.filter(c => c.rank === 'J' && suitIsRed(c.suit)).length
 }
 
 export function buildExpansionForPrimary(
   primary: readonly PlayingCard[],
-  rng: () => number,
+  rng: () => number
 ): PlayingCard[] {
-  const n = countRedJacksInPrimary(primary);
-  const out: PlayingCard[] = [];
+  const n = countRedJacksInPrimary(primary)
+  const out: PlayingCard[] = []
   for (let i = 0; i < n * 3; i++) {
-    out.push(randomNumberedCard(rng));
+    out.push(randomNumberedCard(rng))
   }
-  return out;
+  return out
 }
 
 export function generateVillageRoll(
-  rng: () => number = Math.random,
+  rng: () => number = Math.random
 ): VillageRoll {
   const primary = toVillagePrimaryTuple([
     randomCard(rng),
@@ -41,24 +41,24 @@ export function generateVillageRoll(
     randomCard(rng),
     randomCard(rng),
     randomCard(rng),
-  ])!;
-  const expansion = buildExpansionForPrimary(primary, rng);
-  return { primary, expansion };
+  ])!
+  const expansion = buildExpansionForPrimary(primary, rng)
+  return { primary, expansion }
 }
 
 export function rerollVillagePrimarySlot(
   roll: VillageRoll,
   slotIndex: number,
-  rng: () => number = Math.random,
+  rng: () => number = Math.random
 ): VillageRoll {
-  if (slotIndex < 0 || slotIndex > 4) return roll;
-  const next: PlayingCard[] = [...roll.primary];
-  next[slotIndex] = randomCard(rng);
-  const primary = toVillagePrimaryTuple(next)!;
-  return { primary, expansion: buildExpansionForPrimary(primary, rng) };
+  if (slotIndex < 0 || slotIndex > 4) return roll
+  const next: PlayingCard[] = [...roll.primary]
+  next[slotIndex] = randomCard(rng)
+  const primary = toVillagePrimaryTuple(next)!
+  return { primary, expansion: buildExpansionForPrimary(primary, rng) }
 }
 
 /** Every expansion card must be numbered (A–10), not a face card. */
 export function isValidExpansionCard(card: PlayingCard): boolean {
-  return !isFaceRank(card.rank);
+  return !isFaceRank(card.rank)
 }

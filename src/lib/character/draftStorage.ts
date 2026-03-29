@@ -13,7 +13,10 @@ export function saveDraft(draft: Character): void {
     const normalized = normalizeCharacter(draft)
     if (!normalized) return
     const touched = touchCharacter(normalized)
-    window.sessionStorage.setItem(getDraftKey(draft.id), JSON.stringify(touched))
+    window.sessionStorage.setItem(
+      getDraftKey(draft.id),
+      JSON.stringify(touched)
+    )
   } catch {
     // ignore (private mode / quota)
   }
@@ -39,4 +42,3 @@ export function clearDraft(draftId: string): void {
     // ignore
   }
 }
-

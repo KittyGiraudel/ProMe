@@ -32,7 +32,9 @@ type MapCellContextMenuProps = {
 
 function firstGrapheme(value: string): string {
   if (typeof Intl !== 'undefined' && 'Segmenter' in Intl) {
-    const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' })
+    const segmenter = new Intl.Segmenter(undefined, {
+      granularity: 'grapheme',
+    })
     const [first] = Array.from(segmenter.segment(value), part => part.segment)
     return first ?? ''
   }

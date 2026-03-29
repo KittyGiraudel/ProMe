@@ -14,10 +14,7 @@ import {
 } from './types'
 import { type BiomeId } from '../types'
 import { BIOME_IDS } from '../constants/misc'
-import {
-  countClockSegments,
-  normalizeClock,
-} from './clock'
+import { countClockSegments, normalizeClock } from './clock'
 import { normalizeLifeStatus } from './lifeStatus'
 
 const MAX_INVENTORY_ITEMS = 30
@@ -27,16 +24,17 @@ const MAX_MAP_ICON_LENGTH = 1
 const DEFAULT_MONEY = 100
 export const DEFAULT_MAP_POSITION: HexCoordinate = { q: 0, r: 0 }
 
-function normalizeArchetype(
-  value: unknown,
-  fallback: Archetype,
-): Archetype {
-  if (value === 'warrior' || value === 'pilgrim' || value === 'bard') return value
+function normalizeArchetype(value: unknown, fallback: Archetype): Archetype {
+  if (value === 'warrior' || value === 'pilgrim' || value === 'bard')
+    return value
   return fallback
 }
 
 export function randomId(): string {
-  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+  if (
+    typeof crypto !== 'undefined' &&
+    typeof crypto.randomUUID === 'function'
+  ) {
     return crypto.randomUUID()
   }
   return `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`
@@ -56,12 +54,14 @@ function normalizeStatPool(value: unknown, fallbackMax = 1): StatPool {
 
 function normalizeBiome(value: unknown): BiomeId | undefined {
   if (typeof value !== 'string') return undefined
-  return (BIOME_IDS as readonly string[]).includes(value) ? (value as BiomeId) : undefined
+  return (BIOME_IDS as readonly string[]).includes(value)
+    ? (value as BiomeId)
+    : undefined
 }
 
 function normalizeHexCoordinate(
   value: unknown,
-  fallback: { q: number; r: number },
+  fallback: { q: number; r: number }
 ): { q: number; r: number } {
   const source = value as Partial<{ q: number; r: number }> | undefined
   return {
@@ -72,7 +72,9 @@ function normalizeHexCoordinate(
 
 function splitGraphemes(value: string): string[] {
   if (typeof Intl !== 'undefined' && 'Segmenter' in Intl) {
-    const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' })
+    const segmenter = new Intl.Segmenter(undefined, {
+      granularity: 'grapheme',
+    })
     return Array.from(segmenter.segment(value), part => part.segment)
   }
   return Array.from(value)
@@ -105,7 +107,10 @@ function normalizeCharacterMapCell(value: unknown): CharacterMapCell | null {
 
 export function normalizeCharacterMapState(value: unknown): CharacterMapState {
   const raw = value as Partial<CharacterMapState> | undefined
-  const currentPosition = normalizeHexCoordinate(raw?.currentPosition, DEFAULT_MAP_POSITION)
+  const currentPosition = normalizeHexCoordinate(
+    raw?.currentPosition,
+    DEFAULT_MAP_POSITION
+  )
 
   const byCoord = new Map<string, CharacterMapCell>()
   if (Array.isArray(raw?.cells)) {
@@ -158,13 +163,19 @@ function normalizeJournalEntry(value: unknown): JournalEntry | null {
     id: typeof item.id === 'string' && item.id ? item.id : randomId(),
     content,
     createdAt:
-      typeof item.createdAt === 'string' && item.createdAt ? item.createdAt : now,
+      typeof item.createdAt === 'string' && item.createdAt
+        ? item.createdAt
+        : now,
     updatedAt:
-      typeof item.updatedAt === 'string' && item.updatedAt ? item.updatedAt : now,
+      typeof item.updatedAt === 'string' && item.updatedAt
+        ? item.updatedAt
+        : now,
   }
 }
 
-function normalizeJournalEntries(source: Partial<CharacterInput> | Partial<Character>) {
+function normalizeJournalEntries(
+  source: Partial<CharacterInput> | Partial<Character>
+) {
   if (Array.isArray(source.journalEntries)) {
     return source.journalEntries
       .map(normalizeJournalEntry)
@@ -227,7 +238,7 @@ export function getDefaultPoolsForArchetype(archetype: Archetype): {
 }
 
 export function createDefaultCharacterInput(
-  archetype: Archetype = 'warrior',
+  archetype: Archetype = 'warrior'
 ): CharacterInput {
   const pools = defaultPoolsForArchetype(archetype)
   return {
@@ -253,7 +264,7 @@ export function createDefaultCharacterInput(
 }
 
 export function normalizeCharacterInput(
-  input: Partial<CharacterInput> | null | undefined,
+  input: Partial<CharacterInput> | null | undefined
 ): CharacterInput {
   const fallbackArchetype: Archetype = 'warrior'
   const baseArchetype = normalizeArchetype(input?.archetype, fallbackArchetype)
@@ -273,10 +284,7 @@ export function normalizeCharacterInput(
         .slice(0, MAX_SPELLBOOK_ITEMS)
     : base.spellbook
 
-  const stamina = normalizeStatPool(
-    source.stamina,
-    base.stamina.max,
-  )
+  const stamina = normalizeStatPool(source.stamina, base.stamina.max)
   const map = normalizeCharacterMapState(source.map)
   const journalEntries = normalizeJournalEntries(source)
 
@@ -293,10 +301,7 @@ export function normalizeCharacterInput(
     honor: asInt(source.honor, base.honor),
     inspiration: asInt(source.inspiration, base.inspiration),
     money: Math.max(0, asInt(source.money, base.money)),
-    health: normalizeStatPool(
-      source.health,
-      base.health.max,
-    ),
+    health: normalizeStatPool(source.health, base.health.max),
     courage: normalizeStatPool(source.courage, base.courage.max),
     stamina,
     clock: normalizeClock(source.clock, stamina.current),
@@ -308,9 +313,7 @@ export function normalizeCharacterInput(
   }
 }
 
-export function createCharacter(
-  input?: Partial<CharacterInput>,
-): Character {
+export function createCharacter(input?: Partial<CharacterInput>): Character {
   const now = new Date().toISOString()
   return {
     id: randomId(),
@@ -321,11 +324,14 @@ export function createCharacter(
   }
 }
 
-export function normalizeCharacter(
-  value: unknown,
-): Character | null {
+export function normalizeCharacter(value: unknown): Character | null {
   const raw = value as Partial<Character> | undefined
-  if (!raw || typeof raw !== 'object' || typeof raw.id !== 'string' || !raw.id) {
+  if (
+    !raw ||
+    typeof raw !== 'object' ||
+    typeof raw.id !== 'string' ||
+    !raw.id
+  ) {
     return null
   }
   const normalizedInput = normalizeCharacterInput(raw)
@@ -347,14 +353,12 @@ export function normalizeCharacter(
   }
 }
 
-export function touchCharacter(
-  character: Character,
-): Character {
+export function touchCharacter(character: Character): Character {
   return { ...character, updatedAt: new Date().toISOString() }
 }
 
 export function validateCharacterForPersistence(
-  character: Character,
+  character: Character
 ): { ok: true } | { ok: false; errors: string[] } {
   const errors: string[] = []
 
@@ -369,7 +373,7 @@ export function validateCharacterForPersistence(
   }
   if (character.inventory.length > inventoryCap) {
     errors.push(
-      `inventory must have <= ${inventoryCap} items (based on Stamina)`,
+      `inventory must have <= ${inventoryCap} items (based on Stamina)`
     )
   }
   if (character.spellbook.length > MAX_SPELLBOOK_ITEMS) {

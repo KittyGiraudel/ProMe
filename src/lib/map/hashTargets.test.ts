@@ -1,9 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { getGlobalFromSheetCell } from '@/lib/hex/coordinates'
-import {
-  getDisplayedCellHash,
-  parseMapCellHash,
-} from './hashTargets'
+import { getDisplayedCellHash, parseMapCellHash } from './hashTargets'
 
 describe('map/hashTargets', () => {
   it('uses label-based DOM ids for default sheet', () => {

@@ -15,7 +15,7 @@ describe('markdown/inhabitantLinkSummary', () => {
 
   it('returns null for invalid NPC URLs', () => {
     const parsed = parseGeneratorLink(
-      'https://example.com/generators/npc/NOT_A_VALID_ROLL',
+      'https://example.com/generators/npc/NOT_A_VALID_ROLL'
     )
     expect(parsed?.kind).toBe('npc')
     expect(getNpcJournalSummary(parsed!.encodedId, testLocalize)).toBeNull()

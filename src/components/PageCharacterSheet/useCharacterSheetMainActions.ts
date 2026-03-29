@@ -44,12 +44,12 @@ export function useCharacterSheetMainActions({
   onSaved: (saved: Character) => void
   setSaveErrors: (errors: string[] | null) => void
 }) {
-  const  t= useTranslations()
+  const t = useTranslations()
   const router = useRouter()
   const { message } = App.useApp()
   const store = useMemo(() => getCharacterStore(), [])
   const getCharacterFromForm = useCharacterFromForm({ character, form })
-  
+
   const onSave = useCallback(() => {
     if (!character) return
     if (character.lifeStatus === 'dead') {

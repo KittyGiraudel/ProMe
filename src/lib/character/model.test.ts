@@ -252,4 +252,3 @@ describe('character/model', () => {
     expect(normalized.clock).toBe(2)
   })
 })
-

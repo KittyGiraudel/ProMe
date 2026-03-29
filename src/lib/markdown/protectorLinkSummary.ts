@@ -7,7 +7,7 @@ import type { _Translator } from 'next-intl'
  */
 export function getProtectorJournalSummary(
   character: Character,
-  t: _Translator,
+  t: _Translator
 ): string {
   const gender = character.gender ?? 'indeterminate'
   const genderSym = genderCompactSymbol(gender)

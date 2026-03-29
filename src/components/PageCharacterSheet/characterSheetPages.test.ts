@@ -30,14 +30,11 @@ describe('character sheet app routes (filesystem)', () => {
       existsSync(join(CHARACTER_SHEET_SEGMENT_ROOT, 'inventory', 'page.tsx'))
     ).toBe(true)
 
-    const orphanCatchAll = join(
-      CHARACTER_SHEET_SEGMENT_ROOT,
-      '[[...sheetTab]]'
-    )
+    const orphanCatchAll = join(CHARACTER_SHEET_SEGMENT_ROOT, '[[...sheetTab]]')
     expect(existsSync(orphanCatchAll)).toBe(false)
 
-    expect(
-      existsSync(join(CHARACTER_SHEET_SEGMENT_ROOT, 'page.tsx'))
-    ).toBe(false)
+    expect(existsSync(join(CHARACTER_SHEET_SEGMENT_ROOT, 'page.tsx'))).toBe(
+      false
+    )
   })
 })

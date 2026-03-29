@@ -48,10 +48,11 @@ describe('villageIdCodec', () => {
     const faction: Faction = 'bruja'
 
     const owners = generateOwnersForVillage(roll, faction, testLocalize, rng)
-    const wrongOwnersEnc = encodeVillageOwners(owners.slice(0, Math.max(0, owners.length - 1)))
+    const wrongOwnersEnc = encodeVillageOwners(
+      owners.slice(0, Math.max(0, owners.length - 1))
+    )
     const id = `${encodeVillageRoll(roll)}.${wrongOwnersEnc}`
 
     expect(decodeVillageIdParam(id, testLocalize)).toBeNull()
   })
 })
-

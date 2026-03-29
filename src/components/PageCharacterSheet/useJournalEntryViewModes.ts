@@ -3,7 +3,9 @@
 import { useState } from 'react'
 
 export function useJournalEntryViewModes() {
-  const [editingByFieldKey, setEditingByFieldKey] = useState<Record<number, boolean>>({})
+  const [editingByFieldKey, setEditingByFieldKey] = useState<
+    Record<number, boolean>
+  >({})
 
   const setEditingMode = (fieldKey: number, isEditing: boolean) => {
     setEditingByFieldKey(previous => ({

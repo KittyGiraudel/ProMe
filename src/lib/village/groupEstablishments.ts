@@ -3,7 +3,10 @@ import { suitIsRed } from '@/lib/suitGlyphs'
 import { rankUsesEstablishmentSizeTiers } from '@/lib/village/data/establishments'
 import type { VillageRoll } from '@/lib/village/generate'
 import { mergeEstablishmentSizeTiers } from '@/lib/village/mergeEstablishmentSizeTiers'
-import { resolveVillageDisplay, type VillageEstablishmentRow } from '@/lib/village/resolveVillageDisplay'
+import {
+  resolveVillageDisplay,
+  type VillageEstablishmentRow,
+} from '@/lib/village/resolveVillageDisplay'
 import { _Translator } from 'next-intl'
 
 export type VillageEstablishmentGroup = {
@@ -41,14 +44,16 @@ export function groupEstablishments(
     const { rows: groupRows, ownerIndices } = map.get(key)!
     const count = groupRows.length
     const first = groupRows[0]!
-    let text =  first.text
+    let text = first.text
 
     if (key.startsWith('tier:')) {
-      const tiers = groupRows.map(rr => suitIsRed(rr.card.suit) ? 2 : 1)
+      const tiers = groupRows.map(rr => (suitIsRed(rr.card.suit) ? 2 : 1))
       const merged = mergeEstablishmentSizeTiers(tiers)
-      text = t(`village.establishments.${first.card.rank}`, { size: merged - 1 })
+      text = t(`village.establishments.${first.card.rank}`, {
+        size: merged - 1,
+      })
     }
-    
+
     const slots = groupRows.flatMap(rr =>
       rr.rerollPrimarySlot != null ? [rr.rerollPrimarySlot] : []
     )
@@ -66,7 +71,10 @@ export function groupEstablishments(
 }
 
 /** Establishment line count when duplicate rows are merged (same rules as the village summary). */
-export function countVillageGroupedEstablishmentRows(roll: VillageRoll, t: _Translator): number {
+export function countVillageGroupedEstablishmentRows(
+  roll: VillageRoll,
+  t: _Translator
+): number {
   const { establishments } = resolveVillageDisplay(roll, t)
   return groupEstablishments(establishments, t).length
 }

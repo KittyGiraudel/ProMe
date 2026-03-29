@@ -65,7 +65,7 @@ export function countClockSegments(staminaCurrent: number): number {
  */
 export function isClockDayPhase(
   clampedSliceIndex: number,
-  segmentsPerHalf: number,
+  segmentsPerHalf: number
 ): boolean {
   return clampedSliceIndex < segmentsPerHalf
 }
@@ -75,7 +75,7 @@ export function isClockDayPhase(
  */
 export function isClockNightPhase(
   clampedSliceIndex: number,
-  segmentsPerHalf: number,
+  segmentsPerHalf: number
 ): boolean {
   return clampedSliceIndex >= segmentsPerHalf
 }
@@ -94,7 +94,7 @@ export function isClockNightPhase(
 export function computeClockMoveFromRawTarget(
   staminaCurrent: number,
   clampedPreviousPosition: number,
-  unwrappedTargetIndex: number,
+  unwrappedTargetIndex: number
 ): ClockMoveFromRawTarget {
   const segmentsPerHalf = countHalfClockSegments(staminaCurrent)
   const totalSegments = segmentsPerHalf * 2
@@ -117,7 +117,10 @@ export function computeClockMoveFromRawTarget(
  * @param staminaCurrent - Defines ring size via {@link countClockSegments}.
  * @param clock - Raw stored value (form field); clamped to `0 … totalSegments - 1`.
  */
-export function clampClockSliceIndex(staminaCurrent: number, clock: unknown): number {
+export function clampClockSliceIndex(
+  staminaCurrent: number,
+  clock: unknown
+): number {
   return normalizeSliceIndex(clock, countClockSegments(staminaCurrent))
 }
 
@@ -132,10 +135,11 @@ export function clampClockSliceIndex(staminaCurrent: number, clock: unknown): nu
 export function remapClockPositionForTotalSegments(
   position: number,
   fromTotalSegments: number,
-  toTotalSegments: number,
+  toTotalSegments: number
 ): number {
   if (toTotalSegments <= 0) return 0
-  if (fromTotalSegments <= 0) return normalizeSliceIndex(position, toTotalSegments)
+  if (fromTotalSegments <= 0)
+    return normalizeSliceIndex(position, toTotalSegments)
   const normalizedFrom = normalizeSliceIndex(position, fromTotalSegments)
   const ratio = normalizedFrom / fromTotalSegments
   const remapped = Math.floor(ratio * toTotalSegments)

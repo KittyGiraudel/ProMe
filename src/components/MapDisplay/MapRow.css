@@ -1,7 +1,7 @@
 /**
  * 1. Apply the same gap both horizontally and vertically.
  */
- .MapRow {
+.MapRow {
   display: flex;
   gap: var(--gap); /* 1 */
   margin-bottom: var(--gap); /* 1 */

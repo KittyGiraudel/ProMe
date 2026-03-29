@@ -28,7 +28,7 @@ function cloneJournalEntries(entries: JournalEntry[]): JournalEntry[] {
 }
 
 function createInheritedMemoryInput(
-  inheritedMemories?: CharacterMemoryInheritance,
+  inheritedMemories?: CharacterMemoryInheritance
 ): Pick<CharacterInput, 'map' | 'journalEntries'> | undefined {
   if (!inheritedMemories) return undefined
 
@@ -40,7 +40,7 @@ function createInheritedMemoryInput(
 
 export function createCharacterFromIdentity(
   identity: CharacterIdentityInput,
-  inheritedMemories?: CharacterMemoryInheritance,
+  inheritedMemories?: CharacterMemoryInheritance
 ): Character {
   return createCharacter({
     ...identity,

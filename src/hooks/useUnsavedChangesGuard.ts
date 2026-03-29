@@ -85,11 +85,14 @@ export function useUnsavedChangesGuard({
       if (!interceptionReadyRef.current) return
       if (!isDirty()) return
       if (leaveConfirmingRef.current) return
-      const currentPathAndQuery = window.location.pathname + window.location.search
+      const currentPathAndQuery =
+        window.location.pathname + window.location.search
       // Hash-only navigation (permalinks/anchors) should not be blocked.
       if (currentPathAndQuery === stablePathAndQueryRef.current) {
         stableUrlRef.current =
-          window.location.pathname + window.location.search + window.location.hash
+          window.location.pathname +
+          window.location.search +
+          window.location.hash
         return
       }
 

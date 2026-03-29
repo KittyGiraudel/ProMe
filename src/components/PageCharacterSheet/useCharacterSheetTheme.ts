@@ -38,9 +38,12 @@ export function useCharacterSheetTheme({
   character,
 }: {
   form: FormInstance
-  character: Character | null,
+  character: Character | null
 }) {
-  const { watchedClock, staminaCurrent } = useCharacterSheetDerived({ form, character })
+  const { watchedClock, staminaCurrent } = useCharacterSheetDerived({
+    form,
+    character,
+  })
 
   const { settings } = useSettings()
   const adaptiveNightMode = settings.sheet.adaptiveNightMode
@@ -57,6 +60,8 @@ export function useCharacterSheetTheme({
 
   return {
     characterSheetNightMode,
-    configTheme: characterSheetNightMode ? CHARACTER_SHEET_NIGHT_THEME : undefined,
+    configTheme: characterSheetNightMode
+      ? CHARACTER_SHEET_NIGHT_THEME
+      : undefined,
   }
 }

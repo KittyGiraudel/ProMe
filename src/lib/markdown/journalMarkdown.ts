@@ -12,7 +12,7 @@ export type JournalMarkdownRendererConfig = {
 /** Applies transforms in order (fold-left). */
 export function applyJournalMarkdownTransforms(
   markdown: string,
-  transforms: JournalMarkdownTransform[] = [],
+  transforms: JournalMarkdownTransform[] = []
 ): string {
   return transforms.reduce((acc, transform) => transform(acc), markdown)
 }
@@ -21,7 +21,7 @@ export function applyJournalMarkdownTransforms(
  * Shared config for journal markdown: GFM + optional custom components/transforms.
  */
 export function createJournalMarkdownRendererConfig(
-  config: JournalMarkdownRendererConfig = {},
+  config: JournalMarkdownRendererConfig = {}
 ) {
   return {
     remarkPlugins: [remarkGfm],

@@ -17,8 +17,12 @@ export function useCharacterSheetDerived({
   const watchedStaminaRaw = Form.useWatch('stamina', watchOpts) as
     | StatPool
     | undefined
-  const watchedClockRaw = Form.useWatch('clock', watchOpts) as number | undefined
-  const watchedHealthRaw = Form.useWatch('health', watchOpts) as StatPool | undefined
+  const watchedClockRaw = Form.useWatch('clock', watchOpts) as
+    | number
+    | undefined
+  const watchedHealthRaw = Form.useWatch('health', watchOpts) as
+    | StatPool
+    | undefined
   const watchedCourageRaw = Form.useWatch('courage', watchOpts) as
     | StatPool
     | undefined
@@ -26,7 +30,8 @@ export function useCharacterSheetDerived({
   const watchedStamina =
     watchedStaminaRaw ?? character?.stamina ?? FALLBACK_STAT_POOL
   const watchedClock = watchedClockRaw ?? character?.clock ?? 0
-  const watchedHealth = watchedHealthRaw ?? character?.health ?? FALLBACK_STAT_POOL
+  const watchedHealth =
+    watchedHealthRaw ?? character?.health ?? FALLBACK_STAT_POOL
   const watchedCourage =
     watchedCourageRaw ?? character?.courage ?? FALLBACK_STAT_POOL
 

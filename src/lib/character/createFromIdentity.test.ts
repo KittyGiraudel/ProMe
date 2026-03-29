@@ -49,7 +49,7 @@ describe('character/createFromIdentity', () => {
         name: 'Heir',
         archetype: 'warrior',
       },
-      source,
+      source
     )
 
     expect(created.map).toEqual(source.map)

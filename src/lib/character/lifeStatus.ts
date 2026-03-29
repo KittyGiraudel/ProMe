@@ -8,7 +8,9 @@ export function isCharacterDead(character: Character): boolean {
   return character.lifeStatus === 'dead'
 }
 
-function comparableSnapshot(character: Character): Omit<Character, 'updatedAt'> {
+function comparableSnapshot(
+  character: Character
+): Omit<Character, 'updatedAt'> {
   const { updatedAt, ...snapshot } = character
   void updatedAt
   return snapshot
@@ -16,7 +18,7 @@ function comparableSnapshot(character: Character): Omit<Character, 'updatedAt'> 
 
 export function canPersistCharacterUpdate(
   existing: Character | null,
-  next: Character,
+  next: Character
 ): boolean {
   if (!existing || !isCharacterDead(existing)) return true
   if (next.lifeStatus === 'alive') {

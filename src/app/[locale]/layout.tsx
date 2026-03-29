@@ -19,11 +19,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   // Enable static rendering
   setRequestLocale(locale)
 
-  return (
-    <NextIntlClientProvider>
-      {children}
-    </NextIntlClientProvider>
-  )
+  return <NextIntlClientProvider>{children}</NextIntlClientProvider>
 }
 
 export function generateStaticParams() {

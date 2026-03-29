@@ -19,7 +19,7 @@
  * 2. Position context for absolutely positioned legend items.
  */
 .Map {
-  --gap: 0px; 
+  --gap: 0px;
   --size: calc(100% / 12 - var(--gap));
   min-width: 900px; /* 1 */
   position: relative; /* 2 */
@@ -40,7 +40,8 @@
  * color on the title — reset to normal item text.
  * !important beats injected menu styles.
  */
-.Map__DropdownOverlay .ant-dropdown-menu-submenu-selected > .ant-dropdown-menu-submenu-title {
+.Map__DropdownOverlay .ant-dropdown-menu-submenu-selected
+  > .ant-dropdown-menu-submenu-title {
   color: var(--ant-color-text) !important;
 }
 

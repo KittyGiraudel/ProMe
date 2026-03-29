@@ -78,4 +78,3 @@ export function parseGeneratorLink(rawUrl: string): ParsedGeneratorLink | null {
 
   return null
 }
-

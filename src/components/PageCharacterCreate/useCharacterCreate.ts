@@ -33,7 +33,7 @@ export function useCharacterCreate() {
         archetype: values.archetype,
         gender: values.gender,
       },
-      source ?? undefined,
+      source ?? undefined
     )
     const saved = store.save(created)
     message.success(t('new_character.create_success'))

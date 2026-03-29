@@ -9,10 +9,7 @@ import {
   type Dispatch,
   type SetStateAction,
 } from 'react'
-import {
-  getSheetCoordinate,
-  type SheetCoordinate,
-} from '@/lib/hex/coordinates'
+import { getSheetCoordinate, type SheetCoordinate } from '@/lib/hex/coordinates'
 import type { CharacterMapState, HexCoordinate } from '@/lib/character/types'
 import { normalizeMapState } from '@/lib/character/mapState'
 
@@ -22,9 +19,7 @@ type UseMapSheetArgs = {
   setSelectedCell: Dispatch<SetStateAction<HexCoordinate | null>>
 }
 
-export function useMapSheet({
-  currentPosition,
-}: UseMapSheetArgs) {
+export function useMapSheet({ currentPosition }: UseMapSheetArgs) {
   const form = Form.useFormInstance()
   const watchedMap = Form.useWatch('map', {
     form,

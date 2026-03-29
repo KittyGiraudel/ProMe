@@ -28,7 +28,7 @@
   background: rgba(0, 0, 0, 0.04);
 }
 
-.LinkTabNav__link[data-active='true'] {
+.LinkTabNav__link[data-active="true"] {
   font-weight: 600;
   border-color: var(--ant-color-primary, #1677ff);
   background: rgba(22, 119, 255, 0.06);

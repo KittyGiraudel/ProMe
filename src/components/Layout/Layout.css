@@ -62,7 +62,8 @@
   color: var(--biome-dark-contrast) !important;
 }
 
-.Layout__menu[data-biome="unexplored"] .ant-menu-item:has([data-current="true"]) {
+.Layout__menu[data-biome="unexplored"]
+  .ant-menu-item:has([data-current="true"]) {
   _color: var(--ant-layout-header-bg);
 }
 

@@ -14,7 +14,7 @@ export function useCharacterSheetFormSync({
   character,
 }: {
   form: FormInstance
-  character: Character | null,
+  character: Character | null
 }) {
   const {
     watchedClock,
@@ -30,7 +30,7 @@ export function useCharacterSheetFormSync({
 
   useEffect(() => {
     const previous = prevClockTotalSegmentsRef.current
-    
+
     if (previous === null) {
       prevClockTotalSegmentsRef.current = clockTotalSegments
       return

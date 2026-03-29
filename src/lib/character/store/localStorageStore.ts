@@ -48,7 +48,9 @@ function writeAll(characters: Character[]): Character[] {
 export function createLocalStorageCharacterStore(): CharacterStore {
   return {
     list() {
-      return readAll().toSorted((a, b) => b.updatedAt.localeCompare(a.updatedAt))
+      return readAll().toSorted((a, b) =>
+        b.updatedAt.localeCompare(a.updatedAt)
+      )
     },
     get(id) {
       return readAll().find(character => character.id === id) ?? null

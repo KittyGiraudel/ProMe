@@ -1,4 +1,7 @@
-import { generateInhabitantWithFaction, type InhabitantRoll } from '@/lib/inhabitant/generate'
+import {
+  generateInhabitantWithFaction,
+  type InhabitantRoll,
+} from '@/lib/inhabitant/generate'
 import type { Faction } from '@/lib/types'
 import { resolveVillageDisplay } from '@/lib/village/resolveVillageDisplay'
 import type { VillageRoll } from '@/lib/village/generate'
@@ -14,8 +17,13 @@ import type { _Translator } from 'next-intl'
  * - URL decoding/validation (owners segment length must match)
  * - owner generation (create exactly this many `InhabitantRoll`s)
  */
-export function countVillageOwnerSlots(roll: VillageRoll, t: _Translator): number {
-  return resolveVillageDisplay(roll, t).establishments.filter(row => row.card.rank !== '10').length
+export function countVillageOwnerSlots(
+  roll: VillageRoll,
+  t: _Translator
+): number {
+  return resolveVillageDisplay(roll, t).establishments.filter(
+    row => row.card.rank !== '10'
+  ).length
 }
 
 /**
@@ -31,7 +39,7 @@ export function generateOwnersForVillage(
   roll: VillageRoll,
   faction: Faction,
   t: _Translator,
-  rng: () => number = Math.random,
+  rng: () => number = Math.random
 ): InhabitantRoll[] {
   const n = countVillageOwnerSlots(roll, t)
   const out: InhabitantRoll[] = []
@@ -40,4 +48,3 @@ export function generateOwnersForVillage(
   }
   return out
 }
-

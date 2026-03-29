@@ -32,7 +32,10 @@ const ID_SEP = '.'
  * This is intended to be the canonical serialization used by navigation, copy/share
  * flows, and server-side decoding.
  */
-export function encodeVillageId(roll: VillageRoll, owners: InhabitantRoll[]): string {
+export function encodeVillageId(
+  roll: VillageRoll,
+  owners: InhabitantRoll[]
+): string {
   return `${encodeVillageRoll(roll)}${ID_SEP}${encodeVillageOwners(owners)}`
 }
 
@@ -65,7 +68,7 @@ export function decodeVillageIdRollParam(idRaw: string): VillageRoll | null {
  */
 export function decodeVillageIdParam(
   idRaw: string,
-  t: _Translator,
+  t: _Translator
 ): { roll: VillageRoll; owners: InhabitantRoll[] } | null {
   const id = idRaw.trim()
   if (!id) return null
@@ -86,4 +89,3 @@ export function decodeVillageIdParam(
 
   return { roll, owners }
 }
-

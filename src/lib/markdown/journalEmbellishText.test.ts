@@ -10,7 +10,7 @@ const noopRender: JournalEmbellishUiRule['render'] = () => null
 
 function tokenIds(
   segments: ReturnType<typeof tokenizeJournalEmbellishUiRules>,
-  rules: readonly JournalEmbellishUiRule[],
+  rules: readonly JournalEmbellishUiRule[]
 ) {
   return segments.map(s =>
     s.type === 'text'
@@ -20,7 +20,7 @@ function tokenIds(
           id: rules[s.ruleIndex]!.id,
           slice: s.slice,
           refId: s.refId,
-        },
+        }
   )
 }
 
@@ -121,19 +121,19 @@ describe('markdown/journalEmbellishText', () => {
         String.raw`\{village\/([^}]+)\}`,
         undefined,
         1,
-        noopRender,
+        noopRender
       ),
       journalRegexRule(
         'journalRef:npc',
         String.raw`\{npc\/([^}]+)\}`,
         undefined,
         1,
-        noopRender,
+        noopRender
       ),
     ]
     const result = tokenizeJournalEmbellishUiRules(
       'See {village/R.X} and {npc/abc}',
-      rules,
+      rules
     )
     expect(tokenIds(result, rules)).toEqual([
       { type: 'text', value: 'See ' },
@@ -161,7 +161,7 @@ describe('markdown/journalEmbellishText', () => {
         String.raw`\{npc\/([^}]+)\}`,
         undefined,
         1,
-        noopRender,
+        noopRender
       ),
     ]
     const result = tokenizeJournalEmbellishUiRules('{npc/12}', rules)

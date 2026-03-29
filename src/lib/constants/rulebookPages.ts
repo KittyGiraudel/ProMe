@@ -1,4 +1,4 @@
-import type { Rank } from "@/lib/types";
+import type { Rank } from '@/lib/types'
 
 /**
  * Rulebook page anchors for village establishment links (per-rank detail, table page).
@@ -10,22 +10,22 @@ export const RULEBOOK_PAGES = {
     establishmentTable: 43,
     establishmentDetailByRank: {
       A: 44,
-      "2": 45,
-      "3": 46,
-      "4": 47,
-      "5": 48,
-      "6": 49,
-      "7": 50,
-      "8": 51,
-      "9": 54,
-      "10": 63,
+      '2': 45,
+      '3': 46,
+      '4': 47,
+      '5': 48,
+      '6': 49,
+      '7': 50,
+      '8': 51,
+      '9': 54,
+      '10': 63,
     },
   },
-} as const;
+} as const
 
 export function establishmentDetailRulebookPage(rank: Rank): number {
-  if (rank === "J" || rank === "Q" || rank === "K") {
-    return RULEBOOK_PAGES.village.establishmentTable;
+  if (rank === 'J' || rank === 'Q' || rank === 'K') {
+    return RULEBOOK_PAGES.village.establishmentTable
   }
-  return RULEBOOK_PAGES.village.establishmentDetailByRank[rank];
+  return RULEBOOK_PAGES.village.establishmentDetailByRank[rank]
 }

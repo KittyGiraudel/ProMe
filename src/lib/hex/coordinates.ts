@@ -57,9 +57,10 @@ export function fromHexKey(key: string): HexCoordinate | null {
 
 export function axialNeighbor(
   coord: HexCoordinate,
-  direction: number,
+  direction: number
 ): HexCoordinate {
-  const delta = AXIAL_DIRECTIONS[positiveMod(direction, AXIAL_DIRECTIONS.length)]
+  const delta =
+    AXIAL_DIRECTIONS[positiveMod(direction, AXIAL_DIRECTIONS.length)]
   return { q: coord.q + delta.q, r: coord.r + delta.r }
 }
 
@@ -85,7 +86,7 @@ export function getSheetCoordinate(coord: HexCoordinate): SheetCoordinate {
 export function getGlobalFromSheetCell(
   sheet: SheetCoordinate,
   rowIndex: number,
-  colIndex: number,
+  colIndex: number
 ): HexCoordinate {
   const absoluteRow = sheet.sheetR * MAP_ROWS + rowIndex
   const absoluteCol = sheet.sheetQ * MAP_COLS + colIndex
@@ -278,7 +279,6 @@ export function buildSheetViewport(sheet: SheetCoordinate): SheetCellAddress[] {
   return cells
 }
 
-
 export function isSameHex(a: HexCoordinate, b: HexCoordinate): boolean {
   return a.q === b.q && a.r === b.r
 }
@@ -287,7 +287,10 @@ export function isSameHex(a: HexCoordinate, b: HexCoordinate): boolean {
  * True when `to` is exactly one step away from `from` on the rendered
  * odd/even-row offset hex grid used by the map sheet.
  */
-export function areHexNeighbors(from: HexCoordinate, to: HexCoordinate): boolean {
+export function areHexNeighbors(
+  from: HexCoordinate,
+  to: HexCoordinate
+): boolean {
   const isEvenRow = from.r % 2 === 0
   const deltas: readonly HexCoordinate[] = isEvenRow
     ? [

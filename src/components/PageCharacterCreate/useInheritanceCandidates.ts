@@ -25,7 +25,7 @@ export function useInheritanceCandidates() {
         character,
         label: character.name.trim() || t('characters_list.unnamed'),
       })),
-    [characters, t],
+    [characters, t]
   )
 
   return { candidates }

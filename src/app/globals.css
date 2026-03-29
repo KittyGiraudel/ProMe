@@ -50,7 +50,7 @@ a {
   --biome-unexplored-dark: #d8e5df;
   --biome-unexplored-light-contrast: #262626;
   --biome-unexplored-dark-contrast: #262626;
-  
+
   --biome-shadowForest-light: #7dc8a0;
   --biome-shadowForest-dark: #4a9f72;
   --biome-shadowForest-light-contrast: #262626;
@@ -80,8 +80,7 @@ a {
   --biome-giganticGardens-dark: #a64b3c;
   --biome-giganticGardens-light-contrast: #262626;
   --biome-giganticGardens-dark-contrast: #ffffff;
-  }
-
+}
 
 [data-biome="unexplored"] {
   --biome-light: var(--biome-unexplored-light);
@@ -90,7 +89,7 @@ a {
   --biome-light-contrast: var(--biome-unexplored-light-contrast);
 }
 
-[data-sheet-night='true'] [data-biome='unexplored'] {
+[data-sheet-night="true"] [data-biome="unexplored"] {
   --biome-light: #2c3834;
   --biome-dark: #1a2320;
   --biome-contrast: #b8c9c2;

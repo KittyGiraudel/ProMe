@@ -1,7 +1,8 @@
 /**
  * 1. Buff specificity to take over AntDesign styles.
  */
-.BiomeTag.BiomeTag { /* 1 */
+.BiomeTag.BiomeTag {
+  /* 1 */
   margin: 0 0.5ch;
   border-color: var(--biome-dark);
   background-color: var(--biome-light);

@@ -55,7 +55,7 @@ export function useCharacterLibraryActions({
             total: result.totalRead,
             created: result.created,
             updated: result.updated,
-          }),
+          })
         )
       } catch {
         message.error(t('new_character.import_error'))
@@ -63,7 +63,7 @@ export function useCharacterLibraryActions({
         event.target.value = ''
       }
     },
-    [message, refresh, store, t],
+    [message, refresh, store, t]
   )
 
   return {

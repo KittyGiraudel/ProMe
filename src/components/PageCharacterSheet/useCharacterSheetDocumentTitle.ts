@@ -9,9 +9,7 @@ import {
   type CharacterSheetTabId,
 } from './characterSheetRoutes'
 
-export function tabKeyFromPathname(
-  pathname: string,
-): CharacterSheetTabId {
+export function tabKeyFromPathname(pathname: string): CharacterSheetTabId {
   const tab = CHARACTER_SHEET_TAB_KEYS.find(tab => pathname.endsWith(tab.path))
   return tab?.id ?? 'identity'
 }
@@ -26,7 +24,7 @@ export function useCharacterSheetDocumentTitle({
   character,
 }: {
   hydratedFromStore: boolean
-  character: Character | null,
+  character: Character | null
 }) {
   const t = useTranslations()
   const pathname = usePathname()

@@ -8,7 +8,7 @@ import { _Translator } from 'next-intl'
  */
 export function getNpcJournalSummary(
   encodedId: string,
-  t: _Translator,
+  t: _Translator
 ): string | null {
   const roll = decodeInhabitantRollParam(encodedId.trim(), t)
   if (!roll) return null

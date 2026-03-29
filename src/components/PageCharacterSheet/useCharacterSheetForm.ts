@@ -6,13 +6,17 @@ import { App, Form } from 'antd'
 import { getCharacterStore } from '@/lib/character/store'
 import type { Character } from '@/lib/character/types'
 import { useUnsavedChangesGuard } from '@/hooks/useUnsavedChangesGuard'
-import {  toFormValues, type SheetFormValues } from './characterSheetForm'
+import { toFormValues, type SheetFormValues } from './characterSheetForm'
 import { usePathname } from '@/i18n/navigation'
 import { tabKeyFromPathname } from './useCharacterSheetDocumentTitle'
 
-export function useCharacterSheetForm({ characterId }: { characterId: string }) {
+export function useCharacterSheetForm({
+  characterId,
+}: {
+  characterId: string
+}) {
   const { modal } = App.useApp()
-  const t= useTranslations()
+  const t = useTranslations()
   const [form] = Form.useForm<SheetFormValues>()
   const [character, setCharacter] = useState<Character | null>(null)
   const [hydratedFromStore, setHydratedFromStore] = useState(false)
@@ -59,25 +63,27 @@ export function useCharacterSheetForm({ characterId }: { characterId: string }) 
 
   const onSaved = useCallback((saved: Character) => setCharacter(saved), [])
 
-  return useMemo(() => ({
-    form,
-    character,
-    hydratedFromStore,
-    saveErrors,
-    setSaveErrors,
-    onSaved,
-    activeTab,
-  }), [
-    form,
-    character,
-    hydratedFromStore,
-    saveErrors,
-    setSaveErrors,
-    onSaved,
-    activeTab
-  ])
+  return useMemo(
+    () => ({
+      form,
+      character,
+      hydratedFromStore,
+      saveErrors,
+      setSaveErrors,
+      onSaved,
+      activeTab,
+    }),
+    [
+      form,
+      character,
+      hydratedFromStore,
+      saveErrors,
+      setSaveErrors,
+      onSaved,
+      activeTab,
+    ]
+  )
 }
-
 
 /** Compares live form values to the last saved character (for guards; not tied
  * to Ant Design "touched"). */

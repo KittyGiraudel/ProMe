@@ -13,7 +13,7 @@ export type JournalEmbellishUiRule = {
    */
   matchAt(
     text: string,
-    pos: number,
+    pos: number
   ): { end: number; slice: string; refId?: string } | null
   /** Turn a successful match into a React node. */
   render: (args: {
@@ -35,7 +35,7 @@ export function matchLiteralAt(
   text: string,
   pos: number,
   literal: string,
-  wordBoundary: boolean | undefined,
+  wordBoundary: boolean | undefined
 ): { end: number; slice: string } | null {
   const len = literal.length
   if (len === 0 || pos + len > text.length) return null
@@ -61,7 +61,7 @@ export function matchRegexPrefixAt(
   pos: number,
   patternSource: string,
   flags: string | undefined,
-  captureRefIdGroup: number | undefined,
+  captureRefIdGroup: number | undefined
 ): { end: number; slice: string; refId?: string } | null {
   const re = new RegExp(`^(?:${patternSource})`, flags ?? 'u')
   const m = re.exec(text.slice(pos))
@@ -84,7 +84,7 @@ export function journalLiteralRule(
   id: string,
   literal: string,
   wordBoundary: boolean | undefined,
-  render: JournalEmbellishUiRule['render'],
+  render: JournalEmbellishUiRule['render']
 ): JournalEmbellishUiRule {
   return {
     id,
@@ -104,7 +104,7 @@ export function journalRegexRule(
   patternSource: string,
   flags: string | undefined,
   captureRefIdGroup: number | undefined,
-  render: JournalEmbellishUiRule['render'],
+  render: JournalEmbellishUiRule['render']
 ): JournalEmbellishUiRule {
   return {
     id,
@@ -114,7 +114,7 @@ export function journalRegexRule(
         pos,
         patternSource,
         flags,
-        captureRefIdGroup,
+        captureRefIdGroup
       )
     },
     render,
@@ -135,7 +135,7 @@ export type JournalEmbellishUiSegment =
  */
 export function tokenizeJournalEmbellishUiRules(
   text: string,
-  rules: readonly JournalEmbellishUiRule[],
+  rules: readonly JournalEmbellishUiRule[]
 ): JournalEmbellishUiSegment[] {
   if (!text) return []
   if (rules.length === 0) return [{ type: 'text', value: text }]

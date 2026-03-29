@@ -1,7 +1,15 @@
-[data-variant="neutral"] .ant-avatar { background-color: #1677ff }
-[data-variant="warning"] .ant-avatar { background-color: #faad14 }
-[data-variant="success"] .ant-avatar { background-color: #52c41a }
-[data-variant="danger"] .ant-avatar { background-color: #f5222d }
+[data-variant="neutral"] .ant-avatar {
+  background-color: #1677ff;
+}
+[data-variant="warning"] .ant-avatar {
+  background-color: #faad14;
+}
+[data-variant="success"] .ant-avatar {
+  background-color: #52c41a;
+}
+[data-variant="danger"] .ant-avatar {
+  background-color: #f5222d;
+}
 
 @media (max-width: 767px) {
   .ActionsCard__list .ant-list-item {

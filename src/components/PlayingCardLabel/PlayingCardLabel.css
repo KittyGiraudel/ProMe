@@ -17,8 +17,8 @@
 }
 
 .PlayingCardLabel__suit {
-  font-family: "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols 2",
-    sans-serif;
+  font-family:
+    "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols 2", sans-serif;
   line-height: 1;
   transform: translateY(-0.05em) translateX(-0.1em) scale(1.5);
 }

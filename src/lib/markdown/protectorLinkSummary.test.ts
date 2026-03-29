@@ -26,7 +26,7 @@ describe('markdown/protectorLinkSummary', () => {
         journalEntries: [],
         lifeStatus: 'alive',
       },
-      testLocalize,
+      testLocalize
     )
     expect(label).toContain('Asha')
     expect(label).toContain('♀')

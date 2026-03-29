@@ -12,4 +12,3 @@ export const testLocalize = createTranslator({
   locale: 'fr',
   messages: frMessages,
 })
-

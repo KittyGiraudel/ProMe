@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
     "lint": "eslint",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage"
@@ -23,6 +25,7 @@
     "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.9",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

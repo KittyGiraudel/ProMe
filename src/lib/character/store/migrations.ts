@@ -1,7 +1,4 @@
-import {
-  normalizeImportMode,
-  normalizeCharacter,
-} from '@/lib/character/model'
+import { normalizeImportMode, normalizeCharacter } from '@/lib/character/model'
 import type {
   CharacterImportMode,
   CharacterImportResult,
@@ -27,16 +24,14 @@ export function parseCharacters(json: string): Character[] {
     .filter((item): item is Character => item !== null)
 }
 
-export function stringifyCharacters(
-  characters: Character[],
-): string {
+export function stringifyCharacters(characters: Character[]): string {
   return JSON.stringify(
     {
       schemaVersion: 1,
       characters,
     },
     null,
-    2,
+    2
   )
 }
 
@@ -51,7 +46,7 @@ function extractCharacterList(value: unknown): unknown[] {
 export function mergeImportedCharacters(
   existing: Character[],
   imported: Character[],
-  mode: CharacterImportMode,
+  mode: CharacterImportMode
 ): { characters: Character[]; result: CharacterImportResult } {
   const normalizedMode = normalizeImportMode(mode)
   const totalRead = imported.length

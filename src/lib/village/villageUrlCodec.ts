@@ -1,18 +1,15 @@
-import {
-  decodePlayingCardString,
-  encodePlayingCard,
-} from "@/lib/codec/cards";
-import { Faction } from "@/lib/types";
-import { FACTIONS } from "@/lib/constants/misc";
-import type { VillageRoll } from "./generate";
-import { countRedJacksInPrimary, isValidExpansionCard } from "./generate";
-import { toVillagePrimaryTuple } from "./primaryTuple";
+import { decodePlayingCardString, encodePlayingCard } from '@/lib/codec/cards'
+import { Faction } from '@/lib/types'
+import { FACTIONS } from '@/lib/constants/misc'
+import type { VillageRoll } from './generate'
+import { countRedJacksInPrimary, isValidExpansionCard } from './generate'
+import { toVillagePrimaryTuple } from './primaryTuple'
 import {
   decodeInhabitantRollParam,
   encodeInhabitantRoll,
 } from '@/lib/inhabitant/inhabitantUrlCodec'
 import type { InhabitantRoll } from '@/lib/inhabitant/generate'
-import { _Translator } from "next-intl";
+import { _Translator } from 'next-intl'
 
 /**
  * Separator between compact inhabitant blobs inside the village owners payload.
@@ -30,7 +27,7 @@ const BLOB_SEP = '-'
  * This output is used as part of the village route `[id]` (via `villageIdCodec`).
  */
 export function encodeVillageOwners(owners: InhabitantRoll[]): string {
-  return owners.map(encodeInhabitantRoll).join(BLOB_SEP);
+  return owners.map(encodeInhabitantRoll).join(BLOB_SEP)
 }
 
 /**
@@ -43,17 +40,20 @@ export function encodeVillageOwners(owners: InhabitantRoll[]): string {
  * Note: this function does **not** validate that the owner count matches a specific
  * village roll. That cross-field invariant is enforced by `decodeVillageIdParam`.
  */
-export function decodeVillageOwnersParam(t: _Translator, raw: string): InhabitantRoll[] | null {
-  const trimmed = raw.trim();
-  if (!trimmed) return null;
-  const parts = trimmed.split(BLOB_SEP).filter(Boolean);
-  const out: InhabitantRoll[] = [];
+export function decodeVillageOwnersParam(
+  t: _Translator,
+  raw: string
+): InhabitantRoll[] | null {
+  const trimmed = raw.trim()
+  if (!trimmed) return null
+  const parts = trimmed.split(BLOB_SEP).filter(Boolean)
+  const out: InhabitantRoll[] = []
   for (const p of parts) {
-    const c = decodeInhabitantRollParam(p, t);
-    if (!c) return null;
-    out.push(c);
+    const c = decodeInhabitantRollParam(p, t)
+    if (!c) return null
+    out.push(c)
   }
-  return out;
+  return out
 }
 
 /**
@@ -66,14 +66,14 @@ export function decodeVillageOwnersParam(t: _Translator, raw: string): Inhabitan
  * - each red Jack consumes 3 extra numbered cards in `roll.expansion`
  */
 export function encodeVillageRoll(roll: VillageRoll): string {
-  let s = "";
+  let s = ''
   for (const c of roll.primary) {
-    s += encodePlayingCard(c);
+    s += encodePlayingCard(c)
   }
   for (const c of roll.expansion) {
-    s += encodePlayingCard(c);
+    s += encodePlayingCard(c)
   }
-  return s;
+  return s
 }
 
 /**
@@ -88,20 +88,20 @@ export function encodeVillageRoll(roll: VillageRoll): string {
  * Returns `null` for invalid inputs.
  */
 export function decodeVillageRollParam(raw: string): VillageRoll | null {
-  const compact = raw.trim().toUpperCase();
-  if (compact.length < 10 || compact.length % 2 !== 0) return null;
-  const cards = decodePlayingCardString(compact);
-  if (!cards || cards.length < 5) return null;
+  const compact = raw.trim().toUpperCase()
+  if (compact.length < 10 || compact.length % 2 !== 0) return null
+  const cards = decodePlayingCardString(compact)
+  if (!cards || cards.length < 5) return null
 
-  const primary = toVillagePrimaryTuple(cards.slice(0, 5));
-  if (!primary) return null;
-  const expansion = cards.slice(5);
-  const need = countRedJacksInPrimary(primary) * 3;
-  if (expansion.length !== need) return null;
+  const primary = toVillagePrimaryTuple(cards.slice(0, 5))
+  if (!primary) return null
+  const expansion = cards.slice(5)
+  const need = countRedJacksInPrimary(primary) * 3
+  if (expansion.length !== need) return null
   for (const c of expansion) {
-    if (!isValidExpansionCard(c)) return null;
+    if (!isValidExpansionCard(c)) return null
   }
-  return { primary, expansion };
+  return { primary, expansion }
 }
 
 /**
@@ -110,7 +110,7 @@ export function decodeVillageRollParam(raw: string): VillageRoll | null {
  * Returns `null` when absent or invalid; callers typically apply a default faction.
  */
 export function decodeVillageFactionParam(raw: string | null): Faction | null {
-  if (!raw) return null;
-  const s = raw.trim().toLowerCase();
-  return (FACTIONS as readonly string[]).includes(s) ? (s as Faction) : null;
+  if (!raw) return null
+  const s = raw.trim().toLowerCase()
+  return (FACTIONS as readonly string[]).includes(s) ? (s as Faction) : null
 }

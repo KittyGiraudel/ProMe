@@ -40,7 +40,7 @@ describe('character/store/localStorageStore dead freeze', () => {
       store.save({
         ...dead,
         name: 'Changed after death',
-      }),
+      })
     ).toThrow(/frozen/i)
   })
 

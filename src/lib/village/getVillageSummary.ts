@@ -5,7 +5,10 @@ import {
 } from '@/lib/inhabitant/generate'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 import type { VillageRoll } from '@/lib/village/generate'
-import { ownerSlotIndexByEstablishmentIndex, resolveVillageDisplay } from '@/lib/village/resolveVillageDisplay'
+import {
+  ownerSlotIndexByEstablishmentIndex,
+  resolveVillageDisplay,
+} from '@/lib/village/resolveVillageDisplay'
 import { _Translator } from 'next-intl'
 
 function stripBoldMarkers(s: string): string {
@@ -24,14 +27,14 @@ export type VillageCopyFormatOptions = {
 export function getVillageSummary(
   roll: VillageRoll,
   t: _Translator,
-  owners?: InhabitantRoll[] | null,
+  owners?: InhabitantRoll[] | null
 ): string {
   const { traits, establishments } = resolveVillageDisplay(roll, t)
   const ownerSlots = ownerSlotIndexByEstablishmentIndex(establishments)
   const sections: string[] = []
 
   if (traits.length > 0) {
-    const lines = traits.map((row) => `- ${stripBoldMarkers(row.text)}`)
+    const lines = traits.map(row => `- ${stripBoldMarkers(row.text)}`)
     sections.push(`${t('village.section_traits')}\n${lines.join('\n')}`)
   }
 
@@ -46,15 +49,17 @@ export function getVillageSummary(
         gender: genderCompactSymbol(owner.gender),
         name: owner.name,
         age: t(`common.ages.${getAgeBand(owner)}`),
-        personality: t(`common.personalities.${getPersonality(owner)}`, { gender: owner.gender }),
-        faction: t(`common.factions.${owner.faction}`)
+        personality: t(`common.personalities.${getPersonality(owner)}`, {
+          gender: owner.gender,
+        }),
+        faction: t(`common.factions.${owner.faction}`),
       })
       return `- ${row.text}\n  - ${t('village.owner_label')} ${oneLiner}`
     }
     return `- ${row.text}`
   })
   sections.push(
-    `${t('village.section_establishments')}\n${establishmentLines.join('\n')}`,
+    `${t('village.section_establishments')}\n${establishmentLines.join('\n')}`
   )
 
   return sections.join('\n\n')

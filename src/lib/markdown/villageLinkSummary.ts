@@ -17,13 +17,12 @@ export function getVillageJournalSummary(
   encodedVillageId: string,
   t: _Translator,
   options?: VillageLinkSummaryOptions,
-  faction?: Faction | null,
+  faction?: Faction | null
 ): string | null {
   const roll = decodeVillageIdRollParam(encodedVillageId.trim())
   if (!roll) return null
 
-  const factionLabel =
-    faction != null ? t(`common.factions.${faction}`) : null
+  const factionLabel = faction != null ? t(`common.factions.${faction}`) : null
   const count =
     options?.mergeDuplicateEstablishments === true
       ? countVillageGroupedEstablishmentRows(roll, t)

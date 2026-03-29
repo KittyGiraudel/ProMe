@@ -38,7 +38,7 @@ function getCardColor(card: PlayingCard): 'red' | 'black' {
  */
 function resolveVillageTraits(
   primary: readonly PlayingCard[],
-  t: _Translator,
+  t: _Translator
 ): VillageTraitRow[] {
   const groups = new Map<string, TraitInstance[]>()
 
@@ -74,7 +74,7 @@ function resolveVillageTraits(
  */
 function resolveVillageEstablishments(
   roll: VillageRoll,
-  t: _Translator,
+  t: _Translator
 ): { establishments: VillageEstablishmentRow[]; expansionConsumed: number } {
   let expIdx = 0
   const establishments: VillageEstablishmentRow[] = []
@@ -115,7 +115,7 @@ function resolveVillageEstablishments(
  */
 function assertExpansionConsumed(
   consumed: number,
-  expansionLength: number,
+  expansionLength: number
 ): void {
   if (consumed !== expansionLength) {
     throw new Error('resolveVillageDisplay: expansion length mismatch')
@@ -134,14 +134,17 @@ function assertExpansionConsumed(
  *
  * Note: rulebook citations are intentionally NOT included here; those are a UI concern.
  */
-export function resolveVillageDisplay(roll: VillageRoll, t: _Translator): {
+export function resolveVillageDisplay(
+  roll: VillageRoll,
+  t: _Translator
+): {
   traits: VillageTraitRow[]
   establishments: VillageEstablishmentRow[]
 } {
   const traits = resolveVillageTraits(roll.primary, t)
   const { establishments, expansionConsumed } = resolveVillageEstablishments(
     roll,
-    t,
+    t
   )
   assertExpansionConsumed(expansionConsumed, roll.expansion.length)
   return { traits, establishments }
@@ -152,7 +155,7 @@ export function resolveVillageDisplay(roll: VillageRoll, t: _Translator): {
  * the row is Ruines (no owner).
  */
 export function ownerSlotIndexByEstablishmentIndex(
-  establishments: readonly VillageEstablishmentRow[],
+  establishments: readonly VillageEstablishmentRow[]
 ): (number | null)[] {
   let slot = 0
   return establishments.map(row => {
@@ -163,4 +166,3 @@ export function ownerSlotIndexByEstablishmentIndex(
     return i
   })
 }
-

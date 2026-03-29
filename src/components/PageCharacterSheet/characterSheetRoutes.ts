@@ -2,7 +2,7 @@ export const CHARACTER_SHEET_TAB_KEYS = [
   {
     id: 'identity',
     path: 'identity',
-    key: 'characters.identity.title'
+    key: 'characters.identity.title',
   },
   {
     id: 'map',
