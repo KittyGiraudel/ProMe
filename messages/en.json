@@ -283,10 +283,8 @@
   "faq": {
     "answer_1": "This application is a game companion for \"The Protector’s Memories,\" a solo RPG by Enzo Salviato. It is suggested to have the app open while playing the game, as a reference and to track your progress. It is mainly for playing the game digitally (though not entirely, as using the official manual is required).",
     "answer_2": "The mapping module uses modern CSS features that are not yet well supported by all browsers. That’s why it’s best to use the Chrome browser, as it’s the one I use for development. As for why I didn’t extend support to other browsers: creating a hex grid is complicated; I had to choose between using modern tech to keep things simple, or developing the entire map system with HTML Canvas, which I didn’t want to do.",
-    "answer_3": "My version of the game is in French, so I developed the interface in the same language to stay true to the terms used in Jérôme Mioso’s official translation.",
     "question_1": "What is this site?",
     "question_2": "Why is the map broken?",
-    "question_3": "Why is this in French?",
     "title": "Frequently Asked Questions"
   },
   "footer": {

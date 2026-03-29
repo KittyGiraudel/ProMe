@@ -36,7 +36,9 @@ This application does not have authentication, or a database: it stores your dat
 
 ## Localization
 
-This application is currently only in French because my copy of the game is in French. That being said, adding a new language should be trivial:
+This application is primarily developed in French because my copy of the game is in French. The English version was translated from French using AI without support from the rulebook, therefore certain terms may vary from the original wording.
+
+Adding a new language should be trivial:
 
 - Add a new JSON file in the `messages/` directory named after the new locale.
 - Add all the keys and their translations, using the `fr.json` file as a template.
