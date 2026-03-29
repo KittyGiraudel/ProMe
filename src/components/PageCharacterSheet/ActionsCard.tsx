@@ -97,7 +97,7 @@ export function ActionsCard() {
             action: (
               <Button
                 danger
-                type='primary'
+                type='default'
                 htmlType='button'
                 onClick={handleRequestMarkAsDead}
                 disabled={false}>
