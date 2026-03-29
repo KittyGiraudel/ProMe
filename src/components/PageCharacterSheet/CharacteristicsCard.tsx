@@ -112,7 +112,7 @@ export function CharacteristicsCard() {
     const status = success ? 'success' : 'failure'
 
     notification[success ? 'success' : 'error']({
-      title: t('characters.identity.courage_roll_title', { status }),
+      title: t('characters.identity.courage_roll_title'),
       description: t('characters.identity.courage_roll_result', {
         roll,
         target,
