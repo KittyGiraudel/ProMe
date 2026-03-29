@@ -1,6 +1,6 @@
+import { Space } from 'antd'
 import { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-import { Space } from 'antd'
 import { InventoryCard } from '@/components/PageCharacterSheet/InventoryCard'
 import { SpellbookCard } from '@/components/PageCharacterSheet/SpellbookCard'
 

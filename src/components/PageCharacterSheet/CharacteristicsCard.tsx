@@ -13,8 +13,8 @@ import {
   Tooltip,
   Typography,
 } from 'antd'
-import { Button } from '@/components/Button/Button'
 import { useTranslations } from 'next-intl'
+import { Button } from '@/components/Button/Button'
 import { HelpButton } from '../HelpButton/HelpButton'
 
 type PoolKey = 'health' | 'courage' | 'stamina'

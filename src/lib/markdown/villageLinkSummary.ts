@@ -1,8 +1,8 @@
-import { countVillageGroupedEstablishmentRows } from '@/lib/village/groupEstablishments'
-import { decodeVillageIdRollParam } from '@/lib/village/villageIdCodec'
-import { resolveVillageDisplay } from '@/lib/village/resolveVillageDisplay'
-import type { Faction } from '@/lib/types'
 import { _Translator } from 'next-intl'
+import type { Faction } from '@/lib/types'
+import { countVillageGroupedEstablishmentRows } from '@/lib/village/groupEstablishments'
+import { resolveVillageDisplay } from '@/lib/village/resolveVillageDisplay'
+import { decodeVillageIdRollParam } from '@/lib/village/villageIdCodec'
 
 /** Options for how village establishment rows are counted in summaries. */
 export type VillageLinkSummaryOptions = {

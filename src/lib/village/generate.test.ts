@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest'
 import type { PlayingCard } from '@/lib/types'
-import { toVillagePrimaryTuple } from './primaryTuple'
 import {
   buildExpansionForPrimary,
   countRedJacksInPrimary,
@@ -8,6 +7,7 @@ import {
   isValidExpansionCard,
   rerollVillagePrimarySlot,
 } from './generate'
+import { toVillagePrimaryTuple } from './primaryTuple'
 
 const c = (
   rank: PlayingCard['rank'],

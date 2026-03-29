@@ -1,13 +1,13 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef } from 'react'
-import { useTranslations } from 'next-intl'
 import { App, FormInstance } from 'antd'
-import type { Character } from '@/lib/character/types'
-import { getCharacterStore } from '@/lib/character/store'
+import { useTranslations } from 'next-intl'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { Button } from '@/components/Button/Button'
-import { useCharacterSheetDerived } from './useCharacterSheetDerived'
+import { getCharacterStore } from '@/lib/character/store'
+import type { Character } from '@/lib/character/types'
 import { useCharacterFromForm } from './useCharacterFromForm'
+import { useCharacterSheetDerived } from './useCharacterSheetDerived'
 
 const DEATH_SUGGESTION_KEY = 'death-suggestion'
 

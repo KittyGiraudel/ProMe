@@ -1,12 +1,12 @@
 'use client'
 
 import { theme as antdTheme, FormInstance } from 'antd'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import {
   clampClockSliceIndex,
   countHalfClockSegments,
   isClockNightPhase,
 } from '@/lib/character/clock'
-import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { Character } from '@/lib/character/types'
 import { useCharacterSheetDerived } from './useCharacterSheetDerived'
 

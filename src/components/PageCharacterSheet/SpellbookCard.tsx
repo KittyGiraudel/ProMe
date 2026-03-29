@@ -10,8 +10,8 @@ import {
   Tooltip,
   Typography,
 } from 'antd'
-import { Button } from '@/components/Button/Button'
 import { useTranslations } from 'next-intl'
+import { Button } from '@/components/Button/Button'
 import { randomId } from '@/lib/character/model'
 import './SpellbookCard.css'
 import { HelpButton } from '../HelpButton/HelpButton'

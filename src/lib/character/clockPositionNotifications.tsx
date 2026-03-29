@@ -3,8 +3,8 @@
 import { App } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
-import { computeClockMoveFromRawTarget } from './clock'
 import { Link } from '@/i18n/navigation'
+import { computeClockMoveFromRawTarget } from './clock'
 
 /**
  * Hook for character-sheet clock changes: updates the stored slice and surfaces feedback.

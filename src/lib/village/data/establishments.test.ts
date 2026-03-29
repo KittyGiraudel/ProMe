@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
+import { testLocalize } from '@/lib/localization/testLocalize'
 import {
   establishmentLine,
   rankUsesEstablishmentSizeTiers,
 } from './establishments'
-import { testLocalize } from '@/lib/localization/testLocalize'
 
 describe('establishments', () => {
   it('rankUsesEstablishmentSizeTiers is true for ranks 2–8 only', () => {

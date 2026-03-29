@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { getProtectorJournalSummary } from './protectorLinkSummary'
 import { testLocalize } from '@/lib/localization/testLocalize'
+import { getProtectorJournalSummary } from './protectorLinkSummary'
 
 describe('markdown/protectorLinkSummary', () => {
   it('formats protector journal label', () => {

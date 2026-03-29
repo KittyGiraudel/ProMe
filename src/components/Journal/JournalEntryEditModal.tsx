@@ -13,11 +13,11 @@ import {
   Tabs,
   Timeline,
 } from 'antd'
-import { Button } from '@/components/Button/Button'
-import { JournalMarkdown } from '@/components/JournalMarkdown/JournalMarkdown'
-import { JournalEditCheatsheet } from '@/components/Journal/JournalEditCheatsheet'
-import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { useTranslations } from 'next-intl'
+import { Button } from '@/components/Button/Button'
+import { JournalEditCheatsheet } from '@/components/Journal/JournalEditCheatsheet'
+import { JournalMarkdown } from '@/components/JournalMarkdown/JournalMarkdown'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import '@/components/Journal/Journal.css'
 
 /** `autoSize` rows for the journal editor; breakpoint aligns with modal `Col lg={16}`. */

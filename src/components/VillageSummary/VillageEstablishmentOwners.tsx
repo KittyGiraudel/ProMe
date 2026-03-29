@@ -2,16 +2,16 @@
 
 import { RedoOutlined } from '@ant-design/icons'
 import { Typography } from 'antd'
-import { encodeInhabitantRoll } from '@/lib/inhabitant/inhabitantUrlCodec'
+import { useTranslations } from 'next-intl'
+import { Button } from '@/components/Button/Button'
+import { JournalReferencePreview } from '@/components/JournalReferencePreview/JournalReferencePreview'
+import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 import {
   getAgeBand,
   getPersonality,
   type InhabitantRoll,
 } from '@/lib/inhabitant/generate'
-import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
-import { Button } from '@/components/Button/Button'
-import { useTranslations } from 'next-intl'
-import { JournalReferencePreview } from '@/components/JournalReferencePreview/JournalReferencePreview'
+import { encodeInhabitantRoll } from '@/lib/inhabitant/inhabitantUrlCodec'
 
 export type VillageOwnerEntry = { roll: InhabitantRoll; ownerIndex: number }
 

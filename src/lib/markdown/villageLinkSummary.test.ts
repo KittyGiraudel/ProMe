@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { getVillageJournalSummary } from './villageLinkSummary'
-import { parseGeneratorLink } from './generatorLink'
 import { testLocalize } from '@/lib/localization/testLocalize'
+import { parseGeneratorLink } from './generatorLink'
+import { getVillageJournalSummary } from './villageLinkSummary'
 
 describe('markdown/villageLinkSummary', () => {
   it('returns village summary with faction when URL is valid', () => {

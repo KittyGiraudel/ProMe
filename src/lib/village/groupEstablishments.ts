@@ -1,5 +1,6 @@
-import type { PlayingCard } from '@/lib/types'
+import { _Translator } from 'next-intl'
 import { suitIsRed } from '@/lib/suitGlyphs'
+import type { PlayingCard } from '@/lib/types'
 import { rankUsesEstablishmentSizeTiers } from '@/lib/village/data/establishments'
 import type { VillageRoll } from '@/lib/village/generate'
 import { mergeEstablishmentSizeTiers } from '@/lib/village/mergeEstablishmentSizeTiers'
@@ -7,7 +8,6 @@ import {
   resolveVillageDisplay,
   type VillageEstablishmentRow,
 } from '@/lib/village/resolveVillageDisplay'
-import { _Translator } from 'next-intl'
 
 export type VillageEstablishmentGroup = {
   key: string

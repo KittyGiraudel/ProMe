@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
 import type { FormInstance } from 'antd'
+import { useEffect, useRef } from 'react'
 import {
   countClockSegments,
   remapClockPositionForTotalSegments,

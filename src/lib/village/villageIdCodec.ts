@@ -1,13 +1,13 @@
+import type { _Translator } from 'next-intl'
 import type { InhabitantRoll } from '@/lib/inhabitant/generate'
+import type { VillageRoll } from '@/lib/village/generate'
+import { countVillageOwnerSlots } from '@/lib/village/ownersGenerate'
 import {
   decodeVillageOwnersParam,
   decodeVillageRollParam,
   encodeVillageOwners,
   encodeVillageRoll,
 } from '@/lib/village/villageUrlCodec'
-import type { VillageRoll } from '@/lib/village/generate'
-import type { _Translator } from 'next-intl'
-import { countVillageOwnerSlots } from '@/lib/village/ownersGenerate'
 
 /**
  * Separator between the village roll segment and the owners segment inside the `[id]`

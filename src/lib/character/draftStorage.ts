@@ -1,5 +1,5 @@
-import type { Character } from '@/lib/character/types'
 import { normalizeCharacter, touchCharacter } from '@/lib/character/model'
+import type { Character } from '@/lib/character/types'
 
 const DRAFT_STORAGE_PREFIX = 'lsdp:characterDraft:v1:'
 

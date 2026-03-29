@@ -1,8 +1,8 @@
 'use client'
 
 import { Typography } from 'antd'
-import { JournalMarkdown } from '@/components/JournalMarkdown/JournalMarkdown'
 import { useFormatter, useTranslations } from 'next-intl'
+import { JournalMarkdown } from '@/components/JournalMarkdown/JournalMarkdown'
 
 type JournalEntryBodyPreviewProps = {
   content: string

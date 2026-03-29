@@ -1,3 +1,5 @@
+import { Form } from 'antd'
+import { useCallback, useMemo } from 'react'
 import { normalizeMapState } from '@/lib/character/mapState'
 import {
   CharacterMapCell,
@@ -7,8 +9,6 @@ import {
 } from '@/lib/character/types'
 import { formatDisplayedCellReference, toHexKey } from '@/lib/hex/coordinates'
 import { buildCellReferenceToJournalEntriesIndex } from '@/lib/journal/cellReferenceIndex'
-import { Form } from 'antd'
-import { useCallback, useMemo } from 'react'
 
 export const useJournalIndex = () => {
   const form = Form.useFormInstance()

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { getNpcJournalSummary } from './inhabitantLinkSummary'
-import { parseGeneratorLink } from './generatorLink'
 import { testLocalize } from '@/lib/localization/testLocalize'
+import { parseGeneratorLink } from './generatorLink'
+import { getNpcJournalSummary } from './inhabitantLinkSummary'
 
 describe('markdown/inhabitantLinkSummary', () => {
   it('returns a summary label for valid NPC share URLs', () => {

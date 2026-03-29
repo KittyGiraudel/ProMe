@@ -1,10 +1,10 @@
 'use client'
 
 import { Card, ConfigProvider, Empty, Form, FormListFieldData } from 'antd'
-import { useSettings } from '@/components/PageSettings/SettingsContext'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { Journal } from '@/components/Journal/Journal'
-import { useTranslations } from 'next-intl'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { randomId } from '@/lib/character/model'
 
 export const JournalCard = () => {

@@ -1,12 +1,12 @@
 'use client'
 
-import { randomCard } from '@/lib/rng'
 import { Card, Empty } from 'antd'
-import { useEffect, useRef, useState } from 'react'
-import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
-import { PlayingCard } from '@/lib/types'
-import { Button } from '@/components/Button/Button'
 import { useTranslations } from 'next-intl'
+import { useEffect, useRef, useState } from 'react'
+import { Button } from '@/components/Button/Button'
+import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
+import { randomCard } from '@/lib/rng'
+import { PlayingCard } from '@/lib/types'
 import './CardDraw.css'
 
 export function CardDraw() {

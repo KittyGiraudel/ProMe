@@ -1,9 +1,8 @@
 'use client'
 
-import { useCallback } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { usePathname } from '@/i18n/navigation'
-import { useRouter } from '@/i18n/navigation'
+import { useCallback } from 'react'
+import { usePathname, useRouter } from '@/i18n/navigation'
 
 /**
  * Clone current search params, mutate, then `router.replace` (scroll: false).

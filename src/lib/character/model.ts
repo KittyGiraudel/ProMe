@@ -1,21 +1,21 @@
-import {
-  type CharacterMapCell,
-  type CharacterMapState,
-  CHARACTER_SCHEMA_VERSION,
-  type CharacterImportMode,
-  type InventoryItem,
-  type JournalEntry,
-  type Character,
-  type CharacterInput,
-  type SpellEntry,
-  type Archetype,
-  type StatPool,
-  HexCoordinate,
-} from './types'
-import { type BiomeId } from '../types'
 import { BIOME_IDS } from '../constants/misc'
+import { type BiomeId } from '../types'
 import { countClockSegments, normalizeClock } from './clock'
 import { normalizeLifeStatus } from './lifeStatus'
+import {
+  type Archetype,
+  CHARACTER_SCHEMA_VERSION,
+  type Character,
+  type CharacterImportMode,
+  type CharacterInput,
+  type CharacterMapCell,
+  type CharacterMapState,
+  HexCoordinate,
+  type InventoryItem,
+  type JournalEntry,
+  type SpellEntry,
+  type StatPool,
+} from './types'
 
 const MAX_INVENTORY_ITEMS = 30
 const MAX_SPELLBOOK_ITEMS = 6

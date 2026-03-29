@@ -1,8 +1,8 @@
+import { Space } from 'antd'
 import { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-import { Space } from 'antd'
-import { IdentityCard } from '@/components/PageCharacterSheet/IdentityCard'
 import { CharacteristicsCard } from '@/components/PageCharacterSheet/CharacteristicsCard'
+import { IdentityCard } from '@/components/PageCharacterSheet/IdentityCard'
 
 type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
 

@@ -1,29 +1,29 @@
 'use client'
 
-import { useMemo, type ReactNode } from 'react'
-import { useTranslations } from 'next-intl'
 import { Alert, ConfigProvider, Form, Space } from 'antd'
-import { Link } from '@/i18n/navigation'
-import { Layout } from '@/components/Layout/Layout'
-import { isCharacterDead } from '@/lib/character/lifeStatus'
-import { biomeAtCurrentMapPosition } from '@/lib/character/biomeAtCurrentMapPosition'
+import { useTranslations } from 'next-intl'
+import { type ReactNode, useMemo } from 'react'
 import { Button } from '@/components/Button/Button'
-import { CharacterProvider } from '@/components/PageCharacterSheet/CharacterContext'
 import { CopyDropdown } from '@/components/CopyDropdown/CopyDropdown'
+import { Layout } from '@/components/Layout/Layout'
+import { CharacterProvider } from '@/components/PageCharacterSheet/CharacterContext'
+import { Link } from '@/i18n/navigation'
+import { biomeAtCurrentMapPosition } from '@/lib/character/biomeAtCurrentMapPosition'
 import { getProtectorSummary } from '@/lib/character/getProtectorSummary'
-import { toFormValues } from './characterSheetForm'
+import { isCharacterDead } from '@/lib/character/lifeStatus'
+import { CharacterStats } from '../CharacterStats/CharacterStats'
 import { CharacterSheetEmptyState } from './CharacterSheetEmptyState'
+import { CharacterSheetTabNav } from './CharacterSheetTabNav'
+import { toFormValues } from './characterSheetForm'
+import {
+  useCharacterLifeStatusActions,
+  useWarnDeath,
+} from './useCharacterLifeStatusActions'
 import { useCharacterSheetDocumentTitle } from './useCharacterSheetDocumentTitle'
 import { useCharacterSheetForm } from './useCharacterSheetForm'
 import { useCharacterSheetFormSync } from './useCharacterSheetFormSync'
 import { useCharacterSheetMainActions } from './useCharacterSheetMainActions'
 import { useCharacterSheetTheme } from './useCharacterSheetTheme'
-import {
-  useCharacterLifeStatusActions,
-  useWarnDeath,
-} from './useCharacterLifeStatusActions'
-import { CharacterSheetTabNav } from './CharacterSheetTabNav'
-import { CharacterStats } from '../CharacterStats/CharacterStats'
 
 export function CharacterSheetShell({
   characterId,

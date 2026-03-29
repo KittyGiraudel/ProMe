@@ -1,6 +1,6 @@
-import type { BiomeId } from '@/lib/types'
 import { BIOME_ROLL_TABLE } from '@/lib/constants/biomeRollTable'
 import { defaultRng, pickRandom } from '@/lib/rng'
+import type { BiomeId } from '@/lib/types'
 
 export type RandomBiomeResult = {
   biome: BiomeId

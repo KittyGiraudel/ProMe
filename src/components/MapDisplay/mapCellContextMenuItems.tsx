@@ -1,17 +1,16 @@
-import { Typography } from 'antd'
 import type { MenuProps } from 'antd'
+import { Typography } from 'antd'
+import { useFormatter, useTranslations } from 'next-intl'
 import type { Dispatch, ReactNode, SetStateAction } from 'react'
 import { useCallback, useMemo } from 'react'
-import { useFormatter, useTranslations } from 'next-intl'
+import { BiomeBubble } from '@/components/BiomeBubble/BiomeBubble'
+import { Link } from '@/i18n/navigation'
 import { HexCoordinate } from '@/lib/character/types'
-import { type BiomeId } from '@/lib/types'
 import { BIOME_IDS } from '@/lib/constants/misc'
 import type { JournalEntryLink } from '@/lib/journal/cellReferenceIndex'
-import { BiomeBubble } from '@/components/BiomeBubble/BiomeBubble'
+import { type BiomeId, TranslationKey } from '@/lib/types'
 import { useMapActions } from './useMapActions'
-import { Link } from '@/i18n/navigation'
 import { useJournalIndex, useMapState } from './useMapState'
-import { TranslationKey } from '@/lib/types'
 
 const MAX_JOURNAL_LINKS_IN_MENU = 5
 

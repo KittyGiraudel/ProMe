@@ -1,7 +1,7 @@
 'use client'
 
-import { AppConfig, useLocale, useTranslations } from 'next-intl'
 import { Card, Checkbox, Form, Select, Space, Typography } from 'antd'
+import { AppConfig, useLocale, useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
 import { usePathname, useRouter } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'

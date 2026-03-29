@@ -1,8 +1,7 @@
 'use client'
 
-import { Link } from '@/i18n/navigation'
-import { usePathname } from '@/i18n/navigation'
 import type { ReactNode } from 'react'
+import { Link, usePathname } from '@/i18n/navigation'
 import './LinkTabNav.css'
 
 export type LinkTabNavItem = {

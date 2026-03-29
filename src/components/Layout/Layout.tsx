@@ -1,19 +1,19 @@
 'use client'
 
-import { useMemo, type ReactNode } from 'react'
-import { useTranslations } from 'next-intl'
 import {
   Layout as AntLayout,
-  Typography,
-  Menu,
   BreadcrumbProps,
+  Menu,
   Space,
+  Typography,
 } from 'antd'
+import { useTranslations } from 'next-intl'
+import { type ReactNode, useMemo } from 'react'
+import { Banner } from '@/components/Banner/Banner'
 import { usePathname } from '@/i18n/navigation'
 import type { BiomeId } from '@/lib/types'
-import { Banner } from '@/components/Banner/Banner'
-import { BlockedLink } from '../Navigation/BlockedLink'
 import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs'
+import { BlockedLink } from '../Navigation/BlockedLink'
 import './Layout.css'
 import { Footer } from '../Footer/Footer'
 

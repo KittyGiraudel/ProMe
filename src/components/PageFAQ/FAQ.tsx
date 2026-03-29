@@ -1,8 +1,8 @@
 'use client'
 
-import { Layout } from '@/components/Layout/Layout'
 import { Typography } from 'antd'
 import { useTranslations } from 'next-intl'
+import { Layout } from '@/components/Layout/Layout'
 import './FAQ.css'
 import { TranslationKey } from '@/lib/types'
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { suitIsRed, isFaceRank } from './suitGlyphs'
+import { isFaceRank, suitIsRed } from './suitGlyphs'
 
 describe('suitIsRed', () => {
   it('marks hearts and diamonds as red', () => {

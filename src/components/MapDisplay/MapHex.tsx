@@ -5,10 +5,10 @@ import {
   getDisplayedCellLabel,
   getGlobalFromSheetCell,
 } from '@/lib/hex/coordinates'
+import { BiomeId } from '@/lib/types'
 import { MapCellContextMenu } from './MapCellContextMenu'
 import type { MapDisplayProps } from './MapDisplay'
 import { useJournalIndex, useMapState } from './useMapState'
-import { BiomeId } from '@/lib/types'
 import './MapHex.css'
 
 type MapHexProps = MapDisplayProps & {

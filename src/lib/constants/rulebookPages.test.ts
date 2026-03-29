@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import type { Rank } from '@/lib/types'
 import {
-  RULEBOOK_PAGES,
   establishmentDetailRulebookPage,
+  RULEBOOK_PAGES,
 } from './rulebookPages'
 
 describe('rulebookPages', () => {

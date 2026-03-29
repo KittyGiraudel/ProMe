@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { testLocalize } from '@/lib/localization/testLocalize'
+import type { Faction } from '@/lib/types'
 import { generateVillageRoll } from './generate'
 import { generateOwnersForVillage } from './ownersGenerate'
 import {
@@ -8,7 +9,6 @@ import {
   encodeVillageId,
 } from './villageIdCodec'
 import { encodeVillageOwners, encodeVillageRoll } from './villageUrlCodec'
-import type { Faction } from '@/lib/types'
 
 function seededRng(seed: number): () => number {
   let s = seed % 2147483647

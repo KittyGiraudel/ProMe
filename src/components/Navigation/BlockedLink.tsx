@@ -1,11 +1,10 @@
 'use client'
 
-import { Link as NextLink } from '@/i18n/navigation'
-import type { UrlObject } from 'url'
-import { useRouter } from '@/i18n/navigation'
 import type { ComponentProps } from 'react'
 import { useCallback } from 'react'
+import type { UrlObject } from 'url'
 import { useNavigationBlocker } from '@/components/AppProviders/NavigationBlockerContext'
+import { Link as NextLink, useRouter } from '@/i18n/navigation'
 
 type Href = string | UrlObject
 

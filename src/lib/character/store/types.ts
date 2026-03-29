@@ -1,7 +1,7 @@
 import type {
+  Character,
   CharacterImportMode,
   CharacterImportResult,
-  Character,
   CharacterInput,
 } from '@/lib/character/types'
 

@@ -1,28 +1,28 @@
 'use client'
 
 import { RedoOutlined } from '@ant-design/icons'
-import { useMemo } from 'react'
 import { Card, Empty, Space } from 'antd'
-import { encodePlayingCard } from '@/lib/codec/cards'
-import type { VillageRoll } from '@/lib/village/generate'
-import type { InhabitantRoll } from '@/lib/inhabitant/generate'
-import { groupEstablishments } from '@/lib/village/groupEstablishments'
+import { useTranslations } from 'next-intl'
+import { useMemo } from 'react'
+import { Button } from '@/components/Button/Button'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { RichText } from '@/components/RichText/RichText'
-import { formatRulebookReference } from '@/lib/village/formatRulebookReference'
+import { encodePlayingCard } from '@/lib/codec/cards'
 import {
   establishmentDetailRulebookPage,
   RULEBOOK_PAGES,
 } from '@/lib/constants/rulebookPages'
-import { VillageEstablishmentLine } from './VillageEstablishmentLine'
-import { Button } from '@/components/Button/Button'
-import { useSettings } from '@/components/PageSettings/SettingsContext'
-import { useTranslations } from 'next-intl'
+import type { InhabitantRoll } from '@/lib/inhabitant/generate'
+import { formatRulebookReference } from '@/lib/village/formatRulebookReference'
+import type { VillageRoll } from '@/lib/village/generate'
+import { groupEstablishments } from '@/lib/village/groupEstablishments'
 import {
   ownerSlotIndexByEstablishmentIndex,
   resolveVillageDisplay,
   type VillageEstablishmentRow,
 } from '@/lib/village/resolveVillageDisplay'
+import { VillageEstablishmentLine } from './VillageEstablishmentLine'
 import './VillageSummary.css'
 
 type VillageSummaryProps = {

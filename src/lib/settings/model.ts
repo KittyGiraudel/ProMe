@@ -1,4 +1,4 @@
-import { SETTINGS_SCHEMA_VERSION, type AppSettings } from './types'
+import { type AppSettings, SETTINGS_SCHEMA_VERSION } from './types'
 
 export const DEFAULT_SETTINGS: AppSettings = {
   schemaVersion: SETTINGS_SCHEMA_VERSION,

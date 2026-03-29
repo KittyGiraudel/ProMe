@@ -1,25 +1,25 @@
 'use client'
 
 import { App, Form } from 'antd'
-import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
-import { isSameHex } from '@/lib/hex/coordinates'
-import {
-  type CharacterMapState,
-  type HexCoordinate,
-  type StatPool,
-} from '@/lib/character/types'
-import { type BiomeId } from '@/lib/types'
-import { useSetClockToRawTargetWithToast } from '@/lib/character/clockPositionNotifications'
+import { useCallback } from 'react'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { clampClockSliceIndex } from '@/lib/character/clock'
+import { useSetClockToRawTargetWithToast } from '@/lib/character/clockPositionNotifications'
 import {
   normalizeMapState,
   removeCharacterMapCellAt,
   updateCharacterMapCellAt,
 } from '@/lib/character/mapState'
-import { getRandomBiomeResult } from '@/lib/map/randomBiome'
+import {
+  type CharacterMapState,
+  type HexCoordinate,
+  type StatPool,
+} from '@/lib/character/types'
+import { isSameHex } from '@/lib/hex/coordinates'
 import { moveWithAutoBiome } from '@/lib/map/movement'
-import { useSettings } from '@/components/PageSettings/SettingsContext'
+import { getRandomBiomeResult } from '@/lib/map/randomBiome'
+import { type BiomeId } from '@/lib/types'
 import { showRandomBiomeDiscoveredNotification } from './mapRandomBiomeNotification'
 
 export function useMapActions() {

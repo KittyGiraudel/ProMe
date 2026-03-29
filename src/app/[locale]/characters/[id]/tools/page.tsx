@@ -1,6 +1,6 @@
+import { Col, Row } from 'antd'
 import { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-import { Col, Row } from 'antd'
 import { CardDraw } from '@/components/CardDraw/CardDraw'
 import { DiceRoll } from '@/components/DiceRoll/DiceRoll'
 

@@ -1,17 +1,17 @@
+import { canPersistCharacterUpdate } from '@/lib/character/lifeStatus'
 import {
   createCharacter,
   normalizeCharacter,
   touchCharacter,
   validateCharacterForPersistence,
 } from '@/lib/character/model'
-import { canPersistCharacterUpdate } from '@/lib/character/lifeStatus'
 import {
   mergeImportedCharacters,
   parseCharacters,
   stringifyCharacters,
 } from '@/lib/character/store/migrations'
 import type { CharacterStore } from '@/lib/character/store/types'
-import type { CharacterImportMode, Character } from '@/lib/character/types'
+import type { Character, CharacterImportMode } from '@/lib/character/types'
 
 const STORAGE_KEY = 'lsdp:characters:v1'
 

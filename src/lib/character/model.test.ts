@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
-  createDefaultCharacterInput,
   createCharacter,
+  createDefaultCharacterInput,
   getDefaultPoolsForArchetype,
   normalizeCharacter,
   validateCharacterForPersistence,

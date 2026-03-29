@@ -1,6 +1,6 @@
+import { useEffect, useMemo, useState } from 'react'
 import { getCharacterStore } from '@/lib/character/store'
 import { Character } from '@/lib/character/types'
-import { useMemo, useState, useEffect } from 'react'
 
 export const useRecentCharacters = () => {
   const store = useMemo(() => getCharacterStore(), [])

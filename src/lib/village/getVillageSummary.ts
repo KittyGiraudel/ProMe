@@ -1,15 +1,15 @@
+import { _Translator } from 'next-intl'
+import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 import {
-  type InhabitantRoll,
   getAgeBand,
   getPersonality,
+  type InhabitantRoll,
 } from '@/lib/inhabitant/generate'
-import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 import type { VillageRoll } from '@/lib/village/generate'
 import {
   ownerSlotIndexByEstablishmentIndex,
   resolveVillageDisplay,
 } from '@/lib/village/resolveVillageDisplay'
-import { _Translator } from 'next-intl'
 
 function stripBoldMarkers(s: string): string {
   return s.replace(/\*\*(.+?)\*\*/g, '$1')

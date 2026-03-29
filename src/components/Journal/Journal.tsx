@@ -1,12 +1,12 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import type { FormInstance } from 'antd'
 import { Timeline } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
-import type { FormInstance } from 'antd'
-import { useSettings } from '@/components/PageSettings/SettingsContext'
+import { useEffect, useRef } from 'react'
 import { JournalEntry } from '@/components/Journal/JournalEntry'
 import { useJournalEntryViewModes } from '@/components/PageCharacterSheet/useJournalEntryViewModes'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import './Journal.css'
 
 export function Journal({

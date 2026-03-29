@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { useEffect, useMemo, useState } from 'react'
 import { getCharacterStore } from '@/lib/character/store'
 import type { Character } from '@/lib/character/types'
 

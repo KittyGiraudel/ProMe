@@ -2,9 +2,9 @@
 
 import type { HexCoordinate } from '@/lib/character/types'
 import { MAP_ROWS, type SheetCoordinate } from '@/lib/hex/coordinates'
-import { MapRow } from './MapRow'
-import { MapLegendRow } from './MapLegendRow'
 import { MapLegendCol } from './MapLegendCol'
+import { MapLegendRow } from './MapLegendRow'
+import { MapRow } from './MapRow'
 import './MapDisplay.css'
 
 export type MapDisplayProps = {

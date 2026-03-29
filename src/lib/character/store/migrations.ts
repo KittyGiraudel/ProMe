@@ -1,8 +1,8 @@
-import { normalizeImportMode, normalizeCharacter } from '@/lib/character/model'
+import { normalizeCharacter, normalizeImportMode } from '@/lib/character/model'
 import type {
+  Character,
   CharacterImportMode,
   CharacterImportResult,
-  Character,
 } from '@/lib/character/types'
 
 type PersistedEnvelope = {

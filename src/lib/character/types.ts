@@ -1,4 +1,4 @@
-import type { Gender } from '@/lib/types'
+import type { BiomeId, Gender } from '@/lib/types'
 
 export const CHARACTER_SCHEMA_VERSION = 1 as const
 

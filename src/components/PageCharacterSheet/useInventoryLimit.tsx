@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import { StatPool } from '@/lib/character/types'
 import { useCharacterContext } from '@/components/PageCharacterSheet/CharacterContext'
+import { StatPool } from '@/lib/character/types'
 
 export function useInventoryLimit() {
   const { getCharacterValue } = useCharacterContext()

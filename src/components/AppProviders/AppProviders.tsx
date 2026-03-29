@@ -1,8 +1,8 @@
 'use client'
 
-import type { ReactNode } from 'react'
 import { App, ConfigProvider } from 'antd'
 import antdLocale from 'antd/locale/fr_FR'
+import type { ReactNode } from 'react'
 import { NavigationBlockerProvider } from '@/components/AppProviders/NavigationBlockerContext'
 import { SettingsProvider } from '@/components/PageSettings/SettingsContext'
 

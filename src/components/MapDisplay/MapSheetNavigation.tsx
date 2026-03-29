@@ -1,12 +1,12 @@
 import { Space, Tag, Button } from 'antd'
+import { useTranslations } from 'next-intl'
+import { Dispatch, SetStateAction } from 'react'
+import { HexCoordinate } from '@/lib/character/types'
 import {
   getDisplayedCellLabel,
   getSheetCoordinate,
   SheetCoordinate,
 } from '@/lib/hex/coordinates'
-import { useTranslations } from 'next-intl'
-import { HexCoordinate } from '@/lib/character/types'
-import { Dispatch, SetStateAction } from 'react'
 
 export function MapSheetNavigation({
   visibleSheet,

@@ -1,6 +1,6 @@
+import { _Translator, useTranslations } from 'next-intl'
 import { DICE } from '@/lib/constants/misc'
 import './DiceFaces.css'
-import { _Translator, useTranslations } from 'next-intl'
 
 function defaultDiceFacesLabel(
   values: readonly number[],

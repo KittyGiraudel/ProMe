@@ -1,24 +1,24 @@
 'use client'
 
-import { useCallback, useMemo } from 'react'
-import { useTranslations } from 'next-intl'
 import { Typography } from 'antd'
-import { useRouter } from '@/i18n/navigation'
-import type {
-  InhabitantRoll,
-  InhabitantRerollPart,
-} from '@/lib/inhabitant/generate'
-import {
-  generateInhabitant,
-  rerollInhabitantPart,
-  getAgeBand,
-  getPersonality,
-} from '@/lib/inhabitant/generate'
-import { encodeInhabitantRoll } from '@/lib/inhabitant/inhabitantUrlCodec'
-import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
+import { useTranslations } from 'next-intl'
+import { useCallback, useMemo } from 'react'
 import { InhabitantSummary } from '@/components/InhabitantSummary/InhabitantSummary'
 import { Layout } from '@/components/Layout/Layout'
 import { RollActions } from '@/components/RollActions/RollActions'
+import { useRouter } from '@/i18n/navigation'
+import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
+import type {
+  InhabitantRerollPart,
+  InhabitantRoll,
+} from '@/lib/inhabitant/generate'
+import {
+  generateInhabitant,
+  getAgeBand,
+  getPersonality,
+  rerollInhabitantPart,
+} from '@/lib/inhabitant/generate'
+import { encodeInhabitantRoll } from '@/lib/inhabitant/inhabitantUrlCodec'
 
 export function NpcGenerator({
   initialRoll: roll,

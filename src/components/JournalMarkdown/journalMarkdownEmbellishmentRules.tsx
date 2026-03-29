@@ -1,25 +1,25 @@
 'use client'
 
+import type { _Translator } from 'next-intl'
 import type { CSSProperties, ReactNode } from 'react'
+import { BiomeTag } from '@/components/BiomeTag/BiomeTag'
+import { CoordChip } from '@/components/CoordChip/CoordChip'
+import { JournalReferencePreview } from '@/components/JournalReferencePreview/JournalReferencePreview'
+import type { CharacterCellData } from '@/components/PageCharacterSheet/CharacterContext'
+import { getCharacterStore } from '@/lib/character/store'
+import { BIOME_ROLL_TABLE } from '@/lib/constants/biomeRollTable'
+import { DICE, SUITS } from '@/lib/constants/misc'
+import { extractDisplayedCellReferences } from '@/lib/hex/coordinates'
+import { getNpcJournalSummary } from '@/lib/markdown/inhabitantLinkSummary'
 import type { JournalEmbellishUiRule } from '@/lib/markdown/journalEmbellishText'
 import {
   journalLiteralRule,
   journalRegexRule,
 } from '@/lib/markdown/journalEmbellishText'
-import type { CharacterCellData } from '@/components/PageCharacterSheet/CharacterContext'
-import { extractDisplayedCellReferences } from '@/lib/hex/coordinates'
-import { getNpcJournalSummary } from '@/lib/markdown/inhabitantLinkSummary'
-import { getVillageJournalSummary } from '@/lib/markdown/villageLinkSummary'
 import { getProtectorJournalSummary } from '@/lib/markdown/protectorLinkSummary'
-import { getCharacterStore } from '@/lib/character/store'
-import { BIOME_ROLL_TABLE } from '@/lib/constants/biomeRollTable'
-import { DICE, SUITS } from '@/lib/constants/misc'
+import { getVillageJournalSummary } from '@/lib/markdown/villageLinkSummary'
 import { suitIsRed } from '@/lib/suitGlyphs'
 import type { Suit } from '@/lib/types'
-import { BiomeTag } from '@/components/BiomeTag/BiomeTag'
-import { CoordChip } from '@/components/CoordChip/CoordChip'
-import { JournalReferencePreview } from '@/components/JournalReferencePreview/JournalReferencePreview'
-import type { _Translator } from 'next-intl'
 
 /** Everything needed to build journal embellishment rules for the current character sheet + locale. */
 export type JournalEmbellishmentBuildContext = {

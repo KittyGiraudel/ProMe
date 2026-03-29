@@ -1,15 +1,15 @@
+import { _Translator } from 'next-intl'
 import { decodePlayingCardString, encodePlayingCard } from '@/lib/codec/cards'
-import { Faction } from '@/lib/types'
 import { FACTIONS } from '@/lib/constants/misc'
-import type { VillageRoll } from './generate'
-import { countRedJacksInPrimary, isValidExpansionCard } from './generate'
-import { toVillagePrimaryTuple } from './primaryTuple'
+import type { InhabitantRoll } from '@/lib/inhabitant/generate'
 import {
   decodeInhabitantRollParam,
   encodeInhabitantRoll,
 } from '@/lib/inhabitant/inhabitantUrlCodec'
-import type { InhabitantRoll } from '@/lib/inhabitant/generate'
-import { _Translator } from 'next-intl'
+import { Faction } from '@/lib/types'
+import type { VillageRoll } from './generate'
+import { countRedJacksInPrimary, isValidExpansionCard } from './generate'
+import { toVillagePrimaryTuple } from './primaryTuple'
 
 /**
  * Separator between compact inhabitant blobs inside the village owners payload.

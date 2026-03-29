@@ -11,9 +11,9 @@ import {
   Tooltip,
   Typography,
 } from 'antd'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { useInventoryLimit } from '@/components/PageCharacterSheet/useInventoryLimit'
-import { useTranslations } from 'next-intl'
 import { randomId } from '@/lib/character/model'
 import { HelpButton } from '../HelpButton/HelpButton'
 import './InventoryCard.css'

@@ -1,7 +1,7 @@
-import { AppConfig } from 'next-intl'
-import { getTranslations } from 'next-intl/server'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { Geist, Geist_Mono } from 'next/font/google'
+import { AppConfig } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { AppProviders } from '@/components/AppProviders/AppProviders'
 import './globals.css'
 

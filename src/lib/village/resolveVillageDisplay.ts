@@ -1,8 +1,8 @@
+import type { _Translator } from 'next-intl'
 import { isFaceRank, suitIsRed } from '@/lib/suitGlyphs'
 import { type PlayingCard } from '@/lib/types'
 import { establishmentLine } from '@/lib/village/data/establishments'
 import type { VillageRoll } from '@/lib/village/generate'
-import type { _Translator } from 'next-intl'
 
 export type VillageTraitRow = {
   text: string

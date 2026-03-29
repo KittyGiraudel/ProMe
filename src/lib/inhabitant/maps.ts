@@ -1,8 +1,8 @@
 import type {
   AgeBand,
+  Faction,
   Gender,
   Personality,
-  Faction,
   Rank,
   Suit,
 } from '@/lib/types'

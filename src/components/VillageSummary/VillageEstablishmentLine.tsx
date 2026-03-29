@@ -2,16 +2,16 @@
 
 import { RedoOutlined } from '@ant-design/icons'
 import { Typography } from 'antd'
+import { useTranslations } from 'next-intl'
+import { Button } from '@/components/Button/Button'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
+import { establishmentDetailRulebookPage } from '@/lib/constants/rulebookPages'
 import type { PlayingCard } from '@/lib/types'
 import { formatRulebookReference } from '@/lib/village/formatRulebookReference'
-import { establishmentDetailRulebookPage } from '@/lib/constants/rulebookPages'
 import {
   VillageEstablishmentOwners,
   type VillageOwnerEntry,
 } from './VillageEstablishmentOwners'
-import { Button } from '@/components/Button/Button'
-import { useTranslations } from 'next-intl'
 
 export type VillageEstablishmentLineProps = {
   lineNumber: number

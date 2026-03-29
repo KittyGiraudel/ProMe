@@ -1,9 +1,9 @@
-import { Suspense } from 'react'
+import { Typography } from 'antd'
 import { AppConfig, useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
+import { Suspense } from 'react'
 import { Layout } from '@/components/Layout/Layout'
 import { VillageGenerator } from '@/components/PageGeneratorVillage/VillageGenerator'
-import { Typography } from 'antd'
 
 type Props = { params: Promise<{ locale: AppConfig['Locale'] }> }
 

@@ -1,6 +1,6 @@
-import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
-import type { Character } from '@/lib/character/types'
 import type { _Translator } from 'next-intl'
+import type { Character } from '@/lib/character/types'
+import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 
 /**
  * One-line label for `{protector/<id>}` tokens: gender symbol, name, localized archetype.

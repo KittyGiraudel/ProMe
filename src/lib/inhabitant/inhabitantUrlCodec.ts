@@ -1,12 +1,12 @@
-import { lookupName } from './data/namesByFaction'
-import { genderFromD6, factionFromD6 } from './maps'
-import type { InhabitantRoll } from './generate'
-import type { PlayingCard } from '@/lib/types'
+import { _Translator } from 'next-intl'
 import {
   decodePlayingCardPair as decodeCard,
   encodePlayingCard as encodeCard,
 } from '@/lib/codec/cards'
-import { _Translator } from 'next-intl'
+import type { PlayingCard } from '@/lib/types'
+import { lookupName } from './data/namesByFaction'
+import type { InhabitantRoll } from './generate'
+import { factionFromD6, genderFromD6 } from './maps'
 
 function parseFactionDie(c: string): number | null {
   if (c.length !== 1) return null

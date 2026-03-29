@@ -2,8 +2,8 @@
 
 import { Card, Col, Row, Space, Typography } from 'antd'
 import { useFormatter, useTranslations } from 'next-intl'
-import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { Layout } from '@/components/Layout/Layout'
+import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 import { useRecentCharacters } from './useRecentCharacters'
 

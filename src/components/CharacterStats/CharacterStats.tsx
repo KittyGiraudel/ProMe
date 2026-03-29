@@ -1,7 +1,7 @@
 import { Col, Collapse, Row, Statistic } from 'antd'
-import { useCharacterContext } from '../PageCharacterSheet/CharacterContext'
-import { StatPool } from '@/lib/character/types'
 import { useTranslations } from 'next-intl'
+import { StatPool } from '@/lib/character/types'
+import { useCharacterContext } from '../PageCharacterSheet/CharacterContext'
 
 export function CharacterStats() {
   const { getCharacterValue } = useCharacterContext()

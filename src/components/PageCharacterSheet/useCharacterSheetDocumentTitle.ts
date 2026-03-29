@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect } from 'react'
 import { useTranslations } from 'next-intl'
+import { useEffect } from 'react'
 import { usePathname } from '@/i18n/navigation'
 import type { Character } from '@/lib/character/types'
 import {

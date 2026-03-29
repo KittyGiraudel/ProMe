@@ -1,6 +1,6 @@
-import { setRequestLocale } from 'next-intl/server'
-import { AppConfig, hasLocale, NextIntlClientProvider } from 'next-intl'
 import { notFound } from 'next/navigation'
+import { AppConfig, hasLocale, NextIntlClientProvider } from 'next-intl'
+import { setRequestLocale } from 'next-intl/server'
 import { routing } from '@/i18n/routing'
 
 type Props = {

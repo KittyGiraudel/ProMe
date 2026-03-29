@@ -1,5 +1,5 @@
-import remarkGfm from 'remark-gfm'
 import type { Components } from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 /** Pure string transform applied before react-markdown parses the journal body. */
 export type JournalMarkdownTransform = (markdown: string) => string

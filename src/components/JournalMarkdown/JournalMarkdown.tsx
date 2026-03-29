@@ -1,15 +1,15 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import type { ReactNode } from 'react'
 import { cloneElement, isValidElement } from 'react'
 import type { Components } from 'react-markdown'
 import ReactMarkdown from 'react-markdown'
-import { useTranslations } from 'next-intl'
-import { createJournalMarkdownRendererConfig } from '@/lib/markdown/journalMarkdown'
-import { tokenizeJournalEmbellishUiRules } from '@/lib/markdown/journalEmbellishText'
-import { useSettings } from '@/components/PageSettings/SettingsContext'
-import { useCharacterContext } from '@/components/PageCharacterSheet/CharacterContext'
 import { buildJournalMarkdownEmbellishmentRules } from '@/components/JournalMarkdown/journalMarkdownEmbellishmentRules'
+import { useCharacterContext } from '@/components/PageCharacterSheet/CharacterContext'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
+import { tokenizeJournalEmbellishUiRules } from '@/lib/markdown/journalEmbellishText'
+import { createJournalMarkdownRendererConfig } from '@/lib/markdown/journalMarkdown'
 import './JournalMarkdown.css'
 
 /**

@@ -1,19 +1,19 @@
 import { describe, expect, it } from 'vitest'
+import { testLocalize } from '@/lib/localization/testLocalize'
 import { lookupName } from './data/namesByFaction'
 import {
   generateInhabitantWithFaction,
   getAgeBand,
   getPersonality,
+  type InhabitantRoll,
   mapKindFromContextSevenDie,
   rerollInhabitantPart,
   setInhabitantAgeBand,
+  setInhabitantFaction,
   setInhabitantGender,
   setInhabitantNameDice,
   setInhabitantPersonality,
-  setInhabitantFaction,
-  type InhabitantRoll,
 } from './generate'
-import { testLocalize } from '@/lib/localization/testLocalize'
 
 function makeRoll(over: Partial<InhabitantRoll> = {}): InhabitantRoll {
   return {

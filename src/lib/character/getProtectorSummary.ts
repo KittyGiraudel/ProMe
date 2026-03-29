@@ -1,6 +1,6 @@
+import type { _Translator } from 'next-intl'
 import type { Character } from '@/lib/character/types'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
-import type { _Translator } from 'next-intl'
 
 /**
  * Plain-text line: optional gender symbol, name (or “unnamed”), comma, localized archetype —

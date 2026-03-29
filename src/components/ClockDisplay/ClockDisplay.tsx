@@ -1,7 +1,7 @@
 'use client'
 
-import { useId } from 'react'
 import { useTranslations } from 'next-intl'
+import { useId } from 'react'
 import { isClockDayPhase } from '@/lib/character/clock'
 import './ClockDisplay.css'
 

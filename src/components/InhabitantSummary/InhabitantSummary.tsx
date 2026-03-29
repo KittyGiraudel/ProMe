@@ -1,7 +1,6 @@
 'use client'
 
 import { RedoOutlined } from '@ant-design/icons'
-import { useMemo, type ReactNode } from 'react'
 import {
   Card,
   Descriptions,
@@ -11,33 +10,34 @@ import {
   Tooltip,
   Typography,
 } from 'antd'
+import { type ReactNode, useMemo } from 'react'
+import { Button } from '@/components/Button/Button'
+import { DiceFaces } from '@/components/DiceFaces/DiceFaces'
+import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
+import { RichText } from '@/components/RichText/RichText'
+import { AGE_BANDS, GENDERS, FACTIONS, RANKS } from '@/lib/constants/misc'
 import { lookupName } from '@/lib/inhabitant/data/namesByFaction'
 import {
-  type InhabitantRerollPart,
-  type InhabitantRoll,
   getAgeBand,
   getPersonality,
+  type InhabitantRerollPart,
+  type InhabitantRoll,
   setInhabitantAgeBand,
+  setInhabitantFaction,
   setInhabitantGender,
   setInhabitantNameDice,
   setInhabitantPersonality,
-  setInhabitantFaction,
 } from '@/lib/inhabitant/generate'
 import { personalityFromRank } from '@/lib/inhabitant/maps'
 import {
   type AgeBand,
+  type Faction,
   type Gender,
   type Personality,
-  type Faction,
 } from '@/lib/types'
-import { AGE_BANDS, GENDERS, FACTIONS, RANKS } from '@/lib/constants/misc'
-import { DiceFaces } from '@/components/DiceFaces/DiceFaces'
-import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
-import { RichText } from '@/components/RichText/RichText'
-import { Button } from '@/components/Button/Button'
 import './InhabitantSummary.css'
-import { useTranslations } from 'next-intl'
 import { SelectProps } from 'antd/lib/select'
+import { useTranslations } from 'next-intl'
 
 type InhabitantSummaryProps = {
   roll: InhabitantRoll | null

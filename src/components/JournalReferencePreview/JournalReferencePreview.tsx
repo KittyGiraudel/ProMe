@@ -1,17 +1,17 @@
 'use client'
 
-import { useMemo, useState } from 'react'
 import { Empty, Modal, Typography } from 'antd'
 import { useTranslations } from 'next-intl'
+import { useMemo, useState } from 'react'
+import { Button } from '@/components/Button/Button'
+import { InhabitantSummary } from '@/components/InhabitantSummary/InhabitantSummary'
+import { VillageSummary } from '@/components/VillageSummary/VillageSummary'
+import { getCharacterStore } from '@/lib/character/store'
 import { decodeInhabitantRollParam } from '@/lib/inhabitant/inhabitantUrlCodec'
 import {
   decodeVillageIdParam,
   decodeVillageIdRollParam,
 } from '@/lib/village/villageIdCodec'
-import { getCharacterStore } from '@/lib/character/store'
-import { InhabitantSummary } from '@/components/InhabitantSummary/InhabitantSummary'
-import { VillageSummary } from '@/components/VillageSummary/VillageSummary'
-import { Button } from '@/components/Button/Button'
 import './JournalReferencePreview.css'
 
 /** Rich inline link for `{village/…}`, `{npc/…}`, or `{protector/…}` journal tokens. */

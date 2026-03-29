@@ -1,13 +1,13 @@
 'use client'
 
+import type { FormInstance } from 'antd'
 import { App, ConfigProvider, Form } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
-import type { FormInstance } from 'antd'
+import { useTranslations } from 'next-intl'
+import { useCallback, useEffect, useRef } from 'react'
 import { Button } from '@/components/Button/Button'
 import { JournalEntryBodyPreview } from '@/components/Journal/JournalEntryBodyPreview'
 import { JournalEntryEditModal } from '@/components/Journal/JournalEntryEditModal'
-import { useTranslations } from 'next-intl'
-import { useCallback, useEffect, useRef } from 'react'
 
 type JournalEntryProps = {
   field: FormListFieldData

@@ -1,23 +1,23 @@
+import { _Translator } from 'next-intl'
 import { randomCard, roll2D6, rollD6 } from '@/lib/rng'
 import type {
   AgeBand,
+  Faction,
   Gender,
   Personality,
   PlayingCard,
-  Faction,
 } from '@/lib/types'
 import { lookupName } from './data/namesByFaction'
 import {
   ageBandFromSuit,
-  canonicalGenderDie,
   canonicalFactionDie,
+  canonicalGenderDie,
+  factionFromD6,
   genderFromD6,
   personalityFromRank,
-  factionFromD6,
   rankFromPersonality,
   suitFromAgeBand,
 } from './maps'
-import { _Translator } from 'next-intl'
 
 export type InhabitantRerollPart =
   | 'faction'

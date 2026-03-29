@@ -2,12 +2,12 @@
 
 import {
   createContext,
+  type ReactNode,
   useCallback,
   useContext,
   useEffect,
   useMemo,
   useState,
-  type ReactNode,
 } from 'react'
 import { DEFAULT_SETTINGS } from '@/lib/settings/model'
 import { loadSettings, saveSettings } from '@/lib/settings/storage'

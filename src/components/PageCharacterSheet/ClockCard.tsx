@@ -1,17 +1,17 @@
 'use client'
 
 import { Card, Form, Input, Popover, Space, Tag, Typography } from 'antd'
-import { useSetClockToRawTargetWithToast } from '@/lib/character/clockPositionNotifications'
+import { useTranslations } from 'next-intl'
+import { useCallback } from 'react'
+import { Button } from '@/components/Button/Button'
+import { ClockDisplay } from '@/components/ClockDisplay/ClockDisplay'
 import {
   clampClockSliceIndex,
   countHalfClockSegments,
   isClockDayPhase,
 } from '@/lib/character/clock'
-import { ClockDisplay } from '@/components/ClockDisplay/ClockDisplay'
+import { useSetClockToRawTargetWithToast } from '@/lib/character/clockPositionNotifications'
 import type { StatPool } from '@/lib/character/types'
-import { Button } from '@/components/Button/Button'
-import { useTranslations } from 'next-intl'
-import { useCallback } from 'react'
 import { HelpButton } from '../HelpButton/HelpButton'
 
 export function ClockCard() {

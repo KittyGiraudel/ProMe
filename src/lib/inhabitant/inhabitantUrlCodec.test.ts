@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest'
+import { testLocalize } from '@/lib/localization/testLocalize'
+import { lookupName } from './data/namesByFaction'
 import {
   decodeInhabitantRollParam,
   encodeInhabitantRoll,
 } from './inhabitantUrlCodec'
-import { lookupName } from './data/namesByFaction'
-import { genderFromD6, factionFromD6 } from './maps'
-import { testLocalize } from '@/lib/localization/testLocalize'
+import { factionFromD6, genderFromD6 } from './maps'
 
 describe('inhabitantUrlCodec', () => {
   it('decodes legacy 8-char and round-trips through v2 encode', () => {

@@ -3,10 +3,10 @@ import {
   areHexNeighbors,
   extractDisplayedCellReferences,
   getDisplayedCellLabel,
-  parseDisplayedCellReference,
   getGlobalFromDisplayedCellLabel,
   getGlobalFromSheetCell,
   parseDisplayedCellLabel,
+  parseDisplayedCellReference,
 } from './coordinates'
 
 describe('areHexNeighbors', () => {
