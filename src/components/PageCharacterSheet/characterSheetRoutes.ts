@@ -10,14 +10,14 @@ export const CHARACTER_SHEET_TAB_KEYS = [
     key: 'characters.map.title',
   },
   {
-    id: 'inventory',
-    path: 'inventory',
-    key: 'characters.inventory.title',
-  },
-  {
     id: 'journal',
     path: 'journal',
     key: 'characters.journal.title',
+  },
+  {
+    id: 'inventory',
+    path: 'inventory',
+    key: 'characters.inventory.title',
   },
   {
     id: 'tools',
