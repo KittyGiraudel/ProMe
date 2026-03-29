@@ -1,7 +1,7 @@
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { AppConfig } from 'next-intl'
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 import { AppProviders } from '@/components/AppProviders/AppProviders'
 import './globals.css'
 
@@ -15,10 +15,8 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
-type Props = { params: Promise<{ locale: string }> }
-
-export async function generateMetadata({ params }: Props) {
-  const { locale } = await params
+export async function generateMetadata() {
+  const locale = await getLocale()
   const t = await getTranslations({ locale: locale as AppConfig['Locale'] })
 
   return {
@@ -32,12 +30,10 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function RootLayout({
   children,
-  params,
 }: Readonly<{
   children: React.ReactNode
-  params: Promise<{ locale: string }>
 }>) {
-  const { locale } = await params
+  const locale = await getLocale()
   return (
     <html lang={locale} className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
