@@ -1,4 +1,4 @@
-import type { BiomeId } from '@/lib/character/types'
+import type { BiomeId } from '@/lib/types'
 
 export type BiomeRollEntry = {
   biome: BiomeId

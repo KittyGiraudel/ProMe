@@ -2,7 +2,8 @@ import {
   decodePlayingCardString,
   encodePlayingCard,
 } from "@/lib/codec/cards";
-import { Faction, FACTIONS } from "@/lib/types";
+import { Faction } from "@/lib/types";
+import { FACTIONS } from "@/lib/constants/misc";
 import type { VillageRoll } from "./generate";
 import { countRedJacksInPrimary, isValidExpansionCard } from "./generate";
 import { toVillagePrimaryTuple } from "./primaryTuple";

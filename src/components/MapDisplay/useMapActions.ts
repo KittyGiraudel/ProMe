@@ -5,11 +5,11 @@ import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { isSameHex } from '@/lib/hex/coordinates'
 import {
-  type BiomeId,
   type CharacterMapState,
   type HexCoordinate,
   type StatPool,
 } from '@/lib/character/types'
+import { type BiomeId } from '@/lib/types'
 import { useSetClockToRawTargetWithToast } from '@/lib/character/clockPositionNotifications'
 import { clampClockSliceIndex } from '@/lib/character/clock'
 import {

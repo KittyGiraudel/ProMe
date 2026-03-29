@@ -1,5 +1,5 @@
-import { suitIsRed } from '@/lib/suitGlyphs'
-import { isFaceRank, type PlayingCard } from '@/lib/types'
+import { isFaceRank, suitIsRed } from '@/lib/suitGlyphs'
+import { type PlayingCard } from '@/lib/types'
 import { establishmentLine } from '@/lib/village/data/establishments'
 import type { VillageRoll } from '@/lib/village/generate'
 import type { _Translator } from 'next-intl'

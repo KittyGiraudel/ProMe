@@ -1,9 +1,10 @@
 'use client'
 
 import { Alert, Card, Col, Form, Input, Row, Select } from 'antd'
-import { Gender, GENDERS } from '@/lib/types'
+import { Gender } from '@/lib/types'
 import type { Archetype } from '@/lib/character/types'
 import { useTranslations } from 'next-intl'
+import { GENDERS } from '@/lib/constants/misc'
 
 export function IdentityCard({
   isArchetypeReadonly = false,

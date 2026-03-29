@@ -9,11 +9,11 @@ import {
 } from 'react'
 import type { FormInstance } from 'antd'
 import type {
-  BiomeId,
   CharacterMapCell,
   CharacterMapState,
   HexCoordinate,
 } from '@/lib/character/types'
+import { type BiomeId } from '@/lib/types'
 import {
   formatDisplayedCellReference,
   parseDisplayedCellReference,

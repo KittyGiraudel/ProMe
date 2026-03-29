@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl'
-import type { BiomeId } from '@/lib/character/types'
+import type { BiomeId } from '@/lib/types'
 import { VisuallyHidden } from '@/components/VisuallyHidden/VisuallyHidden'
 import './BiomeBubble.css'
 

@@ -12,9 +12,7 @@ import {
   Space,
   Tabs,
   Timeline,
-  Typography,
 } from 'antd'
-import type { FormInstance } from 'antd'
 import { Button } from '@/components/Button/Button'
 import { JournalMarkdown } from '@/components/JournalMarkdown/JournalMarkdown'
 import { JournalEditCheatsheet } from '@/components/Journal/JournalEditCheatsheet'
@@ -34,7 +32,6 @@ type JournalEntryEditModalProps = {
   open: boolean
   /** Form.List row index for `journalEntries`. */
   fieldName: number
-  form: FormInstance
   draftContent: string | undefined
   onCancel: () => void
   onSave: () => void
@@ -47,7 +44,6 @@ type JournalEntryEditModalProps = {
 export function JournalEntryEditModal({
   open,
   fieldName,
-  form,
   draftContent,
   onCancel,
   onSave,

@@ -1,5 +1,5 @@
-import {routing} from '@/i18n/routing';
-import messages from './messages/fr.json';
+import { routing } from "@/i18n/routing";
+import messages from "./messages/fr.json";
  
 declare module 'next-intl' {
   interface AppConfig {

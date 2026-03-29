@@ -1,21 +1,16 @@
+import {useTranslations} from 'next-intl'
+
+export type BiomeId =
+  | 'shadowForest'
+  | 'floodedPlains'
+  | 'mushroomJungle'
+  | 'fieldSea'
+  | 'silentDesert'
+  | 'giganticGardens'
+
 export type Faction = "bruja" | "cucurbitus" | "kiore" | "mousseron";
 
-export const FACTIONS: readonly Faction[] = [
-  "bruja",
-  "cucurbitus",
-  "kiore",
-  "mousseron",
-] as const;
-
-/** Optional table aid: 1D6 gender roll (not core rules). */
 export type Gender = "man" | "woman" | "nonBinary" | "indeterminate";
-
-export const GENDERS: readonly Gender[] = [
-  "man",
-  "woman",
-  "nonBinary",
-  "indeterminate",
-] as const;
 
 export type Suit = "hearts" | "diamonds" | "clubs" | "spades";
 
@@ -35,13 +30,6 @@ export type Rank =
   | "A";
 
 export type AgeBand = "child" | "teenager" | "adult" | "elderly";
-
-export const AGE_BANDS: readonly AgeBand[] = [
-  "child",
-  "teenager",
-  "adult",
-  "elderly",
-] as const;
 
 export type Personality =
   | "enthusiast"
@@ -63,29 +51,4 @@ export type PlayingCard = {
   rank: Rank;
 };
 
-export const RANKS: readonly Rank[] = [
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "10",
-  "J",
-  "Q",
-  "K",
-  "A",
-] as const;
-
-export const SUITS: readonly Suit[] = [
-  "hearts",
-  "diamonds",
-  "clubs",
-  "spades",
-] as const;
-
-export function isFaceRank(rank: Rank): boolean {
-  return rank === "J" || rank === "Q" || rank === "K";
-}
+export type TranslationKey = Parameters<ReturnType<typeof useTranslations<never>>>[0]

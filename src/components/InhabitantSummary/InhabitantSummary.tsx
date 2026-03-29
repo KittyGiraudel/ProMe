@@ -17,7 +17,6 @@ import {
   type InhabitantRoll,
   getAgeBand,
   getPersonality,
-  mapKindFromContextSevenDie,
   setInhabitantAgeBand,
   setInhabitantGender,
   setInhabitantNameDice,
@@ -26,15 +25,12 @@ import {
 } from '@/lib/inhabitant/generate'
 import { personalityFromRank } from '@/lib/inhabitant/maps'
 import {
-  AGE_BANDS,
-  GENDERS,
-  FACTIONS,
-  RANKS,
   type AgeBand,
   type Gender,
   type Personality,
   type Faction,
 } from '@/lib/types'
+import { AGE_BANDS, GENDERS, FACTIONS, RANKS } from '@/lib/constants/misc'
 import { DiceFaces } from '@/components/DiceFaces/DiceFaces'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { RichText } from '@/components/RichText/RichText'

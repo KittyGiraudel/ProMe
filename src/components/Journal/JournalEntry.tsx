@@ -1,12 +1,12 @@
 'use client'
 
-import { App, ConfigProvider, Form, Typography } from 'antd'
+import { App, ConfigProvider, Form } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
 import type { FormInstance } from 'antd'
 import { Button } from '@/components/Button/Button'
 import { JournalEntryBodyPreview } from '@/components/Journal/JournalEntryBodyPreview'
 import { JournalEntryEditModal } from '@/components/Journal/JournalEntryEditModal'
-import { useFormatter, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useRef } from 'react'
 
 type JournalEntryProps = {
@@ -124,7 +124,6 @@ export function JournalEntry({
       <JournalEntryEditModal
         open={editing}
         fieldName={field.name}
-        form={form}
         draftContent={draftContent}
         onCancel={handleModalCancel}
         onSave={handleModalSave}

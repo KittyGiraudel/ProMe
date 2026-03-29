@@ -4,6 +4,7 @@ import { Layout } from '@/components/Layout/Layout'
 import { Typography } from 'antd'
 import { useTranslations } from 'next-intl'
 import './FAQ.css'
+import { TranslationKey } from '@/lib/types'
 
 export function FAQ() {
   const t = useTranslations()
@@ -29,11 +30,9 @@ function Entry({ index }: { index: number }) {
   return (
     <>
       <Typography.Title level={2}>
-        {t(`faq.question_${index}` as Parameters<typeof t>[0])}
+        {t(`faq.question_${index}` as TranslationKey)}
       </Typography.Title>
-      <Paragraphs
-        translation={t(`faq.answer_${index}` as Parameters<typeof t>[0])}
-      />
+      <Paragraphs translation={t(`faq.answer_${index}` as TranslationKey)} />
     </>
   )
 }

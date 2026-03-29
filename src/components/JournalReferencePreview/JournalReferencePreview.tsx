@@ -50,17 +50,6 @@ export function JournalReferencePreview(props: JournalReferencePreviewProps) {
 
   const referenceId = props.referenceId
 
-  if (!props.href) {
-    return (
-      <span
-        className={['JournalReferencePreview__static', props.className]
-          .filter(Boolean)
-          .join(' ')}>
-        {props.label}
-      </span>
-    )
-  }
-
   const decoded = useMemo(() => {
     if (props.kind === 'npc') {
       const roll = decodeInhabitantRollParam(referenceId, t)
@@ -78,6 +67,17 @@ export function JournalReferencePreview(props: JournalReferencePreviewProps) {
     const character = getCharacterStore().get(referenceId)
     return character ? { kind: 'protector' as const, character } : null
   }, [props.kind, referenceId, t])
+
+  if (!props.href) {
+    return (
+      <span
+        className={['JournalReferencePreview__static', props.className]
+          .filter(Boolean)
+          .join(' ')}>
+        {props.label}
+      </span>
+    )
+  }
 
   const modalTitle =
     props.kind === 'npc'

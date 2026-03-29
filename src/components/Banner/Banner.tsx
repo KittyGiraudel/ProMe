@@ -1,4 +1,4 @@
-import type { BiomeId } from '@/lib/character/types'
+import type { BiomeId } from '@/lib/types'
 import { BannerArt } from './BannerArt'
 import './Banner.css'
 

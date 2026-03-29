@@ -4,7 +4,6 @@ import { App } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
 import { computeClockMoveFromRawTarget } from './clock'
-import { useParams } from 'next/navigation'
 import { Link } from '@/i18n/navigation'
 
 /**
@@ -22,7 +21,6 @@ export function useSetClockToRawTargetWithToast({
 }) {
   const { message, notification } = App.useApp()
   const t = useTranslations()
-  const { id: characterId } = useParams()
 
   return useCallback(
     ({
@@ -79,6 +77,6 @@ export function useSetClockToRawTargetWithToast({
         2
       )
     },
-    [message, notification, t, updateClock, characterId]
+    [message, notification, t, updateClock]
   )
 }

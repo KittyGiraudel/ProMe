@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { isFaceRank } from "./types";
+import { isFaceRank } from "./suitGlyphs";
 import {
   pickRandom,
   defaultRng,

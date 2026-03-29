@@ -5,12 +5,6 @@ export const CHARACTER_SCHEMA_VERSION = 1 as const
 export type Archetype = 'warrior' | 'pilgrim' | 'bard'
 export type LifeStatus = 'alive' | 'dead'
 
-export const ARCHETYPES: readonly Archetype[] = [
-  'warrior',
-  'pilgrim',
-  'bard',
-] as const
-
 export type StatPool = {
   current: number
   max: number
@@ -28,23 +22,6 @@ export type SpellEntry = {
   name: string
   note?: string
 }
-
-export type BiomeId =
-  | 'shadowForest'
-  | 'floodedPlains'
-  | 'mushroomJungle'
-  | 'fieldSea'
-  | 'silentDesert'
-  | 'giganticGardens'
-
-export const BIOME_IDS: readonly BiomeId[] = [
-  'shadowForest',
-  'floodedPlains',
-  'mushroomJungle',
-  'fieldSea',
-  'silentDesert',
-  'giganticGardens',
-] as const
 
 export type HexCoordinate = {
   q: number

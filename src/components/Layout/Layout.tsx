@@ -9,8 +9,8 @@ import {
   BreadcrumbProps,
   Space,
 } from 'antd'
-import { Link, usePathname } from '@/i18n/navigation'
-import type { BiomeId } from '@/lib/character/types'
+import { usePathname } from '@/i18n/navigation'
+import type { BiomeId } from '@/lib/types'
 import { Banner } from '@/components/Banner/Banner'
 import { BlockedLink } from '../Navigation/BlockedLink'
 import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs'

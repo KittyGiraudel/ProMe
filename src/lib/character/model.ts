@@ -1,6 +1,4 @@
 import {
-  BIOME_IDS,
-  type BiomeId,
   type CharacterMapCell,
   type CharacterMapState,
   CHARACTER_SCHEMA_VERSION,
@@ -14,6 +12,8 @@ import {
   type StatPool,
   HexCoordinate,
 } from './types'
+import { type BiomeId } from '../types'
+import { BIOME_IDS } from '../constants/misc'
 import {
   countClockSegments,
   normalizeClock,

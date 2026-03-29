@@ -1,5 +1,5 @@
 import { toHexKey } from '@/lib/hex/coordinates'
-import type { BiomeId } from './types'
+import type { BiomeId } from '../types'
 import { normalizeCharacterMapState } from './model'
 
 /** Biome on the cell where the character stands, or `unexplored` if missing / unset. */

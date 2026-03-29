@@ -1,5 +1,6 @@
 import type { PlayingCard, Rank, Suit } from "./types";
-import { isFaceRank, RANKS, SUITS } from "./types";
+import { RANKS, SUITS } from "./constants/misc";
+import { isFaceRank } from "./suitGlyphs";
 
 export function randomInt(rng: () => number, min: number, max: number): number {
   const lo = Math.ceil(min);
@@ -16,7 +17,8 @@ export function roll2D6(rng: () => number): [number, number] {
 }
 
 export function randomCard(rng: () => number): PlayingCard {
-  const suit = SUITS[randomInt(rng, 0, SUITS.length - 1)] as Suit;
+  const suits = Object.keys(SUITS)
+  const suit = suits[randomInt(rng, 0, suits.length - 1)] as Suit;
   const rank = RANKS[randomInt(rng, 0, RANKS.length - 1)] as Rank;
   return { suit, rank };
 }

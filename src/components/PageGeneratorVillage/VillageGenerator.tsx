@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl'
 import type { InhabitantRoll } from '@/lib/inhabitant/generate'
 import { generateInhabitantWithFaction } from '@/lib/inhabitant/generate'
 import type { Faction } from '@/lib/types'
-import { FACTIONS } from '@/lib/types'
+import { FACTIONS } from '@/lib/constants/misc'
 import { decodeVillageFactionParam } from '@/lib/village/villageUrlCodec'
 import type { VillageRoll } from '@/lib/village/generate'
 import {
