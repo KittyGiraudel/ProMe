@@ -12,7 +12,6 @@ type CharacterIdLayoutProps = {
 export async function generateMetadata({
   params,
 }: CharacterIdLayoutProps): Promise<Metadata> {
-  await params
   const { locale } = await params
   const t = await getTranslations({ locale: locale as AppConfig['Locale'] })
 
