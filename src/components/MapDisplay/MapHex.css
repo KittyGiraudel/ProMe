@@ -29,7 +29,7 @@
   overflow: hidden;
 }
 
-@supports not (corner-shape: bevel) {
+@supports not ((corner-shape: bevel) and (aspect-ratio: cos(30deg))) {
   /**
    * 1. Just for testing purposes: drop the ‘not’ in this @supports rule to see
    *    how it lookswith it.

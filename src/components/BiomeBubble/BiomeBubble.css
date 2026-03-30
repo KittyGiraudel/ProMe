@@ -9,7 +9,7 @@
   border: 1px solid var(--biome-dark);
 }
 
-@supports (corner-shape: bevel) {
+@supports (corner-shape: bevel) and (aspect-ratio: cos(30deg)) {
   .BiomeBubble {
     corner-shape: bevel;
     border-radius: 50% / 25%;
