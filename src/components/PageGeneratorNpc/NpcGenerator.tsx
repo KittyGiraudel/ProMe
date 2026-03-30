@@ -74,7 +74,7 @@ export function NpcGenerator({
   return (
     <Layout
       title={t('inhabitant.title')}
-      bannerBiome='fieldSea'
+      bannerBiome='shadowForest'
       breadcrumbs={[
         { title: t('nav.home'), path: '/' },
         { title: t('nav.inhabitant_generator'), path: '/generators/npc' },

@@ -95,7 +95,7 @@ export function HomeHub() {
   const t = useTranslations()
 
   return (
-    <Layout title={t('home.title')} breadcrumbs={[]} bannerBiome='shadowForest'>
+    <Layout title={t('home.title')} breadcrumbs={[]} bannerBiome='fieldSea'>
       <Row gutter={16}>
         <Col span={24}>
           <CharacterManager />
