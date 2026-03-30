@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { Journal } from '@/components/Journal/Journal'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
+import { SettingsHint } from '@/components/SettingsHint/SettingsHint'
 import { randomId } from '@/lib/character/model'
 
 export const JournalCard = () => {
@@ -56,11 +57,14 @@ export function JournalCardInner({
       title={t('characters.journal.notes_section')}
       extra={canAddEntry && buttonInHeader ? addEntryButton : undefined}
       actions={canAddEntry && buttonInFooter ? [addEntryButton] : undefined}>
-      {fields.length === 0 ? (
-        <Empty description={t('characters.journal.empty')} />
-      ) : (
-        <Journal fields={fields} form={form} deleteEntry={onRemoveEntry} />
-      )}
+      <>
+        {fields.length === 0 ? (
+          <Empty description={t('characters.journal.empty')} />
+        ) : (
+          <Journal fields={fields} form={form} deleteEntry={onRemoveEntry} />
+        )}
+        <SettingsHint hintId='journal' />
+      </>
     </Card>
   )
 }

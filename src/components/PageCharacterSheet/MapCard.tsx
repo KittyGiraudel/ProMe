@@ -8,6 +8,7 @@ import { MapSheetNavigation } from '@/components/MapDisplay/MapSheetNavigation'
 import { useCellSelection } from '@/components/MapDisplay/useMapCellSelection'
 import { useMapSheet as useMapSheet } from '@/components/MapDisplay/useMapSheet'
 import { useMapState } from '@/components/MapDisplay/useMapState'
+import { SettingsHint } from '@/components/SettingsHint/SettingsHint'
 import { BrowserWarning } from '../BrowserWarning/BrowserWarning'
 
 export function MapCard() {
@@ -43,6 +44,7 @@ export function MapCard() {
           </Form.Item>
         </Space>
       </div>
+      <SettingsHint hintId='map' />
     </Card>
   )
 }

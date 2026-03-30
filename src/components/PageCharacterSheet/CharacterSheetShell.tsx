@@ -8,6 +8,7 @@ import { CopyDropdown } from '@/components/CopyDropdown/CopyDropdown'
 import { Layout } from '@/components/Layout/Layout'
 import { CharacterProvider } from '@/components/PageCharacterSheet/CharacterContext'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
+import { SettingsHint } from '@/components/SettingsHint/SettingsHint'
 import { Link, usePathname, useRouter } from '@/i18n/navigation'
 import { biomeAtCurrentMapPosition } from '@/lib/character/biomeAtCurrentMapPosition'
 import { getProtectorSummary } from '@/lib/character/getProtectorSummary'
@@ -198,6 +199,7 @@ export function CharacterSheetShell({
                 <CharacterSheetTabNav />
                 <CharacterStats />
                 {children}
+                <SettingsHint hintId='sheet' />
               </Space>
             </div>
           </ConfigProvider>

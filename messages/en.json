@@ -401,7 +401,6 @@
     "save_success": "Settings saved.",
     "language_en": "English",
     "language_fr": "Français",
-    "language_help": "Choose the interface language.",
     "language_warning": "Please note that only the French language is canonical, as it is the language in which my game version is written. The English version is automatically translated without support from an English rulebook.",
     "language_label": "Language",
     "section_journal": "Journal",
@@ -411,7 +410,13 @@
     "section_village": "Village Generator",
     "title": "Settings",
     "village_merge_duplicate_establishments_help": "Merges duplicate village establishments into larger ones (small + small → large, etc.).",
-    "village_merge_duplicate_establishments_label": "Merge duplicate establishments"
+    "village_merge_duplicate_establishments_label": "Merge duplicate establishments",
+    "hints": {
+      "map": "You can customize certain map features in <link>Settings</link>.",
+      "journal": "You can customize certain journal features in <link>Settings</link>.",
+      "village": "You can customize certain village generator features in <link>Settings</link>.",
+      "sheet": "You can customize certain Protector Sheet features in <link>Settings</link>."
+    }
   },
   "village": {
     "co_owners_label": "Co-owners:",

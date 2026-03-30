@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useMemo } from 'react'
 import { Layout } from '@/components/Layout/Layout'
 import { RollActions } from '@/components/RollActions/RollActions'
+import { SettingsHint } from '@/components/SettingsHint/SettingsHint'
 import { VillageSummary } from '@/components/VillageSummary/VillageSummary'
 import { useRouter } from '@/i18n/navigation'
 import { FACTIONS } from '@/lib/constants/misc'
@@ -155,6 +156,7 @@ export function VillageGenerator({
         onRerollPrimarySlot={roll ? handleRerollPrimarySlot : undefined}
         onRerollOwner={roll && owners ? handleRerollOwner : undefined}
       />
+      <SettingsHint hintId='village' />
       <Typography.Paragraph type='secondary'>
         {t('rulebook.village_footnote')}
       </Typography.Paragraph>

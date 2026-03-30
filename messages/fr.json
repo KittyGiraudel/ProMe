@@ -401,7 +401,6 @@
     "save_success": "Paramètres enregistrés.",
     "language_en": "English",
     "language_fr": "Français",
-    "language_help": "Choisissez la langue de l’interface.",
     "language_warning": "Veuillez noter que seule la langue Française est canonique, car c’est la langue dans laquelle ma version du jeu est écrite. La version Anglais est traduite automatiquement sans support d’un livre de règles anglophone.",
     "language_label": "Langue",
     "section_journal": "Journal",
@@ -411,7 +410,13 @@
     "section_village": "Générateur de village",
     "title": "Paramètres",
     "village_merge_duplicate_establishments_help": "Fusionne les établissements de village identiques en plus gros établissements (petit + petit → grande, etc.).",
-    "village_merge_duplicate_establishments_label": "Regroupement des doublons d’établissements"
+    "village_merge_duplicate_establishments_label": "Regroupement des doublons d’établissements",
+    "hints": {
+      "map": "Vous pouvez personnaliser certaines fonctionalités de la carte dans les <link>Paramètres</link>.",
+      "journal": "Vous pouvez personnaliser certaines fonctionalités du journal dans les <link>Paramètres</link>.",
+      "village": "Vous pouvez personnaliser certaines fonctionalités du générateur de village dans les <link>Paramètres</link>.",
+      "sheet": "Vous pouvez personnaliser certaines fonctionalités de la feuille de Protecteur dans les <link>Paramètres</link>."
+    }
   },
   "village": {
     "co_owners_label": "Copropriétaires :",
