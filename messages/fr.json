@@ -10,7 +10,7 @@
   },
   "characters": {
     "back_to_library": "Retour à la bibliothèque",
-    "dead_readonly_description": "{gender, select, man {Ce Protecteur est décédé} woman {Cette Protectrice est décédée} other {Ce·tte Protecteur·trice est décédé·e}}. Par conséquent, cette fiche est figée et entièrement en lecture seule. {gender, select, man {Ce Protecteur peut être réanimé} woman {Cette Protectrice peut être réanimée} other {Ce·tte Protecteur·trice peut être réanimé·e}} dans l’onglet « <link>Actions</link> » de la fiche de personnage.",
+    "dead_readonly_description": "{gender, select, man {Ce Protecteur est décédé} woman {Cette Protectrice est décédée} other {Ce·tte Protecteur·trice est décédé·e}}. Par conséquent, cette fiche est figée et entièrement en lecture seule. {gender, select, man {Ce Protecteur peut être réanimé} woman {Cette Protectrice peut être réanimée} other {Ce·tte Protecteur·trice peut être réanimé·e}} dans la partie « <link>Actions</link> » de la fiche de personnage.",
     "dead_readonly_title": "Protecteur décédé",
     "main_characteristics": "Caractéristiques principales",
     "not_found_description": "Cette fiche n’existe pas (ou plus) dans ce navigateur.",
@@ -391,6 +391,8 @@
   "settings": {
     "adaptive_night_mode_help": "Bascule automatiquement entre le thème clair et le thème sombre en fonction de la valeur de l’horloge.",
     "adaptive_night_mode_label": "Thème adaptatif",
+    "sheet_single_page_mode_help": "Affiche la feuille de protecteur sur une seule page défilante au lieu de sections avec onglets.",
+    "sheet_single_page_mode_label": "Mode page unique",
     "journal_timeline_reverse_chronological_help": "Par défault, le journal est chronologique ; décochez pour afficher les entrées du plus récent au plus ancien.",
     "journal_timeline_reverse_chronological_label": "Journal anti-chronologique",
     "map_tick_clock_on_move_help": "Quand vous vous déplacez vers une case voisine, la position sur l’horloge avance comme si vous aviez utilisé le bouton « Avancer ».",

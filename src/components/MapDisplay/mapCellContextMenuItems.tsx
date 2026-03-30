@@ -9,6 +9,7 @@ import { HexCoordinate } from '@/lib/character/types'
 import { BIOME_IDS } from '@/lib/constants/misc'
 import type { JournalEntryLink } from '@/lib/journal/cellReferenceIndex'
 import { type BiomeId, TranslationKey } from '@/lib/types'
+import { useCharacterLink } from '../PageCharacterSheet/useCharacterLink'
 import { useMapActions } from './useMapActions'
 import { useJournalIndex, useMapState } from './useMapState'
 
@@ -37,10 +38,15 @@ function JournalEntryMenuLabel({
   const snippet = journalContentFirstLine(link.content ?? '')
   const dateLabel = useFormattedDate(link.createdAt)
   const textValue = snippet || t('characters.journal.entry_empty')
+  const entryAnchor = `journal-${link.entryId}`
+  const getCharacterLink = useCharacterLink({
+    tabId: 'journal',
+    hash: entryAnchor,
+  })
 
   return (
     <Link
-      href='./journal#journal-entry-${entryId}'
+      href={getCharacterLink()}
       style={{ display: 'flex', gap: 8, alignItems: 'baseline' }}>
       <Typography.Text
         style={{ flex: 1, minWidth: 0 }}

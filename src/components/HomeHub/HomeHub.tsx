@@ -5,12 +5,14 @@ import { useFormatter, useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
+import { useCharacterLink } from '../PageCharacterSheet/useCharacterLink'
 import { useRecentCharacters } from './useRecentCharacters'
 
 const CharacterManager = () => {
   const t = useTranslations()
   const format = useFormatter()
   const recentCharacters = useRecentCharacters()
+  const getCharacterLink = useCharacterLink({ tabId: 'identity' })
 
   return (
     <Card
@@ -27,7 +29,7 @@ const CharacterManager = () => {
             <Col xs={24} md={8} key={character.id}>
               <BlockedLink
                 key={character.id}
-                href={`/characters/${character.id}/identity`}>
+                href={getCharacterLink({ characterId: character.id })}>
                 <Card
                   size='small'
                   hoverable

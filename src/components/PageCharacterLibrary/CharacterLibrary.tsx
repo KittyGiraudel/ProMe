@@ -1,14 +1,15 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { useFormatter, useTranslations } from 'next-intl'
 import { Card, Empty, Space, Typography } from 'antd'
-import { getCharacterStore } from '@/lib/character/store'
-import type { Character } from '@/lib/character/types'
-import { isCharacterDead } from '@/lib/character/lifeStatus'
+import { useFormatter, useTranslations } from 'next-intl'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Button } from '@/components/Button/Button'
 import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
-import { Button } from '@/components/Button/Button'
+import { isCharacterDead } from '@/lib/character/lifeStatus'
+import { getCharacterStore } from '@/lib/character/store'
+import type { Character } from '@/lib/character/types'
+import { useCharacterLink } from '../PageCharacterSheet/useCharacterLink'
 import { useCharacterLibraryActions } from './useCharacterLibraryActions'
 
 export function CharacterLibrary() {
@@ -25,6 +26,7 @@ export function CharacterLibrary() {
 
   const { handleImportFile } = useCharacterLibraryActions({ refresh })
   const handleImportClick = useCallback(() => fileInputRef.current?.click(), [])
+  const getCharacterLink = useCharacterLink({ tabId: 'identity' })
 
   return (
     <Layout
@@ -86,7 +88,8 @@ export function CharacterLibrary() {
               }
               extra={
                 <Space>
-                  <BlockedLink href={`/characters/${character.id}/identity`}>
+                  <BlockedLink
+                    href={getCharacterLink({ characterId: character.id })}>
                     {t('common.actions.open')}
                   </BlockedLink>
                 </Space>

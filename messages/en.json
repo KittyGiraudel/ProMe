@@ -10,7 +10,7 @@
   },
   "characters": {
     "back_to_library": "Back to Library",
-    "dead_readonly_description": "{gender, select, man {This Protector has died.} woman {This Protector has died.} other {This Protector has died.}} As a result, this sheet is frozen and read-only. {gender, select, man {This Protector can be revived} woman {This Protector can be revived} other {This Protector can be revived}} in the \"<link>Actions</link>\" tab of the character sheet.",
+    "dead_readonly_description": "{gender, select, man {This Protector has died.} woman {This Protector has died.} other {This Protector has died.}} As a result, this sheet is frozen and read-only. {gender, select, man {This Protector can be revived} woman {This Protector can be revived} other {This Protector can be revived}} in the \"<link>Actions</link>\" section of the character sheet.",
     "dead_readonly_title": "Deceased Protector",
     "main_characteristics": "Main Characteristics",
     "not_found_description": "This sheet no longer exists in this browser.",
@@ -391,6 +391,8 @@
   "settings": {
     "adaptive_night_mode_help": "Automatically switches between light and dark themes based on the clock value.",
     "adaptive_night_mode_label": "Adaptive theme",
+    "sheet_single_page_mode_help": "Displays the character sheet as one scrollable page instead of tabbed sections.",
+    "sheet_single_page_mode_label": "Single page mode",
     "journal_timeline_reverse_chronological_help": "By default, the journal is chronological; uncheck to display entries from newest to oldest.",
     "journal_timeline_reverse_chronological_label": "Reverse chronological journal",
     "map_tick_clock_on_move_help": "When you move to an adjacent cell, the clock position advances as if you had used the \"Advance\" button.",

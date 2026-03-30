@@ -9,6 +9,7 @@ import { useSettings } from './SettingsContext'
 
 type SettingsFormValues = {
   adaptiveNightMode: boolean
+  sheetSinglePageMode: boolean
   timelineReverseChronological: boolean
   villageMergeDuplicateEstablishments: boolean
   mapTickClockOnMove: boolean
@@ -26,6 +27,7 @@ export function Settings() {
 
   const initialValues: SettingsFormValues = {
     adaptiveNightMode: settings.sheet.adaptiveNightMode,
+    sheetSinglePageMode: settings.sheet.singlePageMode,
     timelineReverseChronological: settings.journal.timelineReverseChronological,
     villageMergeDuplicateEstablishments:
       settings.village.mergeDuplicateEstablishments,
@@ -38,6 +40,7 @@ export function Settings() {
       sheet: {
         ...prev.sheet,
         adaptiveNightMode: allValues.adaptiveNightMode === true,
+        singlePageMode: allValues.sheetSinglePageMode === true,
       },
       journal: {
         ...prev.journal,
@@ -65,7 +68,7 @@ export function Settings() {
         { title: t('nav.settings'), path: '/settings' },
       ]}>
       <Form<SettingsFormValues>
-        key={`${settings.sheet.adaptiveNightMode}-${settings.journal.timelineReverseChronological}-${settings.village.mergeDuplicateEstablishments}-${settings.map.tickClockOnMove}`}
+        key={`${settings.sheet.adaptiveNightMode}-${settings.sheet.singlePageMode}-${settings.journal.timelineReverseChronological}-${settings.village.mergeDuplicateEstablishments}-${settings.map.tickClockOnMove}`}
         layout='vertical'
         initialValues={initialValues}
         onValuesChange={handleValuesChange}>
@@ -86,16 +89,21 @@ export function Settings() {
             </Space>
           </Card>
           <Card title={t('settings.section_sheet')}>
-            <Space orientation='vertical' size='small'>
+            <Space orientation='vertical' size='medium'>
               <Form.Item
                 name='adaptiveNightMode'
                 valuePropName='checked'
-                noStyle>
+                help={t('settings.adaptive_night_mode_help')}>
                 <Checkbox>{t('settings.adaptive_night_mode_label')}</Checkbox>
               </Form.Item>
-              <Typography.Text type='secondary'>
-                {t('settings.adaptive_night_mode_help')}
-              </Typography.Text>
+              <Form.Item
+                name='sheetSinglePageMode'
+                valuePropName='checked'
+                help={t('settings.sheet_single_page_mode_help')}>
+                <Checkbox>
+                  {t('settings.sheet_single_page_mode_label')}
+                </Checkbox>
+              </Form.Item>
             </Space>
           </Card>
           <Card title={t('settings.section_journal')}>
@@ -103,14 +111,13 @@ export function Settings() {
               <Form.Item
                 name='timelineReverseChronological'
                 valuePropName='checked'
-                noStyle>
+                help={t(
+                  'settings.journal_timeline_reverse_chronological_help'
+                )}>
                 <Checkbox>
                   {t('settings.journal_timeline_reverse_chronological_label')}
                 </Checkbox>
               </Form.Item>
-              <Typography.Text type='secondary'>
-                {t('settings.journal_timeline_reverse_chronological_help')}
-              </Typography.Text>
             </Space>
           </Card>
           <Card title={t('settings.section_village')}>
@@ -118,14 +125,13 @@ export function Settings() {
               <Form.Item
                 name='villageMergeDuplicateEstablishments'
                 valuePropName='checked'
-                noStyle>
+                help={t(
+                  'settings.village_merge_duplicate_establishments_help'
+                )}>
                 <Checkbox>
                   {t('settings.village_merge_duplicate_establishments_label')}
                 </Checkbox>
               </Form.Item>
-              <Typography.Text type='secondary'>
-                {t('settings.village_merge_duplicate_establishments_help')}
-              </Typography.Text>
             </Space>
           </Card>
           <Card title={t('settings.section_map')}>
@@ -133,14 +139,11 @@ export function Settings() {
               <Form.Item
                 name='mapTickClockOnMove'
                 valuePropName='checked'
-                noStyle>
+                help={t('settings.map_tick_clock_on_move_help')}>
                 <Checkbox>
                   {t('settings.map_tick_clock_on_move_label')}
                 </Checkbox>
               </Form.Item>
-              <Typography.Text type='secondary'>
-                {t('settings.map_tick_clock_on_move_help')}
-              </Typography.Text>
             </Space>
           </Card>
         </Space>

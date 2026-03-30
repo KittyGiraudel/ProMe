@@ -3,6 +3,7 @@
 import { App } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
+import { useCharacterLink } from '@/components/PageCharacterSheet/useCharacterLink'
 import { Link } from '@/i18n/navigation'
 import { computeClockMoveFromRawTarget } from './clock'
 
@@ -21,6 +22,8 @@ export function useSetClockToRawTargetWithToast({
 }) {
   const { message, notification } = App.useApp()
   const t = useTranslations()
+  const getCharacterLink = useCharacterLink({ tabId: 'inventory' })
+  const inventoryLink = getCharacterLink()
 
   return useCallback(
     ({
@@ -56,7 +59,7 @@ export function useSetClockToRawTargetWithToast({
           placement: 'bottomRight',
           duration: 4,
           actions: (
-            <Link href='./inventory'>
+            <Link href={inventoryLink}>
               {t('common.actions.go_to', {
                 destination: t('characters.inventory.title'),
               })}
@@ -77,6 +80,6 @@ export function useSetClockToRawTargetWithToast({
         2
       )
     },
-    [message, notification, t, updateClock]
+    [message, notification, t, updateClock, inventoryLink]
   )
 }

@@ -7,7 +7,8 @@ import { Button } from '@/components/Button/Button'
 import { CopyDropdown } from '@/components/CopyDropdown/CopyDropdown'
 import { Layout } from '@/components/Layout/Layout'
 import { CharacterProvider } from '@/components/PageCharacterSheet/CharacterContext'
-import { Link } from '@/i18n/navigation'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
+import { Link, usePathname, useRouter } from '@/i18n/navigation'
 import { biomeAtCurrentMapPosition } from '@/lib/character/biomeAtCurrentMapPosition'
 import { getProtectorSummary } from '@/lib/character/getProtectorSummary'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
@@ -19,6 +20,7 @@ import {
   useCharacterLifeStatusActions,
   useWarnDeath,
 } from './useCharacterLifeStatusActions'
+import { useCharacterLink } from './useCharacterLink'
 import { useCharacterSheetDocumentTitle } from './useCharacterSheetDocumentTitle'
 import { useCharacterSheetForm } from './useCharacterSheetForm'
 import { useCharacterSheetFormSync } from './useCharacterSheetFormSync'
@@ -82,6 +84,8 @@ export function CharacterSheetShell({
   // marking the character as dead.
   useWarnDeath({ form, character, onKill })
 
+  const { settings } = useSettings()
+
   // Form `onFinish` save to store, delete from store, and JSON export download.
   const { onSave, onExport, onDelete } = useCharacterSheetMainActions({
     form,
@@ -97,6 +101,8 @@ export function CharacterSheetShell({
     [watchedMap]
   )
 
+  const getCharacterLink = useCharacterLink()
+
   if (!character) {
     return <CharacterSheetEmptyState />
   }
@@ -111,11 +117,18 @@ export function CharacterSheetShell({
       breadcrumbs={[
         { title: t('nav.home'), path: '/' },
         { title: t('nav.characters'), path: '/characters' },
-        { title: character.name, path: `/characters/${character.id}/identity` },
-        {
-          title: t(`characters.${activeTab}.title`),
-          path: undefined,
-        },
+        ...(settings.sheet.singlePageMode
+          ? [{ title: character.name, path: undefined }]
+          : [
+              {
+                title: character.name,
+                path: getCharacterLink({ tabId: 'identity' }),
+              },
+              {
+                title: t(`characters.${activeTab}.title`),
+                path: undefined,
+              },
+            ]),
       ]}
       headerActions={[
         <CopyDropdown
@@ -173,14 +186,16 @@ export function CharacterSheetShell({
                       {
                         gender: character.gender ?? 'indeterminate',
                         link: content => (
-                          <Link href='./actions'>{content}</Link>
+                          <Link href={getCharacterLink({ tabId: 'actions' })}>
+                            {content}
+                          </Link>
                         ),
                       }
                     )}
                   />
                 ) : null}
 
-                <CharacterSheetTabNav characterId={character.id} />
+                <CharacterSheetTabNav />
                 <CharacterStats />
                 {children}
               </Space>

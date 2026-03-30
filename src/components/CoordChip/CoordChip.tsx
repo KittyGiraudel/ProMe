@@ -1,8 +1,11 @@
+'use client'
+
 import { BiomeBubble } from '@/components/BiomeBubble/BiomeBubble'
 import { Link } from '@/i18n/navigation'
 import type { HexCoordinate } from '@/lib/character/types'
-import { getDisplayedCellHash } from '@/lib/map/hashTargets'
+import { formatDisplayedCellReference } from '@/lib/hex/coordinates'
 import type { BiomeId } from '@/lib/types'
+import { useCharacterLink } from '../PageCharacterSheet/useCharacterLink'
 import './CoordChip.css'
 
 export function CoordChip({
@@ -17,6 +20,7 @@ export function CoordChip({
   /** When false, never link to the map (e.g. journal preview inside a modal). */
   interactive?: boolean
 }) {
+  const getCharacterLink = useCharacterLink({ tabId: 'map' })
   const inner = (
     <>
       <BiomeBubble biome={biome} />
@@ -25,9 +29,12 @@ export function CoordChip({
   )
 
   if (coord && interactive) {
-    const fragment = getDisplayedCellHash(coord)
     return (
-      <Link className='CoordChip' href={'./map' + fragment}>
+      <Link
+        className='CoordChip'
+        href={getCharacterLink({
+          hash: formatDisplayedCellReference(coord),
+        })}>
         {inner}
       </Link>
     )

@@ -3,6 +3,7 @@
 import type { ReactNode } from 'react'
 import { Link, usePathname } from '@/i18n/navigation'
 import './LinkTabNav.css'
+import { useHash } from '../Navigation/useHash'
 
 export type LinkTabNavItem = {
   id: string
@@ -18,6 +19,7 @@ export function LinkTabNav({
   className?: string
 }) {
   const pathname = usePathname()
+  const hash = useHash()
 
   return (
     <div className={['LinkTabNav', className].filter(Boolean).join(' ')}>
@@ -27,8 +29,10 @@ export function LinkTabNav({
             <Link
               href={href}
               className='LinkTabNav__link'
-              data-active={pathname === href}
-              scroll={false}>
+              data-active={
+                pathname === href || (hash && href.includes('#' + hash))
+              }
+              scroll={Boolean(hash)}>
               {label}
             </Link>
           </li>

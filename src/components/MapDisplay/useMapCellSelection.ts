@@ -17,8 +17,6 @@ export const useCellSelection = () => {
     setSelectedCell(prev => (prev && isSameHex(prev, coord) ? null : coord))
   }, [])
 
-  console.log('useCellSelection', { selectedCell })
-
   return useMemo(
     () => ({
       setSelectedCell,
