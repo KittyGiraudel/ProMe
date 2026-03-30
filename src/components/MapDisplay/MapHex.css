@@ -1,74 +1,112 @@
+/**
+ * 1. Position context for absolutely positioned children elements.
+ * 2. Set the width of the hex to the size of the grid cell.
+ * 3. Give the element a hexagonal shape.
+ * 4. Squeeze the hexagons back into a tight grid.
+ * 5. Prevent selection the cell content when double-clicking it.
+ * 6. Give the cell a little depth by adding an inner shade.
+ */
 .MapHex {
-  position: relative;
-  width: var(--size);
-  aspect-ratio: cos(30deg);
-  border-radius: 50% / 25%;
-  corner-shape: bevel;
-  margin-bottom: calc(var(--size) / (-4 * cos(30deg)));
-  /**
-   * We actually do not need to apply a left margin. This is only necessary when
-   * the grid is not pre-divided into rows. Since we have individual rows, we 
-   * already offset one row out of two by half an hex.
-  --_n: round(down, (100cqw + var(--gap)) / (var(--size) + var(--gap)));
-  --_m: round(down, (100cqw - (var(--size) - var(--gap)) / 2) / (var(--size) + var(--gap)));
-  --_c: round(down, 1 - mod((sibling-index() - 1 + var(--_m)) / (var(--_n) + var(--_m)), 1));
-  margin-left: calc(var(--_c) * (var(--size) + var(--gap)) / 2);
-  */
+  position: relative; /* 1 */
+  width: var(--size); /* 2 */
+  aspect-ratio: cos(30deg); /* 3 */
+  border-radius: 50% / 25%; /* 3 */
+  corner-shape: bevel; /* 3 */
+  margin-bottom: calc(var(--size) / (-4 * cos(30deg))); /* 4 */
 
-  display: grid;
-  place-content: center;
+  user-select: none; /* 5 */
+
+  box-shadow: inset 0 0 20px var(--biome-dark); /* 6 */
   border: 1px solid var(--biome-dark);
-  box-sizing: border-box;
-  transition: 0.1s ease-in-out;
-
   background-color: var(--biome-light);
   color: var(--biome-light-contrast);
-
-  box-shadow: inset 0 0 20px var(--biome-dark);
-  user-select: none;
-  overflow: hidden;
-
-  transition: 0.2s ease-in-out;
 }
 
 @supports not ((corner-shape: bevel) and (aspect-ratio: cos(30deg))) {
   /**
    * 1. Just for testing purposes: drop the ‘not’ in this @supports rule to see
    *    how it lookswith it.
+   * 2. This is a magic number: there is a formula to calculate that value but 
+   *    I don’t know it and it’s probably not worth the effort to figure it out.
    */
   .MapHex {
     corner-shape: unset; /* 1 */
     border-radius: 50%;
-    margin-bottom: -10px;
+    margin-bottom: -13px; /* 2 */
     aspect-ratio: 1;
   }
 }
 
-.MapHex[data-current="true"] {
-  outline: 3px solid white;
-  outline-offset: -5px;
+/**
+ * 1. Make all direct children the same shape as the cell (hexagonal) without 
+ *    requiring the cell itself to have overflow: hidden.
+ * 2. Make all direct children cover the whole cell.
+ */
+.MapHex > *:not(.MapHex__JournalCount) {
+  corner-shape: inherit; /* 1 */
+  border-radius: inherit; /* 1 */
+  aspect-ratio: inherit; /* 1 */
+  position: absolute; /* 2 */
+  inset: 0; /* 2 */
 }
 
-.MapHex[data-reachable="true"] {
+/**
+ * 1. Make sure no decorative element can prevent the button from being clicked.
+ */
+.MapHex > *:not(.MapHex__Button) {
+  pointer-events: none; /* 1 */
 }
 
-.MapHex[data-reachable="false"]:not([data-current="true"]) {
-  opacity: 0.7;
+/**
+ * 1. Highlight the current cell with an *inner* ring. Note: it collides with
+ *    the *selected* cell, but it’s okay and intended this way.
+ */
+.MapHex[data-current="true"] .MapHex__Status {
+  outline: 3px solid white; /* 1 */
+  outline-offset: -5px; /* 1 */
 }
 
-.MapHex[data-selected="true"] {
+/**
+ * 1. Highlight the selected cell with an *outer* ring. Note: it collides with
+ *    the *current* cell, but it’s okay and intended this way.
+ */
+.MapHex[data-selected="true"] .MapHex__Status {
   outline: 3px solid #722ed1;
   outline-offset: 3px;
-  z-index: 2;
-  position: relative;
 }
 
+/**
+ * 1. Because the selected cell uses an *outer* ring, make sure it is on top of
+ *    the other cells. Note: I’m unsure why we needed *both* rules.
+ */
+ .MapHex[data-selected="true"]  { z-index: 2; } /* 1 */
+ .MapHex[data-selected="false"] { z-index: 1; } /* 1 */
+ 
+/**
+ * 1. Make the cell a bit transparent when it's not reachable. This gives the 
+ *    surrounding (and thus reachable) cells a bit more visual prominence.
+ */
+.MapHex[data-reachable="false"]:not([data-current="true"]) {
+  opacity: 0.7; /* 1 */
+}
+
+/**
+ * 1. Guarantee a consistent and predictable stacking order for the elements.
+ */
+.MapHex__Background   { z-index: 1; /* 1 */ }
+.MapHex__Icon         { z-index: 2; /* 1 */ }
+.MapHex__JournalCount { z-index: 2; /* 1 */ }
+.MapHex__Button       { z-index: 3; /* 1 */ }
+.MapHex__Status       { z-index: 4; /* 1 */ }
+
+/**
+ * 1. Position the icon in the center of the cell.
+ */
 .MapHex__Icon {
-  grid-row: 1;
-  grid-column: 1;
-  text-align: center;
+  display: flex; /* 1 */
+  align-items: center; /* 1 */
+  justify-content: center; /* 1 */
   font-size: 250%;
-  z-index: 1;
   pointer-events: none;
 }
 
@@ -84,50 +122,48 @@
   font-size: max(10px, 0.62em);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
-  z-index: 1;
 }
 
+/**
+ * 1. Center the content of the button within it.
+ */
 .MapHex__Button {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; /* 1 */
+  align-items: center; /* 1 */
+  justify-content: center; /* 1 */
+
   font: inherit;
-  font-size: 100%;
   font-weight: bold;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: inherit;
-  opacity: 0.25;
-  appearance: none;
-  background: transparent;
-  border: 0;
-  padding: 0;
   font-family: monospace;
   font-variant-numeric: tabular-nums;
-  transition: transform 0.1s ease-in-out;
+  letter-spacing: 0.1em;
+  color: inherit;
+
+  appearance: none; 
+  background-color: transparent; 
+  border: 0; 
+  padding: 0; 
+
+  opacity: 0.25;
   user-select: none;
 }
 
-.MapHex__Button:not(:disabled) {
-  cursor: pointer;
+/**
+ * 1. Smoothly animate the status ring as it goes in and out.
+ */
+.MapHex__Status {
+  transition: 0.25s ease-in-out; /* 1 */
 }
 
-.MapHex:hover .MapHex__Button:not(:disabled) {
-  transform: scale(1.15); 
-}
+/**
+ * 1. Make clickable buttons look clickable.
+ */
+.MapHex__Button:not(:disabled) { cursor: pointer; } /* 1 */
+.MapHex__Button:not(:disabled):hover { transform: scale(1.15); } /* 1 */
 
-.MapHex__background {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-[data-biome="fieldSea"]        .MapHex__background { --pattern-size: 10px }
-[data-biome="giganticGardens"] .MapHex__background { --pattern-size: 40px }
-[data-biome="shadowForest"]    .MapHex__background { --pattern-size: 15px }
-[data-biome="floodedPlains"]   .MapHex__background { --pattern-size: 20px }
-[data-biome="silentDesert"]    .MapHex__background { --pattern-size: 15px }
-[data-biome="mushroomJungle"]  .MapHex__background { --pattern-size: 10px }
+[data-biome="fieldSea"]        .MapHex__Background { --pattern-size: 10px }
+[data-biome="giganticGardens"] .MapHex__Background { --pattern-size: 40px }
+[data-biome="shadowForest"]    .MapHex__Background { --pattern-size: 15px }
+[data-biome="floodedPlains"]   .MapHex__Background { --pattern-size: 20px }
+[data-biome="silentDesert"]    .MapHex__Background { --pattern-size: 15px }
+[data-biome="mushroomJungle"]  .MapHex__Background { --pattern-size: 10px }
