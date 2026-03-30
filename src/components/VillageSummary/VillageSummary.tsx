@@ -24,8 +24,6 @@ export type VillageSummaryProps = {
   onRerollOwner?: (ownerIndex: number) => void
 }
 
-export type OwnerEntry = { roll: InhabitantRoll; ownerIndex: number }
-
 export function VillageSummary({
   roll,
   owners,

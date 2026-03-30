@@ -6,9 +6,14 @@ import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { JournalReferencePreview } from '@/components/JournalReferencePreview/JournalReferencePreview'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
-import { getAgeBand, getPersonality } from '@/lib/inhabitant/generate'
+import {
+  getAgeBand,
+  getPersonality,
+  type InhabitantRoll,
+} from '@/lib/inhabitant/generate'
 import { encodeInhabitantRoll } from '@/lib/inhabitant/inhabitantUrlCodec'
-import { OwnerEntry } from './VillageSummary'
+
+export type OwnerEntry = { roll: InhabitantRoll; ownerIndex: number }
 
 export function VillageEstablishmentOwners({
   entries,

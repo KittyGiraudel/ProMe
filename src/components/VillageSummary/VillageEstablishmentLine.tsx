@@ -9,8 +9,10 @@ import { establishmentDetailRulebookPage } from '@/lib/constants/rulebookPages'
 import type { PlayingCard } from '@/lib/types'
 import { formatRulebookReference } from '@/lib/village/formatRulebookReference'
 import { HelpButton } from '../HelpButton/HelpButton'
-import { VillageEstablishmentOwners } from './VillageEstablishmentOwners'
-import { OwnerEntry } from './VillageSummary'
+import {
+  VillageEstablishmentOwners,
+  type OwnerEntry,
+} from './VillageEstablishmentOwners'
 
 export type VillageEstablishmentLineProps = {
   title: string

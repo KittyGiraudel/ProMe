@@ -3,7 +3,7 @@ import { InhabitantRoll } from '@/lib/inhabitant/generate'
 import { groupEstablishments } from '@/lib/village/groupEstablishments'
 import { VillageEstablishmentRow } from '@/lib/village/resolveVillageDisplay'
 import { VillageEstablishmentLine } from './VillageEstablishmentLine'
-import { OwnerEntry } from './VillageSummary'
+import { type OwnerEntry } from './VillageEstablishmentOwners'
 
 export function GroupedEstablishmentsList({
   groupedEstablishments,

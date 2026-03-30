@@ -2,7 +2,7 @@ import { encodePlayingCard } from '@/lib/codec/cards'
 import { InhabitantRoll } from '@/lib/inhabitant/generate'
 import { VillageEstablishmentRow } from '@/lib/village/resolveVillageDisplay'
 import { VillageEstablishmentLine } from './VillageEstablishmentLine'
-import { OwnerEntry } from './VillageSummary'
+import { type OwnerEntry } from './VillageEstablishmentOwners'
 
 export function UngroupedEstablishmentsList({
   establishments,

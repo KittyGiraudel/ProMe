@@ -4,14 +4,12 @@ import { useTranslations } from 'next-intl'
 import { VillageTraitRow } from '@/lib/village/resolveVillageDisplay'
 import { PlayingCardLabel } from '../PlayingCardLabel/PlayingCardLabel'
 import { RichText } from '../RichText/RichText'
-import { VillageSummaryProps } from './VillageSummary'
-
 export function TraitsList({
   traits,
   onRerollPrimarySlot,
 }: {
   traits: VillageTraitRow[]
-  onRerollPrimarySlot?: VillageSummaryProps['onRerollPrimarySlot']
+  onRerollPrimarySlot?: (slotIndex: number) => void
 }) {
   const t = useTranslations()
 
