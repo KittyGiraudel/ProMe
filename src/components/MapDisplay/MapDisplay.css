@@ -55,46 +55,6 @@
   color: var(--biome-dark);
 }
 
-.Map__Icon {
-  grid-row: 1;
-  grid-column: 1;
-  text-align: center;
-  font-size: 250%;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.Map__Button {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font: inherit;
-  font-size: 100%;
-  font-weight: bold;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: inherit;
-  opacity: 0.25;
-  appearance: none;
-  background: transparent;
-  border: 0;
-  padding: 0;
-  font-family: monospace;
-  font-variant-numeric: tabular-nums;
-  transition: transform 0.1s ease-in-out;
-  user-select: none;
-}
-
-.Map__Button:not(:disabled) {
-  cursor: pointer;
-}
-
-.Map__Hex:hover .Map__Button:not(:disabled) {
-  transform: scale(1.15);
-}
-
 .Map__EmojiModalBody {
   padding-top: 8px;
 }
@@ -110,19 +70,4 @@
   align-items: center;
   justify-content: center;
   min-height: 200px;
-}
-
-.Map__JournalCount {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 10%;
-  z-index: 4;
-  padding: 0 5px;
-  border-radius: 50%;
-  background-color: var(--biome-dark);
-  color: #fff;
-  font-size: max(10px, 0.62em);
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
 }

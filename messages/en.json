@@ -402,6 +402,8 @@
     "journal_timeline_reverse_chronological_label": "Reverse chronological journal",
     "map_tick_clock_on_move_help": "When you move to an adjacent cell, the clock position advances as if you had used the \"Advance\" button.",
     "map_tick_clock_on_move_label": "Auto-advance clock",
+    "map_show_biome_background_help": "Show decorative background patterns inside each hex based on its biome.",
+    "map_show_biome_background_label": "Show biome backgrounds",
     "page_description": "Set global app preferences. They are saved locally in this browser.",
     "save_success": "Settings saved.",
     "language_en": "English",

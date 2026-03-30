@@ -21,5 +21,7 @@ export type AppSettings = {
   map: {
     /** When true, moving to an adjacent hex on the character map advances the clock one slice. */
     tickClockOnMove: boolean
+    /** When true, biome background patterns are rendered inside each hex. */
+    showBiomeBackground: boolean
   }
 }

@@ -6,6 +6,7 @@ import {
   getGlobalFromSheetCell,
 } from '@/lib/hex/coordinates'
 import { BiomeId } from '@/lib/types'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { MapCellContextMenu } from './MapCellContextMenu'
 import type { MapDisplayProps } from './MapDisplay'
 import { useJournalIndex, useMapState } from './useMapState'
@@ -73,6 +74,7 @@ export function MapHex({
   selectedCell,
   selectCell,
 }: MapHexProps) {
+  const { settings } = useSettings()
   const { getLinksForCell } = useJournalIndex()
   const { isCurrent, isSelected, isReachable, icon, biome, label } =
     useHexState({
@@ -88,7 +90,6 @@ export function MapHex({
   const journalRefCount = getLinksForCell(global).length
   const id = useMemo(() => formatDisplayedCellReference(global), [global])
 
-  if (isSelected) console.log(id, label, isSelected)
   return (
     <div
       id={id}
@@ -101,6 +102,7 @@ export function MapHex({
       data-current={isCurrent}
       data-selected={isSelected}
       data-reachable={isReachable}>
+      {settings.map.showBiomeBackground && <span className='MapHex__background'></span>}
       <MapCellContextMenu
         coord={global}
         isReachable={isReachable}
@@ -109,9 +111,9 @@ export function MapHex({
         selectCell={selectCell}
       />
       {journalRefCount > 0 ? (
-        <span className='Map__JournalCount'>{journalRefCount}</span>
+        <span className='MapHex__JournalCount'>{journalRefCount}</span>
       ) : null}
-      <span className='Map__Icon'>{icon ?? ''}</span>
+      <span className='MapHex__Icon'>{icon ?? ''}</span>
     </div>
   )
 }

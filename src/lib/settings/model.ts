@@ -14,6 +14,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   },
   map: {
     tickClockOnMove: false,
+    showBiomeBackground: true,
   },
 }
 
@@ -35,6 +36,7 @@ export function normalizeSettings(value: unknown): AppSettings {
     },
     map: {
       tickClockOnMove: source?.map?.tickClockOnMove === true,
+      showBiomeBackground: source?.map?.showBiomeBackground !== false,
     },
   }
 }

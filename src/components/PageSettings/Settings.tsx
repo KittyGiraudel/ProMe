@@ -13,6 +13,7 @@ type SettingsFormValues = {
   timelineReverseChronological: boolean
   villageMergeDuplicateEstablishments: boolean
   mapTickClockOnMove: boolean
+  mapShowBiomeBackground: boolean
 }
 
 export function Settings() {
@@ -32,6 +33,7 @@ export function Settings() {
     villageMergeDuplicateEstablishments:
       settings.village.mergeDuplicateEstablishments,
     mapTickClockOnMove: settings.map.tickClockOnMove,
+    mapShowBiomeBackground: settings.map.showBiomeBackground,
   }
 
   const handleValuesChange = (_: unknown, allValues: SettingsFormValues) => {
@@ -55,6 +57,7 @@ export function Settings() {
       map: {
         ...prev.map,
         tickClockOnMove: allValues.mapTickClockOnMove === true,
+        showBiomeBackground: allValues.mapShowBiomeBackground !== false,
       },
     }))
   }
@@ -68,7 +71,7 @@ export function Settings() {
         { title: t('nav.settings'), path: '/settings' },
       ]}>
       <Form<SettingsFormValues>
-        key={`${settings.sheet.adaptiveNightMode}-${settings.sheet.singlePageMode}-${settings.journal.timelineReverseChronological}-${settings.village.mergeDuplicateEstablishments}-${settings.map.tickClockOnMove}`}
+        key={`${settings.sheet.adaptiveNightMode}-${settings.sheet.singlePageMode}-${settings.journal.timelineReverseChronological}-${settings.village.mergeDuplicateEstablishments}-${settings.map.tickClockOnMove}-${settings.map.showBiomeBackground}`}
         layout='vertical'
         initialValues={initialValues}
         onValuesChange={handleValuesChange}>
@@ -148,6 +151,14 @@ export function Settings() {
                     help={t('settings.map_tick_clock_on_move_help')}>
                     <Checkbox>
                       {t('settings.map_tick_clock_on_move_label')}
+                    </Checkbox>
+                  </Form.Item>
+                  <Form.Item
+                    name='mapShowBiomeBackground'
+                    valuePropName='checked'
+                    help={t('settings.map_show_biome_background_help')}>
+                    <Checkbox>
+                      {t('settings.map_show_biome_background_label')}
                     </Checkbox>
                   </Form.Item>
                 </Space>
