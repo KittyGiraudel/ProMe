@@ -26,37 +26,39 @@ export function MapCard() {
     useMapSheet({ currentPosition, selectedCell, setSelectedCell })
 
   return (
-    <Card
-      title={t('characters.map.map_section')}
-      extra={
-        <Popover title={t('characters.map.legend')} content={<MapLegend />}>
-          <HelpButton label={t('rulebook.information')} />
-        </Popover>
-      }>
-      <div ref={cardRef} tabIndex={-1}>
-        <BrowserWarning />
+    <>
+      <Card
+        title={t('characters.map.map_section')}
+        extra={
+          <Popover title={t('characters.map.legend')} content={<MapLegend />}>
+            <HelpButton label={t('rulebook.information')} />
+          </Popover>
+        }>
+        <div ref={cardRef} tabIndex={-1}>
+          <BrowserWarning />
 
-        <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
-          <MapSheetNavigation
-            currentPosition={currentPosition}
-            setVisibleSheet={setVisibleSheet}
-            visibleSheet={visibleSheet}
-            isViewingCurrentSheet={isViewingCurrentSheet}
-          />
+          <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
+            <MapSheetNavigation
+              currentPosition={currentPosition}
+              setVisibleSheet={setVisibleSheet}
+              visibleSheet={visibleSheet}
+              isViewingCurrentSheet={isViewingCurrentSheet}
+            />
 
-          <MapDisplay
-            sheet={visibleSheet}
-            selectedCell={selectedCell}
-            selectCell={toggleSelectCell}
-          />
+            <MapDisplay
+              sheet={visibleSheet}
+              selectedCell={selectedCell}
+              selectCell={toggleSelectCell}
+            />
 
-          <Form.Item name='map' noStyle>
-            <MapFormValueAnchor />
-          </Form.Item>
-        </Space>
-      </div>
+            <Form.Item name='map' noStyle>
+              <MapFormValueAnchor />
+            </Form.Item>
+          </Space>
+        </div>
+      </Card>
       <SettingsHint hintId='map' />
-    </Card>
+    </>
   )
 }
 

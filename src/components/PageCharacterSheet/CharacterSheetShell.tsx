@@ -199,7 +199,9 @@ export function CharacterSheetShell({
                 <CharacterSheetTabNav />
                 <CharacterStats />
                 {children}
-                <SettingsHint hintId='sheet' />
+                {settings.sheet.singlePageMode && (
+                  <SettingsHint hintId='sheet' />
+                )}
               </Space>
             </div>
           </ConfigProvider>

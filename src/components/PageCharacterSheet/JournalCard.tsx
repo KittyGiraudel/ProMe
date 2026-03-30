@@ -53,18 +53,18 @@ export function JournalCardInner({
   )
 
   return (
-    <Card
-      title={t('characters.journal.notes_section')}
-      extra={canAddEntry && buttonInHeader ? addEntryButton : undefined}
-      actions={canAddEntry && buttonInFooter ? [addEntryButton] : undefined}>
-      <>
+    <>
+      <Card
+        title={t('characters.journal.notes_section')}
+        extra={canAddEntry && buttonInHeader ? addEntryButton : undefined}
+        actions={canAddEntry && buttonInFooter ? [addEntryButton] : undefined}>
         {fields.length === 0 ? (
           <Empty description={t('characters.journal.empty')} />
         ) : (
           <Journal fields={fields} form={form} deleteEntry={onRemoveEntry} />
         )}
-        <SettingsHint hintId='journal' />
-      </>
-    </Card>
+      </Card>
+      <SettingsHint hintId='journal' />
+    </>
   )
 }
