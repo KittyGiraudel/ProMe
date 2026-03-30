@@ -66,6 +66,18 @@ function MapLegend() {
 
   return (
     <ul className='MapCard__legend'>
+      <li>
+        <BiomeBubble
+          biome='unexplored'
+          style={
+            {
+              fontSize: '1.8em',
+              '--pattern-opacity': 1,
+            } as React.CSSProperties
+          }
+        />
+        {t('common.biomes.unexplored')}
+      </li>
       {BIOME_IDS.map(biome => (
         <li key={biome}>
           <BiomeBubble
