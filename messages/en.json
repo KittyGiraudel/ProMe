@@ -402,6 +402,7 @@
     "language_en": "English",
     "language_fr": "Français",
     "language_help": "Choose the interface language.",
+    "language_warning": "Please note that only the French language is canonical, as it is the language in which my game version is written. The English version is automatically translated without support from an English rulebook.",
     "language_label": "Language",
     "section_journal": "Journal",
     "section_language": "Language",

@@ -402,6 +402,7 @@
     "language_en": "English",
     "language_fr": "Français",
     "language_help": "Choisissez la langue de l’interface.",
+    "language_warning": "Veuillez noter que seule la langue Française est canonique, car c’est la langue dans laquelle ma version du jeu est écrite. La version Anglais est traduite automatiquement sans support d’un livre de règles anglophone.",
     "language_label": "Langue",
     "section_journal": "Journal",
     "section_language": "Langue",

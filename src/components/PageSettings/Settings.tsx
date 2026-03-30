@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, Checkbox, Form, Select, Space, Typography } from 'antd'
+import { Alert, Card, Checkbox, Col, Form, Row, Select, Space } from 'antd'
 import { AppConfig, useLocale, useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
 import { usePathname, useRouter } from '@/i18n/navigation'
@@ -73,79 +73,107 @@ export function Settings() {
         initialValues={initialValues}
         onValuesChange={handleValuesChange}>
         <Space orientation='vertical' size='large'>
-          <Card title={t('settings.section_language')}>
-            <Space orientation='vertical' size='small'>
-              <Select
-                value={locale}
-                onChange={handleLocaleChange}
-                options={routing.locales.map(l => ({
-                  value: l,
-                  label: t(`settings.language_${l}`),
-                }))}
-              />
-              <Typography.Text type='secondary'>
-                {t('settings.language_help')}
-              </Typography.Text>
-            </Space>
-          </Card>
-          <Card title={t('settings.section_sheet')}>
-            <Space orientation='vertical' size='medium'>
-              <Form.Item
-                name='adaptiveNightMode'
-                valuePropName='checked'
-                help={t('settings.adaptive_night_mode_help')}>
-                <Checkbox>{t('settings.adaptive_night_mode_label')}</Checkbox>
-              </Form.Item>
-              <Form.Item
-                name='sheetSinglePageMode'
-                valuePropName='checked'
-                help={t('settings.sheet_single_page_mode_help')}>
-                <Checkbox>
-                  {t('settings.sheet_single_page_mode_label')}
-                </Checkbox>
-              </Form.Item>
-            </Space>
-          </Card>
-          <Card title={t('settings.section_journal')}>
-            <Space orientation='vertical' size='small'>
-              <Form.Item
-                name='timelineReverseChronological'
-                valuePropName='checked'
-                help={t(
-                  'settings.journal_timeline_reverse_chronological_help'
-                )}>
-                <Checkbox>
-                  {t('settings.journal_timeline_reverse_chronological_label')}
-                </Checkbox>
-              </Form.Item>
-            </Space>
-          </Card>
-          <Card title={t('settings.section_village')}>
-            <Space orientation='vertical' size='small'>
-              <Form.Item
-                name='villageMergeDuplicateEstablishments'
-                valuePropName='checked'
-                help={t(
-                  'settings.village_merge_duplicate_establishments_help'
-                )}>
-                <Checkbox>
-                  {t('settings.village_merge_duplicate_establishments_label')}
-                </Checkbox>
-              </Form.Item>
-            </Space>
-          </Card>
-          <Card title={t('settings.section_map')}>
-            <Space orientation='vertical' size='small'>
-              <Form.Item
-                name='mapTickClockOnMove'
-                valuePropName='checked'
-                help={t('settings.map_tick_clock_on_move_help')}>
-                <Checkbox>
-                  {t('settings.map_tick_clock_on_move_label')}
-                </Checkbox>
-              </Form.Item>
-            </Space>
-          </Card>
+          <Row gutter={[16, 16]}>
+            <Col xs={24} md={12}>
+              <Card title={t('settings.section_language')}>
+                <Space orientation='vertical' size='small'>
+                  <Form.Item
+                    label={t(`settings.language_label`)}
+                    style={{ marginBottom: 0 }}>
+                    <Select
+                      value={locale}
+                      onChange={handleLocaleChange}
+                      options={routing.locales.map(l => ({
+                        value: l,
+                        label: t(`settings.language_${l}`),
+                      }))}
+                    />
+                  </Form.Item>
+                  <Alert
+                    style={{ marginTop: 12 }}
+                    title={t('settings.language_warning')}
+                    type='warning'
+                  />
+                </Space>
+              </Card>
+            </Col>
+            <Col xs={24} md={12}>
+              <Card title={t('settings.section_sheet')}>
+                <Space orientation='vertical' size='medium'>
+                  <Form.Item
+                    name='adaptiveNightMode'
+                    valuePropName='checked'
+                    help={t('settings.adaptive_night_mode_help')}>
+                    <Checkbox>
+                      {t('settings.adaptive_night_mode_label')}
+                    </Checkbox>
+                  </Form.Item>
+                  <Form.Item
+                    name='sheetSinglePageMode'
+                    valuePropName='checked'
+                    help={t('settings.sheet_single_page_mode_help')}>
+                    <Checkbox>
+                      {t('settings.sheet_single_page_mode_label')}
+                    </Checkbox>
+                  </Form.Item>
+                </Space>
+              </Card>
+            </Col>
+          </Row>
+          <Row gutter={[16, 16]}>
+            <Col xs={24} md={12}>
+              <Card title={t('settings.section_journal')}>
+                <Space orientation='vertical' size='small'>
+                  <Form.Item
+                    name='timelineReverseChronological'
+                    valuePropName='checked'
+                    help={t(
+                      'settings.journal_timeline_reverse_chronological_help'
+                    )}>
+                    <Checkbox>
+                      {t(
+                        'settings.journal_timeline_reverse_chronological_label'
+                      )}
+                    </Checkbox>
+                  </Form.Item>
+                </Space>
+              </Card>
+            </Col>
+            <Col xs={24} md={12}>
+              <Card title={t('settings.section_map')}>
+                <Space orientation='vertical' size='small'>
+                  <Form.Item
+                    name='mapTickClockOnMove'
+                    valuePropName='checked'
+                    help={t('settings.map_tick_clock_on_move_help')}>
+                    <Checkbox>
+                      {t('settings.map_tick_clock_on_move_label')}
+                    </Checkbox>
+                  </Form.Item>
+                </Space>
+              </Card>
+            </Col>
+          </Row>
+          <Row gutter={[16, 16]}>
+            <Col xs={24} md={12}>
+              <Card title={t('settings.section_village')}>
+                <Space orientation='vertical' size='small'>
+                  <Form.Item
+                    name='villageMergeDuplicateEstablishments'
+                    valuePropName='checked'
+                    help={t(
+                      'settings.village_merge_duplicate_establishments_help'
+                    )}>
+                    <Checkbox>
+                      {t(
+                        'settings.village_merge_duplicate_establishments_label'
+                      )}
+                    </Checkbox>
+                  </Form.Item>
+                </Space>
+              </Card>
+            </Col>
+          </Row>
         </Space>
       </Form>
     </Layout>
