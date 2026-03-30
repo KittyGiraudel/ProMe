@@ -346,7 +346,7 @@
     "section_pools": "Jauges",
     "section_resources": "Ressources",
     "section_spellbook": "Grimoire",
-    "title": "Habitant"
+    "title": "Générateur d’habitant"
   },
   "metadata": {
     "description": "Companion de jeu pour Les Souvenirs du Protecteur : gestionnaires, générateurs de Protecteurs, villages et plus.",
@@ -438,7 +438,7 @@
     "reroll_owner": "Regénérer cette habitant·e",
     "section_establishments": "Établissements",
     "section_traits": "Traits du village",
-    "title": "Village",
+    "title": "Générateur de village",
     "traits": {
       "J": {
         "red": "**Ville.** C’est une **grande colonie**. Tirez **3 cartes d’établissement supplémentaires** ; si vous tirez une **figure** (valet, dame, roi), **ignorez-la** et tirez à nouveau jusqu’à obtenir une **carte numérotée**.",

@@ -346,7 +346,7 @@
     "section_pools": "Pools",
     "section_resources": "Resources",
     "section_spellbook": "Spellbook",
-    "title": "Inhabitant"
+    "title": "Inhabitant Generator"
   },
   "metadata": {
     "description": "Game companion for The Protector’s Memories: managers, Protector generators, villages, and more.",
@@ -438,7 +438,7 @@
     "reroll_owner": "Regenerate this inhabitant",
     "section_establishments": "Establishments",
     "section_traits": "Village Traits",
-    "title": "Village",
+    "title": "Village Generator",
     "traits": {
       "J": {
         "red": "**City.** It is a **large colony**. Draw **3 additional establishment cards**; if you draw a **face card** (Jack, Queen, King), **ignore it** and draw again until you get a **numbered card**.",
