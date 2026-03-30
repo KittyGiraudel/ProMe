@@ -2,6 +2,17 @@
   --ant-layout-header-height: 3em !important;
 }
 
+.Layout__header {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .Layout__header {
+    --ant-layout-header-padding: 1em;
+  }
+}
+
 .Layout__wrapper {
   padding: 1em 3em;
 }
