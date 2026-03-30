@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import {
   areHexNeighbors,
   formatDisplayedCellReference,
@@ -6,7 +7,6 @@ import {
   getGlobalFromSheetCell,
 } from '@/lib/hex/coordinates'
 import { BiomeId } from '@/lib/types'
-import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { MapCellContextMenu } from './MapCellContextMenu'
 import type { MapDisplayProps } from './MapDisplay'
 import { useJournalIndex, useMapState } from './useMapState'
@@ -102,7 +102,9 @@ export function MapHex({
       data-current={isCurrent}
       data-selected={isSelected}
       data-reachable={isReachable}>
-      {settings.map.showBiomeBackground && <span className='MapHex__background'></span>}
+      {settings.map.showBiomeBackground && (
+        <span className='MapHex__background Pattern'></span>
+      )}
       <MapCellContextMenu
         coord={global}
         isReachable={isReachable}

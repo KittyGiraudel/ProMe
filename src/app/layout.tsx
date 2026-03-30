@@ -35,7 +35,9 @@ export default async function RootLayout({
 }>) {
   const locale = await getLocale()
   return (
-    <html lang={locale} className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html
+      lang={locale}
+      className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
         <AntdRegistry>
           <AppProviders>

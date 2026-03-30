@@ -402,7 +402,7 @@
     "journal_timeline_reverse_chronological_label": "Journal anti-chronologique",
     "map_tick_clock_on_move_help": "Quand vous vous déplacez vers une case voisine, la position sur l’horloge avance comme si vous aviez utilisé le bouton « Avancer ».",
     "map_tick_clock_on_move_label": "Horloge automatique",
-    "map_show_biome_background_help": "Affiche des motifs de fond décoratifs dans chaque case selon son biome.",
+    "map_show_biome_background_help": "Affiche des motifs de fond dans chaque case selon son biome. Utile pour distinguer les biomes sans se fier uniquement aux couleurs.",
     "map_show_biome_background_label": "Afficher les fonds de biome",
     "page_description": "Réglez les préférences globales de l’application. Elles sont enregistrées localement dans ce navigateur.",
     "save_success": "Paramètres enregistrés.",
