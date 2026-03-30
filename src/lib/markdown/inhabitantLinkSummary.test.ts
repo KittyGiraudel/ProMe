@@ -10,7 +10,7 @@ describe('markdown/inhabitantLinkSummary', () => {
     expect(parsed?.kind).toBe('npc')
     const summary = getNpcJournalSummary(parsed!.encodedId, testLocalize)
     expect(summary).toBeTruthy()
-    expect(summary).toContain('(')
+    expect(summary).toContain(',')
   })
 
   it('returns null for invalid NPC URLs', () => {
