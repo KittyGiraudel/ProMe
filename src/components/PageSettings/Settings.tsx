@@ -124,24 +124,6 @@ export function Settings() {
           </Row>
           <Row gutter={[16, 16]}>
             <Col xs={24} md={12}>
-              <Card title={t('settings.section_journal')}>
-                <Space orientation='vertical' size='small'>
-                  <Form.Item
-                    name='timelineReverseChronological'
-                    valuePropName='checked'
-                    help={t(
-                      'settings.journal_timeline_reverse_chronological_help'
-                    )}>
-                    <Checkbox>
-                      {t(
-                        'settings.journal_timeline_reverse_chronological_label'
-                      )}
-                    </Checkbox>
-                  </Form.Item>
-                </Space>
-              </Card>
-            </Col>
-            <Col xs={24} md={12}>
               <Card title={t('settings.section_map')}>
                 <Space orientation='vertical' size='small'>
                   <Form.Item
@@ -158,6 +140,24 @@ export function Settings() {
                     help={t('settings.map_show_biome_background_help')}>
                     <Checkbox>
                       {t('settings.map_show_biome_background_label')}
+                    </Checkbox>
+                  </Form.Item>
+                </Space>
+              </Card>
+            </Col>
+            <Col xs={24} md={12}>
+              <Card title={t('settings.section_journal')}>
+                <Space orientation='vertical' size='small'>
+                  <Form.Item
+                    name='timelineReverseChronological'
+                    valuePropName='checked'
+                    help={t(
+                      'settings.journal_timeline_reverse_chronological_help'
+                    )}>
+                    <Checkbox>
+                      {t(
+                        'settings.journal_timeline_reverse_chronological_label'
+                      )}
                     </Checkbox>
                   </Form.Item>
                 </Space>
