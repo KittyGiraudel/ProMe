@@ -6,7 +6,7 @@ import { Layout } from '@/components/Layout/Layout'
 import './FAQ.css'
 import { TranslationKey } from '@/lib/types'
 
-const ENTRY_COUNT = 3
+const ENTRY_COUNT = 4
 
 export function FAQ() {
   const t = useTranslations()
