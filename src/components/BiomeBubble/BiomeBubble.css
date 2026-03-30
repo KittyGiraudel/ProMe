@@ -8,3 +8,12 @@
   color: var(--biome-light-contrast);
   border: 1px solid var(--biome-dark);
 }
+
+@supports (corner-shape: bevel) {
+  .BiomeBubble {
+    corner-shape: bevel;
+    border-radius: 50% / 25%;
+    aspect-ratio: cos(30deg);
+    height: auto;
+  }
+}
