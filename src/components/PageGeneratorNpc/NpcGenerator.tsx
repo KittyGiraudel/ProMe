@@ -1,6 +1,5 @@
 'use client'
 
-import { Typography } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCallback, useMemo } from 'react'
 import { InhabitantSummary } from '@/components/InhabitantSummary/InhabitantSummary'
@@ -92,9 +91,6 @@ export function NpcGenerator({
         onRerollPart={roll ? handleRerollPart : undefined}
         onSetRoll={roll ? handleSetRoll : undefined}
       />
-      <Typography.Paragraph type='secondary'>
-        {t('rulebook.inhabitant_footnote')}
-      </Typography.Paragraph>
     </Layout>
   )
 }

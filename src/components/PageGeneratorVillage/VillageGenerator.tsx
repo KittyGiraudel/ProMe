@@ -157,9 +157,6 @@ export function VillageGenerator({
         onRerollOwner={roll && owners ? handleRerollOwner : undefined}
       />
       <SettingsHint hintId='village' />
-      <Typography.Paragraph type='secondary'>
-        {t('rulebook.village_footnote')}
-      </Typography.Paragraph>
     </Layout>
   )
 }

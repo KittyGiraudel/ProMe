@@ -15,7 +15,7 @@ import { Button } from '@/components/Button/Button'
 import { DiceFaces } from '@/components/DiceFaces/DiceFaces'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { RichText } from '@/components/RichText/RichText'
-import { AGE_BANDS, GENDERS, FACTIONS, RANKS } from '@/lib/constants/misc'
+import { AGE_BANDS, FACTIONS, GENDERS, RANKS } from '@/lib/constants/misc'
 import { lookupName } from '@/lib/inhabitant/data/namesByFaction'
 import {
   getAgeBand,
@@ -38,6 +38,7 @@ import {
 import './InhabitantSummary.css'
 import { SelectProps } from 'antd/lib/select'
 import { useTranslations } from 'next-intl'
+import { HelpButton } from '../HelpButton/HelpButton'
 
 type InhabitantSummaryProps = {
   roll: InhabitantRoll | null
@@ -54,9 +55,7 @@ export function InhabitantSummary({
   const isReadOnly = !onSetRoll
   if (!roll) {
     return (
-      <Card
-        className='InhabitantSummary InhabitantSummary--empty'
-        variant='borderless'>
+      <Card className='InhabitantSummary InhabitantSummary--empty'>
         <Empty
           description={t('inhabitant.empty_summary', {
             button: t('common.actions.generate'),
@@ -67,7 +66,14 @@ export function InhabitantSummary({
   }
 
   return (
-    <Card className='InhabitantSummary' variant='borderless'>
+    <Card
+      className='InhabitantSummary'
+      title={roll.name}
+      extra={
+        <Tooltip title={t('rulebook.inhabitant_footnote')}>
+          <HelpButton label={t('rulebook.information')} />
+        </Tooltip>
+      }>
       <Descriptions
         column={1}
         size='middle'

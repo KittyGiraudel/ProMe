@@ -1,126 +1,30 @@
 'use client'
 
-import { RedoOutlined } from '@ant-design/icons'
-import { Card, Empty, Space } from 'antd'
+import { Card, Empty, Space, Tooltip } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
-import { Button } from '@/components/Button/Button'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
-import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
-import { RichText } from '@/components/RichText/RichText'
-import { encodePlayingCard } from '@/lib/codec/cards'
-import {
-  establishmentDetailRulebookPage,
-  RULEBOOK_PAGES,
-} from '@/lib/constants/rulebookPages'
 import type { InhabitantRoll } from '@/lib/inhabitant/generate'
-import { formatRulebookReference } from '@/lib/village/formatRulebookReference'
 import type { VillageRoll } from '@/lib/village/generate'
 import { groupEstablishments } from '@/lib/village/groupEstablishments'
 import {
   ownerSlotIndexByEstablishmentIndex,
   resolveVillageDisplay,
-  type VillageEstablishmentRow,
 } from '@/lib/village/resolveVillageDisplay'
-import { VillageEstablishmentLine } from './VillageEstablishmentLine'
+import { HelpButton } from '../HelpButton/HelpButton'
+import { GroupedEstablishmentsList } from './GroupedEstablishmentsList'
+import { TraitsList } from './TraitsList'
+import { UngroupedEstablishmentsList } from './UngroupedEstablishmentsList'
 import './VillageSummary.css'
 
-type VillageSummaryProps = {
+export type VillageSummaryProps = {
   roll: VillageRoll | null
   owners: InhabitantRoll[] | null
   onRerollPrimarySlot?: (slotIndex: number) => void
   onRerollOwner?: (ownerIndex: number) => void
 }
 
-type OwnerEntry = { roll: InhabitantRoll; ownerIndex: number }
-
-function UngroupedEstablishmentsList({
-  establishments,
-  ownerSlotByEstIndex,
-  owners,
-  ownersOk,
-  onRerollPrimarySlot,
-  onRerollOwner,
-}: {
-  establishments: readonly VillageEstablishmentRow[]
-  ownerSlotByEstIndex: readonly (number | null)[]
-  owners: InhabitantRoll[] | null
-  ownersOk: boolean
-  onRerollPrimarySlot?: (slotIndex: number) => void
-  onRerollOwner?: (ownerIndex: number) => void
-}) {
-  return establishments.map((row, i) => {
-    const ownerSlot = ownerSlotByEstIndex[i] ?? null
-    const ownerEntries: OwnerEntry[] | undefined =
-      ownersOk && ownerSlot !== null && owners
-        ? [{ roll: owners[ownerSlot]!, ownerIndex: ownerSlot }]
-        : undefined
-
-    return (
-      <VillageEstablishmentLine
-        key={`${encodePlayingCard(row.card)}-${i}`}
-        lineNumber={i + 1}
-        title={row.text}
-        card={row.card}
-        rerollPrimarySlot={row.rerollPrimarySlot ?? null}
-        onRerollPrimarySlot={onRerollPrimarySlot}
-        ownerEntries={ownerEntries}
-        onRerollOwner={onRerollOwner}
-      />
-    )
-  })
-}
-
-function GroupedEstablishmentsList({
-  groupedEstablishments,
-  establishments,
-  ownerSlotByEstIndex,
-  owners,
-  ownersOk,
-  onRerollPrimarySlot,
-  onRerollOwner,
-}: {
-  groupedEstablishments: ReturnType<typeof groupEstablishments>
-  establishments: readonly VillageEstablishmentRow[]
-  ownerSlotByEstIndex: readonly (number | null)[]
-  owners: InhabitantRoll[] | null
-  ownersOk: boolean
-  onRerollPrimarySlot?: (slotIndex: number) => void
-  onRerollOwner?: (ownerIndex: number) => void
-}) {
-  return groupedEstablishments.map((g, i) => {
-    const rulebookPages = Array.from(
-      new Set(
-        g.ownerIndices.map(estIdx =>
-          establishmentDetailRulebookPage(establishments[estIdx]!.card.rank)
-        )
-      )
-    ).sort((a, b) => a - b)
-
-    const ownerEntries: OwnerEntry[] | undefined =
-      ownersOk && owners
-        ? g.ownerIndices.flatMap(estIdx => {
-            const ownerIndex = ownerSlotByEstIndex[estIdx] ?? null
-            if (ownerIndex === null) return []
-            return [{ roll: owners[ownerIndex]!, ownerIndex }]
-          })
-        : undefined
-
-    return (
-      <VillageEstablishmentLine
-        key={g.key}
-        lineNumber={i + 1}
-        title={g.text}
-        card={g.card}
-        rulebookPages={rulebookPages}
-        rerollPrimarySlot={g.rerollPrimarySlot}
-        onRerollPrimarySlot={onRerollPrimarySlot}
-        ownerEntries={ownerEntries}
-        onRerollOwner={onRerollOwner}
-      />
-    )
-  })
-}
+export type OwnerEntry = { roll: InhabitantRoll; ownerIndex: number }
 
 export function VillageSummary({
   roll,
@@ -159,7 +63,7 @@ export function VillageSummary({
   if (!roll || !display) {
     return (
       <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
-        <Card variant='borderless'>
+        <Card>
           <Empty
             description={t('village.empty_summary', {
               button: t('common.actions.generate'),
@@ -173,8 +77,12 @@ export function VillageSummary({
   return (
     <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
       <Card
-        className='VillageSummary'
-        title={t('village.section_establishments')}>
+        title={t('village.section_establishments')}
+        extra={
+          <Tooltip title={t('rulebook.village_footnote')}>
+            <HelpButton label={t('rulebook.information')} />
+          </Tooltip>
+        }>
         {!grouped ? (
           <UngroupedEstablishmentsList
             establishments={display.establishments}
@@ -200,51 +108,17 @@ export function VillageSummary({
       </Card>
 
       {display.traits.length > 0 ? (
-        <Card title={t('village.section_traits')}>
-          <ul className='VillageSummary__trait-list'>
-            {display.traits.map(row => (
-              <li
-                key={row.instances.map(x => x.primarySlot).join('-')}
-                className='VillageSummary__trait-item'>
-                <div className='VillageSummary__line-inner'>
-                  <div className='VillageSummary__line-main'>
-                    <RichText text={row.text} />
-                    <span className='VillageSummary__line-card-wrap'>
-                      {' ('}
-                      {row.instances.map((inst, idx) => (
-                        <span key={inst.primarySlot}>
-                          {idx > 0 ? ' · ' : null}
-                          <PlayingCardLabel card={inst.card} compact />
-                        </span>
-                      ))}
-                      {')'}
-                    </span>
-                    {onRerollPrimarySlot
-                      ? row.instances.map(inst => (
-                          <Button
-                            key={inst.primarySlot}
-                            type='text'
-                            size='small'
-                            icon={<RedoOutlined />}
-                            aria-label={t('common.actions.reroll_card')}
-                            onClick={() =>
-                              onRerollPrimarySlot(inst.primarySlot)
-                            }
-                            className='VillageSummary__line-reroll'
-                          />
-                        ))
-                      : null}
-                  </div>
-                  <span className='VillageSummary__line-page'>
-                    {formatRulebookReference(
-                      [RULEBOOK_PAGES.village.establishmentTable],
-                      t
-                    )}
-                  </span>
-                </div>
-              </li>
-            ))}
-          </ul>
+        <Card
+          title={t('village.section_traits')}
+          extra={
+            <Tooltip title={t('rulebook.village_footnote')}>
+              <HelpButton label={t('rulebook.information')} />
+            </Tooltip>
+          }>
+          <TraitsList
+            traits={display.traits}
+            onRerollPrimarySlot={onRerollPrimarySlot}
+          />
         </Card>
       ) : null}
     </Space>

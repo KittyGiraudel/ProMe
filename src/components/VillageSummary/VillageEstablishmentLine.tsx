@@ -1,20 +1,18 @@
 'use client'
 
 import { RedoOutlined } from '@ant-design/icons'
-import { Typography } from 'antd'
+import { Tooltip, Typography } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { establishmentDetailRulebookPage } from '@/lib/constants/rulebookPages'
 import type { PlayingCard } from '@/lib/types'
 import { formatRulebookReference } from '@/lib/village/formatRulebookReference'
-import {
-  VillageEstablishmentOwners,
-  type VillageOwnerEntry,
-} from './VillageEstablishmentOwners'
+import { HelpButton } from '../HelpButton/HelpButton'
+import { VillageEstablishmentOwners } from './VillageEstablishmentOwners'
+import { OwnerEntry } from './VillageSummary'
 
 export type VillageEstablishmentLineProps = {
-  lineNumber: number
   title: string
   card: PlayingCard
   /**
@@ -27,12 +25,11 @@ export type VillageEstablishmentLineProps = {
   rulebookPages?: number[]
   rerollPrimarySlot: number | null
   onRerollPrimarySlot?: (slotIndex: number) => void
-  ownerEntries?: VillageOwnerEntry[]
+  ownerEntries?: OwnerEntry[]
   onRerollOwner?: (ownerIndex: number) => void
 }
 
 export function VillageEstablishmentLine({
-  lineNumber,
   title,
   card,
   rulebookPages,
@@ -46,41 +43,32 @@ export function VillageEstablishmentLine({
   const pagesLabel = formatRulebookReference(pages, t)
 
   return (
-    <div className='VillageSummary__line'>
-      <span className='VillageSummary__line-num'>{lineNumber}.</span>
-      <div className='VillageSummary__line-body'>
-        <div className='VillageSummary__line-inner'>
-          <div className='VillageSummary__line-main'>
-            <Typography.Text>{title}</Typography.Text>
-            <span className='VillageSummary__line-card-wrap'>
-              {' ('}
-              <PlayingCardLabel card={card} compact />
-              {')'}
-            </span>
-            {onRerollPrimarySlot && rerollPrimarySlot != null ? (
-              <Button
-                type='text'
-                size='small'
-                icon={<RedoOutlined />}
-                aria-label={t('common.actions.reroll_card')}
-                onClick={() => onRerollPrimarySlot(rerollPrimarySlot)}
-                className='VillageSummary__line-reroll'
-              />
-            ) : null}
-          </div>
-          <span
-            className='VillageSummary__line-page'
-            aria-label={t('rulebook.page_citation', {
-              page: pagesLabel,
-            })}>
-            {pagesLabel}
-          </span>
-        </div>
-        <VillageEstablishmentOwners
-          entries={ownerEntries}
-          onRerollOwner={onRerollOwner}
-        />
+    <li className='VillageSummary__item'>
+      <div className='VillageSummary__container'>
+        <Typography.Text>
+          {title}
+          <Tooltip title={pagesLabel}>
+            <HelpButton label={t('rulebook.information')} />
+          </Tooltip>
+        </Typography.Text>
+
+        <PlayingCardLabel card={card} compact />
+        <Tooltip title={t('common.actions.reroll_card')}>
+          <Button
+            type='text'
+            size='small'
+            disabled={!onRerollPrimarySlot || rerollPrimarySlot == null}
+            icon={<RedoOutlined />}
+            aria-label={t('common.actions.reroll_card')}
+            onClick={() => onRerollPrimarySlot?.(rerollPrimarySlot!)}
+          />
+        </Tooltip>
       </div>
-    </div>
+
+      <VillageEstablishmentOwners
+        entries={ownerEntries}
+        onRerollOwner={onRerollOwner}
+      />
+    </li>
   )
 }
