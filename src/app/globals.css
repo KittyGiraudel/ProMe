@@ -145,13 +145,8 @@ html:has([role="dialog"]) {
   overflow: hidden;
 }
 
-.Pattern {
-  opacity: var(--pattern-opacity, 1);
-}
-
 [data-biome="fieldSea"] .Pattern,
 .Pattern[data-biome="fieldSea"] {
-  --pattern-opacity: 1;
   --c1: var(--biome-light);
   --c2: var(--biome-dark);
 
@@ -163,9 +158,8 @@ html:has([role="dialog"]) {
 
 [data-biome="giganticGardens"] .Pattern,
 .Pattern[data-biome="giganticGardens"] {
-  --pattern-opacity: 0.2;
-  --c1: var(--biome-dark);
-  --c2: var(--biome-light); 
+  --c1: rgb(226 162 150);
+  --c2: rgb(244 182 170); 
   
   --_g:radial-gradient(#0000 60%,var(--c1) 61% 63%,#0000 64% 77%,var(--c1) 78% 80%,#0000 81%);
   --_c:,#0000 75%,var(--c2) 0;
@@ -182,9 +176,8 @@ html:has([role="dialog"]) {
 
 [data-biome="shadowForest"] .Pattern,
 .Pattern[data-biome="shadowForest"] {
-  --pattern-opacity: 0.7;
-  --c1: var(--biome-dark);
-  --c2: var(--biome-light);
+  --c1: rgb(111 169 131);
+  --c2: rgb(138 194 158);
   --_s: calc(2*var(--pattern-size)) calc(2*var(--pattern-size));
   --_g: 35.36% 35.36% at;
   --_c: #0000 66%,var(--c2) 68% 70%,#0000 72%;
@@ -202,27 +195,24 @@ html:has([role="dialog"]) {
 
 [data-biome="floodedPlains"] .Pattern,
 .Pattern[data-biome="floodedPlains"] {
-  --pattern-opacity: 0.2;
-  --c1: var(--biome-light);
-  --c2: var(--biome-dark);
+  --c1: rgb(164 148 192);
+  --c2: rgb(148 132 175);
   
   --_g: 
       var(--c2) 6%  14%,var(--c1) 16% 24%,var(--c2) 26% 34%,var(--c1) 36% 44%,
       var(--c2) 46% 54%,var(--c1) 56% 64%,var(--c2) 66% 74%,var(--c1) 76% 84%,var(--c2) 86% 94%;
   background-color: var(--c1);
-  background:
-    radial-gradient(100% 100% at 100% 0,var(--c1) 4%,var(--_g),#0008 96%,#0000),
-    radial-gradient(100% 100% at 0 100%,#0000, #0008 4%,var(--_g),var(--c1) 96%)
-    var(--c1);
+  background-image:
+    radial-gradient(100% 100% at 100% 0,var(--c1) 4%,var(--_g),#0002 96%,#0000),
+    radial-gradient(100% 100% at 0 100%,#0000, #0002 4%,var(--_g),var(--c1) 96%);
   background-size: var(--pattern-size) var(--pattern-size);
 }
 
 [data-biome="silentDesert"] .Pattern,
 .Pattern[data-biome="silentDesert"] {
-  --pattern-opacity: 0.15;
-  --c1: var(--biome-light);
-  --c2: color-mix(in srgb, var(--biome-dark) 50%, var(--biome-light));
-  --c3: var(--biome-dark);
+  --c1: rgb(238 214 151);
+  --c2: rgb(233 209 145);
+  --c3: rgb(228 203 140);
   
   background-color: var(--c1);
   background:
@@ -239,9 +229,8 @@ html:has([role="dialog"]) {
 
 [data-biome="mushroomJungle"] .Pattern,
 .Pattern[data-biome="mushroomJungle"] {
-  --pattern-opacity: 0.15;
-  --c1: var(--biome-light);
-  --c2: var(--biome-dark);
+  --c1: rgb(170 146 123);
+  --c2: rgb(159 135 113);
   
   --_g: radial-gradient(var(--c2) 49%,#0000 50%);
   background-color: var(--c1);

@@ -93,7 +93,7 @@ export function MapHex({
   return (
     <div
       id={id}
-      className='MapHex'
+      className={`MapHex ${settings.map.showBiomeBackground ? ' Pattern' : ''}`}
       data-q={global.q}
       data-r={global.r}
       data-coord={label}
@@ -102,9 +102,6 @@ export function MapHex({
       data-current={isCurrent}
       data-selected={isSelected}
       data-reachable={isReachable}>
-      {settings.map.showBiomeBackground && (
-        <span className='MapHex__Background Pattern'></span>
-      )}
       <MapCellContextMenu
         coord={global}
         isReachable={isReachable}
@@ -115,8 +112,7 @@ export function MapHex({
       {journalRefCount > 0 ? (
         <span className='MapHex__JournalCount'>{journalRefCount}</span>
       ) : null}
-      <span className='MapHex__Icon'>{icon ?? ''}</span>
-      <span className='MapHex__Status'></span>
+      {icon && <span className='MapHex__Icon'>{icon}</span>}
     </div>
   )
 }

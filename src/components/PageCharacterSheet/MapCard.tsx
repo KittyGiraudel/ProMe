@@ -72,7 +72,6 @@ function MapLegend() {
           style={
             {
               fontSize: '1.8em',
-              '--pattern-opacity': 1,
             } as React.CSSProperties
           }
         />
@@ -82,12 +81,7 @@ function MapLegend() {
         <li key={biome}>
           <BiomeBubble
             biome={biome}
-            style={
-              {
-                fontSize: '1.8em',
-                '--pattern-opacity': 1,
-              } as React.CSSProperties
-            }
+            style={{ fontSize: '1.8em' } as React.CSSProperties}
             withPattern={settings.map.showBiomeBackground}
           />
           {t(`common.biomes.${biome}`)}

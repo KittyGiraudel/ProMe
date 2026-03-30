@@ -15,11 +15,13 @@
   margin-bottom: calc(var(--size) / (-4 * cos(30deg))); /* 4 */
 
   user-select: none; /* 5 */
+  will-change: outline;
 
   box-shadow: inset 0 0 1.25em var(--biome-dark); /* 6 */
   border: 1px solid var(--biome-dark);
   background-color: var(--biome-light);
   color: var(--biome-light-contrast);
+  transition: 0.25s ease-in-out;
 }
 
 @supports not ((corner-shape: bevel) and (aspect-ratio: cos(30deg))) {
@@ -38,49 +40,25 @@
 }
 
 /**
- * 1. Make all direct children the same shape as the cell (hexagonal) without 
- *    requiring the cell itself to have overflow: hidden.
- * 2. Make all direct children cover the whole cell.
- */
-.MapHex > *:not(.MapHex__JournalCount) {
-  corner-shape: inherit; /* 1 */
-  border-radius: inherit; /* 1 */
-  aspect-ratio: inherit; /* 1 */
-  position: absolute; /* 2 */
-  inset: 0; /* 2 */
-}
-
-/**
- * 1. Make sure no decorative element can prevent the button from being clicked.
- */
-.MapHex > *:not(.MapHex__Button) {
-  pointer-events: none; /* 1 */
-}
-
-/**
  * 1. Highlight the current cell with an *inner* ring. Note: it collides with
  *    the *selected* cell, but it’s okay and intended this way.
  */
-.MapHex[data-current="true"] .MapHex__Status {
-  outline: 3px solid white; /* 1 */
+.MapHex[data-current="true"] {
+  outline: 2px solid white; /* 1 */
   outline-offset: -5px; /* 1 */
 }
 
 /**
  * 1. Highlight the selected cell with an *outer* ring. Note: it collides with
  *    the *current* cell, but it’s okay and intended this way.
+ * 2. Because the selected cell uses an *outer* ring, make sure it is on top of
+ *    the other cells.
  */
-.MapHex[data-selected="true"] .MapHex__Status {
-  outline: 3px solid #722ed1;
-  outline-offset: 3px;
+.MapHex[data-selected="true"] {
+  outline: 3px solid #722ed1; /* 1 */
+  outline-offset: 3px; /* 1 */
+  z-index: 2; /* 2 */
 }
-
-/**
- * 1. Because the selected cell uses an *outer* ring, make sure it is on top of
- *    the other cells. Note: I’m unsure why we needed *both* rules.
- */
- .MapHex[data-selected="true"]  { z-index: 2; } /* 1 */
- .MapHex[data-selected="false"] { z-index: 1; } /* 1 */
  
 /**
  * 1. Make the cell a bit transparent when it's not reachable. This gives the 
@@ -93,21 +71,25 @@
 /**
  * 1. Guarantee a consistent and predictable stacking order for the elements.
  */
-.MapHex__Background   { z-index: 1; /* 1 */ }
-.MapHex__Icon         { z-index: 2; /* 1 */ }
-.MapHex__JournalCount { z-index: 2; /* 1 */ }
-.MapHex__Button       { z-index: 3; /* 1 */ }
-.MapHex__Status       { z-index: 4; /* 1 */ }
+ .MapHex__JournalCount { z-index: 1; /* 1 */ }
+ .MapHex__Button       { z-index: 2; /* 1 */ }
+ .MapHex__Icon         { z-index: 3; /* 1 */ }
 
 /**
- * 1. Position the icon in the center of the cell.
+ * 1. Make the icon cover the whole cell.
+ * 2. Position the icon in the center of the cell.
+ * 3. Make sure the icon, which is sitting *above* the button (to cover its text)
+ *    does not prevent the button from being clicked.
  */
 .MapHex__Icon {
-  display: flex; /* 1 */
-  align-items: center; /* 1 */
-  justify-content: center; /* 1 */
+  position: absolute; /* 1 */
+  inset: 0; /* 1 */
+  display: flex; /* 2 */
+  align-items: center; /* 2 */
+  justify-content: center; /* 2 */
   font-size: 250%;
   pointer-events: none;
+  pointer-events: none; /* 3 */
 }
 
 .MapHex__JournalCount {
@@ -125,12 +107,16 @@
 }
 
 /**
- * 1. Center the content of the button within it.
+ * 1. Make the button cover the whole cell.
+ * 2. Center the content of the button within it.
  */
 .MapHex__Button {
-  display: flex; /* 1 */
-  align-items: center; /* 1 */
-  justify-content: center; /* 1 */
+  position: absolute; /* 1 */
+  inset: 0; /* 1 */
+
+  display: flex; /* 2 */
+  align-items: center; /* 2 */
+  justify-content: center; /* 2 */
 
   font: inherit;
   font-weight: bold;
@@ -161,9 +147,9 @@
 .MapHex__Button:not(:disabled) { cursor: pointer; } /* 1 */
 .MapHex__Button:not(:disabled):hover { transform: scale(1.15); } /* 1 */
 
-[data-biome="fieldSea"]        .MapHex__Background { --pattern-size: 10px }
-[data-biome="giganticGardens"] .MapHex__Background { --pattern-size: 40px }
-[data-biome="shadowForest"]    .MapHex__Background { --pattern-size: 15px }
-[data-biome="floodedPlains"]   .MapHex__Background { --pattern-size: 20px }
-[data-biome="silentDesert"]    .MapHex__Background { --pattern-size: 15px }
-[data-biome="mushroomJungle"]  .MapHex__Background { --pattern-size: 10px }
+.MapHex.Pattern[data-biome="fieldSea"]        { --pattern-size: 10px }
+.MapHex.Pattern[data-biome="giganticGardens"] { --pattern-size: 40px }
+.MapHex.Pattern[data-biome="shadowForest"]    { --pattern-size: 15px }
+.MapHex.Pattern[data-biome="floodedPlains"]   { --pattern-size: 20px }
+.MapHex.Pattern[data-biome="silentDesert"]    { --pattern-size: 15px }
+.MapHex.Pattern[data-biome="mushroomJungle"]  { --pattern-size: 10px }
