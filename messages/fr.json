@@ -53,7 +53,7 @@
       "clock_back": "Revenir",
       "clock_day": "Jour",
       "clock_night": "Nuit",
-      "clock_phase_shift": "{phase, select, day {Levée du jour} night {Tombée de la nuit}}",
+      "clock_phase_shift": "{phase, select, day {Levée du jour} night {Tombée de la nuit} other {Phase de transition}}",
       "clock_phase_shift_description": "N’oubliez pas de consommer de la nourriture pour ne pas avoir faim.",
       "clock_section": "Horloge",
       "clock_slice": "Tranche : {position} / {total}",

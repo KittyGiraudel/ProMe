@@ -53,7 +53,7 @@
       "clock_back": "Go back",
       "clock_day": "Day",
       "clock_night": "Night",
-      "clock_phase_shift": "{phase, select, day {Dawn} night {Dusk}}",
+      "clock_phase_shift": "{phase, select, day {Dawn} night {Dusk} other {Transition phase}}",
       "clock_phase_shift_description": "Remember to consume food to avoid hunger.",
       "clock_section": "Clock",
       "clock_slice": "Slice: {position} / {total}",
