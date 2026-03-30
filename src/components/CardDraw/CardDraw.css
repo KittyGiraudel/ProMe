@@ -3,11 +3,11 @@
   place-items: center;
   width: 100%;
   min-height: 130px;
-  margin-bottom: 1rem;
+  margin-bottom: 1em;
 }
 
 .CardDraw__drawn-card {
-  font-size: 1.65rem;
+  font-size: 1.65em;
 }
 
 .CardDraw__value--drawing .CardDraw__drawn-card {

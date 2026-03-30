@@ -48,7 +48,7 @@
 .Map__BiomeMenuItem {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5em;
 }
 
 .Map__NotificationIcon[data-biome] {
@@ -56,13 +56,13 @@
 }
 
 .Map__EmojiModalBody {
-  padding-top: 8px;
+  padding-top: 0.5em;
 }
 
 .Map__EmojiPickerWrap {
   display: flex;
   justify-content: center;
-  margin: 0 -8px;
+  margin: 0 -0.5em;
 }
 
 .Map__EmojiPickerLoading {

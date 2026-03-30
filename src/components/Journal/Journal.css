@@ -4,7 +4,7 @@
 
 .Journal__entry {
   position: relative;
-  padding-bottom: 8px;
+  padding-bottom: 0.5em;
 }
 
 .Journal__edit.Journal__edit {
@@ -29,40 +29,20 @@
 
 .Journal__editor-label {
   display: inline-block;
-  margin-bottom: 8px;
-}
-
-.Journal__symbols {
-  margin-top: 8px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 16px;
-  font-size: 12px;
-  color: var(--ant-colorTextTertiary);
-  user-select: text;
-}
-
-.Journal__symbols span {
-  white-space: nowrap;
-}
-
-.Journal__symbols > span {
-  display: flex;
-  gap: 1em;
-  font-size: 100%;
+  margin-bottom: 0.5em;
 }
 
 .Journal__meta.Journal__meta {
-  margin-top: 8px;
+  margin-top: 0.5em;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  font-size: 12px;
+  gap: 0.75em;
+  font-size: 0.75em;
 }
 
 .Journal__permalink {
-  font-size: 12px;
+  font-size: 0.75em;
   color: var(--ant-colorLink);
 }
 
@@ -70,45 +50,39 @@
   text-decoration: underline;
 }
 
-.Journal__modalMain {
-}
-
-.Journal__modalPreview {
-}
-
 .Journal__modalFooter {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 0.75em;
   width: 100%;
 }
 
 @media (min-width: 992px) {
   .Journal__cheatsheet {
     border-left: 1px solid var(--ant-color-border-secondary);
-    padding-left: 16px;
+    padding-left: 1em;
   }
 }
 
 .Journal__cheatsheetTitle {
   margin-top: 0;
-  margin-bottom: 8px;
+  margin-bottom: 0.5em;
 }
 
 .Journal__cheatsheetTitle:not(:first-child) {
-  margin-top: 16px;
+  margin-top: 1em;
 }
 
 .Journal__cheatsheetBlock {
-  margin-bottom: 8px;
-  font-size: 13px;
+  margin-bottom: 0.5em;
+  font-size: 0.75em;
 }
 
 .Journal__cheatsheetList {
-  margin: 0 0 12px;
-  padding-left: 1.25rem;
+  margin: 0 0 0.75em;
+  padding-left: 1.25em;
   font-size: 1em;
   color: var(--ant-colorTextSecondary);
 }
@@ -118,7 +92,7 @@
 }
 
 .Journal__cheatsheetCode {
-  font-size: 12px;
+  font-size: 0.75em;
 }
 
 .Journal__cheatsheetGlyphs_dice {

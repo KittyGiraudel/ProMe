@@ -4,12 +4,12 @@
 }
 
 .JournalMarkdown p {
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.75em;
 }
 
 .JournalMarkdown ul,
 .JournalMarkdown ol {
-  margin: 0 0 0.75rem 1.25rem;
+  margin: 0 0 0.75em 1.25em;
   padding: 0;
 }
 
@@ -48,7 +48,7 @@
 }
 
 .JournalMarkdown li {
-  margin: 0.2rem 0;
+  margin: 0.2em 0;
 }
 
 .JournalMarkdown :first-child {
@@ -64,26 +64,26 @@
 .JournalMarkdown h2,
 .JournalMarkdown h3,
 .JournalMarkdown h4 {
-  margin: 1rem 0 0.5rem;
+  margin: 1em 0 0.5em;
 }
 
 .JournalMarkdown blockquote {
-  margin: 0.75rem 0;
-  padding-left: 0.75rem;
+  margin: 0.75em 0;
+  padding-left: 0.75em;
   border-left: 3px solid var(--ant-colorBorderSecondary);
   color: var(--ant-colorTextSecondary);
 }
 
 .JournalMarkdown code {
-  padding: 0.1rem 0.3rem;
-  border-radius: 4px;
+  padding: 0.1em 0.3em;
+  border-radius: 0.25em;
   background: var(--ant-colorFillTertiary);
 }
 
 .JournalMarkdown pre {
-  margin: 0.75rem 0;
-  padding: 0.75rem;
-  border-radius: 6px;
+  margin: 0.75em 0;
+  padding: 0.75em;
+  border-radius: 0.375em;
   overflow-x: auto;
   background: var(--ant-colorFillTertiary);
 }

@@ -3,11 +3,11 @@
   place-items: center;
   width: 100%;
   min-height: 130px;
-  margin-bottom: 1rem;
+  margin-bottom: 1em;
 }
 
 .DiceRoll__die-face {
-  font-size: 5rem;
+  font-size: 5em;
 }
 
 .DiceRoll__die-face .dice-faces__face {

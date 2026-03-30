@@ -1,4 +1,10 @@
-import { Space, Tag, Button } from 'antd'
+import {
+  ArrowDownOutlined,
+  ArrowLeftOutlined,
+  ArrowRightOutlined,
+  ArrowUpOutlined,
+} from '@ant-design/icons'
+import { Button, Space, Tag } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Dispatch, SetStateAction } from 'react'
 import { HexCoordinate } from '@/lib/character/types'
@@ -43,7 +49,7 @@ export function MapSheetNavigation({
             sheetR: sheet.sheetR - 1,
           }))
         }>
-        ↑
+        <ArrowUpOutlined />
       </Button>
       <Button
         htmlType='button'
@@ -54,7 +60,7 @@ export function MapSheetNavigation({
             sheetR: sheet.sheetR + 1,
           }))
         }>
-        ↓
+        <ArrowDownOutlined />
       </Button>
       <Button
         htmlType='button'
@@ -65,7 +71,7 @@ export function MapSheetNavigation({
             sheetQ: sheet.sheetQ - 1,
           }))
         }>
-        ←
+        <ArrowLeftOutlined />
       </Button>
       <Button
         htmlType='button'
@@ -76,7 +82,7 @@ export function MapSheetNavigation({
             sheetQ: sheet.sheetQ + 1,
           }))
         }>
-        →
+        <ArrowRightOutlined />
       </Button>
       {!isViewingCurrentSheet ? (
         <Button

@@ -1,11 +1,11 @@
 .character-sheet-tab-nav {
-  margin-bottom: 8px;
+  margin-bottom: 0.5em;
 }
 
 .character-sheet-tab-nav__list {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 8px;
+  gap: 0.25em 0.5em;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -17,8 +17,8 @@
 
 .character-sheet-tab-nav__link {
   display: inline-block;
-  padding: 6px 12px;
-  border-radius: 6px;
+  padding: 0.375em 0.75em;
+  border-radius: 0.375em;
   color: inherit;
   text-decoration: none;
   border: 1px solid transparent;

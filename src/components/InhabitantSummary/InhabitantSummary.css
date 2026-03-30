@@ -1,6 +1,6 @@
 @media (min-width: 500px) {
   .InhabitantSummary__descriptions .ant-descriptions-item-label {
-    width: 11rem;
+    width: 11em;
   }
 }
 
@@ -11,7 +11,7 @@
     .ant-descriptions-item-container {
     flex-direction: column;
     align-items: stretch;
-    gap: 0.35rem;
+    gap: 0.35em;
   }
 
   .InhabitantSummary__descriptions
@@ -41,9 +41,9 @@
 }
 
 .InhabitantSummary__reroll.ant-btn {
-  width: 28px;
-  height: 28px;
-  min-width: 28px;
+  width: 1.5em;
+  height: 1.5em;
+  min-width: 1.5em;
   padding: 0;
   color: var(--lsdp-muted);
 }
@@ -73,13 +73,13 @@
 }
 
 .InhabitantSummary__context-followup {
-  margin-top: 0.5rem;
-  padding: 0.5rem 0.65rem;
-  border-radius: 8px;
+  margin-top: 0.5em;
+  padding: 0.5em 0.65em;
+  border-radius: 0.5em;
   background: rgba(31, 45, 42, 0.04);
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.35em;
 }
 
 .InhabitantSummary__followup-label {
@@ -87,10 +87,10 @@
 }
 
 .InhabitantSummary__stack--tight {
-  gap: 0.25rem;
+  gap: 0.25em;
 }
 
 .InhabitantSummary__spoken-name {
-  font-size: 1rem;
+  font-size: 1em;
   font-weight: 600;
 }

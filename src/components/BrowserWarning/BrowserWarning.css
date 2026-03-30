@@ -1,5 +1,5 @@
 .BrowserWarning.BrowserWarning {
-  margin-bottom: 16px;
+  margin-bottom: 1em;
 }
 
 @supports (corner-shape: bevel) and (aspect-ratio: cos(30deg)) {
