@@ -86,10 +86,25 @@ export function useCharacterSheetForm({
 }
 
 /** Compares live form values to the last saved character (for guards; not tied
- * to Ant Design "touched"). */
+ * to Ant Design "touched"). Key-order-insensitive to handle Ant Design
+ * Form.List reconstructing objects in field-registration order. */
 function sheetFormMatchesSavedCharacter(
   values: SheetFormValues,
   saved: Character
 ): boolean {
-  return JSON.stringify(values) === JSON.stringify(toFormValues(saved))
+  return stableStringify(values) === stableStringify(toFormValues(saved))
+}
+
+function stableStringify(value: unknown): string {
+  return JSON.stringify(value, (_, v) => {
+    if (v && typeof v === 'object' && !Array.isArray(v)) {
+      return Object.keys(v)
+        .sort()
+        .reduce<Record<string, unknown>>((o, k) => {
+          o[k] = (v as Record<string, unknown>)[k]
+          return o
+        }, {})
+    }
+    return v
+  })
 }

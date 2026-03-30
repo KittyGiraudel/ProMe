@@ -29,6 +29,10 @@ export function useCharacterSheetFormSync({
   const clockTotalSegments = countClockSegments(staminaCurrent)
 
   useEffect(() => {
+    // Skip during initial hydration: staminaCurrent is FALLBACK (0) while
+    // character is null, which would produce a false clockTotalSegments change.
+    if (!character) return
+
     const previous = prevClockTotalSegmentsRef.current
 
     if (previous === null) {
@@ -44,7 +48,7 @@ export function useCharacterSheetFormSync({
     )
     form.setFieldValue('clock', remapped)
     prevClockTotalSegmentsRef.current = clockTotalSegments
-  }, [clockTotalSegments, watchedClock, form])
+  }, [clockTotalSegments, watchedClock, form, character])
 
   useEffect(() => {
     if (healthCurrent == null || healthMax == null) return
