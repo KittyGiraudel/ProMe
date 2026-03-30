@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, Form, Space } from 'antd'
+import { Card, Form, Popover, Space } from 'antd'
 import { useTranslations } from 'next-intl'
 import { MapDisplay } from '@/components/MapDisplay/MapDisplay'
 import { MapFormValueAnchor } from '@/components/MapDisplay/MapFormValueAnchor'
@@ -9,7 +9,12 @@ import { useCellSelection } from '@/components/MapDisplay/useMapCellSelection'
 import { useMapSheet as useMapSheet } from '@/components/MapDisplay/useMapSheet'
 import { useMapState } from '@/components/MapDisplay/useMapState'
 import { SettingsHint } from '@/components/SettingsHint/SettingsHint'
+import { BIOME_IDS } from '@/lib/constants/misc'
+import { BiomeBubble } from '../BiomeBubble/BiomeBubble'
 import { BrowserWarning } from '../BrowserWarning/BrowserWarning'
+import { HelpButton } from '../HelpButton/HelpButton'
+import './MapCard.css'
+import { useSettings } from '../PageSettings/SettingsContext'
 
 export function MapCard() {
   const t = useTranslations()
@@ -21,7 +26,13 @@ export function MapCard() {
     useMapSheet({ currentPosition, selectedCell, setSelectedCell })
 
   return (
-    <Card title={t('characters.map.map_section')}>
+    <Card
+      title={t('characters.map.map_section')}
+      extra={
+        <Popover title={t('characters.map.legend')} content={<MapLegend />}>
+          <HelpButton label={t('rulebook.information')} />
+        </Popover>
+      }>
       <div ref={cardRef} tabIndex={-1}>
         <BrowserWarning />
 
@@ -46,5 +57,30 @@ export function MapCard() {
       </div>
       <SettingsHint hintId='map' />
     </Card>
+  )
+}
+
+function MapLegend() {
+  const t = useTranslations()
+  const { settings } = useSettings()
+
+  return (
+    <ul className='MapCard__legend'>
+      {BIOME_IDS.map(biome => (
+        <li key={biome}>
+          <BiomeBubble
+            biome={biome}
+            style={
+              {
+                fontSize: '1.8em',
+                '--pattern-opacity': 1,
+              } as React.CSSProperties
+            }
+            withPattern={settings.map.showBiomeBackground}
+          />
+          {t(`common.biomes.${biome}`)}
+        </li>
+      ))}
+    </ul>
   )
 }

@@ -63,6 +63,7 @@
       "icon_label": "Icône",
       "journal_links_label": "Journal",
       "journal_links_overflow": "+ {count, plural, =1 {une entrée plus ancienne} other {# entrées plus anciennes}}",
+      "legend": "Légende",
       "map_section": "Carte",
       "menu_actions_group": "Actions",
       "menu_marking_group": "Reconnaissance",

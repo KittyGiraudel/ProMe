@@ -1,0 +1,17 @@
+.MapCard__legend {
+  list-style: none;
+}
+
+.MapCard__legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.MapCard__legend li:has([data-biome="fieldSea"])         { --pattern-size: 5px }
+.MapCard__legend li:has([data-biome="giganticGardens"])  { --pattern-size: 15px }
+.MapCard__legend li:has([data-biome="shadowForest"])     { --pattern-size: 10px }
+.MapCard__legend li:has([data-biome="floodedPlains"])    { --pattern-size: 10px }
+.MapCard__legend li:has([data-biome="silentDesert"])     { --pattern-size: 10px }
+.MapCard__legend li:has([data-biome="mushroomJungle"])   { --pattern-size: 5px }

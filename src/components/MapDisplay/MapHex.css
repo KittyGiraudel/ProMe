@@ -124,3 +124,10 @@
   z-index: 0;
   pointer-events: none;
 }
+
+[data-biome="fieldSea"]        .MapHex__background { --pattern-size: 10px }
+[data-biome="giganticGardens"] .MapHex__background { --pattern-size: 40px }
+[data-biome="shadowForest"]    .MapHex__background { --pattern-size: 15px }
+[data-biome="floodedPlains"]   .MapHex__background { --pattern-size: 20px }
+[data-biome="silentDesert"]    .MapHex__background { --pattern-size: 15px }
+[data-biome="mushroomJungle"]  .MapHex__background { --pattern-size: 10px }

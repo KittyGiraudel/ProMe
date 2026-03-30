@@ -3,14 +3,23 @@ import { VisuallyHidden } from '@/components/VisuallyHidden/VisuallyHidden'
 import type { BiomeId } from '@/lib/types'
 import './BiomeBubble.css'
 
-export function BiomeBubble({ biome }: { biome: BiomeId | 'unexplored' }) {
+export function BiomeBubble({
+  biome,
+  style,
+  withPattern = false,
+}: {
+  biome: BiomeId | 'unexplored'
+  style?: React.CSSProperties
+  withPattern?: boolean
+}) {
   const t = useTranslations()
 
   return (
     <span
-      className='BiomeBubble'
+      className={withPattern ? 'BiomeBubble Pattern' : 'BiomeBubble'}
       data-biome={biome}
-      title={t(`common.biomes.${biome}`)}>
+      title={t(`common.biomes.${biome}`)}
+      style={style}>
       <VisuallyHidden>{t(`common.biomes.${biome}`)}</VisuallyHidden>
     </span>
   )

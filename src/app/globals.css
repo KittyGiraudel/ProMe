@@ -150,23 +150,28 @@ html:has([role="dialog"]) {
   opacity: var(--pattern-opacity, 1);
 }
 
-[data-biome="fieldSea"] .Pattern {
-  --pattern-size: 10px;
+[data-biome="fieldSea"] .Pattern,
+.Pattern[data-biome="fieldSea"] {
   --pattern-opacity: 1;
-  background-color: var(--biome-light);
+  --c1: var(--biome-light);
+  --c2: var(--biome-dark);
+
+  background-color: var(--c1);
   background-image:
-    repeating-radial-gradient( circle at 0 0, transparent 0, var(--biome-light) var(--pattern-size) ),
-    repeating-linear-gradient( color-mix(in srgb, var(--biome-dark) 9%, transparent), color-mix(in srgb, var(--biome-dark) 30%, transparent) );
+    repeating-radial-gradient(circle at 0 0, transparent 0, var(--c1) var(--pattern-size)),
+    repeating-linear-gradient(color-mix(in srgb, var(--c2) 9%, transparent), color-mix(in srgb, var(--c2) 30%, transparent));
 }
 
-[data-biome="giganticGardens"] .Pattern {
-  --pattern-size: 40px;
+[data-biome="giganticGardens"] .Pattern,
+.Pattern[data-biome="giganticGardens"] {
+  --pattern-opacity: 0.2;
   --c1: var(--biome-dark);
   --c2: var(--biome-light); 
-  --pattern-opacity: 0.2;
   
   --_g:radial-gradient(#0000 60%,var(--c1) 61% 63%,#0000 64% 77%,var(--c1) 78% 80%,#0000 81%);
   --_c:,#0000 75%,var(--c2) 0;
+  
+  background-color: var(--c1);
   background:
     conic-gradient(at 12% 20% var(--_c)) calc(var(--pattern-size)* .44) calc(.9*var(--pattern-size)),
     conic-gradient(at 12% 20% var(--_c)) calc(var(--pattern-size)*-.06) calc(.4*var(--pattern-size)),
@@ -176,15 +181,16 @@ html:has([role="dialog"]) {
   background-size: var(--pattern-size) var(--pattern-size);
 }
 
-[data-biome="shadowForest"] .Pattern {
-  --pattern-size: 15px;
+[data-biome="shadowForest"] .Pattern,
+.Pattern[data-biome="shadowForest"] {
+  --pattern-opacity: 0.7;
   --c1: var(--biome-dark);
   --c2: var(--biome-light);
-  --pattern-opacity: 0.7;
-  
   --_s: calc(2*var(--pattern-size)) calc(2*var(--pattern-size));
   --_g: 35.36% 35.36% at;
   --_c: #0000 66%,var(--c2) 68% 70%,#0000 72%;
+
+  background-color: var(--c1);
   background:
     radial-gradient(var(--_g) 100% 25%,var(--_c)) var(--pattern-size) var(--pattern-size)/var(--_s),
     radial-gradient(var(--_g) 0    75%,var(--_c)) var(--pattern-size) var(--pattern-size)/var(--_s),
@@ -195,15 +201,16 @@ html:has([role="dialog"]) {
     var(--c1);
 }
 
-[data-biome="floodedPlains"] .Pattern {
-  --pattern-size: 20px;
+[data-biome="floodedPlains"] .Pattern,
+.Pattern[data-biome="floodedPlains"] {
+  --pattern-opacity: 0.2;
   --c1: var(--biome-light);
   --c2: var(--biome-dark);
-  --pattern-opacity: 0.2;
   
   --_g: 
       var(--c2) 6%  14%,var(--c1) 16% 24%,var(--c2) 26% 34%,var(--c1) 36% 44%,
       var(--c2) 46% 54%,var(--c1) 56% 64%,var(--c2) 66% 74%,var(--c1) 76% 84%,var(--c2) 86% 94%;
+  background-color: var(--c1);
   background:
     radial-gradient(100% 100% at 100% 0,var(--c1) 4%,var(--_g),#0008 96%,#0000),
     radial-gradient(100% 100% at 0 100%,#0000, #0008 4%,var(--_g),var(--c1) 96%)
@@ -211,36 +218,38 @@ html:has([role="dialog"]) {
   background-size: var(--pattern-size) var(--pattern-size);
 }
 
-[data-biome="silentDesert"] .Pattern {
-  --pattern-size: 15px;
+[data-biome="silentDesert"] .Pattern,
+.Pattern[data-biome="silentDesert"] {
+  --pattern-opacity: 0.15;
   --c1: var(--biome-light);
   --c2: color-mix(in srgb, var(--biome-dark) 50%, var(--biome-light));
   --c3: var(--biome-dark);
-  --pattern-opacity: 0.15;
   
+  background-color: var(--c1);
   background:
     conic-gradient(from  15deg at 86.6%,
-      var(--c3) 25%,var(--c2) 0 150deg,#0000 0),
+      var(--c3) 25%, var(--c2) 0 150deg, #0000 0),
     conic-gradient(from -75deg at 50% 13.39%,
-      var(--c1) 60deg,var(--c3) 0 150deg,
-      var(--c2) 0 210deg,#0000 0),
+      var(--c1) 60deg, var(--c3) 0 150deg,
+      var(--c2) 0 210deg, #0000 0),
     conic-gradient(from 15deg at 36.6% 63.4%,
-      var(--c1) 60deg,var(--c3) 0 150deg,
-      var(--c1) 0 210deg,var(--c2) 0 75%,var(--c3) 0);
+      var(--c1) 60deg, var(--c3) 0 150deg,
+      var(--c1) 0 210deg, var(--c2) 0 75%, var(--c3) 0);
   background-size: var(--pattern-size) var(--pattern-size);
 }
 
-[data-biome="mushroomJungle"] .Pattern {
-  --pattern-size: 10px;
+[data-biome="mushroomJungle"] .Pattern,
+.Pattern[data-biome="mushroomJungle"] {
+  --pattern-opacity: 0.15;
   --c1: var(--biome-light);
   --c2: var(--biome-dark);
-  --pattern-opacity: 0.15;
   
   --_g: radial-gradient(var(--c2) 49%,#0000 50%);
+  background-color: var(--c1);
   background:
-    var(--_g) calc(var(--pattern-size)/-2) calc(var(--pattern-size)/2),
-    repeating-conic-gradient(from 45deg,var(--c1) 0 25%,#0000 0 50%)
-      calc(var(--pattern-size)/2) calc(var(--pattern-size)/2),
-    var(--_g),var(--_g) var(--pattern-size) var(--pattern-size) var(--c1);
-  background-size: calc(2*var(--pattern-size)) calc(2*var(--pattern-size));
+    var(--_g) calc(var(--pattern-size) / -2) calc(var(--pattern-size) / 2),
+    repeating-conic-gradient(from 45deg, var(--c1) 0 25%, #0000 0 50%)
+      calc(var(--pattern-size) / 2) calc(var(--pattern-size) / 2),
+    var(--_g), var(--_g) var(--pattern-size) var(--pattern-size) var(--c1);
+  background-size: calc(2 * var(--pattern-size)) calc(2 * var(--pattern-size));
 }

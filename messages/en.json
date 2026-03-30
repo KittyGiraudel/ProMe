@@ -63,6 +63,7 @@
       "icon_label": "Icon",
       "journal_links_label": "Journal",
       "journal_links_overflow": "+ {count, plural, =1 {one older entry} other {# older entries}}",
+      "legend": "Legend",
       "map_section": "Map",
       "menu_actions_group": "Actions",
       "menu_marking_group": "Scouting",
