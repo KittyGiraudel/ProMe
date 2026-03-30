@@ -71,7 +71,6 @@ export function Settings() {
         { title: t('nav.settings'), path: '/settings' },
       ]}>
       <Form<SettingsFormValues>
-        key={`${settings.sheet.adaptiveNightMode}-${settings.sheet.singlePageMode}-${settings.journal.timelineReverseChronological}-${settings.village.mergeDuplicateEstablishments}-${settings.map.tickClockOnMove}-${settings.map.showBiomeBackground}`}
         layout='vertical'
         initialValues={initialValues}
         onValuesChange={handleValuesChange}>
