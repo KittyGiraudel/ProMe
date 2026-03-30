@@ -284,8 +284,10 @@
   "faq": {
     "answer_1": "Cette application est un compagnon de jeu pour « Les Souvenirs du Protecteur », un jeu de rôle solo par Enzo Salviato. Il est suggéré d’avoir l’application ouvert en jouant au jeu, comme référence et pour pouvoir marquer sa progression. C’est principalement pour pouvoir jouer au jeu de manière numérique (pas tout à fait cependant, car utiliser le manuel officiel est requis).",
     "answer_2": "Le module de cartographie utilise des fonctionnalités de styles (CSS) modernes qui ne sont pas encore bien supportées par les navigateurs. C’est pourquoi il est préférable d’utiliser le navigateur Chrome, car c’est celui que j’utilise pour le dévelopement. Quant à pourquoi je n’ai pas étendu le support à d’autres navigateurs : créer une grille d’hexagones est compliqué ; j’avais le choix entre utiliser des technologies modernes pour garder les choses simples, ou développer tout le système de carte avec HTML Canvas, ce que je ne voulais pas faire.",
+    "answer_3": "Les rencontres ne sont pas implémentées, donc à chaque déplacement, il faut lancer un dé (physiquement ou via l’application) puis se référer au livre de règles pour savoir quelle rencontre se produit.\nDe plus, le stock des boutiques n’est pas implémenté non plus. Cela signifie qu’à la création d’une village, il est nécessaire de définir les offres manuellement, puis de les noter dans le journal pour y revenir plus tard.",
     "question_1": "Qu’est-ce que ce site ?",
     "question_2": "Pourquoi la carte est-elle cassée ?",
+    "question_3": "Que manque-t-il dans l’application ?",
     "title": "Frequently Asked Questions"
   },
   "footer": {

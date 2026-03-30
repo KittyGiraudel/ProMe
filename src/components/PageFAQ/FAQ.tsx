@@ -6,6 +6,8 @@ import { Layout } from '@/components/Layout/Layout'
 import './FAQ.css'
 import { TranslationKey } from '@/lib/types'
 
+const ENTRY_COUNT = 3
+
 export function FAQ() {
   const t = useTranslations()
 
@@ -18,7 +20,7 @@ export function FAQ() {
         { title: t('nav.faq'), path: '/faq' },
       ]}
       className='FAQ'>
-      {Array.from({ length: 2 }, (_, i) => (
+      {Array.from({ length: ENTRY_COUNT }, (_, i) => (
         <Entry index={i + 1} key={i + 1} />
       ))}
     </Layout>
@@ -38,9 +40,11 @@ function Entry({ index }: { index: number }) {
 }
 
 function Paragraphs({ translation }: { translation: string }) {
-  return translation
-    .split(/\n/g)
-    .map((paragraph, index) => (
-      <Typography.Paragraph key={index}>{paragraph}</Typography.Paragraph>
-    ))
+  return translation.split(/\n/g).map((paragraph, index, paragraphs) => (
+    <Typography.Paragraph
+      key={index}
+      style={{ marginBottom: paragraphs.length - 1 === index ? 0 : 12 }}>
+      {paragraph}
+    </Typography.Paragraph>
+  ))
 }
