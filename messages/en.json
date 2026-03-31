@@ -121,7 +121,11 @@
       "metadata": "Created on {createdAt} · Updated on {updatedAt}",
       "modal_title": "Edit journal entry",
       "notes_section": "Journal",
+      "phase_day": "Day",
+      "phase_label": "Phase",
+      "phase_night": "Night",
       "preview_entry": "Preview",
+      "slice_label": "Slice",
       "tab_edit": "Edit",
       "title": "Journal"
     },

@@ -7,8 +7,10 @@ import {
   Form,
   Grid,
   Input,
+  InputNumber,
   Modal,
   Row,
+  Select,
   Space,
   Tabs,
   Timeline,
@@ -25,7 +27,7 @@ const JOURNAL_MODAL_TEXTAREA_ROWS = {
   /** Viewports below `lg` */
   compact: { minRows: 8, maxRows: 8 },
   /** `lg` and up */
-  comfortable: { minRows: 15, maxRows: 15 },
+  comfortable: { minRows: 12, maxRows: 12 },
 } as const
 
 type JournalEntryEditModalProps = {
@@ -53,6 +55,7 @@ export function JournalEntryEditModal({
   const screens = Grid.useBreakpoint()
   const t = useTranslations()
   const { settings } = useSettings()
+  const phase = Form.useWatch(['journalEntries', fieldName, 'phase'])
   const textareaAutoSize = screens.lg
     ? JOURNAL_MODAL_TEXTAREA_ROWS.comfortable
     : JOURNAL_MODAL_TEXTAREA_ROWS.compact
@@ -102,24 +105,64 @@ export function JournalEntryEditModal({
                 key: 'edit',
                 label: t('characters.journal.tab_edit'),
                 children: (
-                  <Form.Item
-                    name={[fieldName, 'content']}
-                    className='Journal__modalEditor'
-                    label={t('characters.journal.entry_content_label')}>
-                    <Input.TextArea
-                      autoSize={textareaAutoSize}
-                      className='Journal__textarea'
-                      placeholder={t(
-                        'characters.journal.entry_content_placeholder'
-                      )}
-                      onKeyDown={e => {
-                        if (e.key !== 'Enter') return
-                        if (!e.metaKey && !e.ctrlKey) return
-                        e.preventDefault()
-                        onSave()
-                      }}
-                    />
-                  </Form.Item>
+                  <>
+                    <Row gutter={[16, 16]}>
+                      <Col xs={24} lg={24}>
+                        <Form.Item
+                          name={[fieldName, 'content']}
+                          className='Journal__modalEditor'
+                          label={t('characters.journal.entry_content_label')}>
+                          <Input.TextArea
+                            autoSize={textareaAutoSize}
+                            className='Journal__textarea'
+                            placeholder={t(
+                              'characters.journal.entry_content_placeholder'
+                            )}
+                            onKeyDown={e => {
+                              if (e.key !== 'Enter') return
+                              if (!e.metaKey && !e.ctrlKey) return
+                              e.preventDefault()
+                              onSave()
+                            }}
+                          />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                    <Row gutter={[16, 16]}>
+                      <Col xs={12}>
+                        <Form.Item
+                          name={[fieldName, 'phase']}
+                          label={t('characters.journal.phase_label')}
+                          style={{ marginBottom: 0 }}>
+                          <Select
+                            allowClear
+                            options={[
+                              {
+                                value: 'day',
+                                label: t('characters.journal.phase_day'),
+                              },
+                              {
+                                value: 'night',
+                                label: t('characters.journal.phase_night'),
+                              },
+                            ]}
+                          />
+                        </Form.Item>
+                      </Col>
+                      <Col xs={12}>
+                        <Form.Item
+                          name={[fieldName, 'slice']}
+                          label={t('characters.journal.slice_label')}
+                          style={{ marginBottom: 0 }}>
+                          <InputNumber
+                            min={1}
+                            disabled={!phase}
+                            style={{ width: '100%' }}
+                          />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                  </>
                 ),
               },
               {

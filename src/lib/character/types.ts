@@ -38,11 +38,15 @@ export type CharacterMapState = {
   cells: CharacterMapCell[]
 }
 
+export type JournalEntryPhase = 'day' | 'night'
+
 export type JournalEntry = {
   id: string
   content: string
   createdAt: string
   updatedAt: string
+  phase?: JournalEntryPhase
+  slice?: number
 }
 
 export type Character = {

@@ -121,7 +121,11 @@
       "metadata": "Créé le {createdAt} · Mis à jour le {updatedAt}",
       "modal_title": "Éditer l’entrée du journal",
       "notes_section": "Journal",
+      "phase_day": "Jour",
+      "phase_label": "Phase",
+      "phase_night": "Nuit",
       "preview_entry": "Aperçu",
+      "slice_label": "Tranche",
       "tab_edit": "Édition",
       "title": "Journal"
     },

@@ -170,6 +170,12 @@ function normalizeJournalEntry(value: unknown): JournalEntry | null {
       typeof item.updatedAt === 'string' && item.updatedAt
         ? item.updatedAt
         : now,
+    phase:
+      item.phase === 'day' || item.phase === 'night' ? item.phase : undefined,
+    slice:
+      typeof item.slice === 'number' && item.slice >= 1
+        ? item.slice
+        : undefined,
   }
 }
 
