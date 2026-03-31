@@ -1,4 +1,4 @@
-import form, { FormInstance } from 'antd/es/form'
+import { FormInstance } from 'antd/es/form'
 import { useEffect } from 'react'
 
 export function useKeyboardShortcuts({
