@@ -120,3 +120,10 @@
   align-items: center;
   justify-content: center;
 }
+
+.Journal__pagination {
+  margin-top: 1em;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}

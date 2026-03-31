@@ -3,15 +3,11 @@
 import type { FormInstance } from 'antd'
 import { Timeline } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
-import { useEffect, useMemo, useRef } from 'react'
+import { useMemo } from 'react'
 import { JournalEntry } from '@/components/Journal/JournalEntry'
 import { useWatchedJournal } from '@/components/PageCharacterSheet/useCharacterSheetDerived'
-import { useJournalEntryViewModes } from '@/components/PageCharacterSheet/useJournalEntryViewModes'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
-import type {
-  JournalEntryPhase,
-  JournalEntry as JournalEntryType,
-} from '@/lib/character/types'
+import type { JournalEntryPhase } from '@/lib/character/types'
 import './Journal.css'
 import { TimelineIcon } from './TimelineIcon'
 
@@ -19,24 +15,17 @@ export function Journal({
   fields,
   form,
   deleteEntry,
+  isEditing,
+  setEditingMode,
 }: {
   fields: FormListFieldData[]
   form: FormInstance
   deleteEntry: (entryIndex: number) => void
+  isEditing: (fieldKey: number) => boolean
+  setEditingMode: (fieldKey: number, isEditing: boolean) => void
 }) {
   const { settings } = useSettings()
-  const { isEditing, setEditingMode } = useJournalEntryViewModes()
-  const previousFieldCountRef = useRef(fields.length)
   const journal = useWatchedJournal()
-
-  // Automatically turn on the edit mode for the newly created entry
-  useEffect(() => {
-    if (fields.length > previousFieldCountRef.current) {
-      const latest = fields[fields.length - 1]
-      if (latest) setEditingMode(latest.key, true)
-      previousFieldCountRef.current = fields.length
-    }
-  }, [fields, setEditingMode])
 
   const items = useMemo(
     () =>
