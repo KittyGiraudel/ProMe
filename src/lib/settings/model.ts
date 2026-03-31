@@ -15,6 +15,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   map: {
     tickClockOnMove: false,
     showBiomeBackground: true,
+    coordinatesDisplay: 'both',
   },
 }
 
@@ -37,6 +38,11 @@ export function normalizeSettings(value: unknown): AppSettings {
     map: {
       tickClockOnMove: source?.map?.tickClockOnMove === true,
       showBiomeBackground: source?.map?.showBiomeBackground !== false,
+      coordinatesDisplay: (['axes', 'hexagons', 'both'] as const).includes(
+        source?.map?.coordinatesDisplay as 'axes' | 'hexagons' | 'both'
+      )
+        ? (source!.map!.coordinatesDisplay as 'axes' | 'hexagons' | 'both')
+        : 'both',
     },
   }
 }

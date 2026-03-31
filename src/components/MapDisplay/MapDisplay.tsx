@@ -1,5 +1,6 @@
 'use client'
 
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import type { HexCoordinate } from '@/lib/character/types'
 import { MAP_ROWS, type SheetCoordinate } from '@/lib/hex/coordinates'
 import { MapLegendCol } from './MapLegendCol'
@@ -18,12 +19,19 @@ export function MapDisplay({
   selectedCell,
   selectCell,
 }: MapDisplayProps) {
+  const { settings } = useSettings()
+  const showAxes = settings.map.coordinatesDisplay !== 'hexagons'
+
   return (
     <div className='MapScroller'>
       <div className='Map'>
-        <MapLegendRow position='top' offset={0} />
-        <MapLegendRow position='top' offset={1} />
-        <MapLegendCol position='left' />
+        {showAxes && (
+          <>
+            <MapLegendRow position='top' offset={0} />
+            <MapLegendRow position='top' offset={1} />
+            <MapLegendCol position='left' />
+          </>
+        )}
 
         <div className='Map__Inner'>
           {Array.from({ length: MAP_ROWS }, (_, ri) => (
@@ -37,9 +45,13 @@ export function MapDisplay({
           ))}
         </div>
 
-        <MapLegendCol position='right' />
-        <MapLegendRow position='bottom' offset={1} />
-        <MapLegendRow position='bottom' offset={0} />
+        {showAxes && (
+          <>
+            <MapLegendCol position='right' />
+            <MapLegendRow position='bottom' offset={1} />
+            <MapLegendRow position='bottom' offset={0} />
+          </>
+        )}
       </div>
     </div>
   )

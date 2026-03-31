@@ -23,5 +23,7 @@ export type AppSettings = {
     tickClockOnMove: boolean
     /** When true, biome background patterns are rendered inside each hex. */
     showBiomeBackground: boolean
+    /** Controls how cell coordinates are displayed: on the axes, inside hexagons, or both. */
+    coordinatesDisplay: 'axes' | 'hexagons' | 'both'
   }
 }

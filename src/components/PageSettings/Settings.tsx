@@ -25,6 +25,7 @@ type SettingsFormValues = {
   villageMergeDuplicateEstablishments: boolean
   mapTickClockOnMove: boolean
   mapShowBiomeBackground: boolean
+  mapCoordinatesDisplay: 'axes' | 'hexagons' | 'both'
 }
 
 export function Settings() {
@@ -46,6 +47,7 @@ export function Settings() {
       settings.village.mergeDuplicateEstablishments,
     mapTickClockOnMove: settings.map.tickClockOnMove,
     mapShowBiomeBackground: settings.map.showBiomeBackground,
+    mapCoordinatesDisplay: settings.map.coordinatesDisplay,
   }
 
   const handleReset = () => {
@@ -59,6 +61,7 @@ export function Settings() {
         DEFAULT_SETTINGS.village.mergeDuplicateEstablishments,
       mapTickClockOnMove: DEFAULT_SETTINGS.map.tickClockOnMove,
       mapShowBiomeBackground: DEFAULT_SETTINGS.map.showBiomeBackground,
+      mapCoordinatesDisplay: DEFAULT_SETTINGS.map.coordinatesDisplay,
     })
   }
 
@@ -84,6 +87,7 @@ export function Settings() {
         ...prev.map,
         tickClockOnMove: allValues.mapTickClockOnMove === true,
         showBiomeBackground: allValues.mapShowBiomeBackground !== false,
+        coordinatesDisplay: allValues.mapCoordinatesDisplay ?? 'both',
       },
     }))
   }
@@ -172,46 +176,66 @@ export function Settings() {
                       {t('settings.map_show_biome_background_label')}
                     </Checkbox>
                   </Form.Item>
-                </Space>
-              </Card>
-            </Col>
-            <Col xs={24} md={12}>
-              <Card title={t('settings.section_journal')}>
-                <Space orientation='vertical' size='small'>
                   <Form.Item
-                    name='timelineReverseChronological'
-                    valuePropName='checked'
-                    help={t(
-                      'settings.journal_timeline_reverse_chronological_help'
-                    )}>
-                    <Checkbox>
-                      {t(
-                        'settings.journal_timeline_reverse_chronological_label'
-                      )}
-                    </Checkbox>
+                    name='mapCoordinatesDisplay'
+                    label={t('settings.map_coordinates_display_label')}
+                    help={t('settings.map_coordinates_display_help')}
+                    style={{ marginBottom: 0 }}>
+                    <Select
+                      options={[
+                        {
+                          value: 'both',
+                          label: t('settings.map_coordinates_display_both'),
+                        },
+                        {
+                          value: 'axes',
+                          label: t('settings.map_coordinates_display_axes'),
+                        },
+                        {
+                          value: 'hexagons',
+                          label: t('settings.map_coordinates_display_hexagons'),
+                        },
+                      ]}
+                    />
                   </Form.Item>
                 </Space>
               </Card>
             </Col>
-          </Row>
-          <Row gutter={[16, 16]}>
             <Col xs={24} md={12}>
-              <Card title={t('settings.section_village')}>
-                <Space orientation='vertical' size='small'>
-                  <Form.Item
-                    name='villageMergeDuplicateEstablishments'
-                    valuePropName='checked'
-                    help={t(
-                      'settings.village_merge_duplicate_establishments_help'
-                    )}>
-                    <Checkbox>
-                      {t(
-                        'settings.village_merge_duplicate_establishments_label'
-                      )}
-                    </Checkbox>
-                  </Form.Item>
-                </Space>
-              </Card>
+              <Space orientation='vertical' size='large'>
+                <Card title={t('settings.section_journal')}>
+                  <Space orientation='vertical' size='small'>
+                    <Form.Item
+                      name='timelineReverseChronological'
+                      valuePropName='checked'
+                      help={t(
+                        'settings.journal_timeline_reverse_chronological_help'
+                      )}>
+                      <Checkbox>
+                        {t(
+                          'settings.journal_timeline_reverse_chronological_label'
+                        )}
+                      </Checkbox>
+                    </Form.Item>
+                  </Space>
+                </Card>
+                <Card title={t('settings.section_village')}>
+                  <Space orientation='vertical' size='small'>
+                    <Form.Item
+                      name='villageMergeDuplicateEstablishments'
+                      valuePropName='checked'
+                      help={t(
+                        'settings.village_merge_duplicate_establishments_help'
+                      )}>
+                      <Checkbox>
+                        {t(
+                          'settings.village_merge_duplicate_establishments_label'
+                        )}
+                      </Checkbox>
+                    </Form.Item>
+                  </Space>
+                </Card>
+              </Space>
             </Col>
           </Row>
         </Space>

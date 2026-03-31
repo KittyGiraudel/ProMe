@@ -5,7 +5,9 @@ import { type EmojiClickData, EmojiStyle, Theme } from 'emoji-picker-react'
 import dynamic from 'next/dynamic'
 import { useTranslations } from 'next-intl'
 import { useCallback, useState } from 'react'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import type { HexCoordinate } from '@/lib/character/types'
+import { VisuallyHidden } from '../VisuallyHidden/VisuallyHidden'
 import { useMapCellContextMenuItems } from './mapCellContextMenuItems'
 import { useMapActions } from './useMapActions'
 import { useMapState } from './useMapState'
@@ -55,6 +57,7 @@ export function MapCellContextMenu({
   const { componentDisabled } = ConfigProvider.useConfig()
   const [open, setOpen] = useState(false)
   const [emojiModalOpen, setEmojiModalOpen] = useState(false)
+  const { settings } = useSettings()
 
   const items = useMapCellContextMenuItems({
     setEmojiModalOpen,
@@ -96,7 +99,11 @@ export function MapCellContextMenu({
           title={label}
           className='MapHex__Button'
           disabled={componentDisabled}>
-          {coordLabel}
+          {settings.map.coordinatesDisplay === 'axes' ? (
+            <VisuallyHidden>{coordLabel}</VisuallyHidden>
+          ) : (
+            coordLabel
+          )}
         </button>
       </Dropdown>
 
