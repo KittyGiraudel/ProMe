@@ -27,6 +27,15 @@
   font-size: 2em;
 }
 
+.Layout__logo {
+  color: white;
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+  font-family: cursive;
+  font-weight: 700;
+  padding-inline: 1em;
+}
+
 .Layout__content {
   margin-top: 1em;
   min-height: 280px;

@@ -113,6 +113,7 @@ export const Layout = ({
       }
       data-sheet-night={sheetNightChrome ? 'true' : undefined}>
       <AntLayout.Header className='Layout__header'>
+        <span className='Layout__logo'>ProMe</span>
         <Menu
           data-biome={bannerBiome}
           className='Layout__menu'
