@@ -105,7 +105,7 @@ export function CharacterSheetShell({
   const getCharacterLink = useCharacterLink()
 
   if (!character) {
-    return <CharacterSheetEmptyState />
+    return <CharacterSheetEmptyState loading={!hydratedFromStore} />
   }
 
   const isDead = character ? isCharacterDead(character) : false
