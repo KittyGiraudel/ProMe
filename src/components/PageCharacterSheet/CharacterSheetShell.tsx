@@ -2,7 +2,7 @@
 
 import { Alert, ConfigProvider, Form, Space } from 'antd'
 import { useTranslations } from 'next-intl'
-import { type ReactNode, useMemo } from 'react'
+import { type ReactNode, useEffect, useMemo } from 'react'
 import { Button } from '@/components/Button/Button'
 import { CopyDropdown } from '@/components/CopyDropdown/CopyDropdown'
 import { Layout } from '@/components/Layout/Layout'
@@ -27,6 +27,7 @@ import { useCharacterSheetForm } from './useCharacterSheetForm'
 import { useCharacterSheetFormSync } from './useCharacterSheetFormSync'
 import { useCharacterSheetMainActions } from './useCharacterSheetMainActions'
 import { useCharacterSheetTheme } from './useCharacterSheetTheme'
+import { useKeyboardShortcuts } from './useKeyboardShortcuts'
 
 export function CharacterSheetShell({
   characterId,
@@ -103,12 +104,13 @@ export function CharacterSheetShell({
   )
 
   const getCharacterLink = useCharacterLink()
+  const isDead = character ? isCharacterDead(character) : false
+
+  useKeyboardShortcuts({ form, isDead })
 
   if (!character) {
     return <CharacterSheetEmptyState loading={!hydratedFromStore} />
   }
-
-  const isDead = character ? isCharacterDead(character) : false
 
   return (
     <Layout
