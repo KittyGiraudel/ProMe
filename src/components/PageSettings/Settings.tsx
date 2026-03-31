@@ -1,10 +1,21 @@
 'use client'
 
-import { Alert, Card, Checkbox, Col, Form, Row, Select, Space } from 'antd'
+import {
+  Alert,
+  Button,
+  Card,
+  Checkbox,
+  Col,
+  Form,
+  Row,
+  Select,
+  Space,
+} from 'antd'
 import { AppConfig, useLocale, useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
 import { usePathname, useRouter } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
+import { DEFAULT_SETTINGS } from '@/lib/settings/model'
 import { useSettings } from './SettingsContext'
 
 type SettingsFormValues = {
@@ -17,6 +28,7 @@ type SettingsFormValues = {
 }
 
 export function Settings() {
+  const [form] = Form.useForm<SettingsFormValues>()
   const { settings, updateSettings } = useSettings()
   const t = useTranslations()
   const locale = useLocale()
@@ -34,6 +46,20 @@ export function Settings() {
       settings.village.mergeDuplicateEstablishments,
     mapTickClockOnMove: settings.map.tickClockOnMove,
     mapShowBiomeBackground: settings.map.showBiomeBackground,
+  }
+
+  const handleReset = () => {
+    updateSettings(() => DEFAULT_SETTINGS)
+    form.setFieldsValue({
+      adaptiveNightMode: DEFAULT_SETTINGS.sheet.adaptiveNightMode,
+      sheetSinglePageMode: DEFAULT_SETTINGS.sheet.singlePageMode,
+      timelineReverseChronological:
+        DEFAULT_SETTINGS.journal.timelineReverseChronological,
+      villageMergeDuplicateEstablishments:
+        DEFAULT_SETTINGS.village.mergeDuplicateEstablishments,
+      mapTickClockOnMove: DEFAULT_SETTINGS.map.tickClockOnMove,
+      mapShowBiomeBackground: DEFAULT_SETTINGS.map.showBiomeBackground,
+    })
   }
 
   const handleValuesChange = (_: unknown, allValues: SettingsFormValues) => {
@@ -69,8 +95,12 @@ export function Settings() {
       breadcrumbs={[
         { title: t('nav.home'), path: '/' },
         { title: t('nav.settings'), path: '/settings' },
-      ]}>
+      ]}
+      headerActions={
+        <Button onClick={handleReset}>{t('common.actions.reset')}</Button>
+      }>
       <Form<SettingsFormValues>
+        form={form}
         layout='vertical'
         initialValues={initialValues}
         onValuesChange={handleValuesChange}>

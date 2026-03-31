@@ -4,7 +4,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   schemaVersion: SETTINGS_SCHEMA_VERSION,
   sheet: {
     adaptiveNightMode: false,
-    singlePageMode: false,
+    singlePageMode: true,
   },
   journal: {
     timelineReverseChronological: false,
