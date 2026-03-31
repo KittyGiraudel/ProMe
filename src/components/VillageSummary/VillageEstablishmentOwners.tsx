@@ -46,8 +46,10 @@ export function VillageEstablishmentOwners({
             />
           ),
           faction: t(`common.factions.${e.roll.faction}`),
-          age: t(`common.ages.${age}`),
-          personality: t(`common.personalities.${personality}`, { gender }),
+          age: t(`common.ages.${age}`).toLowerCase(),
+          personality: t(`common.personalities.${personality}`, {
+            gender,
+          }).toLowerCase(),
         })}{' '}
         <Tooltip title={t('village.reroll_owner')}>
           <Button

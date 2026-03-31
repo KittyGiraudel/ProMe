@@ -60,10 +60,10 @@ export function NpcGenerator({
       gender: genderCompactSymbol(roll.gender),
       name: roll.name,
       faction: t(`common.factions.${roll.faction}`),
-      age: t(`common.ages.${getAgeBand(roll)}`),
+      age: t(`common.ages.${getAgeBand(roll)}`).toLowerCase(),
       personality: t(`common.personalities.${getPersonality(roll)}`, {
         gender: roll.gender,
-      }),
+      }).toLowerCase(),
     })
     return {
       description,

@@ -26,9 +26,10 @@ export function Journal({
   const { settings } = useSettings()
   const { isEditing, setEditingMode } = useJournalEntryViewModes()
   const previousFieldCountRef = useRef(fields.length)
-  const journalEntries = Form.useWatch('journalEntries', { form, preserve: true }) as
-    | JournalEntryType[]
-    | undefined
+  const journalEntries = Form.useWatch('journalEntries', {
+    form,
+    preserve: true,
+  }) as JournalEntryType[] | undefined
 
   // Automatically turn on the edit mode for the newly created entry
   useEffect(() => {

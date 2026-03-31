@@ -48,10 +48,10 @@ export function getVillageSummary(
       const oneLiner = t('inhabitant.one_liner', {
         gender: genderCompactSymbol(owner.gender),
         name: owner.name,
-        age: t(`common.ages.${getAgeBand(owner)}`),
+        age: t(`common.ages.${getAgeBand(owner)}`).toLowerCase(),
         personality: t(`common.personalities.${getPersonality(owner)}`, {
           gender: owner.gender,
-        }),
+        }).toLowerCase(),
         faction: t(`common.factions.${owner.faction}`),
       })
       return `- ${row.text}\n  - ${t('village.owner_label')} ${oneLiner}`
