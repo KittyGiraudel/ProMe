@@ -98,7 +98,7 @@
         "embellishment_biome": "Mise en couleur des noms de biomes (ex. : {example})",
         "embellishment_cards": "Mise en valeur des cartes à jouer (♠, ♥, ♦, ♣)",
         "embellishment_cells": "Liens vers les hexagones (ex. : <e13></e13>, <b07></b07>)",
-        "embellishment_checks": "Mise en couleur des mots « {success} » et « {failure} »",
+        "embellishment_checks": "Mise en couleur des mots « {success} » et « {failure} »",
         "embellishment_dice": "Mise en valeur des dés (⚀, ⚁, ⚂, ⚃, ⚄, ⚅)",
         "embellishment_stars": "Mise en couleur des astres (☼, ☾)",
         "embellishment_title": "Embellissement automatique",
@@ -170,7 +170,7 @@
       "edit": "Éditer",
       "finish": "Terminer",
       "generate": "Générer",
-      "go_to": "Ouvrir « {destination} »",
+      "go_to": "Ouvrir « {destination} »",
       "open": "Ouvrir",
       "open_in_new_tab": "Ouvrir dans un nouvel onglet",
       "reset": "Réinitialiser",
@@ -288,7 +288,7 @@
     }
   },
   "faq": {
-    "answer_1": "ProMe, pour « **Pro**tecteur » et « **Mé**moires » est un compagnon de jeu pour « [Les Souvenirs du Protecteur](https://www.cultura.com/p-les-souvenirs-du-protecteur-les-fondations-de-l-imaginaire-12158384.html) », un jeu de rôle solo par Enzo Salviato. Il est suggéré d’avoir l’application ouvert en jouant au jeu, comme référence et pour pouvoir marquer sa progression. C’est principalement pour pouvoir jouer au jeu de manière numérique (pas tout à fait cependant, car utiliser le manuel officiel est requis).",
+    "answer_1": "ProMe, pour « **Pro**tecteur » et « **Mé**moires » est un compagnon de jeu pour « [Les Souvenirs du Protecteur](https://www.cultura.com/p-les-souvenirs-du-protecteur-les-fondations-de-l-imaginaire-12158384.html) », un jeu de rôle solo par Enzo Salviato. Il est suggéré d’avoir l’application ouvert en jouant au jeu, comme référence et pour pouvoir marquer sa progression. C’est principalement pour pouvoir jouer au jeu de manière numérique (pas tout à fait cependant, car utiliser le manuel officiel est requis).",
     "answer_2": "Le module de cartographie utilise des fonctionnalités de styles (CSS) modernes qui ne sont pas encore bien supportées par les navigateurs. C’est pourquoi il est préférable d’utiliser le navigateur Chrome, car c’est celui que j’utilise pour le dévelopement. Quant à pourquoi je n’ai pas étendu le support à d’autres navigateurs : créer une grille d’hexagones est compliqué ; j’avais le choix entre utiliser des technologies modernes pour garder les choses simples, ou développer tout le système de carte avec HTML Canvas, ce que je ne voulais pas faire.",
     "answer_3": "Les rencontres ne sont pas implémentées, donc à chaque déplacement, il faut lancer un dé (physiquement ou via l’application) puis se référer au livre de règles pour savoir quelle rencontre se produit.\nDe plus, le stock des boutiques n’est pas implémenté non plus. Cela signifie qu’à la création d’une village, il est nécessaire de définir les offres manuellement, puis de les noter dans le journal pour y revenir plus tard.",
     "answer_4": "Qu’on soit d’accord ou non, le jeu n’a pas de concept de genre donc tous les personnages — jouables ou non — sont sans genre. J’ai trouvé intéressant et plus immersif de pouvoir définir le genre des personnages. C’est complètement optionnel, et j’ai rendu les choses permissives avec plusieurs options.",
@@ -340,7 +340,7 @@
     "context_seven_map_localisation": "Carte de localisation",
     "context_spoken_name_label": "Nom prononcé (2D6, p. 60)",
     "context_spoken_name_meta": "2D6 : <dice></dice>",
-    "empty_summary": "Cliquez sur « {button} » pour générer un habitant.",
+    "empty_summary": "Cliquez sur « {button} » pour générer un habitant.",
     "one_liner_rich": "{gender} <name></name>, {age} {faction} {personality}",
     "one_liner": "{gender} {name}, {age} {faction} {personality}",
     "page_description": "Générez un habitant pour votre village.",
@@ -397,7 +397,7 @@
     "inventory_footnote": "Livre de règles — Les autres valeurs du jeu → L’inventaire : p. 8.",
     "page_citation": "p. {page}",
     "spellbook_footnote": "Livre de règles — La Magie : p. 14.",
-    "village_footnote": "Livre de règles — Les villages : p. 42. Table « Établissement » : p. 43."
+    "village_footnote": "Livre de règles — Les villages : p. 42. Table « Établissement » : p. 43."
   },
   "settings": {
     "adaptive_night_mode_help": "Bascule automatiquement entre le thème clair et le thème sombre en fonction de la valeur de l’horloge.",
@@ -406,7 +406,7 @@
     "sheet_single_page_mode_label": "Mode page unique",
     "journal_timeline_reverse_chronological_help": "Par défault, le journal est chronologique ; décochez pour afficher les entrées du plus récent au plus ancien.",
     "journal_timeline_reverse_chronological_label": "Journal anti-chronologique",
-    "map_tick_clock_on_move_help": "Quand vous vous déplacez vers une case voisine, la position sur l’horloge avance comme si vous aviez utilisé le bouton « Avancer ».",
+    "map_tick_clock_on_move_help": "Quand vous vous déplacez vers une case voisine, la position sur l’horloge avance comme si vous aviez utilisé le bouton « Avancer ».",
     "map_tick_clock_on_move_label": "Horloge automatique",
     "map_show_biome_background_help": "Affiche des motifs de fond dans chaque case selon son biome. Utile pour distinguer les biomes sans se fier uniquement aux couleurs.",
     "map_show_biome_background_label": "Motifs de biome",
@@ -439,7 +439,7 @@
   },
   "village": {
     "co_owners_label": "Copropriétaires :",
-    "empty_summary": "Cliquez sur « {button} » pour générer un village.",
+    "empty_summary": "Cliquez sur « {button} » pour générer un village.",
     "establishments": {
       "2": "{size, select, 0 {Petite boutique de potions} 1 {Grande boutique de potions} 2 {Immense boutique de potions} other {Boutique de potions}}",
       "3": "{size, select, 0 {Petite boutique d’équipement} 1 {Grande boutique d’équipement} 2 {Immense boutique d’équipement} other {Boutique d’équipement}}",
