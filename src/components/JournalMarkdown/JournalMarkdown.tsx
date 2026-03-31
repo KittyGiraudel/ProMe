@@ -63,6 +63,9 @@ export function JournalMarkdown({
     if (Array.isArray(node)) return node.map(renderWithHighlights)
     if (!isValidElement<{ children?: ReactNode }>(node)) return node
     if (!node.props.children) return node
+    // Custom components (type is not a string) call renderWithHighlights themselves —
+    // don't pre-process their children here or each nesting level adds another wrapping.
+    if (typeof node.type !== 'string') return node
 
     return cloneElement(
       node,
