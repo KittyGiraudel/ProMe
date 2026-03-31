@@ -1,10 +1,11 @@
 'use client'
 
 import type { FormInstance } from 'antd'
-import { Form, Timeline } from 'antd'
+import { Timeline } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
 import { useEffect, useMemo, useRef } from 'react'
 import { JournalEntry } from '@/components/Journal/JournalEntry'
+import { useWatchedJournal } from '@/components/PageCharacterSheet/useCharacterSheetDerived'
 import { useJournalEntryViewModes } from '@/components/PageCharacterSheet/useJournalEntryViewModes'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import type {
@@ -26,10 +27,7 @@ export function Journal({
   const { settings } = useSettings()
   const { isEditing, setEditingMode } = useJournalEntryViewModes()
   const previousFieldCountRef = useRef(fields.length)
-  const journalEntries = Form.useWatch('journalEntries', {
-    form,
-    preserve: true,
-  }) as JournalEntryType[] | undefined
+  const journal = useWatchedJournal()
 
   // Automatically turn on the edit mode for the newly created entry
   useEffect(() => {
@@ -43,7 +41,7 @@ export function Journal({
   const items = useMemo(
     () =>
       fields.map(field => {
-        const entry = journalEntries?.[field.name]
+        const entry = journal[field.name]
 
         return {
           key: String(field.key),
@@ -64,7 +62,7 @@ export function Journal({
           ),
         }
       }),
-    [fields, journalEntries, isEditing, setEditingMode, deleteEntry]
+    [fields, journal, isEditing, setEditingMode, deleteEntry]
   )
 
   return (

@@ -21,6 +21,7 @@ import { JournalEditCheatsheet } from '@/components/Journal/JournalEditCheatshee
 import { JournalMarkdown } from '@/components/JournalMarkdown/JournalMarkdown'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import '@/components/Journal/Journal.css'
+import { useWatchedJournal } from '../PageCharacterSheet/useCharacterSheetDerived'
 
 /** `autoSize` rows for the journal editor; breakpoint aligns with modal `Col lg={16}`. */
 const JOURNAL_MODAL_TEXTAREA_ROWS = {
@@ -55,7 +56,8 @@ export function JournalEntryEditModal({
   const screens = Grid.useBreakpoint()
   const t = useTranslations()
   const { settings } = useSettings()
-  const phase = Form.useWatch(['journalEntries', fieldName, 'phase'])
+  const journal = useWatchedJournal()
+  const phase = journal[fieldName]?.phase
   const textareaAutoSize = screens.lg
     ? JOURNAL_MODAL_TEXTAREA_ROWS.comfortable
     : JOURNAL_MODAL_TEXTAREA_ROWS.compact

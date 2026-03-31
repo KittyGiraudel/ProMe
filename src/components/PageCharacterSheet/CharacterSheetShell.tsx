@@ -2,7 +2,7 @@
 
 import { Alert, ConfigProvider, Form, Space } from 'antd'
 import { useTranslations } from 'next-intl'
-import { type ReactNode, useEffect, useMemo } from 'react'
+import { type ReactNode, useMemo } from 'react'
 import { Button } from '@/components/Button/Button'
 import { CopyDropdown } from '@/components/CopyDropdown/CopyDropdown'
 import { Layout } from '@/components/Layout/Layout'
@@ -22,6 +22,7 @@ import {
   useWarnDeath,
 } from './useCharacterLifeStatusActions'
 import { useCharacterLink } from './useCharacterLink'
+import { useWatchedMap } from './useCharacterSheetDerived'
 import { useCharacterSheetDocumentTitle } from './useCharacterSheetDocumentTitle'
 import { useCharacterSheetForm } from './useCharacterSheetForm'
 import { useCharacterSheetFormSync } from './useCharacterSheetFormSync'
@@ -55,7 +56,6 @@ export function CharacterSheetShell({
   // chrome and Ant Design theme.
   const { characterSheetNightMode, configTheme } = useCharacterSheetTheme({
     form,
-    character,
   })
 
   // Side effects: remap clock index when stamina changes total segments; clamp
@@ -97,11 +97,8 @@ export function CharacterSheetShell({
   })
 
   // Layout page-cover biome follows map position even when the active tab is not the map.
-  const watchedMap = Form.useWatch('map', form)
-  const bannerBiome = useMemo(
-    () => biomeAtCurrentMapPosition(watchedMap),
-    [watchedMap]
-  )
+  const map = useWatchedMap(form)
+  const bannerBiome = useMemo(() => biomeAtCurrentMapPosition(map), [map])
 
   const getCharacterLink = useCharacterLink()
   const isDead = character ? isCharacterDead(character) : false

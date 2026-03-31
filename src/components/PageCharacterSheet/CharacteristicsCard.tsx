@@ -16,6 +16,7 @@ import {
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { HelpButton } from '../HelpButton/HelpButton'
+import { useWatchedStats } from './useCharacterSheetDerived'
 
 type PoolKey = 'health' | 'courage' | 'stamina'
 type ResourceKey = 'honor' | 'inspiration' | 'money'
@@ -23,10 +24,7 @@ type ResourceKey = 'honor' | 'inspiration' | 'money'
 export function CharacteristicsCard() {
   const t = useTranslations()
   const { notification } = App.useApp()
-  const form = Form.useFormInstance()
-  const courageCurrent = Form.useWatch(['courage', 'current'], form) as
-    | number
-    | undefined
+  const { courage } = useWatchedStats()
 
   const resources: readonly [ResourceKey, string, string][] = [
     [
@@ -106,7 +104,7 @@ export function CharacteristicsCard() {
   }
 
   const handleCourageRoll = () => {
-    const target = Math.max(0, courageCurrent ?? 0)
+    const target = Math.max(0, courage.current ?? 0)
     const roll = Math.floor(Math.random() * 6) + 1
     const success = roll <= target
     const status = success ? 'success' : 'failure'

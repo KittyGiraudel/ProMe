@@ -1,24 +1,18 @@
-import { Form } from 'antd'
 import { useCallback, useMemo } from 'react'
-import { normalizeMapState } from '@/lib/character/mapState'
 import {
-  CharacterMapCell,
-  CharacterMapState,
-  HexCoordinate,
-  JournalEntry,
-} from '@/lib/character/types'
+  useWatchedJournal,
+  useWatchedMap,
+} from '@/components/PageCharacterSheet/useCharacterSheetDerived'
+import { normalizeMapState } from '@/lib/character/mapState'
+import { CharacterMapCell, HexCoordinate } from '@/lib/character/types'
 import { formatDisplayedCellReference, toHexKey } from '@/lib/hex/coordinates'
 import { buildCellReferenceToJournalEntriesIndex } from '@/lib/journal/cellReferenceIndex'
 
 export const useJournalIndex = () => {
-  const form = Form.useFormInstance()
-  const watchedJournalEntries = Form.useWatch('journalEntries', {
-    form,
-    preserve: true,
-  }) as JournalEntry[] | undefined
+  const journal = useWatchedJournal()
   const index = useMemo(
-    () => buildCellReferenceToJournalEntriesIndex(watchedJournalEntries),
-    [watchedJournalEntries]
+    () => buildCellReferenceToJournalEntriesIndex(journal),
+    [journal]
   )
 
   const getLinksForCell = useCallback(
@@ -34,13 +28,8 @@ export const useJournalIndex = () => {
 }
 
 export const useMapState = () => {
-  const form = Form.useFormInstance()
-  const watchedMap = Form.useWatch('map', {
-    form,
-    preserve: true,
-  }) as CharacterMapState | undefined
-
-  const mapState = normalizeMapState(watchedMap)
+  const map = useWatchedMap()
+  const mapState = normalizeMapState(map)
   const cellsByKey = useMemo(() => {
     const next = new Map<string, CharacterMapCell>()
     for (const cell of mapState.cells) {

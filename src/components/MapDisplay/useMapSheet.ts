@@ -1,17 +1,17 @@
 'use client'
 
-import { Form } from 'antd'
 import {
+  type Dispatch,
+  type SetStateAction,
   useEffect,
   useMemo,
   useRef,
   useState,
-  type Dispatch,
-  type SetStateAction,
 } from 'react'
-import { getSheetCoordinate, type SheetCoordinate } from '@/lib/hex/coordinates'
-import type { CharacterMapState, HexCoordinate } from '@/lib/character/types'
+import { useWatchedMap } from '@/components/PageCharacterSheet/useCharacterSheetDerived'
 import { normalizeMapState } from '@/lib/character/mapState'
+import type { HexCoordinate } from '@/lib/character/types'
+import { getSheetCoordinate, type SheetCoordinate } from '@/lib/hex/coordinates'
 
 type UseMapSheetArgs = {
   currentPosition: HexCoordinate
@@ -20,11 +20,7 @@ type UseMapSheetArgs = {
 }
 
 export function useMapSheet({ currentPosition }: UseMapSheetArgs) {
-  const form = Form.useFormInstance()
-  const watchedMap = Form.useWatch('map', {
-    form,
-    preserve: true,
-  }) as CharacterMapState | undefined
+  const map = useWatchedMap()
 
   const [visibleSheet, setVisibleSheet] = useState<SheetCoordinate>(() =>
     getSheetCoordinate(currentPosition)
@@ -34,13 +30,13 @@ export function useMapSheet({ currentPosition }: UseMapSheetArgs) {
 
   useEffect(() => {
     if (hasSyncedVisibleSheetRef.current) return
-    if (watchedMap === undefined || watchedMap === null) return
+    if (map === undefined || map === null) return
     hasSyncedVisibleSheetRef.current = true
-    const normalized = normalizeMapState(watchedMap)
+    const normalized = normalizeMapState(map)
     // Align visible sheet with persisted map once the form field hydrates.
     // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time sync from form watch
     setVisibleSheet(getSheetCoordinate(normalized.currentPosition))
-  }, [watchedMap])
+  }, [map])
 
   const isViewingCurrentSheet = useMemo(() => {
     const sheetForCurrent = getSheetCoordinate(currentPosition)

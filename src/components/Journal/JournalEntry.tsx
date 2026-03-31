@@ -8,6 +8,7 @@ import { useCallback, useEffect, useRef } from 'react'
 import { Button } from '@/components/Button/Button'
 import { JournalEntryBodyPreview } from '@/components/Journal/JournalEntryBodyPreview'
 import { JournalEntryEditModal } from '@/components/Journal/JournalEntryEditModal'
+import { useWatchedJournal } from '../PageCharacterSheet/useCharacterSheetDerived'
 
 type JournalEntryProps = {
   field: FormListFieldData
@@ -52,11 +53,8 @@ export function JournalEntry({
     | string
     | undefined
 
-  const draftContent = Form.useWatch(
-    ['journalEntries', field.name, 'content'],
-    form
-  ) as string | undefined
-
+  const journal = useWatchedJournal()
+  const draftContent = journal[field.name]?.content
   const hasContent = Boolean(content?.trim())
   const entryAnchor = entryId ? `journal-entry-${entryId}` : undefined
 

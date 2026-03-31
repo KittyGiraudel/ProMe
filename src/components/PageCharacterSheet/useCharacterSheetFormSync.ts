@@ -7,7 +7,7 @@ import {
   remapClockPositionForTotalSegments,
 } from '@/lib/character/clock'
 import { Character } from '@/lib/character/types'
-import { useCharacterSheetDerived } from './useCharacterSheetDerived'
+import { useWatchedClock, useWatchedStats } from './useCharacterSheetDerived'
 
 export function useCharacterSheetFormSync({
   form,
@@ -16,17 +16,10 @@ export function useCharacterSheetFormSync({
   form: FormInstance
   character: Character | null
 }) {
-  const {
-    watchedClock,
-    healthCurrent,
-    healthMax,
-    courageCurrent,
-    courageMax,
-    staminaCurrent,
-    staminaMax,
-  } = useCharacterSheetDerived({ form, character })
+  const clock = useWatchedClock(form)
+  const { health, courage, stamina } = useWatchedStats(form)
   const prevClockTotalSegmentsRef = useRef<number | null>(null)
-  const clockTotalSegments = countClockSegments(staminaCurrent)
+  const clockTotalSegments = countClockSegments(stamina.current)
 
   useEffect(() => {
     // Skip during initial hydration: staminaCurrent is FALLBACK (0) while
@@ -42,29 +35,29 @@ export function useCharacterSheetFormSync({
     if (previous === clockTotalSegments) return
 
     const remapped = remapClockPositionForTotalSegments(
-      watchedClock,
+      clock,
       previous,
       clockTotalSegments
     )
     form.setFieldValue('clock', remapped)
     prevClockTotalSegmentsRef.current = clockTotalSegments
-  }, [clockTotalSegments, watchedClock, form, character])
+  }, [clockTotalSegments, clock, form, character])
 
   useEffect(() => {
-    if (healthCurrent == null || healthMax == null) return
-    if (healthCurrent <= healthMax) return
-    form.setFieldValue(['health', 'current'], healthMax)
-  }, [healthCurrent, healthMax, form])
+    if (health.current == null || health.max == null) return
+    if (health.current <= health.max) return
+    form.setFieldValue(['health', 'current'], health.max)
+  }, [health, form])
 
   useEffect(() => {
-    if (courageCurrent == null || courageMax == null) return
-    if (courageCurrent <= courageMax) return
-    form.setFieldValue(['courage', 'current'], courageMax)
-  }, [courageCurrent, courageMax, form])
+    if (courage.current == null || courage.max == null) return
+    if (courage.current <= courage.max) return
+    form.setFieldValue(['courage', 'current'], courage.max)
+  }, [courage, form])
 
   useEffect(() => {
-    if (staminaCurrent == null || staminaMax == null) return
-    if (staminaCurrent <= staminaMax) return
-    form.setFieldValue(['stamina', 'current'], staminaMax)
-  }, [staminaCurrent, staminaMax, form])
+    if (stamina.current == null || stamina.max == null) return
+    if (stamina.current <= stamina.max) return
+    form.setFieldValue(['stamina', 'current'], stamina.max)
+  }, [stamina, form])
 }

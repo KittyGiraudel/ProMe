@@ -11,15 +11,14 @@ import {
   isClockDayPhase,
 } from '@/lib/character/clock'
 import { useSetClockToRawTargetWithToast } from '@/lib/character/clockPositionNotifications'
-import type { StatPool } from '@/lib/character/types'
 import { HelpButton } from '../HelpButton/HelpButton'
+import { useWatchedClock, useWatchedStats } from './useCharacterSheetDerived'
 
 export function ClockCard() {
   const t = useTranslations()
   const form = Form.useFormInstance()
-  const watchOpts = { form, preserve: true } as const
-  const stamina = Form.useWatch('stamina', watchOpts) as StatPool | undefined
-  const clock = Form.useWatch('clock', watchOpts) as number | undefined
+  const clock = useWatchedClock()
+  const { stamina } = useWatchedStats()
   const updateClock = useCallback(
     (wrapped: number) => form.setFieldValue('clock', wrapped),
     [form]
@@ -27,10 +26,9 @@ export function ClockCard() {
   const setClockToRawTargetWithToast = useSetClockToRawTargetWithToast({
     updateClock,
   })
-  const staminaCurrent = stamina?.current ?? 0
-  const segmentsPerHalf = countHalfClockSegments(staminaCurrent)
+  const segmentsPerHalf = countHalfClockSegments(stamina.current)
   const totalSegments = segmentsPerHalf * 2
-  const position = clampClockSliceIndex(staminaCurrent, clock)
+  const position = clampClockSliceIndex(stamina.current, clock)
   const isDay = isClockDayPhase(position, segmentsPerHalf)
   const phaseLabel = isDay
     ? t('characters.map.clock_day')
@@ -42,7 +40,7 @@ export function ClockCard() {
 
   const setPosition = (nextPosition: number) => {
     setClockToRawTargetWithToast({
-      stamina: staminaCurrent,
+      stamina: stamina.current,
       position,
       nextPosition,
     })

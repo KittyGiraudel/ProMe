@@ -2,9 +2,8 @@
 
 import { Alert, Card, Col, Form, Input, Row, Select } from 'antd'
 import { useTranslations } from 'next-intl'
-import type { Archetype } from '@/lib/character/types'
 import { GENDERS } from '@/lib/constants/misc'
-import { Gender } from '@/lib/types'
+import { useWatchedIdentity } from './useCharacterSheetDerived'
 
 export function IdentityCard({
   isArchetypeReadonly = false,
@@ -12,8 +11,7 @@ export function IdentityCard({
   isArchetypeReadonly?: boolean
 }) {
   const t = useTranslations()
-  const watchedArchetype = Form.useWatch('archetype') as Archetype | undefined
-  const gender = Form.useWatch('gender') ?? ('indeterminate' as Gender)
+  const { gender, archetype } = useWatchedIdentity()
 
   return (
     <Card title={t('characters.identity.identity_section')}>
@@ -72,14 +70,14 @@ export function IdentityCard({
         </Col>
       </Row>
 
-      {watchedArchetype ? (
+      {archetype ? (
         <Row style={{ marginTop: 16 }}>
           <Col xs={24}>
             <Alert
               type='info'
-              title={t(`common.archetypes.power.${watchedArchetype}_title`)}
+              title={t(`common.archetypes.power.${archetype}_title`)}
               description={t(
-                `common.archetypes.power.${watchedArchetype}_description`
+                `common.archetypes.power.${archetype}_description`
               )}
             />
           </Col>

@@ -1,50 +1,63 @@
 'use client'
 
 import { Form, type FormInstance } from 'antd'
-import type { Character, StatPool } from '@/lib/character/types'
+import type {
+  Archetype,
+  CharacterMapState,
+  JournalEntry,
+  StatPool,
+} from '@/lib/character/types'
+import { Gender } from '@/lib/types'
 
 const FALLBACK_STAT_POOL: StatPool = { current: 0, max: 0 }
 
-export function useCharacterSheetDerived({
-  form,
-  character,
-}: {
-  form: FormInstance
-  character: Character | null
-}) {
-  // preserve: true — pool fields live on other tabs; default useWatch only sees mounted fields.
+export function useWatchedIdentity(oForm?: FormInstance) {
+  const iForm = Form.useFormInstance()
+  const form = oForm ?? iForm
+  const archetype = Form.useWatch<Archetype>('archetype', {
+    form,
+    preserve: true,
+  })
+  const gender =
+    Form.useWatch<Gender>('gender', { form, preserve: true }) ?? 'indeterminate'
+  const name = Form.useWatch<string>('name', { form, preserve: true }) ?? ''
+
+  return { name, archetype, gender }
+}
+
+export function useWatchedStats(oForm?: FormInstance) {
+  const iForm = Form.useFormInstance()
+  const form = oForm ?? iForm
   const watchOpts = { form, preserve: true } as const
-  const watchedStaminaRaw = Form.useWatch('stamina', watchOpts) as
-    | StatPool
-    | undefined
-  const watchedClockRaw = Form.useWatch('clock', watchOpts) as
-    | number
-    | undefined
-  const watchedHealthRaw = Form.useWatch('health', watchOpts) as
-    | StatPool
-    | undefined
-  const watchedCourageRaw = Form.useWatch('courage', watchOpts) as
-    | StatPool
-    | undefined
+  const stamina =
+    Form.useWatch<StatPool>('stamina', watchOpts) ?? FALLBACK_STAT_POOL
+  const health =
+    Form.useWatch<StatPool>('health', watchOpts) ?? FALLBACK_STAT_POOL
+  const courage =
+    Form.useWatch<StatPool>('courage', watchOpts) ?? FALLBACK_STAT_POOL
 
-  const watchedStamina =
-    watchedStaminaRaw ?? character?.stamina ?? FALLBACK_STAT_POOL
-  const watchedClock = watchedClockRaw ?? character?.clock ?? 0
-  const watchedHealth =
-    watchedHealthRaw ?? character?.health ?? FALLBACK_STAT_POOL
-  const watchedCourage =
-    watchedCourageRaw ?? character?.courage ?? FALLBACK_STAT_POOL
+  return { stamina, health, courage }
+}
 
-  return {
-    watchedClock,
-    watchedHealth,
-    watchedCourage,
-    watchedStamina,
-    healthCurrent: watchedHealth.current,
-    healthMax: watchedHealth.max,
-    courageCurrent: watchedCourage.current,
-    courageMax: watchedCourage.max,
-    staminaCurrent: watchedStamina.current,
-    staminaMax: watchedStamina.max,
-  }
+export function useWatchedMap(oForm?: FormInstance) {
+  const iForm = Form.useFormInstance()
+  const form = oForm ?? iForm
+  return Form.useWatch<CharacterMapState>('map', { form, preserve: true })
+}
+
+export function useWatchedClock(oForm?: FormInstance) {
+  const iForm = Form.useFormInstance()
+  const form = oForm ?? iForm
+  return Form.useWatch<number>('clock', { form, preserve: true }) ?? 0
+}
+
+export function useWatchedJournal(oForm?: FormInstance) {
+  const iForm = Form.useFormInstance()
+  const form = oForm ?? iForm
+  return (
+    Form.useWatch<JournalEntry[]>('journalEntries', {
+      form,
+      preserve: true,
+    }) ?? []
+  )
 }

@@ -7,8 +7,7 @@ import {
   countHalfClockSegments,
   isClockNightPhase,
 } from '@/lib/character/clock'
-import { Character } from '@/lib/character/types'
-import { useCharacterSheetDerived } from './useCharacterSheetDerived'
+import { useWatchedClock, useWatchedStats } from './useCharacterSheetDerived'
 
 const CHARACTER_SHEET_NIGHT_THEME = {
   algorithm: antdTheme.darkAlgorithm,
@@ -33,25 +32,14 @@ const CHARACTER_SHEET_NIGHT_THEME = {
   },
 }
 
-export function useCharacterSheetTheme({
-  form,
-  character,
-}: {
-  form: FormInstance
-  character: Character | null
-}) {
-  const { watchedClock, staminaCurrent } = useCharacterSheetDerived({
-    form,
-    character,
-  })
+export function useCharacterSheetTheme({ form }: { form: FormInstance }) {
+  const clock = useWatchedClock(form)
+  const { stamina } = useWatchedStats(form)
 
   const { settings } = useSettings()
   const adaptiveNightMode = settings.sheet.adaptiveNightMode
-  const clockSegmentsPerHalf = countHalfClockSegments(staminaCurrent)
-  const clockPositionForPhase = clampClockSliceIndex(
-    staminaCurrent,
-    watchedClock
-  )
+  const clockSegmentsPerHalf = countHalfClockSegments(stamina.current)
+  const clockPositionForPhase = clampClockSliceIndex(stamina.current, clock)
   const isClockNight = isClockNightPhase(
     clockPositionForPhase,
     clockSegmentsPerHalf

@@ -7,7 +7,7 @@ import { Button } from '@/components/Button/Button'
 import { getCharacterStore } from '@/lib/character/store'
 import type { Character } from '@/lib/character/types'
 import { useCharacterFromForm } from './useCharacterFromForm'
-import { useCharacterSheetDerived } from './useCharacterSheetDerived'
+import { useWatchedStats } from './useCharacterSheetDerived'
 
 const DEATH_SUGGESTION_KEY = 'death-suggestion'
 
@@ -83,20 +83,20 @@ export const useWarnDeath = ({
 }) => {
   const t = useTranslations()
   const { notification } = App.useApp()
-  const { healthCurrent } = useCharacterSheetDerived({ form, character })
+  const { health } = useWatchedStats(form)
   const prevHealthCurrentRef = useRef<number | null>(null)
 
   useEffect(() => {
-    if (healthCurrent == null || character == null) return
+    if (health.current == null || character == null) return
 
     if (character.lifeStatus === 'dead') {
       notification.destroy(DEATH_SUGGESTION_KEY)
-      prevHealthCurrentRef.current = healthCurrent
+      prevHealthCurrentRef.current = health.current
       return
     }
 
     const previous = prevHealthCurrentRef.current
-    if (previous != null && previous > 0 && healthCurrent <= 0) {
+    if (previous != null && previous > 0 && health.current <= 0) {
       notification.warning({
         key: DEATH_SUGGESTION_KEY,
         title: t('characters.actions.death_suggestion_title'),
@@ -116,9 +116,9 @@ export const useWarnDeath = ({
         ),
       })
     }
-    if (healthCurrent > 0) {
+    if (health.current > 0) {
       notification.destroy(DEATH_SUGGESTION_KEY)
     }
-    prevHealthCurrentRef.current = healthCurrent
-  }, [character, healthCurrent, onKill, notification, t])
+    prevHealthCurrentRef.current = health.current
+  }, [character, health, onKill, notification, t])
 }
