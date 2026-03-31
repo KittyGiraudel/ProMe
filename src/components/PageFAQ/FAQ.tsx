@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
 import './FAQ.css'
 import { TranslationKey } from '@/lib/types'
+import { RichText } from '../RichText/RichText'
 
 const ENTRY_COUNT = 4
 
@@ -40,11 +41,7 @@ function Entry({ index }: { index: number }) {
 }
 
 function Paragraphs({ translation }: { translation: string }) {
-  return translation.split(/\n/g).map((paragraph, index, paragraphs) => (
-    <Typography.Paragraph
-      key={index}
-      style={{ marginBottom: paragraphs.length - 1 === index ? 0 : 12 }}>
-      {paragraph}
-    </Typography.Paragraph>
-  ))
+  return translation
+    .split(/\n/g)
+    .map((paragraph, index) => <RichText key={index} text={paragraph} />)
 }

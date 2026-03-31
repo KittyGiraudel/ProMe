@@ -13,7 +13,7 @@ import {
 import type { CharacterStore } from '@/lib/character/store/types'
 import type { Character, CharacterImportMode } from '@/lib/character/types'
 
-const STORAGE_KEY = 'lsdp:characters:v1'
+const STORAGE_KEY = 'prome:characters:v1'
 
 function safeReadStorage(): string {
   if (typeof window === 'undefined') return '[]'

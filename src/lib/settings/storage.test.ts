@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { DEFAULT_SETTINGS } from './model'
 import { loadSettings, saveSettings } from './storage'
 
-const SETTINGS_STORAGE_KEY = 'lsdp:settings:v1'
+const SETTINGS_STORAGE_KEY = 'prome:settings:v1'
 
 describe('settings/storage', () => {
   const createMemoryStorage = (): Storage => {
@@ -40,7 +40,7 @@ describe('settings/storage', () => {
   it('persists and reloads normalized settings', () => {
     saveSettings({
       ...DEFAULT_SETTINGS,
-      sheet: { adaptiveNightMode: true },
+      sheet: { adaptiveNightMode: true, singlePageMode: true },
       journal: { timelineReverseChronological: true },
     })
 

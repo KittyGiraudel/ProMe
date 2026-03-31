@@ -12,7 +12,7 @@ export function Footer() {
         {t.rich('footer.application', {
           link: chunks => (
             <Link
-              href='https://github.com/KittyGiraudel/lsdp'
+              href='https://github.com/KittyGiraudel/ProMe'
               target='_blank'
               rel='noopener noreferrer'>
               {chunks}

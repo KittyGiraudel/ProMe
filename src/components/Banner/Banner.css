@@ -6,7 +6,7 @@
   overflow: hidden;
   background-color: var(--pc-sky-mid);
   border-bottom: 1px solid
-    color-mix(in srgb, var(--lsdp-border) 85%, transparent);
+    color-mix(in srgb, var(--prome-border) 85%, transparent);
 
   /* Default palette: neutral grey (biome sheets override via [data-biome]) */
   --pc-sky-top: #ececee;

@@ -1,6 +1,6 @@
-# LSDP
+# ProMe
 
-This application is a companion app for the game “Les Souvenirs du Protecteur”, a solo TTRPG. It is meant to have open while playing the game, as a reference, a helper and a way to keep game progress.
+This application is a companion app for the game “The Protector’s Memories” / “Les Souvenirs du Protecteur”, a solo TTRPG. It is meant to have open while playing the game, as a reference, a helper and a way to keep game progress.
 
 Here are the features:
 
@@ -21,7 +21,7 @@ Here are the features:
 Clone the repository locally, install the dependencies, start the server and open the local URL in Chrome.
 
 ```sh
-git clone git@github.com:KittyGiraudel/lsdp
+git clone git@github.com:KittyGiraudel/ProMe
 npm install
 npm run dev # http://localhost:3000
 ```

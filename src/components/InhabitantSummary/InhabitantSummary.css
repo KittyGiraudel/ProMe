@@ -34,7 +34,7 @@
 }
 
 .InhabitantSummary__meta {
-  color: var(--lsdp-muted);
+  color: var(--prome-muted);
   display: flex;
   gap: 0.5em;
   align-items: center;
@@ -45,11 +45,11 @@
   height: 1.5em;
   min-width: 1.5em;
   padding: 0;
-  color: var(--lsdp-muted);
+  color: var(--prome-muted);
 }
 
 .InhabitantSummary__reroll.ant-btn:hover {
-  color: var(--lsdp-text);
+  color: var(--prome-text);
 }
 
 .InhabitantSummary__context {
@@ -68,8 +68,8 @@
 
 .InhabitantSummary__context-card-hit:focus-visible {
   box-shadow:
-    0 0 0 2px var(--lsdp-surface),
-    0 0 0 4px var(--lsdp-border);
+    0 0 0 2px var(--prome-surface),
+    0 0 0 4px var(--prome-border);
 }
 
 .InhabitantSummary__context-followup {
@@ -83,7 +83,7 @@
 }
 
 .InhabitantSummary__followup-label {
-  color: var(--lsdp-muted);
+  color: var(--prome-muted);
 }
 
 .InhabitantSummary__stack--tight {

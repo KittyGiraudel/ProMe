@@ -1,9 +1,9 @@
 :root {
-  --lsdp-bg: #f6f9f7;
-  --lsdp-surface: #ffffff;
-  --lsdp-text: #1f2d2a;
-  --lsdp-muted: #5c726b;
-  --lsdp-border: #d8e5df;
+  --prome-bg: #f6f9f7;
+  --prome-surface: #ffffff;
+  --prome-text: #1f2d2a;
+  --prome-muted: #5c726b;
+  --prome-border: #d8e5df;
 }
 
 html {
@@ -20,8 +20,8 @@ body {
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  color: var(--lsdp-text);
-  background: var(--lsdp-bg);
+  color: var(--prome-text);
+  background: var(--prome-bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

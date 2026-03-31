@@ -1,7 +1,7 @@
 import { DEFAULT_SETTINGS, normalizeSettings } from './model'
 import type { AppSettings } from './types'
 
-const SETTINGS_STORAGE_KEY = 'lsdp:settings:v1'
+const SETTINGS_STORAGE_KEY = 'prome:settings:v1'
 
 function getLocalStorage(): Storage | null {
   if (typeof globalThis === 'undefined' || !('localStorage' in globalThis)) {
