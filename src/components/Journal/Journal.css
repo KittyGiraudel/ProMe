@@ -41,12 +41,11 @@
   font-size: 0.75em;
 }
 
-.Journal__permalink {
-  font-size: 0.75em;
-  color: var(--ant-colorLink);
+.Journal__meta a {
+  color: inherit;
 }
 
-.Journal__permalink:hover {
+.Journal__meta a:hover {
   text-decoration: underline;
 }
 

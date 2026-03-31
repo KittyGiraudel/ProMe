@@ -43,19 +43,17 @@ export function JournalEntryBodyPreview({
 
       <Typography.Text type='secondary' italic className='Journal__meta'>
         {entryAnchor ? (
-          <a href={`#${entryAnchor}`} className='Journal__permalink'>
+          <a href={`#${entryAnchor}`}>
             {t('characters.journal.metadata', {
               createdAt: createdLabel,
               updatedAt: updatedLabel,
             })}
           </a>
         ) : (
-          <span className='Journal__permalink'>
-            {t('characters.journal.metadata', {
-              createdAt: createdLabel,
-              updatedAt: updatedLabel,
-            })}
-          </span>
+          t('characters.journal.metadata', {
+            createdAt: createdLabel,
+            updatedAt: updatedLabel,
+          })
         )}
       </Typography.Text>
     </>
