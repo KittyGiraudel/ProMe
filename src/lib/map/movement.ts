@@ -1,9 +1,9 @@
+import { DEFAULT_MAP_POSITION } from '@/lib/character/model'
 import type {
   CharacterMapCell,
   CharacterMapState,
   HexCoordinate,
 } from '@/lib/character/types'
-import { DEFAULT_MAP_POSITION } from '@/lib/character/model'
 import { areHexNeighbors, toHexKey } from '@/lib/hex/coordinates'
 import {
   getRandomBiomeResult,
@@ -15,7 +15,7 @@ type MoveWithAutoBiomeResult = {
   discoveredBiome?: RandomBiomeResult
 }
 
-function isCoreHex(coord: HexCoordinate): boolean {
+export function isCoreHex(coord: HexCoordinate): boolean {
   return (
     coord.q === DEFAULT_MAP_POSITION.q && coord.r === DEFAULT_MAP_POSITION.r
   )

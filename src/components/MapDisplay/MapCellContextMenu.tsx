@@ -95,7 +95,6 @@ export function MapCellContextMenu({
           onDoubleClick={onDoubleClick}
           title={label}
           className='MapHex__Button'
-          aria-label={`${label} ${t('characters.map.cell')}`}
           disabled={componentDisabled}>
           {coordLabel}
         </button>

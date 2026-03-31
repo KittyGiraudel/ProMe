@@ -15,7 +15,7 @@
   margin-bottom: calc(var(--size) / (-4 * cos(30deg))); /* 4 */
 
   user-select: none; /* 5 */
-  will-change: outline;
+  will-change: outline, opacity;
 
   box-shadow: inset 0 0 1.25em var(--biome-dark); /* 6 */
   border: 1px solid var(--biome-dark);
@@ -71,9 +71,9 @@
 /**
  * 1. Guarantee a consistent and predictable stacking order for the elements.
  */
- .MapHex__JournalCount { z-index: 1; /* 1 */ }
- .MapHex__Button       { z-index: 2; /* 1 */ }
- .MapHex__Icon         { z-index: 3; /* 1 */ }
+ .MapHex__JournalCount { z-index: 1 /* 1 */ }
+ .MapHex__Button       { z-index: 2 /* 1 */ }
+ .MapHex__Icon         { z-index: 3 /* 1 */ }
 
 /**
  * 1. Make the icon cover the whole cell.
@@ -88,7 +88,6 @@
   align-items: center; /* 2 */
   justify-content: center; /* 2 */
   font-size: 250%;
-  pointer-events: none;
   pointer-events: none; /* 3 */
 }
 
@@ -97,11 +96,11 @@
   left: 50%;
   transform: translateX(-50%);
   bottom: 10%;
-  padding: 0 5px;
+  padding: 0 0.5em;
   border-radius: 50%;
   background-color: var(--biome-dark);
-  color: #fff;
-  font-size: max(10px, 0.62em);
+  color: white;
+  font-size: 0.7em;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
@@ -132,20 +131,21 @@
 
   opacity: 0.25;
   user-select: none;
+  transition: inherit;
 }
 
 /**
  * 1. Smoothly animate the status ring as it goes in and out.
  */
 .MapHex__Status {
-  transition: 0.25s ease-in-out; /* 1 */
+  transition: inherit; /* 1 */
 }
 
 /**
  * 1. Make clickable buttons look clickable.
  */
-.MapHex__Button:not(:disabled) { cursor: pointer; } /* 1 */
-.MapHex__Button:not(:disabled):hover { transform: scale(1.15); } /* 1 */
+.MapHex__Button:not(:disabled) { cursor: pointer } /* 1 */
+.MapHex__Button:not(:disabled):hover { transform: scale(1.15) } /* 1 */
 
 .MapHex.Pattern[data-biome="fieldSea"]        { --pattern-size: 10px }
 .MapHex.Pattern[data-biome="giganticGardens"] { --pattern-size: 40px }

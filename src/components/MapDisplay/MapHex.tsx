@@ -6,11 +6,13 @@ import {
   getDisplayedCellLabel,
   getGlobalFromSheetCell,
 } from '@/lib/hex/coordinates'
-import { BiomeId } from '@/lib/types'
+import { BiomeId, TranslationKey } from '@/lib/types'
 import { MapCellContextMenu } from './MapCellContextMenu'
 import type { MapDisplayProps } from './MapDisplay'
 import { useJournalIndex, useMapState } from './useMapState'
 import './MapHex.css'
+import { useTranslations } from 'next-intl'
+import { isCoreHex } from '@/lib/map/movement'
 
 type MapHexProps = MapDisplayProps & {
   ri: number
@@ -22,6 +24,7 @@ type MapHexState = {
   isCurrent: boolean
   isSelected: boolean
   isReachable: boolean
+  isCore: boolean
   icon: string | undefined
   biome: BiomeId | 'unexplored' | undefined
 }
@@ -53,12 +56,14 @@ const useHexState = ({
   )
   const { icon, biome } = getCellState(global)
   const label = useMemo(() => getDisplayedCellLabel(global), [global])
+  const isCore = useMemo(() => isCoreHex(global), [global])
 
   return useMemo(
     () => ({
       isSelected,
       isCurrent,
       isReachable,
+      isCore,
       icon,
       biome,
       label,
@@ -74,9 +79,10 @@ export function MapHex({
   selectedCell,
   selectCell,
 }: MapHexProps) {
+  const t = useTranslations()
   const { settings } = useSettings()
   const { getLinksForCell } = useJournalIndex()
-  const { isCurrent, isSelected, isReachable, icon, biome, label } =
+  const { isCurrent, isSelected, isReachable, isCore, icon, biome, label } =
     useHexState({
       ri,
       ci,
@@ -89,6 +95,12 @@ export function MapHex({
   )
   const journalRefCount = getLinksForCell(global).length
   const id = useMemo(() => formatDisplayedCellReference(global), [global])
+  const status = useMemo(() => {
+    if (isCurrent) return 'current'
+    if (isSelected) return 'selected'
+    if (isReachable) return 'reachable'
+    return 'other'
+  }, [isCurrent, isSelected, isReachable, label])
 
   return (
     <div
@@ -105,7 +117,13 @@ export function MapHex({
       <MapCellContextMenu
         coord={global}
         isReachable={isReachable}
-        label={label}
+        label={t('characters.map.cell', {
+          coord: label,
+          biome: isCore
+            ? t('characters.map.core')
+            : t(`common.biomes.${biome ?? 'unexplored'}` as TranslationKey),
+          status,
+        })}
         coordLabel={label}
         selectCell={selectCell}
       />

@@ -44,7 +44,7 @@
     "map": {
       "biome_label": "Biome",
       "browser_warning": "The mapping module uses <link>modern features</link> that are not supported in all browsers. It is recommended to use the Chrome browser.",
-      "cell": "Hexagon",
+      "cell": "{coord}: {biome}{status, select, current { (current)} selected { (selected)} reachable { (reachable)} other {}}",
       "center_on_current": "Center on my position",
       "character_position": "Position: {position}",
       "clear_cell": "Clear cell",
