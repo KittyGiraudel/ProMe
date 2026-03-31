@@ -1,14 +1,18 @@
 import { Alert } from 'antd'
 import { useTranslations } from 'next-intl'
 import './BrowserWarning.css'
+import { useDismissed } from '@/hooks/useDismissed'
 import { Link } from '@/i18n/navigation'
 
 export function BrowserWarning() {
   const t = useTranslations()
+  const [dismissed, dismiss] = useDismissed('browser-warning')
+
+  if (dismissed) return null
 
   return (
     <Alert
-      closable
+      closable={{ closeIcon: true, onClose: dismiss }}
       type='warning'
       title={t.rich('characters.map.browser_warning', {
         link: content => (
