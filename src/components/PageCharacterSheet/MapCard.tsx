@@ -6,6 +6,7 @@ import { MapDisplay } from '@/components/MapDisplay/MapDisplay'
 import { MapFormValueAnchor } from '@/components/MapDisplay/MapFormValueAnchor'
 import { MapSheetNavigation } from '@/components/MapDisplay/MapSheetNavigation'
 import { useCellSelection } from '@/components/MapDisplay/useMapCellSelection'
+import { useMapCopyPaste } from '@/components/MapDisplay/useMapCopyPaste'
 import { useMapSheet as useMapSheet } from '@/components/MapDisplay/useMapSheet'
 import { useMapState } from '@/components/MapDisplay/useMapState'
 import { SettingsHint } from '@/components/SettingsHint/SettingsHint'
@@ -24,6 +25,7 @@ export function MapCard() {
   } = useMapState()
   const { cardRef, visibleSheet, setVisibleSheet, isViewingCurrentSheet } =
     useMapSheet({ currentPosition, selectedCell, setSelectedCell })
+  useMapCopyPaste({ selectedCell })
 
   return (
     <>
