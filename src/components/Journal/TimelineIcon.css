@@ -1,5 +1,5 @@
 .TimelineIcon__icon {
-  background-color: white;
+  background-color: var(--ant-color-bg-container);
   border: 2px solid;
   border-radius: 50%;
   padding: 0.25em;

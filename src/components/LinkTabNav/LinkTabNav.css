@@ -2,6 +2,10 @@
   margin-bottom: 0.5em;
 }
 
+.Layout--dark .LinkTabNav {
+  color: var(--ant-color-text);
+}
+
 .LinkTabNav__list {
   display: flex;
   flex-wrap: wrap;
@@ -13,6 +17,7 @@
 
 .LinkTabNav__item {
   margin: 0;
+  color: inherit;
 }
 
 .LinkTabNav__link {
