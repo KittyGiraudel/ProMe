@@ -55,6 +55,7 @@
   z-index: 1;
   pointer-events: none;
   --pattern-size: 40px;
+  opacity: 0.5;
 }
 
 .Banner[data-biome="giganticGardens"] .Banner__background { --pattern-size: 80px; }
