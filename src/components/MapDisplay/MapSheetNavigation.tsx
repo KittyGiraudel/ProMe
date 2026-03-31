@@ -1,9 +1,7 @@
-import {
-  ArrowDownOutlined,
-  ArrowLeftOutlined,
-  ArrowRightOutlined,
-  ArrowUpOutlined,
-} from '@ant-design/icons'
+import ArrowDownOutlined from '@ant-design/icons/lib/icons/ArrowDownOutlined'
+import ArrowLeftOutlined from '@ant-design/icons/lib/icons/ArrowLeftOutlined'
+import ArrowRightOutlined from '@ant-design/icons/lib/icons/ArrowRightOutlined'
+import ArrowUpOutlined from '@ant-design/icons/lib/icons/ArrowUpOutlined'
 import { Button, Space, Tag } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Dispatch, SetStateAction } from 'react'

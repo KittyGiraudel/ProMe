@@ -1,6 +1,6 @@
 'use client'
 
-import { RedoOutlined } from '@ant-design/icons'
+import RedoOutlined from '@ant-design/icons/lib/icons/RedoOutlined'
 import { Tooltip, Typography } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
@@ -10,8 +10,8 @@ import type { PlayingCard } from '@/lib/types'
 import { formatRulebookReference } from '@/lib/village/formatRulebookReference'
 import { HelpButton } from '../HelpButton/HelpButton'
 import {
-  VillageEstablishmentOwners,
   type OwnerEntry,
+  VillageEstablishmentOwners,
 } from './VillageEstablishmentOwners'
 
 export type VillageEstablishmentLineProps = {

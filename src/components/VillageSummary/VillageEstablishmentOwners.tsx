@@ -1,6 +1,6 @@
 'use client'
 
-import { RedoOutlined } from '@ant-design/icons'
+import RedoOutlined from '@ant-design/icons/lib/icons/RedoOutlined'
 import { Tooltip, Typography } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'

@@ -1,6 +1,6 @@
-import { InfoCircleFilled } from '@ant-design/icons'
-import type { ReactNode } from 'react'
+import InfoCircleFilled from '@ant-design/icons/lib/icons/InfoCircleFilled'
 import type { _Translator } from 'next-intl'
+import type { ReactNode } from 'react'
 import type { RandomBiomeResult } from '@/lib/map/randomBiome'
 
 type NotificationInfo = (args: {

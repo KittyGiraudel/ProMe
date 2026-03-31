@@ -1,4 +1,4 @@
-import { RedoOutlined } from '@ant-design/icons'
+import RedoOutlined from '@ant-design/icons/lib/icons/RedoOutlined'
 import { Button, Tooltip } from 'antd'
 import { useTranslations } from 'next-intl'
 import { VillageTraitRow } from '@/lib/village/resolveVillageDisplay'

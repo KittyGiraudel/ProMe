@@ -1,6 +1,6 @@
 'use client'
 
-import { RedoOutlined } from '@ant-design/icons'
+import RedoOutlined from '@ant-design/icons/lib/icons/RedoOutlined'
 import {
   App,
   Card,

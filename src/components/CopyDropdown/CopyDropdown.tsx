@@ -1,6 +1,7 @@
 'use client'
 
-import { CopyOutlined, DownOutlined } from '@ant-design/icons'
+import CopyOutlined from '@ant-design/icons/lib/icons/CopyOutlined'
+import DownOutlined from '@ant-design/icons/lib/icons/DownOutlined'
 import type { MenuProps } from 'antd'
 import { App, Dropdown } from 'antd'
 import { useSearchParams } from 'next/navigation'

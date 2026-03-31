@@ -1,4 +1,4 @@
-import { QuestionCircleOutlined } from '@ant-design/icons'
+import QuestionCircleOutlined from '@ant-design/icons/lib/icons/QuestionCircleOutlined'
 import { Button, ButtonProps } from 'antd'
 
 export function HelpButton({

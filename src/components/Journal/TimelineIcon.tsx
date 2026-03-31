@@ -1,7 +1,7 @@
-import MoonOutlined from '@ant-design/icons/lib/icons/MoonOutlined'
-import SunOutlined from '@ant-design/icons/lib/icons/SunOutlined'
+import SunFilled from '@ant-design/icons/lib/icons/SunFilled'
 import { Badge } from 'antd'
 import './TimelineIcon.css'
+import MoonFilled from '@ant-design/icons/lib/icons/MoonFilled'
 import { JournalEntryPhase } from '@/lib/character/types'
 
 export function TimelineIcon({
@@ -14,9 +14,9 @@ export function TimelineIcon({
   return (
     <span className='TimelineIcon'>
       {phase === 'night' ? (
-        <MoonOutlined className='TimelineIcon__icon TimelineIcon__icon--night' />
+        <MoonFilled className='TimelineIcon__icon TimelineIcon__icon--night' />
       ) : (
-        <SunOutlined className='TimelineIcon__icon TimelineIcon__icon--day' />
+        <SunFilled className='TimelineIcon__icon TimelineIcon__icon--day' />
       )}
       {slice ? (
         <Badge

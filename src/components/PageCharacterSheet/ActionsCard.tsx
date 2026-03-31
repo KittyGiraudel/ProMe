@@ -1,11 +1,9 @@
 'use client'
 
-import {
-  DeleteOutlined,
-  DownloadOutlined,
-  FrownOutlined,
-  HeartOutlined,
-} from '@ant-design/icons'
+import DeleteOutlined from '@ant-design/icons/lib/icons/DeleteOutlined'
+import DownloadOutlined from '@ant-design/icons/lib/icons/DownloadOutlined'
+import FrownOutlined from '@ant-design/icons/lib/icons/FrownOutlined'
+import HeartOutlined from '@ant-design/icons/lib/icons/HeartOutlined'
 import { App, Avatar, Card, List } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
