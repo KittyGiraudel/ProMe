@@ -1,12 +1,13 @@
 'use client'
 
-import { Card, Empty } from 'antd'
+import { Card, Empty, Tooltip } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { useAnimatedValue } from '@/hooks/useAnimatedValue'
 import { randomCard } from '@/lib/rng'
 import './CardDraw.css'
+import { HelpButton } from '../HelpButton/HelpButton'
 
 export function CardDraw() {
   const t = useTranslations()
@@ -20,6 +21,11 @@ export function CardDraw() {
     <Card
       className='CardDraw__card'
       title={t('characters.tools.card_title')}
+      extra={
+        <Tooltip title={t('characters.tools.card_tooltip')}>
+          <HelpButton label={t('common.tip')} />
+        </Tooltip>
+      }
       actions={[
         <Button
           key='action'

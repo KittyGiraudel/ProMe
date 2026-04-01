@@ -136,10 +136,12 @@
       "card_drawing": "Tirage en cours…",
       "card_empty": "Aucune carte",
       "card_title": "Carte",
+      "card_tooltip": "Vous pouvez tirer une carte à tout moment en appuyant sur cmd + D (Mac) ou ctrl + D (Windows).",
       "die_action": "Lancer 1D6",
       "die_empty": "Aucun lancer",
       "die_rolling": "Lancer en cours…",
       "die_title": "Dé",
+      "die_tooltip": "Vous pouvez déclencher un jet de dé à tout moment en appuyant sur cmd + R (Mac) ou ctrl + R (Windows).",
       "title": "Outils"
     },
     "actions": {
@@ -181,6 +183,7 @@
       "reroll_die": "Relancer ce dé",
       "save": "Sauvegarder"
     },
+    "tip": "Astuce",
     "card": "{value} de {suit}",
     "check_failure_word": "Échec",
     "check_success_word": "Réussite",

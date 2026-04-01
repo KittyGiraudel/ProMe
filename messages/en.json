@@ -181,6 +181,7 @@
       "reroll_die": "Reroll this die",
       "save": "Save"
     },
+    "tip": "Tip",
     "card": "{value} of {suit}",
     "check_failure_word": "Failure",
     "check_success_word": "Success",

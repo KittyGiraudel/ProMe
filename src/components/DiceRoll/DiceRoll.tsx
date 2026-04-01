@@ -1,12 +1,13 @@
 'use client'
 
-import { Card, Empty } from 'antd'
+import { Card, Empty, Tooltip } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { DiceFaces } from '@/components/DiceFaces/DiceFaces'
 import { useAnimatedValue } from '@/hooks/useAnimatedValue'
 import { rollD6 } from '@/lib/rng'
 import './DiceRoll.css'
+import { HelpButton } from '../HelpButton/HelpButton'
 
 export function DiceRoll() {
   const t = useTranslations()
@@ -20,6 +21,11 @@ export function DiceRoll() {
     <Card
       className='DiceRoll__card'
       title={t('characters.tools.die_title')}
+      extra={
+        <Tooltip title={t('characters.tools.die_tooltip')}>
+          <HelpButton label={t('common.tip')} />
+        </Tooltip>
+      }
       actions={[
         <Button
           key='action'
