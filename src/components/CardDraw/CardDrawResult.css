@@ -1,5 +1,27 @@
 .CardDrawResult__card {
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
   font-size: 1.65em;
+}
+
+.CardDrawResult__rank {
+  font-variant-numeric: tabular-nums;
+}
+
+.CardDrawResult__suit {
+  font-family:
+    "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols 2", sans-serif;
+  line-height: 1;
+  transform: translateY(-0.05em) translateX(-0.1em) scale(1.5);
+}
+
+.CardDrawResult__suit--red {
+  color: #b42318;
+}
+
+.CardDrawResult__suit--black {
+  color: inherit;
 }
 
 .CardDrawResult--drawing .CardDrawResult__card {

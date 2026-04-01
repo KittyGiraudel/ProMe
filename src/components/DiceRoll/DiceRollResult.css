@@ -1,8 +1,8 @@
-.DiceRollResult__die-face {
-  font-size: 3em;
+.DiceRollResult__face {
+  font-size: 5em;
 }
 
-.DiceRollResult--rolling .DiceRollResult__die-face {
+.DiceRollResult--rolling .DiceRollResult__face {
   animation: DiceRollResult-pulse 0.16s ease-in-out infinite;
 }
 

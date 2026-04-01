@@ -2,54 +2,19 @@
 
 import { Card, Empty } from 'antd'
 import { useTranslations } from 'next-intl'
-import { useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/Button/Button'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
+import { useAnimatedValue } from '@/hooks/useAnimatedValue'
 import { randomCard } from '@/lib/rng'
-import { PlayingCard } from '@/lib/types'
 import './CardDraw.css'
 
 export function CardDraw() {
   const t = useTranslations()
-  const [drawnCard, setDrawnCard] = useState<PlayingCard | null>(null)
-  const [isDrawingCard, setIsDrawingCard] = useState(false)
-  const cardDrawIntervalRef = useRef<ReturnType<typeof setInterval> | null>(
-    null
-  )
-  const cardDrawTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  useEffect(() => {
-    return () => {
-      if (cardDrawIntervalRef.current) {
-        clearInterval(cardDrawIntervalRef.current)
-      }
-      if (cardDrawTimeoutRef.current) {
-        clearTimeout(cardDrawTimeoutRef.current)
-      }
-    }
-  }, [])
-
-  const handleDrawCard = () => {
-    if (isDrawingCard) {
-      return
-    }
-    setIsDrawingCard(true)
-    setDrawnCard(randomCard(Math.random))
-
-    cardDrawIntervalRef.current = setInterval(() => {
-      setDrawnCard(randomCard(Math.random))
-    }, 90)
-
-    cardDrawTimeoutRef.current = setTimeout(() => {
-      if (cardDrawIntervalRef.current) {
-        clearInterval(cardDrawIntervalRef.current)
-        cardDrawIntervalRef.current = null
-      }
-      setDrawnCard(randomCard(Math.random))
-      setIsDrawingCard(false)
-      cardDrawTimeoutRef.current = null
-    }, 1400)
-  }
+  const {
+    value: drawnCard,
+    isAnimating: isDrawingCard,
+    start: handleDrawCard,
+  } = useAnimatedValue(() => randomCard(Math.random))
 
   return (
     <Card

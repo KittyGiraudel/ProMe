@@ -12,19 +12,20 @@
 
 ## File Map
 
-| Action | Path | Responsibility |
-|--------|------|---------------|
-| Create | `src/components/DiceRoll/DiceRollResult.tsx` | Auto-animating dice result for notifications |
-| Create | `src/components/DiceRoll/DiceRollResult.css` | Sizing + animation for DiceRollResult |
-| Create | `src/components/CardDraw/CardDrawResult.tsx` | Auto-animating card result for notifications |
-| Create | `src/components/CardDraw/CardDrawResult.css` | Sizing + animation for CardDrawResult |
-| Rename → Modify | `src/components/PageCharacterSheet/useKeyboardShortcuts.ts` → `.tsx` | Add cmd+R / cmd+D shortcut handlers |
+| Action          | Path                                                                 | Responsibility                               |
+| --------------- | -------------------------------------------------------------------- | -------------------------------------------- |
+| Create          | `src/components/DiceRoll/DiceRollResult.tsx`                         | Auto-animating dice result for notifications |
+| Create          | `src/components/DiceRoll/DiceRollResult.css`                         | Sizing + animation for DiceRollResult        |
+| Create          | `src/components/CardDraw/CardDrawResult.tsx`                         | Auto-animating card result for notifications |
+| Create          | `src/components/CardDraw/CardDrawResult.css`                         | Sizing + animation for CardDrawResult        |
+| Rename → Modify | `src/components/PageCharacterSheet/useKeyboardShortcuts.ts` → `.tsx` | Add cmd+R / cmd+D shortcut handlers          |
 
 ---
 
 ## Task 1: `DiceRollResult` component
 
 **Files:**
+
 - Create: `src/components/DiceRoll/DiceRollResult.tsx`
 - Create: `src/components/DiceRoll/DiceRollResult.css`
 
@@ -90,10 +91,7 @@ export function DiceRollResult() {
 
   return (
     <span
-      className={[
-        'DiceRollResult',
-        isRolling ? 'DiceRollResult--rolling' : '',
-      ]
+      className={['DiceRollResult', isRolling ? 'DiceRollResult--rolling' : '']
         .filter(Boolean)
         .join(' ')}>
       <DiceFaces values={[dieValue]} className='DiceRollResult__die-face' />
@@ -114,6 +112,7 @@ git commit -m "feat: add DiceRollResult auto-animating notification component"
 ## Task 2: `CardDrawResult` component
 
 **Files:**
+
 - Create: `src/components/CardDraw/CardDrawResult.tsx`
 - Create: `src/components/CardDraw/CardDrawResult.css`
 
@@ -183,10 +182,7 @@ export function CardDrawResult() {
 
   return (
     <span
-      className={[
-        'CardDrawResult',
-        isDrawing ? 'CardDrawResult--drawing' : '',
-      ]
+      className={['CardDrawResult', isDrawing ? 'CardDrawResult--drawing' : '']
         .filter(Boolean)
         .join(' ')}>
       <PlayingCardLabel card={card} className='CardDrawResult__card' />
@@ -207,6 +203,7 @@ git commit -m "feat: add CardDrawResult auto-animating notification component"
 ## Task 3: Extend `useKeyboardShortcuts` with tool shortcuts
 
 **Files:**
+
 - Rename + Modify: `src/components/PageCharacterSheet/useKeyboardShortcuts.ts` → `useKeyboardShortcuts.tsx`
 
 The import in `CharacterSheetShell.tsx` uses `'./useKeyboardShortcuts'` (no extension), so the rename is transparent to consumers. The file is renamed to `.tsx` because the notification `description` prop receives JSX elements (`<DiceRollResult />`, `<CardDrawResult />`).
@@ -252,7 +249,7 @@ export function useKeyboardShortcuts({
       if (isMeta && e.key === 'r') {
         e.preventDefault()
         notification.open({
-          message: t('characters.tools.die_title'),
+          title: t('characters.tools.die_title'),
           description: <DiceRollResult />,
         })
       }
@@ -260,7 +257,7 @@ export function useKeyboardShortcuts({
       if (isMeta && e.key === 'd') {
         e.preventDefault()
         notification.open({
-          message: t('characters.tools.card_title'),
+          title: t('characters.tools.card_title'),
           description: <CardDrawResult />,
         })
       }

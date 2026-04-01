@@ -1,45 +1,35 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { DiceFaces } from '@/components/DiceFaces/DiceFaces'
+import { useEffect, useRef } from 'react'
+import { useAnimatedValue } from '@/hooks/useAnimatedValue'
+import { DICE } from '@/lib/constants/misc'
 import { rollD6 } from '@/lib/rng'
 import './DiceRollResult.css'
 
 export function DiceRollResult() {
-  const [dieValue, setDieValue] = useState<number>(() => rollD6(Math.random))
-  const [isRolling, setIsRolling] = useState(true)
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const {
+    value: dieValue,
+    isAnimating: isRolling,
+    start,
+  } = useAnimatedValue(() => rollD6(Math.random))
+  const startRef = useRef(start)
 
   useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setDieValue(rollD6(Math.random))
-    }, 90)
-
-    timeoutRef.current = setTimeout(() => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current)
-        intervalRef.current = null
-      }
-      setDieValue(rollD6(Math.random))
-      setIsRolling(false)
-    }, 1400)
-
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current)
-      if (timeoutRef.current) clearTimeout(timeoutRef.current)
-    }
+    startRef.current()
   }, [])
+
+  if (dieValue === null) return null
 
   return (
     <span
-      className={[
-        'DiceRollResult',
-        isRolling ? 'DiceRollResult--rolling' : '',
-      ]
+      className={['DiceRollResult', isRolling ? 'DiceRollResult--rolling' : '']
         .filter(Boolean)
-        .join(' ')}>
-      <DiceFaces values={[dieValue]} className='DiceRollResult__die-face' />
+        .join(' ')}
+      role='img'
+      aria-label={String(dieValue)}>
+      <span className='DiceRollResult__face' aria-hidden='true'>
+        {DICE[dieValue - 1]}
+      </span>
     </span>
   )
 }

@@ -1,7 +1,7 @@
 import { App } from 'antd'
 import type { FormInstance } from 'antd/es/form'
 import { useTranslations } from 'next-intl'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { CardDrawResult } from '@/components/CardDraw/CardDrawResult'
 import { DiceRollResult } from '@/components/DiceRoll/DiceRollResult'
 
@@ -27,16 +27,18 @@ export function useKeyboardShortcuts({
       if (isMeta && e.key === 'r') {
         e.preventDefault()
         notification.open({
-          message: t('characters.tools.die_title'),
+          title: t('characters.tools.die_title'),
           description: <DiceRollResult />,
+          placement: 'bottomRight',
         })
       }
 
       if (isMeta && e.key === 'd') {
         e.preventDefault()
         notification.open({
-          message: t('characters.tools.card_title'),
+          title: t('characters.tools.card_title'),
           description: <CardDrawResult />,
+          placement: 'bottomRight',
         })
       }
     }
