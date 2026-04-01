@@ -285,6 +285,56 @@
       "success_url": "Lien copié dans le presse-papiers.",
       "trigger": "Copier",
       "url": "Copier le lien (URL)"
+    },
+    "encounters": {
+      "floodedPlains": {
+        "1": "L’eau qui entoure vos jambes semble guérir votre fatigue et vous encourager à voyager. Vous avez un bonus de +1 Courage (maximum : 5) jusqu’à ce que vous franchissiez la frontière entre le jour et la nuit sur l’Horloge.",
+        "2": "Un voyageur croise votre chemin. Allez à la page 57 et définissez qui vous avez rencontré. Si vous revenez ici, le voyageur ne sera plus là.",
+        "3": "Vous découvrez un Comptoir. Pour en savoir plus, reportez-vous à la page 23.",
+        "4": "Vous découvrez un Comptoir. Pour en savoir plus, reportez-vous à la page 23.",
+        "5": "Vous rencontrez un Hérissin. Pour en savoir plus sur ces créatures, lisez la page 22. Tirez une carte pour savoir quel type de Hérisson vous avez trouvé.",
+        "6": "Vous rencontrez une oie céleste, qui peut être chevauchée lorsqu’elle est nourrie ou si vous réussissez un test de Courage. Elle peut vous emmener dans n’importe quel hexagone déjà exploré."
+      },
+      "mushroomJungle": {
+        "1": "Vous êtes pris dans une tempête de spores. Aucun équipement de protection ne peut vous sauver dans cette situation. Perdez 1 point dans l’attribut de votre choix.",
+        "2": "Une Ruine apparaît au milieu de la masse de champignons qui s’étend de tous côtés. Consultez la p. 63 si vous voulez y entrer.",
+        "3": "Vous découvrez un groupe de Mousserons. Pour déterminer leur nombre, lancez 1D6. Pour en savoir plus sur les Mousserons, reportez-vous p. 27.",
+        "4": "Vous découvrez un groupe de Mousserons. Pour déterminer leur nombre, lancez 1D6. Pour en savoir plus sur les Mousserons, reportez-vous p. 27.",
+        "5": "Vous découvrez un Bolet Titan, un immense champignon. Tirez une carte pour déterminer à quel type il appartient. Pour en savoir plus sur les Bolets Titans, reportez-vous à la page 26.",
+        "6": "Vous découvrez un Bolet Titan étendu au sol. Il a péri ou oublié de se réveiller, donnant ainsi vie à des milliers d’autres champignons. Rendez-vous à la page 26 and choisissez un objet dans la table de collecte même si vous n’avez pas d’équipement d’escalade."
+      },
+      "fieldSea": {
+        "1": "De forts vents contraires rendent votre voyage laborieux. Mangez ou réussissez un test de Courage pour leur résister. Si vous échouez, perdez 1 point d’Endurance ou l’objet de votre choix.",
+        "2": "Un voyageur croise votre chemin. Allez à la page 57 et définissez qui vous avez rencontré. Si vous revenez ici, le voyageur ne sera plus là.",
+        "3": "Vous découvrez un petit jardin communautaire! Allez à la table de collecte (page 30) et choisissez-y l’objet de votre choix sans avoir besoin de l’outil approprié.",
+        "4": "Vous arrivez dans une ferme Cucurbitus. Pour en savoir plus sur les Cucurbitus, reportez-vous à la page 30.",
+        "5": "Vous arrivez dans une ferme Cucurbitus. Pour en savoir plus sur les Cucurbitus, reportez-vous à la page 30.",
+        "6": "Vous rencontrez une créature. Tirez une carte de la pioche pour savoir quelle créature vous avez trouvé."
+      },
+      "shadowForest": {
+        "1": "Des ombres denses et ancestrales vous étreignent étroitement. En raison de l’obscurité, tout ce que vous avez trouvé dans ces trois hexagones de la Forêt des Ombres est effacé de votre journal et de votre carte.",
+        "2": "Vous arrivez dans un village Bruja. Pour en savoir plus, voir page 18.",
+        "3": "Vous arrivez dans un village Bruja. Pour en savoir plus, voir page 18.",
+        "4": "Vous trouvez un Essaim de lucioles. Une fois par jour, si vous passez par cet endroit, vous pouvez récupérer 1 point de n’importe quel Attribut.",
+        "5": "Vous rencontrez une créature. Tirez une carte pour savoir laquelle.",
+        "6": "Vous rencontrez une créature. Tirez une carte pour savoir laquelle."
+      },
+      "silentDesert": {
+        "1": "Une Ruine émerge des rochers sablonneux. Passez à la page 63 si vous voulez l’explorer.",
+        "2": "Vous découvrez une oasis. Pour en savoir plus, reportez-vous à la page 36. Tirez une carte pour savoir quel type d’oasis vous avez trouvé.",
+        "3": "Vous rencontrez un Kiore. Pour en savoir plus, consultez la page 34. Allez à la page 57 si vous voulez définir la personnalité du Kiore. Si vous revenez ici, le Kiore ne sera plus là.",
+        "4": "Vous rencontrez un Kiore. Pour en savoir plus, consultez la page 34. Allez à la page 57 si vous voulez définir la personnalité du Kiore. Si vous revenez ici, le Kiore ne sera plus là.",
+        "5": "Vous rencontrez un Scarabée du désert. Pour en savoir plus, lisez la page 37. Tirez une carte pour découvrir quel type de Scarabée vous avez rencontré.",
+        "6": "Vous rencontrez un Scarabée du désert. Pour en savoir plus, lisez la page 37. Tirez une carte pour découvrir quel type de Scarabée vous avez rencontré."
+      },
+      "giganticGardens": {
+        "1": "Vous faites face à un essaim d’abeilles géantes. Elles foncent vers vous pour attaquer, et vous devez soit les combattre soit fuir.",
+        "2": "Vous découvrez un jardin de Laréons de taille normale. Pour en savoir plus, voir page 41. Piochez une carte pour découvrir le type de fleurs qui pousse en ce jardin.",
+        "3": "Vous découvrez un jardin de Laréons de taille normale. Pour en savoir plus, voir page 41. Piochez une carte pour découvrir le type de fleurs qui pousse en ce jardin.",
+        "4": "Vous découvrez un champ de pétales d’or. Tirez une carte de la pioche pour découvrir quel type de fleurs vous avez trouvé.",
+        "5": "Vous rencontrez une baleine luxuriante. Pour en savoir plus, lisez la page 40. Piochez une carte pour savoir quel type de baleine vous rencontrez.",
+        "6": "Vous découvrez un tas d’ossements géants, ceux d’une baleine luxuriante. Voir la table de collecte page 40 pour déterminer ce que vous y découvrez."
+      }
     }
   },
   "faq": {

@@ -285,6 +285,56 @@
       "success_url": "Link copied to clipboard.",
       "trigger": "Copy",
       "url": "Copy link (URL)"
+    },
+    "encounters": {
+      "floodedPlains": {
+        "1": "The water surrounding your legs seems to heal your fatigue and encourages you to travel. You gain a +1 Courage bonus (maximum: 5) until you cross the boundary between day and night on the Clock.",
+        "2": "A traveler crosses your path. Go to page 57 and define who you have met. If you return here, the traveler will no longer be there.",
+        "3": "You discover a Trading Post. To learn more, refer to page 23.",
+        "4": "You discover a Trading Post. To learn more, refer to page 23.",
+        "5": "You encounter a Hedgehog. To learn more about these creatures, read page 22. Draw a card to find out what type of Hedgehog you have found.",
+        "6": "You encounter a celestial goose, which can be ridden when fed or if you succeed in a Courage test. It can take you to any already explored hexagon."
+      },
+      "mushroomJungle": {
+        "1": "You are caught in a spore storm. No protective equipment can save you in this situation. Lose 1 point in the attribute of your choice.",
+        "2": "A Ruin appears in the middle of the mass of mushrooms that stretches in all directions. Consult page 63 if you want to enter.",
+        "3": "You discover a group of Mousserons. To determine their number, roll 1D6. To learn more about Mousserons, refer to page 27.",
+        "4": "You discover a group of Mousserons. To determine their number, roll 1D6. To learn more about Mousserons, refer to page 27.",
+        "5": "You discover a Titan Boletus, a giant mushroom. Draw a card to determine what type it is. To learn more about Titan Boletus, refer to page 26.",
+        "6": "You discover a Titan Boletus lying on the ground. It has perished or forgotten to wake up, thus giving life to thousands of other mushrooms. Go to page 26 and choose an item from the collection table even if you don’t have climbing equipment."
+      },
+      "fieldSea": {
+        "1": "Strong headwinds make your journey laborious. Eat or succeed in a Courage test to resist them. If you fail, lose 1 point of Endurance or an item of your choice.",
+        "2": "A traveler crosses your path. Go to page 57 and define who you have met. If you return here, the traveler will no longer be there.",
+        "3": "You discover a small community garden! Go to the collection table (page 30) and choose an item of your choice without needing the appropriate tool.",
+        "4": "You arrive at a Cucurbitus farm. To learn more about Cucurbitus, refer to page 30.",
+        "5": "You arrive at a Cucurbitus farm. To learn more about Cucurbitus, refer to page 30.",
+        "6": "You encounter a creature. Draw a card from the deck to find out what creature you have found."
+      },
+      "shadowForest": {
+        "1": "Dense and ancestral shadows tightly embrace you. Due to the darkness, everything you have found in these three hexagons of the Shadow Forest is erased from your journal and map.",
+        "2": "You arrive in a Bruja village. To learn more, see page 18.",
+        "3": "You arrive in a Bruja village. To learn more, see page 18.",
+        "4": "You find a Swarm of fireflies. Once a day, if you pass through this place, you can recover 1 point in any Attribute.",
+        "5": "You encounter a creature. Draw a card to find out which one.",
+        "6": "You encounter a creature. Draw a card to find out which one."
+      },
+      "silentDesert": {
+        "1": "A Ruin emerges from the sandy rocks. Go to page 63 if you want to explore it.",
+        "2": "You discover an oasis. To learn more, refer to page 36. Draw a card to find out what type of oasis you have found.",
+        "3": "You encounter a Kiore. To learn more, consult page 34. Go to page 57 if you want to define the Kiore's personality. If you return here, the Kiore will no longer be there.",
+        "4": "You encounter a Kiore. To learn more, consult page 34. Go to page 57 if you want to define the Kiore's personality. If you return here, the Kiore will no longer be there.",
+        "5": "You encounter a Desert Scarab. To learn more, read page 37. Draw a card to discover what type of Scarab you have encountered.",
+        "6": "You encounter a Desert Scarab. To learn more, read page 37. Draw a card to discover what type of Scarab you have encountered."
+      },
+      "giganticGardens": {
+        "1": "You face a swarm of giant bees. They rush towards you to attack, and you must either fight or flee.",
+        "2": "You discover a garden of normal-sized Lareons. To learn more, see page 41. Draw a card to discover what type of flowers grow in this garden.",
+        "3": "You discover a garden of normal-sized Lareons. To learn more, see page 41. Draw a card to discover what type of flowers grow in this garden.",
+        "4": "You discover a field of golden petals. Draw a card from the deck to discover what type of flowers you have found.",
+        "5": "You encounter a luxurious whale. To learn more, read page 40. Draw a card to find out what type of whale you have encountered.",
+        "6": "You discover a pile of giant bones, those of a luxurious whale. See the collection table on page 40 to determine what you find there."
+      }
     }
   },
   "faq": {
