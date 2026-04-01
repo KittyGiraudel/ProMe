@@ -29,7 +29,7 @@ export function useKeyboardShortcuts({
         notification.open({
           title: t('characters.tools.die_title'),
           description: <DiceRollResult />,
-          placement: 'bottomRight',
+          placement: 'bottomLeft',
         })
       }
 
@@ -38,7 +38,7 @@ export function useKeyboardShortcuts({
         notification.open({
           title: t('characters.tools.card_title'),
           description: <CardDrawResult />,
-          placement: 'bottomRight',
+          placement: 'bottomLeft',
         })
       }
     }
