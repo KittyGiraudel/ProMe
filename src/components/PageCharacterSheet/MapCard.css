@@ -9,7 +9,7 @@
   margin-bottom: 0.5em;
 }
 
-.MapCard__legend li:has([data-biome="fieldSea"])         { --pattern-size: 5px }
+.MapCard__legend li:has([data-biome="fieldSea"])         { --pattern-size: 20px }
 .MapCard__legend li:has([data-biome="giganticGardens"])  { --pattern-size: 15px }
 .MapCard__legend li:has([data-biome="shadowForest"])     { --pattern-size: 10px }
 .MapCard__legend li:has([data-biome="floodedPlains"])    { --pattern-size: 10px }

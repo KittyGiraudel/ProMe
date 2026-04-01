@@ -53,22 +53,22 @@ a {
   --biome-shadowForest-light: #7dc8a0;
   --biome-shadowForest-dark: #4a9f72;
   --biome-shadowForest-light-contrast: #262626;
-  --biome-shadowForest-dark-contrast: #262626;
+  --biome-shadowForest-dark-contrast: #ffffff;
 
-  --biome-floodedPlains-light: #a793c3;
-  --biome-floodedPlains-dark: #57446f;
-  --biome-floodedPlains-light-contrast: #262626;
-  --biome-floodedPlains-dark-contrast: #ffffff;
+  --biome-fieldSea-light: #a793c3;
+  --biome-fieldSea-dark: #57446f;
+  --biome-fieldSea-light-contrast: #ffffff;
+  --biome-fieldSea-dark-contrast: #ffffff;
 
   --biome-mushroomJungle-light: #ae9178;
   --biome-mushroomJungle-dark: #624838;
   --biome-mushroomJungle-light-contrast: #ffffff;
   --biome-mushroomJungle-dark-contrast: #ffffff;
 
-  --biome-fieldSea-light: #5ec4e8;
-  --biome-fieldSea-dark: #1a6f94;
-  --biome-fieldSea-light-contrast: #262626;
-  --biome-fieldSea-dark-contrast: #ffffff;
+  --biome-floodedPlains-light: #5ec4e8;
+  --biome-floodedPlains-dark: #1a6f94;
+  --biome-floodedPlains-light-contrast: #262626;
+  --biome-floodedPlains-dark-contrast: #ffffff;
 
   --biome-silentDesert-light: #f3d58e;
   --biome-silentDesert-dark: #af8c43;
@@ -148,13 +148,18 @@ html:has([role="dialog"]) {
 
 [data-biome="fieldSea"] .Pattern,
 .Pattern[data-biome="fieldSea"] {
-  --c1: var(--biome-light);
-  --c2: var(--biome-dark);
+  --c1: rgb(177, 162, 203);
+  --c2: rgb(159, 144, 186);
 
-  background-color: var(--c1);
-  background-image:
-    repeating-radial-gradient(circle at 0 0, transparent 0, var(--c1) var(--pattern-size)),
-    repeating-linear-gradient(color-mix(in srgb, var(--c2) 9%, transparent), color-mix(in srgb, var(--c2) 30%, transparent));
+  --_g: var(--pattern-size) var(--pattern-size) 
+    radial-gradient(var(--c1) 17%,var(--c2) 18% 35%,#0000 36.5%);
+  background: 
+    calc(var(--pattern-size)/-4) calc(var(--pattern-size)/-4)/var(--_g),
+    calc(var(--pattern-size)/ 4) calc(var(--pattern-size)/ 4)/var(--_g),
+    radial-gradient(var(--c2) 34%,var(--c1) 36% 68%,#0000 70%) 
+      0 0/calc(var(--pattern-size)/2) calc(var(--pattern-size)/2),
+    repeating-linear-gradient(45deg,var(--c1) -12.5% 12.5%,var(--c2) 0 37.5%)
+      0 0/var(--pattern-size) var(--pattern-size);
 }
 
 [data-biome="giganticGardens"] .Pattern,
@@ -196,8 +201,8 @@ html:has([role="dialog"]) {
 
 [data-biome="floodedPlains"] .Pattern,
 .Pattern[data-biome="floodedPlains"] {
-  --c1: rgb(164 148 192);
-  --c2: rgb(148 132 175);
+  --c1: rgb(155 204 227);
+  --c2: rgb(160 191 211);
   
   --_g: 
       var(--c2) 6%  14%,var(--c1) 16% 24%,var(--c2) 26% 34%,var(--c1) 36% 44%,

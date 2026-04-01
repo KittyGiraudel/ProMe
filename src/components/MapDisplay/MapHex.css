@@ -147,7 +147,7 @@
 .MapHex__Button:not(:disabled) { cursor: pointer } /* 1 */
 .MapHex__Button:not(:disabled):hover { transform: scale(1.15) } /* 1 */
 
-.MapHex.Pattern[data-biome="fieldSea"]        { --pattern-size: 10px }
+.MapHex.Pattern[data-biome="fieldSea"]        { --pattern-size: 30px }
 .MapHex.Pattern[data-biome="giganticGardens"] { --pattern-size: 40px }
 .MapHex.Pattern[data-biome="shadowForest"]    { --pattern-size: 15px }
 .MapHex.Pattern[data-biome="floodedPlains"]   { --pattern-size: 20px }
