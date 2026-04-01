@@ -38,3 +38,13 @@
 .EncountersList__item ul {
   list-style: none;
 }
+
+.EncountersList__item a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.EncountersList__item a:hover {
+  color: var(--ant-color-link);
+  text-decoration: underline;
+}

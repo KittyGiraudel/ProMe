@@ -76,6 +76,11 @@ export function RichText({ text }: { text: string }) {
         li: ({ children, node: _node, ...props }) => (
           <li {...props}>{renderWithHighlights(children, highlighter)}</li>
         ),
+        a: ({ children, node: _node, ...props }) => (
+          <a {...props} target='_blank' rel='noreferrer'>
+            {renderWithHighlights(children, highlighter)}
+          </a>
+        ),
       }}>
       {text}
     </ReactMarkdown>

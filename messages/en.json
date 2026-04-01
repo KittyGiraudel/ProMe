@@ -307,7 +307,7 @@
       },
       "fieldSea": {
         "1": "**Strong headwinds make your journey laborious.** Eat or succeed in a Courage test to resist them. If you fail, lose 1 point of Endurance or an item of your choice.\n*The next time you pass through this place, these violent winds will have ceased.*",
-        "2": "**A traveler crosses your path.** Go to page 57 and define who you have met. *If you return here, the traveler will no longer be there.*",
+        "2": "**A traveler crosses your path.** Go to page 57 and [define](/en/generators/npc) who you have met. *If you return here, the traveler will no longer be there.*",
         "3": "**You discover a small community garden!** Go to the *collection table* (page 30) and choose an item of your choice without needing the appropriate tool. Mark this garden as **harvested**. You must **water** the garden to be able to reuse it another day.",
         "4": "**You arrive at a Cucurbitus farm.**\n*To learn more about Cucurbitus, refer to page 30.*\nWhen you find a Cucurbitus farm, go to page 42 and **draw 5 cards** to define what it looks like.",
         "5": "**You arrive at a Cucurbitus farm.**\n*To learn more about Cucurbitus, refer to page 30.*\nWhen you find a Cucurbitus farm, go to page 42 and **draw 5 cards** to define what it looks like.",
@@ -315,8 +315,8 @@
       },
       "shadowForest": {
         "1": "**Dense and ancestral shadows tightly embrace you.** Due to the darkness, everything you have found in these three hexagons of the Shadow Forest is erased from your journal and map.\n*If you pass through this hexagon again, draw other encounters.*",
-        "2": "**You arrive in a Bruja village.** To learn more about Brujas, see page 18. When you find a Bruja village, go to page 43 and **draw 5 cards** to define the place.",
-        "3": "**You arrive in a Bruja village.** To learn more about Brujas, see page 18. When you find a Bruja village, go to page 43 and **draw 5 cards** to define the place.",
+        "2": "**You arrive in a [Bruja village](/en/generators/village?f=bruja).** To learn more about Brujas, see page 18. When you find a Bruja village, go to page 43 and **draw 5 cards** to define the place.",
+        "3": "**You arrive in a [Bruja village](/en/generators/village?f=bruja).** To learn more about Brujas, see page 18. When you find a Bruja village, go to page 43 and **draw 5 cards** to define the place.",
         "4": "**You find a Swarm of fireflies.** Once a day, if you pass through this place, you can recover 1 point in any Attribute.",
         "5": "**You encounter a creature.** Draw a card to find out which one:\n- ♦ A group of **Yabas** (see page 19).\n- ♥ A **lost Yaba** (see page 19).\n- ♣ A **Warrior Tree**, which triggers a combat (see page 19).\n- ♠ A **Pizi** (see page 62).",
         "6": "**You encounter a creature.** Draw a card to find out which one:\n- ♦ A group of **Yabas** (see page 19).\n- ♥ A **lost Yaba** (see page 19).\n- ♣ A **Warrior Tree**, which triggers a combat (see page 19).\n- ♠ A **Pizi** (see page 62)."
