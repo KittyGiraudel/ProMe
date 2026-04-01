@@ -29,7 +29,15 @@ export function useCharacterSheetFormSync({
     const previous = prevClockTotalSegmentsRef.current
 
     if (previous === null) {
-      prevClockTotalSegmentsRef.current = clockTotalSegments
+      // Seed from the character's real stamina, not from the transient fallback
+      // value that Form.useWatch returns before its subscription fires. Without
+      // this, clockTotalSegments starts as 2 (stamina=0 → 2 segments via
+      // FALLBACK_STAT_POOL), then updates to the real value, causing a spurious
+      // setFieldValue call — which marks the clock field as touched in Ant
+      // Design 6 and falsely triggers the unsaved-changes guard.
+      prevClockTotalSegmentsRef.current = character
+        ? countClockSegments(character.stamina.current)
+        : clockTotalSegments
       return
     }
     if (previous === clockTotalSegments) return
