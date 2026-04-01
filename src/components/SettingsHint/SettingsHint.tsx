@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { useDismissed } from '@/hooks/useDismissed'
 import { Link } from '@/i18n/navigation'
 import './SettingsHint.css'
+import { BlockedLink } from '../Navigation/BlockedLink'
 
 type SettingsHintId = 'map' | 'journal' | 'village' | 'sheet'
 
@@ -20,7 +21,7 @@ export function SettingsHint({ hintId }: { hintId: SettingsHintId }) {
       type='info'
       closable={{ closeIcon: true, onClose: dismiss }}
       title={t.rich(`settings.hints.${hintId}`, {
-        link: content => <Link href='/settings'>{content}</Link>,
+        link: content => <BlockedLink href='/settings'>{content}</BlockedLink>,
       })}
     />
   )
