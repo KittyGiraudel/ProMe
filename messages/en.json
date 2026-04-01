@@ -290,52 +290,52 @@
     },
     "encounters": {
       "floodedPlains": {
-        "1": "The water surrounding your legs seems to heal your fatigue and encourages you to travel. You gain a +1 Courage bonus (maximum: 5) until you cross the boundary between day and night on the Clock.",
-        "2": "A traveler crosses your path. Go to page 57 and define who you have met. If you return here, the traveler will no longer be there.",
-        "3": "You discover a Trading Post. To learn more, refer to page 23.",
-        "4": "You discover a Trading Post. To learn more, refer to page 23.",
-        "5": "You encounter a Hedgehog. To learn more about these creatures, read page 22. Draw a card to find out what type of Hedgehog you have found.",
-        "6": "You encounter a celestial goose, which can be ridden when fed or if you succeed in a Courage test. It can take you to any already explored hexagon."
+        "1": "**The water surrounding your legs seems to heal your fatigue and encourages you to travel.** You gain a +1 Courage bonus (maximum: 5) until you cross the boundary between day and night on the Clock.",
+        "2": "**A traveler crosses your path.** Go to page 57 and define who you have met. *If you return here, the traveler will no longer be there.*",
+        "3": "**You discover a Trading Post.** To learn more, refer to page 23.",
+        "4": "**You discover a Trading Post.** To learn more, refer to page 23.",
+        "5": "**You encounter a Hedgehog.** To learn more about these creatures, read page 22. **Draw a card** to find out what type of Hedgehog you have found.\n- ♥♦ A **peaceful** Hedgehog.\n- ♠♣ An **aggressive** Hedgehog.",
+        "6": "**You encounter a celestial goose,** which can be ridden when fed or if you succeed in a Courage test. It can take you to any already explored hexagon without advancing your Clock. Afterwards, it leaves you to return to the Flooded Plains."
       },
       "mushroomJungle": {
-        "1": "You are caught in a spore storm. No protective equipment can save you in this situation. Lose 1 point in the attribute of your choice.",
-        "2": "A Ruin appears in the middle of the mass of mushrooms that stretches in all directions. Consult page 63 if you want to enter.",
-        "3": "You discover a group of Mousserons. To determine their number, roll 1D6. To learn more about Mousserons, refer to page 27.",
-        "4": "You discover a group of Mousserons. To determine their number, roll 1D6. To learn more about Mousserons, refer to page 27.",
-        "5": "You discover a Titan Boletus, a giant mushroom. Draw a card to determine what type it is. To learn more about Titan Boletus, refer to page 26.",
-        "6": "You discover a Titan Boletus lying on the ground. It has perished or forgotten to wake up, thus giving life to thousands of other mushrooms. Go to page 26 and choose an item from the collection table even if you don’t have climbing equipment."
+        "1": "**You are caught in a spore storm.** No protective equipment can save you in this situation. **Lose 1 point in the attribute of your choice.**",
+        "2": "**A Ruin appears in the middle of the mass of mushrooms that stretches in all directions.** *Consult page 63 if you want to enter.*",
+        "3": "**You discover a group of Mousserons.** To determine their number, roll 1D6. *To learn more about Mousserons, refer to page 27.*",
+        "4": "**You discover a group of Mousserons.** To determine their number, roll 1D6. *To learn more about Mousserons, refer to page 27.*",
+        "5": "**You discover a Titan Boletus,** a giant mushroom. Draw a card to determine what type it is.\n*To learn more about Titan Boletus, refer to page 26.*\n- ♦ A **stationary** Titan Boletus.\n- ♥ An **ambulant** Titan Boletus.\n- ♣ A **stationary and venomous** Titan Boletus.\n- ♠ An **ambulant and venomous** Titan Boletus.",
+        "6": "**You discover a Titan Boletus lying on the ground.** It has perished or forgotten to wake up, thus giving life to thousands of other mushrooms. *Go to page 26 and choose an item from the collection table even if you don’t have climbing equipment.*"
       },
       "fieldSea": {
-        "1": "Strong headwinds make your journey laborious. Eat or succeed in a Courage test to resist them. If you fail, lose 1 point of Endurance or an item of your choice.",
-        "2": "A traveler crosses your path. Go to page 57 and define who you have met. If you return here, the traveler will no longer be there.",
-        "3": "You discover a small community garden! Go to the collection table (page 30) and choose an item of your choice without needing the appropriate tool.",
-        "4": "You arrive at a Cucurbitus farm. To learn more about Cucurbitus, refer to page 30.",
-        "5": "You arrive at a Cucurbitus farm. To learn more about Cucurbitus, refer to page 30.",
-        "6": "You encounter a creature. Draw a card from the deck to find out what creature you have found."
+        "1": "**Strong headwinds make your journey laborious.** Eat or succeed in a Courage test to resist them. If you fail, lose 1 point of Endurance or an item of your choice.\n*The next time you pass through this place, these violent winds will have ceased.*",
+        "2": "**A traveler crosses your path.** Go to page 57 and define who you have met. *If you return here, the traveler will no longer be there.*",
+        "3": "**You discover a small community garden!** Go to the *collection table* (page 30) and choose an item of your choice without needing the appropriate tool. Mark this garden as **harvested**. You must **water** the garden to be able to reuse it another day.",
+        "4": "**You arrive at a Cucurbitus farm.**\n*To learn more about Cucurbitus, refer to page 30.*\nWhen you find a Cucurbitus farm, go to page 42 and **draw 5 cards** to define what it looks like.",
+        "5": "**You arrive at a Cucurbitus farm.**\n*To learn more about Cucurbitus, refer to page 30.*\nWhen you find a Cucurbitus farm, go to page 42 and **draw 5 cards** to define what it looks like.",
+        "6": "**You encounter a creature.** Draw a card from the deck to find out what creature you have found.\n- ♦ A **red** Sauriflore (see page 30).\n- ♥ A **yellow** Sauriflore (see page 30).\n- ♣ A **white** Sauriflore (see page 30).\n- ♠ A Pizi (see page 62)."
       },
       "shadowForest": {
-        "1": "Dense and ancestral shadows tightly embrace you. Due to the darkness, everything you have found in these three hexagons of the Shadow Forest is erased from your journal and map.",
-        "2": "You arrive in a Bruja village. To learn more, see page 18.",
-        "3": "You arrive in a Bruja village. To learn more, see page 18.",
-        "4": "You find a Swarm of fireflies. Once a day, if you pass through this place, you can recover 1 point in any Attribute.",
-        "5": "You encounter a creature. Draw a card to find out which one.",
-        "6": "You encounter a creature. Draw a card to find out which one."
+        "1": "**Dense and ancestral shadows tightly embrace you.** Due to the darkness, everything you have found in these three hexagons of the Shadow Forest is erased from your journal and map.\n*If you pass through this hexagon again, draw other encounters.*",
+        "2": "**You arrive in a Bruja village.** To learn more about Brujas, see page 18. When you find a Bruja village, go to page 43 and **draw 5 cards** to define the place.",
+        "3": "**You arrive in a Bruja village.** To learn more about Brujas, see page 18. When you find a Bruja village, go to page 43 and **draw 5 cards** to define the place.",
+        "4": "**You find a Swarm of fireflies.** Once a day, if you pass through this place, you can recover 1 point in any Attribute.",
+        "5": "**You encounter a creature.** Draw a card to find out which one:\n- ♦ A group of **Yabas** (see page 19).\n- ♥ A **lost Yaba** (see page 19).\n- ♣ A **Warrior Tree**, which triggers a combat (see page 19).\n- ♠ A **Pizi** (see page 62).",
+        "6": "**You encounter a creature.** Draw a card to find out which one:\n- ♦ A group of **Yabas** (see page 19).\n- ♥ A **lost Yaba** (see page 19).\n- ♣ A **Warrior Tree**, which triggers a combat (see page 19).\n- ♠ A **Pizi** (see page 62)."
       },
       "silentDesert": {
-        "1": "A Ruin emerges from the sandy rocks. Go to page 63 if you want to explore it.",
-        "2": "You discover an oasis. To learn more, refer to page 36. Draw a card to find out what type of oasis you have found.",
-        "3": "You encounter a Kiore. To learn more, consult page 34. Go to page 57 if you want to define the Kiore's personality. If you return here, the Kiore will no longer be there.",
-        "4": "You encounter a Kiore. To learn more, consult page 34. Go to page 57 if you want to define the Kiore's personality. If you return here, the Kiore will no longer be there.",
-        "5": "You encounter a Desert Scarab. To learn more, read page 37. Draw a card to discover what type of Scarab you have encountered.",
-        "6": "You encounter a Desert Scarab. To learn more, read page 37. Draw a card to discover what type of Scarab you have encountered."
+        "1": "**A Ruin emerges from the sandy rocks.**\n*Go to page 63 if you want to explore it.*",
+        "2": "**You discover an oasis.** *To learn more, refer to page 36.* Draw a card to find out what type of oasis you have found.\n- ♥♦ A **palm paradise**.\n- ♠♣ A **cactus sanctuary**.",
+        "3": "**You encounter a Kiore.** *To learn more, consult page 34. Go to page 57 if you want to define the Kiore's personality.\nIf you return here, the Kiore will no longer be there.*",
+        "4": "**You encounter a Kiore.** *To learn more, consult page 34. Go to page 57 if you want to define the Kiore's personality.\nIf you return here, the Kiore will no longer be there.*",
+        "5": "**You encounter a Desert Scarab.** *To learn more, read page 37.* Draw a card to discover what type of Scarab you have encountered.\n- ♦ A **peaceful** Scarab.\n- ♥ An **aggressive** Scarab.\n- ♠♣ A **flipped** Scarab.",
+        "6": "**You encounter a Desert Scarab.** *To learn more, read page 37.* Draw a card to discover what type of Scarab you have encountered.\n- ♦ A **peaceful** Scarab.\n- ♥ An **aggressive** Scarab.\n- ♠♣ A **flipped** Scarab."
       },
       "giganticGardens": {
-        "1": "You face a swarm of giant bees. They rush towards you to attack, and you must either fight or flee.",
-        "2": "You discover a garden of normal-sized Lareons. To learn more, see page 41. Draw a card to discover what type of flowers grow in this garden.",
-        "3": "You discover a garden of normal-sized Lareons. To learn more, see page 41. Draw a card to discover what type of flowers grow in this garden.",
-        "4": "You discover a field of golden petals. Draw a card from the deck to discover what type of flowers you have found.",
-        "5": "You encounter a luxurious whale. To learn more, read page 40. Draw a card to find out what type of whale you have encountered.",
-        "6": "You discover a pile of giant bones, those of a luxurious whale. See the collection table on page 40 to determine what you find there."
+        "1": "**You face a swarm of giant bees.** They rush towards you to attack, and you must either fight or flee.\n*The next time you pass through this hexagon, this event repeats.*",
+        "2": "**You discover a garden of normal-sized Lareons.** *To learn more, see page 41.* Draw a card to discover the type of flowers that grow in this garden.\n- ♥♦ **Red** Lareons.\n- ♠♣ **Yellow** Lareons.",
+        "3": "**You discover a garden of normal-sized Lareons.** *To learn more, see page 41.* Draw a card to discover the type of flowers that grow in this garden.\n- ♥♦ **Red** Lareons.\n- ♠♣ **Yellow** Lareons.",
+        "4": "**You discover a field of golden petals.** Draw a card from the deck to discover what type of flowers you have found.\n*In both cases, nothing will grow here again after your passage.*\n- ♥♦ Golden petals — can be harvested and sold for 100 coins.\n- ♠♣ Golden shoots — can be harvested as 1D6 food.",
+        "5": "**You encounter a luxurious whale.** *To learn more, read page 40.* Draw a card to find out what type of whale you have encountered.\n- ♥♦ A **peaceful** luxurious whale.\n- ♠♣ An **aggressive** luxurious whale.",
+        "6": "**You discover a pile of giant bones,** those of a luxurious whale. See the *collection table* on page 40 to determine what you find there."
       }
     }
   },
@@ -377,7 +377,7 @@
       "4": "**{name} is very ill and doesn’t have much time left.** {gender, select, man {He} woman {She} other {They}} is {gender, select, man {alone} woman {alone} other {alone}} and no one to support them in these difficult moments. Maybe a conversation would bring some comfort? *Next time you visit this place, you’ll need to succeed a Courage test to find {gender, select, man {him} woman {her} other {them}}.*",
       "5": "**{name} is seeking friendship—or maybe love?** You’re not sure, but {gender, select, man {he} woman {she} other {they}} seems to feel {gender, select, man {lonely} woman {lonely} other {lonely}}. You can help them find someone who seeks something similar.",
       "6": "**{name} longs for a loved one.** Maybe it’s someone who lives elsewhere or has just left. But {gender, select, man {he} woman {she} other {they}} is also looking for a very special object that reminds them of this person. What is this object?",
-      "7": "{name} is a **cartographer**. You meet {gender, select, man {him} woman {her} other {them}} as {gender, select, man {he} woman {she} other {they}} is about to leave the village and recognizes you as a traveler. {gender, select, man {He} woman {She} other {They}} offers you one of their maps. Roll a D6: *Location Map (1-3)* or *Biome Map (4-6)* (see p. 49).",
+      "7": "{name} is a **cartographer**. You meet {gender, select, man {him} woman {her} other {them}} as {gender, select, man {he} woman {she} other {they}} is about to leave the village and recognizes you as a traveler. {gender, select, man {He} woman {She} other {They}} offers you one of their maps. Roll a D6: *Location Map (1-3)* or *Biome Map (4-6)* (see page 49).",
       "8": "{name} is **painting a picture**. Realizing you’re a traveler, {gender, select, man {he} woman {she} other {they}} asks if you have a sketch of an unknown place, or if you can describe a panorama you’ve seen on your travels! {gender, select, man {He} woman {She} other {They}} has never ventured far from their village and is seeking inspiration!",
       "9": "There are rumors of mysterious Ruins scattered across the world, and **{name} is curious to learn more**. Seeing you’re a traveler, {gender, select, man {he} woman {she} other {they}} approaches you to see if you have any information to share!",
       "10": "**{name} speaks a name while wandering the village.** Who is it? Why are they saying this name? What happened? *If you need to create a name, consult the table on page 60.*",
@@ -387,10 +387,10 @@
       "K": "**{name} is a builder.** {gender, select, man {He} woman {She} other {They}} tells you that with 3 wood and 3 iron, or 1,000 coins, {gender, select, man {he} woman {she} other {they}} can build the establishment of your choice in the village."
     },
     "context_card_note": "Only the card’s rank matters for context; the suit is ignored.",
-    "context_seven_followup": "Map offered (p. 49): {value, select, 1 {Location Map} 2 {Location Map} 3 {Location Map} 4 {Biome Map} 5 {Biome Map} 6 {Biome Map} other {Map offered}}",
+    "context_seven_followup": "Map offered (page 49): {value, select, 1 {Location Map} 2 {Location Map} 3 {Location Map} 4 {Biome Map} 5 {Biome Map} 6 {Biome Map} other {Map offered}}",
     "context_seven_map_biome": "Biome Map",
     "context_seven_map_localisation": "Location Map",
-    "context_spoken_name_label": "Spoken name (2D6, p. 60)",
+    "context_spoken_name_label": "Spoken name (2D6, page 60)",
     "context_spoken_name_meta": "2D6: <dice></dice>",
     "empty_summary": "Click \"{button}\" to generate an inhabitant.",
     "one_liner_rich": "{gender} <name></name>, {personality} {faction} {age}",
@@ -442,14 +442,14 @@
     "title": "New Protector"
   },
   "rulebook": {
-    "characteristics_footnote": "Rulebook — Your Protector’s Attributes: p. 7–8.",
-    "clock_footnote": "Rulebook — Your Protector’s Attributes: p. 7–8.",
+    "characteristics_footnote": "Rulebook — Your Protector’s Attributes: page 7–8.",
+    "clock_footnote": "Rulebook — Your Protector’s Attributes: page 7–8.",
     "information": "Information in the rulebook",
-    "inhabitant_footnote": "Rulebook — Inhabitants: p. 56–58. Name table: p. 60.",
-    "inventory_footnote": "Rulebook — Other game values → Inventory: p. 8.",
-    "page_citation": "p. {page}",
-    "spellbook_footnote": "Rulebook — Magic: p. 14.",
-    "village_footnote": "Rulebook — Villages: p. 42. \"Establishment\" table: p. 43."
+    "inhabitant_footnote": "Rulebook — Inhabitants: page 56–58. Name table: page 60.",
+    "inventory_footnote": "Rulebook — Other game values → Inventory: page 8.",
+    "page_citation": "page {page}",
+    "spellbook_footnote": "Rulebook — Magic: page 14.",
+    "village_footnote": "Rulebook — Villages: page 42. \"Establishment\" table: page 43."
   },
   "settings": {
     "adaptive_night_mode_help": "Automatically switches between light and dark themes based on the clock value.",
