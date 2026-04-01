@@ -1,0 +1,17 @@
+.DiceRollResult__die-face {
+  font-size: 3em;
+}
+
+.DiceRollResult--rolling .DiceRollResult__die-face {
+  animation: DiceRollResult-pulse 0.16s ease-in-out infinite;
+}
+
+@keyframes DiceRollResult-pulse {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.08) rotate(-2deg);
+  }
+}
