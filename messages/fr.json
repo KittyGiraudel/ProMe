@@ -291,9 +291,9 @@
     "encounters": {
       "floodedPlains": {
         "1": "**L’eau qui entoure vos jambes semble guérir votre fatigue et vous encourager à voyager.** Vous avez un bonus de +1 Courage (maximum : 5) jusqu’à ce que vous franchissiez la frontière entre le jour et la nuit sur l’Horloge.",
-        "2": "**Un voyageur croise votre chemin.** Allez à la page 57 et définissez qui vous avez rencontré. *Si vous revenez ici, le voyageur ne sera plus là.*",
-        "3": "**Vous découvrez un Comptoir.** Pour en savoir plus, reportez-vous à la page 23.",
-        "4": "**Vous découvrez un Comptoir.** Pour en savoir plus, reportez-vous à la page 23.",
+        "2": "**Un voyageur croise votre chemin.** Allez à la page 57 et définissez qui vous avez rencontré.\n*Si vous revenez ici, le voyageur ne sera plus là.*",
+        "3": "**Vous découvrez un Comptoir.**\n*Pour en savoir plus, reportez-vous à la page 23.*",
+        "4": "**Vous découvrez un Comptoir.**\n*Pour en savoir plus, reportez-vous à la page 23.*",
         "5": "**Vous rencontrez un Hérissin.** Pour en savoir plus sur ces créatures, lisez la page 22. **Tirez une carte** pour savoir quel type de Hérisson vous avez trouvé.\n- ♥♦ Un Hérissin **paisible**.\n- ♠♣ Un Hérissin **agressif**.",
         "6": "**Vous rencontrez une oie céleste,** qui peut être chevauchée lorsqu’elle est nourrie ou si vous réussissez un test de Courage. Elle peut vous emmener dans n’importe quel hexagone déjà exploré sans avancer votre Horloge. Ensuite, elle vous quitte pour retourner dans les Plaines Inondées."
       },

@@ -292,8 +292,8 @@
       "floodedPlains": {
         "1": "**The water surrounding your legs seems to heal your fatigue and encourages you to travel.** You gain a +1 Courage bonus (maximum: 5) until you cross the boundary between day and night on the Clock.",
         "2": "**A traveler crosses your path.** Go to page 57 and define who you have met. *If you return here, the traveler will no longer be there.*",
-        "3": "**You discover a Trading Post.** To learn more, refer to page 23.",
-        "4": "**You discover a Trading Post.** To learn more, refer to page 23.",
+        "3": "**You discover a Trading Post.**\n*To learn more, refer to page 23.*",
+        "4": "**You discover a Trading Post.**\n*To learn more, refer to page 23.*",
         "5": "**You encounter a Hedgehog.** To learn more about these creatures, read page 22. **Draw a card** to find out what type of Hedgehog you have found.\n- ♥♦ A **peaceful** Hedgehog.\n- ♠♣ An **aggressive** Hedgehog.",
         "6": "**You encounter a celestial goose,** which can be ridden when fed or if you succeed in a Courage test. It can take you to any already explored hexagon without advancing your Clock. Afterwards, it leaves you to return to the Flooded Plains."
       },
