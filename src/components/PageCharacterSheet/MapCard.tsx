@@ -13,6 +13,7 @@ import { SettingsHint } from '@/components/SettingsHint/SettingsHint'
 import { BIOME_IDS } from '@/lib/constants/misc'
 import { BiomeBubble } from '../BiomeBubble/BiomeBubble'
 import { BrowserWarning } from '../BrowserWarning/BrowserWarning'
+import { EncountersButton } from '../EncountersList/EncountersButton'
 import { HelpButton } from '../HelpButton/HelpButton'
 import './MapCard.css'
 import { useSettings } from '../PageSettings/SettingsContext'
@@ -22,7 +23,9 @@ export function MapCard() {
   const { selectedCell, setSelectedCell, toggleSelectCell } = useCellSelection()
   const {
     mapState: { currentPosition },
+    getCellState,
   } = useMapState()
+  const currentBiome = getCellState(currentPosition).biome ?? 'unexplored'
   const { cardRef, visibleSheet, setVisibleSheet, isViewingCurrentSheet } =
     useMapSheet({ currentPosition, selectedCell, setSelectedCell })
   useMapCopyPaste({ selectedCell })
@@ -31,6 +34,9 @@ export function MapCard() {
     <>
       <Card
         title={t('characters.map.map_section')}
+        actions={[
+          <EncountersButton key='encounters' currentBiome={currentBiome} />,
+        ]}
         extra={
           <Popover title={t('characters.map.legend')} content={<MapLegend />}>
             <HelpButton label={t('rulebook.information')} />

@@ -1,0 +1,29 @@
+.EncountersList {
+  padding-left: 2em;
+  margin: 0;
+  list-style: none;
+}
+
+.EncountersList__item + .EncountersList__item {
+  margin-top: 0.5em;
+}
+
+.EncountersList__item {
+  position: relative;
+}
+
+.EncountersList__item::before {
+  font-size: 2em;
+  position: absolute;
+  right: 100%;
+  margin-right: 0.75ch;
+  top: -0.2em;
+  line-height: 1;
+}
+
+.EncountersList__item:nth-child(1)::before { content: '⚀' }
+.EncountersList__item:nth-child(2)::before { content: '⚁' }
+.EncountersList__item:nth-child(3)::before { content: '⚂' }
+.EncountersList__item:nth-child(4)::before { content: '⚃' }
+.EncountersList__item:nth-child(5)::before { content: '⚄' }
+.EncountersList__item:nth-child(6)::before { content: '⚅' }

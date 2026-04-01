@@ -64,6 +64,8 @@
       "journal_links_label": "Journal",
       "journal_links_overflow": "+ {count, plural, =1 {une entrée plus ancienne} other {# entrées plus anciennes}}",
       "legend": "Légende",
+      "encounters_button": "Voir les rencontres",
+      "encounters_dialog_title": "Rencontres",
       "map_section": "Carte",
       "menu_actions_group": "Actions",
       "menu_marking_group": "Reconnaissance",
