@@ -11,6 +11,7 @@ import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { tokenizeJournalEmbellishUiRules } from '@/lib/markdown/journalEmbellishText'
 import { createJournalMarkdownRendererConfig } from '@/lib/markdown/journalMarkdown'
 import './JournalMarkdown.css'
+import { renderWithHighlights } from '../RichText/RichText'
 
 /**
  * Renders journal markdown with remark-gfm, then applies inline embellishment
@@ -29,7 +30,7 @@ export function JournalMarkdown({
   const { settings } = useSettings()
   const t = useTranslations()
 
-  const renderHighlightedText = (text: string): ReactNode => {
+  const highlighter = (text: string): ReactNode => {
     if (!text) return text
 
     const rules = buildJournalMarkdownEmbellishmentRules(
@@ -58,47 +59,33 @@ export function JournalMarkdown({
     return output
   }
 
-  const renderWithHighlights = (node: ReactNode): ReactNode => {
-    if (typeof node === 'string') return renderHighlightedText(node)
-    if (Array.isArray(node)) return node.map(renderWithHighlights)
-    if (!isValidElement<{ children?: ReactNode }>(node)) return node
-    if (!node.props.children) return node
-    // Custom components (type is not a string) call renderWithHighlights themselves —
-    // don't pre-process their children here or each nesting level adds another wrapping.
-    if (typeof node.type !== 'string') return node
-
-    return cloneElement(
-      node,
-      undefined,
-      renderWithHighlights(node.props.children)
-    )
-  }
-
   const markdownComponents: Components = {
     p: ({ children, node: _node, ...props }) => (
-      <p {...props}>{renderWithHighlights(children)}</p>
+      <p {...props}>{renderWithHighlights(children, highlighter)}</p>
     ),
     li: ({ children, node: _node, ...props }) => (
-      <li {...props}>{renderWithHighlights(children)}</li>
+      <li {...props}>{renderWithHighlights(children, highlighter)}</li>
     ),
     blockquote: ({ children, node: _node, ...props }) => (
-      <blockquote {...props}>{renderWithHighlights(children)}</blockquote>
+      <blockquote {...props}>
+        {renderWithHighlights(children, highlighter)}
+      </blockquote>
     ),
     h1: ({ children, node: _node, ...props }) => (
-      <h1 {...props}>{renderWithHighlights(children)}</h1>
+      <h1 {...props}>{renderWithHighlights(children, highlighter)}</h1>
     ),
     h2: ({ children, node: _node, ...props }) => (
-      <h2 {...props}>{renderWithHighlights(children)}</h2>
+      <h2 {...props}>{renderWithHighlights(children, highlighter)}</h2>
     ),
     h3: ({ children, node: _node, ...props }) => (
-      <h3 {...props}>{renderWithHighlights(children)}</h3>
+      <h3 {...props}>{renderWithHighlights(children, highlighter)}</h3>
     ),
     h4: ({ children, node: _node, ...props }) => (
-      <h4 {...props}>{renderWithHighlights(children)}</h4>
+      <h4 {...props}>{renderWithHighlights(children, highlighter)}</h4>
     ),
     a: ({ children, node: _node, href, ...props }) => (
       <a {...props} href={interactive ? href : undefined}>
-        {renderWithHighlights(children)}
+        {renderWithHighlights(children, highlighter)}
       </a>
     ),
   }

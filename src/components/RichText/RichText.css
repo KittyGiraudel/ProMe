@@ -1,0 +1,4 @@
+.RichText__Accent {
+  color: var(--color, currentColor);
+  font-weight: 700;
+}
