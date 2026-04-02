@@ -12,6 +12,7 @@ import type { GatherableBiomeId } from '@/lib/gathering/schema'
 import { GATHERING_SCHEMA } from '@/lib/gathering/schema'
 import './GatheringList.css'
 import { useCallback } from 'react'
+import { DICE } from '@/lib/constants/misc'
 
 const ROLLS = ['1', '2', '3', '4', '5', '6'] as const
 
@@ -80,7 +81,7 @@ export function GatheringList({ biome }: { biome: GatherableBiomeId }) {
 
   return (
     <ol className='GatheringList'>
-      {ROLLS.map(roll => {
+      {ROLLS.map((roll, index) => {
         const entry = schema[roll]
         const text = t(`common.gathering.${biome}.${roll}`)
         const hasExisting =
@@ -92,8 +93,10 @@ export function GatheringList({ biome }: { biome: GatherableBiomeId }) {
           )
         const isDisabled =
           entry.type === 'collectible' && isInventoryFull && !hasExisting
+        const face = DICE[index]
+
         return (
-          <li key={roll} className='GatheringList__item' data-index={roll}>
+          <li key={roll} className='GatheringList__item' data-index={face}>
             {text}
             {(entry.type === 'collectible' || entry.type === 'money') && (
               <Tooltip

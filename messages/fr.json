@@ -302,16 +302,14 @@
       "floodedPlains": {
         "1": "**L’eau qui entoure vos jambes semble guérir votre fatigue et vous encourager à voyager.** Vous avez un bonus de +1 Courage (maximum : 5) jusqu’à ce que vous franchissiez la frontière entre le jour et la nuit sur l’Horloge.",
         "2": "**Un voyageur croise votre chemin.** Allez à la page 57 et [définissez](/fr/generators/npc) qui vous avez rencontré.\n*Si vous revenez ici, le voyageur ne sera plus là.*",
-        "3": "**Vous découvrez un Comptoir.**\n*Pour en savoir plus, reportez-vous à la page 23.*",
-        "4": "**Vous découvrez un Comptoir.**\n*Pour en savoir plus, reportez-vous à la page 23.*",
+        "3|4": "**Vous découvrez un Comptoir.**\n*Pour en savoir plus, reportez-vous à la page 23.*",
         "5": "**Vous rencontrez un Hérissin.** Pour en savoir plus sur ces créatures, lisez la page 22. **Tirez une carte** pour savoir quel type de Hérisson vous avez trouvé.\n- ♥♦ Un Hérissin **paisible**.\n- ♠♣ Un Hérissin **agressif**.",
         "6": "**Vous rencontrez une oie céleste,** qui peut être chevauchée lorsqu’elle est nourrie ou si vous réussissez un test de Courage. Elle peut vous emmener dans n’importe quel hexagone déjà exploré sans avancer votre Horloge. Ensuite, elle vous quitte pour retourner dans les Plaines Inondées."
       },
       "mushroomJungle": {
         "1": "**Vous êtes pris dans une tempête de spores.** Aucun équipement de protection ne peut vous sauver dans cette situation. **Perdez 1 point dans l’attribut de votre choix.**",
         "2": "**Une Ruine apparaît au milieu de la masse de champignons qui s’étend de tous côtés.**\n*Consultez la p. 63 si vous voulez y entrer.*",
-        "3": "**Vous découvrez un groupe de Mousserons.** Pour déterminer leur nombre, lancez 1D6.\n*Pour en savoir plus sur les Mousserons, reportez-vous page 27.*",
-        "4": "**Vous découvrez un groupe de Mousserons.** Pour déterminer leur nombre, lancez 1D6.\n*Pour en savoir plus sur les Mousserons, reportez-vous page 27.*",
+        "3|4": "**Vous découvrez un groupe de Mousserons.** Pour déterminer leur nombre, lancez 1D6.\n*Pour en savoir plus sur les Mousserons, reportez-vous page 27.*",
         "5": "**Vous découvrez un Bolet Titan**, un immense champignon. Tirez une carte pour déterminer à quel type il appartient.\n*Pour en savoir plus sur les Bolets Titans, reportez-vous à la page 26.*\n- ♦ Un Bolet Titan **stationnaire**.\n- ♥ Un Bolet Titan **ambulant**.\n- ♣ Un Bolet Titan **stationnaire et vénéreux**.\n- ♠ Un Bolet Titan **ambulant et vénéreux**.",
         "6": "**Vous découvrez un Bolet Titan étendu au sol.** Il a péri ou oublié de se réveiller, donnant ainsi vie à des milliers d’autres champignons.\n*Rendez-vous à la page 26 and choisissez un objet dans la table de collecte même si vous n’avez pas d’équipement d’escalade.*"
       },
@@ -319,30 +317,24 @@
         "1": "**De forts vents contraires rendent votre voyage laborieux.** Mangez ou réussissez un test de Courage pour leur résister. Si vous échouez, perdez 1 point d’Endurance ou l’objet de votre choix.\n*La prochaine fois que vous passerez à cet endroit, ces vents violents auront cessé.*",
         "2": "**Un voyageur croise votre chemin.** Allez à la page 57 et définissez qui vous avez rencontré.\n*Si vous revenez ici, le voyageur ne sera plus là.*",
         "3": "**Vous découvrez un petit jardin communautaire !** Allez à la *table de collecte* (page 30) et choisissez-y l’objet de votre choix sans avoir besoin de l’outil approprié. Marquez ce jardin comme étant **récolté**. Vous devez **arroser** le jardin pour pouvoir le réutiliser un autre jour.",
-        "4": "**Vous arrivez dans une ferme Cucurbitus.**\n*Pour en savoir plus sur les Cucurbitus, reportez-vous à la page 30.*\nLorsque vous trouvez une ferme de Cucurbitus, allez à la page 42 et **tirez 5 cartes** pour définir à quoi elle ressemble.",
-        "5": "**Vous arrivez dans une ferme Cucurbitus.**\n*Pour en savoir plus sur les Cucurbitus, reportez-vous à la page 30.*\nLorsque vous trouvez une ferme de Cucurbitus, allez à la page 42 et **tirez 5 cartes** pour définir à quoi elle ressemble.",
+        "4|5": "**Vous arrivez dans une ferme Cucurbitus.**\n*Pour en savoir plus sur les Cucurbitus, reportez-vous à la page 30.*\nLorsque vous trouvez une ferme de Cucurbitus, allez à la page 42 et **tirez 5 cartes** pour définir à quoi elle ressemble.",
         "6": "**Vous rencontrez une créature.** Tirez une carte de la pioche pour savoir quelle créature vous avez trouvée.\n- ♦ Un Sauriflore **rouge** (voir page 30).\n- ♥ Un Sauriflore **jaune** (voir page 30).\n- ♣ Un Sauriflore **blanc** (voir page 30).\n- ♠ Un Pizi (voir page 62)."
       },
       "shadowForest": {
         "1": "**Des ombres denses et ancestrales vous étreignent étroitement.** En raison de l’obscurité, tout ce que vous avez trouvé dans ces trois hexagones de la Forêt des Ombres est effacé de votre journal et de votre carte.\n*Si vous repassez par cet hexagone, tirez d’autres rencontres.*",
-        "2": "**Vous arrivez dans un [village Bruja](/fr/generators/village?f=bruja).** Pour en savoir plus sur les Brujas, voir page 18. Lorsque vous trouvez un village Bruja, allez à la page 43 et **tirez 5 cartes** pour définir le lieu.",
-        "3": "**Vous arrivez dans un [village Bruja](/fr/generators/village?f=bruja).** Pour en savoir plus sur les Brujas, voir page 18. Lorsque vous trouvez un village Bruja, allez à la page 43 et **tirez 5 cartes** pour définir le lieu.",
+        "2|3": "**Vous arrivez dans un [village Bruja](/fr/generators/village?f=bruja).** Pour en savoir plus sur les Brujas, voir page 18. Lorsque vous trouvez un village Bruja, allez à la page 43 et **tirez 5 cartes** pour définir le lieu.",
         "4": "**Vous trouvez un Essaim de lucioles.** Une fois par jour, si vous passez par cet endroit, vous pouvez récupérer 1 point de n’importe quel Attribut.",
-        "5": "**Vous rencontrez une créature.** Tirez une carte pour savoir laquelle :\n- ♦ Un groupe de **Yabas** (voir page 19).\n- ♥ Un **Yaba** perdu (voir page 19).\n- ♣ Un **Arbre Guerrier**, ce qui déclenche un combat (voir page 19). \n- ♠ Un **Pizi** (voir page 62).",
-        "6": "**Vous rencontrez une créature.** Tirez une carte pour savoir laquelle :\n- ♦ Un groupe de **Yabas** (voir page 19).\n- ♥ Un **Yaba** perdu (voir page 19).\n- ♣ Un **Arbre Guerrier**, ce qui déclenche un combat (voir page 19). \n- ♠ Un **Pizi** (voir page 62)."
+        "5|6": "**Vous rencontrez une créature.** Tirez une carte pour savoir laquelle :\n- ♦ Un groupe de **Yabas** (voir page 19).\n- ♥ Un **Yaba** perdu (voir page 19).\n- ♣ Un **Arbre Guerrier**, ce qui déclenche un combat (voir page 19). \n- ♠ Un **Pizi** (voir page 62)."
       },
       "silentDesert": {
         "1": "**Une Ruine émerge des rochers sablonneux.**\n*Passez à la page 63 si vous voulez l’explorer.*",
         "2": "**Vous découvrez une oasis.** *Pour en savoir plus, reportez-vous à la page 36.*\nTirez une carte pour savoir quel type d’oasis vous avez trouvé.\n- ♥♦ Un paradis de palmiers.\n- ♠♣ Un sanctuaire de cactus.",
-        "3": "**Vous rencontrez un Kiore.** *Pour en savoir plus, consultez la page 34.\nAllez à la page 57 si vous voulez [définir la personnalité](/fr/generators/npc) du Kiore.\nSi vous revenez ici, le Kiore ne sera plus là.*",
-        "4": "**Vous rencontrez un Kiore.** *Pour en savoir plus, consultez la page 34.\nAllez à la page 57 si vous voulez [définir la personnalité](/fr/generators/npc) du Kiore.\nSi vous revenez ici, le Kiore ne sera plus là.*",
-        "5": "**Vous rencontrez un Scarabée du désert.** *Pour en savoir plus, lisez la page 37.*\nTirez une carte pour découvrir quel type de Scarabée vous avez rencontré.\n- ♦ Un Scarabée **paisible**.\n- ♥ Un Scarabée **agressif**.\n- ♠♣ Un Scarabée **retourné**.",
-        "6": "**Vous rencontrez un Scarabée du désert.** *Pour en savoir plus, lisez la page 37.*\nTirez une carte pour découvrir quel type de Scarabée vous avez rencontré.\n- ♦ Un Scarabée **paisible**.\n- ♥ Un Scarabée **agressif**.\n- ♠♣ Un Scarabée **retourné**."
+        "3|4": "**Vous rencontrez un Kiore.** *Pour en savoir plus, consultez la page 34.\nAllez à la page 57 si vous voulez [définir la personnalité](/fr/generators/npc) du Kiore.\nSi vous revenez ici, le Kiore ne sera plus là.*",
+        "5|6": "**Vous rencontrez un Scarabée du désert.** *Pour en savoir plus, lisez la page 37.*\nTirez une carte pour découvrir quel type de Scarabée vous avez rencontré.\n- ♦ Un Scarabée **paisible**.\n- ♥ Un Scarabée **agressif**.\n- ♠♣ Un Scarabée **retourné**."
       },
       "giganticGardens": {
         "1": "**Vous faites face à un essaim d’abeilles géantes.** Elles foncent vers vous pour attaquer, et vous devez soit les combattre soit fuir.\n*La prochaine fois que vous passez dans cet hexagon, cet événement se répète.*",
-        "2": "**Vous découvrez un jardin de Laréons de taille normale.** *Pour en savoir plus, voir page 41.*\nPiochez une carte pour découvrir le type de fleurs qui pousse en ce jardin.\n- ♥♦ Des Laérons **rouges**.\n- ♠♣ Des Laérons **jaunes**.",
-        "3": "**Vous découvrez un jardin de Laréons de taille normale.** *Pour en savoir plus, voir page 41.*\nPiochez une carte pour découvrir le type de fleurs qui pousse en ce jardin.\n- ♥♦ Des Laérons **rouges**.\n- ♠♣ Des Laérons **jaunes**.",
+        "2|3": "**Vous découvrez un jardin de Laréons de taille normale.** *Pour en savoir plus, voir page 41.*\nPiochez une carte pour découvrir le type de fleurs qui pousse en ce jardin.\n- ♥♦ Des Laérons **rouges**.\n- ♠♣ Des Laérons **jaunes**.",
         "4": "**Vous découvrez un champ de pétales d’or.** Tirez une carte de la pioche pour découvrir quel type de fleurs vous avez trouvé. *Dans les deux cas, plus rien ne poussera ici après votre passage.*\n- ♥♦ Des pétales d’or — peuvent être récoltés et vendus pour 100 pièces.\n- ♠♣ Des pousses d’or — peuvent être récoltées comme 1D6 nourriture.",
         "5": "**Vous rencontrez une baleine luxuriante.** *Pour en savoir plus, lisez la page 40.*\nPiochez une carte pour savoir quel type de baleine vous rencontrez.\n- ♥♦ Une baleine luxuriante **paisible**.\n- ♠♣ Une baleine luxuriante **agressive**.",
         "6": "**Vous découvrez un tas d’ossements géants,** ceux d’une baleine luxuriante.\nVoir la *table de collecte* page 40 pour déterminer ce que vous y découvrez."

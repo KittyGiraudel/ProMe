@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl'
-import type { BiomeId } from '@/lib/types'
+import type { BiomeId, TranslationKey } from '@/lib/types'
 import './EncountersList.css'
+import { DICE } from '@/lib/constants/misc'
 import { RichText } from '../RichText/RichText'
 
 const ROLLS = ['1', '2', '3', '4', '5', '6'] as const
@@ -10,25 +11,31 @@ export function EncountersList({ biome }: { biome: BiomeId }) {
 
   return (
     <ol className='EncountersList'>
-      {ROLLS.map((roll, index, array) => {
-        const description = t(`common.encounters.${biome}.${roll}`)
-        const previousDescription = array[index - 1]
-          ? t(`common.encounters.${biome}.${array[index - 1]}`)
-          : undefined
-        const nextDescription = array[index + 1]
-          ? t(`common.encounters.${biome}.${array[index + 1]}`)
-          : undefined
-        const isSameAsPrevious = description === previousDescription
-        const isSameAsNext = description === nextDescription
+      {Array.from({ length: 6 }).map((_, zeroIndex) => {
+        const oneIndex = zeroIndex + 1
+        const key = `common.encounters.${biome}.${oneIndex}` as TranslationKey
+        const mergedKey =
+          `common.encounters.${biome}.${oneIndex}|${oneIndex + 1}` as TranslationKey
+        const face = DICE[zeroIndex]
 
-        return description === previousDescription ? null : (
-          <li
-            key={roll}
-            className='EncountersList__item'
-            data-index={isSameAsNext ? `${index + 1} ${index + 2}` : index + 1}>
-            <RichText text={description.replace(/\n/g, '  \n')} />
-          </li>
-        )
+        if (t.has(mergedKey)) {
+          return (
+            <li
+              key={mergedKey}
+              className='EncountersList__item'
+              data-index={`${face}${DICE[zeroIndex + 1]}`}>
+              <RichText text={t(mergedKey).replace(/\n/g, '  \n')} />
+            </li>
+          )
+        } else if (t.has(key)) {
+          return (
+            <li key={key} className='EncountersList__item' data-index={face}>
+              <RichText text={t(key).replace(/\n/g, '  \n')} />
+            </li>
+          )
+        }
+
+        return null
       })}
     </ol>
   )

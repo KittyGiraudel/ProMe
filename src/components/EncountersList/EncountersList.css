@@ -21,19 +21,8 @@
   line-height: 0.6;
   width: 1ch;
   font-family: monospace;
+  content: attr(data-index);
 }
-
-.EncountersList__item[data-index="1"]::before { content: '⚀' }
-.EncountersList__item[data-index="1 2"]::before { content: '⚀⚁' }
-.EncountersList__item[data-index="2"]::before { content: '⚁' }
-.EncountersList__item[data-index="2 3"]::before { content: '⚁⚂' }
-.EncountersList__item[data-index="3"]::before { content: '⚂' }
-.EncountersList__item[data-index="3 4"]::before { content: '⚂⚃' }
-.EncountersList__item[data-index="4"]::before { content: '⚃' }
-.EncountersList__item[data-index="4 5"]::before { content: '⚃⚄' }
-.EncountersList__item[data-index="5"]::before { content: '⚄' }
-.EncountersList__item[data-index="5 6"]::before { content: '⚄⚅' }
-.EncountersList__item[data-index="6"]::before { content: '⚅' }
 
 .EncountersList__item ul {
   list-style: none;
