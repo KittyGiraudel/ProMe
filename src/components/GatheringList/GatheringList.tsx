@@ -21,25 +21,43 @@ export function GatheringList({ biome }: { biome: GatherableBiomeId }) {
   const { getCharacterValue, setCharacterValue } = useCharacterContext()
   const inventoryLimit = useInventoryLimit()
   const schema = GATHERING_SCHEMA[biome]!
-  const currentMoney = getCharacterValue<number>('money') ?? 0
+  // Read at render time for display only — callbacks read fresh to avoid stale closures
   const currentInventory = getCharacterValue<InventoryItem[]>('inventory') ?? []
   const isInventoryFull =
     inventoryLimit > 0 && currentInventory.length >= inventoryLimit
 
   const addMoney = useCallback(
-    (quantity: number) => setCharacterValue('money', currentMoney + quantity),
-    [currentMoney, setCharacterValue]
+    (quantity: number) => {
+      const current = getCharacterValue<number>('money') ?? 0
+      setCharacterValue('money', current + quantity)
+    },
+    [getCharacterValue, setCharacterValue]
   )
 
   const addCollectible = useCallback(
     (quantity: number, label: string) => {
-      if (isInventoryFull) return
-      setCharacterValue('inventory', [
-        ...currentInventory,
-        { id: randomId(), quantity, label, note: '' },
-      ])
+      const inventory = getCharacterValue<InventoryItem[]>('inventory') ?? []
+      const existing = inventory.find(
+        item => item.label.toLowerCase() === label.toLowerCase()
+      )
+      if (existing) {
+        setCharacterValue(
+          'inventory',
+          inventory.map(item =>
+            item === existing
+              ? { ...item, quantity: item.quantity + quantity }
+              : item
+          )
+        )
+      } else {
+        if (inventoryLimit > 0 && inventory.length >= inventoryLimit) return
+        setCharacterValue('inventory', [
+          ...inventory,
+          { id: randomId(), quantity, label, note: '' },
+        ])
+      }
     },
-    [getCharacterValue, setCharacterValue, currentInventory, isInventoryFull]
+    [getCharacterValue, setCharacterValue, inventoryLimit]
   )
 
   function handleCollect(roll: (typeof ROLLS)[number]) {
@@ -64,13 +82,23 @@ export function GatheringList({ biome }: { biome: GatherableBiomeId }) {
     <ol className='GatheringList'>
       {ROLLS.map(roll => {
         const entry = schema[roll]
+        const text = t(`common.gathering.${biome}.${roll}`)
+        const hasExisting =
+          entry.type === 'collectible' &&
+          currentInventory.some(
+            item =>
+              item.label.toLowerCase() ===
+              parseGatheringItem(text, entry.regex).label.toLowerCase()
+          )
+        const isDisabled =
+          entry.type === 'collectible' && isInventoryFull && !hasExisting
         return (
           <li key={roll} className='GatheringList__item' data-index={roll}>
-            {t(`common.gathering.${biome}.${roll}`)}
+            {text}
             {(entry.type === 'collectible' || entry.type === 'money') && (
               <Tooltip
                 title={
-                  entry.type === 'collectible' && isInventoryFull
+                  isDisabled
                     ? t('characters.inventory.inventory_full')
                     : t('common.actions.collect')
                 }>
@@ -79,7 +107,7 @@ export function GatheringList({ biome }: { biome: GatherableBiomeId }) {
                   size='small'
                   icon={<PlusOutlined />}
                   htmlType='button'
-                  disabled={entry.type === 'collectible' && isInventoryFull}
+                  disabled={isDisabled}
                   onClick={() => handleCollect(roll)}
                 />
               </Tooltip>
