@@ -71,9 +71,15 @@
 /**
  * 1. Guarantee a consistent and predictable stacking order for the elements.
  */
- .MapHex__JournalCount { z-index: 1 /* 1 */ }
- .MapHex__Button       { z-index: 2 /* 1 */ }
- .MapHex__Icon         { z-index: 3 /* 1 */ }
+.MapHex__JournalCount {
+  z-index: 1; /* 1 */
+}
+.MapHex__Button {
+  z-index: 2; /* 1 */
+}
+.MapHex__Icon {
+  z-index: 3; /* 1 */
+}
 
 /**
  * 1. Make the icon cover the whole cell.
@@ -144,13 +150,31 @@
 /**
  * 1. Make clickable buttons look clickable.
  */
-.MapHex__Button:not(:disabled) { cursor: pointer } /* 1 */
-.MapHex__Button:not(:disabled):hover { transform: scale(1.15) } /* 1 */
-.MapHex__Button:not(:disabled):focus-visible { outline: none } /* 1 */
+.MapHex__Button:not(:disabled) {
+  cursor: pointer;
+} /* 1 */
+.MapHex__Button:not(:disabled):hover {
+  transform: scale(1.15);
+} /* 1 */
+.MapHex__Button:not(:disabled):focus-visible {
+  outline: none;
+} /* 1 */
 
-.MapHex.Pattern[data-biome="fieldSea"]        { --pattern-size: 30px }
-.MapHex.Pattern[data-biome="giganticGardens"] { --pattern-size: 40px }
-.MapHex.Pattern[data-biome="shadowForest"]    { --pattern-size: 15px }
-.MapHex.Pattern[data-biome="floodedPlains"]   { --pattern-size: 20px }
-.MapHex.Pattern[data-biome="silentDesert"]    { --pattern-size: 15px }
-.MapHex.Pattern[data-biome="mushroomJungle"]  { --pattern-size: 10px }
+.MapHex.Pattern[data-biome="fieldSea"] {
+  --pattern-size: 30px;
+}
+.MapHex.Pattern[data-biome="giganticGardens"] {
+  --pattern-size: 40px;
+}
+.MapHex.Pattern[data-biome="shadowForest"] {
+  --pattern-size: 15px;
+}
+.MapHex.Pattern[data-biome="floodedPlains"] {
+  --pattern-size: 20px;
+}
+.MapHex.Pattern[data-biome="silentDesert"] {
+  --pattern-size: 15px;
+}
+.MapHex.Pattern[data-biome="mushroomJungle"] {
+  --pattern-size: 10px;
+}

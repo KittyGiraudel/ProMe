@@ -58,12 +58,24 @@
   opacity: 0.5;
 }
 
-.Banner[data-biome="giganticGardens"] .Banner__background { --pattern-size: 80px; }
-.Banner[data-biome="floodedPlains"]   .Banner__background { --pattern-size: 60px; }
-.Banner[data-biome="silentDesert"]    .Banner__background { --pattern-size: 60px; }
-.Banner[data-biome="fieldSea"]        .Banner__background { --pattern-size: 90px; }
-.Banner[data-biome="mushroomJungle"]  .Banner__background { --pattern-size: 40px; }
-.Banner[data-biome="shadowForest"]    .Banner__background { --pattern-size: 50px; }
+.Banner[data-biome="giganticGardens"] .Banner__background {
+  --pattern-size: 80px;
+}
+.Banner[data-biome="floodedPlains"] .Banner__background {
+  --pattern-size: 60px;
+}
+.Banner[data-biome="silentDesert"] .Banner__background {
+  --pattern-size: 60px;
+}
+.Banner[data-biome="fieldSea"] .Banner__background {
+  --pattern-size: 90px;
+}
+.Banner[data-biome="mushroomJungle"] .Banner__background {
+  --pattern-size: 40px;
+}
+.Banner[data-biome="shadowForest"] .Banner__background {
+  --pattern-size: 50px;
+}
 
 /*
  * Biome-driven cover: globals.css sets --biome-light / --biome-dark on [data-biome].
