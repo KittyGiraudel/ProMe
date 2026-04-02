@@ -2,6 +2,11 @@
 
 import { Card, Form, Popover, Space } from 'antd'
 import { useTranslations } from 'next-intl'
+import { BiomeBubble } from '@/components/BiomeBubble/BiomeBubble'
+import { BrowserWarning } from '@/components/BrowserWarning/BrowserWarning'
+import { EncountersButton } from '@/components/EncountersList/EncountersButton'
+import { GatheringButton } from '@/components/GatheringList/GatheringButton'
+import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { MapDisplay } from '@/components/MapDisplay/MapDisplay'
 import { MapFormValueAnchor } from '@/components/MapDisplay/MapFormValueAnchor'
 import { MapSheetNavigation } from '@/components/MapDisplay/MapSheetNavigation'
@@ -9,15 +14,11 @@ import { useCellSelection } from '@/components/MapDisplay/useMapCellSelection'
 import { useMapCopyPaste } from '@/components/MapDisplay/useMapCopyPaste'
 import { useMapSheet } from '@/components/MapDisplay/useMapSheet'
 import { useMapState } from '@/components/MapDisplay/useMapState'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { SettingsHint } from '@/components/SettingsHint/SettingsHint'
 import { BIOME_IDS } from '@/lib/constants/misc'
-import { BiomeBubble } from '../BiomeBubble/BiomeBubble'
-import { BrowserWarning } from '../BrowserWarning/BrowserWarning'
-import { EncountersButton } from '../EncountersList/EncountersButton'
-import { GatheringButton } from '../GatheringList/GatheringButton'
-import { HelpButton } from '../HelpButton/HelpButton'
+
 import './MapCard.css'
-import { useSettings } from '../PageSettings/SettingsContext'
 
 export function MapCard() {
   const t = useTranslations()

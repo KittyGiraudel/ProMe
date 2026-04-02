@@ -1,5 +1,5 @@
-import { randomCard, randomNumberedCard } from '@/lib/rng'
-import { isFaceRank, suitIsRed } from '@/lib/suitGlyphs'
+import { randomCard, randomNumberedCard } from '@/lib/random/rng'
+import { isFaceRank, suitIsRed } from '@/lib/random/suitGlyphs'
 import type { PlayingCard } from '@/lib/types'
 import { toVillagePrimaryTuple } from './primaryTuple'
 

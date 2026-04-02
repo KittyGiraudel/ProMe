@@ -1,6 +1,7 @@
 import { MAP_COLS } from '@/lib/hex/coordinates'
 import type { MapDisplayProps } from './MapDisplay'
 import { MapHex } from './MapHex'
+
 import './MapRow.css'
 
 type MapRowProps = MapDisplayProps & {

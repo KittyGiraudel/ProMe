@@ -12,9 +12,10 @@ import {
 } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
+import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { randomId } from '@/lib/character/model'
+
 import './SpellbookCard.css'
-import { HelpButton } from '../HelpButton/HelpButton'
 
 const SPELLBOOK_MAX = 6
 

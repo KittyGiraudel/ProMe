@@ -13,10 +13,11 @@ import {
 } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
+import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { randomId } from '@/lib/character/model'
-import { HelpButton } from '../HelpButton/HelpButton'
-import './InventoryCard.css'
 import { useWatchedInventory } from './useCharacterSheetDerived'
+
+import './InventoryCard.css'
 
 export function InventoryCard() {
   const t = useTranslations()

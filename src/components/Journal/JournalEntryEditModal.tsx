@@ -19,9 +19,10 @@ import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { JournalEditCheatsheet } from '@/components/Journal/JournalEditCheatsheet'
 import { JournalMarkdown } from '@/components/JournalMarkdown/JournalMarkdown'
+import { useWatchedJournal } from '@/components/PageCharacterSheet/useCharacterSheetDerived'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
-import '@/components/Journal/Journal.css'
-import { useWatchedJournal } from '../PageCharacterSheet/useCharacterSheetDerived'
+
+import './Journal.css'
 
 /** `autoSize` rows for the journal editor; breakpoint aligns with modal `Col lg={16}`. */
 const JOURNAL_MODAL_TEXTAREA_ROWS = {

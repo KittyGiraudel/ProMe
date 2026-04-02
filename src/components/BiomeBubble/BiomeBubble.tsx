@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl'
 import { VisuallyHidden } from '@/components/VisuallyHidden/VisuallyHidden'
-import type { BiomeId } from '@/lib/types'
+import type { PossibleBiomeId } from '@/lib/types'
+
 import './BiomeBubble.css'
 
 export function BiomeBubble({
@@ -8,7 +9,7 @@ export function BiomeBubble({
   style,
   withPattern = false,
 }: {
-  biome: BiomeId | 'unexplored'
+  biome: PossibleBiomeId
   style?: React.CSSProperties
   withPattern?: boolean
 }) {

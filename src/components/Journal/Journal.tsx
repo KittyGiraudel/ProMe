@@ -6,9 +6,10 @@ import { useMemo } from 'react'
 import { JournalEntry } from '@/components/Journal/JournalEntry'
 import { useWatchedJournal } from '@/components/PageCharacterSheet/useCharacterSheetDerived'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
+import { TimelineIcon } from '@/components/TimelineIcon/TimelineIcon'
 import type { JournalEntryPhase } from '@/lib/character/types'
+
 import './Journal.css'
-import { TimelineIcon } from './TimelineIcon'
 
 export function Journal({
   fields,

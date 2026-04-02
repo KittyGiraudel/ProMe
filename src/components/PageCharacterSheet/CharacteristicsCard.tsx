@@ -15,7 +15,7 @@ import {
 } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
-import { HelpButton } from '../HelpButton/HelpButton'
+import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { useWatchedStats } from './useCharacterSheetDerived'
 
 type PoolKey = 'health' | 'courage' | 'stamina'

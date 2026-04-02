@@ -1,9 +1,10 @@
 import RedoOutlined from '@ant-design/icons/lib/icons/RedoOutlined'
 import { Button, Tooltip } from 'antd'
 import { useTranslations } from 'next-intl'
+import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
+import { RichText } from '@/components/RichText/RichText'
 import { VillageTraitRow } from '@/lib/village/resolveVillageDisplay'
-import { PlayingCardLabel } from '../PlayingCardLabel/PlayingCardLabel'
-import { RichText } from '../RichText/RichText'
+
 export function TraitsList({
   traits,
   onRerollPrimarySlot,

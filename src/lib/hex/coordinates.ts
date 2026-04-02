@@ -1,4 +1,5 @@
 import type { HexCoordinate } from '@/lib/character/types'
+import { DEFAULT_MAP_POSITION } from '../character/model'
 
 export const MAP_ROWS = 9
 export const MAP_COLS = 12
@@ -300,4 +301,10 @@ export function areHexNeighbors(
     if (from.q + d.q === to.q && from.r + d.r === to.r) return true
   }
   return false
+}
+
+export function isCoreHex(coord: HexCoordinate): boolean {
+  return (
+    coord.q === DEFAULT_MAP_POSITION.q && coord.r === DEFAULT_MAP_POSITION.r
+  )
 }

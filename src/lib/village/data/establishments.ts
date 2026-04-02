@@ -1,5 +1,5 @@
 import { _Translator } from 'next-intl'
-import { suitIsRed } from '@/lib/suitGlyphs'
+import { suitIsRed } from '@/lib/random/suitGlyphs'
 import type { PlayingCard, Rank } from '@/lib/types'
 
 /** Ranks 2–8: establishment type has three size tiers in the rulebook. */

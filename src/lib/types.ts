@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl'
+import { type useTranslations } from 'next-intl'
 
 export type BiomeId =
   | 'shadowForest'
@@ -7,6 +7,8 @@ export type BiomeId =
   | 'fieldSea'
   | 'silentDesert'
   | 'giganticGardens'
+
+export type PossibleBiomeId = BiomeId | 'unexplored'
 
 export type Faction = 'bruja' | 'cucurbitus' | 'kiore' | 'mousseron'
 

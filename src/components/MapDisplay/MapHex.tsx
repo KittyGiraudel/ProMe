@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import {
@@ -5,14 +6,14 @@ import {
   formatDisplayedCellReference,
   getDisplayedCellLabel,
   getGlobalFromSheetCell,
+  isCoreHex,
 } from '@/lib/hex/coordinates'
-import { BiomeId, TranslationKey } from '@/lib/types'
+import { PossibleBiomeId, TranslationKey } from '@/lib/types'
 import { MapCellContextMenu } from './MapCellContextMenu'
 import type { MapDisplayProps } from './MapDisplay'
 import { useJournalIndex, useMapState } from './useMapState'
+
 import './MapHex.css'
-import { useTranslations } from 'next-intl'
-import { isCoreHex } from '@/lib/map/movement'
 
 type MapHexProps = MapDisplayProps & {
   ri: number
@@ -26,7 +27,7 @@ type MapHexState = {
   isReachable: boolean
   isCore: boolean
   icon: string | undefined
-  biome: BiomeId | 'unexplored' | undefined
+  biome: PossibleBiomeId | undefined
 }
 
 const useHexState = ({

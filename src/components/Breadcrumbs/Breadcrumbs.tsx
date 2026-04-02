@@ -1,6 +1,7 @@
 import { Breadcrumb, BreadcrumbProps } from 'antd'
 import { ItemType } from 'antd/es/breadcrumb/Breadcrumb'
 import { BlockedLink } from '../Navigation/BlockedLink'
+
 import './Breadcrumbs.css'
 
 type BreadcrumbsProps = {

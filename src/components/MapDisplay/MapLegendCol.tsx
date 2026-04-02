@@ -1,4 +1,5 @@
 import { MAP_ROWS, rowLabelFromIndex } from '@/lib/hex/coordinates'
+
 import './MapLegendCol.css'
 
 export function MapLegendCol({ position }: { position: 'left' | 'right' }) {

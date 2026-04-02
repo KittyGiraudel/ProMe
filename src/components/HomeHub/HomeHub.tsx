@@ -4,10 +4,10 @@ import { Card, Col, Row, Space, Typography } from 'antd'
 import { useFormatter, useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
+import { useCharacterLink } from '@/components/PageCharacterSheet/useCharacterLink'
+import { useCharacters } from '@/hooks/useCharacters'
 import { useHydration } from '@/hooks/useHydration'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
-import { useCharacters } from '../../hooks/useCharacters'
-import { useCharacterLink } from '../PageCharacterSheet/useCharacterLink'
 
 const CharacterManager = () => {
   const t = useTranslations()

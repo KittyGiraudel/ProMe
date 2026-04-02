@@ -1,5 +1,5 @@
 import { _Translator } from 'next-intl'
-import { suitIsRed } from '@/lib/suitGlyphs'
+import { suitIsRed } from '@/lib/random/suitGlyphs'
 import type { PlayingCard } from '@/lib/types'
 import { rankUsesEstablishmentSizeTiers } from '@/lib/village/data/establishments'
 import type { VillageRoll } from '@/lib/village/generate'

@@ -12,6 +12,7 @@ import {
   decodeVillageIdParam,
   decodeVillageIdRollParam,
 } from '@/lib/village/villageIdCodec'
+
 import './JournalReferencePreview.css'
 
 /** Rich inline link for `{village/…}`, `{npc/…}`, or `{protector/…}` journal tokens. */

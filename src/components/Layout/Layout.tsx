@@ -10,19 +10,20 @@ import {
 import { useTranslations } from 'next-intl'
 import { type ReactNode, useMemo } from 'react'
 import { Banner } from '@/components/Banner/Banner'
+import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
+import { Footer } from '@/components/Footer/Footer'
+import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { usePathname } from '@/i18n/navigation'
-import type { BiomeId } from '@/lib/types'
-import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs'
-import { BlockedLink } from '../Navigation/BlockedLink'
+import type { PossibleBiomeId } from '@/lib/types'
+
 import './Layout.css'
-import { Footer } from '../Footer/Footer'
 
 type LayoutProps = {
   title: string
   headerActions?: ReactNode
   sheetNightChrome?: boolean
   /** Tints the page cover from map palette (character sheet). */
-  bannerBiome?: BiomeId | 'unexplored'
+  bannerBiome?: PossibleBiomeId
   breadcrumbs: BreadcrumbProps['items']
   children: ReactNode
   className?: string

@@ -1,8 +1,9 @@
+import MoonFilled from '@ant-design/icons/lib/icons/MoonFilled'
 import SunFilled from '@ant-design/icons/lib/icons/SunFilled'
 import { Badge } from 'antd'
-import './TimelineIcon.css'
-import MoonFilled from '@ant-design/icons/lib/icons/MoonFilled'
 import { JournalEntryPhase } from '@/lib/character/types'
+
+import './TimelineIcon.css'
 
 export function TimelineIcon({
   phase,

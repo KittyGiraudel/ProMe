@@ -5,9 +5,10 @@ import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { useAnimatedValue } from '@/hooks/useAnimatedValue'
-import { randomCard } from '@/lib/rng'
-import './CardDraw.css'
+import { randomCard } from '@/lib/random/rng'
 import { HelpButton } from '../HelpButton/HelpButton'
+
+import './CardDraw.css'
 
 export function CardDraw() {
   const t = useTranslations()

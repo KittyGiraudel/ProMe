@@ -3,8 +3,9 @@
 import { useEffect, useRef } from 'react'
 import { useAnimatedValue } from '@/hooks/useAnimatedValue'
 import { SUITS } from '@/lib/constants/misc'
-import { randomCard } from '@/lib/rng'
-import { suitIsRed } from '@/lib/suitGlyphs'
+import { randomCard } from '@/lib/random/rng'
+import { suitIsRed } from '@/lib/random/suitGlyphs'
+
 import './CardDrawResult.css'
 
 export function CardDrawResult() {

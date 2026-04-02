@@ -18,7 +18,7 @@ import {
 } from '@/lib/character/types'
 import { isSameHex } from '@/lib/hex/coordinates'
 import { moveWithAutoBiome } from '@/lib/map/movement'
-import { getRandomBiomeResult } from '@/lib/map/randomBiome'
+import { getRandomBiomeResult } from '@/lib/random/randomBiome'
 import { type BiomeId } from '@/lib/types'
 import { showRandomBiomeDiscoveredNotification } from './mapRandomBiomeNotification'
 

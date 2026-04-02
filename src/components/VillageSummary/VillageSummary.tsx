@@ -3,6 +3,7 @@
 import { Card, Empty, Space, Tooltip } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
+import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import type { InhabitantRoll } from '@/lib/inhabitant/generate'
 import type { VillageRoll } from '@/lib/village/generate'
@@ -11,10 +12,10 @@ import {
   ownerSlotIndexByEstablishmentIndex,
   resolveVillageDisplay,
 } from '@/lib/village/resolveVillageDisplay'
-import { HelpButton } from '../HelpButton/HelpButton'
 import { GroupedEstablishmentsList } from './GroupedEstablishmentsList'
 import { TraitsList } from './TraitsList'
 import { UngroupedEstablishmentsList } from './UngroupedEstablishmentsList'
+
 import './VillageSummary.css'
 
 export type VillageSummaryProps = {

@@ -9,13 +9,13 @@ import {
   useMemo,
   useState,
 } from 'react'
+import { useHydration } from '@/hooks/useHydration'
 import { DEFAULT_SETTINGS } from '@/lib/settings/model'
 import { loadSettings, saveSettings } from '@/lib/settings/storage'
 import type { AppSettings } from '@/lib/settings/types'
 
 type SettingsContextValue = {
   settings: AppSettings
-  hydrated: boolean
   updateSettings: (updater: (prev: AppSettings) => AppSettings) => void
 }
 
@@ -23,12 +23,10 @@ const SettingsContext = createContext<SettingsContextValue | null>(null)
 
 export function SettingsProvider({ children }: { children: ReactNode }) {
   const [settings, setSettings] = useState<AppSettings>(DEFAULT_SETTINGS)
-  const [hydrated, setHydrated] = useState(false)
 
   useEffect(function hydrateSettingsFromStorage() {
     void Promise.resolve().then(() => {
       setSettings(loadSettings())
-      setHydrated(true)
     })
   }, [])
 
@@ -46,10 +44,9 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   const value = useMemo<SettingsContextValue>(
     () => ({
       settings,
-      hydrated,
       updateSettings,
     }),
-    [settings, hydrated, updateSettings]
+    [settings, updateSettings]
   )
 
   return (

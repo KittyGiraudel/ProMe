@@ -5,6 +5,7 @@ import type { CSSProperties, ReactNode } from 'react'
 import { BiomeTag } from '@/components/BiomeTag/BiomeTag'
 import { CoordChip } from '@/components/CoordChip/CoordChip'
 import { JournalReferencePreview } from '@/components/JournalReferencePreview/JournalReferencePreview'
+import { CharacterCellData } from '@/components/MapDisplay/useMapState'
 import { getCharacterStore } from '@/lib/character/store'
 import { BIOME_ROLL_TABLE } from '@/lib/constants/biomeRollTable'
 import { DICE, SUITS } from '@/lib/constants/misc'
@@ -20,10 +21,9 @@ import {
 } from '@/lib/markdown/journalEmbellishText'
 import { getProtectorJournalSummary } from '@/lib/markdown/protectorLinkSummary'
 import { getVillageJournalSummary } from '@/lib/markdown/villageLinkSummary'
-import { suitIsRed } from '@/lib/suitGlyphs'
+import { suitIsRed } from '@/lib/random/suitGlyphs'
 import type { Suit } from '@/lib/types'
 import { decodeVillageFactionParam } from '@/lib/village/villageUrlCodec'
-import { CharacterCellData } from '../MapDisplay/useMapState'
 
 /** Everything needed to build journal embellishment rules for the current character sheet + locale. */
 export type JournalEmbellishmentBuildContext = {

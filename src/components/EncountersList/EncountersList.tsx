@@ -1,8 +1,9 @@
 import { useTranslations } from 'next-intl'
-import type { BiomeId, TranslationKey } from '@/lib/types'
-import './EncountersList.css'
 import { DICE } from '@/lib/constants/misc'
+import type { BiomeId, TranslationKey } from '@/lib/types'
 import { RichText } from '../RichText/RichText'
+
+import './EncountersList.css'
 
 export function EncountersList({ biome }: { biome: BiomeId }) {
   const t = useTranslations()

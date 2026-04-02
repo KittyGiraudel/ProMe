@@ -1,6 +1,6 @@
 import { useParams } from 'next/navigation'
 import { useCallback } from 'react'
-import { useSettings } from '../PageSettings/SettingsContext'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import {
   CHARACTER_SHEET_TAB_KEYS,
   CharacterSheetTabId,

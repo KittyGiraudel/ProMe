@@ -3,12 +3,12 @@
 import { App } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
+import { useCharacterLink } from '@/components/PageCharacterSheet/useCharacterLink'
 import { useRouter } from '@/i18n/navigation'
 import { createCharacterFromIdentity } from '@/lib/character/createFromIdentity'
 import { getCharacterStore } from '@/lib/character/store'
 import type { Archetype } from '@/lib/character/types'
 import type { Gender } from '@/lib/types'
-import { useCharacterLink } from '../PageCharacterSheet/useCharacterLink'
 
 export type CharacterCreateValues = {
   name: string

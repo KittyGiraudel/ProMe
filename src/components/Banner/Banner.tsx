@@ -1,10 +1,11 @@
-import type { BiomeId } from '@/lib/types'
+import type { PossibleBiomeId } from '@/lib/types'
 import { BannerArt } from './BannerArt'
+
 import './Banner.css'
 
 type BannerProps = {
   // When set, tints the cover using global `[data-biome]` palette tokens.
-  biome?: BiomeId | 'unexplored'
+  biome?: PossibleBiomeId
 }
 
 // Full-bleed decorative banner (Notion-style cover) above page content.

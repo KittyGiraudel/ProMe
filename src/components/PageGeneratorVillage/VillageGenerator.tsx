@@ -22,6 +22,7 @@ import { getVillageSummary } from '@/lib/village/getVillageSummary'
 import { generateOwnersForVillage } from '@/lib/village/ownersGenerate'
 import { encodeVillageId } from '@/lib/village/villageIdCodec'
 import { decodeVillageFactionParam } from '@/lib/village/villageUrlCodec'
+
 import './VillageGenerator.css'
 
 const DEFAULT_VILLAGE_FACTION: Faction = 'bruja'

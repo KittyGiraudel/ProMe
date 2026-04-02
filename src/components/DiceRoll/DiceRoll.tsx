@@ -5,9 +5,10 @@ import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { DiceFaces } from '@/components/DiceFaces/DiceFaces'
 import { useAnimatedValue } from '@/hooks/useAnimatedValue'
-import { rollD6 } from '@/lib/rng'
-import './DiceRoll.css'
+import { rollD6 } from '@/lib/random/rng'
 import { HelpButton } from '../HelpButton/HelpButton'
+
+import './DiceRoll.css'
 
 export function DiceRoll() {
   const t = useTranslations()

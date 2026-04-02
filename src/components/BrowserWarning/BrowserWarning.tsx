@@ -1,8 +1,9 @@
 import { Alert } from 'antd'
 import { useTranslations } from 'next-intl'
-import './BrowserWarning.css'
 import { useDismissed } from '@/hooks/useDismissed'
 import { Link } from '@/i18n/navigation'
+
+import './BrowserWarning.css'
 
 export function BrowserWarning() {
   const t = useTranslations()

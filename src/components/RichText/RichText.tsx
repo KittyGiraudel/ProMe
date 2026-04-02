@@ -9,7 +9,7 @@ import {
   journalLiteralRule,
   tokenizeJournalEmbellishUiRules,
 } from '@/lib/markdown/journalEmbellishText'
-import { suitIsRed } from '@/lib/suitGlyphs'
+import { suitIsRed } from '@/lib/random/suitGlyphs'
 import type { Suit } from '@/lib/types'
 import './RichText.css'
 

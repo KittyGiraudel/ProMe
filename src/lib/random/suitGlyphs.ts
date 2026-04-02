@@ -1,4 +1,4 @@
-import type { Rank, Suit } from './types'
+import type { Rank, Suit } from '../types'
 
 export function suitIsRed(suit: Suit): boolean {
   return suit === 'hearts' || suit === 'diamonds'

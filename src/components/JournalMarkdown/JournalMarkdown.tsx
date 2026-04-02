@@ -2,10 +2,13 @@
 
 import { useTranslations } from 'next-intl'
 import type { ReactNode } from 'react'
+import { useCallback } from 'react'
 import type { Components } from 'react-markdown'
 import ReactMarkdown from 'react-markdown'
 import { buildJournalMarkdownEmbellishmentRules } from '@/components/JournalMarkdown/journalMarkdownEmbellishmentRules'
+import { useMapState } from '@/components/MapDisplay/useMapState'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
+import { renderWithHighlights } from '@/components/RichText/RichText'
 import {
   getGlobalFromDisplayedCellLabel,
   parseDisplayedCellReference,
@@ -13,10 +16,8 @@ import {
 } from '@/lib/hex/coordinates'
 import { tokenizeJournalEmbellishUiRules } from '@/lib/markdown/journalEmbellishText'
 import { createJournalMarkdownRendererConfig } from '@/lib/markdown/journalMarkdown'
+
 import './JournalMarkdown.css'
-import { useCallback } from 'react'
-import { useMapState } from '../MapDisplay/useMapState'
-import { renderWithHighlights } from '../RichText/RichText'
 
 /**
  * Renders journal markdown with remark-gfm, then applies inline embellishment

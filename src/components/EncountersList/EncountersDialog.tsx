@@ -6,14 +6,14 @@ import { Button } from '@/components/Button/Button'
 import { CardDrawResult } from '@/components/CardDraw/CardDrawResult'
 import { DiceRollResult } from '@/components/DiceRoll/DiceRollResult'
 import { BIOME_IDS } from '@/lib/constants/misc'
-import type { BiomeId } from '@/lib/types'
+import type { PossibleBiomeId } from '@/lib/types'
 import { BiomeBubble } from '../BiomeBubble/BiomeBubble'
 import { EncountersList } from './EncountersList'
 
 type Props = {
   open: boolean
   onClose: () => void
-  currentBiome: BiomeId | 'unexplored'
+  currentBiome: PossibleBiomeId
 }
 
 export function EncountersDialog({ open, onClose, currentBiome }: Props) {

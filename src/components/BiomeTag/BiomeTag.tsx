@@ -1,6 +1,7 @@
 import { Tag } from 'antd'
 import { useTranslations } from 'next-intl'
 import { BiomeId } from '@/lib/types'
+
 import './BiomeTag.css'
 
 export function BiomeTag({ biome }: { biome: BiomeId }) {

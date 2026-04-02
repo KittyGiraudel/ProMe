@@ -1,4 +1,5 @@
 import { colLabelFromIndex, MAP_COLS } from '@/lib/hex/coordinates'
+
 import './MapLegendRow.css'
 
 export function MapLegendRow({

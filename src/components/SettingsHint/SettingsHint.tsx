@@ -2,9 +2,10 @@
 
 import { Alert } from 'antd'
 import { useTranslations } from 'next-intl'
+import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { useDismissed } from '@/hooks/useDismissed'
+
 import './SettingsHint.css'
-import { BlockedLink } from '../Navigation/BlockedLink'
 
 type SettingsHintId = 'map' | 'journal' | 'village' | 'sheet'
 

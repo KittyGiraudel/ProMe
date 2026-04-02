@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useCallback } from 'react'
-import { useSettings } from '../PageSettings/SettingsContext'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 
 export const PAGE_SIZE = 5
 

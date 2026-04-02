@@ -2,17 +2,17 @@
 
 import { Alert, Empty, Modal, Tabs } from 'antd'
 import { useTranslations } from 'next-intl'
+import { BiomeBubble } from '@/components/BiomeBubble/BiomeBubble'
 import { BIOME_IDS } from '@/lib/constants/misc'
 import type { GatherableBiomeId } from '@/lib/gathering/schema'
 import { GATHERING_SCHEMA } from '@/lib/gathering/schema'
-import type { BiomeId, TranslationKey } from '@/lib/types'
-import { BiomeBubble } from '../BiomeBubble/BiomeBubble'
+import type { PossibleBiomeId, TranslationKey } from '@/lib/types'
 import { GatheringList } from './GatheringList'
 
 type Props = {
   open: boolean
   onClose: () => void
-  currentBiome: BiomeId | 'unexplored'
+  currentBiome: PossibleBiomeId
 }
 
 export function GatheringDialog({ open, onClose, currentBiome }: Props) {

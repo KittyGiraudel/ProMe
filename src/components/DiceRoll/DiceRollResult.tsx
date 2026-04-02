@@ -3,7 +3,8 @@
 import { useEffect, useRef } from 'react'
 import { useAnimatedValue } from '@/hooks/useAnimatedValue'
 import { DICE } from '@/lib/constants/misc'
-import { rollD6 } from '@/lib/rng'
+import { rollD6 } from '@/lib/random/rng'
+
 import './DiceRollResult.css'
 
 export function DiceRollResult() {

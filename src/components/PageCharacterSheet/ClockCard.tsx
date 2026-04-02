@@ -5,13 +5,13 @@ import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
 import { Button } from '@/components/Button/Button'
 import { ClockDisplay } from '@/components/ClockDisplay/ClockDisplay'
+import { HelpButton } from '@/components/HelpButton/HelpButton'
 import {
   clampClockSliceIndex,
   countHalfClockSegments,
   isClockDayPhase,
 } from '@/lib/character/clock'
 import { useSetClockToRawTargetWithToast } from '@/lib/character/clockPositionNotifications'
-import { HelpButton } from '../HelpButton/HelpButton'
 import { useWatchedClock, useWatchedStats } from './useCharacterSheetDerived'
 
 export function ClockCard() {

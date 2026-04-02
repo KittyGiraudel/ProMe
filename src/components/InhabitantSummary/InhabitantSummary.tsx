@@ -10,9 +10,12 @@ import {
   Tooltip,
   Typography,
 } from 'antd'
+import { SelectProps } from 'antd/lib/select'
+import { useTranslations } from 'next-intl'
 import { type ReactNode, useMemo } from 'react'
 import { Button } from '@/components/Button/Button'
 import { DiceFaces } from '@/components/DiceFaces/DiceFaces'
+import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { RichText } from '@/components/RichText/RichText'
 import { AGE_BANDS, FACTIONS, GENDERS, RANKS } from '@/lib/constants/misc'
@@ -35,10 +38,8 @@ import {
   type Gender,
   type Personality,
 } from '@/lib/types'
+
 import './InhabitantSummary.css'
-import { SelectProps } from 'antd/lib/select'
-import { useTranslations } from 'next-intl'
-import { HelpButton } from '../HelpButton/HelpButton'
 
 type InhabitantSummaryProps = {
   roll: InhabitantRoll | null

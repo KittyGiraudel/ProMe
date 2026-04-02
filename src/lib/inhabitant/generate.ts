@@ -1,5 +1,5 @@
 import { _Translator } from 'next-intl'
-import { randomCard, roll2D6, rollD6 } from '@/lib/rng'
+import { randomCard, roll2D6, rollD6 } from '@/lib/random/rng'
 import type {
   AgeBand,
   Faction,

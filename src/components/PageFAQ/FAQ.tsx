@@ -3,9 +3,10 @@
 import { Space, Typography } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
+import { RichText } from '@/components/RichText/RichText'
+import type { TranslationKey } from '@/lib/types'
+
 import './FAQ.css'
-import { TranslationKey } from '@/lib/types'
-import { RichText } from '../RichText/RichText'
 
 const ENTRY_COUNT = 4
 

@@ -1,9 +1,10 @@
 'use client'
 
 import type { ReactNode } from 'react'
+import { useHash } from '@/components/Navigation/useHash'
 import { Link, usePathname } from '@/i18n/navigation'
+
 import './LinkTabNav.css'
-import { useHash } from '../Navigation/useHash'
 
 export type LinkTabNavItem = {
   id: string
