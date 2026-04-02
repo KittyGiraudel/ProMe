@@ -10,19 +10,17 @@ import {
   Pagination,
 } from 'antd'
 import { useTranslations } from 'next-intl'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Button } from '@/components/Button/Button'
 import { Journal } from '@/components/Journal/Journal'
-import { useWatchedJournal } from '@/components/PageCharacterSheet/useCharacterSheetDerived'
 import { useJournalEntryViewModes } from '@/components/PageCharacterSheet/useJournalEntryViewModes'
 import { useJournalSearch } from '@/components/PageCharacterSheet/useJournalSearch'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { SettingsHint } from '@/components/SettingsHint/SettingsHint'
 import { randomId } from '@/lib/character/model'
+import { PAGE_SIZE, useJournalActions } from './useJournalActions'
 
-const PAGE_SIZE = 5
-
-export const JournalCard = () => {
+export function JournalCard() {
   return (
     <Form.List name='journalEntries'>
       {(fields, { add, remove }) => (
@@ -55,30 +53,25 @@ export function JournalCardInner({
   const { componentDisabled } = ConfigProvider.useConfig()
   const { settings } = useSettings()
   const t = useTranslations()
-  const form = Form.useFormInstance()
+  const [currentPage, setCurrentPage] = useState(1)
+  const totalCount = fields.length
+
+  const { isEditing, setEditingMode } = useJournalEntryViewModes(fields)
+  const { addEntry, removeEntry } = useJournalActions({
+    count: totalCount,
+    setCurrentPage,
+    onAddEntry,
+    onRemoveEntry,
+  })
+  const {
+    searchTerm,
+    setSearchTerm,
+    fields: filteredFields,
+  } = useJournalSearch(fields)
+
   const buttonInHeader = settings.journal.timelineReverseChronological
   const buttonInFooter = !buttonInHeader
   const canAddEntry = !componentDisabled
-
-  const [currentPage, setCurrentPage] = useState(1)
-  const { isEditing, setEditingMode } = useJournalEntryViewModes()
-  const previousFieldCountRef = useRef(fields.length)
-  const journal = useWatchedJournal()
-  const { searchTerm, setSearchTerm, filteredFields } = useJournalSearch(
-    fields,
-    journal
-  )
-
-  useEffect(
-    function editNewlyAddedEntry() {
-      if (fields.length > previousFieldCountRef.current) {
-        const latest = fields[fields.length - 1]
-        if (latest) setEditingMode(latest.key, true)
-      }
-      previousFieldCountRef.current = fields.length
-    },
-    [fields, setEditingMode]
-  )
 
   useEffect(
     function resetPageOnSearch() {
@@ -88,7 +81,7 @@ export function JournalCardInner({
   )
 
   const pagedFields = useMemo(() => {
-    if (settings.journal.timelineReverseChronological) {
+    if (buttonInHeader) {
       const total = filteredFields.length
       const start = Math.max(0, total - currentPage * PAGE_SIZE)
       const end = total - (currentPage - 1) * PAGE_SIZE
@@ -98,38 +91,10 @@ export function JournalCardInner({
       (currentPage - 1) * PAGE_SIZE,
       currentPage * PAGE_SIZE
     )
-  }, [
-    filteredFields,
-    currentPage,
-    settings.journal.timelineReverseChronological,
-  ])
-
-  const handleAddEntry = useCallback(() => {
-    onAddEntry()
-    if (settings.journal.timelineReverseChronological) {
-      setCurrentPage(1)
-    } else {
-      const newTotalPages = Math.max(
-        1,
-        Math.ceil((fields.length + 1) / PAGE_SIZE)
-      )
-      setCurrentPage(newTotalPages)
-    }
-  }, [onAddEntry, settings.journal.timelineReverseChronological, fields.length])
-
-  const handleRemoveEntry = useCallback(
-    (index: number | number[]) => {
-      onRemoveEntry(index)
-      const removedCount = Array.isArray(index) ? index.length : 1
-      const newLength = fields.length - removedCount
-      const newTotalPages = Math.max(1, Math.ceil(newLength / PAGE_SIZE))
-      setCurrentPage(prev => Math.min(prev, newTotalPages))
-    },
-    [onRemoveEntry, fields.length]
-  )
+  }, [filteredFields, currentPage, buttonInHeader])
 
   const addEntryButton = (
-    <Button onClick={handleAddEntry} htmlType='button'>
+    <Button onClick={addEntry} htmlType='button'>
       {t('characters.journal.add_journal_entry')}
     </Button>
   )
@@ -140,7 +105,7 @@ export function JournalCardInner({
         title={t('characters.journal.notes_section')}
         extra={canAddEntry && buttonInHeader ? addEntryButton : undefined}
         actions={canAddEntry && buttonInFooter ? [addEntryButton] : undefined}>
-        {fields.length === 0 ? (
+        {totalCount === 0 ? (
           <Empty description={t('characters.journal.empty')} />
         ) : (
           <>
@@ -160,11 +125,11 @@ export function JournalCardInner({
               <>
                 <Journal
                   fields={pagedFields}
-                  form={form}
-                  deleteEntry={handleRemoveEntry}
+                  deleteEntry={removeEntry}
                   isEditing={isEditing}
                   setEditingMode={setEditingMode}
                 />
+
                 {filteredFields.length > PAGE_SIZE && (
                   <div className='Journal__pagination'>
                     <Pagination

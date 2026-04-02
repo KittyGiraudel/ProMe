@@ -24,6 +24,7 @@ export function CharacterLibrary() {
   const refresh = useCallback(() => setCharacters(store.list()), [store])
   useEffect(function hydrateCharactersFromStorage() {
     refresh()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const { handleImportFile } = useCharacterLibraryActions({ refresh })

@@ -1,7 +1,7 @@
 'use client'
 
 import PlusOutlined from '@ant-design/icons/lib/icons/PlusOutlined'
-import { App, Button, Empty, Tooltip } from 'antd'
+import { App, Button, Tooltip } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCharacterContext } from '@/components/PageCharacterSheet/CharacterContext'
 import { useInventoryLimit } from '@/components/PageCharacterSheet/useInventoryLimit'

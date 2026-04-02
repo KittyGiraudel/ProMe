@@ -4,8 +4,6 @@ import './EncountersList.css'
 import { DICE } from '@/lib/constants/misc'
 import { RichText } from '../RichText/RichText'
 
-const ROLLS = ['1', '2', '3', '4', '5', '6'] as const
-
 export function EncountersList({ biome }: { biome: BiomeId }) {
   const t = useTranslations()
 

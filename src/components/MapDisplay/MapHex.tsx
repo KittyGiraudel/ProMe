@@ -68,7 +68,7 @@ const useHexState = ({
       biome,
       label,
     }),
-    [isSelected, isCurrent, isReachable, icon, biome, label]
+    [isSelected, isCurrent, isReachable, isCore, icon, biome, label]
   )
 }
 
@@ -100,7 +100,7 @@ export function MapHex({
     if (isSelected) return 'selected'
     if (isReachable) return 'reachable'
     return 'other'
-  }, [isCurrent, isSelected, isReachable, label])
+  }, [isCurrent, isSelected, isReachable])
 
   return (
     <div

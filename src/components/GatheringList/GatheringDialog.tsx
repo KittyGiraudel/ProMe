@@ -1,6 +1,6 @@
 'use client'
 
-import { Alert, Empty, Modal, Tabs, Typography } from 'antd'
+import { Alert, Empty, Modal, Tabs } from 'antd'
 import { useTranslations } from 'next-intl'
 import { BIOME_IDS } from '@/lib/constants/misc'
 import type { GatherableBiomeId } from '@/lib/gathering/schema'

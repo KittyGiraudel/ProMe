@@ -1,6 +1,5 @@
 'use client'
 
-import type { FormInstance } from 'antd'
 import { App, ConfigProvider, Form } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
 import { useTranslations } from 'next-intl'
@@ -12,7 +11,6 @@ import { useWatchedJournal } from '../PageCharacterSheet/useCharacterSheetDerive
 
 type JournalEntryProps = {
   field: FormListFieldData
-  form: FormInstance
   editing: boolean
   setEditingMode: (fieldKey: number, isEditing: boolean) => void
   deleteEntry: (entryIndex: number) => void
@@ -24,11 +22,11 @@ type JournalEntryProps = {
  */
 export function JournalEntry({
   field,
-  form,
   editing,
   setEditingMode,
   deleteEntry,
 }: JournalEntryProps) {
+  const form = Form.useFormInstance()
   const { modal } = App.useApp()
   const { componentDisabled } = ConfigProvider.useConfig()
   const initialContentRef = useRef<string | undefined>(undefined)

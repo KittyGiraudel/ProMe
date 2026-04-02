@@ -2,7 +2,6 @@
 
 import { useTranslations } from 'next-intl'
 import type { ReactNode } from 'react'
-import { cloneElement, isValidElement } from 'react'
 import type { Components } from 'react-markdown'
 import ReactMarkdown from 'react-markdown'
 import { buildJournalMarkdownEmbellishmentRules } from '@/components/JournalMarkdown/journalMarkdownEmbellishmentRules'

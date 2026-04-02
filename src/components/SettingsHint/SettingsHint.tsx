@@ -3,7 +3,6 @@
 import { Alert } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useDismissed } from '@/hooks/useDismissed'
-import { Link } from '@/i18n/navigation'
 import './SettingsHint.css'
 import { BlockedLink } from '../Navigation/BlockedLink'
 

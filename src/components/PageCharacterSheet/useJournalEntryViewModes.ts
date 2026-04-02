@@ -1,23 +1,42 @@
 'use client'
 
-import { useState } from 'react'
+import { FormListFieldData } from 'antd'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
-export function useJournalEntryViewModes() {
+export function useJournalEntryViewModes(fields: FormListFieldData[]) {
   const [editingByFieldKey, setEditingByFieldKey] = useState<
     Record<number, boolean>
   >({})
+  const previousFieldCountRef = useRef(fields.length)
 
-  const setEditingMode = (fieldKey: number, isEditing: boolean) => {
+  const setEditingMode = useCallback((fieldKey: number, isEditing: boolean) => {
     setEditingByFieldKey(previous => ({
       ...previous,
       [fieldKey]: isEditing,
     }))
-  }
+  }, [])
 
-  const isEditing = (fieldKey: number) => Boolean(editingByFieldKey[fieldKey])
+  const isEditing = useCallback(
+    (fieldKey: number) => Boolean(editingByFieldKey[fieldKey]),
+    [editingByFieldKey]
+  )
 
-  return {
-    isEditing,
-    setEditingMode,
-  }
+  useEffect(
+    function editNewlyAddedEntry() {
+      if (fields.length > previousFieldCountRef.current) {
+        const latest = fields[fields.length - 1]
+        if (latest) setEditingMode(latest.key, true)
+      }
+      previousFieldCountRef.current = fields.length
+    },
+    [fields, setEditingMode]
+  )
+
+  return useMemo(
+    () => ({
+      isEditing,
+      setEditingMode,
+    }),
+    [isEditing, setEditingMode]
+  )
 }

@@ -3,6 +3,7 @@
 import { FormListFieldData } from 'antd'
 import { useMemo, useState } from 'react'
 import { JournalEntry } from '@/lib/character/types'
+import { useWatchedJournal } from './useCharacterSheetDerived'
 
 export function filterJournalFields(
   fields: FormListFieldData[],
@@ -17,15 +18,13 @@ export function filterJournalFields(
   )
 }
 
-export function useJournalSearch(
-  fields: FormListFieldData[],
-  journal: JournalEntry[]
-) {
+export function useJournalSearch(fields: FormListFieldData[]) {
+  const journal = useWatchedJournal()
   const [searchTerm, setSearchTerm] = useState('')
-  const filteredFields = filterJournalFields(fields, journal, searchTerm)
+  const filtered = filterJournalFields(fields, journal, searchTerm)
 
   return useMemo(
-    () => ({ searchTerm, setSearchTerm, filteredFields }),
-    [searchTerm, filteredFields]
+    () => ({ searchTerm, setSearchTerm, fields: filtered }),
+    [searchTerm, filtered]
   )
 }

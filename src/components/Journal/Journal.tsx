@@ -1,6 +1,5 @@
 'use client'
 
-import type { FormInstance } from 'antd'
 import { Timeline } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
 import { useMemo } from 'react'
@@ -13,13 +12,11 @@ import { TimelineIcon } from './TimelineIcon'
 
 export function Journal({
   fields,
-  form,
   deleteEntry,
   isEditing,
   setEditingMode,
 }: {
   fields: FormListFieldData[]
-  form: FormInstance
   deleteEntry: (entryIndex: number) => void
   isEditing: (fieldKey: number) => boolean
   setEditingMode: (fieldKey: number, isEditing: boolean) => void
@@ -43,7 +40,6 @@ export function Journal({
           content: (
             <JournalEntry
               field={field}
-              form={form}
               editing={isEditing(field.key)}
               setEditingMode={setEditingMode}
               deleteEntry={deleteEntry}
