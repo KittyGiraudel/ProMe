@@ -1,6 +1,6 @@
 import { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-import { JournalCard } from '@/components/PageCharacterSheet/JournalCard'
+import { JournalCard } from '@/components/JournalCard/JournalCard'
 
 type Props = { params: Promise<{ locale: string }> }
 

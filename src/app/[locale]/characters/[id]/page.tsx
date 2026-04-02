@@ -1,14 +1,14 @@
 import { Col, Row, Space } from 'antd'
+import { ActionsCard } from '@/components/ActionsCard/ActionsCard'
 import { CardDraw } from '@/components/CardDraw/CardDraw'
+import { CharacteristicsCard } from '@/components/CharacteristicsCard/CharacteristicsCard'
+import { ClockCard } from '@/components/ClockCard/ClockCard'
 import { DiceRoll } from '@/components/DiceRoll/DiceRoll'
-import { ActionsCard } from '@/components/PageCharacterSheet/ActionsCard'
-import { CharacteristicsCard } from '@/components/PageCharacterSheet/CharacteristicsCard'
-import { ClockCard } from '@/components/PageCharacterSheet/ClockCard'
-import { IdentityCard } from '@/components/PageCharacterSheet/IdentityCard'
-import { InventoryCard } from '@/components/PageCharacterSheet/InventoryCard'
-import { JournalCard } from '@/components/PageCharacterSheet/JournalCard'
-import { MapCard } from '@/components/PageCharacterSheet/MapCard'
-import { SpellbookCard } from '@/components/PageCharacterSheet/SpellbookCard'
+import { IdentityCard } from '@/components/IdentityCard/IdentityCard'
+import { InventoryCard } from '@/components/InventoryCard/InventoryCard'
+import { JournalCard } from '@/components/JournalCard/JournalCard'
+import { MapCard } from '@/components/MapCard/MapCard'
+import { SpellbookCard } from '@/components/SpellbookCard/SpellbookCard'
 
 export default function CharacterAllPage() {
   return (

@@ -19,8 +19,8 @@ import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { JournalEditCheatsheet } from '@/components/Journal/JournalEditCheatsheet'
 import { JournalMarkdown } from '@/components/JournalMarkdown/JournalMarkdown'
-import { useWatchedJournal } from '@/components/PageCharacterSheet/useCharacterSheetDerived'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
+import { useWatchedJournal } from '@/hooks/useCharacterSheetDerived'
 
 import './Journal.css'
 

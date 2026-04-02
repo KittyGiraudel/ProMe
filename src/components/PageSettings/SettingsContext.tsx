@@ -9,7 +9,6 @@ import {
   useMemo,
   useState,
 } from 'react'
-import { useHydration } from '@/hooks/useHydration'
 import { DEFAULT_SETTINGS } from '@/lib/settings/model'
 import { loadSettings, saveSettings } from '@/lib/settings/storage'
 import type { AppSettings } from '@/lib/settings/types'

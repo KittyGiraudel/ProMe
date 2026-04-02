@@ -2,9 +2,9 @@
 
 import { ConfigProvider } from 'antd'
 import { useEffect, useRef } from 'react'
+import { useMapActions } from '@/components/MapCellContextMenu/useMapActions'
 import type { HexCoordinate } from '@/lib/character/types'
 import type { BiomeId } from '@/lib/types'
-import { useMapActions } from './useMapActions'
 import { useMapState } from './useMapState'
 
 type CellClipboard = {

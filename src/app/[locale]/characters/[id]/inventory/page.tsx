@@ -1,8 +1,8 @@
 import { Space } from 'antd'
 import { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-import { InventoryCard } from '@/components/PageCharacterSheet/InventoryCard'
-import { SpellbookCard } from '@/components/PageCharacterSheet/SpellbookCard'
+import { InventoryCard } from '@/components/InventoryCard/InventoryCard'
+import { SpellbookCard } from '@/components/SpellbookCard/SpellbookCard'
 
 type Props = { params: Promise<{ locale: string }> }
 

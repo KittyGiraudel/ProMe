@@ -11,6 +11,7 @@ import {
 } from '@/lib/markdown/journalEmbellishText'
 import { suitIsRed } from '@/lib/random/suitGlyphs'
 import type { Suit } from '@/lib/types'
+
 import './RichText.css'
 
 const SUIT_RULES = Object.entries(SUITS).map(([name, symbol]) => {

@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl'
+import { RichText } from '@/components/RichText/RichText'
 import { DICE } from '@/lib/constants/misc'
 import type { BiomeId, TranslationKey } from '@/lib/types'
-import { RichText } from '../RichText/RichText'
 
 import './EncountersList.css'
 

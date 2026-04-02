@@ -3,10 +3,10 @@
 import { Card, Empty, Tooltip } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
+import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { useAnimatedValue } from '@/hooks/useAnimatedValue'
 import { randomCard } from '@/lib/random/rng'
-import { HelpButton } from '../HelpButton/HelpButton'
 
 import './CardDraw.css'
 

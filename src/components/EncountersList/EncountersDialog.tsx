@@ -2,12 +2,12 @@
 
 import { App, Modal, Space, Tabs } from 'antd'
 import { useTranslations } from 'next-intl'
+import { BiomeBubble } from '@/components/BiomeBubble/BiomeBubble'
 import { Button } from '@/components/Button/Button'
-import { CardDrawResult } from '@/components/CardDraw/CardDrawResult'
-import { DiceRollResult } from '@/components/DiceRoll/DiceRollResult'
+import { CardDrawResult } from '@/components/CardDrawResult/CardDrawResult'
+import { DiceRollResult } from '@/components/DiceRollResult/DiceRollResult'
 import { BIOME_IDS } from '@/lib/constants/misc'
 import type { PossibleBiomeId } from '@/lib/types'
-import { BiomeBubble } from '../BiomeBubble/BiomeBubble'
 import { EncountersList } from './EncountersList'
 
 type Props = {

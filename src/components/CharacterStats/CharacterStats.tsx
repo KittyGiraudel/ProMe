@@ -1,6 +1,6 @@
 import { Col, Collapse, Row, Statistic } from 'antd'
 import { useTranslations } from 'next-intl'
-import { useWatchedStats } from '../PageCharacterSheet/useCharacterSheetDerived'
+import { useWatchedStats } from '@/hooks/useCharacterSheetDerived'
 
 export function CharacterStats() {
   const t = useTranslations()

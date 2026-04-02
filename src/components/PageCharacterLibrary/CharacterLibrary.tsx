@@ -7,11 +7,11 @@ import { Button } from '@/components/Button/Button'
 import { Layout } from '@/components/Layout/Layout'
 import { LoadingState } from '@/components/LoadingState/LoadingState'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
-import { useCharacterLink } from '@/components/PageCharacterSheet/useCharacterLink'
+import { useCharacterLibraryActions } from '@/hooks/useCharacterLibraryActions'
+import { useCharacterLink } from '@/hooks/useCharacterLink'
 import { useCharacters } from '@/hooks/useCharacters'
 import { useHydration } from '@/hooks/useHydration'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
-import { useCharacterLibraryActions } from './useCharacterLibraryActions'
 
 export function CharacterLibrary() {
   const t = useTranslations()

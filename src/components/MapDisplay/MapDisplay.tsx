@@ -1,11 +1,12 @@
 'use client'
 
+import { MapLegendCol } from '@/components/MapLegendCol/MapLegendCol'
+import { MapLegendRow } from '@/components/MapLegendRow/MapLegendRow'
+import { MapRow } from '@/components/MapRow/MapRow'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import type { HexCoordinate } from '@/lib/character/types'
 import { MAP_ROWS, type SheetCoordinate } from '@/lib/hex/coordinates'
-import { MapLegendCol } from './MapLegendCol'
-import { MapLegendRow } from './MapLegendRow'
-import { MapRow } from './MapRow'
+
 import './MapDisplay.css'
 
 export type MapDisplayProps = {

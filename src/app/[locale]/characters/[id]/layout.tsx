@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import type { ReactNode } from 'react'
-import { CharacterSheetShell } from '@/components/PageCharacterSheet/CharacterSheetShell'
+import { CharacterSheetShell } from '@/components/CharacterSheetShell/CharacterSheetShell'
 
 type CharacterIdLayoutProps = {
   children: ReactNode

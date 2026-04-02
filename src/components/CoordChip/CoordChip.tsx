@@ -1,11 +1,11 @@
 'use client'
 
 import { BiomeBubble } from '@/components/BiomeBubble/BiomeBubble'
+import { useCharacterLink } from '@/hooks/useCharacterLink'
 import { Link } from '@/i18n/navigation'
 import type { HexCoordinate } from '@/lib/character/types'
 import { formatDisplayedCellReference } from '@/lib/hex/coordinates'
 import type { PossibleBiomeId } from '@/lib/types'
-import { useCharacterLink } from '../PageCharacterSheet/useCharacterLink'
 
 import './CoordChip.css'
 

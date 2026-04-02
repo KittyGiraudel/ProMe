@@ -4,9 +4,9 @@ import { Card, Empty, Tooltip } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { DiceFaces } from '@/components/DiceFaces/DiceFaces'
+import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { useAnimatedValue } from '@/hooks/useAnimatedValue'
 import { rollD6 } from '@/lib/random/rng'
-import { HelpButton } from '../HelpButton/HelpButton'
 
 import './DiceRoll.css'
 

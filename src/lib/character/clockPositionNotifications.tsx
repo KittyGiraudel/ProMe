@@ -4,7 +4,7 @@ import { App } from 'antd'
 import NextLink from 'next/link'
 import { useLocale, useTranslations } from 'next-intl'
 import { useCallback } from 'react'
-import { useCharacterLink } from '@/components/PageCharacterSheet/useCharacterLink'
+import { useCharacterLink } from '@/hooks/useCharacterLink'
 import { computeClockMoveFromRawTarget } from './clock'
 
 /**

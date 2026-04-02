@@ -7,7 +7,7 @@ import { useCallback, useEffect, useRef } from 'react'
 import { Button } from '@/components/Button/Button'
 import { JournalEntryBodyPreview } from '@/components/Journal/JournalEntryBodyPreview'
 import { JournalEntryEditModal } from '@/components/Journal/JournalEntryEditModal'
-import { useWatchedJournal } from '@/components/PageCharacterSheet/useCharacterSheetDerived'
+import { useWatchedJournal } from '@/hooks/useCharacterSheetDerived'
 
 type JournalEntryProps = {
   field: FormListFieldData

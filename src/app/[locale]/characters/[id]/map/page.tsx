@@ -1,8 +1,8 @@
 import { Space } from 'antd'
 import { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-import { ClockCard } from '@/components/PageCharacterSheet/ClockCard'
-import { MapCard } from '@/components/PageCharacterSheet/MapCard'
+import { ClockCard } from '@/components/ClockCard/ClockCard'
+import { MapCard } from '@/components/MapCard/MapCard'
 
 type Props = { params: Promise<{ locale: string }> }
 

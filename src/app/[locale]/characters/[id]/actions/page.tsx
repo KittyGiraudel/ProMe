@@ -1,6 +1,6 @@
 import { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-import { ActionsCard } from '@/components/PageCharacterSheet/ActionsCard'
+import { ActionsCard } from '@/components/ActionsCard/ActionsCard'
 
 type Props = { params: Promise<{ locale: string }> }
 

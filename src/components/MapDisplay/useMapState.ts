@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react'
 import {
   useWatchedJournal,
   useWatchedMap,
-} from '@/components/PageCharacterSheet/useCharacterSheetDerived'
+} from '@/hooks/useCharacterSheetDerived'
 import { normalizeMapState } from '@/lib/character/mapState'
 import { CharacterMapCell, HexCoordinate } from '@/lib/character/types'
 import {

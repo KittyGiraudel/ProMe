@@ -3,13 +3,13 @@
 import { Form, Space } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
+import { IdentityCard } from '@/components/IdentityCard/IdentityCard'
+import { InheritanceCard } from '@/components/InheritanceCard/InheritanceCard'
 import { Layout } from '@/components/Layout/Layout'
-import { IdentityCard } from '@/components/PageCharacterSheet/IdentityCard'
+import { useCharacterCreate } from '@/hooks/useCharacterCreate'
+import { useInheritanceCandidates } from '@/hooks/useInheritanceCandidates'
 import type { Archetype } from '@/lib/character/types'
 import type { Gender } from '@/lib/types'
-import { InheritanceCard } from './InheritanceCard'
-import { useCharacterCreate } from './useCharacterCreate'
-import { useInheritanceCandidates } from './useInheritanceCandidates'
 
 type CharacterCreateFormValues = {
   name: string

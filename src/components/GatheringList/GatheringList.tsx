@@ -4,11 +4,11 @@ import PlusOutlined from '@ant-design/icons/lib/icons/PlusOutlined'
 import { App, Button, Tooltip } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
-import { useCharacterContext } from '@/components/PageCharacterSheet/CharacterContext'
+import { useCharacterContext } from '@/components/CharacterContext/CharacterContext'
 import {
   useWatchedInventory,
   useWatchedStats,
-} from '@/components/PageCharacterSheet/useCharacterSheetDerived'
+} from '@/hooks/useCharacterSheetDerived'
 import { randomId } from '@/lib/character/model'
 import { DICE } from '@/lib/constants/misc'
 import { parseGatheringItem } from '@/lib/gathering/parseGatheringItem'
