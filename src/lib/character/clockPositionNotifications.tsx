@@ -1,8 +1,8 @@
 'use client'
 
 import { App } from 'antd'
-import { useLocale, useTranslations } from 'next-intl'
 import NextLink from 'next/link'
+import { useLocale, useTranslations } from 'next-intl'
 import { useCallback } from 'react'
 import { useCharacterLink } from '@/components/PageCharacterSheet/useCharacterLink'
 import { computeClockMoveFromRawTarget } from './clock'

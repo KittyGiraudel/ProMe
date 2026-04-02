@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import {
-  tokenizeJournalEmbellishUiRules,
+  type JournalEmbellishUiRule,
   journalLiteralRule,
   journalRegexRule,
-  type JournalEmbellishUiRule,
+  tokenizeJournalEmbellishUiRules,
 } from './journalEmbellishText'
 
 const noopRender: JournalEmbellishUiRule['render'] = () => null

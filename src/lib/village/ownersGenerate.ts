@@ -1,11 +1,11 @@
+import type { _Translator } from 'next-intl'
 import {
   generateInhabitantWithFaction,
   type InhabitantRoll,
 } from '@/lib/inhabitant/generate'
 import type { Faction } from '@/lib/types'
-import { resolveVillageDisplay } from '@/lib/village/resolveVillageDisplay'
 import type { VillageRoll } from '@/lib/village/generate'
-import type { _Translator } from 'next-intl'
+import { resolveVillageDisplay } from '@/lib/village/resolveVillageDisplay'
 
 /**
  * Compute how many inhabitant owners must exist for a given `VillageRoll`.

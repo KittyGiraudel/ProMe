@@ -27,4 +27,3 @@ export default async function CharacterIdLayout({
   const { id } = await params
   return <CharacterSheetShell characterId={id}>{children}</CharacterSheetShell>
 }
-

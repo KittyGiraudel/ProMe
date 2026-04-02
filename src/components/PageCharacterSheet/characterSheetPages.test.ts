@@ -32,6 +32,5 @@ describe('character sheet app routes (filesystem)', () => {
 
     const orphanCatchAll = join(CHARACTER_SHEET_SEGMENT_ROOT, '[[...sheetTab]]')
     expect(existsSync(orphanCatchAll)).toBe(false)
-
   })
 })

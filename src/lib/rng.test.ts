@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest'
-import { isFaceRank } from './suitGlyphs'
 import {
-  pickRandom,
   defaultRng,
+  pickRandom,
   randomCard,
   randomInt,
   randomNumberedCard,
   roll2D6,
   rollD6,
 } from './rng'
+import { isFaceRank } from './suitGlyphs'
 
 describe('rng', () => {
   it('randomInt is inclusive on both ends', () => {

@@ -1,6 +1,6 @@
-import type { PlayingCard, Rank, Suit } from './types'
 import { RANKS, SUITS } from './constants/misc'
 import { isFaceRank } from './suitGlyphs'
+import type { PlayingCard, Rank, Suit } from './types'
 
 export function randomInt(rng: () => number, min: number, max: number): number {
   const lo = Math.ceil(min)
