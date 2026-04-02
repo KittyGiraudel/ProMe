@@ -1,14 +1,17 @@
 'use client'
 
 import { Form, type FormInstance } from 'antd'
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import type {
   Archetype,
   CharacterMapState,
+  HexCoordinate,
   InventoryItem,
   JournalEntry,
   StatPool,
 } from '@/lib/character/types'
+import { formatDisplayedCellReference } from '@/lib/hex/coordinates'
+import { buildCellReferenceToJournalEntriesIndex } from '@/lib/journal/cellReferenceIndex'
 import { Gender } from '@/lib/types'
 
 const FALLBACK_STAT_POOL: StatPool = { current: 0, max: 0 }
@@ -62,11 +65,31 @@ export function useWatchedClock(oForm?: FormInstance) {
 export function useWatchedJournal(oForm?: FormInstance) {
   const iForm = Form.useFormInstance()
   const form = oForm ?? iForm
-  return (
-    Form.useWatch<JournalEntry[]>('journalEntries', {
-      form,
-      preserve: true,
-    }) ?? []
+
+  const entries = Form.useWatch<JournalEntry[]>('journalEntries', {
+    form,
+    preserve: true,
+  })
+
+  const index = useMemo(
+    () => buildCellReferenceToJournalEntriesIndex(entries),
+    [entries]
+  )
+
+  const getLinksForCell = useCallback(
+    (coord: HexCoordinate) =>
+      index.get(formatDisplayedCellReference(coord)) ?? [],
+    [index]
+  )
+
+  const getEntry = useCallback(
+    (fieldName: number) => entries?.[fieldName],
+    [entries]
+  )
+
+  return useMemo(
+    () => ({ entries: entries ?? [], getEntry, getLinksForCell }),
+    [entries, getEntry]
   )
 }
 

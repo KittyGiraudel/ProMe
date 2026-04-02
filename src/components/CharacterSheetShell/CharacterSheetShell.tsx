@@ -96,6 +96,7 @@ export function CharacterSheetShell({
   })
 
   // Layout page-cover biome follows map position even when the active tab is not the map.
+  // @TODO: consider whether we can use `getCellState` instead
   const map = useWatchedMap(form)
   const bannerBiome = useMemo(() => biomeAtCurrentMapPosition(map), [map])
 

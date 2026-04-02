@@ -1,8 +1,5 @@
 import { useCallback, useMemo } from 'react'
-import {
-  useWatchedJournal,
-  useWatchedMap,
-} from '@/hooks/useCharacterSheetDerived'
+import { useWatchedMap } from '@/hooks/useCharacterSheetDerived'
 import { normalizeMapState } from '@/lib/character/mapState'
 import { CharacterMapCell, HexCoordinate } from '@/lib/character/types'
 import {
@@ -11,27 +8,7 @@ import {
   SheetCoordinate,
   toHexKey,
 } from '@/lib/hex/coordinates'
-import { buildCellReferenceToJournalEntriesIndex } from '@/lib/journal/cellReferenceIndex'
 import { BiomeId } from '@/lib/types'
-
-export const useJournalIndex = () => {
-  const journal = useWatchedJournal()
-  const index = useMemo(
-    () => buildCellReferenceToJournalEntriesIndex(journal),
-    [journal]
-  )
-
-  const getLinksForCell = useCallback(
-    (coord: HexCoordinate) => {
-      const cellRef = formatDisplayedCellReference(coord)
-      const journalLinks = index.get(cellRef) ?? []
-      return journalLinks
-    },
-    [index]
-  )
-
-  return useMemo(() => ({ index, getLinksForCell }), [index, getLinksForCell])
-}
 
 export type CharacterCellData = {
   ref: string

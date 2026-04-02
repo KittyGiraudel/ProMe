@@ -2,10 +2,7 @@ import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
 import { MapCellContextMenu } from '@/components/MapCellContextMenu/MapCellContextMenu'
 import type { MapDisplayProps } from '@/components/MapDisplay/MapDisplay'
-import {
-  useJournalIndex,
-  useMapState,
-} from '@/components/MapDisplay/useMapState'
+import { useMapState } from '@/components/MapDisplay/useMapState'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import {
   areHexNeighbors,
@@ -17,6 +14,7 @@ import {
 import { PossibleBiomeId, TranslationKey } from '@/lib/types'
 
 import './MapHex.css'
+import { useWatchedJournal } from '@/hooks/useCharacterSheetDerived'
 
 type MapHexProps = MapDisplayProps & {
   ri: number
@@ -88,7 +86,7 @@ export function MapHex({
 }: MapHexProps) {
   const t = useTranslations()
   const { settings } = useSettings()
-  const { getLinksForCell } = useJournalIndex()
+  const { getLinksForCell } = useWatchedJournal()
   const { isCurrent, isSelected, isReachable, isCore, icon, biome, label } =
     useHexState({
       ri,

@@ -1,11 +1,8 @@
 import { toHexKey } from '@/lib/hex/coordinates'
-import type { BiomeId } from '../types'
+import type { PossibleBiomeId } from '../types'
 import { normalizeCharacterMapState } from './model'
 
-/** Biome on the cell where the character stands, or `unexplored` if missing / unset. */
-export function biomeAtCurrentMapPosition(
-  map: unknown
-): BiomeId | 'unexplored' {
+export function biomeAtCurrentMapPosition(map: unknown): PossibleBiomeId {
   const state = normalizeCharacterMapState(map)
   const posKey = toHexKey(state.currentPosition)
 

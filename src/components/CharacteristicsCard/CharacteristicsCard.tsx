@@ -23,8 +23,6 @@ type ResourceKey = 'honor' | 'inspiration' | 'money'
 
 export function CharacteristicsCard() {
   const t = useTranslations()
-  const { notification } = App.useApp()
-  const { courage } = useWatchedStats()
 
   const resources: readonly [ResourceKey, string, string][] = [
     [
@@ -103,24 +101,6 @@ export function CharacteristicsCard() {
     )
   }
 
-  const handleCourageRoll = () => {
-    const target = Math.max(0, courage.current ?? 0)
-    const roll = Math.floor(Math.random() * 6) + 1
-    const success = roll <= target
-    const status = success ? 'success' : 'failure'
-
-    notification[success ? 'success' : 'error']({
-      title: t('characters.identity.courage_roll_title'),
-      description: t('characters.identity.courage_roll_result', {
-        roll,
-        target,
-        status,
-      }),
-      placement: 'bottomRight',
-      duration: 15,
-    })
-  }
-
   return (
     <>
       <Card
@@ -157,19 +137,7 @@ export function CharacteristicsCard() {
                   gap: 8,
                 }}>
                 {renderLabelWithHelp(label, tooltip)}
-                {poolKey === 'courage' ? (
-                  <Tooltip
-                    title={t('characters.identity.courage_roll_tooltip')}>
-                    <Button
-                      type='text'
-                      size='small'
-                      htmlType='button'
-                      icon={<RedoOutlined />}
-                      aria-label={t('characters.identity.courage_roll_aria')}
-                      onClick={handleCourageRoll}
-                    />
-                  </Tooltip>
-                ) : null}
+                {poolKey === 'courage' ? <CourageRollButton /> : null}
               </div>
 
               <Row gutter={[8, 8]}>
@@ -196,5 +164,43 @@ export function CharacteristicsCard() {
         </Row>
       </Card>
     </>
+  )
+}
+
+function CourageRollButton() {
+  const t = useTranslations()
+
+  const handleCourageRoll = () => {
+    const { notification } = App.useApp()
+    const { courage } = useWatchedStats()
+
+    const target = Math.max(0, courage.current ?? 0)
+    const roll = Math.floor(Math.random() * 6) + 1
+    const success = roll <= target
+    const status = success ? 'success' : 'failure'
+
+    notification[success ? 'success' : 'error']({
+      title: t('characters.identity.courage_roll_title'),
+      description: t('characters.identity.courage_roll_result', {
+        roll,
+        target,
+        status,
+      }),
+      placement: 'bottomRight',
+      duration: 15,
+    })
+  }
+
+  return (
+    <Tooltip title={t('characters.identity.courage_roll_tooltip')}>
+      <Button
+        type='text'
+        size='small'
+        htmlType='button'
+        icon={<RedoOutlined />}
+        aria-label={t('characters.identity.courage_roll_aria')}
+        onClick={handleCourageRoll}
+      />
+    </Tooltip>
   )
 }

@@ -23,12 +23,12 @@ export function Journal({
   setEditingMode: (fieldKey: number, isEditing: boolean) => void
 }) {
   const { settings } = useSettings()
-  const journal = useWatchedJournal()
+  const { getEntry } = useWatchedJournal()
 
   const items = useMemo(
     () =>
       fields.map(field => {
-        const entry = journal[field.name]
+        const entry = getEntry(field.name)
 
         return {
           key: String(field.key),
@@ -48,7 +48,7 @@ export function Journal({
           ),
         }
       }),
-    [fields, journal, isEditing, setEditingMode, deleteEntry]
+    [fields, isEditing, setEditingMode, deleteEntry]
   )
 
   return (

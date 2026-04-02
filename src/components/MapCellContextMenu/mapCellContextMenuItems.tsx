@@ -5,11 +5,9 @@ import { useFormatter, useLocale, useTranslations } from 'next-intl'
 import type { Dispatch, ReactNode, SetStateAction } from 'react'
 import { useCallback, useMemo } from 'react'
 import { BiomeBubble } from '@/components/BiomeBubble/BiomeBubble'
-import {
-  useJournalIndex,
-  useMapState,
-} from '@/components/MapDisplay/useMapState'
+import { useMapState } from '@/components/MapDisplay/useMapState'
 import { useCharacterLink } from '@/hooks/useCharacterLink'
+import { useWatchedJournal } from '@/hooks/useCharacterSheetDerived'
 import { HexCoordinate } from '@/lib/character/types'
 import { BIOME_IDS } from '@/lib/constants/misc'
 import type { JournalEntryLink } from '@/lib/journal/cellReferenceIndex'
@@ -205,7 +203,7 @@ export function useMapCellContextMenuItems({
   setEmojiModalOpen: Dispatch<SetStateAction<boolean>>
 }): MenuProps['items'] {
   const t = useTranslations()
-  const { getLinksForCell } = useJournalIndex()
+  const { getLinksForCell } = useWatchedJournal()
   const { moveToCell, clearCellAt } = useMapActions()
   const { getCellState } = useMapState()
   const journalLinks = getLinksForCell(coord)

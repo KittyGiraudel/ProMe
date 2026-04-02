@@ -57,8 +57,8 @@ export function JournalEntryEditModal({
   const screens = Grid.useBreakpoint()
   const t = useTranslations()
   const { settings } = useSettings()
-  const journal = useWatchedJournal()
-  const phase = journal[fieldName]?.phase
+  const { getEntry } = useWatchedJournal()
+  const phase = getEntry(fieldName)?.phase
   const textareaAutoSize = screens.lg
     ? JOURNAL_MODAL_TEXTAREA_ROWS.comfortable
     : JOURNAL_MODAL_TEXTAREA_ROWS.compact

@@ -51,8 +51,8 @@ export function JournalEntry({
     | string
     | undefined
 
-  const journal = useWatchedJournal()
-  const draftContent = journal[field.name]?.content
+  const { getEntry } = useWatchedJournal()
+  const draftContent = getEntry(field.name)?.content
   const hasContent = Boolean(content?.trim())
   const entryAnchor = entryId ? `journal-entry-${entryId}` : undefined
 
