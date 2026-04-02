@@ -66,6 +66,10 @@
       "legend": "Légende",
       "encounters_button": "Voir les rencontres",
       "encounters_dialog_title": "Rencontres",
+      "gathering_button": "Voir la collecte",
+      "gathering_dialog_title": "Collecte",
+      "gathering_collected": "Ajouté à l'inventaire",
+      "gathering_empty": "Pas de collecte disponible dans ce biome.",
       "map_section": "Carte",
       "menu_actions_group": "Actions",
       "menu_marking_group": "Reconnaissance",
@@ -84,6 +88,7 @@
       "add_item": "Ajouter un objet",
       "add_spell": "Ajouter un sort",
       "inventory_empty": "L’inventaire est vide.",
+      "inventory_full": "L’inventaire est plein.",
       "inventory_section": "Inventaire <status>({count} / {limit})</status>",
       "item_name_label": "Nom d’objet",
       "item_note_label": "Note",
@@ -170,6 +175,7 @@
   "common": {
     "actions": {
       "cancel": "Annuler",
+      "collect": "Collecter",
       "delete": "Supprimer",
       "edit": "Éditer",
       "finish": "Terminer",
@@ -195,6 +201,7 @@
     "display_2D6": "2D6 : <dice></dice>",
     "display_card": "Carte : <card></card>",
     "generic_error": "Une erreur s’est produite.",
+    "gold": "{amount, number} pièces",
     "loading": "Chargement…",
     "max_label": "Max.",
     "unsaved_changes_warning": {
@@ -340,6 +347,53 @@
         "5": "**Vous rencontrez une baleine luxuriante.** *Pour en savoir plus, lisez la page 40.*\nPiochez une carte pour savoir quel type de baleine vous rencontrez.\n- ♥♦ Une baleine luxuriante **paisible**.\n- ♠♣ Une baleine luxuriante **agressive**.",
         "6": "**Vous découvrez un tas d’ossements géants,** ceux d’une baleine luxuriante.\nVoir la *table de collecte* page 40 pour déterminer ce que vous y découvrez."
       }
+    },
+    "gathering": {
+      "shadowForest": {
+        "1": "1 torche",
+        "2": "2 × Racine",
+        "3": "3 × Bois",
+        "4": "3 × Feuille",
+        "5": "2 × Fruit",
+        "6": "L’un des choix ci-dessus",
+        "hint": "Pour collecter des ressources dans la Forêt des Ombres, vous pouvez vous aider d’une Hache. Pour l’utiliser, ôtez-lui 1 point de durabilité dans puis choisissez l’objet de votre choix dans la table de collecte ci-dessus. Sinon, effectuez un Test de Courage avec succès pour vous passer de l’équipement nécessaire."
+      },
+      "mushroomJungle": {
+        "1": "100 pièces",
+        "2": "3 × Champignon commun",
+        "3": "1 × Champignon de l’âme",
+        "4": "1 × Champignon de courage",
+        "5": "1 × Champignon d’endurance",
+        "6": "L’un des choix ci-dessus",
+        "warning": "La collecte dans la Jungle de Champignons nécessite de trouver et d’atteindre le sommet d’un Bolet Titan (voir page 26)."
+      },
+      "fieldSea": {
+        "1": "10 pièces",
+        "2": "2 × Pomme de terre",
+        "3": "2 × Champignon commun",
+        "4": "2 × Maïs",
+        "5": "2 × Riz",
+        "6": "L’un des choix ci-dessus",
+        "hint": "Pour collecter des ressources dans la Mer Champêtre, vous pouvez vous aider de Ciseaux de jardinage. Pour les utiliser, ôtez-leur 1 point de durabilité dans puis choisissez l’objet de votre choix dans la table de collecte ci-dessus. Sinon, effectuez un Test de Courage avec succès pour vous passer de l’équipement nécessaire."
+      },
+      "silentDesert": {
+        "1": "10 pièces",
+        "2": "2 × Charbon",
+        "3": "2 × Fer",
+        "4": "2 × Cuivre",
+        "5": "1 × Or",
+        "6": "L’un des choix ci-dessus",
+        "hint": "Pour collecter des ressources dans le Désert Silencieux, vous pouvez vous aider d’une Pioche. Pour l’utiliser, ôtez-lui 1 point de durabilité dans puis choisissez l’objet de votre choix dans la table de collecte ci-dessus. Sinon, effectuez un Test de Courage avec succès pour vous passer de l’équipement nécessaire."
+      },
+      "giganticGardens": {
+        "1": "Un Jardin de Laréons",
+        "2": "100 pièces",
+        "3": "1 000 pièces",
+        "4": "Une Résidence",
+        "5": "Des Ruines",
+        "6": "N’importe quel objet",
+        "warning": "La collecte dans les Jardins Titanesques nécessite de trouver et d’atteindre le jardin sur le dos d’une baleine luxuriante (voir page 40)."
+      }
     }
   },
   "faq": {
@@ -387,7 +441,7 @@
       "A": "**{name} pleure une perte récente.** {gender, select, man {Il} woman {Elle} other {Iel}} a peut-être perdu un animal de compagnie ou un·e ami·e proche. Peut-être qu’une discussion serait la bienvenue ? À moins qu’{gender, select, man {il} woman {elle} other {iel}} ait besoin d’écoute pour se sentir mieux ?",
       "J": "**{name} achète des objets provenant d’autres endroits du monde et offre 100 pièces pour chaque objet digne de son intérêt.** Parlez-lui ! Peut-être que vous avez sur vous un objet qu’{gender, select, man {il} woman {elle} other {iel}} pourrait acquérir.",
       "Q": "**{name} ressemble à quelqu’un que vous avez déjà rencontré.** S’agit-il d’une impression ? Vous pouvez toujours lui demander pour en avoir le cœur net. {gender, select, man {Il} woman {Elle} other {Iel}} a peut-être déjà croisé votre chemin, à moins que ce ne soit {gender, select, man {un inconnu} woman {une inconnue} other {un·e inconnu·e}} avec de nouvelles histoires à raconter !",
-      "K": "**{name} est {gender, select, man {un bâtisseur} woman {une bâtisseuse} other {un·e bâtisseur·euse}}.** {gender, select, man {Il} woman {Elle} other {Iel}} vous dit qu’avec 3 bois et 3 fers ou avec 1,000 pièces, {gender, select, man {il} woman {elle} other {iel}} peut construire l’établissement de votre choix dans le village."
+      "K": "**{name} est {gender, select, man {un bâtisseur} woman {une bâtisseuse} other {un·e bâtisseur·euse}}.** {gender, select, man {Il} woman {Elle} other {Iel}} vous dit qu’avec 3 bois et 3 fers ou avec 1 000 pièces, {gender, select, man {il} woman {elle} other {iel}} peut construire l’établissement de votre choix dans le village."
     },
     "context_card_note": "Seule la hauteur de la carte compte pour le contexte ; la couleur est ignorée.",
     "context_seven_followup": "Carte offerte (page 49) : {value, select, 1 {Carte de localisation} 2 {Carte de localisation} 3 {Carte de localisation} 4 {Carte de biome} 5 {Carte de biome} 6 {Carte de biome} other {Carte offerte}}",

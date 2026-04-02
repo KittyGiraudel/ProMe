@@ -14,6 +14,7 @@ import { BIOME_IDS } from '@/lib/constants/misc'
 import { BiomeBubble } from '../BiomeBubble/BiomeBubble'
 import { BrowserWarning } from '../BrowserWarning/BrowserWarning'
 import { EncountersButton } from '../EncountersList/EncountersButton'
+import { GatheringButton } from '../GatheringList/GatheringButton'
 import { HelpButton } from '../HelpButton/HelpButton'
 import './MapCard.css'
 import { useSettings } from '../PageSettings/SettingsContext'
@@ -36,6 +37,7 @@ export function MapCard() {
         title={t('characters.map.map_section')}
         actions={[
           <EncountersButton key='encounters' currentBiome={currentBiome} />,
+          <GatheringButton key='gathering' currentBiome={currentBiome} />,
         ]}
         extra={
           <Popover title={t('characters.map.legend')} content={<MapLegend />}>

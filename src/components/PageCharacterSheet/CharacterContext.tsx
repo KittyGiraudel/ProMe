@@ -1,27 +1,27 @@
 'use client'
 
+import type { FormInstance } from 'antd'
 import {
   createContext,
+  type ReactNode,
   useCallback,
   useContext,
   useMemo,
-  type ReactNode,
 } from 'react'
-import type { FormInstance } from 'antd'
+import { normalizeMapState } from '@/lib/character/mapState'
 import type {
   CharacterMapCell,
   CharacterMapState,
   HexCoordinate,
 } from '@/lib/character/types'
-import { type BiomeId } from '@/lib/types'
 import {
   formatDisplayedCellReference,
-  parseDisplayedCellReference,
   getGlobalFromDisplayedCellLabel,
-  toHexKey,
+  parseDisplayedCellReference,
   type SheetCoordinate,
+  toHexKey,
 } from '@/lib/hex/coordinates'
-import { normalizeMapState } from '@/lib/character/mapState'
+import { type BiomeId } from '@/lib/types'
 
 export type CharacterCellData = {
   ref: string
@@ -40,6 +40,10 @@ type CharacterContextValue = {
   getCharacterValue: <T = unknown>(
     path: string | (string | number)[]
   ) => T | undefined
+  setCharacterValue: (
+    path: string | (string | number)[],
+    value: unknown
+  ) => void
   getCellData: (ref: CellRef | string) => CharacterCellData | null
   onKill: () => void
   onExport: () => void
@@ -70,6 +74,13 @@ export function CharacterProvider({
   const getCharacterValue = useCallback(
     <T,>(path: string | (string | number)[]): T | undefined =>
       form.getFieldValue(path) as T | undefined,
+    [form]
+  )
+
+  const setCharacterValue = useCallback(
+    (path: string | (string | number)[], value: unknown) => {
+      form.setFieldValue(path, value)
+    },
     [form]
   )
 
@@ -118,6 +129,7 @@ export function CharacterProvider({
   const value = useMemo<CharacterContextValue>(
     () => ({
       getCharacterValue,
+      setCharacterValue,
       getCellData,
       onKill,
       onExport,
@@ -127,6 +139,7 @@ export function CharacterProvider({
     }),
     [
       getCharacterValue,
+      setCharacterValue,
       getCellData,
       onKill,
       onExport,

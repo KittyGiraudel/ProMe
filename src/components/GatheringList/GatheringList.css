@@ -1,0 +1,52 @@
+.GatheringList {
+  padding-left: 2em;
+  margin: 0;
+  list-style: none;
+}
+
+.GatheringList__item + .GatheringList__item {
+  margin-top: 0.5em;
+}
+
+.GatheringList__item {
+  position: relative;
+  display: flex;
+}
+
+.GatheringList__item::before {
+  font-size: 2em;
+  position: absolute;
+  right: 100%;
+  margin-right: 0.75ch;
+  top: 0.05em;
+  line-height: 0.6;
+  width: 1ch;
+  font-family: monospace;
+}
+
+.GatheringList__item:nth-child(1)::before {
+  content: "⚀";
+}
+.GatheringList__item:nth-child(2)::before {
+  content: "⚁";
+}
+.GatheringList__item:nth-child(3)::before {
+  content: "⚂";
+}
+.GatheringList__item:nth-child(4)::before {
+  content: "⚃";
+}
+.GatheringList__item:nth-child(5)::before {
+  content: "⚄";
+}
+.GatheringList__item:nth-child(6)::before {
+  content: "⚅";
+}
+
+.GatheringList__item ul {
+  list-style: none;
+}
+
+.GatheringList__item > :last-child {
+  margin-left: auto;
+}

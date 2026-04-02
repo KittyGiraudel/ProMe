@@ -66,6 +66,10 @@
       "legend": "Legend",
       "encounters_button": "See encounters",
       "encounters_dialog_title": "Encounters",
+      "gathering_button": "See gathering",
+      "gathering_dialog_title": "Gathering",
+      "gathering_collected": "Added to inventory",
+      "gathering_empty": "No gathering available in this biome.",
       "map_section": "Map",
       "menu_actions_group": "Actions",
       "menu_marking_group": "Scouting",
@@ -84,6 +88,7 @@
       "add_item": "Add item",
       "add_spell": "Add spell",
       "inventory_empty": "Inventory is empty.",
+      "inventory_full": "Inventory is full.",
       "inventory_section": "Inventory <status>({count} / {limit})</status>",
       "item_name_label": "Item name",
       "item_note_label": "Note",
@@ -168,6 +173,7 @@
   "common": {
     "actions": {
       "cancel": "Cancel",
+      "collect": "Collect",
       "delete": "Delete",
       "edit": "Edit",
       "finish": "Finish",
@@ -193,6 +199,7 @@
     "display_2D6": "2D6: <dice></dice>",
     "display_card": "Card: <card></card>",
     "generic_error": "An error occurred.",
+    "gold": "{amount, number} coins",
     "loading": "Loading…",
     "max_label": "Max.",
     "unsaved_changes_warning": {
@@ -337,6 +344,53 @@
         "4": "**You discover a field of golden petals.** Draw a card from the deck to discover what type of flowers you have found.\n*In both cases, nothing will grow here again after your passage.*\n- ♥♦ Golden petals — can be harvested and sold for 100 coins.\n- ♠♣ Golden shoots — can be harvested as 1D6 food.",
         "5": "**You encounter a luxurious whale.** *To learn more, read page 40.* Draw a card to find out what type of whale you have encountered.\n- ♥♦ A **peaceful** luxurious whale.\n- ♠♣ An **aggressive** luxurious whale.",
         "6": "**You discover a pile of giant bones,** those of a luxurious whale. See the *collection table* on page 40 to determine what you find there."
+      }
+    },
+    "gathering": {
+      "shadowForest": {
+        "1": "1 torch",
+        "2": "2 × Root",
+        "3": "3 × Wood",
+        "4": "3 × Leaf",
+        "5": "2 × Fruit",
+        "6": "One of the above choices",
+        "hint": "For collecting resources in the Shadow Forest, you can use an Axe. To use it, remove 1 durability point from it, then choose the item of your choice from the gathering table above. Otherwise, successfully pass a Courage Test to do without the necessary equipment."
+      },
+      "mushroomJungle": {
+        "1": "100 coins",
+        "2": "3 × Common mushroom",
+        "3": "1 × Soul mushroom",
+        "4": "1 × Courage mushroom",
+        "5": "1 × Stamina mushroom",
+        "6": "One of the above choices",
+        "warn": "Gathering in the Mushroom Jungle requires finding and reaching the top of a Titan Boletus (see page 26)."
+      },
+      "fieldSea": {
+        "1": "10 coins",
+        "2": "2 × Potato",
+        "3": "2 × Common mushroom",
+        "4": "2 × Corn",
+        "5": "2 × Rice",
+        "6": "One of the above choices",
+        "hint": "For collecting resources in the Field Sea, you can use Gardening Shears. To use them, remove 1 durability point from them, then choose the item of your choice from the gathering table above. Otherwise, successfully pass a Courage Test to do without the necessary equipment."
+      },
+      "silentDesert": {
+        "1": "10 coins",
+        "2": "2 × Coal",
+        "3": "2 × Iron",
+        "4": "2 × Copper",
+        "5": "1 × Gold",
+        "6": "One of the above choices",
+        "hint": "For collecting resources in the Silent Desert, you can use a Pickaxe. To use it, remove 1 durability point from it, then choose the item of your choice from the gathering table above. Otherwise, successfully pass a Courage Test to do without the necessary equipment."
+      },
+      "giganticGardens": {
+        "1": "A Garden of Lareons",
+        "2": "100 coins",
+        "3": "1,000 coins",
+        "4": "A Residence",
+        "5": "Ruins",
+        "6": "Any item",
+        "warn": "Gathering in the Gigantic Gardens requires finding and reaching the garden on the back of a luxurious whale (see page 40)."
       }
     }
   },
