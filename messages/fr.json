@@ -1,12 +1,12 @@
 {
   "characters_list": {
-    "archetype_line": "Archétype : {value}",
+    "archetype_line": "Archétype : {value}",
     "dead_character_name": "✝ {name} <separator>—</separator> <status>Mort·e</status>",
     "empty": "Aucun Protecteur pour le moment. Créez-en un pour commencer.",
     "title": "Protecteurs",
     "unknown": "Protecteur inconnu",
     "unnamed": "Sans nom",
-    "updated_line": "Dernière mise à jour : le {value}"
+    "updated_line": "Dernière mise à jour : le {value}"
   },
   "characters": {
     "back_to_library": "Retour à la bibliothèque",
@@ -22,7 +22,7 @@
       "characteristics_section": "Caractéristiques",
       "courage_label": "Points de Courage",
       "courage_roll_aria": "Lancer un test de Courage",
-      "courage_roll_result": "Le test de courage a {status, select, success {réussi} failure {échoué} other {été annulé}}.\nRésultat du dé : {roll}. Courage actuel : {target}.",
+      "courage_roll_result": "Le test de courage a {status, select, success {réussi} failure {échoué} other {été annulé}}.\nRésultat du dé : {roll}. Courage actuel : {target}.",
       "courage_roll_title": "Test de Courage",
       "courage_roll_tooltip": "Effectuer un Test de Courage",
       "courage_tooltip": "Ils représentent votre capacité à réaliser ce que vous voulez.\nÀ chaque fois que vous avez besoin de faire quelque chose qui pourrait mal tourner — courir, sauter, vous cacher, distraire, fuir, attaquer, etc. —, vous devez utiliser votre Courage.",
@@ -46,7 +46,7 @@
       "browser_warning": "Le module de cartographie utilise des <link>fonctionnalités modernes</link> qui ne sont pas supportées dans tous les navigateurs. Il est recommandé d’utiliser le navigateur Chrome.",
       "cell": "{coord}: {biome}{status, select, current { (actuel)} selected { (sélectionné)} reachable { (atteignable)} other {}}",
       "center_on_current": "Centrer sur ma position",
-      "character_position": "Position : {position}",
+      "character_position": "Position : {position}",
       "clear_cell": "Effacer la case",
       "clear_icon": "Retirer l’icône",
       "clock_advance": "Avancer",
@@ -56,7 +56,7 @@
       "clock_phase_shift": "{phase, select, day {Levée du jour} night {Tombée de la nuit} other {Phase de transition}}",
       "clock_phase_shift_description": "N’oubliez pas de consommer de la nourriture pour ne pas avoir faim.",
       "clock_section": "Horloge",
-      "clock_slice": "Tranche : {position} / {total}",
+      "clock_slice": "Tranche : {position} / {total}",
       "clock_tooltip": "L’Horloge suit le temps et l’appétit. Elle est divisée selon votre Endurance actuelle.",
       "core": "Le Noyau",
       "emoji_search_placeholder": "Rechercher une icône…",
@@ -79,8 +79,8 @@
       "random_biome_discovered_description": "Vous découvrez {biomeName}. Marquez {additionalTilesToMark, plural, =1 {une case adjacente} other {# cases adjacentes}} du même biome ({biomeName}).",
       "random_biome_discovered_title": "Nouveau biome découvert",
       "random_biome": "Biome aléatoire (1D6)",
-      "selected_cell": "Case sélectionnée : {cell}",
-      "sheet": "Feuille : ({sheetQ}, {sheetR})",
+      "selected_cell": "Case sélectionnée : {cell}",
+      "sheet": "Feuille : ({sheetQ}, {sheetR})",
       "title": "Cartographie",
       "unexplored": "Inexploré"
     },
@@ -102,19 +102,19 @@
     "journal": {
       "add_journal_entry": "Ajouter une entrée",
       "cheatsheet": {
-        "embellishment_biome": "Mise en couleur des noms de biomes (ex. : {example})",
+        "embellishment_biome": "Mise en couleur des noms de biomes (ex. : {example})",
         "embellishment_cards": "Mise en valeur des cartes à jouer (♠, ♥, ♦, ♣)",
-        "embellishment_cells": "Liens vers les hexagones (ex. : <e13></e13>, <b07></b07>)",
+        "embellishment_cells": "Liens vers les hexagones (ex. : <e13></e13>, <b07></b07>)",
         "embellishment_checks": "Mise en couleur des mots « {success} » et « {failure} »",
         "embellishment_dice": "Mise en valeur des dés (⚀, ⚁, ⚂, ⚃, ⚄, ⚅)",
         "embellishment_stars": "Mise en couleur des astres (☼, ☾)",
         "embellishment_title": "Embellissement automatique",
         "markdown_intro": "Le texte accepte le <guide>Markdown</guide> (titres, listes, emphase, liens…).",
         "markdown_title": "Markdown",
-        "shortcuts_dice": "Dés : <die1></die1>, <die2></die2>, <die3></die3>, <die4></die4>, <die5></die5>, <die6></die6>",
+        "shortcuts_dice": "Dés : <die1></die1>, <die2></die2>, <die3></die3>, <die4></die4>, <die5></die5>, <die6></die6>",
         "shortcuts_npc": "Lien vers un PNJ",
         "shortcuts_protector": "Lien vers un Protecteur",
-        "shortcuts_suits": "Cartes à jouer : <braceS></braceS>, <braceH></braceH>, <braceD></braceD>, <braceC></braceC>",
+        "shortcuts_suits": "Cartes à jouer : <braceS></braceS>, <braceH></braceH>, <braceD></braceD>, <braceC></braceC>",
         "shortcuts_title": "Raccourcis",
         "shortcuts_village": "Lien vers un village"
       },
@@ -151,7 +151,7 @@
     },
     "actions": {
       "danger_mark_dead_help": "Cette action fige la fiche en lecture seule tant que le Protecteur n’est pas réanimé.",
-      "death_suggestion_description": "Les points d’âme sont désormais à zéro : le Protecteur est sur le point de mourir.",
+      "death_suggestion_description": "Les points d’âme sont désormais à zéro : le Protecteur est sur le point de mourir.",
       "death_suggestion_title": "Mort imminente",
       "delete_confirm_description": "La fiche de Protecteur sera définitivement supprimée et cette action est irréversible.",
       "delete_confirm_title": "Supprimer ce Protecteur ?",
@@ -194,12 +194,12 @@
     "check_failure_word": "Échec",
     "check_success_word": "Réussite",
     "conjunction": "et",
-    "could_not_parse_link": "Impossible d’afficher ce lien dans une fenêtre : ouvrez-le dans le générateur.",
+    "could_not_parse_link": "Impossible d’afficher ce lien dans une fenêtre : ouvrez-le dans le générateur.",
     "current_label": "Actuel",
     "die": "Dé {value}",
-    "display_1D6": "1D6 : <dice></dice>",
-    "display_2D6": "2D6 : <dice></dice>",
-    "display_card": "Carte : <card></card>",
+    "display_1D6": "1D6 : <dice></dice>",
+    "display_2D6": "2D6 : <dice></dice>",
+    "display_card": "Carte : <card></card>",
     "generic_error": "Une erreur s’est produite.",
     "gold": "{amount, number} pièces",
     "loading": "Chargement…",
@@ -300,7 +300,7 @@
     },
     "encounters": {
       "floodedPlains": {
-        "1": "**L’eau qui entoure vos jambes semble guérir votre fatigue et vous encourager à voyager.** Vous avez un bonus de +1 Courage (maximum : 5) jusqu’à ce que vous franchissiez la frontière entre le jour et la nuit sur l’Horloge.",
+        "1": "**L’eau qui entoure vos jambes semble guérir votre fatigue et vous encourager à voyager.** Vous avez un bonus de +1 Courage (maximum : 5) jusqu’à ce que vous franchissiez la frontière entre le jour et la nuit sur l’Horloge.",
         "2": "**Un voyageur croise votre chemin.** Allez à la page 57 et [définissez](/fr/generators/npc) qui vous avez rencontré.\n*Si vous revenez ici, le voyageur ne sera plus là.*",
         "3|4": "**Vous découvrez un Comptoir.**\n*Pour en savoir plus, reportez-vous à la page 23.*",
         "5": "**Vous rencontrez un Hérissin.** Pour en savoir plus sur ces créatures, lisez la page 22. **Tirez une carte** pour savoir quel type de Hérisson vous avez trouvé.\n- ♥♦ Un Hérissin **paisible**.\n- ♠♣ Un Hérissin **agressif**.",
@@ -324,7 +324,7 @@
         "1": "**Des ombres denses et ancestrales vous étreignent étroitement.** En raison de l’obscurité, tout ce que vous avez trouvé dans ces trois hexagones de la Forêt des Ombres est effacé de votre journal et de votre carte.\n*Si vous repassez par cet hexagone, tirez d’autres rencontres.*",
         "2|3": "**Vous arrivez dans un [village Bruja](/fr/generators/village?f=bruja).** Pour en savoir plus sur les Brujas, voir page 18. Lorsque vous trouvez un village Bruja, allez à la page 43 et **tirez 5 cartes** pour définir le lieu.",
         "4": "**Vous trouvez un Essaim de lucioles.** Une fois par jour, si vous passez par cet endroit, vous pouvez récupérer 1 point de n’importe quel Attribut.",
-        "5|6": "**Vous rencontrez une créature.** Tirez une carte pour savoir laquelle :\n- ♦ Un groupe de **Yabas** (voir page 19).\n- ♥ Un **Yaba** perdu (voir page 19).\n- ♣ Un **Arbre Guerrier**, ce qui déclenche un combat (voir page 19). \n- ♠ Un **Pizi** (voir page 62)."
+        "5|6": "**Vous rencontrez une créature.** Tirez une carte pour savoir laquelle :\n- ♦ Un groupe de **Yabas** (voir page 19).\n- ♥ Un **Yaba** perdu (voir page 19).\n- ♣ Un **Arbre Guerrier**, ce qui déclenche un combat (voir page 19). \n- ♠ Un **Pizi** (voir page 62)."
       },
       "silentDesert": {
         "1": "**Une Ruine émerge des rochers sablonneux.**\n*Passez à la page 63 si vous voulez l’explorer.*",
@@ -390,7 +390,7 @@
   },
   "faq": {
     "answer_1": "ProMe, pour « **Pro**tecteur » et « **Mé**moires » est un compagnon de jeu pour « [Les Souvenirs du Protecteur](https://www.cultura.com/p-les-souvenirs-du-protecteur-les-fondations-de-l-imaginaire-12158384.html) », un jeu de rôle solo par Enzo Salviato. Il est suggéré d’avoir l’application ouvert en jouant au jeu, comme référence et pour pouvoir marquer sa progression. C’est principalement pour pouvoir jouer au jeu de manière numérique (pas tout à fait cependant, car utiliser le manuel officiel est requis).\n\nLe jeu est exceptionnel, mais demande de prendre des notes sur papier ; chose qui m’est personnellement fastidieuse. C’est pourquoi j’ai développé cette version numérique, afin de basculer la prise de note et annotation de la carte sur ordinateur (ou mobile).",
-    "answer_2": "Le module de cartographie utilise des fonctionnalités de styles (CSS) modernes qui ne sont pas encore bien supportées par les navigateurs. C’est pourquoi il est préférable d’utiliser le navigateur Chrome, car c’est celui que j’utilise pour le dévelopement. Quant à pourquoi je n’ai pas étendu le support à d’autres navigateurs : créer une grille d’hexagones est compliqué ; j’avais le choix entre utiliser des technologies modernes pour garder les choses simples, ou développer tout le système de carte avec HTML Canvas, ce que je ne voulais pas faire.",
+    "answer_2": "Le module de cartographie utilise des fonctionnalités de styles (CSS) modernes qui ne sont pas encore bien supportées par les navigateurs. C’est pourquoi il est préférable d’utiliser le navigateur Chrome, car c’est celui que j’utilise pour le dévelopement. Quant à pourquoi je n’ai pas étendu le support à d’autres navigateurs : créer une grille d’hexagones est compliqué ; j’avais le choix entre utiliser des technologies modernes pour garder les choses simples, ou développer tout le système de carte avec HTML Canvas, ce que je ne voulais pas faire.",
     "answer_3": "Les rencontres ne sont pas implémentées, donc à chaque déplacement, il faut lancer un dé (physiquement ou via l’application) puis se référer au livre de règles pour savoir quelle rencontre se produit.\nDe plus, le stock des boutiques n’est pas implémenté non plus. Cela signifie qu’à la création d’une village, il est nécessaire de définir les offres manuellement, puis de les noter dans le journal pour y revenir plus tard.",
     "answer_4": "Qu’on soit d’accord ou non, le jeu n’a pas de concept de genre donc tous les personnages — jouables ou non — sont sans genre. J’ai trouvé intéressant et plus immersif de pouvoir définir le genre des personnages. C’est complètement optionnel, et j’ai rendu les choses permissives avec plusieurs options.",
     "question_1": "Qu’est-ce que ce site ?",
@@ -415,7 +415,7 @@
     "settings_description": "Préférences locales de l’application, indépendantes des fiches de Protecteurs.",
     "settings_title": "Paramètres",
     "title": "Accueil",
-    "updated_line": "Dernière mise à jour : le {value}",
+    "updated_line": "Dernière mise à jour : le {value}",
     "village_card_description": "Établissements, et traits du village.",
     "village_card_title": "Générateur de village"
   },
@@ -426,7 +426,7 @@
       "4": "**{name} est très malade et n’a plus que peu de temps à vivre.** {gender, select, man {Il} woman {Elle} other {Iel}} est {gender, select, man {seul} woman {seule} other {seul·e}} et personne pour l’épauler dans ces instants difficiles. Peut-être qu’une conversation lui donnerait un peu de baume au cœur ? *Si vous l’avez {gender, select, man {rencontré} woman {rencontrée} other {recontré·e}} dans un village, la prochaine fois que vous visiterez cet endroit, vous devrez réussir un test de Courage pour {gender, select, man {le} woman {la} other {le·a}} retrouver.*",
       "5": "**{name} cherche l’amitié — ou peut-être l’amour ?** Vous n’en êtes pas sûr·e, mais {gender, select, man {il} woman {elle} other {iel}} semble se sentir {gender, select, man {seul} woman {seule} other {seul·e}}. Vous pouvez l’aider à trouver quelqu’un qui cherche quelque chose de similaire.",
       "6": "**{name} se languit d’un être cher.** Peut-être est-ce quelqu’un qui vit ailleurs ou qui vient juste de partir. Mais {gender, select, man {il} woman {elle} other {iel}} est aussi à la recherche d’un objet très spécial qui lui rappelle cette personne. Quel est cet objet ?",
-      "7": "{name} est **cartographe**. Vous {gender, select, man {le} woman {la} other {le·a}} croisez alors qu’{gender, select, man {il} woman {elle} other {iel}} va quitter le village et reconnaît en vous un voyageur. {gender, select, man {Il} woman {Elle} other {Iel}} vous offre une de ses cartes. Lancez un D6 : *Carte de localisation (1-3)* ou *Carte de biome (4-6)* (voir page 49).",
+      "7": "{name} est **cartographe**. Vous {gender, select, man {le} woman {la} other {le·a}} croisez alors qu’{gender, select, man {il} woman {elle} other {iel}} va quitter le village et reconnaît en vous un voyageur. {gender, select, man {Il} woman {Elle} other {Iel}} vous offre une de ses cartes. Lancez un D6 : *Carte de localisation (1-3)* ou *Carte de biome (4-6)* (voir page 49).",
       "8": "{name} est **en train de peindre un tableau**. Se rendant compte que vous êtes un voyageur, {gender, select, man {il} woman {elle} other {iel}} vous demande si vous avez un croquis représentant un endroit qui lui est inconnu, ou si vous pouvez décrire un panorama que vous avez vu au cours de votre voyage ! {gender, select, man {Il} woman {Elle} other {Iel}} ne s’est jamais {gender, select, man {aventuré} woman {aventurée} other {aventuré·e}} dans des endroits éloignés de son village et recherche l’inspiration !",
       "9": "Il existe des rumeurs sur de mystérieuses Ruines parsemées à travers le monde et **{name} est {gender, select, man {curieux} woman {curieuse} other {curieux·se}} d’en savoir plus sur le sujet**. Voyant que vous êtes un·e voyageur·se, {gender, select, man {il} woman {elle} other {iel}} s’approche de vous pour voir si vous avez des informations à partager !",
       "10": "**{name} prononce un nom en errant dans le village.** De qui s’agit-il ? Pourquoi prononce-t-{gender, select, man {il} woman {elle} other {iel}} ce nom ? Que s’est-il passé ? *Si vous devez créer un nom, consultez la table page 60.*",
@@ -436,11 +436,11 @@
       "K": "**{name} est {gender, select, man {un bâtisseur} woman {une bâtisseuse} other {un·e bâtisseur·euse}}.** {gender, select, man {Il} woman {Elle} other {Iel}} vous dit qu’avec 3 bois et 3 fers ou avec 1 000 pièces, {gender, select, man {il} woman {elle} other {iel}} peut construire l’établissement de votre choix dans le village."
     },
     "context_card_note": "Seule la hauteur de la carte compte pour le contexte ; la couleur est ignorée.",
-    "context_seven_followup": "Carte offerte (page 49) : {value, select, 1 {Carte de localisation} 2 {Carte de localisation} 3 {Carte de localisation} 4 {Carte de biome} 5 {Carte de biome} 6 {Carte de biome} other {Carte offerte}}",
+    "context_seven_followup": "Carte offerte (page 49) : {value, select, 1 {Carte de localisation} 2 {Carte de localisation} 3 {Carte de localisation} 4 {Carte de biome} 5 {Carte de biome} 6 {Carte de biome} other {Carte offerte}}",
     "context_seven_map_biome": "Carte de biome",
     "context_seven_map_localisation": "Carte de localisation",
     "context_spoken_name_label": "Nom prononcé (2D6, page 60)",
-    "context_spoken_name_meta": "2D6 : <dice></dice>",
+    "context_spoken_name_meta": "2D6 : <dice></dice>",
     "empty_summary": "Cliquez sur « {button} » pour générer un habitant.",
     "one_liner_rich": "{gender} <name></name>, {age} {faction} {personality}",
     "one_liner": "{gender} {name}, {age} {faction} {personality}",
@@ -461,7 +461,7 @@
     "title": "Générateur d’habitant"
   },
   "metadata": {
-    "description": "Companion de jeu pour Les Souvenirs du Protecteur : gestionnaires, générateurs de Protecteurs, villages et plus.",
+    "description": "Companion de jeu pour Les Souvenirs du Protecteur : gestionnaires, générateurs de Protecteurs, villages et plus.",
     "tab_brand": "ProMe",
     "title": "ProMe — Companion de jeu"
   },
@@ -491,14 +491,14 @@
     "title": "Nouveau Protecteur"
   },
   "rulebook": {
-    "characteristics_footnote": "Livre de règles — Les Attributs de votre Protecteur : page 7–8.",
-    "clock_footnote": "Livre de règles — Les Attributs de votre Protecteur : page 7–8.",
+    "characteristics_footnote": "Livre de règles — Les Attributs de votre Protecteur : page 7–8.",
+    "clock_footnote": "Livre de règles — Les Attributs de votre Protecteur : page 7–8.",
     "information": "Information dans le livre de règles",
-    "inhabitant_footnote": "Livre de règles — Les habitants : page 56–58. Table des noms : page 60.",
-    "inventory_footnote": "Livre de règles — Les autres valeurs du jeu → L’inventaire : p. 8.",
+    "inhabitant_footnote": "Livre de règles — Les habitants : page 56–58. Table des noms : page 60.",
+    "inventory_footnote": "Livre de règles — Les autres valeurs du jeu → L’inventaire : p. 8.",
     "page_citation": "p. {page}",
-    "spellbook_footnote": "Livre de règles — La Magie : p. 14.",
-    "village_footnote": "Livre de règles — Les villages : p. 42. Table « Établissement » : p. 43."
+    "spellbook_footnote": "Livre de règles — La Magie : p. 14.",
+    "village_footnote": "Livre de règles — Les villages : p. 42. Table « Établissement » : p. 43."
   },
   "settings": {
     "adaptive_night_mode_help": "Bascule automatiquement entre le thème clair et le thème sombre en fonction de la valeur de l’horloge.",
@@ -511,7 +511,7 @@
     "map_tick_clock_on_move_label": "Horloge automatique",
     "map_show_biome_background_help": "Affiche des motifs de fond dans chaque case selon son biome. Utile pour distinguer les biomes sans se fier uniquement aux couleurs.",
     "map_show_biome_background_label": "Motifs de biome",
-    "map_coordinates_display_help": "Choisissez où afficher les coordonnées des cases : sur les axes autour de la carte, dans chaque hexagone, ou les deux.",
+    "map_coordinates_display_help": "Choisissez où afficher les coordonnées des cases : sur les axes autour de la carte, dans chaque hexagone, ou les deux.",
     "map_coordinates_display_label": "Affichage des coordonnées",
     "map_coordinates_display_axes": "Axes uniquement",
     "map_coordinates_display_hexagons": "Hexagones uniquement",
@@ -539,7 +539,7 @@
     }
   },
   "village": {
-    "co_owners_label": "Copropriétaires :",
+    "co_owners_label": "Copropriétaires :",
     "empty_summary": "Cliquez sur « {button} » pour générer un village.",
     "establishments": {
       "2": "{size, select, 0 {Petite boutique de potions} 1 {Grande boutique de potions} 2 {Immense boutique de potions} other {Boutique de potions}}",
@@ -554,7 +554,7 @@
       "A": "{color, select, red {Oratoire permanent} black {Oratoire éphémère} other {Oratoire}}"
     },
     "link_summary": "{has_faction_label, select, yes {Village ({factionLabel}), {establishmentCount} {establishmentCount, plural, =1 {établissement} other {établissements}}} other {Village, {establishmentCount} {establishmentCount, plural, =1 {établissement} other {établissements}}}}",
-    "owner_label": "Propriétaire :",
+    "owner_label": "Propriétaire :",
     "reroll_owner": "Regénérer cette habitant·e",
     "section_establishments": "Établissements",
     "section_traits": "Traits du village",
