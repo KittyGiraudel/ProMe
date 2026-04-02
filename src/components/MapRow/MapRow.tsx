@@ -1,6 +1,6 @@
+import { MapCell } from '@/components/MapCell/MapCell'
 import type { MapDisplayProps } from '@/components/MapDisplay/MapDisplay'
-import { MapHex } from '@/components/MapHex/MapHex'
-import { MAP_COLS } from '@/lib/hex/coordinates'
+import { MAP_COLS } from '@/lib/map/coordinates'
 
 import './MapRow.css'
 
@@ -18,7 +18,7 @@ export function MapRow({
     <div className='MapRow' key={`row-${index}`}>
       {Array.from({ length: MAP_COLS }, (_, ci) => {
         return (
-          <MapHex
+          <MapCell
             key={index + '-' + ci}
             ri={index}
             ci={ci}

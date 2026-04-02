@@ -23,18 +23,18 @@ export type SpellEntry = {
   note?: string
 }
 
-export type HexCoordinate = {
+export type CellCoordinate = {
   q: number
   r: number
 }
 
-export type CharacterMapCell = HexCoordinate & {
+export type CharacterMapCell = CellCoordinate & {
   biome?: BiomeId
   icon?: string
 }
 
 export type CharacterMapState = {
-  currentPosition: HexCoordinate
+  currentPosition: CellCoordinate
   cells: CharacterMapCell[]
 }
 

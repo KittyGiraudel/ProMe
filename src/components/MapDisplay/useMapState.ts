@@ -1,18 +1,18 @@
 import { useCallback, useMemo } from 'react'
 import { useWatchedMap } from '@/hooks/useCharacterSheetDerived'
 import { normalizeMapState } from '@/lib/character/mapState'
-import { CharacterMapCell, HexCoordinate } from '@/lib/character/types'
+import { CellCoordinate, CharacterMapCell } from '@/lib/character/types'
 import {
   formatDisplayedCellReference,
   getSheetCoordinate,
   SheetCoordinate,
-  toHexKey,
-} from '@/lib/hex/coordinates'
+  toCellKey,
+} from '@/lib/map/coordinates'
 import { BiomeId } from '@/lib/types'
 
 export type CharacterCellData = {
   ref: string
-  coord: HexCoordinate
+  coord: CellCoordinate
   sheet: SheetCoordinate
   biome?: BiomeId
   icon?: string
@@ -23,14 +23,14 @@ export const useMapState = () => {
   const mapState = normalizeMapState(map)
   const cellsByKey = useMemo(() => {
     const next = new Map<string, CharacterMapCell>()
-    for (const cell of mapState.cells) next.set(toHexKey(cell), cell)
+    for (const cell of mapState.cells) next.set(toCellKey(cell), cell)
     return next
   }, [mapState.cells])
 
   const getCellState = useCallback(
-    (coord: HexCoordinate): CharacterCellData => {
+    (coord: CellCoordinate): CharacterCellData => {
       const sheet = getSheetCoordinate(coord)
-      const existing = cellsByKey.get(toHexKey(coord))
+      const existing = cellsByKey.get(toCellKey(coord))
       const ref = formatDisplayedCellReference(coord)
       return {
         ref,

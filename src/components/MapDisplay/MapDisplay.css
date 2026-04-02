@@ -1,5 +1,5 @@
 /**
- * Scrollport for the hex grid: keeps the map at its intrinsic width (see
+ * Scrollport for the cell grid: keeps the map at its intrinsic width (see
  * .Map__Inner min-width) on narrow viewports so it stays usable via pan/scroll
  * instead of clipping.
  */

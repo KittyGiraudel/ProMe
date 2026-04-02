@@ -4,13 +4,13 @@ import { countClockSegments, normalizeClock } from './clock'
 import { normalizeLifeStatus } from './lifeStatus'
 import {
   type Archetype,
+  CellCoordinate,
   CHARACTER_SCHEMA_VERSION,
   type Character,
   type CharacterImportMode,
   type CharacterInput,
   type CharacterMapCell,
   type CharacterMapState,
-  HexCoordinate,
   type InventoryItem,
   type JournalEntry,
   type SpellEntry,
@@ -22,7 +22,7 @@ const MAX_SPELLBOOK_ITEMS = 6
 const MAX_MAP_ICON_LENGTH = 1
 
 const DEFAULT_MONEY = 100
-export const DEFAULT_MAP_POSITION: HexCoordinate = { q: 0, r: 0 }
+export const DEFAULT_MAP_POSITION: CellCoordinate = { q: 0, r: 0 }
 
 function normalizeArchetype(value: unknown, fallback: Archetype): Archetype {
   if (value === 'warrior' || value === 'pilgrim' || value === 'bard')
@@ -59,7 +59,7 @@ function normalizeBiome(value: unknown): BiomeId | undefined {
     : undefined
 }
 
-function normalizeHexCoordinate(
+function normalizeCellCoordinate(
   value: unknown,
   fallback: { q: number; r: number }
 ): { q: number; r: number } {
@@ -107,7 +107,7 @@ function normalizeCharacterMapCell(value: unknown): CharacterMapCell | null {
 
 export function normalizeCharacterMapState(value: unknown): CharacterMapState {
   const raw = value as Partial<CharacterMapState> | undefined
-  const currentPosition = normalizeHexCoordinate(
+  const currentPosition = normalizeCellCoordinate(
     raw?.currentPosition,
     DEFAULT_MAP_POSITION
   )

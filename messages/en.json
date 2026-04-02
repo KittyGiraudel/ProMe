@@ -47,7 +47,7 @@
       "cell": "{coord}: {biome}{status, select, current { (current)} selected { (selected)} reachable { (reachable)} other {}}",
       "center_on_current": "Center on my position",
       "character_position": "Position: {position}",
-      "clear_cell": "Clear cell",
+      "clear_cell": "Clear hexagon",
       "clear_icon": "Remove icon",
       "clock_advance": "Advance",
       "clock_back": "Go back",
@@ -76,10 +76,10 @@
       "move_here": "Move here",
       "move_neighbor_only": "Only to an adjacent hexagon",
       "pick_emoji": "Choose an icon…",
-      "random_biome_discovered_description": "You discover {biomeName}. Mark {additionalTilesToMark, plural, =1 {one adjacent cell} other {# adjacent cells}} of the same biome ({biomeName}).",
+      "random_biome_discovered_description": "You discover {biomeName}. Mark {additionalTilesToMark, plural, =1 {one adjacent hexagon} other {# adjacent hexagons}} of the same biome ({biomeName}).",
       "random_biome_discovered_title": "New biome discovered",
       "random_biome": "Random biome (1D6)",
-      "selected_cell": "Selected cell: {cell}",
+      "selected_cell": "Selected hexagon: {cell}",
       "sheet": "Sheet: ({sheetQ}, {sheetR})",
       "title": "Cartography",
       "unexplored": "Unexplored"
@@ -507,11 +507,11 @@
     "sheet_single_page_mode_label": "Single page mode",
     "journal_timeline_reverse_chronological_help": "By default, the journal is chronological; uncheck to display entries from newest to oldest.",
     "journal_timeline_reverse_chronological_label": "Reverse chronological journal",
-    "map_tick_clock_on_move_help": "When you move to an adjacent cell, the clock position advances as if you had used the \"Advance\" button.",
+    "map_tick_clock_on_move_help": "When you move to an adjacent hexagon, the clock position advances as if you had used the \"Advance\" button.",
     "map_tick_clock_on_move_label": "Auto-advancing clock",
     "map_show_biome_background_help": "Show patterned backgrounds inside each hex based on its biome. Useful for distinguishing biomes without relying on color alone.",
     "map_show_biome_background_label": "Biome backgrounds",
-    "map_coordinates_display_help": "Choose where cell coordinates are shown: on the axes around the map, inside each hexagon, or both.",
+    "map_coordinates_display_help": "Choose where hexagon coordinates are shown: on the axes around the map, inside each hexagon, or both.",
     "map_coordinates_display_label": "Coordinates display",
     "map_coordinates_display_axes": "Axes only",
     "map_coordinates_display_hexagons": "Hexagons only",
@@ -569,7 +569,7 @@
       },
       "K": {
         "red": "**Abandoned.** The buildings seem **uninhabited**. The **establishments are inoperable** until someone decides to **rebuild the village**.",
-        "black": "**Nomadic.** The village **moves**. When you return to this **map cell**, you must succeed a **Courage test**. On **failure**, the village **is no longer there**."
+        "black": "**Nomadic.** The village **moves**. When you return to this **map hexagon**, you must succeed a **Courage test**. On **failure**, the village **is no longer there**."
       }
     },
     "village_faction_label": "Faction"

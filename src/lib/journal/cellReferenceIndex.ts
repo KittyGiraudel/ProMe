@@ -1,5 +1,5 @@
 import type { JournalEntry } from '@/lib/character/types'
-import { extractDisplayedCellReferences } from '@/lib/hex/coordinates'
+import { extractDisplayedCellReferences } from '@/lib/map/coordinates'
 
 export type JournalEntryLink = {
   entryId: string

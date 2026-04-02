@@ -8,7 +8,7 @@ import { useCallback, useState } from 'react'
 import { useMapState } from '@/components/MapDisplay/useMapState'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { VisuallyHidden } from '@/components/VisuallyHidden/VisuallyHidden'
-import type { HexCoordinate } from '@/lib/character/types'
+import type { CellCoordinate } from '@/lib/character/types'
 import { useMapCellContextMenuItems } from './mapCellContextMenuItems'
 import { useMapActions } from './useMapActions'
 
@@ -25,11 +25,11 @@ const EmojiPicker = dynamic(
 )
 
 type MapCellContextMenuProps = {
-  coord: HexCoordinate
+  coord: CellCoordinate
   coordLabel: string
   isReachable: boolean
   label: string
-  selectCell: (coord: HexCoordinate) => void
+  selectCell: (coord: CellCoordinate) => void
 }
 
 function firstGrapheme(value: string): string {
@@ -97,7 +97,7 @@ export function MapCellContextMenu({
           onClick={() => selectCell(coord)}
           onDoubleClick={onDoubleClick}
           title={label}
-          className='MapHex__Button'
+          className='MapCell__Button'
           disabled={componentDisabled}>
           {settings.map.coordinatesDisplay === 'axes' ? (
             <VisuallyHidden>{coordLabel}</VisuallyHidden>

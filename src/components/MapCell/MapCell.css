@@ -1,12 +1,12 @@
 /**
  * 1. Position context for absolutely positioned children elements.
- * 2. Set the width of the hex to the size of the grid cell.
+ * 2. Set the width of the cell to the size of the grid cell.
  * 3. Give the element a hexagonal shape.
- * 4. Squeeze the hexagons back into a tight grid.
+ * 4. Squeeze the cells back into a tight grid.
  * 5. Prevent selection the cell content when double-clicking it.
  * 6. Give the cell a little depth by adding an inner shade.
  */
-.MapHex {
+.MapCell {
   position: relative; /* 1 */
   width: var(--size); /* 2 */
   aspect-ratio: cos(30deg); /* 3 */
@@ -31,7 +31,7 @@
    * 2. This is a magic number: there is a formula to calculate that value but
    *    I don’t know it and it’s probably not worth the effort to figure it out.
    */
-  .MapHex {
+  .MapCell {
     corner-shape: unset; /* 1 */
     border-radius: 50%;
     margin-bottom: -0.75em; /* 2 */
@@ -43,7 +43,7 @@
  * 1. Highlight the current cell with an *inner* ring. Note: it collides with
  *    the *selected* cell, but it’s okay and intended this way.
  */
-.MapHex[data-current="true"] {
+.MapCell[data-current="true"] {
   outline: 2px solid white; /* 1 */
   outline-offset: -5px; /* 1 */
 }
@@ -54,7 +54,7 @@
  * 2. Because the selected cell uses an *outer* ring, make sure it is on top of
  *    the other cells.
  */
-.MapHex[data-selected="true"] {
+.MapCell[data-selected="true"] {
   outline: 3px solid #722ed1; /* 1 */
   outline-offset: 3px; /* 1 */
   z-index: 2; /* 2 */
@@ -64,20 +64,20 @@
  * 1. Make the cell a bit transparent when it's not reachable. This gives the
  *    surrounding (and thus reachable) cells a bit more visual prominence.
  */
-.MapHex[data-reachable="false"]:not([data-current="true"]) {
+.MapCell[data-reachable="false"]:not([data-current="true"]) {
   opacity: 0.7; /* 1 */
 }
 
 /**
  * 1. Guarantee a consistent and predictable stacking order for the elements.
  */
-.MapHex__JournalCount {
+.MapCell__JournalCount {
   z-index: 1; /* 1 */
 }
-.MapHex__Button {
+.MapCell__Button {
   z-index: 2; /* 1 */
 }
-.MapHex__Icon {
+.MapCell__Icon {
   z-index: 3; /* 1 */
 }
 
@@ -87,7 +87,7 @@
  * 3. Make sure the icon, which is sitting *above* the button (to cover its text)
  *    does not prevent the button from being clicked.
  */
-.MapHex__Icon {
+.MapCell__Icon {
   position: absolute; /* 1 */
   inset: 0; /* 1 */
   display: flex; /* 2 */
@@ -97,7 +97,7 @@
   pointer-events: none; /* 3 */
 }
 
-.MapHex__JournalCount {
+.MapCell__JournalCount {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -115,7 +115,7 @@
  * 1. Make the button cover the whole cell.
  * 2. Center the content of the button within it.
  */
-.MapHex__Button {
+.MapCell__Button {
   position: absolute; /* 1 */
   inset: 0; /* 1 */
 
@@ -143,38 +143,38 @@
 /**
  * 1. Smoothly animate the status ring as it goes in and out.
  */
-.MapHex__Status {
+.MapCell__Status {
   transition: inherit; /* 1 */
 }
 
 /**
  * 1. Make clickable buttons look clickable.
  */
-.MapHex__Button:not(:disabled) {
+.MapCell__Button:not(:disabled) {
   cursor: pointer;
 } /* 1 */
-.MapHex__Button:not(:disabled):hover {
+.MapCell__Button:not(:disabled):hover {
   transform: scale(1.15);
 } /* 1 */
-.MapHex__Button:not(:disabled):focus-visible {
+.MapCell__Button:not(:disabled):focus-visible {
   outline: none;
 } /* 1 */
 
-.MapHex.Pattern[data-biome="fieldSea"] {
+.MapCell.Pattern[data-biome="fieldSea"] {
   --pattern-size: 30px;
 }
-.MapHex.Pattern[data-biome="giganticGardens"] {
+.MapCell.Pattern[data-biome="giganticGardens"] {
   --pattern-size: 40px;
 }
-.MapHex.Pattern[data-biome="shadowForest"] {
+.MapCell.Pattern[data-biome="shadowForest"] {
   --pattern-size: 15px;
 }
-.MapHex.Pattern[data-biome="floodedPlains"] {
+.MapCell.Pattern[data-biome="floodedPlains"] {
   --pattern-size: 20px;
 }
-.MapHex.Pattern[data-biome="silentDesert"] {
+.MapCell.Pattern[data-biome="silentDesert"] {
   --pattern-size: 15px;
 }
-.MapHex.Pattern[data-biome="mushroomJungle"] {
+.MapCell.Pattern[data-biome="mushroomJungle"] {
   --pattern-size: 10px;
 }

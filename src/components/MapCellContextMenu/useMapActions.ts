@@ -13,11 +13,11 @@ import {
   updateCharacterMapCellAt,
 } from '@/lib/character/mapState'
 import {
+  type CellCoordinate,
   type CharacterMapState,
-  type HexCoordinate,
   type StatPool,
 } from '@/lib/character/types'
-import { isSameHex } from '@/lib/hex/coordinates'
+import { isSameCell } from '@/lib/map/coordinates'
 import { moveWithAutoBiome } from '@/lib/map/movement'
 import { getRandomBiomeResult } from '@/lib/random/randomBiome'
 import { type BiomeId } from '@/lib/types'
@@ -47,7 +47,7 @@ export function useMapActions() {
   )
 
   const setBiomeAt = useCallback(
-    (target: HexCoordinate, biome: BiomeId | undefined) => {
+    (target: CellCoordinate, biome: BiomeId | undefined) => {
       updateMap(current =>
         updateCharacterMapCellAt(current, target, existing => ({
           q: target.q,
@@ -61,7 +61,7 @@ export function useMapActions() {
   )
 
   const setRandomBiomeAt = useCallback(
-    (target: HexCoordinate) => {
+    (target: CellCoordinate) => {
       const rolled = getRandomBiomeResult()
       setBiomeAt(target, rolled.biome)
       showRandomBiomeDiscoveredNotification({ notification, t, rolled })
@@ -70,7 +70,7 @@ export function useMapActions() {
   )
 
   const setIconAt = useCallback(
-    (target: HexCoordinate, iconRaw: string | undefined) => {
+    (target: CellCoordinate, iconRaw: string | undefined) => {
       const icon = (iconRaw ?? '').trim()
       updateMap(current =>
         updateCharacterMapCellAt(current, target, existing => ({
@@ -85,20 +85,23 @@ export function useMapActions() {
   )
 
   const clearCellAt = useCallback(
-    (target: HexCoordinate) => {
+    (target: CellCoordinate) => {
       updateMap(current => removeCharacterMapCellAt(current, target))
     },
     [updateMap]
   )
 
   const moveToCell = useCallback(
-    (target: HexCoordinate) => {
+    (target: CellCoordinate) => {
       let discoveredBiome: ReturnType<typeof getRandomBiomeResult> | undefined
       let moved = false
       updateMap(current => {
         const result = moveWithAutoBiome(current, target)
         discoveredBiome = result.discoveredBiome
-        moved = !isSameHex(current.currentPosition, result.next.currentPosition)
+        moved = !isSameCell(
+          current.currentPosition,
+          result.next.currentPosition
+        )
         return result.next
       })
       if (settings.map.tickClockOnMove && moved) {

@@ -19,11 +19,11 @@ export type AppSettings = {
     mergeDuplicateEstablishments: boolean
   }
   map: {
-    /** When true, moving to an adjacent hex on the character map advances the clock one slice. */
+    /** When true, moving to an adjacent cell on the character map advances the clock one slice. */
     tickClockOnMove: boolean
-    /** When true, biome background patterns are rendered inside each hex. */
+    /** When true, biome background patterns are rendered inside each cell. */
     showBiomeBackground: boolean
-    /** Controls how cell coordinates are displayed: on the axes, inside hexagons, or both. */
+    /** Controls how cell coordinates are displayed: on the axes, inside cells, or both. */
     coordinatesDisplay: 'axes' | 'hexagons' | 'both'
   }
 }

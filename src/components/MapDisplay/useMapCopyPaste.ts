@@ -3,7 +3,7 @@
 import { ConfigProvider } from 'antd'
 import { useEffect, useRef } from 'react'
 import { useMapActions } from '@/components/MapCellContextMenu/useMapActions'
-import type { HexCoordinate } from '@/lib/character/types'
+import type { CellCoordinate } from '@/lib/character/types'
 import type { BiomeId } from '@/lib/types'
 import { useMapState } from './useMapState'
 
@@ -23,7 +23,7 @@ function isInTextField(target: EventTarget | null): boolean {
 export function useMapCopyPaste({
   selectedCell,
 }: {
-  selectedCell: HexCoordinate | null
+  selectedCell: CellCoordinate | null
 }) {
   const { componentDisabled } = ConfigProvider.useConfig()
   const { getCellState } = useMapState()

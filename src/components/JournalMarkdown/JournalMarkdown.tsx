@@ -13,7 +13,7 @@ import {
   getGlobalFromDisplayedCellLabel,
   parseDisplayedCellReference,
   SheetCoordinateWithLabel,
-} from '@/lib/hex/coordinates'
+} from '@/lib/map/coordinates'
 import { tokenizeJournalEmbellishUiRules } from '@/lib/markdown/journalEmbellishText'
 import { createJournalMarkdownRendererConfig } from '@/lib/markdown/journalMarkdown'
 

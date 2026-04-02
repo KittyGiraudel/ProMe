@@ -7,13 +7,13 @@ import {
   useRef,
   useState,
 } from 'react'
-import type { HexCoordinate } from '@/lib/character/types'
-import { getSheetCoordinate, type SheetCoordinate } from '@/lib/hex/coordinates'
+import type { CellCoordinate } from '@/lib/character/types'
+import { getSheetCoordinate, type SheetCoordinate } from '@/lib/map/coordinates'
 
 type UseMapSheetArgs = {
-  currentPosition: HexCoordinate
-  selectedCell: HexCoordinate | null
-  setSelectedCell: Dispatch<SetStateAction<HexCoordinate | null>>
+  currentPosition: CellCoordinate
+  selectedCell: CellCoordinate | null
+  setSelectedCell: Dispatch<SetStateAction<CellCoordinate | null>>
 }
 
 export function useMapSheet({ currentPosition }: UseMapSheetArgs) {

@@ -4,14 +4,14 @@ import { Form, type FormInstance } from 'antd'
 import { useCallback, useMemo } from 'react'
 import type {
   Archetype,
+  CellCoordinate,
   CharacterMapState,
-  HexCoordinate,
   InventoryItem,
   JournalEntry,
   StatPool,
 } from '@/lib/character/types'
-import { formatDisplayedCellReference } from '@/lib/hex/coordinates'
 import { buildCellReferenceToJournalEntriesIndex } from '@/lib/journal/cellReferenceIndex'
+import { formatDisplayedCellReference } from '@/lib/map/coordinates'
 import { Gender } from '@/lib/types'
 
 const FALLBACK_STAT_POOL: StatPool = { current: 0, max: 0 }
@@ -77,7 +77,7 @@ export function useWatchedJournal(oForm?: FormInstance) {
   )
 
   const getLinksForCell = useCallback(
-    (coord: HexCoordinate) =>
+    (coord: CellCoordinate) =>
       index.get(formatDisplayedCellReference(coord)) ?? [],
     [index]
   )

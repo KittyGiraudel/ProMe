@@ -47,7 +47,7 @@
       "cell": "{coord}: {biome}{status, select, current { (actuel)} selected { (sélectionné)} reachable { (atteignable)} other {}}",
       "center_on_current": "Centrer sur ma position",
       "character_position": "Position : {position}",
-      "clear_cell": "Effacer la case",
+      "clear_cell": "Effacer l’hexagone",
       "clear_icon": "Retirer l’icône",
       "clock_advance": "Avancer",
       "clock_back": "Revenir",
@@ -76,10 +76,10 @@
       "move_here": "Se déplacer ici",
       "move_neighbor_only": "Uniquement vers un hexagone adjacent",
       "pick_emoji": "Choisir une icône…",
-      "random_biome_discovered_description": "Vous découvrez {biomeName}. Marquez {additionalTilesToMark, plural, =1 {une case adjacente} other {# cases adjacentes}} du même biome ({biomeName}).",
+      "random_biome_discovered_description": "Vous découvrez {biomeName}. Marquez {additionalTilesToMark, plural, =1 {un hexagone adjacent} other {# hexagones adjacents}} du même biome ({biomeName}).",
       "random_biome_discovered_title": "Nouveau biome découvert",
       "random_biome": "Biome aléatoire (1D6)",
-      "selected_cell": "Case sélectionnée : {cell}",
+      "selected_cell": "Hexagone sélectionné : {cell}",
       "sheet": "Feuille : ({sheetQ}, {sheetR})",
       "title": "Cartographie",
       "unexplored": "Inexploré"
@@ -509,11 +509,11 @@
     "sheet_single_page_mode_label": "Mode page unique",
     "journal_timeline_reverse_chronological_help": "Par défault, le journal est chronologique ; décochez pour afficher les entrées du plus récent au plus ancien.",
     "journal_timeline_reverse_chronological_label": "Journal anti-chronologique",
-    "map_tick_clock_on_move_help": "Quand vous vous déplacez vers une case voisine, la position sur l’horloge avance comme si vous aviez utilisé le bouton « Avancer ».",
+    "map_tick_clock_on_move_help": "Quand vous vous déplacez vers un hexagone voisin, la position sur l’horloge avance comme si vous aviez utilisé le bouton « Avancer ».",
     "map_tick_clock_on_move_label": "Horloge automatique",
-    "map_show_biome_background_help": "Affiche des motifs de fond dans chaque case selon son biome. Utile pour distinguer les biomes sans se fier uniquement aux couleurs.",
+    "map_show_biome_background_help": "Affiche des motifs de fond dans chaque hexagone selon son biome. Utile pour distinguer les biomes sans se fier uniquement aux couleurs.",
     "map_show_biome_background_label": "Motifs de biome",
-    "map_coordinates_display_help": "Choisissez où afficher les coordonnées des cases : sur les axes autour de la carte, dans chaque hexagone, ou les deux.",
+    "map_coordinates_display_help": "Choisissez où afficher les coordonnées des hexagones : sur les axes autour de la carte, dans chaque hexagone, ou les deux.",
     "map_coordinates_display_label": "Affichage des coordonnées",
     "map_coordinates_display_axes": "Axes uniquement",
     "map_coordinates_display_hexagons": "Hexagones uniquement",
@@ -572,7 +572,7 @@
       },
       "K": {
         "red": "**Abandonné.** Les bâtiments semblent **inhabités**. Les **établissements sont inopérants** tant que quelqu’un ne décide pas de **reconstruire le village**.",
-        "black": "**Nomade.** Le village **se déplace**. Lorsque vous revenez sur cette **case de carte**, vous devez réussir un **test de Courage**. En cas d’**échec**, le village **n’est plus là**."
+        "black": "**Nomade.** Le village **se déplace**. Lorsque vous revenez sur cette **hexagone**, vous devez réussir un **test de Courage**. En cas d’**échec**, le village **n’est plus là**."
       }
     },
     "village_faction_label": "Peuple du village"

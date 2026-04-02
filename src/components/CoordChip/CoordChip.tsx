@@ -3,8 +3,8 @@
 import { BiomeBubble } from '@/components/BiomeBubble/BiomeBubble'
 import { useCharacterLink } from '@/hooks/useCharacterLink'
 import { Link } from '@/i18n/navigation'
-import type { HexCoordinate } from '@/lib/character/types'
-import { formatDisplayedCellReference } from '@/lib/hex/coordinates'
+import type { CellCoordinate } from '@/lib/character/types'
+import { formatDisplayedCellReference } from '@/lib/map/coordinates'
 import type { PossibleBiomeId } from '@/lib/types'
 
 import './CoordChip.css'
@@ -17,7 +17,7 @@ export function CoordChip({
 }: {
   biome: PossibleBiomeId
   value: string
-  coord?: HexCoordinate
+  coord?: CellCoordinate
   /** When false, never link to the map (e.g. journal preview inside a modal). */
   interactive?: boolean
 }) {

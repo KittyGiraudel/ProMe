@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
-  areHexNeighbors,
+  areCellsNeighbors,
   extractDisplayedCellReferences,
   getDisplayedCellLabel,
   getGlobalFromDisplayedCellLabel,
@@ -9,7 +9,7 @@ import {
   parseDisplayedCellReference,
 } from './coordinates'
 
-describe('areHexNeighbors', () => {
+describe('areCellsNeighbors', () => {
   it('matches rendered neighbor pattern for E11', () => {
     const center = getGlobalFromSheetCell({ sheetQ: 0, sheetR: 0 }, 4, 5) // E11
     const expectedNeighbors = [
@@ -22,7 +22,7 @@ describe('areHexNeighbors', () => {
     ]
 
     for (const neighbor of expectedNeighbors) {
-      expect(areHexNeighbors(center, neighbor)).toBe(true)
+      expect(areCellsNeighbors(center, neighbor)).toBe(true)
     }
   })
 
@@ -38,7 +38,7 @@ describe('areHexNeighbors', () => {
     ]
 
     for (const neighbor of expectedNeighbors) {
-      expect(areHexNeighbors(center, neighbor)).toBe(true)
+      expect(areCellsNeighbors(center, neighbor)).toBe(true)
     }
   })
 
@@ -51,7 +51,7 @@ describe('areHexNeighbors', () => {
     ]
 
     for (const notNeighbor of notNeighbors) {
-      expect(areHexNeighbors(center, notNeighbor)).toBe(false)
+      expect(areCellsNeighbors(center, notNeighbor)).toBe(false)
     }
   })
 })

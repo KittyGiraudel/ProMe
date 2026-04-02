@@ -10,7 +10,7 @@
 }
 
 /**
- * 1. Offset the odd rows to the right to fit the hexagons neatly.
+ * 1. Offset the odd rows to the right to fit the cells neatly.
  */
 .MapRow:nth-of-type(odd) {
   left: calc(var(--size) / 2 * -1);

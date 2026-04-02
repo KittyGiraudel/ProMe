@@ -1,10 +1,10 @@
 import { DEFAULT_MAP_POSITION } from '@/lib/character/model'
 import type {
+  CellCoordinate,
   CharacterMapCell,
   CharacterMapState,
-  HexCoordinate,
 } from '@/lib/character/types'
-import { toHexKey } from '@/lib/hex/coordinates'
+import { toCellKey } from '@/lib/map/coordinates'
 
 export function normalizeMapState(
   value: CharacterMapState | undefined
@@ -20,11 +20,11 @@ export function normalizeMapState(
 
 export function updateCharacterMapCellAt(
   current: CharacterMapState,
-  target: HexCoordinate,
+  target: CellCoordinate,
   build: (existing: CharacterMapCell | undefined) => CharacterMapCell
 ): CharacterMapState {
-  const nextByKey = new Map(current.cells.map(cell => [toHexKey(cell), cell]))
-  const key = toHexKey(target)
+  const nextByKey = new Map(current.cells.map(cell => [toCellKey(cell), cell]))
+  const key = toCellKey(target)
   const existing = nextByKey.get(key)
   const nextCell = build(existing)
   if (!nextCell.biome && !nextCell.icon) nextByKey.delete(key)
@@ -34,9 +34,9 @@ export function updateCharacterMapCellAt(
 
 export function removeCharacterMapCellAt(
   current: CharacterMapState,
-  target: HexCoordinate
+  target: CellCoordinate
 ): CharacterMapState {
-  const nextByKey = new Map(current.cells.map(cell => [toHexKey(cell), cell]))
-  nextByKey.delete(toHexKey(target))
+  const nextByKey = new Map(current.cells.map(cell => [toCellKey(cell), cell]))
+  nextByKey.delete(toCellKey(target))
   return { ...current, cells: Array.from(nextByKey.values()) }
 }

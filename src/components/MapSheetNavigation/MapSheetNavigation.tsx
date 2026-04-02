@@ -5,12 +5,12 @@ import ArrowUpOutlined from '@ant-design/icons/lib/icons/ArrowUpOutlined'
 import { Button, Space, Tag } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Dispatch, SetStateAction } from 'react'
-import { HexCoordinate } from '@/lib/character/types'
+import { CellCoordinate } from '@/lib/character/types'
 import {
   getDisplayedCellLabel,
   getSheetCoordinate,
   SheetCoordinate,
-} from '@/lib/hex/coordinates'
+} from '@/lib/map/coordinates'
 
 export function MapSheetNavigation({
   visibleSheet,
@@ -19,7 +19,7 @@ export function MapSheetNavigation({
   currentPosition,
 }: {
   visibleSheet: SheetCoordinate
-  currentPosition: HexCoordinate
+  currentPosition: CellCoordinate
   setVisibleSheet: Dispatch<SetStateAction<SheetCoordinate>>
   isViewingCurrentSheet: boolean
 }) {

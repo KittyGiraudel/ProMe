@@ -4,15 +4,15 @@ import { MapLegendCol } from '@/components/MapLegendCol/MapLegendCol'
 import { MapLegendRow } from '@/components/MapLegendRow/MapLegendRow'
 import { MapRow } from '@/components/MapRow/MapRow'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
-import type { HexCoordinate } from '@/lib/character/types'
-import { MAP_ROWS, type SheetCoordinate } from '@/lib/hex/coordinates'
+import type { CellCoordinate } from '@/lib/character/types'
+import { MAP_ROWS, type SheetCoordinate } from '@/lib/map/coordinates'
 
 import './MapDisplay.css'
 
 export type MapDisplayProps = {
   sheet: SheetCoordinate
-  selectedCell: HexCoordinate | null
-  selectCell: (coord: HexCoordinate) => void
+  selectedCell: CellCoordinate | null
+  selectCell: (coord: CellCoordinate) => void
 }
 
 export function MapDisplay({

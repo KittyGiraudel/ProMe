@@ -1,4 +1,4 @@
-import type { HexCoordinate } from '@/lib/character/types'
+import type { CellCoordinate } from '@/lib/character/types'
 import { DEFAULT_MAP_POSITION } from '../character/model'
 
 export const MAP_ROWS = 9
@@ -26,10 +26,10 @@ export type SheetCellAddress = SheetCoordinate & {
   rowLabel: string
   colLabel: string
   localLabel: string
-  global: HexCoordinate
+  global: CellCoordinate
 }
 
-export const AXIAL_DIRECTIONS: readonly HexCoordinate[] = [
+export const AXIAL_DIRECTIONS: readonly CellCoordinate[] = [
   { q: 1, r: 0 },
   { q: 1, r: -1 },
   { q: 0, r: -1 },
@@ -42,11 +42,11 @@ function positiveMod(value: number, base: number): number {
   return ((value % base) + base) % base
 }
 
-export function toHexKey(coord: HexCoordinate): string {
+export function toCellKey(coord: CellCoordinate): string {
   return `${coord.q},${coord.r}`
 }
 
-export function fromHexKey(key: string): HexCoordinate | null {
+export function fromCellKey(key: string): CellCoordinate | null {
   const [qRaw, rRaw] = key.split(',')
   const q = Number.parseInt(qRaw ?? '', 10)
   const r = Number.parseInt(rRaw ?? '', 10)
@@ -55,9 +55,9 @@ export function fromHexKey(key: string): HexCoordinate | null {
 }
 
 export function axialNeighbor(
-  coord: HexCoordinate,
+  coord: CellCoordinate,
   direction: number
-): HexCoordinate {
+): CellCoordinate {
   const delta =
     AXIAL_DIRECTIONS[positiveMod(direction, AXIAL_DIRECTIONS.length)]
   return { q: coord.q + delta.q, r: coord.r + delta.r }
@@ -73,7 +73,7 @@ export function colLabelFromIndex(index: number): string {
   return oneBased.toString().padStart(2, '0')
 }
 
-export function getSheetCoordinate(coord: HexCoordinate): SheetCoordinate {
+export function getSheetCoordinate(coord: CellCoordinate): SheetCoordinate {
   const absoluteRow = coord.r + ORIGIN_POSITION.r
   const absoluteCol = coord.q + ORIGIN_POSITION.q
   return {
@@ -86,7 +86,7 @@ export function getGlobalFromSheetCell(
   sheet: SheetCoordinate,
   rowIndex: number,
   colIndex: number
-): HexCoordinate {
+): CellCoordinate {
   const absoluteRow = sheet.sheetR * MAP_ROWS + rowIndex
   const absoluteCol = sheet.sheetQ * MAP_COLS + colIndex
   return {
@@ -95,7 +95,7 @@ export function getGlobalFromSheetCell(
   }
 }
 
-export function getSheetCellAddress(coord: HexCoordinate): SheetCellAddress {
+export function getSheetCellAddress(coord: CellCoordinate): SheetCellAddress {
   const absoluteRow = coord.r + ORIGIN_POSITION.r
   const absoluteCol = coord.q + ORIGIN_POSITION.q
   const sheetR = Math.floor(absoluteRow / MAP_ROWS)
@@ -116,7 +116,7 @@ export function getSheetCellAddress(coord: HexCoordinate): SheetCellAddress {
   }
 }
 
-export function getDisplayedCellLabel(coord: HexCoordinate): string {
+export function getDisplayedCellLabel(coord: CellCoordinate): string {
   const address = getSheetCellAddress(coord)
   const displayColIndex =
     address.rowIndex % 2 === 0 ? address.colIndex * 2 : address.colIndex * 2 + 1
@@ -162,7 +162,7 @@ export function parseDisplayedCellLabel(label: string): {
 export function getGlobalFromDisplayedCellLabel(
   sheet: SheetCoordinate,
   label: string
-): HexCoordinate | null {
+): CellCoordinate | null {
   const parsed = parseDisplayedCellLabel(label)
   if (!parsed) return null
 
@@ -237,7 +237,7 @@ export function extractDisplayedCellReferences(text: string): string[] {
  * include it explicitly (`E13@0,0`).
  */
 export function formatDisplayedCellReference(
-  coord: HexCoordinate,
+  coord: CellCoordinate,
   options?: { includeDefaultSheet?: boolean }
 ): string {
   const label = getDisplayedCellLabel(coord)
@@ -258,7 +258,7 @@ export function formatDisplayedCellReference(
  */
 export function resolveDisplayedCellReference(
   value: string
-): HexCoordinate | null {
+): CellCoordinate | null {
   const parsed = parseDisplayedCellReference(value)
   if (!parsed) return null
   return getGlobalFromDisplayedCellLabel(
@@ -267,20 +267,20 @@ export function resolveDisplayedCellReference(
   )
 }
 
-export function isSameHex(a: HexCoordinate, b: HexCoordinate): boolean {
+export function isSameCell(a: CellCoordinate, b: CellCoordinate): boolean {
   return a.q === b.q && a.r === b.r
 }
 
 /**
  * True when `to` is exactly one step away from `from` on the rendered
- * odd/even-row offset hex grid used by the map sheet.
+ * odd/even-row offset cell grid used by the map sheet.
  */
-export function areHexNeighbors(
-  from: HexCoordinate,
-  to: HexCoordinate
+export function areCellsNeighbors(
+  from: CellCoordinate,
+  to: CellCoordinate
 ): boolean {
   const isEvenRow = from.r % 2 === 0
-  const deltas: readonly HexCoordinate[] = isEvenRow
+  const deltas: readonly CellCoordinate[] = isEvenRow
     ? [
         { q: -1, r: 0 },
         { q: 1, r: 0 },
@@ -303,7 +303,7 @@ export function areHexNeighbors(
   return false
 }
 
-export function isCoreHex(coord: HexCoordinate): boolean {
+export function isCoreCell(coord: CellCoordinate): boolean {
   return (
     coord.q === DEFAULT_MAP_POSITION.q && coord.r === DEFAULT_MAP_POSITION.r
   )

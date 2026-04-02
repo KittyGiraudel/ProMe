@@ -5,23 +5,23 @@ import type { MapDisplayProps } from '@/components/MapDisplay/MapDisplay'
 import { useMapState } from '@/components/MapDisplay/useMapState'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import {
-  areHexNeighbors,
+  areCellsNeighbors,
   formatDisplayedCellReference,
   getDisplayedCellLabel,
   getGlobalFromSheetCell,
-  isCoreHex,
-} from '@/lib/hex/coordinates'
+  isCoreCell,
+} from '@/lib/map/coordinates'
 import { PossibleBiomeId, TranslationKey } from '@/lib/types'
 
-import './MapHex.css'
+import './MapCell.css'
 import { useWatchedJournal } from '@/hooks/useCharacterSheetDerived'
 
-type MapHexProps = MapDisplayProps & {
+type MapCellProps = MapDisplayProps & {
   ri: number
   ci: number
 }
 
-type MapHexState = {
+type MapCellState = {
   label: string
   isCurrent: boolean
   isSelected: boolean
@@ -31,7 +31,7 @@ type MapHexState = {
   biome: PossibleBiomeId | undefined
 }
 
-const useHexState = ({
+const useCellState = ({
   ri,
   ci,
   selectedCell,
@@ -39,9 +39,9 @@ const useHexState = ({
 }: {
   selectedCell: MapDisplayProps['selectedCell']
   sheet: MapDisplayProps['sheet']
-  ri: MapHexProps['ri']
-  ci: MapHexProps['ci']
-}): MapHexState => {
+  ri: MapCellProps['ri']
+  ci: MapCellProps['ci']
+}): MapCellState => {
   const { mapState, getCellState } = useMapState()
   const global = useMemo(
     () => getGlobalFromSheetCell(sheet, ri, ci),
@@ -53,7 +53,7 @@ const useHexState = ({
   const isSelected =
     selectedCell?.q === global.q && selectedCell?.r === global.r
   const isReachable = useMemo(
-    () => areHexNeighbors(currentPosition, global),
+    () => areCellsNeighbors(currentPosition, global),
     [currentPosition, global]
   )
   const { icon, biome } = getCellState(global) ?? {
@@ -61,7 +61,7 @@ const useHexState = ({
     biome: undefined,
   }
   const label = useMemo(() => getDisplayedCellLabel(global), [global])
-  const isCore = useMemo(() => isCoreHex(global), [global])
+  const isCore = useMemo(() => isCoreCell(global), [global])
 
   return useMemo(
     () => ({
@@ -77,18 +77,18 @@ const useHexState = ({
   )
 }
 
-export function MapHex({
+export function MapCell({
   ri,
   ci,
   sheet,
   selectedCell,
   selectCell,
-}: MapHexProps) {
+}: MapCellProps) {
   const t = useTranslations()
   const { settings } = useSettings()
   const { getLinksForCell } = useWatchedJournal()
   const { isCurrent, isSelected, isReachable, isCore, icon, biome, label } =
-    useHexState({
+    useCellState({
       ri,
       ci,
       sheet,
@@ -110,7 +110,7 @@ export function MapHex({
   return (
     <div
       id={id}
-      className={`MapHex ${settings.map.showBiomeBackground ? ' Pattern' : ''}`}
+      className={`MapCell ${settings.map.showBiomeBackground ? ' Pattern' : ''}`}
       data-q={global.q}
       data-r={global.r}
       data-coord={label}
@@ -133,9 +133,9 @@ export function MapHex({
         selectCell={selectCell}
       />
       {journalRefCount > 0 ? (
-        <span className='MapHex__JournalCount'>{journalRefCount}</span>
+        <span className='MapCell__JournalCount'>{journalRefCount}</span>
       ) : null}
-      {icon && <span className='MapHex__Icon'>{icon}</span>}
+      {icon && <span className='MapCell__Icon'>{icon}</span>}
     </div>
   )
 }

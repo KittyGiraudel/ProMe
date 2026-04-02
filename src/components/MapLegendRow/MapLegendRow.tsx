@@ -1,4 +1,4 @@
-import { colLabelFromIndex, MAP_COLS } from '@/lib/hex/coordinates'
+import { colLabelFromIndex, MAP_COLS } from '@/lib/map/coordinates'
 
 import './MapLegendRow.css'
 

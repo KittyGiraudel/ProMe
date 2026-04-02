@@ -1,9 +1,9 @@
 import type {
+  CellCoordinate,
   CharacterMapCell,
   CharacterMapState,
-  HexCoordinate,
 } from '@/lib/character/types'
-import { areHexNeighbors, isCoreHex, toHexKey } from '@/lib/hex/coordinates'
+import { areCellsNeighbors, isCoreCell, toCellKey } from '@/lib/map/coordinates'
 import {
   getRandomBiomeResult,
   type RandomBiomeResult,
@@ -16,18 +16,18 @@ type MoveWithAutoBiomeResult = {
 
 export function moveWithAutoBiome(
   current: CharacterMapState,
-  target: HexCoordinate,
+  target: CellCoordinate,
   rng?: () => number
 ): MoveWithAutoBiomeResult {
-  if (!areHexNeighbors(current.currentPosition, target)) {
+  if (!areCellsNeighbors(current.currentPosition, target)) {
     return { next: current }
   }
 
-  const nextByKey = new Map(current.cells.map(cell => [toHexKey(cell), cell]))
-  const targetKey = toHexKey(target)
+  const nextByKey = new Map(current.cells.map(cell => [toCellKey(cell), cell]))
+  const targetKey = toCellKey(target)
   const existing = nextByKey.get(targetKey)
 
-  if (!existing?.biome && !isCoreHex(target)) {
+  if (!existing?.biome && !isCoreCell(target)) {
     const discoveredBiome = getRandomBiomeResult(rng)
     const nextCell: CharacterMapCell = {
       q: target.q,

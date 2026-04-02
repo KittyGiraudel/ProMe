@@ -8,7 +8,7 @@ import { BiomeBubble } from '@/components/BiomeBubble/BiomeBubble'
 import { useMapState } from '@/components/MapDisplay/useMapState'
 import { useCharacterLink } from '@/hooks/useCharacterLink'
 import { useWatchedJournal } from '@/hooks/useCharacterSheetDerived'
-import { HexCoordinate } from '@/lib/character/types'
+import { CellCoordinate } from '@/lib/character/types'
 import { BIOME_IDS } from '@/lib/constants/misc'
 import type { JournalEntryLink } from '@/lib/journal/cellReferenceIndex'
 import type { BiomeId, TranslationKey } from '@/lib/types'
@@ -65,7 +65,7 @@ function JournalEntryMenuLabel({
 }
 
 function useBiomeSubmenuChildren(
-  coord: HexCoordinate
+  coord: CellCoordinate
 ): NonNullable<MenuProps['items']> {
   const t = useTranslations()
   const { setBiomeAt, setRandomBiomeAt } = useMapActions()
@@ -124,7 +124,7 @@ function useBiomeSubmenuChildren(
 }
 
 function useIconSubmenuChildren(
-  coord: HexCoordinate,
+  coord: CellCoordinate,
   hasStoredIcon: boolean,
   setEmojiModalOpen: Dispatch<SetStateAction<boolean>>
 ): NonNullable<MenuProps['items']> {
@@ -198,7 +198,7 @@ export function useMapCellContextMenuItems({
   setEmojiModalOpen,
   isReachable,
 }: {
-  coord: HexCoordinate
+  coord: CellCoordinate
   isReachable: boolean
   setEmojiModalOpen: Dispatch<SetStateAction<boolean>>
 }): MenuProps['items'] {

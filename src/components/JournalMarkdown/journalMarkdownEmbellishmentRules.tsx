@@ -12,7 +12,7 @@ import { DICE, SUITS } from '@/lib/constants/misc'
 import {
   extractDisplayedCellReferences,
   SheetCoordinateWithLabel,
-} from '@/lib/hex/coordinates'
+} from '@/lib/map/coordinates'
 import { getNpcJournalSummary } from '@/lib/markdown/inhabitantLinkSummary'
 import type { JournalEmbellishUiRule } from '@/lib/markdown/journalEmbellishText'
 import {
@@ -55,7 +55,7 @@ function accentSpan(
 }
 
 /**
- * Coordinate-specific rules derived from `text` (hex cell references like `E13`).
+ * Coordinate-specific rules derived from `text` (cell references like `E13`).
  */
 function coordEmbellishmentRules(
   ctx: JournalEmbellishmentBuildContext,
