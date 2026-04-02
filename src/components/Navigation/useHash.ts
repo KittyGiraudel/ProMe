@@ -8,10 +8,8 @@ const getHash = () =>
 export const useHash = () => {
   const [hash, setHash] = useState(getHash())
 
-  useEffect(() => {
-    const handleHashChange = () => {
-      setHash(getHash())
-    }
+  useEffect(function listenToHashChange() {
+    const handleHashChange = () => setHash(getHash())
     window.addEventListener('hashchange', handleHashChange)
     return () => {
       window.removeEventListener('hashchange', handleHashChange)

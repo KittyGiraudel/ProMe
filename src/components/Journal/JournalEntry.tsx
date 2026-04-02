@@ -58,15 +58,18 @@ export function JournalEntry({
   const hasContent = Boolean(content?.trim())
   const entryAnchor = entryId ? `journal-entry-${entryId}` : undefined
 
-  useEffect(() => {
-    if (editing) {
-      initialContentRef.current = form.getFieldValue([
-        'journalEntries',
-        field.name,
-        'content',
-      ]) as string | undefined
-    }
-  }, [editing, field.name, form])
+  useEffect(
+    function storeInitialContentOnEdit() {
+      if (editing) {
+        initialContentRef.current = form.getFieldValue([
+          'journalEntries',
+          field.name,
+          'content',
+        ]) as string | undefined
+      }
+    },
+    [editing, field.name, form]
+  )
 
   const handleDelete = useCallback(
     (index: number) => {

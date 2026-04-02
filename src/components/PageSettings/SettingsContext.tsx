@@ -25,7 +25,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   const [settings, setSettings] = useState<AppSettings>(DEFAULT_SETTINGS)
   const [hydrated, setHydrated] = useState(false)
 
-  useEffect(() => {
+  useEffect(function hydrateSettingsFromStorage() {
     void Promise.resolve().then(() => {
       setSettings(loadSettings())
       setHydrated(true)

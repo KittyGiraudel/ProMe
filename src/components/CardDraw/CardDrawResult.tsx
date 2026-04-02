@@ -15,7 +15,7 @@ export function CardDrawResult() {
   } = useAnimatedValue(() => randomCard(Math.random))
   const startRef = useRef(start)
 
-  useEffect(() => {
+  useEffect(function startDrawing() {
     startRef.current()
   }, [])
 

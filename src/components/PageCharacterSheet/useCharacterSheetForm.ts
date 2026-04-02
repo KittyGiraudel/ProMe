@@ -25,14 +25,17 @@ export function useCharacterSheetForm({
   const activeTab = tabKeyFromPathname(pathname)
 
   // Avoid hydration mismatches by deferring localStorage/sessionStorage reads to the client.
-  useEffect(() => {
-    void Promise.resolve().then(() => {
-      setHydratedFromStore(false)
-      const saved = getCharacterStore().get(characterId)
-      setCharacter(saved ?? null)
-      setHydratedFromStore(true)
-    })
-  }, [characterId])
+  useEffect(
+    function hydrateCharacterFromStorage() {
+      void Promise.resolve().then(() => {
+        setHydratedFromStore(false)
+        const saved = getCharacterStore().get(characterId)
+        setCharacter(saved ?? null)
+        setHydratedFromStore(true)
+      })
+    },
+    [characterId]
+  )
 
   const confirmUnsavedLeave = useCallback(
     ({ onLeave, onStay }: { onLeave: VoidFunction; onStay: VoidFunction }) => {
@@ -58,7 +61,6 @@ export function useCharacterSheetForm({
   useUnsavedChangesGuard({
     isDirty: isFormDirty,
     confirmLeave: confirmUnsavedLeave,
-    resetToken: `${characterId}|${character?.updatedAt ?? ''}`,
   })
 
   const onSaved = useCallback((saved: Character) => setCharacter(saved), [])

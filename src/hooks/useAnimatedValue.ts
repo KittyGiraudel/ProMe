@@ -6,7 +6,7 @@ export function useAnimatedValue<T>(generator: () => T) {
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  useEffect(() => {
+  useEffect(function clearTimeoutOnUnmount() {
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current)
       if (timeoutRef.current) clearTimeout(timeoutRef.current)

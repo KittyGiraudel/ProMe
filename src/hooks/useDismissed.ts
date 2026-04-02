@@ -13,9 +13,12 @@ export function useDismissed(key: string): [boolean, () => void] {
   const storageKey = `prome:dismissed:${key}`
   const [dismissed, setDismissed] = useState(false)
 
-  useEffect(() => {
-    setDismissed(getLocalStorage()?.getItem(storageKey) != null)
-  }, [storageKey])
+  useEffect(
+    function hydrateDismissedFromStorage() {
+      setDismissed(getLocalStorage()?.getItem(storageKey) != null)
+    },
+    [storageKey]
+  )
 
   const dismiss = () => {
     getLocalStorage()?.setItem(storageKey, '1')

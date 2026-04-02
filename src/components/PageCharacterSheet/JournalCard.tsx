@@ -61,13 +61,16 @@ export function JournalCardInner({
   const { isEditing, setEditingMode } = useJournalEntryViewModes()
   const previousFieldCountRef = useRef(fields.length)
 
-  useEffect(() => {
-    if (fields.length > previousFieldCountRef.current) {
-      const latest = fields[fields.length - 1]
-      if (latest) setEditingMode(latest.key, true)
-    }
-    previousFieldCountRef.current = fields.length
-  }, [fields, setEditingMode])
+  useEffect(
+    function editNewlyAddedEntry() {
+      if (fields.length > previousFieldCountRef.current) {
+        const latest = fields[fields.length - 1]
+        if (latest) setEditingMode(latest.key, true)
+      }
+      previousFieldCountRef.current = fields.length
+    },
+    [fields, setEditingMode]
+  )
 
   const pagedFields = useMemo(() => {
     if (settings.journal.timelineReverseChronological) {

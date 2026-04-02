@@ -30,28 +30,31 @@ export function useMapCopyPaste({
   const { setBiomeAt, setIconAt } = useMapActions()
   const clipboard = useRef<CellClipboard | null>(null)
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (!(e.metaKey || e.ctrlKey)) return
-      if (e.key !== 'c' && e.key !== 'v') return
-      if (isInTextField(e.target)) return
-      if (!selectedCell) return
+  useEffect(
+    function bindDOMEvents() {
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (!(e.metaKey || e.ctrlKey)) return
+        if (e.key !== 'c' && e.key !== 'v') return
+        if (isInTextField(e.target)) return
+        if (!selectedCell) return
 
-      if (e.key === 'c') {
-        e.preventDefault()
-        const { icon, biome } = getCellState(selectedCell)
-        clipboard.current = { icon, biome }
-      } else if (e.key === 'v') {
-        if (componentDisabled) return
-        if (!clipboard.current) return
-        e.preventDefault()
-        const { icon, biome } = clipboard.current
-        setBiomeAt(selectedCell, biome)
-        setIconAt(selectedCell, icon)
+        if (e.key === 'c') {
+          e.preventDefault()
+          const { icon, biome } = getCellState(selectedCell)
+          clipboard.current = { icon, biome }
+        } else if (e.key === 'v') {
+          if (componentDisabled) return
+          if (!clipboard.current) return
+          e.preventDefault()
+          const { icon, biome } = clipboard.current
+          setBiomeAt(selectedCell, biome)
+          setIconAt(selectedCell, icon)
+        }
       }
-    }
 
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [componentDisabled, getCellState, selectedCell, setBiomeAt, setIconAt])
+      window.addEventListener('keydown', handleKeyDown)
+      return () => window.removeEventListener('keydown', handleKeyDown)
+    },
+    [componentDisabled, getCellState, selectedCell, setBiomeAt, setIconAt]
+  )
 }

@@ -8,14 +8,17 @@ export function useKeyboardShortcuts({
   form: FormInstance
   isDead: boolean
 }) {
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 's') {
-        e.preventDefault()
-        if (!isDead) form.submit()
+  useEffect(
+    function bindDOMListeners() {
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+          e.preventDefault()
+          if (!isDead) form.submit()
+        }
       }
-    }
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [form, isDead])
+      window.addEventListener('keydown', handleKeyDown)
+      return () => window.removeEventListener('keydown', handleKeyDown)
+    },
+    [form, isDead]
+  )
 }

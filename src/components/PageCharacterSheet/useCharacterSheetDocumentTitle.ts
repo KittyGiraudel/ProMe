@@ -20,31 +20,30 @@ export function tabKeyFromPathname(pathname: string): CharacterSheetTabId {
  * the store has hydrated.
  */
 export function useCharacterSheetDocumentTitle({
-  hydratedFromStore,
   character,
 }: {
-  hydratedFromStore: boolean
   character: Character | null
 }) {
   const t = useTranslations()
   const pathname = usePathname()
   const activeTabId = tabKeyFromPathname(pathname)
 
-  useEffect(() => {
-    if (!hydratedFromStore) return
+  useEffect(
+    function addNameToPageTitle() {
+      if (!character) {
+        document.title = `${t('characters.not_found_title')} — ${t('metadata.tab_brand')}`
+        return
+      }
 
-    if (!character) {
-      document.title = `${t('characters.not_found_title')} — ${t('metadata.tab_brand')}`
-      return
-    }
+      const displayName = character.name?.trim() || t('characters_list.unnamed')
+      const suffix = (() => {
+        const tab = CHARACTER_SHEET_TAB_KEYS.find(tab => tab.id === activeTabId)
+        if (!tab) return ''
+        return ` · ${t(tab.key)}`
+      })()
 
-    const displayName = character.name?.trim() || t('characters_list.unnamed')
-    const suffix = (() => {
-      const tab = CHARACTER_SHEET_TAB_KEYS.find(tab => tab.id === activeTabId)
-      if (!tab) return ''
-      return ` · ${t(tab.key)}`
-    })()
-
-    document.title = `${displayName}${suffix} — ${t('metadata.tab_brand')}`
-  }, [hydratedFromStore, character, activeTabId, t])
+      document.title = `${displayName}${suffix} — ${t('metadata.tab_brand')}`
+    },
+    [character, activeTabId, t]
+  )
 }

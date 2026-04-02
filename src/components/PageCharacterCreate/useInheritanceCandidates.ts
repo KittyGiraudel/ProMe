@@ -14,9 +14,12 @@ export function useInheritanceCandidates() {
   const [characters, setCharacters] = useState<Character[]>([])
   const t = useTranslations()
 
-  useEffect(() => {
-    setCharacters(store.list())
-  }, [store])
+  useEffect(
+    function hydrateCharactersFromStorage() {
+      setCharacters(store.list())
+    },
+    [store]
+  )
 
   const candidates: InheritanceCandidate[] = useMemo(
     () =>

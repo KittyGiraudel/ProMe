@@ -86,39 +86,42 @@ export const useWarnDeath = ({
   const { health } = useWatchedStats(form)
   const prevHealthCurrentRef = useRef<number | null>(null)
 
-  useEffect(() => {
-    if (health.current == null || character == null) return
+  useEffect(
+    function warnOnDeath() {
+      if (health.current == null || character == null) return
 
-    if (character.lifeStatus === 'dead') {
-      notification.destroy(DEATH_SUGGESTION_KEY)
+      if (character.lifeStatus === 'dead') {
+        notification.destroy(DEATH_SUGGESTION_KEY)
+        prevHealthCurrentRef.current = health.current
+        return
+      }
+
+      const previous = prevHealthCurrentRef.current
+      if (previous != null && previous > 0 && health.current <= 0) {
+        notification.warning({
+          key: DEATH_SUGGESTION_KEY,
+          title: t('characters.actions.death_suggestion_title'),
+          description: t('characters.actions.death_suggestion_description'),
+          placement: 'bottomRight',
+          duration: 0,
+          actions: (
+            <Button
+              danger
+              htmlType='button'
+              onClick={() => {
+                notification.destroy(DEATH_SUGGESTION_KEY)
+                onKill()
+              }}>
+              {t('characters.actions.mark_dead_action')}
+            </Button>
+          ),
+        })
+      }
+      if (health.current > 0) {
+        notification.destroy(DEATH_SUGGESTION_KEY)
+      }
       prevHealthCurrentRef.current = health.current
-      return
-    }
-
-    const previous = prevHealthCurrentRef.current
-    if (previous != null && previous > 0 && health.current <= 0) {
-      notification.warning({
-        key: DEATH_SUGGESTION_KEY,
-        title: t('characters.actions.death_suggestion_title'),
-        description: t('characters.actions.death_suggestion_description'),
-        placement: 'bottomRight',
-        duration: 0,
-        actions: (
-          <Button
-            danger
-            htmlType='button'
-            onClick={() => {
-              notification.destroy(DEATH_SUGGESTION_KEY)
-              onKill()
-            }}>
-            {t('characters.actions.mark_dead_action')}
-          </Button>
-        ),
-      })
-    }
-    if (health.current > 0) {
-      notification.destroy(DEATH_SUGGESTION_KEY)
-    }
-    prevHealthCurrentRef.current = health.current
-  }, [character, health, onKill, notification, t])
+    },
+    [character, health, onKill, notification, t]
+  )
 }

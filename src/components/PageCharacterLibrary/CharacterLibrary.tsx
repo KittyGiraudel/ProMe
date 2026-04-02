@@ -22,7 +22,9 @@ export function CharacterLibrary() {
   const [characters, setCharacters] = useState<Character[]>([])
 
   const refresh = useCallback(() => setCharacters(store.list()), [store])
-  useEffect(() => refresh(), [])
+  useEffect(function hydrateCharactersFromStorage() {
+    refresh()
+  }, [])
 
   const { handleImportFile } = useCharacterLibraryActions({ refresh })
   const handleImportClick = useCallback(() => fileInputRef.current?.click(), [])

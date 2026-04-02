@@ -14,7 +14,7 @@ export function DiceRollResult() {
   } = useAnimatedValue(() => rollD6(Math.random))
   const startRef = useRef(start)
 
-  useEffect(() => {
+  useEffect(function startRolling() {
     startRef.current()
   }, [])
 

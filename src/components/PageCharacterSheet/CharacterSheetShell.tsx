@@ -69,7 +69,6 @@ export function CharacterSheetShell({
   // `generateMetadata` can’t see store-backed names; this sets `document.title`
   // after hydration (+ tab suffix).
   useCharacterSheetDocumentTitle({
-    hydratedFromStore,
     character,
   })
 

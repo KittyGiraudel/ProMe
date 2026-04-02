@@ -21,51 +21,63 @@ export function useCharacterSheetFormSync({
   const prevClockTotalSegmentsRef = useRef<number | null>(null)
   const clockTotalSegments = countClockSegments(stamina.current)
 
-  useEffect(() => {
-    // Skip during initial hydration: staminaCurrent is FALLBACK (0) while
-    // character is null, which would produce a false clockTotalSegments change.
-    if (!character) return
+  useEffect(
+    function capClockToStamina() {
+      // Skip during initial hydration: staminaCurrent is FALLBACK (0) while
+      // character is null, which would produce a false clockTotalSegments change.
+      if (!character) return
 
-    const previous = prevClockTotalSegmentsRef.current
+      const previous = prevClockTotalSegmentsRef.current
 
-    if (previous === null) {
-      // Seed from the character's real stamina, not from the transient fallback
-      // value that Form.useWatch returns before its subscription fires. Without
-      // this, clockTotalSegments starts as 2 (stamina=0 → 2 segments via
-      // FALLBACK_STAT_POOL), then updates to the real value, causing a spurious
-      // setFieldValue call — which marks the clock field as touched in Ant
-      // Design 6 and falsely triggers the unsaved-changes guard.
-      prevClockTotalSegmentsRef.current = character
-        ? countClockSegments(character.stamina.current)
-        : clockTotalSegments
-      return
-    }
-    if (previous === clockTotalSegments) return
+      if (previous === null) {
+        // Seed from the character's real stamina, not from the transient fallback
+        // value that Form.useWatch returns before its subscription fires. Without
+        // this, clockTotalSegments starts as 2 (stamina=0 → 2 segments via
+        // FALLBACK_STAT_POOL), then updates to the real value, causing a spurious
+        // setFieldValue call — which marks the clock field as touched in Ant
+        // Design 6 and falsely triggers the unsaved-changes guard.
+        prevClockTotalSegmentsRef.current = character
+          ? countClockSegments(character.stamina.current)
+          : clockTotalSegments
+        return
+      }
+      if (previous === clockTotalSegments) return
 
-    const remapped = remapClockPositionForTotalSegments(
-      clock,
-      previous,
-      clockTotalSegments
-    )
-    form.setFieldValue('clock', remapped)
-    prevClockTotalSegmentsRef.current = clockTotalSegments
-  }, [clockTotalSegments, clock, form, character])
+      const remapped = remapClockPositionForTotalSegments(
+        clock,
+        previous,
+        clockTotalSegments
+      )
+      form.setFieldValue('clock', remapped)
+      prevClockTotalSegmentsRef.current = clockTotalSegments
+    },
+    [clockTotalSegments, clock, form, character]
+  )
 
-  useEffect(() => {
-    if (health.current == null || health.max == null) return
-    if (health.current <= health.max) return
-    form.setFieldValue(['health', 'current'], health.max)
-  }, [health, form])
+  useEffect(
+    function capHealthToMax() {
+      if (health.current == null || health.max == null) return
+      if (health.current <= health.max) return
+      form.setFieldValue(['health', 'current'], health.max)
+    },
+    [health, form]
+  )
 
-  useEffect(() => {
-    if (courage.current == null || courage.max == null) return
-    if (courage.current <= courage.max) return
-    form.setFieldValue(['courage', 'current'], courage.max)
-  }, [courage, form])
+  useEffect(
+    function capCourageToMax() {
+      if (courage.current == null || courage.max == null) return
+      if (courage.current <= courage.max) return
+      form.setFieldValue(['courage', 'current'], courage.max)
+    },
+    [courage, form]
+  )
 
-  useEffect(() => {
-    if (stamina.current == null || stamina.max == null) return
-    if (stamina.current <= stamina.max) return
-    form.setFieldValue(['stamina', 'current'], stamina.max)
-  }, [stamina, form])
+  useEffect(
+    function capStaminaToMax() {
+      if (stamina.current == null || stamina.max == null) return
+      if (stamina.current <= stamina.max) return
+      form.setFieldValue(['stamina', 'current'], stamina.max)
+    },
+    [stamina, form]
+  )
 }

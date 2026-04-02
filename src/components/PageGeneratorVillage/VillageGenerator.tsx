@@ -58,12 +58,15 @@ export function VillageGenerator({
   )
 
   // If a user manually loads with mismatched `?f=...`, re-sync owners once.
-  useEffect(() => {
-    if (!roll || !owners) return
-    if (owners.every(o => o.faction === villageFaction)) return
-    const freshOwners = generateOwnersForVillage(roll, villageFaction, t)
-    pushVillage(roll, freshOwners, villageFaction)
-  }, [owners, pushVillage, roll, t, villageFaction])
+  useEffect(
+    function resyncOwnersOnMismatchedFaction() {
+      if (!roll || !owners) return
+      if (owners.every(o => o.faction === villageFaction)) return
+      const freshOwners = generateOwnersForVillage(roll, villageFaction, t)
+      pushVillage(roll, freshOwners, villageFaction)
+    },
+    [owners, pushVillage, roll, t, villageFaction]
+  )
 
   const handleGenerate = useCallback(() => {
     const next = generateVillageRoll()
