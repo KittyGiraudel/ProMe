@@ -206,7 +206,10 @@ export function useMapCellContextMenuItems({
   const { moveToCell, clearCellAt } = useMapActions()
   const { getCellState } = useMapState()
   const journalLinks = getLinksForCell(coord)
-  const { icon, biome } = getCellState(coord)
+  const { icon, biome } = getCellState(coord) ?? {
+    icon: undefined,
+    biome: undefined,
+  }
   const journalSubmenuChildren = useJournalSubmenuChildren(journalLinks)
   const biomeSubmenuChildren = useBiomeSubmenuChildren(coord)
   const iconSubmenuChildren = useIconSubmenuChildren(

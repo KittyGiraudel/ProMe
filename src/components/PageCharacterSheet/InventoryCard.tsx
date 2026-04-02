@@ -13,15 +13,15 @@ import {
 } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
-import { useInventoryLimit } from '@/components/PageCharacterSheet/useInventoryLimit'
 import { randomId } from '@/lib/character/model'
 import { HelpButton } from '../HelpButton/HelpButton'
 import './InventoryCard.css'
+import { useWatchedInventory } from './useCharacterSheetDerived'
 
 export function InventoryCard() {
   const t = useTranslations()
   const { componentDisabled } = ConfigProvider.useConfig()
-  const inventoryLimit = useInventoryLimit()
+  const { limit: inventoryLimit } = useWatchedInventory()
 
   return (
     <Form.List name='inventory'>

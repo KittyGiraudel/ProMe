@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl'
-import { useEffect, useMemo, useState } from 'react'
-import { getCharacterStore } from '@/lib/character/store'
+import { useMemo } from 'react'
+import { useCharacters } from '@/hooks/useCharacters'
 import type { Character } from '@/lib/character/types'
 
 export type InheritanceCandidate = {
@@ -10,18 +10,10 @@ export type InheritanceCandidate = {
 }
 
 export function useInheritanceCandidates() {
-  const store = useMemo(() => getCharacterStore(), [])
-  const [characters, setCharacters] = useState<Character[]>([])
+  const characters = useCharacters()
   const t = useTranslations()
 
-  useEffect(
-    function hydrateCharactersFromStorage() {
-      setCharacters(store.list())
-    },
-    [store]
-  )
-
-  const candidates: InheritanceCandidate[] = useMemo(
+  return useMemo<InheritanceCandidate[]>(
     () =>
       characters.map(character => ({
         id: character.id,
@@ -30,6 +22,4 @@ export function useInheritanceCandidates() {
       })),
     [characters, t]
   )
-
-  return { candidates }
 }

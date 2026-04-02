@@ -10,7 +10,7 @@ type SettingsHintId = 'map' | 'journal' | 'village' | 'sheet'
 
 export function SettingsHint({ hintId }: { hintId: SettingsHintId }) {
   const t = useTranslations()
-  const [dismissed, dismiss] = useDismissed('settings-hint:' + hintId)
+  const { dismissed, dismiss } = useDismissed('settings-hint:' + hintId)
 
   if (dismissed) return null
 

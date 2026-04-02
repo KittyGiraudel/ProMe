@@ -40,7 +40,10 @@ export function useMapCopyPaste({
 
         if (e.key === 'c') {
           e.preventDefault()
-          const { icon, biome } = getCellState(selectedCell)
+          const { icon, biome } = getCellState(selectedCell) ?? {
+            icon: undefined,
+            biome: undefined,
+          }
           clipboard.current = { icon, biome }
         } else if (e.key === 'v') {
           if (componentDisabled) return

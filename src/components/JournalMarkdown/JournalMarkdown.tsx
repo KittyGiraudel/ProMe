@@ -5,11 +5,17 @@ import type { ReactNode } from 'react'
 import type { Components } from 'react-markdown'
 import ReactMarkdown from 'react-markdown'
 import { buildJournalMarkdownEmbellishmentRules } from '@/components/JournalMarkdown/journalMarkdownEmbellishmentRules'
-import { useCharacterContext } from '@/components/PageCharacterSheet/CharacterContext'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
+import {
+  getGlobalFromDisplayedCellLabel,
+  parseDisplayedCellReference,
+  SheetCoordinateWithLabel,
+} from '@/lib/hex/coordinates'
 import { tokenizeJournalEmbellishUiRules } from '@/lib/markdown/journalEmbellishText'
 import { createJournalMarkdownRendererConfig } from '@/lib/markdown/journalMarkdown'
 import './JournalMarkdown.css'
+import { useCallback } from 'react'
+import { useMapState } from '../MapDisplay/useMapState'
 import { renderWithHighlights } from '../RichText/RichText'
 
 /**
@@ -25,7 +31,17 @@ export function JournalMarkdown({
   // (e.g. edit-modal preview).
   interactive?: boolean
 }) {
-  const { getCellData } = useCharacterContext()
+  const { getCellState } = useMapState()
+  const wrappedGetCellState = useCallback(
+    (ref: string | SheetCoordinateWithLabel) => {
+      const parsed =
+        typeof ref === 'string' ? parseDisplayedCellReference(ref) : ref
+      if (!parsed) return null
+      const coord = getGlobalFromDisplayedCellLabel(parsed, parsed.label)
+      return coord ? getCellState(coord) : null
+    },
+    [getCellState]
+  )
   const { settings } = useSettings()
   const t = useTranslations()
 
@@ -35,7 +51,7 @@ export function JournalMarkdown({
     const rules = buildJournalMarkdownEmbellishmentRules(
       {
         t,
-        getCellData,
+        getCellState: wrappedGetCellState,
         mergeDuplicateEstablishments:
           settings.village.mergeDuplicateEstablishments,
         interactive,

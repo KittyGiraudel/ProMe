@@ -25,6 +25,7 @@ export function useJournalEntryViewModes(fields: FormListFieldData[]) {
     function editNewlyAddedEntry() {
       if (fields.length > previousFieldCountRef.current) {
         const latest = fields[fields.length - 1]
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         if (latest) setEditingMode(latest.key, true)
       }
       previousFieldCountRef.current = fields.length

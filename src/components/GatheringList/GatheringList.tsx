@@ -4,14 +4,16 @@ import PlusOutlined from '@ant-design/icons/lib/icons/PlusOutlined'
 import { App, Button, Tooltip } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCharacterContext } from '@/components/PageCharacterSheet/CharacterContext'
-import { useInventoryLimit } from '@/components/PageCharacterSheet/useInventoryLimit'
 import { randomId } from '@/lib/character/model'
-import type { InventoryItem } from '@/lib/character/types'
 import { parseGatheringItem } from '@/lib/gathering/parseGatheringItem'
 import type { GatherableBiomeId } from '@/lib/gathering/schema'
 import { GATHERING_SCHEMA } from '@/lib/gathering/schema'
 import './GatheringList.css'
 import { useCallback } from 'react'
+import {
+  useWatchedInventory,
+  useWatchedStats,
+} from '@/components/PageCharacterSheet/useCharacterSheetDerived'
 import { DICE } from '@/lib/constants/misc'
 
 const ROLLS = ['1', '2', '3', '4', '5', '6'] as const
@@ -19,46 +21,43 @@ const ROLLS = ['1', '2', '3', '4', '5', '6'] as const
 export function GatheringList({ biome }: { biome: GatherableBiomeId }) {
   const t = useTranslations()
   const { notification } = App.useApp()
-  const { getCharacterValue, setCharacterValue } = useCharacterContext()
-  const inventoryLimit = useInventoryLimit()
+  const { setCharacterValue } = useCharacterContext()
+  const { money } = useWatchedStats()
+  const { inventory: currentInventory, limit: inventoryLimit } =
+    useWatchedInventory()
   const schema = GATHERING_SCHEMA[biome]!
-  // Read at render time for display only — callbacks read fresh to avoid stale closures
-  const currentInventory = getCharacterValue<InventoryItem[]>('inventory') ?? []
   const isInventoryFull =
     inventoryLimit > 0 && currentInventory.length >= inventoryLimit
 
   const addMoney = useCallback(
-    (quantity: number) => {
-      const current = getCharacterValue<number>('money') ?? 0
-      setCharacterValue('money', current + quantity)
-    },
-    [getCharacterValue, setCharacterValue]
+    (quantity: number) => setCharacterValue('money', money + quantity),
+    [setCharacterValue, money]
   )
 
   const addCollectible = useCallback(
     (quantity: number, label: string) => {
-      const inventory = getCharacterValue<InventoryItem[]>('inventory') ?? []
-      const existing = inventory.find(
+      const existing = currentInventory.find(
         item => item.label.toLowerCase() === label.toLowerCase()
       )
       if (existing) {
         setCharacterValue(
           'inventory',
-          inventory.map(item =>
+          currentInventory.map(item =>
             item === existing
               ? { ...item, quantity: item.quantity + quantity }
               : item
           )
         )
       } else {
-        if (inventoryLimit > 0 && inventory.length >= inventoryLimit) return
+        if (inventoryLimit > 0 && currentInventory.length >= inventoryLimit)
+          return
         setCharacterValue('inventory', [
-          ...inventory,
+          ...currentInventory,
           { id: randomId(), quantity, label, note: '' },
         ])
       }
     },
-    [getCharacterValue, setCharacterValue, inventoryLimit]
+    [setCharacterValue, inventoryLimit, currentInventory]
   )
 
   function handleCollect(roll: (typeof ROLLS)[number]) {

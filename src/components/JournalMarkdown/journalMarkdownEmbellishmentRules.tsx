@@ -5,11 +5,13 @@ import type { CSSProperties, ReactNode } from 'react'
 import { BiomeTag } from '@/components/BiomeTag/BiomeTag'
 import { CoordChip } from '@/components/CoordChip/CoordChip'
 import { JournalReferencePreview } from '@/components/JournalReferencePreview/JournalReferencePreview'
-import type { CharacterCellData } from '@/components/PageCharacterSheet/CharacterContext'
 import { getCharacterStore } from '@/lib/character/store'
 import { BIOME_ROLL_TABLE } from '@/lib/constants/biomeRollTable'
 import { DICE, SUITS } from '@/lib/constants/misc'
-import { extractDisplayedCellReferences } from '@/lib/hex/coordinates'
+import {
+  extractDisplayedCellReferences,
+  SheetCoordinateWithLabel,
+} from '@/lib/hex/coordinates'
 import { getNpcJournalSummary } from '@/lib/markdown/inhabitantLinkSummary'
 import type { JournalEmbellishUiRule } from '@/lib/markdown/journalEmbellishText'
 import {
@@ -21,11 +23,14 @@ import { getVillageJournalSummary } from '@/lib/markdown/villageLinkSummary'
 import { suitIsRed } from '@/lib/suitGlyphs'
 import type { Suit } from '@/lib/types'
 import { decodeVillageFactionParam } from '@/lib/village/villageUrlCodec'
+import { CharacterCellData } from '../MapDisplay/useMapState'
 
 /** Everything needed to build journal embellishment rules for the current character sheet + locale. */
 export type JournalEmbellishmentBuildContext = {
   t: _Translator
-  getCellData: (ref: string) => CharacterCellData | null
+  getCellState: (
+    ref: SheetCoordinateWithLabel | string
+  ) => CharacterCellData | null
   mergeDuplicateEstablishments: boolean
   // When false, reference previews and coord chips do not navigate
   // (e.g. edit-modal preview).
@@ -62,12 +67,12 @@ function coordEmbellishmentRules(
       reference,
       true,
       ({ reactKey }) => {
-        const cellData = ctx.getCellData(reference)
+        const cellData = ctx.getCellState(reference)
         if (cellData) {
           return (
             <CoordChip
               key={reactKey}
-              biome={cellData.biome}
+              biome={cellData.biome ?? 'unexplored'}
               value={cellData.ref}
               coord={cellData.coord}
               interactive={ctx.interactive}

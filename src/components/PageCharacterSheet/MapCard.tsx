@@ -7,7 +7,7 @@ import { MapFormValueAnchor } from '@/components/MapDisplay/MapFormValueAnchor'
 import { MapSheetNavigation } from '@/components/MapDisplay/MapSheetNavigation'
 import { useCellSelection } from '@/components/MapDisplay/useMapCellSelection'
 import { useMapCopyPaste } from '@/components/MapDisplay/useMapCopyPaste'
-import { useMapSheet as useMapSheet } from '@/components/MapDisplay/useMapSheet'
+import { useMapSheet } from '@/components/MapDisplay/useMapSheet'
 import { useMapState } from '@/components/MapDisplay/useMapState'
 import { SettingsHint } from '@/components/SettingsHint/SettingsHint'
 import { BIOME_IDS } from '@/lib/constants/misc'
@@ -26,7 +26,7 @@ export function MapCard() {
     mapState: { currentPosition },
     getCellState,
   } = useMapState()
-  const currentBiome = getCellState(currentPosition).biome ?? 'unexplored'
+  const currentBiome = getCellState(currentPosition)?.biome ?? 'unexplored'
   const { cardRef, visibleSheet, setVisibleSheet, isViewingCurrentSheet } =
     useMapSheet({ currentPosition, selectedCell, setSelectedCell })
   useMapCopyPaste({ selectedCell })

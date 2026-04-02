@@ -4,15 +4,17 @@ import { Card, Col, Row, Space, Typography } from 'antd'
 import { useFormatter, useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
+import { useHydration } from '@/hooks/useHydration'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
+import { useCharacters } from '../../hooks/useCharacters'
 import { useCharacterLink } from '../PageCharacterSheet/useCharacterLink'
-import { useRecentCharacters } from './useRecentCharacters'
 
 const CharacterManager = () => {
   const t = useTranslations()
   const format = useFormatter()
-  const recentCharacters = useRecentCharacters()
+  const recentCharacters = useCharacters(3)
   const getCharacterLink = useCharacterLink({ tabId: 'identity' })
+  const hydrated = useHydration()
 
   return (
     <Card
@@ -24,38 +26,40 @@ const CharacterManager = () => {
         <Typography.Text>
           {t('home.character_card_description')}
         </Typography.Text>
-        <Row gutter={[16, 16]}>
-          {recentCharacters.map(character => (
-            <Col xs={24} md={8} key={character.id}>
-              <BlockedLink
-                key={character.id}
-                href={getCharacterLink({ characterId: character.id })}>
-                <Card
-                  size='small'
-                  hoverable
-                  title={
-                    <>
-                      {character.gender
-                        ? genderCompactSymbol(character.gender)
-                        : ''}{' '}
-                      {character.name || t('characters_list.unnamed')},{' '}
-                      {t(`common.archetypes.name.${character.archetype}`, {
-                        gender: character.gender ?? 'indeterminate',
+        {hydrated && (
+          <Row gutter={[16, 16]}>
+            {recentCharacters.map(character => (
+              <Col xs={24} md={8} key={character.id}>
+                <BlockedLink
+                  key={character.id}
+                  href={getCharacterLink({ characterId: character.id })}>
+                  <Card
+                    size='small'
+                    hoverable
+                    title={
+                      <>
+                        {character.gender
+                          ? genderCompactSymbol(character.gender)
+                          : ''}{' '}
+                        {character.name || t('characters_list.unnamed')},{' '}
+                        {t(`common.archetypes.name.${character.archetype}`, {
+                          gender: character.gender ?? 'indeterminate',
+                        })}
+                      </>
+                    }>
+                    <Typography.Text type='secondary'>
+                      {t('home.updated_line', {
+                        value: format.dateTime(new Date(character.updatedAt), {
+                          dateStyle: 'medium',
+                        }),
                       })}
-                    </>
-                  }>
-                  <Typography.Text type='secondary'>
-                    {t('home.updated_line', {
-                      value: format.dateTime(new Date(character.updatedAt), {
-                        dateStyle: 'medium',
-                      }),
-                    })}
-                  </Typography.Text>
-                </Card>
-              </BlockedLink>
-            </Col>
-          ))}
-        </Row>
+                    </Typography.Text>
+                  </Card>
+                </BlockedLink>
+              </Col>
+            ))}
+          </Row>
+        )}
       </Space>
     </Card>
   )

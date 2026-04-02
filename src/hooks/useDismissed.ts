@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
 function getLocalStorage(): Storage | null {
   if (typeof globalThis === 'undefined' || !('localStorage' in globalThis)) {
@@ -9,21 +9,16 @@ function getLocalStorage(): Storage | null {
   return globalThis.localStorage
 }
 
-export function useDismissed(key: string): [boolean, () => void] {
+export function useDismissed(key: string) {
   const storageKey = `prome:dismissed:${key}`
-  const [dismissed, setDismissed] = useState(false)
-
-  useEffect(
-    function hydrateDismissedFromStorage() {
-      setDismissed(getLocalStorage()?.getItem(storageKey) != null)
-    },
-    [storageKey]
+  const [dismissed, setDismissed] = useState(
+    getLocalStorage()?.getItem(storageKey) != null
   )
 
-  const dismiss = () => {
+  const dismiss = useCallback(() => {
     getLocalStorage()?.setItem(storageKey, '1')
     setDismissed(true)
-  }
+  }, [storageKey])
 
-  return [dismissed, dismiss]
+  return useMemo(() => ({ dismissed, dismiss }), [dismissed, dismiss])
 }

@@ -5,11 +5,7 @@ import { useTranslations } from 'next-intl'
 import { type ChangeEvent, useCallback, useMemo } from 'react'
 import { getCharacterStore } from '@/lib/character/store'
 
-export function useCharacterLibraryActions({
-  refresh,
-}: {
-  refresh: () => void
-}) {
+export function useCharacterLibraryActions() {
   const t = useTranslations()
   const store = useMemo(() => getCharacterStore(), [])
   const { message } = App.useApp()
@@ -49,7 +45,6 @@ export function useCharacterLibraryActions({
           return
         }
 
-        refresh()
         message.success(
           t('new_character.import_success', {
             total: result.totalRead,
@@ -63,7 +58,7 @@ export function useCharacterLibraryActions({
         event.target.value = ''
       }
     },
-    [message, refresh, store, t]
+    [message, store, t]
   )
 
   return {

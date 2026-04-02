@@ -17,6 +17,8 @@ export type SheetCoordinate = {
   sheetR: number
 }
 
+export type SheetCoordinateWithLabel = SheetCoordinate & { label: string }
+
 export type SheetCellAddress = SheetCoordinate & {
   rowIndex: number
   colIndex: number
@@ -34,10 +36,6 @@ export const AXIAL_DIRECTIONS: readonly HexCoordinate[] = [
   { q: -1, r: 1 },
   { q: 0, r: 1 },
 ] as const
-
-function floorDiv(value: number, base: number): number {
-  return Math.floor(value / base)
-}
 
 function positiveMod(value: number, base: number): number {
   return ((value % base) + base) % base
@@ -78,8 +76,8 @@ export function getSheetCoordinate(coord: HexCoordinate): SheetCoordinate {
   const absoluteRow = coord.r + ORIGIN_POSITION.r
   const absoluteCol = coord.q + ORIGIN_POSITION.q
   return {
-    sheetQ: floorDiv(absoluteCol, MAP_COLS),
-    sheetR: floorDiv(absoluteRow, MAP_ROWS),
+    sheetQ: Math.floor(absoluteCol / MAP_COLS),
+    sheetR: Math.floor(absoluteRow / MAP_ROWS),
   }
 }
 
@@ -99,8 +97,8 @@ export function getGlobalFromSheetCell(
 export function getSheetCellAddress(coord: HexCoordinate): SheetCellAddress {
   const absoluteRow = coord.r + ORIGIN_POSITION.r
   const absoluteCol = coord.q + ORIGIN_POSITION.q
-  const sheetR = floorDiv(absoluteRow, MAP_ROWS)
-  const sheetQ = floorDiv(absoluteCol, MAP_COLS)
+  const sheetR = Math.floor(absoluteRow / MAP_ROWS)
+  const sheetQ = Math.floor(absoluteCol / MAP_COLS)
   const rowIndex = positiveMod(absoluteRow, MAP_ROWS)
   const colIndex = positiveMod(absoluteCol, MAP_COLS)
   const rowLabel = rowLabelFromIndex(rowIndex)
@@ -266,17 +264,6 @@ export function resolveDisplayedCellReference(
     { sheetQ: parsed.sheetQ, sheetR: parsed.sheetR },
     parsed.label
   )
-}
-
-export function buildSheetViewport(sheet: SheetCoordinate): SheetCellAddress[] {
-  const cells: SheetCellAddress[] = []
-  for (let rowIndex = 0; rowIndex < MAP_ROWS; rowIndex += 1) {
-    for (let colIndex = 0; colIndex < MAP_COLS; colIndex += 1) {
-      const global = getGlobalFromSheetCell(sheet, rowIndex, colIndex)
-      cells.push(getSheetCellAddress(global))
-    }
-  }
-  return cells
 }
 
 export function isSameHex(a: HexCoordinate, b: HexCoordinate): boolean {

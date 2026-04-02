@@ -2,13 +2,14 @@
 
 import { Card, Empty, Space, Typography } from 'antd'
 import { useFormatter, useTranslations } from 'next-intl'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useRef } from 'react'
 import { Button } from '@/components/Button/Button'
 import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
+import { useCharacters } from '@/hooks/useCharacters'
+import { useHydration } from '@/hooks/useHydration'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
-import { getCharacterStore } from '@/lib/character/store'
-import type { Character } from '@/lib/character/types'
+import { LoadingState } from '../LoadingState/LoadingState'
 import { useCharacterLink } from '../PageCharacterSheet/useCharacterLink'
 import { useCharacterLibraryActions } from './useCharacterLibraryActions'
 
@@ -16,18 +17,10 @@ export function CharacterLibrary() {
   const t = useTranslations()
   const format = useFormatter()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
-  const store = useMemo(() => getCharacterStore(), [])
+  const characters = useCharacters()
+  const hydrated = useHydration()
 
-  // Keep initial render consistent with the server (no localStorage access on SSR).
-  const [characters, setCharacters] = useState<Character[]>([])
-
-  const refresh = useCallback(() => setCharacters(store.list()), [store])
-  useEffect(function hydrateCharactersFromStorage() {
-    refresh()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const { handleImportFile } = useCharacterLibraryActions({ refresh })
+  const { handleImportFile } = useCharacterLibraryActions()
   const handleImportClick = useCallback(() => fileInputRef.current?.click(), [])
   const getCharacterLink = useCharacterLink({ tabId: 'identity' })
 
@@ -54,7 +47,11 @@ export function CharacterLibrary() {
         onChange={handleImportFile}
       />
 
-      {characters.length === 0 ? (
+      {!hydrated ? (
+        <Card>
+          <LoadingState />
+        </Card>
+      ) : characters.length === 0 ? (
         <Card>
           <Empty description={t('characters_list.empty')} />
         </Card>

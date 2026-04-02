@@ -1,11 +1,10 @@
 import { Col, Collapse, Row, Statistic } from 'antd'
 import { useTranslations } from 'next-intl'
-import { StatPool } from '@/lib/character/types'
-import { useCharacterContext } from '../PageCharacterSheet/CharacterContext'
+import { useWatchedStats } from '../PageCharacterSheet/useCharacterSheetDerived'
 
 export function CharacterStats() {
-  const { getCharacterValue } = useCharacterContext()
   const t = useTranslations()
+  const { courage, inspiration, honor, money } = useWatchedStats()
 
   return (
     <Collapse
@@ -18,25 +17,25 @@ export function CharacterStats() {
               <Col span={6}>
                 <Statistic
                   title={t('characters.identity.inspiration_label')}
-                  value={getCharacterValue('inspiration')}
+                  value={inspiration}
                 />
               </Col>
               <Col span={6}>
                 <Statistic
                   title={t('characters.identity.honor_label')}
-                  value={getCharacterValue('honor')}
+                  value={honor}
                 />
               </Col>
               <Col span={6}>
                 <Statistic
                   title={t('characters.identity.courage_label')}
-                  value={(getCharacterValue('courage') as StatPool).current}
+                  value={courage.current}
                 />
               </Col>
               <Col span={6}>
                 <Statistic
                   title={t('characters.identity.money_label')}
-                  value={getCharacterValue('money')}
+                  value={money}
                 />
               </Col>
             </Row>

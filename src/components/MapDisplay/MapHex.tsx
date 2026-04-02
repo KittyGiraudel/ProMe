@@ -54,7 +54,10 @@ const useHexState = ({
     () => areHexNeighbors(currentPosition, global),
     [currentPosition, global]
   )
-  const { icon, biome } = getCellState(global)
+  const { icon, biome } = getCellState(global) ?? {
+    icon: undefined,
+    biome: undefined,
+  }
   const label = useMemo(() => getDisplayedCellLabel(global), [global])
   const isCore = useMemo(() => isCoreHex(global), [global])
 

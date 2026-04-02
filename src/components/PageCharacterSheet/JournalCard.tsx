@@ -75,6 +75,7 @@ export function JournalCardInner({
 
   useEffect(
     function resetPageOnSearch() {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCurrentPage(1)
     },
     [searchTerm]

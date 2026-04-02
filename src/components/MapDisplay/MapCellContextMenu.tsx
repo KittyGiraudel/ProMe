@@ -52,8 +52,8 @@ export function MapCellContextMenu({
 }: MapCellContextMenuProps) {
   const t = useTranslations()
   const { getCellState } = useMapState()
-  const { biome } = getCellState(coord)
   const { moveToCell, setIconAt } = useMapActions()
+  const biome = getCellState(coord)?.biome
   const { componentDisabled } = ConfigProvider.useConfig()
   const [open, setOpen] = useState(false)
   const [emojiModalOpen, setEmojiModalOpen] = useState(false)

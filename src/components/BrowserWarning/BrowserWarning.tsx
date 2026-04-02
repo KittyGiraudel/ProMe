@@ -6,7 +6,7 @@ import { Link } from '@/i18n/navigation'
 
 export function BrowserWarning() {
   const t = useTranslations()
-  const [dismissed, dismiss] = useDismissed('browser-warning')
+  const { dismissed, dismiss } = useDismissed('browser-warning')
 
   if (dismissed) return null
 
