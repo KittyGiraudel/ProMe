@@ -378,11 +378,11 @@
         "hint": "Pour collecter des ressources dans le Désert Silencieux, vous pouvez vous aider d’une Pioche. Pour l’utiliser, ôtez-lui 1 point de durabilité dans puis choisissez l’objet de votre choix dans la table de collecte ci-dessus. Sinon, effectuez un Test de Courage avec succès pour vous passer de l’équipement nécessaire."
       },
       "giganticGardens": {
-        "1": "Un Jardin de Laréons",
+        "1": "Un Jardin de Laréons (page 40)",
         "2": "100 pièces",
         "3": "1 000 pièces",
-        "4": "Une Résidence",
-        "5": "Des Ruines",
+        "4": "Une Résidence (page 57)",
+        "5": "Des Ruines (page 63)",
         "6": "N’importe quel objet",
         "warning": "La collecte dans les Jardins Titanesques nécessite de trouver et d’atteindre le jardin sur le dos d’une baleine luxuriante (voir page 40)."
       }
