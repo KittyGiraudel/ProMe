@@ -4,5 +4,13 @@
     "superpowers@claude-plugins-official": true,
     "code-simplifier@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "command": "npx biome check --write $CLAUDE_FILE_PATH 2>/dev/null || true"
+      }
+    ]
   }
 }

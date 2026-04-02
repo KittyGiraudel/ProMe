@@ -4,6 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 @AGENTS.md
 
+## Project Overview
+
+This is a Next.js project using next-intl for i18n, Ant Design for UI components, and deployed on Netlify. The project has TypeScript (primary), Rust, and CSS. Always use Biome for formatting (no semis, single quotes).
+
 ## Commands
 
 ```sh
@@ -41,3 +45,19 @@ Uses Next.js App Router with `next-intl`. All pages are under `src/app/[locale]/
 ### Testing
 
 Tests live alongside source files (`*.test.ts` / `*.test.tsx`). Coverage excludes `src/app/**` and `src/components/**` — only `src/lib/` and `src/hooks/` are covered. Environment is `node`.
+
+## Code Quality
+
+When implementing new UI features, avoid creating duplicate components. Check for existing similar components first and extract shared logic into reusable utilities or components proactively.
+
+## Ant Design / Forms
+
+After making changes, always verify they work within the existing Form context (Ant Design). Be especially careful with Form.useWatch, form.setFieldValue, and components rendered outside Form providers (e.g., portals, modals).
+
+## Debugging Guidelines
+
+When debugging, don't guess at root causes — trace the actual execution path before proposing fixes. Avoid applying speculative fixes that address the wrong root cause.
+
+## Pre-Commit Checklist
+
+Before committing or considering a task done, verify all related navigation links and routes still work (especially character sheet links on home/list pages, and relative links from sub-routes).
