@@ -28,7 +28,7 @@
   /**
    * 1. Just for testing purposes: drop the ‘not’ in this @supports rule to see
    *    how it lookswith it.
-   * 2. This is a magic number: there is a formula to calculate that value but 
+   * 2. This is a magic number: there is a formula to calculate that value but
    *    I don’t know it and it’s probably not worth the effort to figure it out.
    */
   .MapHex {
@@ -59,9 +59,9 @@
   outline-offset: 3px; /* 1 */
   z-index: 2; /* 2 */
 }
- 
+
 /**
- * 1. Make the cell a bit transparent when it's not reachable. This gives the 
+ * 1. Make the cell a bit transparent when it's not reachable. This gives the
  *    surrounding (and thus reachable) cells a bit more visual prominence.
  */
 .MapHex[data-reachable="false"]:not([data-current="true"]) {
@@ -124,10 +124,10 @@
   letter-spacing: 0.1em;
   color: inherit;
 
-  appearance: none; 
-  background-color: transparent; 
-  border: 0; 
-  padding: 0; 
+  appearance: none;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
 
   opacity: 0.25;
   user-select: none;
