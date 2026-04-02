@@ -122,6 +122,8 @@
       "delete_confirm_title": "Supprimer cette entrée ?",
       "done_editing": "Écrire",
       "empty": "Aucune entrée pour le moment.",
+      "search_empty": "Aucune entrée ne correspond à votre recherche.",
+      "search_placeholder": "Rechercher dans le journal…",
       "entry_content_label": "Contenu de l’entrée",
       "entry_content_placeholder": "Écrivez votre entrée ici…",
       "entry_empty": "Cette entrée est vide.",

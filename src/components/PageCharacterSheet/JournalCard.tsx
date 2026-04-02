@@ -6,13 +6,16 @@ import {
   Empty,
   Form,
   FormListFieldData,
+  Input,
   Pagination,
 } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Button } from '@/components/Button/Button'
 import { Journal } from '@/components/Journal/Journal'
+import { useWatchedJournal } from '@/components/PageCharacterSheet/useCharacterSheetDerived'
 import { useJournalEntryViewModes } from '@/components/PageCharacterSheet/useJournalEntryViewModes'
+import { useJournalSearch } from '@/components/PageCharacterSheet/useJournalSearch'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { SettingsHint } from '@/components/SettingsHint/SettingsHint'
 import { randomId } from '@/lib/character/model'
@@ -60,6 +63,11 @@ export function JournalCardInner({
   const [currentPage, setCurrentPage] = useState(1)
   const { isEditing, setEditingMode } = useJournalEntryViewModes()
   const previousFieldCountRef = useRef(fields.length)
+  const journal = useWatchedJournal()
+  const { searchTerm, setSearchTerm, filteredFields } = useJournalSearch(
+    fields,
+    journal
+  )
 
   useEffect(
     function editNewlyAddedEntry() {
@@ -72,15 +80,29 @@ export function JournalCardInner({
     [fields, setEditingMode]
   )
 
+  useEffect(
+    function resetPageOnSearch() {
+      setCurrentPage(1)
+    },
+    [searchTerm]
+  )
+
   const pagedFields = useMemo(() => {
     if (settings.journal.timelineReverseChronological) {
-      const total = fields.length
+      const total = filteredFields.length
       const start = Math.max(0, total - currentPage * PAGE_SIZE)
       const end = total - (currentPage - 1) * PAGE_SIZE
-      return fields.slice(start, end)
+      return filteredFields.slice(start, end)
     }
-    return fields.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
-  }, [fields, currentPage, settings.journal.timelineReverseChronological])
+    return filteredFields.slice(
+      (currentPage - 1) * PAGE_SIZE,
+      currentPage * PAGE_SIZE
+    )
+  }, [
+    filteredFields,
+    currentPage,
+    settings.journal.timelineReverseChronological,
+  ])
 
   const handleAddEntry = useCallback(() => {
     onAddEntry()
@@ -122,23 +144,39 @@ export function JournalCardInner({
           <Empty description={t('characters.journal.empty')} />
         ) : (
           <>
-            <Journal
-              fields={pagedFields}
-              form={form}
-              deleteEntry={handleRemoveEntry}
-              isEditing={isEditing}
-              setEditingMode={setEditingMode}
+            <Input.Search
+              allowClear
+              aria-label={t('characters.journal.search_placeholder')}
+              placeholder={t('characters.journal.search_placeholder')}
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
+              onSearch={setSearchTerm}
+              style={{ marginBottom: 24 }}
             />
-            {fields.length > PAGE_SIZE && (
-              <div className='Journal__pagination'>
-                <Pagination
-                  current={currentPage}
-                  total={fields.length}
-                  pageSize={PAGE_SIZE}
-                  onChange={setCurrentPage}
-                  showSizeChanger={false}
+
+            {filteredFields.length === 0 ? (
+              <Empty description={t('characters.journal.search_empty')} />
+            ) : (
+              <>
+                <Journal
+                  fields={pagedFields}
+                  form={form}
+                  deleteEntry={handleRemoveEntry}
+                  isEditing={isEditing}
+                  setEditingMode={setEditingMode}
                 />
-              </div>
+                {filteredFields.length > PAGE_SIZE && (
+                  <div className='Journal__pagination'>
+                    <Pagination
+                      current={currentPage}
+                      total={filteredFields.length}
+                      pageSize={PAGE_SIZE}
+                      onChange={setCurrentPage}
+                      showSizeChanger={false}
+                    />
+                  </div>
+                )}
+              </>
             )}
           </>
         )}

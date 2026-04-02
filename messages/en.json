@@ -122,6 +122,8 @@
       "delete_confirm_title": "Delete this entry?",
       "done_editing": "Write",
       "empty": "No entries yet.",
+      "search_empty": "No entries match your search.",
+      "search_placeholder": "Search journal…",
       "entry_content_label": "Entry content",
       "entry_content_placeholder": "Write your entry here…",
       "entry_empty": "This entry is empty.",
