@@ -1,10 +1,11 @@
 'use client'
 
-import { Card, Empty, Space, Tooltip } from 'antd'
+import { Card, Empty, Tooltip } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
 import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
+import { Spacing } from '@/components/Spacing/Spacing'
 import type { InhabitantRoll } from '@/lib/inhabitant/generate'
 import type { VillageRoll } from '@/lib/village/generate'
 import { groupEstablishments } from '@/lib/village/groupEstablishments'
@@ -61,20 +62,18 @@ export function VillageSummary({
 
   if (!roll || !display) {
     return (
-      <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
-        <Card>
-          <Empty
-            description={t('village.empty_summary', {
-              button: t('common.actions.generate'),
-            })}
-          />
-        </Card>
-      </Space>
+      <Card>
+        <Empty
+          description={t('village.empty_summary', {
+            button: t('common.actions.generate'),
+          })}
+        />
+      </Card>
     )
   }
 
   return (
-    <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
+    <Spacing>
       <Card
         title={t('village.section_establishments')}
         extra={
@@ -120,6 +119,6 @@ export function VillageSummary({
           />
         </Card>
       ) : null}
-    </Space>
+    </Spacing>
   )
 }

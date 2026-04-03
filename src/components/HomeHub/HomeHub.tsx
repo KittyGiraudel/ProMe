@@ -1,9 +1,10 @@
 'use client'
 
-import { Card, Col, Row, Space, Typography } from 'antd'
+import { Card, Col, Row, Typography } from 'antd'
 import { useFormatter, useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
+import { Spacing } from '@/components/Spacing/Spacing'
 import { useCharacterLink } from '@/hooks/useCharacterLink'
 import { useCharacters } from '@/hooks/useCharacters'
 import { useHydration } from '@/hooks/useHydration'
@@ -22,7 +23,7 @@ const CharacterManager = () => {
       extra={
         <BlockedLink href='/characters'>{t('common.actions.open')}</BlockedLink>
       }>
-      <Space orientation='vertical' style={{ width: '100%' }} size='large'>
+      <Spacing>
         <Typography.Text>
           {t('home.character_card_description')}
         </Typography.Text>
@@ -60,7 +61,7 @@ const CharacterManager = () => {
             ))}
           </Row>
         )}
-      </Space>
+      </Spacing>
     </Card>
   )
 }

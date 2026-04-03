@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, Form, Popover, Space } from 'antd'
+import { Card, Form, Popover } from 'antd'
 import { useTranslations } from 'next-intl'
 import { BiomeBubble } from '@/components/BiomeBubble/BiomeBubble'
 import { BrowserWarning } from '@/components/BrowserWarning/BrowserWarning'
@@ -16,6 +16,7 @@ import { useMapState } from '@/components/MapDisplay/useMapState'
 import { MapSheetNavigation } from '@/components/MapSheetNavigation/MapSheetNavigation'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { SettingsHint } from '@/components/SettingsHint/SettingsHint'
+import { Spacing } from '@/components/Spacing/Spacing'
 import { BIOME_IDS } from '@/lib/constants/misc'
 
 import './MapCard.css'
@@ -49,7 +50,7 @@ export function MapCard() {
         <div ref={cardRef} tabIndex={-1}>
           <BrowserWarning />
 
-          <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
+          <Spacing>
             <MapSheetNavigation
               currentPosition={currentPosition}
               setVisibleSheet={setVisibleSheet}
@@ -66,7 +67,7 @@ export function MapCard() {
             <Form.Item name='map' noStyle>
               <MapFormValueAnchor />
             </Form.Item>
-          </Space>
+          </Spacing>
         </div>
       </Card>
       <SettingsHint hintId='map' />

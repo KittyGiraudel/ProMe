@@ -1,11 +1,12 @@
 'use client'
 
-import { Card, Form, Input, Popover, Space, Tag, Typography } from 'antd'
+import { Card, Form, Input, Popover, Tag, Typography } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
 import { Button } from '@/components/Button/Button'
 import { ClockDisplay } from '@/components/ClockDisplay/ClockDisplay'
 import { HelpButton } from '@/components/HelpButton/HelpButton'
+import { Spacing } from '@/components/Spacing/Spacing'
 import {
   useWatchedClock,
   useWatchedStats,
@@ -92,10 +93,10 @@ export function ClockCard() {
           onClick={() => setPosition(position - 1)}>
           {t('characters.map.clock_back')}
         </Button>,
-        <Space key='display' wrap align='center'>
+        <Spacing orientation='horizontal' wrap size='small'>
           <Tag color={isDay ? 'gold' : 'blue'}>{phaseLabel}</Tag>
           <Typography.Text>{clockLabel}</Typography.Text>
-        </Space>,
+        </Spacing>,
         <Button
           key='forward'
           type='primary'

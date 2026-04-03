@@ -1,9 +1,10 @@
 'use client'
 
-import { Space, Typography } from 'antd'
+import { Typography } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
 import { RichText } from '@/components/RichText/RichText'
+import { Spacing } from '@/components/Spacing/Spacing'
 import type { TranslationKey } from '@/lib/types'
 
 import './FAQ.css'
@@ -43,10 +44,10 @@ function Entry({ index }: { index: number }) {
 
 function Paragraphs({ translation }: { translation: string }) {
   return (
-    <Space orientation='vertical' size='small'>
+    <Spacing size='small'>
       {translation.split(/\n/g).map((paragraph, index) => (
         <RichText key={index} text={paragraph} />
       ))}
-    </Space>
+    </Spacing>
   )
 }

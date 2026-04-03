@@ -16,6 +16,7 @@ import { Layout } from '@/components/Layout/Layout'
 import { usePathname, useRouter } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
 import { DEFAULT_SETTINGS } from '@/lib/settings/model'
+import { Spacing } from '../Spacing/Spacing'
 import { useSettings } from './SettingsContext'
 
 type SettingsFormValues = {
@@ -108,11 +109,11 @@ export function Settings() {
         layout='vertical'
         initialValues={initialValues}
         onValuesChange={handleValuesChange}>
-        <Space orientation='vertical' size='large'>
+        <Spacing>
           <Row gutter={[16, 16]}>
             <Col xs={24} md={12}>
               <Card title={t('settings.section_language')}>
-                <Space orientation='vertical' size='small'>
+                <Spacing size='small'>
                   <Form.Item
                     label={t(`settings.language_label`)}
                     style={{ marginBottom: 0 }}>
@@ -130,12 +131,12 @@ export function Settings() {
                     title={t('settings.language_warning')}
                     type='warning'
                   />
-                </Space>
+                </Spacing>
               </Card>
             </Col>
             <Col xs={24} md={12}>
               <Card title={t('settings.section_sheet')}>
-                <Space orientation='vertical' size='medium'>
+                <Spacing>
                   <Form.Item
                     name='adaptiveNightMode'
                     valuePropName='checked'
@@ -152,14 +153,14 @@ export function Settings() {
                       {t('settings.sheet_single_page_mode_label')}
                     </Checkbox>
                   </Form.Item>
-                </Space>
+                </Spacing>
               </Card>
             </Col>
           </Row>
           <Row gutter={[16, 16]}>
             <Col xs={24} md={12}>
               <Card title={t('settings.section_map')}>
-                <Space orientation='vertical' size='small'>
+                <Spacing size='small'>
                   <Form.Item
                     name='mapTickClockOnMove'
                     valuePropName='checked'
@@ -198,13 +199,13 @@ export function Settings() {
                       ]}
                     />
                   </Form.Item>
-                </Space>
+                </Spacing>
               </Card>
             </Col>
             <Col xs={24} md={12}>
-              <Space orientation='vertical' size='large'>
+              <Spacing>
                 <Card title={t('settings.section_journal')}>
-                  <Space orientation='vertical' size='small'>
+                  <Spacing size='small'>
                     <Form.Item
                       name='timelineReverseChronological'
                       valuePropName='checked'
@@ -217,10 +218,10 @@ export function Settings() {
                         )}
                       </Checkbox>
                     </Form.Item>
-                  </Space>
+                  </Spacing>
                 </Card>
                 <Card title={t('settings.section_village')}>
-                  <Space orientation='vertical' size='small'>
+                  <Spacing size='small'>
                     <Form.Item
                       name='villageMergeDuplicateEstablishments'
                       valuePropName='checked'
@@ -233,12 +234,12 @@ export function Settings() {
                         )}
                       </Checkbox>
                     </Form.Item>
-                  </Space>
+                  </Spacing>
                 </Card>
-              </Space>
+              </Spacing>
             </Col>
           </Row>
-        </Space>
+        </Spacing>
       </Form>
     </Layout>
   )

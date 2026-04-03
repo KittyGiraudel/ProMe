@@ -1,8 +1,8 @@
 'use client'
 
-import { Space } from 'antd'
 import { Button } from '@/components/Button/Button'
 import { CopyDropdown } from '@/components/CopyDropdown/CopyDropdown'
+import { Spacing } from '@/components/Spacing/Spacing'
 
 export type SheetCopyPayload = {
   description: string
@@ -17,7 +17,7 @@ type RollActionsProps = {
 
 export function RollActions({ onRoll, label, copy }: RollActionsProps) {
   return (
-    <Space orientation='horizontal'>
+    <Spacing orientation='horizontal' size='small'>
       {copy ? (
         <CopyDropdown
           description={copy.description}
@@ -28,6 +28,6 @@ export function RollActions({ onRoll, label, copy }: RollActionsProps) {
       <Button type='primary' size='large' onClick={onRoll}>
         {label}
       </Button>
-    </Space>
+    </Spacing>
   )
 }

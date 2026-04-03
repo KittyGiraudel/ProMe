@@ -1,8 +1,8 @@
-import { Space } from 'antd'
 import { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { CharacteristicsCard } from '@/components/CharacteristicsCard/CharacteristicsCard'
 import { IdentityCard } from '@/components/IdentityCard/IdentityCard'
+import { Spacing } from '@/components/Spacing/Spacing'
 
 type Props = { params: Promise<{ locale: string }> }
 
@@ -17,9 +17,9 @@ export async function generateMetadata({ params }: Props) {
 
 export default function CharacterIdentityPage() {
   return (
-    <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
+    <Spacing>
       <IdentityCard isArchetypeReadonly />
       <CharacteristicsCard />
-    </Space>
+    </Spacing>
   )
 }

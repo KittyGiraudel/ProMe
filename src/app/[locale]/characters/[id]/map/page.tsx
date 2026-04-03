@@ -1,8 +1,8 @@
-import { Space } from 'antd'
 import { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { ClockCard } from '@/components/ClockCard/ClockCard'
 import { MapCard } from '@/components/MapCard/MapCard'
+import { Spacing } from '@/components/Spacing/Spacing'
 
 type Props = { params: Promise<{ locale: string }> }
 
@@ -17,9 +17,9 @@ export async function generateMetadata({ params }: Props) {
 
 export default function CharacterMapPage() {
   return (
-    <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
+    <Spacing>
       <MapCard />
       <ClockCard />
-    </Space>
+    </Spacing>
   )
 }

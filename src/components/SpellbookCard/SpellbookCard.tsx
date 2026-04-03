@@ -14,6 +14,7 @@ import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { randomId } from '@/lib/character/model'
+import { Spacing } from '../Spacing/Spacing'
 
 import './SpellbookCard.css'
 
@@ -58,11 +59,12 @@ export function SpellbookCard() {
               : undefined
           }>
           {fields.length > 0 ? (
-            <Space orientation='vertical' style={{ width: '100%' }}>
+            <Spacing>
               {fields.map(field => (
-                <Space
+                <Spacing
                   key={field.key}
-                  style={{ width: '100%' }}
+                  orientation='horizontal'
+                  fullWidth
                   className='SpellbookCard__Row'>
                   <Form.Item
                     name={[field.name, 'name']}
@@ -88,9 +90,9 @@ export function SpellbookCard() {
                     htmlType='button'>
                     {t('common.actions.delete')}
                   </Button>
-                </Space>
+                </Spacing>
               ))}
-            </Space>
+            </Spacing>
           ) : (
             <Empty description={t('characters.inventory.spellbook_empty')} />
           )}

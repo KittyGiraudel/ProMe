@@ -1,12 +1,13 @@
 'use client'
 
-import { Card, Empty, Space, Typography } from 'antd'
+import { Card, Empty, Typography } from 'antd'
 import { useFormatter, useTranslations } from 'next-intl'
 import { useCallback, useRef } from 'react'
 import { Button } from '@/components/Button/Button'
 import { Layout } from '@/components/Layout/Layout'
 import { LoadingState } from '@/components/LoadingState/LoadingState'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
+import { Spacing } from '@/components/Spacing/Spacing'
 import { useCharacterLibraryActions } from '@/hooks/useCharacterLibraryActions'
 import { useCharacterLink } from '@/hooks/useCharacterLink'
 import { useCharacters } from '@/hooks/useCharacters'
@@ -32,12 +33,12 @@ export function CharacterLibrary() {
         { title: t('nav.home'), path: '/' },
         { title: t('nav.characters'), path: '/characters' },
       ]}>
-      <Space>
+      <Spacing orientation='horizontal' size='small'>
         <Button type='primary' href='/characters/new'>
           {t('new_character.create')}
         </Button>
         <Button onClick={handleImportClick}>{t('new_character.import')}</Button>
-      </Space>
+      </Spacing>
 
       <input
         ref={fileInputRef}
@@ -87,14 +88,12 @@ export function CharacterLibrary() {
                   : undefined
               }
               extra={
-                <Space>
-                  <BlockedLink
-                    href={getCharacterLink({ characterId: character.id })}>
-                    {t('common.actions.open')}
-                  </BlockedLink>
-                </Space>
+                <BlockedLink
+                  href={getCharacterLink({ characterId: character.id })}>
+                  {t('common.actions.open')}
+                </BlockedLink>
               }>
-              <Space orientation='vertical' size={4}>
+              <Spacing size='small'>
                 <Typography.Text>
                   {t('characters_list.archetype_line', {
                     value: t(`common.archetypes.name.${character.archetype}`, {
@@ -109,7 +108,7 @@ export function CharacterLibrary() {
                     }),
                   })}
                 </Typography.Text>
-              </Space>
+              </Spacing>
             </Card>
           )
         })

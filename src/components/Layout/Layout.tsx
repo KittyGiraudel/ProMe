@@ -1,18 +1,13 @@
 'use client'
 
-import {
-  Layout as AntLayout,
-  BreadcrumbProps,
-  Menu,
-  Space,
-  Typography,
-} from 'antd'
+import { Layout as AntLayout, BreadcrumbProps, Menu, Typography } from 'antd'
 import { useTranslations } from 'next-intl'
 import { type ReactNode, useMemo } from 'react'
 import { Banner } from '@/components/Banner/Banner'
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
 import { Footer } from '@/components/Footer/Footer'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
+import { Spacing } from '@/components/Spacing/Spacing'
 import { usePathname } from '@/i18n/navigation'
 import type { PossibleBiomeId } from '@/lib/types'
 
@@ -138,9 +133,7 @@ export const Layout = ({
               <div className='Layout__header-actions'>{headerActions}</div>
             ) : null}
           </div>
-          <Space orientation='vertical' size='medium' style={{ width: '100%' }}>
-            {children}
-          </Space>
+          <Spacing>{children}</Spacing>
         </div>
       </AntLayout.Content>
       <AntLayout.Footer className='Layout__footer'>

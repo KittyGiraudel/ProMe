@@ -1,6 +1,6 @@
 'use client'
 
-import { Alert, ConfigProvider, Form, Space } from 'antd'
+import { Alert, ConfigProvider, Form } from 'antd'
 import { useTranslations } from 'next-intl'
 import { type ReactNode, useMemo } from 'react'
 import { Button } from '@/components/Button/Button'
@@ -12,6 +12,7 @@ import { CopyDropdown } from '@/components/CopyDropdown/CopyDropdown'
 import { Layout } from '@/components/Layout/Layout'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { SettingsHint } from '@/components/SettingsHint/SettingsHint'
+import { Spacing } from '@/components/Spacing/Spacing'
 import { toFormValues } from '@/hooks/useCharacterFromForm'
 import {
   useCharacterLifeStatusActions,
@@ -168,10 +169,7 @@ export function CharacterSheetShell({
           <ConfigProvider theme={configTheme}>
             <div
               data-sheet-night={characterSheetNightMode ? 'true' : undefined}>
-              <Space
-                orientation='vertical'
-                size='middle'
-                style={{ width: '100%' }}>
+              <Spacing>
                 {saveErrors ? (
                   <Alert type='error' title={saveErrors.join('; ')} />
                 ) : null}
@@ -201,7 +199,7 @@ export function CharacterSheetShell({
                 {settings.sheet.singlePageMode && (
                   <SettingsHint hintId='sheet' />
                 )}
-              </Space>
+              </Spacing>
             </div>
           </ConfigProvider>
         </CharacterProvider>

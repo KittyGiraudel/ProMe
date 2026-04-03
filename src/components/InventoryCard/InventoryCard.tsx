@@ -16,6 +16,7 @@ import { Button } from '@/components/Button/Button'
 import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { useWatchedInventory } from '@/hooks/useCharacterSheetDerived'
 import { randomId } from '@/lib/character/model'
+import { Spacing } from '../Spacing/Spacing'
 
 import './InventoryCard.css'
 
@@ -64,11 +65,13 @@ export function InventoryCard() {
               : undefined
           }>
           {fields.length > 0 ? (
-            <Space orientation='vertical' style={{ width: '100%' }}>
+            <Spacing orientation='vertical' size='small'>
               {fields.map(field => (
-                <Space
-                  style={{ width: '100%' }}
+                <Spacing
                   key={field.key}
+                  orientation='horizontal'
+                  size='small'
+                  fullWidth
                   className='InventoryCard__Row'>
                   <Form.Item
                     name={[field.name, 'quantity']}
@@ -101,9 +104,9 @@ export function InventoryCard() {
                     htmlType='button'>
                     {t('common.actions.delete')}
                   </Button>
-                </Space>
+                </Spacing>
               ))}
-            </Space>
+            </Spacing>
           ) : (
             <Empty description={t('characters.inventory.inventory_empty')} />
           )}

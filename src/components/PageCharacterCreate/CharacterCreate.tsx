@@ -1,11 +1,12 @@
 'use client'
 
-import { Form, Space } from 'antd'
+import { Form } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { IdentityCard } from '@/components/IdentityCard/IdentityCard'
 import { InheritanceCard } from '@/components/InheritanceCard/InheritanceCard'
 import { Layout } from '@/components/Layout/Layout'
+import { Spacing } from '@/components/Spacing/Spacing'
 import { useCharacterCreate } from '@/hooks/useCharacterCreate'
 import { useInheritanceCandidates } from '@/hooks/useInheritanceCandidates'
 import type { Archetype } from '@/lib/character/types'
@@ -44,18 +45,18 @@ export function CharacterCreate() {
           inheritFromCharacterId: undefined,
         }}
         onFinish={handleCreate}>
-        <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
+        <Spacing>
           <IdentityCard isArchetypeReadonly={false} />
           <InheritanceCard candidates={candidates} />
-          <Space wrap>
+          <Spacing orientation='horizontal' wrap>
             <Button type='primary' htmlType='submit'>
               {t('new_character.create')}
             </Button>
             <Button htmlType='button' type='link' href='/characters'>
               {t('common.actions.cancel')}
             </Button>
-          </Space>
-        </Space>
+          </Spacing>
+        </Spacing>
       </Form>
     </Layout>
   )

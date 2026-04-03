@@ -1,4 +1,4 @@
-import { Col, Row, Space } from 'antd'
+import { Col, Row } from 'antd'
 import { ActionsCard } from '@/components/ActionsCard/ActionsCard'
 import { CardDraw } from '@/components/CardDraw/CardDraw'
 import { CharacteristicsCard } from '@/components/CharacteristicsCard/CharacteristicsCard'
@@ -8,31 +8,32 @@ import { IdentityCard } from '@/components/IdentityCard/IdentityCard'
 import { InventoryCard } from '@/components/InventoryCard/InventoryCard'
 import { JournalCard } from '@/components/JournalCard/JournalCard'
 import { MapCard } from '@/components/MapCard/MapCard'
+import { Spacing } from '@/components/Spacing/Spacing'
 import { SpellbookCard } from '@/components/SpellbookCard/SpellbookCard'
 
 export default function CharacterAllPage() {
   return (
-    <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
+    <Spacing>
       <section id='identity'>
-        <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
+        <Spacing>
           <IdentityCard isArchetypeReadonly />
           <CharacteristicsCard />
-        </Space>
+        </Spacing>
       </section>
       <section id='map'>
-        <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
+        <Spacing>
           <MapCard />
           <ClockCard />
-        </Space>
+        </Spacing>
       </section>
       <section id='journal'>
         <JournalCard />
       </section>
       <section id='inventory'>
-        <Space orientation='vertical' size='middle' style={{ width: '100%' }}>
+        <Spacing>
           <InventoryCard />
           <SpellbookCard />
-        </Space>
+        </Spacing>
       </section>
       <section id='tools'>
         <Row gutter={[16, 16]}>
@@ -47,6 +48,6 @@ export default function CharacterAllPage() {
       <section id='actions'>
         <ActionsCard />
       </section>
-    </Space>
+    </Spacing>
   )
 }

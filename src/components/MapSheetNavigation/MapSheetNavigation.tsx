@@ -5,6 +5,7 @@ import ArrowUpOutlined from '@ant-design/icons/lib/icons/ArrowUpOutlined'
 import { Button, Space, Tag } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Dispatch, SetStateAction } from 'react'
+import { Spacing } from '@/components/Spacing/Spacing'
 import { CellCoordinate } from '@/lib/character/types'
 import {
   getDisplayedCellLabel,
@@ -26,7 +27,7 @@ export function MapSheetNavigation({
   const t = useTranslations()
 
   return (
-    <Space wrap>
+    <Spacing orientation='horizontal' wrap size='small'>
       <Tag>
         {t('characters.map.sheet', {
           sheetQ: visibleSheet.sheetQ,
@@ -90,6 +91,6 @@ export function MapSheetNavigation({
           {t('characters.map.center_on_current')}
         </Button>
       ) : null}
-    </Space>
+    </Spacing>
   )
 }

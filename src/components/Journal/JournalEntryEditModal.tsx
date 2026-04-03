@@ -11,7 +11,6 @@ import {
   Modal,
   Row,
   Select,
-  Space,
   Tabs,
   Timeline,
 } from 'antd'
@@ -20,6 +19,7 @@ import { Button } from '@/components/Button/Button'
 import { JournalEditCheatsheet } from '@/components/Journal/JournalEditCheatsheet'
 import { JournalMarkdown } from '@/components/JournalMarkdown/JournalMarkdown'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
+import { Spacing } from '@/components/Spacing/Spacing'
 import { useWatchedJournal } from '@/hooks/useCharacterSheetDerived'
 
 import './Journal.css'
@@ -84,7 +84,7 @@ export function JournalEntryEditModal({
             onClick={onDelete}>
             {t('common.actions.delete')}
           </Button>
-          <Space>
+          <Spacing orientation='horizontal' size='small'>
             <Button htmlType='button' onClick={onCancel}>
               {t('common.actions.cancel')}
             </Button>
@@ -95,7 +95,7 @@ export function JournalEntryEditModal({
               onClick={onSave}>
               {t('common.actions.finish')}
             </Button>
-          </Space>
+          </Spacing>
         </div>
       }
       destroyOnHidden>

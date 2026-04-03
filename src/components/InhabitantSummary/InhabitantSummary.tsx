@@ -1,15 +1,7 @@
 'use client'
 
 import RedoOutlined from '@ant-design/icons/lib/icons/RedoOutlined'
-import {
-  Card,
-  Descriptions,
-  Empty,
-  Select,
-  Space,
-  Tooltip,
-  Typography,
-} from 'antd'
+import { Card, Descriptions, Empty, Select, Tooltip, Typography } from 'antd'
 import { SelectProps } from 'antd/lib/select'
 import { useTranslations } from 'next-intl'
 import { type ReactNode, useMemo } from 'react'
@@ -18,6 +10,7 @@ import { DiceFaces } from '@/components/DiceFaces/DiceFaces'
 import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { RichText } from '@/components/RichText/RichText'
+import { Spacing } from '@/components/Spacing/Spacing'
 import { AGE_BANDS, FACTIONS, GENDERS, RANKS } from '@/lib/constants/misc'
 import { lookupName } from '@/lib/inhabitant/data/namesByFaction'
 import {
@@ -214,9 +207,9 @@ function InhabitantRow({
 }) {
   const t = useTranslations()
   return (
-    <Space
+    <Spacing
       orientation='horizontal'
-      style={{ width: '100%' }}
+      fullWidth
       className='InhabitantSummary__row'>
       {isReadOnly ? (
         <Typography.Text>{display}</Typography.Text>
@@ -238,7 +231,7 @@ function InhabitantRow({
         onReroll={onReroll}>
         {meta}
       </MetaWithReroll>
-    </Space>
+    </Spacing>
   )
 }
 
