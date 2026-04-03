@@ -7,6 +7,7 @@ import { Button } from '@/components/Button/Button'
 import { CharacterProvider } from '@/components/CharacterContext/CharacterContext'
 import { CharacterSheetEmptyState } from '@/components/CharacterSheetEmptyState/CharacterSheetEmptyState'
 import { CharacterSheetTabNav } from '@/components/CharacterSheetTabNav/CharacterSheetTabNav'
+import { CharacterSheetValidationErrors } from '@/components/CharacterSheetValidationErrors/CharacterSheetValidationErrors'
 import { CharacterStats } from '@/components/CharacterStats/CharacterStats'
 import { CopyDropdown } from '@/components/CopyDropdown/CopyDropdown'
 import { Layout } from '@/components/Layout/Layout'
@@ -37,8 +38,14 @@ export function CharacterSheetShell({
   // Ant Design form + character from client store; unsaved-navigation guard;
   // merge form → Character for save/export; `saveForm` refreshes local character
   // state after persistence.
-  const { activeTab, form, character, hydratedFromStore, saveForm } =
-    useCharacterSheetForm({ characterId })
+  const {
+    activeTab,
+    form,
+    character,
+    hydratedFromStore,
+    saveForm,
+    validationErrors,
+  } = useCharacterSheetForm({ characterId })
 
   // Watches clock/stamina (preserve-aware) to drive adaptive sheet “night”
   // chrome and Ant Design theme.
@@ -123,6 +130,7 @@ export function CharacterSheetShell({
         layout='vertical'
         colon={false}
         preserve>
+        <CharacterSheetValidationErrors errors={validationErrors} />
         <CharacterProvider isDead={isDead} saveForm={saveForm}>
           <ConfigProvider theme={configTheme}>
             <div

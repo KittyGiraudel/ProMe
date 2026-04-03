@@ -56,3 +56,7 @@ export type PlayingCard = {
 export type TranslationKey = Parameters<
   ReturnType<typeof useTranslations<never>>
 >[0]
+
+export type TranslationParams = Parameters<
+  ReturnType<typeof useTranslations<never>>
+>[1]

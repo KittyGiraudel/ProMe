@@ -1,7 +1,9 @@
 import { BIOME_IDS } from '../constants/misc'
+import { formatDisplayedCellReference } from '../map/coordinates'
 import { type BiomeId } from '../types'
 import { countClockSegments, normalizeClock } from './clock'
 import { normalizeLifeStatus } from './lifeStatus'
+import { ValidationError } from './store/localStorageStore'
 import {
   type Archetype,
   CellCoordinate,
@@ -365,55 +367,106 @@ export function touchCharacter(character: Character): Character {
 
 export function validateCharacterForPersistence(
   character: Character
-): { ok: true } | { ok: false; errors: string[] } {
-  const errors: string[] = []
+): { ok: true } | { ok: false; errors: ValidationError[] } {
+  const errors: ValidationError[] = []
 
   if (!Number.isFinite(character.money) || character.money < 0) {
-    errors.push('pieces must be >= 0')
-  }
-
-  const inventoryCap = Math.max(0, character.stamina.current) * 6
-
-  if (character.inventory.length > MAX_INVENTORY_ITEMS) {
-    errors.push(`inventory must have <= ${MAX_INVENTORY_ITEMS} items`)
-  }
-  if (character.inventory.length > inventoryCap) {
     errors.push(
-      `inventory must have <= ${inventoryCap} items (based on Stamina)`
+      new ValidationError('characters.actions.save.invalid_money', {
+        current: character.money,
+      })
     )
   }
-  if (character.spellbook.length > MAX_SPELLBOOK_ITEMS) {
-    errors.push(`spellbook must have <= ${MAX_SPELLBOOK_ITEMS} spells`)
+
+  const inventoryCap = Math.min(
+    MAX_INVENTORY_ITEMS,
+    Math.max(0, character.stamina.current) * 6
+  )
+
+  if (character.inventory.length > inventoryCap) {
+    errors.push(
+      new ValidationError('characters.actions.save.invalid_inventory', {
+        current: character.inventory.length,
+        max: inventoryCap,
+      })
+    )
   }
 
-  if (character.health.current > character.health.max)
-    errors.push('health.current <= health.max')
-  if (character.courage.current > character.courage.max)
-    errors.push('courage.current <= courage.max')
-  if (character.stamina.current > character.stamina.max)
-    errors.push('stamina.current <= stamina.max')
+  if (character.spellbook.length > MAX_SPELLBOOK_ITEMS) {
+    errors.push(
+      new ValidationError('characters.actions.save.invalid_spellbook', {
+        current: character.spellbook.length,
+        max: MAX_SPELLBOOK_ITEMS,
+      })
+    )
+  }
+
+  if (character.health.current > character.health.max) {
+    errors.push(
+      new ValidationError('characters.actions.save.invalid_health', {
+        current: character.health.current,
+        max: character.health.max,
+      })
+    )
+  }
+
+  if (character.courage.current > character.courage.max) {
+    errors.push(
+      new ValidationError('characters.actions.save.invalid_courage', {
+        current: character.courage.current,
+        max: character.courage.max,
+      })
+    )
+  }
+
+  if (character.stamina.current > character.stamina.max) {
+    errors.push(
+      new ValidationError('characters.actions.save.invalid_stamina', {
+        current: character.stamina.current,
+        max: character.stamina.max,
+      })
+    )
+  }
 
   const totalSegments = countClockSegments(character.stamina.current)
   if (character.clock < 0 || character.clock >= totalSegments) {
-    errors.push(`clock.position must be between 0 and ${totalSegments - 1}`)
+    errors.push(
+      new ValidationError('characters.actions.save.invalid_clock', {
+        current: character.clock,
+        max: totalSegments - 1,
+      })
+    )
   }
 
   if (
     !Number.isFinite(character.map.currentPosition.q) ||
     !Number.isFinite(character.map.currentPosition.r)
   ) {
-    errors.push('map.currentPosition must be finite')
+    errors.push(
+      new ValidationError('characters.actions.save.invalid_map_position', {
+        cell: formatDisplayedCellReference(character.map.currentPosition),
+      })
+    )
   }
 
   const seenCoords = new Set<string>()
   for (const cell of character.map.cells) {
     if (!Number.isFinite(cell.q) || !Number.isFinite(cell.r)) {
-      errors.push('map cell coordinates must be finite')
+      errors.push(
+        new ValidationError('characters.actions.save.invalid_map_cell', {
+          cell: formatDisplayedCellReference(cell),
+        })
+      )
       break
     }
+
     const key = `${cell.q},${cell.r}`
     if (seenCoords.has(key)) {
-      errors.push('map cells must have unique coordinates')
+      errors.push(
+        new ValidationError('characters.actions.save.invalid_map_cell', {
+          cell: formatDisplayedCellReference(cell),
+        })
+      )
       break
     }
     seenCoords.add(key)
@@ -423,32 +476,55 @@ export function validateCharacterForPersistence(
       cell.r === DEFAULT_MAP_POSITION.r &&
       cell.biome !== undefined
     ) {
-      errors.push('core map cell must not have a biome')
+      errors.push(
+        new ValidationError('characters.actions.save.invalid_map_cell_core', {
+          cell: formatDisplayedCellReference(cell),
+        })
+      )
       break
     }
+
     if (cell.biome && !(BIOME_IDS as readonly string[]).includes(cell.biome)) {
-      errors.push('map cell biome is invalid')
+      errors.push(
+        new ValidationError('characters.actions.save.invalid_map_cell_biome', {
+          cell: formatDisplayedCellReference(cell),
+          current: cell.biome,
+        })
+      )
       break
     }
     if (
       typeof cell.icon === 'string' &&
       splitGraphemes(cell.icon).length > MAX_MAP_ICON_LENGTH
     ) {
-      errors.push(`map cell icon length must be <= ${MAX_MAP_ICON_LENGTH}`)
+      errors.push(
+        new ValidationError('characters.actions.save.invalid_map_cell_icon', {
+          cell: formatDisplayedCellReference(cell),
+          current: cell.icon,
+        })
+      )
       break
     }
   }
 
   for (const [idx, item] of character.inventory.entries()) {
     if (!item.label.trim()) {
-      errors.push(`inventory item #${idx + 1} must have a non-empty name`)
+      errors.push(
+        new ValidationError('characters.actions.save.invalid_inventory_item', {
+          index: idx + 1,
+        })
+      )
       break
     }
   }
 
   for (const [idx, spell] of character.spellbook.entries()) {
     if (!spell.name.trim()) {
-      errors.push(`spell #${idx + 1} must have a non-empty name`)
+      errors.push(
+        new ValidationError('characters.actions.save.invalid_spellbook_item', {
+          index: idx + 1,
+        })
+      )
       break
     }
   }

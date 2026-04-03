@@ -2,11 +2,12 @@
 
 import { App, FormInstance } from 'antd'
 import { useTranslations } from 'next-intl'
-import { Dispatch, SetStateAction, useCallback, useMemo } from 'react'
+import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react'
 import { getCharacterStore } from '@/lib/character/store'
 import {
   SaveError,
   ValidationError,
+  ValidationErrorCollection,
 } from '@/lib/character/store/localStorageStore'
 import type { Character } from '@/lib/character/types'
 import { TranslationKey } from '@/lib/types'
@@ -35,11 +36,16 @@ export function useCharacterSave({
   const t = useTranslations()
   const { message } = App.useApp()
   const store = useMemo(() => getCharacterStore(), [])
+  const [validationErrors, setValidationErrors] = useState<ValidationError[]>(
+    []
+  )
 
   const saveCharacter: SaveCharacter = useCallback(
     (character: Character, options?: SaveCharacterOptions) => {
       const successKey =
         options?.successKey ?? 'characters.actions.save.success'
+
+      setValidationErrors([])
 
       try {
         // Persist the character in the store
@@ -54,10 +60,12 @@ export function useCharacterSave({
         // Log the error for debugging purposes
         console.error(error)
 
-        // If the error is related to validation, display the warning
-        if (error instanceof ValidationError)
-          message.warning(error.errors.join('\n'))
-        else if (error instanceof SaveError) {
+        // If the error is related to validation, display a short warning about
+        // errors being present, and display all errors at the top of the form.
+        if (error instanceof ValidationErrorCollection) {
+          setValidationErrors(error.errors)
+          message.warning(t('characters.actions.save.validation_error'))
+        } else if (error instanceof SaveError) {
           // Indicate that a dead character cannot be modified
           if (error.message === 'DEAD_CHARACTER')
             message.error(t('characters.actions.save.dead_error'))
@@ -78,5 +86,8 @@ export function useCharacterSave({
     [saveCharacter, getCharacterFromForm]
   )
 
-  return useMemo(() => ({ saveCharacter, saveForm }), [saveCharacter, saveForm])
+  return useMemo(
+    () => ({ saveCharacter, saveForm, validationErrors }),
+    [saveCharacter, saveForm, validationErrors]
+  )
 }

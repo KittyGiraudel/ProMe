@@ -12,6 +12,7 @@ import {
 } from '@/lib/character/store/migrations'
 import type { CharacterStore } from '@/lib/character/store/types'
 import type { Character, CharacterImportMode } from '@/lib/character/types'
+import { TranslationKey, TranslationParams } from '@/lib/types'
 
 const STORAGE_KEY = 'prome:characters:v1'
 
@@ -74,15 +75,14 @@ export function createLocalStorageCharacterStore(): CharacterStore {
       }
 
       const validation = validateCharacterForPersistence(normalized)
-      if (!validation.ok) throw new ValidationError(validation.errors)
+      if (!validation.ok) throw new ValidationErrorCollection(validation.errors)
 
       const touched = touchCharacter(normalized)
       const index = all.findIndex(item => item.id === touched.id)
-      if (index >= 0) {
-        all[index] = touched
-      } else {
-        all.push(touched)
-      }
+
+      if (index >= 0) all[index] = touched
+      else all.push(touched)
+
       writeAll(all)
       return touched
     },
@@ -127,10 +127,21 @@ export class SaveError extends Error {
   }
 }
 
-export class ValidationError extends SaveError {
-  errors: string[]
-  constructor(errors: string[]) {
+export class ValidationErrorCollection extends SaveError {
+  errors: ValidationError[]
+  constructor(errors: ValidationError[]) {
     super('VALIDATION_ERROR')
     this.errors = errors
+  }
+}
+
+export class ValidationError extends Error {
+  key: TranslationKey
+  params: TranslationParams
+  constructor(message: TranslationKey, parameters?: TranslationParams) {
+    super('VALIDATION_ERROR')
+    this.name = 'ValidationSingleError'
+    this.params = parameters
+    this.key = message
   }
 }

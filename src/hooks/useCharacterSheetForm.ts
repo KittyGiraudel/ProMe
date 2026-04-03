@@ -21,7 +21,7 @@ export function useCharacterSheetForm({
   const [hydratedFromStore, setHydratedFromStore] = useState(false)
   const pathname = usePathname()
   const activeTab = tabKeyFromPathname(pathname)
-  const { saveForm } = useCharacterSave({
+  const { saveForm, validationErrors } = useCharacterSave({
     character,
     form,
     onSave: setCharacter,
@@ -54,7 +54,8 @@ export function useCharacterSheetForm({
       hydratedFromStore,
       saveForm,
       activeTab,
+      validationErrors,
     }),
-    [form, character, hydratedFromStore, saveForm, activeTab]
+    [form, character, hydratedFromStore, saveForm, activeTab, validationErrors]
   )
 }

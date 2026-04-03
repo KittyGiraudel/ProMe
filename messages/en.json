@@ -171,8 +171,22 @@
       "save_success": "Protector saved.",
       "save": {
         "success": "Protector saved.",
-        "validation_error": "The Protector cannot be saved.",
-        "dead_error": "Cannot save a deceased Protector."
+        "validation_error": "There are errors that prevent the protector from being saved.",
+        "dead_error": "Cannot save a deceased Protector.",
+        "invalid_money": "Money must be 0 or more ({current}).",
+        "invalid_inventory": "The inventory must contain between 0 and {max} items ({current}).",
+        "invalid_spellbook": "The spellbook must contain between 0 and {max} items ({current}).",
+        "invalid_health": "The soul points must be between 0 and {max} ({current}).",
+        "invalid_courage": "The courage points must be between 0 and {max} ({current}).",
+        "invalid_stamina": "The stamina points must be between 0 and {max} ({current}).",
+        "invalid_clock": "The clock must be between 1 and {max} ({current}).",
+        "invalid_map_position": "The position {cell} on the map is invalid.",
+        "invalid_map_cell": "The cell {cell} on the map is invalid.",
+        "invalid_map_cell_core": "The core cell is invalid.",
+        "invalid_map_cell_biome": "The biome defined on the cell {cell} is invalid ({current}).",
+        "invalid_map_cell_icon": "The icon defined on the cell {cell} is invalid ({current}).",
+        "invalid_inventory_item": "The item at position #{index} must have a name.",
+        "invalid_spellbook_item": "The spell at position #{index} must have a name."
       },
       "title": "Actions"
     }

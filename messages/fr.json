@@ -172,8 +172,22 @@
       "revive_success": "Protecteur réanimé.",
       "save": {
         "success": "Protecteur enregistré.",
-        "validation_error": "Le Protecteur ne peut pas être enregistré.",
-        "dead_error": "Impossible de sauvegarder un Protecteur mort."
+        "validation_error": "Il y a des erreurs qui empêchent la sauvegarde de la fiche de personnage.",
+        "dead_error": "Impossible de sauvegarder un Protecteur mort.",
+        "invalid_money": "Les pièces doivent être à zéro ou plus ({current}).",
+        "invalid_inventory": "L’inventaire doit contenir entre 0 et {max} objets ({current}).",
+        "invalid_spellbook": "Le grimoire doit contenir entre 0 et {max} objets ({current}).",
+        "invalid_health": "Les points d’âme doivent être entre 0 et {max} ({current}).",
+        "invalid_courage": "Les points de Courage doivent être entre 0 et {max} ({current}).",
+        "invalid_stamina": "Les points d’Endurance doivent être entre 0 et {max} ({current}).",
+        "invalid_clock": "L’Horloge doit être entre 1 et {max} ({current}).",
+        "invalid_map_position": "La position {position} de la carte est invalide.",
+        "invalid_map_cell": "La case {cell} de la carte est invalide.",
+        "invalid_map_cell_core": "La case du Noyau est invalide.",
+        "invalid_map_cell_biome": "Le biome défini à la case {cell} est invalide ({current}).",
+        "invalid_map_cell_icon": "L’icône définie à la case {cell} est invalide ({current}).",
+        "invalid_inventory_item": "L’objet à la position n°{index} doit avoir un nom.",
+        "invalid_spellbook_item": "Le sort à la position n°{index} doit avoir un nom."
       },
       "title": "Actions"
     }
