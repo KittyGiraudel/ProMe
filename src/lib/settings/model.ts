@@ -38,10 +38,10 @@ export function normalizeSettings(value: unknown): AppSettings {
     map: {
       tickClockOnMove: source?.map?.tickClockOnMove === true,
       showBiomeBackground: source?.map?.showBiomeBackground !== false,
-      coordinatesDisplay: (['axes', 'hexagons', 'both'] as const).includes(
-        source?.map?.coordinatesDisplay as 'axes' | 'hexagons' | 'both'
+      coordinatesDisplay: (['axes', 'cells', 'both'] as const).includes(
+        source?.map?.coordinatesDisplay as 'axes' | 'cells' | 'both'
       )
-        ? (source!.map!.coordinatesDisplay as 'axes' | 'hexagons' | 'both')
+        ? (source!.map!.coordinatesDisplay as 'axes' | 'cells' | 'both')
         : 'both',
     },
   }

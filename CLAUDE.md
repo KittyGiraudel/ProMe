@@ -35,7 +35,7 @@ Uses Next.js App Router with `next-intl`. All pages are under `src/app/[locale]/
 - **`character/`** — Core character domain. `types.ts` defines the `Character` and `CharacterInput` shapes. `model.ts` handles normalization, creation, and validation. `store/localStorageStore.ts` persists characters to localStorage (key `prome:characters`). `store/migrations.ts` handles schema migrations.
 - **`settings/`** — App-wide settings. `storage.ts` reads/writes `prome:settings:v1` in localStorage. `model.ts` handles normalization.
 - **`character/clock.ts`** — Game clock logic tied to the stamina stat.
-- **`rng.ts`**, **`hex/`**, **`map/`**, **`inhabitant/`**, **`village/`** — Domain logic for generators and map.
+- **`rng.ts/`**, **`map/`**, **`inhabitant/`**, **`village/`** — Domain logic for generators and map.
 - **`types.ts`** — Shared types: `BiomeId`, `Faction`, `Gender`, `Suit`, `Rank`, `PlayingCard`, etc.
 
 ### Path alias

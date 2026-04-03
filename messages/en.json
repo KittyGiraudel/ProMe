@@ -47,7 +47,7 @@
       "cell": "{coord}: {biome}{status, select, current { (current)} selected { (selected)} reachable { (reachable)} other {}}",
       "center_on_current": "Center on my position",
       "character_position": "Position: {position}",
-      "clear_cell": "Clear hexagon",
+      "clear_cell": "Clear cell",
       "clear_icon": "Remove icon",
       "clock_advance": "Advance",
       "clock_back": "Go back",
@@ -74,12 +74,12 @@
       "menu_actions_group": "Actions",
       "menu_marking_group": "Scouting",
       "move_here": "Move here",
-      "move_neighbor_only": "Only to an adjacent hexagon",
+      "move_neighbor_only": "Only to an adjacent cell",
       "pick_emoji": "Choose an icon…",
-      "random_biome_discovered_description": "You discover {biomeName}. Mark {additionalTilesToMark, plural, =1 {one adjacent hexagon} other {# adjacent hexagons}} of the same biome ({biomeName}).",
+      "random_biome_discovered_description": "You discover {biomeName}. Mark {additionalTilesToMark, plural, =1 {one adjacent cell} other {# adjacent cells}} of the same biome ({biomeName}).",
       "random_biome_discovered_title": "New biome discovered",
       "random_biome": "Random biome (1D6)",
-      "selected_cell": "Selected hexagon: {cell}",
+      "selected_cell": "Selected cell: {cell}",
       "sheet": "Sheet: ({sheetQ}, {sheetR})",
       "title": "Cartography",
       "unexplored": "Unexplored"
@@ -104,7 +104,7 @@
       "cheatsheet": {
         "embellishment_biome": "Color formatting for biome names (e.g., {example})",
         "embellishment_cards": "Highlight playing cards (♠, ♥, ♦, ♣)",
-        "embellishment_cells": "Links to hexagons (e.g., <e13></e13>, <b07></b07>)",
+        "embellishment_cells": "Links to cells (e.g., <e13></e13>, <b07></b07>)",
         "embellishment_checks": "Color formatting for \"{success}\" and \"{failure}\"",
         "embellishment_dice": "Highlight dice (⚀, ⚁, ⚂, ⚃, ⚄, ⚅)",
         "embellishment_stars": "Color formatting for celestial bodies (☼, ☾)",
@@ -304,7 +304,7 @@
         "2": "**A traveler crosses your path.** Go to page 57 and define who you have met. *If you return here, the traveler will no longer be there.*",
         "3|4": "**You discover a Trading Post.**\n*To learn more, refer to page 23.*",
         "5": "**You encounter a Hedgehog.** To learn more about these creatures, read page 22. **Draw a card** to find out what type of Hedgehog you have found.\n- ♥♦ A **peaceful** Hedgehog.\n- ♠♣ An **aggressive** Hedgehog.",
-        "6": "**You encounter a celestial goose,** which can be ridden when fed or if you succeed in a Courage test. It can take you to any already explored hexagon without advancing your Clock. Afterwards, it leaves you to return to the Flooded Plains."
+        "6": "**You encounter a celestial goose,** which can be ridden when fed or if you succeed in a Courage test. It can take you to any already explored cell without advancing your Clock. Afterwards, it leaves you to return to the Flooded Plains."
       },
       "mushroomJungle": {
         "1": "**You are caught in a spore storm.** No protective equipment can save you in this situation. **Lose 1 point in the attribute of your choice.**",
@@ -321,7 +321,7 @@
         "6": "**You encounter a creature.** Draw a card from the deck to find out what creature you have found.\n- ♦ A **red** Sauriflore (see page 30).\n- ♥ A **yellow** Sauriflore (see page 30).\n- ♣ A **white** Sauriflore (see page 30).\n- ♠ A Pizi (see page 62)."
       },
       "shadowForest": {
-        "1": "**Dense and ancestral shadows tightly embrace you.** Due to the darkness, everything you have found in these three hexagons of the Shadow Forest is erased from your journal and map.\n*If you pass through this hexagon again, draw other encounters.*",
+        "1": "**Dense and ancestral shadows tightly embrace you.** Due to the darkness, everything you have found in these three cells of the Shadow Forest is erased from your journal and map.\n*If you pass through this cell again, draw other encounters.*",
         "2|3": "**You arrive in a [Bruja village](/en/generators/village?f=bruja).** To learn more about Brujas, see page 18. When you find a Bruja village, go to page 43 and **draw 5 cards** to define the place.",
         "4": "**You find a Swarm of fireflies.** Once a day, if you pass through this place, you can recover 1 point in any Attribute.",
         "5|6": "**You encounter a creature.** Draw a card to find out which one:\n- ♦ A group of **Yabas** (see page 19).\n- ♥ A **lost Yaba** (see page 19).\n- ♣ A **Warrior Tree**, which triggers a combat (see page 19).\n- ♠ A **Pizi** (see page 62)."
@@ -333,7 +333,7 @@
         "5|6": "**You encounter a Desert Scarab.** *To learn more, read page 37.* Draw a card to discover what type of Scarab you have encountered.\n- ♦ A **peaceful** Scarab.\n- ♥ An **aggressive** Scarab.\n- ♠♣ A **flipped** Scarab."
       },
       "giganticGardens": {
-        "1": "**You face a swarm of giant bees.** They rush towards you to attack, and you must either fight or flee.\n*The next time you pass through this hexagon, this event repeats.*",
+        "1": "**You face a swarm of giant bees.** They rush towards you to attack, and you must either fight or flee.\n*The next time you pass through this cell, this event repeats.*",
         "2|3": "**You discover a garden of normal-sized Lareons.** *To learn more, see page 41.* Draw a card to discover the type of flowers that grow in this garden.\n- ♥♦ **Red** Lareons.\n- ♠♣ **Yellow** Lareons.",
         "4": "**You discover a field of golden petals.** Draw a card from the deck to discover what type of flowers you have found.\n*In both cases, nothing will grow here again after your passage.*\n- ♥♦ Golden petals — can be harvested and sold for 100 coins.\n- ♠♣ Golden shoots — can be harvested as 1D6 food.",
         "5": "**You encounter a luxurious whale.** *To learn more, read page 40.* Draw a card to find out what type of whale you have encountered.\n- ♥♦ A **peaceful** luxurious whale.\n- ♠♣ An **aggressive** luxurious whale.",
@@ -390,7 +390,7 @@
   },
   "faq": {
     "answer_1": "ProMe, for “**Pro**tector” and “**Me**mories” is a companion ~app~ website for “[The Protector’s Memories](https://www.criticalkit.co.uk/products/the-protectors-memories)”, a solo RPG by Enzo Salviato. It is suggested to have the app open while playing the game, as a reference and to track your progress. It is mainly for playing the game digitally (though not entirely, as using the official manual is required).\n\nThe game is exceptional, but requires taking notes on paper; something that is personally tedious for me. That’s why I developed this digital version, to shift the note-taking and annotation of the map onto the computer (or mobile).",
-    "answer_2": "The mapping module uses modern CSS features that are not yet well supported by all browsers. That’s why it’s best to use the Chrome browser, as it’s the one I use for development. As for why I didn’t extend support to other browsers: creating a hex grid is complicated; I had to choose between using modern tech to keep things simple, or developing the entire map system with HTML Canvas, which I didn’t want to do.",
+    "answer_2": "The mapping module uses modern CSS features that are not yet well supported by all browsers. That’s why it’s best to use the Chrome browser, as it’s the one I use for development. As for why I didn’t extend support to other browsers: creating a hexagonal grid is complicated; I had to choose between using modern tech to keep things simple, or developing the entire map system with HTML Canvas, which I didn’t want to do.",
     "answer_3": "Encounters are not implemented, so each move requires rolling a die (physically or via the app) and referring to the rulebook to determine which encounter occurs.\nIn addition, the stock of shops is not implemented either. This means that when creating a village, it is necessary to define the offers manually, then note them in the journal to return to them later.",
     "answer_4": "For better or for worse, the game doesn’t have any concept of gender, so all characters — playable or not — are genderless. I thought it would be interesting and more immersive to have the ability to define the gender of the characters. It’s completely optional, and it’s permissive on purpose with multiple options.",
     "question_1": "What is this site?",
@@ -507,15 +507,15 @@
     "sheet_single_page_mode_label": "Single page mode",
     "journal_timeline_reverse_chronological_help": "By default, the journal is chronological; uncheck to display entries from newest to oldest.",
     "journal_timeline_reverse_chronological_label": "Reverse chronological journal",
-    "map_tick_clock_on_move_help": "When you move to an adjacent hexagon, the clock position advances as if you had used the \"Advance\" button.",
+    "map_tick_clock_on_move_help": "When you move to an adjacent cell, the clock position advances as if you had used the \"Advance\" button.",
     "map_tick_clock_on_move_label": "Auto-advancing clock",
-    "map_show_biome_background_help": "Show patterned backgrounds inside each hex based on its biome. Useful for distinguishing biomes without relying on color alone.",
+    "map_show_biome_background_help": "Show patterned backgrounds inside each cell based on its biome. Useful for distinguishing biomes without relying on color alone.",
     "map_show_biome_background_label": "Biome backgrounds",
-    "map_coordinates_display_help": "Choose where hexagon coordinates are shown: on the axes around the map, inside each hexagon, or both.",
+    "map_coordinates_display_help": "Choose where cell coordinates are shown: on the axes around the map, inside each cell, or both.",
     "map_coordinates_display_label": "Coordinates display",
     "map_coordinates_display_axes": "Axes only",
-    "map_coordinates_display_hexagons": "Hexagons only",
-    "map_coordinates_display_both": "Axes and hexagons",
+    "map_coordinates_display_cells": "Cells only",
+    "map_coordinates_display_both": "Axes and cells",
     "page_description": "Set global app preferences. They are saved locally in this browser.",
     "save_success": "Settings saved.",
     "language_en": "English",
@@ -569,7 +569,7 @@
       },
       "K": {
         "red": "**Abandoned.** The buildings seem **uninhabited**. The **establishments are inoperable** until someone decides to **rebuild the village**.",
-        "black": "**Nomadic.** The village **moves**. When you return to this **map hexagon**, you must succeed a **Courage test**. On **failure**, the village **is no longer there**."
+        "black": "**Nomadic.** The village **moves**. When you return to this **map cell**, you must succeed a **Courage test**. On **failure**, the village **is no longer there**."
       }
     },
     "village_faction_label": "Faction"

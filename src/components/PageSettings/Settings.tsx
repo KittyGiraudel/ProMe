@@ -25,7 +25,7 @@ type SettingsFormValues = {
   villageMergeDuplicateEstablishments: boolean
   mapTickClockOnMove: boolean
   mapShowBiomeBackground: boolean
-  mapCoordinatesDisplay: 'axes' | 'hexagons' | 'both'
+  mapCoordinatesDisplay: 'axes' | 'cells' | 'both'
 }
 
 export function Settings() {
@@ -192,8 +192,8 @@ export function Settings() {
                           label: t('settings.map_coordinates_display_axes'),
                         },
                         {
-                          value: 'hexagons',
-                          label: t('settings.map_coordinates_display_hexagons'),
+                          value: 'cells',
+                          label: t('settings.map_coordinates_display_cells'),
                         },
                       ]}
                     />

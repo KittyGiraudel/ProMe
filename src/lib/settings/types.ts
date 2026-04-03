@@ -24,6 +24,6 @@ export type AppSettings = {
     /** When true, biome background patterns are rendered inside each cell. */
     showBiomeBackground: boolean
     /** Controls how cell coordinates are displayed: on the axes, inside cells, or both. */
-    coordinatesDisplay: 'axes' | 'hexagons' | 'both'
+    coordinatesDisplay: 'axes' | 'cells' | 'both'
   }
 }

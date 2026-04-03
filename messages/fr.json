@@ -47,7 +47,7 @@
       "cell": "{coord}: {biome}{status, select, current { (actuel)} selected { (sélectionné)} reachable { (atteignable)} other {}}",
       "center_on_current": "Centrer sur ma position",
       "character_position": "Position : {position}",
-      "clear_cell": "Effacer l’hexagone",
+      "clear_cell": "Effacer la case",
       "clear_icon": "Retirer l’icône",
       "clock_advance": "Avancer",
       "clock_back": "Revenir",
@@ -74,12 +74,12 @@
       "menu_actions_group": "Actions",
       "menu_marking_group": "Reconnaissance",
       "move_here": "Se déplacer ici",
-      "move_neighbor_only": "Uniquement vers un hexagone adjacent",
+      "move_neighbor_only": "Uniquement vers une case adjacente",
       "pick_emoji": "Choisir une icône…",
-      "random_biome_discovered_description": "Vous découvrez {biomeName}. Marquez {additionalTilesToMark, plural, =1 {un hexagone adjacent} other {# hexagones adjacents}} du même biome ({biomeName}).",
+      "random_biome_discovered_description": "Vous découvrez {biomeName}. Marquez {additionalTilesToMark, plural, =1 {une case adjacente} other {# cases adjacentes}} du même biome ({biomeName}).",
       "random_biome_discovered_title": "Nouveau biome découvert",
       "random_biome": "Biome aléatoire (1D6)",
-      "selected_cell": "Hexagone sélectionné : {cell}",
+      "selected_cell": "Case sélectionnée : {cell}",
       "sheet": "Feuille : ({sheetQ}, {sheetR})",
       "title": "Cartographie",
       "unexplored": "Inexploré"
@@ -104,7 +104,7 @@
       "cheatsheet": {
         "embellishment_biome": "Mise en couleur des noms de biomes (ex. : {example})",
         "embellishment_cards": "Mise en valeur des cartes à jouer (♠, ♥, ♦, ♣)",
-        "embellishment_cells": "Liens vers les hexagones (ex. : <e13></e13>, <b07></b07>)",
+        "embellishment_cells": "Liens vers les cases (ex. : <e13></e13>, <b07></b07>)",
         "embellishment_checks": "Mise en couleur des mots « {success} » et « {failure} »",
         "embellishment_dice": "Mise en valeur des dés (⚀, ⚁, ⚂, ⚃, ⚄, ⚅)",
         "embellishment_stars": "Mise en couleur des astres (☼, ☾)",
@@ -306,7 +306,7 @@
         "2": "**Un voyageur croise votre chemin.** Allez à la page 57 et [définissez](/fr/generators/npc) qui vous avez rencontré.\n*Si vous revenez ici, le voyageur ne sera plus là.*",
         "3|4": "**Vous découvrez un Comptoir.**\n*Pour en savoir plus, reportez-vous à la page 23.*",
         "5": "**Vous rencontrez un Hérissin.** Pour en savoir plus sur ces créatures, lisez la page 22. **Tirez une carte** pour savoir quel type de Hérisson vous avez trouvé.\n- ♥♦ Un Hérissin **paisible**.\n- ♠♣ Un Hérissin **agressif**.",
-        "6": "**Vous rencontrez une oie céleste,** qui peut être chevauchée lorsqu’elle est nourrie ou si vous réussissez un test de Courage. Elle peut vous emmener dans n’importe quel hexagone déjà exploré sans avancer votre Horloge. Ensuite, elle vous quitte pour retourner dans les Plaines Inondées."
+        "6": "**Vous rencontrez une oie céleste,** qui peut être chevauchée lorsqu’elle est nourrie ou si vous réussissez un test de Courage. Elle peut vous emmener dans n’importe quelle case déjà explorée sans avancer votre Horloge. Ensuite, elle vous quitte pour retourner dans les Plaines Inondées."
       },
       "mushroomJungle": {
         "1": "**Vous êtes pris dans une tempête de spores.** Aucun équipement de protection ne peut vous sauver dans cette situation. **Perdez 1 point dans l’attribut de votre choix.**",
@@ -323,7 +323,7 @@
         "6": "**Vous rencontrez une créature.** Tirez une carte de la pioche pour savoir quelle créature vous avez trouvée.\n- ♦ Un Sauriflore **rouge** (voir page 30).\n- ♥ Un Sauriflore **jaune** (voir page 30).\n- ♣ Un Sauriflore **blanc** (voir page 30).\n- ♠ Un Pizi (voir page 62)."
       },
       "shadowForest": {
-        "1": "**Des ombres denses et ancestrales vous étreignent étroitement.** En raison de l’obscurité, tout ce que vous avez trouvé dans ces trois hexagones de la Forêt des Ombres est effacé de votre journal et de votre carte.\n*Si vous repassez par cet hexagone, tirez d’autres rencontres.*",
+        "1": "**Des ombres denses et ancestrales vous étreignent étroitement.** En raison de l’obscurité, tout ce que vous avez trouvé dans ces trois cases de la Forêt des Ombres est effacé de votre journal et de votre carte.\n*Si vous repassez par cette case, tirez d’autres rencontres.*",
         "2|3": "**Vous arrivez dans un [village Bruja](/fr/generators/village?f=bruja).** Pour en savoir plus sur les Brujas, voir page 18. Lorsque vous trouvez un village Bruja, allez à la page 43 et **tirez 5 cartes** pour définir le lieu.",
         "4": "**Vous trouvez un Essaim de lucioles.** Une fois par jour, si vous passez par cet endroit, vous pouvez récupérer 1 point de n’importe quel Attribut.",
         "5|6": "**Vous rencontrez une créature.** Tirez une carte pour savoir laquelle :\n- ♦ Un groupe de **Yabas** (voir page 19).\n- ♥ Un **Yaba** perdu (voir page 19).\n- ♣ Un **Arbre Guerrier**, ce qui déclenche un combat (voir page 19). \n- ♠ Un **Pizi** (voir page 62)."
@@ -335,7 +335,7 @@
         "5|6": "**Vous rencontrez un Scarabée du désert.** *Pour en savoir plus, lisez la page 37.*\nTirez une carte pour découvrir quel type de Scarabée vous avez rencontré.\n- ♦ Un Scarabée **paisible**.\n- ♥ Un Scarabée **agressif**.\n- ♠♣ Un Scarabée **retourné**."
       },
       "giganticGardens": {
-        "1": "**Vous faites face à un essaim d’abeilles géantes.** Elles foncent vers vous pour attaquer, et vous devez soit les combattre soit fuir.\n*La prochaine fois que vous passez dans cet hexagon, cet événement se répète.*",
+        "1": "**Vous faites face à un essaim d’abeilles géantes.** Elles foncent vers vous pour attaquer, et vous devez soit les combattre soit fuir.\n*La prochaine fois que vous passez dans cette case, cet événement se répète.*",
         "2|3": "**Vous découvrez un jardin de Laréons de taille normale.** *Pour en savoir plus, voir page 41.*\nPiochez une carte pour découvrir le type de fleurs qui pousse en ce jardin.\n- ♥♦ Des Laérons **rouges**.\n- ♠♣ Des Laérons **jaunes**.",
         "4": "**Vous découvrez un champ de pétales d’or.** Tirez une carte de la pioche pour découvrir quel type de fleurs vous avez trouvé. *Dans les deux cas, plus rien ne poussera ici après votre passage.*\n- ♥♦ Des pétales d’or — peuvent être récoltés et vendus pour 100 pièces.\n- ♠♣ Des pousses d’or — peuvent être récoltées comme 1D6 nourriture.",
         "5": "**Vous rencontrez une baleine luxuriante.** *Pour en savoir plus, lisez la page 40.*\nPiochez une carte pour savoir quel type de baleine vous rencontrez.\n- ♥♦ Une baleine luxuriante **paisible**.\n- ♠♣ Une baleine luxuriante **agressive**.",
@@ -509,15 +509,15 @@
     "sheet_single_page_mode_label": "Mode page unique",
     "journal_timeline_reverse_chronological_help": "Par défault, le journal est chronologique ; décochez pour afficher les entrées du plus récent au plus ancien.",
     "journal_timeline_reverse_chronological_label": "Journal anti-chronologique",
-    "map_tick_clock_on_move_help": "Quand vous vous déplacez vers un hexagone voisin, la position sur l’horloge avance comme si vous aviez utilisé le bouton « Avancer ».",
+    "map_tick_clock_on_move_help": "Quand vous vous déplacez vers une case voisine, la position sur l’horloge avance comme si vous aviez utilisé le bouton « Avancer ».",
     "map_tick_clock_on_move_label": "Horloge automatique",
-    "map_show_biome_background_help": "Affiche des motifs de fond dans chaque hexagone selon son biome. Utile pour distinguer les biomes sans se fier uniquement aux couleurs.",
+    "map_show_biome_background_help": "Affiche des motifs de fond dans chaque case selon son biome. Utile pour distinguer les biomes sans se fier uniquement aux couleurs.",
     "map_show_biome_background_label": "Motifs de biome",
-    "map_coordinates_display_help": "Choisissez où afficher les coordonnées des hexagones : sur les axes autour de la carte, dans chaque hexagone, ou les deux.",
+    "map_coordinates_display_help": "Choisissez où afficher les coordonnées des cases : sur les axes autour de la carte, dans chaque case, ou les deux.",
     "map_coordinates_display_label": "Affichage des coordonnées",
     "map_coordinates_display_axes": "Axes uniquement",
-    "map_coordinates_display_hexagons": "Hexagones uniquement",
-    "map_coordinates_display_both": "Axes et hexagones",
+    "map_coordinates_display_cells": "Cases uniquement",
+    "map_coordinates_display_both": "Axes et cases",
     "page_description": "Réglez les préférences globales de l’application. Elles sont enregistrées localement dans ce navigateur.",
     "save_success": "Paramètres enregistrés.",
     "language_en": "English",
@@ -572,7 +572,7 @@
       },
       "K": {
         "red": "**Abandonné.** Les bâtiments semblent **inhabités**. Les **établissements sont inopérants** tant que quelqu’un ne décide pas de **reconstruire le village**.",
-        "black": "**Nomade.** Le village **se déplace**. Lorsque vous revenez sur cette **hexagone**, vous devez réussir un **test de Courage**. En cas d’**échec**, le village **n’est plus là**."
+        "black": "**Nomade.** Le village **se déplace**. Lorsque vous revenez sur cette **case**, vous devez réussir un **test de Courage**. En cas d’**échec**, le village **n’est plus là**."
       }
     },
     "village_faction_label": "Peuple du village"

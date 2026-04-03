@@ -21,7 +21,7 @@ export function MapDisplay({
   selectCell,
 }: MapDisplayProps) {
   const { settings } = useSettings()
-  const showAxes = settings.map.coordinatesDisplay !== 'hexagons'
+  const showAxes = settings.map.coordinatesDisplay !== 'cells'
 
   return (
     <div className='MapScroller'>
