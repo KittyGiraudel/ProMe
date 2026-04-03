@@ -64,19 +64,17 @@ export function createLocalStorageCharacterStore(): CharacterStore {
     },
     save(character) {
       const normalized = normalizeCharacter(character)
-      if (!normalized) {
-        throw new Error('Invalid character payload')
-      }
+      if (!normalized) throw new SaveError('INVALID_PAYLOAD')
+
       const all = readAll()
       const existing = all.find(item => item.id === normalized.id) ?? null
+
       if (!canPersistCharacterUpdate(existing, normalized)) {
-        throw new Error('Dead characters are frozen and cannot be modified')
+        throw new SaveError('DEAD_CHARACTER')
       }
 
       const validation = validateCharacterForPersistence(normalized)
-      if (!validation.ok) {
-        throw new Error(validation.errors.join('; '))
-      }
+      if (!validation.ok) throw new ValidationError(validation.errors)
 
       const touched = touchCharacter(normalized)
       const index = all.findIndex(item => item.id === touched.id)
@@ -117,5 +115,22 @@ export function createLocalStorageCharacterStore(): CharacterStore {
       writeAll(merged.characters)
       return result
     },
+  }
+}
+
+export class SaveError extends Error {
+  details: string | undefined
+  constructor(message: string, details?: string) {
+    super(message)
+    this.name = 'SaveError'
+    this.details = details
+  }
+}
+
+export class ValidationError extends SaveError {
+  errors: string[]
+  constructor(errors: string[]) {
+    super('VALIDATION_ERROR')
+    this.errors = errors
   }
 }

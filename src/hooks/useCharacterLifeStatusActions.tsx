@@ -4,72 +4,35 @@ import { App, FormInstance } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { Button } from '@/components/Button/Button'
-import { getCharacterStore } from '@/lib/character/store'
 import type { Character } from '@/lib/character/types'
-import { useCharacterFromForm } from './useCharacterFromForm'
+import { SaveForm } from './useCharacterSave'
 import { useWatchedStats } from './useCharacterSheetDerived'
 
 const DEATH_SUGGESTION_KEY = 'death-suggestion'
 
 export function useCharacterLifeStatusActions({
-  onSaved,
-  setSaveErrors,
-  form,
-  character,
+  saveForm,
 }: {
-  onSaved: (saved: Character) => void
-  setSaveErrors: (errors: string[] | null) => void
-  form: FormInstance
-  character: Character | null
+  saveForm: SaveForm
 }) {
-  const t = useTranslations()
-  const { message, notification } = App.useApp()
-  const store = useMemo(() => getCharacterStore(), [])
-  const getCharacterFromForm = useCharacterFromForm({ character, form })
+  const { notification } = App.useApp()
 
   const onKill = useCallback(() => {
-    try {
-      const character = getCharacterFromForm()
-      if (character.lifeStatus === 'dead') return
-      notification.destroy(DEATH_SUGGESTION_KEY)
-      const payload: Character = { ...character, lifeStatus: 'dead' }
-      const saved = store.save(payload)
-      setSaveErrors(null)
-      onSaved(saved)
-      message.success(t('characters.actions.mark_dead_success'))
-    } catch (e) {
-      const msg = e instanceof Error ? e.message : String(e)
-      message.error(msg)
-    }
-  }, [
-    setSaveErrors,
-    getCharacterFromForm,
-    message,
-    notification,
-    onSaved,
-    store,
-    t,
-  ])
+    notification.destroy(DEATH_SUGGESTION_KEY)
+    saveForm(
+      { lifeStatus: 'dead' },
+      { successKey: 'characters.actions.mark_dead_success' }
+    )
+  }, [saveForm, notification])
 
   const onRevive = useCallback(() => {
-    try {
-      const character = getCharacterFromForm()
-      if (character.lifeStatus === 'alive') return
-      const payload: Character = { ...character, lifeStatus: 'alive' }
-      const saved = store.save(payload)
-      setSaveErrors(null)
-      onSaved(saved)
-      message.success(t('characters.actions.revive_success'))
-    } catch (e) {
-      const msg = e instanceof Error ? e.message : String(e)
-      message.error(msg)
-    }
-  }, [setSaveErrors, getCharacterFromForm, message, onSaved, store, t])
+    saveForm(
+      { lifeStatus: 'alive' },
+      { successKey: 'characters.actions.revive_success' }
+    )
+  }, [saveForm])
 
-  return {
-    onKill,
-    onRevive,
-  }
+  return useMemo(() => ({ onKill, onRevive }), [onKill, onRevive])
 }
 
 export const useWarnDeath = ({

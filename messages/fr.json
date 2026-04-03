@@ -170,7 +170,11 @@
       "revive_confirm_description": "Le Protecteur deviendra jouable et sa fiche sera modifiable à nouveau.",
       "revive_confirm_title": "Réanimer ce Protecteur ?",
       "revive_success": "Protecteur réanimé.",
-      "save_success": "Protecteur enregistré.",
+      "save": {
+        "success": "Protecteur enregistré.",
+        "validation_error": "Le Protecteur ne peut pas être enregistré.",
+        "dead_error": "Impossible de sauvegarder un Protecteur mort."
+      },
       "title": "Actions"
     }
   },

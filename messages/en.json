@@ -169,6 +169,11 @@
       "revive_confirm_title": "Revive this Protector?",
       "revive_success": "Protector revived.",
       "save_success": "Protector saved.",
+      "save": {
+        "success": "Protector saved.",
+        "validation_error": "The Protector cannot be saved.",
+        "dead_error": "Cannot save a deceased Protector."
+      },
       "title": "Actions"
     }
   },

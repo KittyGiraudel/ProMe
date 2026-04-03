@@ -8,6 +8,12 @@ import {
   useContext,
   useMemo,
 } from 'react'
+import {
+  useCharacterLifeStatusActions,
+  useWarnDeath,
+} from '@/hooks/useCharacterLifeStatusActions'
+import { SaveForm } from '@/hooks/useCharacterSave'
+import { Character } from '@/lib/character/types'
 
 type CharacterContextValue = {
   setCharacterValue: (
@@ -23,17 +29,25 @@ const CharacterContext = createContext<CharacterContextValue | null>(null)
 
 export function CharacterProvider({
   form,
+  character,
+  saveForm,
   children,
-  onKill,
-  onRevive,
   isDead,
 }: {
   form: FormInstance
+  character: Character | null
+  saveForm: SaveForm
   children: ReactNode
-  onKill: VoidFunction
-  onRevive: VoidFunction
   isDead: boolean
 }) {
+  // Mark dead / revive and death-suggestion flow; reads live health from the
+  // form via derived watches.
+  const { onKill, onRevive } = useCharacterLifeStatusActions({ saveForm })
+
+  // Warn the user when their health crosses to non-positive and suggest
+  // marking the character as dead.
+  useWarnDeath({ form, character, onKill })
+
   const setCharacterValue = useCallback(
     (path: string | (string | number)[], value: unknown) =>
       form.setFieldValue(path, value),

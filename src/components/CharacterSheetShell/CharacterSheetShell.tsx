@@ -14,16 +14,10 @@ import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { SettingsHint } from '@/components/SettingsHint/SettingsHint'
 import { Spacing } from '@/components/Spacing/Spacing'
 import { toFormValues } from '@/hooks/useCharacterFromForm'
-import {
-  useCharacterLifeStatusActions,
-  useWarnDeath,
-} from '@/hooks/useCharacterLifeStatusActions'
 import { useCharacterLink } from '@/hooks/useCharacterLink'
 import { useWatchedMap } from '@/hooks/useCharacterSheetDerived'
 import { useCharacterSheetDocumentTitle } from '@/hooks/useCharacterSheetDocumentTitle'
 import { useCharacterSheetForm } from '@/hooks/useCharacterSheetForm'
-import { useCharacterSheetFormSync } from '@/hooks/useCharacterSheetFormSync'
-import { useCharacterSheetMainActions } from '@/hooks/useCharacterSheetMainActions'
 import { useCharacterSheetTheme } from '@/hooks/useCharacterSheetTheme'
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
 import { Link } from '@/i18n/navigation'
@@ -43,15 +37,8 @@ export function CharacterSheetShell({
   // Ant Design form + character from client store; unsaved-navigation guard;
   // merge form → Character for save/export; `onSaved` refreshes local character
   // state after persistence.
-  const {
-    form,
-    character,
-    hydratedFromStore,
-    saveErrors,
-    setSaveErrors,
-    onSaved,
-    activeTab,
-  } = useCharacterSheetForm({ characterId })
+  const { activeTab, form, character, hydratedFromStore, saveForm } =
+    useCharacterSheetForm({ characterId })
 
   // Watches clock/stamina (preserve-aware) to drive adaptive sheet “night”
   // chrome and Ant Design theme.
@@ -59,42 +46,11 @@ export function CharacterSheetShell({
     form,
   })
 
-  // Side effects: remap clock index when stamina changes total segments; clamp
-  // health/courage/stamina current values so they never exceed max (also uses
-  // derived watches internally).
-  useCharacterSheetFormSync({
-    form,
-    character,
-  })
-
   // `generateMetadata` can’t see store-backed names; this sets `document.title`
   // after hydration (+ tab suffix).
-  useCharacterSheetDocumentTitle({
-    character,
-  })
-
-  // Mark dead / revive and death-suggestion flow; reads live health from the
-  // form via derived watches.
-  const { onKill, onRevive } = useCharacterLifeStatusActions({
-    form,
-    character,
-    onSaved,
-    setSaveErrors,
-  })
-
-  // Warn the user when their health crosses to non-positive and suggest
-  // marking the character as dead.
-  useWarnDeath({ form, character, onKill })
+  useCharacterSheetDocumentTitle({ character })
 
   const { settings } = useSettings()
-
-  // Form `onFinish` save to store, delete from store, and JSON export download.
-  const { onSave } = useCharacterSheetMainActions({
-    form,
-    character,
-    onSaved,
-    setSaveErrors,
-  })
 
   // Layout page-cover biome follows map position even when the active tab is not the map.
   // @TODO: consider whether we can use `getCellState` instead
@@ -154,23 +110,20 @@ export function CharacterSheetShell({
         key={`${character.id}-${character.updatedAt}`}
         form={form}
         initialValues={toFormValues(character)}
-        onFinish={onSave}
+        onFinish={saveForm}
         disabled={isDead}
         layout='vertical'
         colon={false}
         preserve>
         <CharacterProvider
           form={form}
-          onKill={onKill}
-          onRevive={onRevive}
+          character={character}
+          saveForm={saveForm}
           isDead={isDead}>
           <ConfigProvider theme={configTheme}>
             <div
               data-sheet-night={characterSheetNightMode ? 'true' : undefined}>
               <Spacing>
-                {saveErrors ? (
-                  <Alert type='error' title={saveErrors.join('; ')} />
-                ) : null}
                 {isDead ? (
                   <Alert
                     showIcon

@@ -1,28 +1,31 @@
 'use client'
 
-import { App, Form } from 'antd'
-import { useTranslations } from 'next-intl'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useUnsavedChangesGuard } from '@/hooks/useUnsavedChangesGuard'
+import { Form } from 'antd'
+import { useEffect, useMemo, useState } from 'react'
 import { usePathname } from '@/i18n/navigation'
 import { getCharacterStore } from '@/lib/character/store'
 import type { Character } from '@/lib/character/types'
-import { SheetFormValues, toFormValues } from './useCharacterFromForm'
+import { SheetFormValues } from './useCharacterFromForm'
+import { useCharacterSave } from './useCharacterSave'
+import { useCharacterSaveGuard } from './useCharacterSaveGuard'
 import { tabKeyFromPathname } from './useCharacterSheetDocumentTitle'
+import { useCharacterSheetFormSync } from './useCharacterSheetFormSync'
 
 export function useCharacterSheetForm({
   characterId,
 }: {
   characterId: string
 }) {
-  const { modal } = App.useApp()
-  const t = useTranslations()
   const [form] = Form.useForm<SheetFormValues>()
   const [character, setCharacter] = useState<Character | null>(null)
   const [hydratedFromStore, setHydratedFromStore] = useState(false)
-  const [saveErrors, setSaveErrors] = useState<string[] | null>(null)
   const pathname = usePathname()
   const activeTab = tabKeyFromPathname(pathname)
+  const { saveForm, saveCharacter } = useCharacterSave({
+    character,
+    form,
+    onSave: setCharacter,
+  })
 
   // Avoid hydration mismatches by deferring localStorage/sessionStorage reads to the client.
   useEffect(
@@ -37,76 +40,22 @@ export function useCharacterSheetForm({
     [characterId]
   )
 
-  const confirmUnsavedLeave = useCallback(
-    ({ onLeave, onStay }: { onLeave: VoidFunction; onStay: VoidFunction }) => {
-      modal.confirm({
-        title: t('common.unsaved_changes_warning.title'),
-        content: t('common.unsaved_changes_warning.description'),
-        okText: t('common.unsaved_changes_warning.leave'),
-        cancelText: t('common.unsaved_changes_warning.stay'),
-        onOk: onLeave,
-        onCancel: onStay,
-      })
-    },
-    [modal, t]
-  )
+  useCharacterSaveGuard({ form, character })
 
-  const isFormDirty = useCallback(() => {
-    if (!character) return false
-    if (form.isFieldsTouched()) return true
-    const values = form.getFieldsValue(true) as SheetFormValues
-    return !sheetFormMatchesSavedCharacter(values, character)
-  }, [character, form])
-
-  useUnsavedChangesGuard({
-    isDirty: isFormDirty,
-    confirmLeave: confirmUnsavedLeave,
-  })
-
-  const onSaved = useCallback((saved: Character) => setCharacter(saved), [])
+  // Side effects: remap clock index when stamina changes total segments; clamp
+  // health/courage/stamina current values so they never exceed max (also uses
+  // derived watches internally).
+  useCharacterSheetFormSync({ form, character })
 
   return useMemo(
     () => ({
       form,
       character,
       hydratedFromStore,
-      saveErrors,
-      setSaveErrors,
-      onSaved,
+      saveCharacter,
+      saveForm,
       activeTab,
     }),
-    [
-      form,
-      character,
-      hydratedFromStore,
-      saveErrors,
-      setSaveErrors,
-      onSaved,
-      activeTab,
-    ]
+    [form, character, hydratedFromStore, saveCharacter, saveForm, activeTab]
   )
-}
-
-/** Compares live form values to the last saved character (for guards; not tied
- * to Ant Design "touched"). Key-order-insensitive to handle Ant Design
- * Form.List reconstructing objects in field-registration order. */
-function sheetFormMatchesSavedCharacter(
-  values: SheetFormValues,
-  saved: Character
-): boolean {
-  return stableStringify(values) === stableStringify(toFormValues(saved))
-}
-
-function stableStringify(value: unknown): string {
-  return JSON.stringify(value, (_, v) => {
-    if (v && typeof v === 'object' && !Array.isArray(v)) {
-      return Object.keys(v)
-        .sort()
-        .reduce<Record<string, unknown>>((o, k) => {
-          o[k] = (v as Record<string, unknown>)[k]
-          return o
-        }, {})
-    }
-    return v
-  })
 }
