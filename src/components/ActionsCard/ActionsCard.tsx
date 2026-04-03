@@ -4,17 +4,38 @@ import DeleteOutlined from '@ant-design/icons/lib/icons/DeleteOutlined'
 import DownloadOutlined from '@ant-design/icons/lib/icons/DownloadOutlined'
 import FrownOutlined from '@ant-design/icons/lib/icons/FrownOutlined'
 import HeartOutlined from '@ant-design/icons/lib/icons/HeartOutlined'
-import { App, Avatar, Card, List } from 'antd'
+import { App, Avatar, Card, Form, List } from 'antd'
+import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
+import { useCallback } from 'react'
 import { Button } from '@/components/Button/Button'
 import { useCharacterContext } from '@/components/CharacterContext/CharacterContext'
+import { stringifyCharacters } from '@/lib/character/store/migrations'
+import {
+  buildCharacterExportFileName,
+  downloadJsonFile,
+} from '@/lib/download/downloadJsonFile'
 
 import './ActionsCard.css'
 
 export function ActionsCard() {
   const t = useTranslations()
-  const { onKill, onExport, onRevive, onDelete, isDead } = useCharacterContext()
-  const { modal } = App.useApp()
+  const { onKill, onRevive, onDelete, isDead } = useCharacterContext()
+  const { modal, message } = App.useApp()
+  const form = Form.useFormInstance()
+  const { id: characterId } = useParams()
+
+  const onExport = useCallback(() => {
+    const character = { ...form.getFieldsValue(true), id: characterId }
+    const content = stringifyCharacters([character])
+    try {
+      downloadJsonFile(content, buildCharacterExportFileName(character))
+      message.success(t('characters.actions.export_downloaded'))
+    } catch (error) {
+      console.error(error)
+      message.error(t('characters.actions.export_download_error'))
+    }
+  }, [characterId, message, t])
 
   const handleRequestDelete = () => {
     modal.confirm({

@@ -27,7 +27,7 @@ export function useWatchedIdentity(oForm?: FormInstance) {
     Form.useWatch<Gender>('gender', { form, preserve: true }) ?? 'indeterminate'
   const name = Form.useWatch<string>('name', { form, preserve: true }) ?? ''
 
-  return { name, archetype, gender }
+  return useMemo(() => ({ name, archetype, gender }), [name, archetype, gender])
 }
 
 export function useWatchedStats(oForm?: FormInstance) {

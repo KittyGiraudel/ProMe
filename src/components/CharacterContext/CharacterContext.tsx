@@ -15,7 +15,6 @@ type CharacterContextValue = {
     value: unknown
   ) => void
   onKill: () => void
-  onExport: () => void
   onRevive: () => void
   onDelete: () => void
   isDead: boolean
@@ -27,7 +26,6 @@ export function CharacterProvider({
   form,
   children,
   onKill,
-  onExport,
   onRevive,
   onDelete,
   isDead,
@@ -35,7 +33,6 @@ export function CharacterProvider({
   form: FormInstance
   children: ReactNode
   onKill: VoidFunction
-  onExport: VoidFunction
   onRevive: VoidFunction
   onDelete: VoidFunction
   isDead: boolean
@@ -50,12 +47,11 @@ export function CharacterProvider({
     () => ({
       setCharacterValue,
       onKill,
-      onExport,
       onRevive,
       onDelete,
       isDead,
     }),
-    [setCharacterValue, onKill, onExport, onRevive, onDelete, isDead]
+    [setCharacterValue, onKill, onRevive, onDelete, isDead]
   )
 
   return (

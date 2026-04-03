@@ -89,7 +89,7 @@ export function CharacterSheetShell({
   const { settings } = useSettings()
 
   // Form `onFinish` save to store, delete from store, and JSON export download.
-  const { onSave, onExport, onDelete } = useCharacterSheetMainActions({
+  const { onSave, onDelete } = useCharacterSheetMainActions({
     form,
     character,
     onSaved,
@@ -162,7 +162,6 @@ export function CharacterSheetShell({
         <CharacterProvider
           form={form}
           onKill={onKill}
-          onExport={onExport}
           onRevive={onRevive}
           onDelete={onDelete}
           isDead={isDead}>

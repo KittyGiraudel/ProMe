@@ -9,30 +9,6 @@ import { stringifyCharacters } from '@/lib/character/store/migrations'
 import type { Character } from '@/lib/character/types'
 import { useCharacterFromForm } from './useCharacterFromForm'
 
-function sanitizeFileNamePart(value: string): string {
-  return value
-    .trim()
-    .replace(/\s+/g, '-')
-    .replace(/[^A-Za-z0-9_-]/g, '')
-}
-
-function buildCharacterExportFileName(character: Character): string {
-  const safeName = sanitizeFileNamePart(character.name) || 'sans-nom'
-  const safeId = sanitizeFileNamePart(character.id) || 'id'
-  const date = new Date().toISOString().slice(0, 10)
-  return `${safeName}-${safeId}-${date}.json`
-}
-
-function downloadJsonFile(content: string, fileName: string): void {
-  const blob = new Blob([content], { type: 'application/json' })
-  const url = URL.createObjectURL(blob)
-  const anchor = document.createElement('a')
-  anchor.href = url
-  anchor.download = fileName
-  anchor.click()
-  URL.revokeObjectURL(url)
-}
-
 export function useCharacterSheetMainActions({
   character,
   form,
@@ -82,18 +58,6 @@ export function useCharacterSheetMainActions({
     t,
   ])
 
-  const onExport = useCallback(() => {
-    if (!character) return
-    const payload = getCharacterFromForm()
-    const content = stringifyCharacters([payload])
-    try {
-      downloadJsonFile(content, buildCharacterExportFileName(payload))
-      message.success(t('characters.actions.export_downloaded'))
-    } catch {
-      message.error(t('characters.actions.export_download_error'))
-    }
-  }, [character, getCharacterFromForm, message, t])
-
   const onDelete = useCallback(() => {
     if (!character) return
     store.delete(character.id)
@@ -106,6 +70,5 @@ export function useCharacterSheetMainActions({
   return {
     onDelete,
     onSave,
-    onExport,
   }
 }
