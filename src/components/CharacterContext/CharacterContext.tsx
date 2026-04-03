@@ -3,16 +3,14 @@
 import type { FormInstance } from 'antd'
 import {
   createContext,
+  PropsWithChildren,
   type ReactNode,
   useCallback,
   useContext,
   useMemo,
 } from 'react'
-import {
-  useCharacterLifeStatusActions,
-  useWarnDeath,
-} from '@/hooks/useCharacterLifeStatusActions'
 import { SaveForm } from '@/hooks/useCharacterSave'
+import { isCharacterDead } from '@/lib/character/lifeStatus'
 import { Character } from '@/lib/character/types'
 
 type CharacterContextValue = {
@@ -20,8 +18,7 @@ type CharacterContextValue = {
     path: string | (string | number)[],
     value: unknown
   ) => void
-  onKill: () => void
-  onRevive: () => void
+  saveForm: SaveForm
   isDead: boolean
 }
 
@@ -32,36 +29,19 @@ export function CharacterProvider({
   character,
   saveForm,
   children,
-  isDead,
-}: {
+}: PropsWithChildren<{
   form: FormInstance
   character: Character | null
   saveForm: SaveForm
-  children: ReactNode
-  isDead: boolean
-}) {
-  // Mark dead / revive and death-suggestion flow; reads live health from the
-  // form via derived watches.
-  const { onKill, onRevive } = useCharacterLifeStatusActions({ saveForm })
+}>) {
+  const isDead = character ? isCharacterDead(character) : false
 
-  // Warn the user when their health crosses to non-positive and suggest
-  // marking the character as dead.
-  useWarnDeath({ form, character, onKill })
-
-  const setCharacterValue = useCallback(
-    (path: string | (string | number)[], value: unknown) =>
-      form.setFieldValue(path, value),
-    [form]
-  )
+  const setCharacterValue: CharacterContextValue['setCharacterValue'] =
+    useCallback((path, value) => form.setFieldValue(path, value), [form])
 
   const value = useMemo<CharacterContextValue>(
-    () => ({
-      setCharacterValue,
-      onKill,
-      onRevive,
-      isDead,
-    }),
-    [setCharacterValue, onKill, onRevive, isDead]
+    () => ({ setCharacterValue, saveForm, isDead }),
+    [setCharacterValue, saveForm, isDead]
   )
 
   return (

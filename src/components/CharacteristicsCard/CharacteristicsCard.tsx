@@ -16,6 +16,7 @@ import {
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { HelpButton } from '@/components/HelpButton/HelpButton'
+import { useWarnDeath } from '@/hooks/useCharacterLifeStatusActions'
 import { useWatchedStats } from '@/hooks/useCharacterSheetDerived'
 
 type PoolKey = 'health' | 'courage' | 'stamina'
@@ -59,6 +60,10 @@ export function CharacteristicsCard() {
       t('characters.identity.stamina_tooltip'),
     ],
   ]
+
+  // Warn the user when their health crosses to non-positive and suggest
+  // marking the character as dead.
+  useWarnDeath()
 
   function renderLabelWithHelp(label: string, tooltip: string) {
     return (

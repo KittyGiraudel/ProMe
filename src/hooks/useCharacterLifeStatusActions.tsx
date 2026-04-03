@@ -1,20 +1,15 @@
 'use client'
 
-import { App, FormInstance } from 'antd'
+import { App, Button } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useMemo, useRef } from 'react'
-import { Button } from '@/components/Button/Button'
-import type { Character } from '@/lib/character/types'
-import { SaveForm } from './useCharacterSave'
+import { useCharacterContext } from '@/components/CharacterContext/CharacterContext'
 import { useWatchedStats } from './useCharacterSheetDerived'
 
 const DEATH_SUGGESTION_KEY = 'death-suggestion'
 
-export function useCharacterLifeStatusActions({
-  saveForm,
-}: {
-  saveForm: SaveForm
-}) {
+export function useCharacterLifeStatusActions() {
+  const { saveForm } = useCharacterContext()
   const { notification } = App.useApp()
 
   const onKill = useCallback(() => {
@@ -35,56 +30,56 @@ export function useCharacterLifeStatusActions({
   return useMemo(() => ({ onKill, onRevive }), [onKill, onRevive])
 }
 
-export const useWarnDeath = ({
-  form,
-  character,
-  onKill,
-}: {
-  form: FormInstance
-  character: Character | null
-  onKill: () => void
-}) => {
+export const useWarnDeath = () => {
   const t = useTranslations()
   const { notification } = App.useApp()
-  const { health } = useWatchedStats(form)
+  const { health } = useWatchedStats()
   const prevHealthCurrentRef = useRef<number | null>(null)
+  const { isDead } = useCharacterContext()
+  const { onKill } = useCharacterLifeStatusActions()
+
+  const warn = useCallback(
+    () =>
+      notification.warning({
+        key: DEATH_SUGGESTION_KEY,
+        title: t('characters.actions.death_suggestion_title'),
+        description: t('characters.actions.death_suggestion_description'),
+        placement: 'bottomRight',
+        duration: 0,
+        actions: (
+          <Button
+            danger
+            htmlType='button'
+            onClick={() => {
+              notification.destroy(DEATH_SUGGESTION_KEY)
+              onKill()
+            }}>
+            {t('characters.actions.mark_dead_action')}
+          </Button>
+        ),
+      }),
+    [notification, t, onKill]
+  )
 
   useEffect(
     function warnOnDeath() {
-      if (health.current == null || character == null) return
+      if (health.current == null) return
 
-      if (character.lifeStatus === 'dead') {
+      // Once the character is marked as dead or if there health got back up,
+      // hide the notification that suggests marking them as dead.
+      if (isDead || health.current > 0)
         notification.destroy(DEATH_SUGGESTION_KEY)
-        prevHealthCurrentRef.current = health.current
-        return
-      }
+      // Otherwise if their health goes from non-zero to zero, warn about death
+      // and suggest marking them as dead.
+      else if (
+        (prevHealthCurrentRef.current ?? Infinity) > 0 &&
+        health.current <= 0
+      )
+        warn()
 
-      const previous = prevHealthCurrentRef.current
-      if (previous != null && previous > 0 && health.current <= 0) {
-        notification.warning({
-          key: DEATH_SUGGESTION_KEY,
-          title: t('characters.actions.death_suggestion_title'),
-          description: t('characters.actions.death_suggestion_description'),
-          placement: 'bottomRight',
-          duration: 0,
-          actions: (
-            <Button
-              danger
-              htmlType='button'
-              onClick={() => {
-                notification.destroy(DEATH_SUGGESTION_KEY)
-                onKill()
-              }}>
-              {t('characters.actions.mark_dead_action')}
-            </Button>
-          ),
-        })
-      }
-      if (health.current > 0) {
-        notification.destroy(DEATH_SUGGESTION_KEY)
-      }
+      // Update the previous health value to the current health value.
       prevHealthCurrentRef.current = health.current
     },
-    [character, health, onKill, notification, t]
+    [isDead, health, warn]
   )
 }

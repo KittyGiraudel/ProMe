@@ -118,8 +118,7 @@ export function CharacterSheetShell({
         <CharacterProvider
           form={form}
           character={character}
-          saveForm={saveForm}
-          isDead={isDead}>
+          saveForm={saveForm}>
           <ConfigProvider theme={configTheme}>
             <div
               data-sheet-night={characterSheetNightMode ? 'true' : undefined}>

@@ -18,10 +18,12 @@ import {
 } from '@/lib/download/downloadJsonFile'
 
 import './ActionsCard.css'
+import { useCharacterLifeStatusActions } from '@/hooks/useCharacterLifeStatusActions'
 
 export function ActionsCard() {
   const t = useTranslations()
-  const { onKill, onRevive, isDead } = useCharacterContext()
+  const { isDead } = useCharacterContext()
+  const { onKill, onRevive } = useCharacterLifeStatusActions()
   const { modal, message } = App.useApp()
   const form = Form.useFormInstance()
   const { id: characterId } = useParams()
