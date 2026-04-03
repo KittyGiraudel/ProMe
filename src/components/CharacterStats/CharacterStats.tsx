@@ -13,26 +13,26 @@ export function CharacterStats() {
           key: 1,
           label: t('characters.main_characteristics'),
           children: (
-            <Row>
-              <Col span={6}>
+            <Row gutter={[16, 16]}>
+              <Col xs={12} md={6}>
                 <Statistic
                   title={t('characters.identity.inspiration_label')}
                   value={inspiration}
                 />
               </Col>
-              <Col span={6}>
+              <Col xs={12} md={6}>
                 <Statistic
                   title={t('characters.identity.honor_label')}
                   value={honor}
                 />
               </Col>
-              <Col span={6}>
+              <Col xs={12} md={6}>
                 <Statistic
                   title={t('characters.identity.courage_label')}
                   value={courage.current}
                 />
               </Col>
-              <Col span={6}>
+              <Col xs={12} md={6}>
                 <Statistic
                   title={t('characters.identity.money_label')}
                   value={money}

@@ -169,11 +169,10 @@ export function CharacteristicsCard() {
 
 function CourageRollButton() {
   const t = useTranslations()
+  const { notification } = App.useApp()
+  const { courage } = useWatchedStats()
 
   const handleCourageRoll = () => {
-    const { notification } = App.useApp()
-    const { courage } = useWatchedStats()
-
     const target = Math.max(0, courage.current ?? 0)
     const roll = Math.floor(Math.random() * 6) + 1
     const success = roll <= target

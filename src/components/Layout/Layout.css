@@ -25,6 +25,7 @@
 
 .Layout__title.Layout__title {
   font-size: 2em;
+  margin-bottom: 0;
 }
 
 .Layout__logo {

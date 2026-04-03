@@ -1,5 +1,6 @@
 'use client'
 
+import EditOutlined from '@ant-design/icons/lib/icons/EditOutlined'
 import { App, ConfigProvider, Form } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
 import { useTranslations } from 'next-intl'
@@ -108,8 +109,12 @@ export function JournalEntry({
         <Button
           className='Journal__edit'
           htmlType='button'
+          type='link'
+          icon={<EditOutlined />}
           onClick={() => setEditingMode(field.key, true)}>
-          {t('common.actions.edit')}
+          <span className='Journal__edit-label'>
+            {t('common.actions.edit')}
+          </span>
         </Button>
       ) : null}
 

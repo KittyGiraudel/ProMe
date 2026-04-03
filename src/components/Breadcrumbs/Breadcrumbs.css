@@ -4,3 +4,7 @@
   --ant-breadcrumb-link-hover-color: #e8f0ed;
   --ant-breadcrumb-last-item-color: #c5d4ce;
 }
+
+.ant-breadcrumb.ant-breadcrumb {
+  margin-bottom: 1em;
+}

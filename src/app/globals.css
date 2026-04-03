@@ -142,8 +142,13 @@ body:has([data-sheet-night="true"]) [data-biome="unexplored"] {
   font-size: 85%;
 }
 
+/**
+ * 1. Prevent scroll when dialogs are open. Note that this relies on the Ant 
+ *    dialogs having `destroyOnHidden` set to `true` — otherwise we would never
+ *    be able to scroll.
+ */
 html:has([role="dialog"]) {
-  overflow: hidden;
+  overflow: hidden; /* 1 */
 }
 
 [data-biome="fieldSea"] .Pattern,

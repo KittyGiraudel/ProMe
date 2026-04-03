@@ -23,6 +23,20 @@
   pointer-events: auto;
 }
 
+@media (max-width: 767px) {
+  .Journal__edit.Journal__edit {
+    opacity: 1;
+  }
+
+  .Journal__edit.Journal__edit .Journal__edit-label {
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    position: absolute;
+    width: 1px;
+    white-space: nowrap;
+  }
+}
+
 .Journal__editor {
   margin-bottom: 0;
 }
