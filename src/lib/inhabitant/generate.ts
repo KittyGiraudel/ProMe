@@ -103,7 +103,7 @@ function rollInhabitantRoll(
       : follow.contextSevenDie <= 3
         ? 'localisation'
         : 'biome'
-  console.log(contextCard, contextParams)
+
   const contextText = t(
     `inhabitant.context_by_rank.${contextCard.rank}`,
     contextParams
