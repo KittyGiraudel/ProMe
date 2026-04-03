@@ -72,7 +72,8 @@ export const useWarnDeath = () => {
       // Otherwise if their health goes from non-zero to zero, warn about death
       // and suggest marking them as dead.
       else if (
-        (prevHealthCurrentRef.current ?? Infinity) > 0 &&
+        prevHealthCurrentRef.current &&
+        prevHealthCurrentRef.current > 0 &&
         health.current <= 0
       )
         warn()
