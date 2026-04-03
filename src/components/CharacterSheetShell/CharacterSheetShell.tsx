@@ -35,7 +35,7 @@ export function CharacterSheetShell({
   const t = useTranslations()
 
   // Ant Design form + character from client store; unsaved-navigation guard;
-  // merge form → Character for save/export; `onSaved` refreshes local character
+  // merge form → Character for save/export; `saveForm` refreshes local character
   // state after persistence.
   const { activeTab, form, character, hydratedFromStore, saveForm } =
     useCharacterSheetForm({ characterId })

@@ -16,9 +16,9 @@ export function useCharacterDelete(characterId: string) {
     // Programmatic navigation is intentionally not routed through the
     // unsaved-changes blocker (which is used by `BlockedLink`).
     router.push('/characters')
-  }, [t, message, router, store])
+  }, [t, message, router, store, characterId])
 
-  const deleteWithConfirmation = () => {
+  const deleteWithConfirmation = useCallback(() => {
     modal.confirm({
       title: t('characters.actions.delete_confirm_title'),
       content: t('characters.actions.delete_confirm_description'),
@@ -27,7 +27,7 @@ export function useCharacterDelete(characterId: string) {
       okButtonProps: { danger: true, type: 'primary' },
       onOk: onDelete,
     })
-  }
+  }, [modal, t, onDelete])
 
   return useMemo(
     () => ({ delete: onDelete, deleteWithConfirmation }),

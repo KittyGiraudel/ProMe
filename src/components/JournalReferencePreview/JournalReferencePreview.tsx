@@ -48,7 +48,6 @@ export type JournalReferencePreviewProps =
 export function JournalReferencePreview(props: JournalReferencePreviewProps) {
   const t = useTranslations()
   const [open, setOpen] = useState(false)
-
   const referenceId = props.referenceId
 
   const decoded = useMemo(() => {

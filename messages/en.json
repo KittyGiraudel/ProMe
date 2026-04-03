@@ -522,7 +522,6 @@
     "map_coordinates_display_cells": "Cells only",
     "map_coordinates_display_both": "Axes and cells",
     "page_description": "Set global app preferences. They are saved locally in this browser.",
-    "save_success": "Settings saved.",
     "language_en": "English",
     "language_fr": "Français",
     "language_warning": "Please note that only the French language is canonical, as it is the language in which my game version is written. The English version is automatically translated without support from an English rulebook.",

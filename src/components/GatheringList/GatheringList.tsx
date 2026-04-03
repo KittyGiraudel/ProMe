@@ -7,7 +7,6 @@ import {
   useWatchedInventory,
   useWatchedStats,
 } from '@/hooks/useCharacterSheetDerived'
-import { randomId } from '@/lib/character/model'
 import { DICE } from '@/lib/constants/misc'
 import { parseGatheringItem } from '@/lib/gathering/parseGatheringItem'
 import type { GatherableBiomeId } from '@/lib/gathering/schema'

@@ -68,7 +68,7 @@ export function useCharacterSave({
         } else message.error(t('common.generic_error'))
       }
     },
-    []
+    [store, onSave, message, t]
   )
 
   const getCharacterFromForm = useCharacterFromForm({ character, form })

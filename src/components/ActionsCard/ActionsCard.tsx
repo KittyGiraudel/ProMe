@@ -19,6 +19,7 @@ import {
 
 import './ActionsCard.css'
 import { useCharacterLifeStatusActions } from '@/hooks/useCharacterLifeStatusActions'
+import { getCharacterStore } from '@/lib/character/store'
 
 export function ActionsCard() {
   const t = useTranslations()
@@ -30,7 +31,8 @@ export function ActionsCard() {
   const { deleteWithConfirmation } = useCharacterDelete(characterId as string)
 
   const onExport = useCallback(() => {
-    const character = { ...form.getFieldsValue(true), id: characterId }
+    const saved = getCharacterStore().get(characterId as string)
+    const character = { ...saved, ...form.getFieldsValue(true) }
     const content = stringifyCharacters([character])
     try {
       downloadJsonFile(content, buildCharacterExportFileName(character))
@@ -39,7 +41,7 @@ export function ActionsCard() {
       console.error(error)
       message.error(t('characters.actions.export_download_error'))
     }
-  }, [characterId, message, t])
+  }, [characterId, message, t, form])
 
   const handleRequestRevive = () => {
     modal.confirm({

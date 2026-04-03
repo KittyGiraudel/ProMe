@@ -80,6 +80,6 @@ export const useWarnDeath = () => {
       // Update the previous health value to the current health value.
       prevHealthCurrentRef.current = health.current
     },
-    [isDead, health, warn]
+    [isDead, health, warn, notification]
   )
 }
