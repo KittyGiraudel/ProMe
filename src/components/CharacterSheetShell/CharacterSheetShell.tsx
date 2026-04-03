@@ -20,6 +20,7 @@ import { useCharacterSheetDocumentTitle } from '@/hooks/useCharacterSheetDocumen
 import { useCharacterSheetForm } from '@/hooks/useCharacterSheetForm'
 import { useCharacterSheetTheme } from '@/hooks/useCharacterSheetTheme'
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
+import { useOnFieldsChanged } from '@/hooks/useOnFieldsChanged'
 import { Link } from '@/i18n/navigation'
 import { getProtectorSummary } from '@/lib/character/getProtectorSummary'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
@@ -45,6 +46,7 @@ export function CharacterSheetShell({
     saveForm,
     validationErrors,
   } = useCharacterSheetForm({ characterId })
+  const onFieldsChange = useOnFieldsChanged(form)
 
   // Watches clock/stamina (preserve-aware) to drive adaptive sheet “night”
   // chrome and Ant Design theme.
@@ -111,6 +113,8 @@ export function CharacterSheetShell({
         id={character.id}
         key={`${character.id}-${character.updatedAt}`}
         form={form}
+        onFieldsChange={onFieldsChange}
+        scrollToFirstError
         initialValues={toFormValues(character)}
         onFinish={_values => {
           // We need *not* to pass the received values to our `saveForm`

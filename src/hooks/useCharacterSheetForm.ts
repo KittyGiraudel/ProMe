@@ -1,15 +1,17 @@
 'use client'
 
-import { Form } from 'antd'
-import { useEffect, useMemo, useState } from 'react'
+import { Form, FormProps } from 'antd'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { usePathname } from '@/i18n/navigation'
+import { normalizeClock } from '@/lib/character/clock'
 import { getCharacterStore } from '@/lib/character/store'
 import { SheetFormValues } from '@/lib/character/toFormValues'
 import type { Character } from '@/lib/character/types'
 import { useCharacterSave } from './useCharacterSave'
 import { useCharacterSaveGuard } from './useCharacterSaveGuard'
+import { useWatchedClock } from './useCharacterSheetDerived'
 import { tabKeyFromPathname } from './useCharacterSheetDocumentTitle'
-import { useCharacterSheetFormSync } from './useCharacterSheetFormSync'
+import { useOnFieldsChanged } from './useOnFieldsChanged'
 
 export function useCharacterSheetForm({
   characterId,
@@ -41,11 +43,6 @@ export function useCharacterSheetForm({
   )
 
   useCharacterSaveGuard({ form, character })
-
-  // Side effects: remap clock index when stamina changes total segments; clamp
-  // health/courage/stamina current values so they never exceed max (also uses
-  // derived watches internally).
-  useCharacterSheetFormSync({ form, character })
 
   return useMemo(
     () => ({
