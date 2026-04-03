@@ -105,7 +105,8 @@ export function JournalCardInner({
       <Card
         title={t('characters.journal.notes_section')}
         extra={canAddEntry && buttonInHeader ? addEntryButton : undefined}
-        actions={canAddEntry && buttonInFooter ? [addEntryButton] : undefined}>
+        actions={canAddEntry && buttonInFooter ? [addEntryButton] : undefined}
+        id='journal'>
         {totalCount === 0 ? (
           <Empty description={t('characters.journal.empty')} />
         ) : (

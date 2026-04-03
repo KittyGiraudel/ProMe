@@ -14,7 +14,7 @@ export function IdentityCard({
   const { gender, archetype } = useWatchedIdentity()
 
   return (
-    <Card title={t('characters.identity.identity_section')}>
+    <Card title={t('characters.identity.identity_section')} id='identity'>
       <Row gutter={[16, 16]}>
         <Col xs={24} md={8}>
           <Form.Item

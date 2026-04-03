@@ -127,7 +127,7 @@ export function ActionsCard() {
   ]
 
   return (
-    <Card title={t('characters.actions.title')}>
+    <Card title={t('characters.actions.title')} id='actions'>
       <List
         className='ActionsCard__list'
         itemLayout='horizontal'

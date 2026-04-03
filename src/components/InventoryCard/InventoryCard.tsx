@@ -63,7 +63,8 @@ export function InventoryCard() {
                   </Button>,
                 ]
               : undefined
-          }>
+          }
+          id='inventory'>
           {fields.length > 0 ? (
             <Spacing orientation='vertical' size='small'>
               {fields.map(field => (

@@ -104,7 +104,8 @@ export function ClockCard() {
           onClick={() => setPosition(position + 1)}>
           {t('characters.map.clock_advance')}
         </Button>,
-      ]}>
+      ]}
+      id='clock'>
       <ClockDisplay
         label={clockLabel}
         totalSegments={totalSegments}

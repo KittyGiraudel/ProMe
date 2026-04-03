@@ -46,7 +46,8 @@ export function MapCard() {
           <Popover title={t('characters.map.legend')} content={<MapLegend />}>
             <HelpButton label={t('common.tip')} />
           </Popover>
-        }>
+        }
+        id='map'>
         <div ref={cardRef} tabIndex={-1}>
           <BrowserWarning />
 

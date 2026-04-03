@@ -57,7 +57,8 @@ export function SpellbookCard() {
                   </Button>,
                 ]
               : undefined
-          }>
+          }
+          id='spellbook'>
           {fields.length > 0 ? (
             <Spacing>
               {fields.map(field => (

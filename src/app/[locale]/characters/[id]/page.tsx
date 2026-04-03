@@ -14,40 +14,22 @@ import { SpellbookCard } from '@/components/SpellbookCard/SpellbookCard'
 export default function CharacterAllPage() {
   return (
     <Spacing>
-      <section id='identity'>
-        <Spacing>
-          <IdentityCard isArchetypeReadonly />
-          <CharacteristicsCard />
-        </Spacing>
-      </section>
-      <section id='map'>
-        <Spacing>
-          <MapCard />
-          <ClockCard />
-        </Spacing>
-      </section>
-      <section id='journal'>
-        <JournalCard />
-      </section>
-      <section id='inventory'>
-        <Spacing>
-          <InventoryCard />
-          <SpellbookCard />
-        </Spacing>
-      </section>
-      <section id='tools'>
-        <Row gutter={[16, 16]}>
-          <Col xs={24} md={12}>
-            <DiceRoll />
-          </Col>
-          <Col xs={24} md={12}>
-            <CardDraw />
-          </Col>
-        </Row>
-      </section>
-      <section id='actions'>
-        <ActionsCard />
-      </section>
+      <IdentityCard isArchetypeReadonly />
+      <CharacteristicsCard />
+      <MapCard />
+      <ClockCard />
+      <JournalCard />
+      <InventoryCard />
+      <SpellbookCard />
+      <Row gutter={[16, 16]} id='tools'>
+        <Col xs={24} md={12}>
+          <DiceRoll />
+        </Col>
+        <Col xs={24} md={12}>
+          <CardDraw />
+        </Col>
+      </Row>
+      <ActionsCard />
     </Spacing>
   )
 }
