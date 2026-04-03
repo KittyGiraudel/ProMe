@@ -110,7 +110,15 @@ export function CharacterSheetShell({
         key={`${character.id}-${character.updatedAt}`}
         form={form}
         initialValues={toFormValues(character)}
-        onFinish={saveForm}
+        onFinish={_values => {
+          // We need *not* to pass the received values to our `saveForm`
+          // function because:
+          // 1. They do not contain journal entries since these entries are only
+          //    registered when the edit modal is open.
+          // 2. Our `saveForm` function already calls `getCharacterFromForm()`
+          //    to get the correct values.
+          saveForm()
+        }}
         disabled={isDead}
         layout='vertical'
         colon={false}

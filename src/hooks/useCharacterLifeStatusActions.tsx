@@ -14,6 +14,8 @@ export function useCharacterLifeStatusActions() {
 
   const onKill = useCallback(() => {
     notification.destroy(DEATH_SUGGESTION_KEY)
+    // We cannot use `form.submit()` here because `lifeStatus` is not actually a
+    // field inside the form that we can modify manually.
     saveForm(
       { lifeStatus: 'dead' },
       { successKey: 'characters.actions.mark_dead_success' }
@@ -21,6 +23,8 @@ export function useCharacterLifeStatusActions() {
   }, [saveForm, notification])
 
   const onRevive = useCallback(() => {
+    // We cannot use `form.submit()` here because `lifeStatus` is not actually a
+    // field inside the form that we can modify manually.
     saveForm(
       { lifeStatus: 'alive' },
       { successKey: 'characters.actions.revive_success' }
