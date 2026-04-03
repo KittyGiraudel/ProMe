@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl'
 import { useCallback, useMemo } from 'react'
 import { useRouter } from '@/i18n/navigation'
 import { getCharacterStore } from '@/lib/character/store'
-import { stringifyCharacters } from '@/lib/character/store/migrations'
 import type { Character } from '@/lib/character/types'
 import { useCharacterFromForm } from './useCharacterFromForm'
 
@@ -58,17 +57,7 @@ export function useCharacterSheetMainActions({
     t,
   ])
 
-  const onDelete = useCallback(() => {
-    if (!character) return
-    store.delete(character.id)
-    message.success(t('characters.actions.delete_success'))
-    // Programmatic navigation is intentionally not routed through the
-    // unsaved-changes blocker (which is used by `BlockedLink`).
-    router.push('/characters')
-  }, [character, t, message, router, store])
-
   return {
-    onDelete,
     onSave,
   }
 }

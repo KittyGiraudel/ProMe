@@ -10,6 +10,7 @@ import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
 import { Button } from '@/components/Button/Button'
 import { useCharacterContext } from '@/components/CharacterContext/CharacterContext'
+import { useCharacterDelete } from '@/hooks/useCharacterDelete'
 import { stringifyCharacters } from '@/lib/character/store/migrations'
 import {
   buildCharacterExportFileName,
@@ -20,10 +21,11 @@ import './ActionsCard.css'
 
 export function ActionsCard() {
   const t = useTranslations()
-  const { onKill, onRevive, onDelete, isDead } = useCharacterContext()
+  const { onKill, onRevive, isDead } = useCharacterContext()
   const { modal, message } = App.useApp()
   const form = Form.useFormInstance()
   const { id: characterId } = useParams()
+  const { deleteWithConfirmation } = useCharacterDelete(characterId as string)
 
   const onExport = useCallback(() => {
     const character = { ...form.getFieldsValue(true), id: characterId }
@@ -36,17 +38,6 @@ export function ActionsCard() {
       message.error(t('characters.actions.export_download_error'))
     }
   }, [characterId, message, t])
-
-  const handleRequestDelete = () => {
-    modal.confirm({
-      title: t('characters.actions.delete_confirm_title'),
-      content: t('characters.actions.delete_confirm_description'),
-      okText: t('common.actions.delete'),
-      cancelText: t('common.actions.cancel'),
-      okButtonProps: { danger: true, type: 'primary' },
-      onOk: onDelete,
-    })
-  }
 
   const handleRequestRevive = () => {
     modal.confirm({
@@ -140,7 +131,7 @@ export function ActionsCard() {
           type='primary'
           htmlType='button'
           disabled={false}
-          onClick={handleRequestDelete}>
+          onClick={deleteWithConfirmation}>
           {t('common.actions.delete')}
         </Button>
       ),

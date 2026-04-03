@@ -89,7 +89,7 @@ export function CharacterSheetShell({
   const { settings } = useSettings()
 
   // Form `onFinish` save to store, delete from store, and JSON export download.
-  const { onSave, onDelete } = useCharacterSheetMainActions({
+  const { onSave } = useCharacterSheetMainActions({
     form,
     character,
     onSaved,
@@ -163,7 +163,6 @@ export function CharacterSheetShell({
           form={form}
           onKill={onKill}
           onRevive={onRevive}
-          onDelete={onDelete}
           isDead={isDead}>
           <ConfigProvider theme={configTheme}>
             <div

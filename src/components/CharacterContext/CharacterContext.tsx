@@ -16,7 +16,6 @@ type CharacterContextValue = {
   ) => void
   onKill: () => void
   onRevive: () => void
-  onDelete: () => void
   isDead: boolean
 }
 
@@ -27,14 +26,12 @@ export function CharacterProvider({
   children,
   onKill,
   onRevive,
-  onDelete,
   isDead,
 }: {
   form: FormInstance
   children: ReactNode
   onKill: VoidFunction
   onRevive: VoidFunction
-  onDelete: VoidFunction
   isDead: boolean
 }) {
   const setCharacterValue = useCallback(
@@ -48,10 +45,9 @@ export function CharacterProvider({
       setCharacterValue,
       onKill,
       onRevive,
-      onDelete,
       isDead,
     }),
-    [setCharacterValue, onKill, onRevive, onDelete, isDead]
+    [setCharacterValue, onKill, onRevive, isDead]
   )
 
   return (
