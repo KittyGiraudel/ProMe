@@ -1,10 +1,18 @@
 import { Col, Collapse, Row, Statistic } from 'antd'
 import { useTranslations } from 'next-intl'
-import { useWatchedStats } from '@/hooks/useCharacterSheetDerived'
+import {
+  useWatchedCourage,
+  useWatchedHonor,
+  useWatchedInspiration,
+  useWatchedMoney,
+} from '@/hooks/useCharacterSheetDerived'
 
 export function CharacterStats() {
   const t = useTranslations()
-  const { courage, inspiration, honor, money } = useWatchedStats()
+  const { courage } = useWatchedCourage()
+  const { inspiration } = useWatchedInspiration()
+  const { honor } = useWatchedHonor()
+  const { money } = useWatchedMoney()
 
   return (
     <Collapse

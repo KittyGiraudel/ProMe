@@ -7,7 +7,7 @@ import {
   remapClockPositionForTotalSegments,
 } from '@/lib/character/clock'
 import { Character } from '@/lib/character/types'
-import { useWatchedClock, useWatchedStats } from './useCharacterSheetDerived'
+import { useWatchedClock, useWatchedStamina } from './useCharacterSheetDerived'
 
 export function useCharacterSheetFormSync({
   form,
@@ -16,8 +16,8 @@ export function useCharacterSheetFormSync({
   form: FormInstance
   character: Character | null
 }) {
-  const clock = useWatchedClock(form)
-  const { health, courage, stamina } = useWatchedStats(form)
+  const { clock, updateClock } = useWatchedClock(form)
+  const { stamina } = useWatchedStamina(form)
   const prevClockTotalSegmentsRef = useRef<number | null>(null)
   const clockTotalSegments = countClockSegments(stamina.current)
 
@@ -29,6 +29,7 @@ export function useCharacterSheetFormSync({
 
       const previous = prevClockTotalSegmentsRef.current
 
+      if (previous === clockTotalSegments) return
       if (previous === null) {
         // Seed from the character's real stamina, not from the transient fallback
         // value that Form.useWatch returns before its subscription fires. Without
@@ -41,43 +42,15 @@ export function useCharacterSheetFormSync({
           : clockTotalSegments
         return
       }
-      if (previous === clockTotalSegments) return
 
       const remapped = remapClockPositionForTotalSegments(
         clock,
         previous,
         clockTotalSegments
       )
-      form.setFieldValue('clock', remapped)
+      updateClock(remapped)
       prevClockTotalSegmentsRef.current = clockTotalSegments
     },
-    [clockTotalSegments, clock, form, character]
-  )
-
-  useEffect(
-    function capHealthToMax() {
-      if (health.current == null || health.max == null) return
-      if (health.current <= health.max) return
-      form.setFieldValue(['health', 'current'], health.max)
-    },
-    [health, form]
-  )
-
-  useEffect(
-    function capCourageToMax() {
-      if (courage.current == null || courage.max == null) return
-      if (courage.current <= courage.max) return
-      form.setFieldValue(['courage', 'current'], courage.max)
-    },
-    [courage, form]
-  )
-
-  useEffect(
-    function capStaminaToMax() {
-      if (stamina.current == null || stamina.max == null) return
-      if (stamina.current <= stamina.max) return
-      form.setFieldValue(['stamina', 'current'], stamina.max)
-    },
-    [stamina, form]
+    [clockTotalSegments, clock, updateClock, character]
   )
 }

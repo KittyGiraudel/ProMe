@@ -2,6 +2,7 @@
 
 import { Form, type FormInstance } from 'antd'
 import { useCallback, useMemo } from 'react'
+import { normalizeMapState } from '@/lib/character/mapState'
 import { randomId } from '@/lib/character/model'
 import type {
   Archetype,
@@ -31,41 +32,142 @@ export function useWatchedIdentity(oForm?: FormInstance) {
   return useMemo(() => ({ name, archetype, gender }), [name, archetype, gender])
 }
 
-export function useWatchedStats(oForm?: FormInstance) {
+export function useWatchedStamina(oForm?: FormInstance) {
   const iForm = Form.useFormInstance()
   const form = oForm ?? iForm
-  const watchOpts = { form, preserve: true } as const
   const stamina =
-    Form.useWatch<StatPool>('stamina', watchOpts) ?? FALLBACK_STAT_POOL
-  const health =
-    Form.useWatch<StatPool>('health', watchOpts) ?? FALLBACK_STAT_POOL
-  const courage =
-    Form.useWatch<StatPool>('courage', watchOpts) ?? FALLBACK_STAT_POOL
-  const inspiration = Form.useWatch<number>('inspiration', watchOpts) ?? 0
-  const honor = Form.useWatch<number>('honor', watchOpts) ?? 0
-  const money = Form.useWatch<number>('money', watchOpts) ?? 0
+    Form.useWatch<StatPool>('stamina', { form, preserve: true }) ??
+    FALLBACK_STAT_POOL
 
-  const addMoney = useCallback(
+  const updateCurrentStamina = useCallback(
+    (stamina: number) => form.setFieldValue(['stamina', 'current'], stamina),
+    []
+  )
+  const updateMaxStamina = useCallback(
+    (stamina: number) => form.setFieldValue(['stamina', 'max'], stamina),
+    []
+  )
+
+  return useMemo(
+    () => ({ stamina, updateCurrentStamina, updateMaxStamina }),
+    [stamina, updateCurrentStamina, updateMaxStamina]
+  )
+}
+
+export function useWatchedHealth(oForm?: FormInstance) {
+  const iForm = Form.useFormInstance()
+  const form = oForm ?? iForm
+  const health =
+    Form.useWatch<StatPool>('health', { form, preserve: true }) ??
+    FALLBACK_STAT_POOL
+
+  const updateCurrentHealth = useCallback(
+    (health: number) => form.setFieldValue(['health', 'current'], health),
+    []
+  )
+  const updateMaxHealth = useCallback(
+    (health: number) => form.setFieldValue(['health', 'max'], health),
+    []
+  )
+
+  return useMemo(
+    () => ({ health, updateCurrentHealth, updateMaxHealth }),
+    [health, updateCurrentHealth, updateMaxHealth]
+  )
+}
+
+export function useWatchedCourage(oForm?: FormInstance) {
+  const iForm = Form.useFormInstance()
+  const form = oForm ?? iForm
+  const courage =
+    Form.useWatch<StatPool>('courage', { form, preserve: true }) ??
+    FALLBACK_STAT_POOL
+
+  const updateCurrentCourage = useCallback(
+    (courage: number) => form.setFieldValue(['courage', 'current'], courage),
+    []
+  )
+  const updateMaxCourage = useCallback(
+    (courage: number) => form.setFieldValue(['courage', 'max'], courage),
+    []
+  )
+
+  return useMemo(
+    () => ({ courage, updateCurrentCourage, updateMaxCourage }),
+    [courage, updateCurrentCourage, updateMaxCourage]
+  )
+}
+
+export function useWatchedHonor(oForm?: FormInstance) {
+  const iForm = Form.useFormInstance()
+  const form = oForm ?? iForm
+  const honor = Form.useWatch<number>('honor', { form, preserve: true }) ?? 0
+
+  const updateHonor = useCallback(
+    (honor: number) => form.setFieldValue('honor', honor),
+    []
+  )
+
+  return useMemo(() => ({ honor, updateHonor }), [honor, updateHonor])
+}
+
+export function useWatchedInspiration(oForm?: FormInstance) {
+  const iForm = Form.useFormInstance()
+  const form = oForm ?? iForm
+  const inspiration =
+    Form.useWatch<number>('inspiration', { form, preserve: true }) ?? 0
+
+  const updateInspiration = useCallback(
+    (inspiration: number) => form.setFieldValue('inspiration', inspiration),
+    []
+  )
+
+  return useMemo(
+    () => ({ inspiration, updateInspiration }),
+    [inspiration, updateInspiration]
+  )
+}
+
+export function useWatchedMoney(oForm?: FormInstance) {
+  const iForm = Form.useFormInstance()
+  const form = oForm ?? iForm
+  const money = Form.useWatch<number>('money', { form, preserve: true }) ?? 0
+
+  const incrementMoney = useCallback(
     (quantity: number) => form.setFieldValue('money', money + quantity),
     [money, form]
   )
 
-  return useMemo(
-    () => ({ stamina, health, courage, inspiration, honor, money, addMoney }),
-    [stamina, health, courage, inspiration, honor, money, addMoney]
-  )
+  return useMemo(() => ({ money, incrementMoney }), [money, incrementMoney])
 }
 
 export function useWatchedMap(oForm?: FormInstance) {
   const iForm = Form.useFormInstance()
   const form = oForm ?? iForm
-  return Form.useWatch<CharacterMapState>('map', { form, preserve: true })
+  const map = Form.useWatch<CharacterMapState>('map', { form, preserve: true })
+  const updateMap = useCallback(
+    (updater: (current: CharacterMapState) => CharacterMapState) => {
+      const current = normalizeMapState(
+        form.getFieldValue('map') as CharacterMapState | undefined
+      )
+      form.setFieldValue('map', updater(current))
+    },
+    [form]
+  )
+
+  return useMemo(() => ({ map, updateMap }), [map, updateMap])
 }
 
 export function useWatchedClock(oForm?: FormInstance) {
   const iForm = Form.useFormInstance()
   const form = oForm ?? iForm
-  return Form.useWatch<number>('clock', { form, preserve: true }) ?? 0
+  const clock = Form.useWatch<number>('clock', { form, preserve: true }) ?? 0
+  const updateClock = useCallback(
+    (clock: number) => form.setFieldValue('clock', clock),
+    [form]
+  )
+
+  return useMemo(() => ({ clock, updateClock }), [clock, updateClock])
 }
 
 export function useWatchedJournal(oForm?: FormInstance) {
@@ -93,9 +195,21 @@ export function useWatchedJournal(oForm?: FormInstance) {
     [entries]
   )
 
+  const updateEntryField = useCallback(
+    (fieldName: number, key: string, value: unknown) => {
+      form.setFieldValue(['journalEntries', fieldName, key], value)
+    },
+    [form]
+  )
+
   return useMemo(
-    () => ({ entries: entries ?? [], getEntry, getLinksForCell }),
-    [entries, getEntry, getLinksForCell]
+    () => ({
+      entries: entries ?? [],
+      getEntry,
+      getLinksForCell,
+      updateEntryField,
+    }),
+    [entries, getEntry, getLinksForCell, updateEntryField]
   )
 }
 
@@ -107,7 +221,7 @@ export function useWatchedInventory(oForm?: FormInstance) {
     preserve: true,
   })
 
-  const { stamina } = useWatchedStats()
+  const { stamina } = useWatchedStamina()
   const inventoryCap = Math.max(0, stamina.current ?? 0) * 6
   const limit = Math.min(30, inventoryCap)
 

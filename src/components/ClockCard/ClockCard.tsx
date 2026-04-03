@@ -2,14 +2,13 @@
 
 import { Card, Form, Input, Popover, Tag, Typography } from 'antd'
 import { useTranslations } from 'next-intl'
-import { useCallback } from 'react'
 import { Button } from '@/components/Button/Button'
 import { ClockDisplay } from '@/components/ClockDisplay/ClockDisplay'
 import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { Spacing } from '@/components/Spacing/Spacing'
 import {
   useWatchedClock,
-  useWatchedStats,
+  useWatchedStamina,
 } from '@/hooks/useCharacterSheetDerived'
 import {
   clampClockSliceIndex,
@@ -20,16 +19,9 @@ import { useSetClockToRawTargetWithToast } from '@/lib/character/clockPositionNo
 
 export function ClockCard() {
   const t = useTranslations()
-  const form = Form.useFormInstance()
-  const clock = useWatchedClock()
-  const { stamina } = useWatchedStats()
-  const updateClock = useCallback(
-    (wrapped: number) => form.setFieldValue('clock', wrapped),
-    [form]
-  )
-  const setClockToRawTargetWithToast = useSetClockToRawTargetWithToast({
-    updateClock,
-  })
+  const { clock } = useWatchedClock()
+  const { stamina } = useWatchedStamina()
+  const setClockToRawTargetWithToast = useSetClockToRawTargetWithToast()
   const segmentsPerHalf = countHalfClockSegments(stamina.current)
   const totalSegments = segmentsPerHalf * 2
   const position = clampClockSliceIndex(stamina.current, clock)

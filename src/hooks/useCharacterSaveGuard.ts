@@ -1,8 +1,8 @@
 import { App, FormInstance } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
+import { SheetFormValues, toFormValues } from '@/lib/character/toFormValues'
 import { Character } from '@/lib/character/types'
-import { SheetFormValues, toFormValues } from './useCharacterFromForm'
 import { useUnsavedChangesGuard } from './useUnsavedChangesGuard'
 
 export function useCharacterSaveGuard({

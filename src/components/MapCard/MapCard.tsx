@@ -33,6 +33,7 @@ export function MapCard() {
   const { cardRef, visibleSheet, setVisibleSheet, isViewingCurrentSheet } =
     useMapSheet({ currentPosition, selectedCell, setSelectedCell })
   const { isDead } = useCharacterContext()
+
   useMapCopyPaste({ selectedCell })
 
   return (

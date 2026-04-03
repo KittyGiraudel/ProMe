@@ -5,21 +5,18 @@ import NextLink from 'next/link'
 import { useLocale, useTranslations } from 'next-intl'
 import { useCallback } from 'react'
 import { useCharacterLink } from '@/hooks/useCharacterLink'
+import { useWatchedClock } from '@/hooks/useCharacterSheetDerived'
 import { computeClockMoveFromRawTarget } from './clock'
 
 /**
  * Hook for character-sheet clock changes: updates the stored slice and surfaces feedback.
  * Same-phase ticks use a short `message` toast; day/night boundary crossings use `notification.warning`.
  *
- * @param updateClock - Writes the new wrapped slice index (e.g. `form.setFieldValue('clock', …)`).
  * @returns Callback — call with stamina, current clamped slice, and **unwrapped** next index
  * (e.g. `position + 1` / `position - 1`). Wrapping and phase detection use {@link computeClockMoveFromRawTarget}.
  */
-export function useSetClockToRawTargetWithToast({
-  updateClock,
-}: {
-  updateClock: (wrapped: number) => void
-}) {
+export function useSetClockToRawTargetWithToast() {
+  const { updateClock } = useWatchedClock()
   const { message, notification } = App.useApp()
   const t = useTranslations()
   const locale = useLocale()

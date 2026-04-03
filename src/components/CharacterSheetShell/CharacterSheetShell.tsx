@@ -2,7 +2,7 @@
 
 import { Alert, ConfigProvider, Form } from 'antd'
 import { useTranslations } from 'next-intl'
-import { type ReactNode, useMemo } from 'react'
+import { type ReactNode } from 'react'
 import { Button } from '@/components/Button/Button'
 import { CharacterProvider } from '@/components/CharacterContext/CharacterContext'
 import { CharacterSheetEmptyState } from '@/components/CharacterSheetEmptyState/CharacterSheetEmptyState'
@@ -14,17 +14,16 @@ import { Layout } from '@/components/Layout/Layout'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { SettingsHint } from '@/components/SettingsHint/SettingsHint'
 import { Spacing } from '@/components/Spacing/Spacing'
-import { toFormValues } from '@/hooks/useCharacterFromForm'
+import { useBiomeAtCurrentMapPosition } from '@/hooks/useBiomeAtCurrentMapPosition'
 import { useCharacterLink } from '@/hooks/useCharacterLink'
-import { useWatchedMap } from '@/hooks/useCharacterSheetDerived'
 import { useCharacterSheetDocumentTitle } from '@/hooks/useCharacterSheetDocumentTitle'
 import { useCharacterSheetForm } from '@/hooks/useCharacterSheetForm'
 import { useCharacterSheetTheme } from '@/hooks/useCharacterSheetTheme'
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
 import { Link } from '@/i18n/navigation'
-import { biomeAtCurrentMapPosition } from '@/lib/character/biomeAtCurrentMapPosition'
 import { getProtectorSummary } from '@/lib/character/getProtectorSummary'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
+import { toFormValues } from '@/lib/character/toFormValues'
 
 export function CharacterSheetShell({
   characterId,
@@ -53,20 +52,16 @@ export function CharacterSheetShell({
     form,
   })
 
+  const { settings } = useSettings()
+  const bannerBiome = useBiomeAtCurrentMapPosition(form)
+  const getCharacterLink = useCharacterLink()
+  const isDead = character ? isCharacterDead(character) : false
+
   // `generateMetadata` can’t see store-backed names; this sets `document.title`
   // after hydration (+ tab suffix).
   useCharacterSheetDocumentTitle({ character })
 
-  const { settings } = useSettings()
-
-  // Layout page-cover biome follows map position even when the active tab is not the map.
-  // @TODO: consider whether we can use `getCellState` instead
-  const map = useWatchedMap(form)
-  const bannerBiome = useMemo(() => biomeAtCurrentMapPosition(map), [map])
-
-  const getCharacterLink = useCharacterLink()
-  const isDead = character ? isCharacterDead(character) : false
-
+  // Enable full page shortcuts like cmd+S to save.
   useKeyboardShortcuts({ form, isDead })
 
   if (!character) {

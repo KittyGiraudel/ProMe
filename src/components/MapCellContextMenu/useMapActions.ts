@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
 import { showRandomBiomeDiscoveredNotification } from '@/components/MapCellContextMenu/mapRandomBiomeNotification'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
+import { useWatchedMap } from '@/hooks/useCharacterSheetDerived'
 import { clampClockSliceIndex } from '@/lib/character/clock'
 import { useSetClockToRawTargetWithToast } from '@/lib/character/clockPositionNotifications'
 import {
@@ -27,24 +28,8 @@ export function useMapActions() {
   const { notification } = App.useApp()
   const { settings } = useSettings()
   const form = Form.useFormInstance()
-
-  const updateClock = useCallback(
-    (wrapped: number) => form.setFieldValue('clock', wrapped),
-    [form]
-  )
-  const setClockToRawTargetWithToast = useSetClockToRawTargetWithToast({
-    updateClock,
-  })
-
-  const updateMap = useCallback(
-    (updater: (current: CharacterMapState) => CharacterMapState) => {
-      const current = normalizeMapState(
-        form.getFieldValue('map') as CharacterMapState | undefined
-      )
-      form.setFieldValue('map', updater(current))
-    },
-    [form]
-  )
+  const setClockToRawTargetWithToast = useSetClockToRawTargetWithToast()
+  const { updateMap } = useWatchedMap()
 
   const setBiomeAt = useCallback(
     (target: CellCoordinate, biome: BiomeId | undefined) => {

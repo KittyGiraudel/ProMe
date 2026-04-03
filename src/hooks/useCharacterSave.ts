@@ -11,7 +11,6 @@ import {
 } from '@/lib/character/store/localStorageStore'
 import type { Character } from '@/lib/character/types'
 import { TranslationKey } from '@/lib/types'
-import { useCharacterFromForm } from './useCharacterFromForm'
 
 export type SaveCharacterOptions = { successKey?: TranslationKey }
 export type SaveCharacter = (
@@ -79,11 +78,13 @@ export function useCharacterSave({
     [store, onSave, message, t]
   )
 
-  const getCharacterFromForm = useCharacterFromForm({ character, form })
   const saveForm: SaveForm = useCallback(
     (overload?: Partial<Character>, options?: SaveCharacterOptions) =>
-      saveCharacter({ ...getCharacterFromForm(), ...overload }, options),
-    [saveCharacter, getCharacterFromForm]
+      saveCharacter(
+        { ...character, ...form.getFieldsValue(true), ...overload },
+        options
+      ),
+    [saveCharacter, character, form]
   )
 
   return useMemo(

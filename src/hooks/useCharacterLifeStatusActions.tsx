@@ -4,7 +4,7 @@ import { App, Button } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { useCharacterContext } from '@/components/CharacterContext/CharacterContext'
-import { useWatchedStats } from './useCharacterSheetDerived'
+import { useWatchedHealth } from './useCharacterSheetDerived'
 
 const DEATH_SUGGESTION_KEY = 'death-suggestion'
 
@@ -37,7 +37,7 @@ export function useCharacterLifeStatusActions() {
 export const useWarnDeath = () => {
   const t = useTranslations()
   const { notification } = App.useApp()
-  const { health } = useWatchedStats()
+  const { health } = useWatchedHealth()
   const prevHealthCurrentRef = useRef<number | null>(null)
   const { isDead } = useCharacterContext()
   const { onKill } = useCharacterLifeStatusActions()

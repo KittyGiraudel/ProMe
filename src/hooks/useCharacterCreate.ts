@@ -2,7 +2,7 @@
 
 import { App } from 'antd'
 import { useTranslations } from 'next-intl'
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useCharacterLink } from '@/hooks/useCharacterLink'
 import { useRouter } from '@/i18n/navigation'
 import { createCharacterFromIdentity } from '@/lib/character/createFromIdentity'
@@ -26,23 +26,24 @@ export function useCharacterCreate() {
     tabId: 'identity',
   })
 
-  const handleCreate = (values: CharacterCreateValues) => {
-    const source = values.inheritFromCharacterId
-      ? store.get(values.inheritFromCharacterId)
-      : null
+  return useCallback(
+    (values: CharacterCreateValues) => {
+      const source = values.inheritFromCharacterId
+        ? store.get(values.inheritFromCharacterId)
+        : null
 
-    const created = createCharacterFromIdentity(
-      {
-        name: values.name,
-        archetype: values.archetype,
-        gender: values.gender,
-      },
-      source ?? undefined
-    )
-    const saved = store.save(created)
-    message.success(t('new_character.create_success'))
-    router.push(getCharacterLink({ characterId: saved.id }))
-  }
-
-  return { handleCreate }
+      const created = createCharacterFromIdentity(
+        {
+          name: values.name,
+          archetype: values.archetype,
+          gender: values.gender,
+        },
+        source ?? undefined
+      )
+      const saved = store.save(created)
+      message.success(t('new_character.create_success'))
+      router.push(getCharacterLink({ characterId: saved.id }))
+    },
+    [store, message, t, router, getCharacterLink]
+  )
 }

@@ -7,7 +7,7 @@ import {
   countHalfClockSegments,
   isClockNightPhase,
 } from '@/lib/character/clock'
-import { useWatchedClock, useWatchedStats } from './useCharacterSheetDerived'
+import { useWatchedClock, useWatchedStamina } from './useCharacterSheetDerived'
 
 const CHARACTER_SHEET_NIGHT_THEME = {
   algorithm: antdTheme.darkAlgorithm,
@@ -34,7 +34,7 @@ const CHARACTER_SHEET_NIGHT_THEME = {
 
 export function useCharacterSheetTheme({ form }: { form: FormInstance }) {
   const clock = useWatchedClock(form)
-  const { stamina } = useWatchedStats(form)
+  const { stamina } = useWatchedStamina(form)
 
   const { settings } = useSettings()
   const adaptiveNightMode = settings.sheet.adaptiveNightMode

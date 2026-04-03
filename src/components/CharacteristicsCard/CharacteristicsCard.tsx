@@ -17,13 +17,20 @@ import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { useWarnDeath } from '@/hooks/useCharacterLifeStatusActions'
-import { useWatchedStats } from '@/hooks/useCharacterSheetDerived'
+import {
+  useWatchedCourage,
+  useWatchedHealth,
+  useWatchedStamina,
+} from '@/hooks/useCharacterSheetDerived'
 
 type PoolKey = 'health' | 'courage' | 'stamina'
 type ResourceKey = 'honor' | 'inspiration' | 'money'
 
 export function CharacteristicsCard() {
   const t = useTranslations()
+  const { health } = useWatchedHealth()
+  const { courage } = useWatchedCourage()
+  const { stamina } = useWatchedStamina()
 
   const resources: readonly [ResourceKey, string, string][] = [
     [
@@ -43,68 +50,30 @@ export function CharacteristicsCard() {
     ],
   ]
 
-  const pools: readonly [PoolKey, string, string][] = [
+  const pools: readonly [PoolKey, string, string, number][] = [
     [
       'health',
       t('characters.identity.health_label'),
       t('characters.identity.health_tooltip'),
+      health.max,
     ],
     [
       'courage',
       t('characters.identity.courage_label'),
       t('characters.identity.courage_tooltip'),
+      courage.max,
     ],
     [
       'stamina',
       t('characters.identity.stamina_label'),
       t('characters.identity.stamina_tooltip'),
+      stamina.max,
     ],
   ]
 
   // Warn the user when their health crosses to non-positive and suggest
   // marking the character as dead.
   useWarnDeath()
-
-  function renderLabelWithHelp(label: string, tooltip: string) {
-    return (
-      <Typography.Text
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 6,
-        }}>
-        <span>{label}</span>
-        <Popover
-          title={label}
-          content={
-            <>
-              {tooltip.split('\n').map((paragraph, index) => (
-                <Typography.Text
-                  strong={index === 0}
-                  key={paragraph}
-                  style={{ display: 'block', marginBottom: 8 }}>
-                  {paragraph}
-                </Typography.Text>
-              ))}
-              <Typography.Text
-                style={{
-                  display: 'block',
-                  marginBottom: 8,
-                  color: '#8c8c8c',
-                }}
-                italic>
-                {t('rulebook.characteristics_footnote')}
-              </Typography.Text>
-            </>
-          }
-          trigger='click'
-          placement='top'
-          styles={{ root: { maxWidth: 360 } }}>
-          <HelpButton label={t('rulebook.information')} />
-        </Popover>
-      </Typography.Text>
-    )
-  }
 
   return (
     <>
@@ -120,7 +89,7 @@ export function CharacteristicsCard() {
             <Col xs={24} md={8} key={resourceKey}>
               <Form.Item
                 name={resourceKey}
-                label={renderLabelWithHelp(label, tooltip)}
+                label={<LabelWithHelp label={label} tooltip={tooltip} />}
                 style={{ marginBottom: 0 }}>
                 <InputNumber min={0} style={{ width: '100%' }} />
               </Form.Item>
@@ -131,7 +100,7 @@ export function CharacteristicsCard() {
         <Divider />
 
         <Row gutter={[16, 16]}>
-          {pools.map(([poolKey, label, tooltip]) => (
+          {pools.map(([poolKey, label, tooltip, max]) => (
             <Col xs={24} md={8} key={poolKey}>
               <div
                 style={{
@@ -141,7 +110,7 @@ export function CharacteristicsCard() {
                   justifyContent: 'space-between',
                   gap: 8,
                 }}>
-                {renderLabelWithHelp(label, tooltip)}
+                <LabelWithHelp label={label} tooltip={tooltip} />
                 {poolKey === 'courage' ? <CourageRollButton /> : null}
               </div>
 
@@ -151,7 +120,7 @@ export function CharacteristicsCard() {
                     name={[poolKey, 'current']}
                     label={t('common.current_label')}
                     style={{ marginBottom: 0 }}>
-                    <InputNumber min={0} style={{ width: '100%' }} />
+                    <InputNumber min={0} max={max} style={{ width: '100%' }} />
                   </Form.Item>
                 </Col>
 
@@ -160,7 +129,7 @@ export function CharacteristicsCard() {
                     name={[poolKey, 'max']}
                     label={t('common.max_label')}
                     style={{ marginBottom: 0 }}>
-                    <InputNumber min={0} style={{ width: '100%' }} />
+                    <InputNumber min={1} style={{ width: '100%' }} />
                   </Form.Item>
                 </Col>
               </Row>
@@ -175,7 +144,7 @@ export function CharacteristicsCard() {
 function CourageRollButton() {
   const t = useTranslations()
   const { notification } = App.useApp()
-  const { courage } = useWatchedStats()
+  const { courage } = useWatchedCourage()
 
   const handleCourageRoll = () => {
     const target = Math.max(0, courage.current ?? 0)
@@ -206,5 +175,43 @@ function CourageRollButton() {
         onClick={handleCourageRoll}
       />
     </Tooltip>
+  )
+}
+
+function LabelWithHelp({ label, tooltip }: { label: string; tooltip: string }) {
+  const t = useTranslations()
+
+  return (
+    <Typography.Text style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+      <span>{label}</span>
+      <Popover
+        title={label}
+        content={
+          <>
+            {tooltip.split('\n').map((paragraph, index) => (
+              <Typography.Text
+                strong={index === 0}
+                key={paragraph}
+                style={{ display: 'block', marginBottom: 8 }}>
+                {paragraph}
+              </Typography.Text>
+            ))}
+            <Typography.Text
+              style={{
+                display: 'block',
+                marginBottom: 8,
+                color: '#8c8c8c',
+              }}
+              italic>
+              {t('rulebook.characteristics_footnote')}
+            </Typography.Text>
+          </>
+        }
+        trigger='click'
+        placement='top'
+        styles={{ root: { maxWidth: 360 } }}>
+        <HelpButton label={t('rulebook.information')} />
+      </Popover>
+    </Typography.Text>
   )
 }

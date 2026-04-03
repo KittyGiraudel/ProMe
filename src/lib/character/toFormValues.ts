@@ -1,6 +1,5 @@
-import { FormInstance } from 'antd'
-import { useCallback } from 'react'
-import type {
+import { Gender } from '../types'
+import {
   Archetype,
   Character,
   CharacterMapState,
@@ -8,24 +7,7 @@ import type {
   JournalEntry,
   SpellEntry,
   StatPool,
-} from '@/lib/character/types'
-import type { Gender } from '@/lib/types'
-
-export const useCharacterFromForm = ({
-  character,
-  form,
-}: {
-  character: Character | null
-  form: FormInstance
-}) => {
-  const getCharacterFromForm = useCallback((): Character => {
-    if (!character) throw new Error('Character not loaded')
-    const values = form.getFieldsValue(true) as SheetFormValues
-    return { ...character, ...values }
-  }, [character, form])
-
-  return getCharacterFromForm
-}
+} from './types'
 
 export type SheetFormValues = {
   name: string

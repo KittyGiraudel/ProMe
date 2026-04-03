@@ -52,7 +52,7 @@ export function JournalEntry({
     | string
     | undefined
 
-  const { getEntry } = useWatchedJournal()
+  const { getEntry, updateEntryField } = useWatchedJournal()
   const draftContent = getEntry(field.name)?.content
   const hasContent = Boolean(content?.trim())
   const entryAnchor = entryId ? `journal-entry-${entryId}` : undefined
@@ -87,21 +87,21 @@ export function JournalEntry({
 
   const handleModalSave = useCallback(() => {
     if (!componentDisabled) {
-      form.setFieldValue(
-        ['journalEntries', field.name, 'updatedAt'],
-        new Date().toISOString()
-      )
+      updateEntryField(field.name, 'updatedAt', new Date().toISOString())
       setEditingMode(field.key, false)
     }
-  }, [componentDisabled, field.key, field.name, form, setEditingMode])
+  }, [
+    componentDisabled,
+    field.key,
+    field.name,
+    updateEntryField,
+    setEditingMode,
+  ])
 
   const handleModalCancel = useCallback(() => {
-    form.setFieldValue(
-      ['journalEntries', field.name, 'content'],
-      initialContentRef.current
-    )
+    updateEntryField(field.name, 'content', initialContentRef.current)
     setEditingMode(field.key, false)
-  }, [field.key, field.name, form, setEditingMode])
+  }, [field.key, field.name, updateEntryField, setEditingMode])
 
   return (
     <div id={entryAnchor} className='Journal__entry'>

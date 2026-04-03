@@ -22,7 +22,7 @@ type CharacterCreateFormValues = {
 export function CharacterCreate() {
   const t = useTranslations()
   const [form] = Form.useForm<CharacterCreateFormValues>()
-  const { handleCreate } = useCharacterCreate()
+  const handleCreate = useCharacterCreate()
   const candidates = useInheritanceCandidates()
 
   return (

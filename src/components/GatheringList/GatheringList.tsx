@@ -5,7 +5,7 @@ import { App, Button, Tooltip } from 'antd'
 import { useTranslations } from 'next-intl'
 import {
   useWatchedInventory,
-  useWatchedStats,
+  useWatchedMoney,
 } from '@/hooks/useCharacterSheetDerived'
 import { DICE } from '@/lib/constants/misc'
 import { parseGatheringItem } from '@/lib/gathering/parseGatheringItem'
@@ -19,7 +19,7 @@ const ROLLS = ['1', '2', '3', '4', '5', '6'] as const
 export function GatheringList({ biome }: { biome: GatherableBiomeId }) {
   const t = useTranslations()
   const { notification } = App.useApp()
-  const { addMoney } = useWatchedStats()
+  const { incrementMoney } = useWatchedMoney()
   const {
     inventory: currentInventory,
     limit: inventoryLimit,
@@ -37,7 +37,7 @@ export function GatheringList({ biome }: { biome: GatherableBiomeId }) {
     if (!text.trim()) return
 
     const { quantity, label } = parseGatheringItem(text, entry.regex)
-    if (entry.type === 'money') addMoney(quantity)
+    if (entry.type === 'money') incrementMoney(quantity)
     else addItem(quantity, label)
 
     notification.open({
