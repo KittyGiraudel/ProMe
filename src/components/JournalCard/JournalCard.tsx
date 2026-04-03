@@ -12,6 +12,7 @@ import {
 import { useTranslations } from 'next-intl'
 import { useEffect, useMemo, useState } from 'react'
 import { Button } from '@/components/Button/Button'
+import { useCharacterContext } from '@/components/CharacterContext/CharacterContext'
 import { Journal } from '@/components/Journal/Journal'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { SettingsHint } from '@/components/SettingsHint/SettingsHint'
@@ -50,6 +51,7 @@ export function JournalCardInner({
   onAddEntry: () => void
   onRemoveEntry: (index: number | number[]) => void
 }) {
+  const { isDead } = useCharacterContext()
   const { componentDisabled } = ConfigProvider.useConfig()
   const { settings } = useSettings()
   const t = useTranslations()
@@ -148,7 +150,7 @@ export function JournalCardInner({
           </>
         )}
       </Card>
-      <SettingsHint hintId='journal' />
+      {!isDead && <SettingsHint hintId='journal' />}
     </>
   )
 }

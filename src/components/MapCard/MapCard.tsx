@@ -20,6 +20,7 @@ import { Spacing } from '@/components/Spacing/Spacing'
 import { BIOME_IDS } from '@/lib/constants/misc'
 
 import './MapCard.css'
+import { useCharacterContext } from '../CharacterContext/CharacterContext'
 
 export function MapCard() {
   const t = useTranslations()
@@ -31,7 +32,7 @@ export function MapCard() {
   const currentBiome = getCellState(currentPosition)?.biome ?? 'unexplored'
   const { cardRef, visibleSheet, setVisibleSheet, isViewingCurrentSheet } =
     useMapSheet({ currentPosition, selectedCell, setSelectedCell })
-
+  const { isDead } = useCharacterContext()
   useMapCopyPaste({ selectedCell })
 
   return (
@@ -71,7 +72,7 @@ export function MapCard() {
           </Spacing>
         </div>
       </Card>
-      <SettingsHint hintId='map' />
+      {!isDead && <SettingsHint hintId='map' />}
     </>
   )
 }

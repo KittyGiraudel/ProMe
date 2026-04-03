@@ -32,7 +32,8 @@ export function CardDraw() {
           key='action'
           onClick={handleDrawCard}
           loading={isDrawingCard}
-          type='link'>
+          type='link'
+          disabled={false}>
           {isDrawingCard
             ? t('characters.tools.card_drawing')
             : t('characters.tools.card_action')}

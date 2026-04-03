@@ -1,16 +1,6 @@
 'use client'
 
-import {
-  Alert,
-  Button,
-  Card,
-  Checkbox,
-  Col,
-  Form,
-  Row,
-  Select,
-  Space,
-} from 'antd'
+import { Alert, Button, Card, Checkbox, Col, Form, Row, Select } from 'antd'
 import { AppConfig, useLocale, useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
 import { usePathname, useRouter } from '@/i18n/navigation'

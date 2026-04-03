@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react'
 import { useMapActions } from '@/components/MapCellContextMenu/useMapActions'
 import type { CellCoordinate } from '@/lib/character/types'
 import type { BiomeId } from '@/lib/types'
+import { useCharacterContext } from '../CharacterContext/CharacterContext'
 import { useMapState } from './useMapState'
 
 type CellClipboard = {
@@ -29,6 +30,7 @@ export function useMapCopyPaste({
   const { getCellState } = useMapState()
   const { setBiomeAt, setIconAt } = useMapActions()
   const clipboard = useRef<CellClipboard | null>(null)
+  const { isDead } = useCharacterContext()
 
   useEffect(
     function bindDOMEvents() {
@@ -48,6 +50,7 @@ export function useMapCopyPaste({
         } else if (e.key === 'v') {
           if (componentDisabled) return
           if (!clipboard.current) return
+          if (isDead) return
           e.preventDefault()
           const { icon, biome } = clipboard.current
           setBiomeAt(selectedCell, biome)
@@ -58,6 +61,13 @@ export function useMapCopyPaste({
       window.addEventListener('keydown', handleKeyDown)
       return () => window.removeEventListener('keydown', handleKeyDown)
     },
-    [componentDisabled, getCellState, selectedCell, setBiomeAt, setIconAt]
+    [
+      componentDisabled,
+      getCellState,
+      selectedCell,
+      setBiomeAt,
+      setIconAt,
+      isDead,
+    ]
   )
 }

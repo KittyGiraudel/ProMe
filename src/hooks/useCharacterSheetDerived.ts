@@ -89,7 +89,7 @@ export function useWatchedJournal(oForm?: FormInstance) {
 
   return useMemo(
     () => ({ entries: entries ?? [], getEntry, getLinksForCell }),
-    [entries, getEntry]
+    [entries, getEntry, getLinksForCell]
   )
 }
 

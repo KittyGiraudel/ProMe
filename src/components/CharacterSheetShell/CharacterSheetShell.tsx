@@ -196,7 +196,7 @@ export function CharacterSheetShell({
                 <CharacterSheetTabNav />
                 <CharacterStats />
                 {children}
-                {settings.sheet.singlePageMode && (
+                {settings.sheet.singlePageMode && !isDead && (
                   <SettingsHint hintId='sheet' />
                 )}
               </Spacing>

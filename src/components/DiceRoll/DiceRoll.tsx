@@ -32,7 +32,8 @@ export function DiceRoll() {
           key='action'
           onClick={handleRollDie}
           loading={isRollingDie}
-          type='link'>
+          type='link'
+          disabled={false}>
           {isRollingDie
             ? t('characters.tools.die_rolling')
             : t('characters.tools.die_action')}

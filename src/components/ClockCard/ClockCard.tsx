@@ -93,7 +93,7 @@ export function ClockCard() {
           onClick={() => setPosition(position - 1)}>
           {t('characters.map.clock_back')}
         </Button>,
-        <Spacing orientation='horizontal' wrap size='small'>
+        <Spacing orientation='horizontal' wrap size='small' key='clock-label'>
           <Tag color={isDay ? 'gold' : 'blue'}>{phaseLabel}</Tag>
           <Typography.Text>{clockLabel}</Typography.Text>
         </Spacing>,

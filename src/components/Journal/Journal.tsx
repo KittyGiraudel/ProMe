@@ -48,7 +48,7 @@ export function Journal({
           ),
         }
       }),
-    [fields, isEditing, setEditingMode, deleteEntry]
+    [fields, isEditing, setEditingMode, deleteEntry, getEntry]
   )
 
   return (
