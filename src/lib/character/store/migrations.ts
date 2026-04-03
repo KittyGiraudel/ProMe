@@ -25,14 +25,7 @@ export function parseCharacters(json: string): Character[] {
 }
 
 export function stringifyCharacters(characters: Character[]): string {
-  return JSON.stringify(
-    {
-      schemaVersion: 1,
-      characters,
-    },
-    null,
-    2
-  )
+  return JSON.stringify({ schemaVersion: 1, characters })
 }
 
 function extractCharacterList(value: unknown): unknown[] {
