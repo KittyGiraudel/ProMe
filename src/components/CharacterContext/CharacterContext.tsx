@@ -1,23 +1,9 @@
 'use client'
 
-import type { FormInstance } from 'antd'
-import {
-  createContext,
-  PropsWithChildren,
-  type ReactNode,
-  useCallback,
-  useContext,
-  useMemo,
-} from 'react'
+import { createContext, PropsWithChildren, useContext, useMemo } from 'react'
 import { SaveForm } from '@/hooks/useCharacterSave'
-import { isCharacterDead } from '@/lib/character/lifeStatus'
-import { Character } from '@/lib/character/types'
 
 type CharacterContextValue = {
-  setCharacterValue: (
-    path: string | (string | number)[],
-    value: unknown
-  ) => void
   saveForm: SaveForm
   isDead: boolean
 }
@@ -25,24 +11,14 @@ type CharacterContextValue = {
 const CharacterContext = createContext<CharacterContextValue | null>(null)
 
 export function CharacterProvider({
-  form,
-  character,
+  isDead,
   saveForm,
   children,
 }: PropsWithChildren<{
-  form: FormInstance
-  character: Character | null
+  isDead: boolean
   saveForm: SaveForm
 }>) {
-  const isDead = character ? isCharacterDead(character) : false
-
-  const setCharacterValue: CharacterContextValue['setCharacterValue'] =
-    useCallback((path, value) => form.setFieldValue(path, value), [form])
-
-  const value = useMemo<CharacterContextValue>(
-    () => ({ setCharacterValue, saveForm, isDead }),
-    [setCharacterValue, saveForm, isDead]
-  )
+  const value = useMemo(() => ({ saveForm, isDead }), [saveForm, isDead])
 
   return (
     <CharacterContext.Provider value={value}>

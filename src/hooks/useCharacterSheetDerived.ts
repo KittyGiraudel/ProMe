@@ -2,6 +2,7 @@
 
 import { Form, type FormInstance } from 'antd'
 import { useCallback, useMemo } from 'react'
+import { randomId } from '@/lib/character/model'
 import type {
   Archetype,
   CellCoordinate,
@@ -44,9 +45,14 @@ export function useWatchedStats(oForm?: FormInstance) {
   const honor = Form.useWatch<number>('honor', watchOpts) ?? 0
   const money = Form.useWatch<number>('money', watchOpts) ?? 0
 
+  const addMoney = useCallback(
+    (quantity: number) => form.setFieldValue('money', money + quantity),
+    [money, form]
+  )
+
   return useMemo(
-    () => ({ stamina, health, courage, inspiration, honor, money }),
-    [stamina, health, courage, inspiration, honor, money]
+    () => ({ stamina, health, courage, inspiration, honor, money, addMoney }),
+    [stamina, health, courage, inspiration, honor, money, addMoney]
   )
 }
 
@@ -105,8 +111,33 @@ export function useWatchedInventory(oForm?: FormInstance) {
   const inventoryCap = Math.max(0, stamina.current ?? 0) * 6
   const limit = Math.min(30, inventoryCap)
 
+  const addItem = useCallback(
+    (quantity: number, label: string) => {
+      const existing = inventory.find(
+        item => item.label.toLowerCase() === label.toLowerCase()
+      )
+      if (existing) {
+        form.setFieldValue(
+          'inventory',
+          inventory.map(item =>
+            item === existing
+              ? { ...item, quantity: item.quantity + quantity }
+              : item
+          )
+        )
+      } else {
+        if (limit > 0 && inventory.length >= limit) return
+        form.setFieldValue('inventory', [
+          ...inventory,
+          { id: randomId(), quantity, label, note: '' },
+        ])
+      }
+    },
+    [inventory, limit, form]
+  )
+
   return useMemo(
-    () => ({ inventory: inventory ?? [], limit }),
-    [inventory, limit]
+    () => ({ inventory: inventory ?? [], limit, addItem }),
+    [inventory, limit, addItem]
   )
 }

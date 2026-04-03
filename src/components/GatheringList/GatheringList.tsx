@@ -3,8 +3,6 @@
 import PlusOutlined from '@ant-design/icons/lib/icons/PlusOutlined'
 import { App, Button, Tooltip } from 'antd'
 import { useTranslations } from 'next-intl'
-import { useCallback } from 'react'
-import { useCharacterContext } from '@/components/CharacterContext/CharacterContext'
 import {
   useWatchedInventory,
   useWatchedStats,
@@ -22,44 +20,15 @@ const ROLLS = ['1', '2', '3', '4', '5', '6'] as const
 export function GatheringList({ biome }: { biome: GatherableBiomeId }) {
   const t = useTranslations()
   const { notification } = App.useApp()
-  const { setCharacterValue } = useCharacterContext()
-  const { money } = useWatchedStats()
-  const { inventory: currentInventory, limit: inventoryLimit } =
-    useWatchedInventory()
+  const { addMoney } = useWatchedStats()
+  const {
+    inventory: currentInventory,
+    limit: inventoryLimit,
+    addItem,
+  } = useWatchedInventory()
   const schema = GATHERING_SCHEMA[biome]!
   const isInventoryFull =
     inventoryLimit > 0 && currentInventory.length >= inventoryLimit
-
-  const addMoney = useCallback(
-    (quantity: number) => setCharacterValue('money', money + quantity),
-    [setCharacterValue, money]
-  )
-
-  const addCollectible = useCallback(
-    (quantity: number, label: string) => {
-      const existing = currentInventory.find(
-        item => item.label.toLowerCase() === label.toLowerCase()
-      )
-      if (existing) {
-        setCharacterValue(
-          'inventory',
-          currentInventory.map(item =>
-            item === existing
-              ? { ...item, quantity: item.quantity + quantity }
-              : item
-          )
-        )
-      } else {
-        if (inventoryLimit > 0 && currentInventory.length >= inventoryLimit)
-          return
-        setCharacterValue('inventory', [
-          ...currentInventory,
-          { id: randomId(), quantity, label, note: '' },
-        ])
-      }
-    },
-    [setCharacterValue, inventoryLimit, currentInventory]
-  )
 
   function handleCollect(roll: (typeof ROLLS)[number]) {
     const entry = schema![roll]
@@ -70,7 +39,7 @@ export function GatheringList({ biome }: { biome: GatherableBiomeId }) {
 
     const { quantity, label } = parseGatheringItem(text, entry.regex)
     if (entry.type === 'money') addMoney(quantity)
-    else addCollectible(quantity, label)
+    else addItem(quantity, label)
 
     notification.open({
       title: t('characters.map.gathering_collected'),
