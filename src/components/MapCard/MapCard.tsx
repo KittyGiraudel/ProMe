@@ -26,7 +26,7 @@ export function MapCard() {
   const t = useTranslations()
   const { selectedCell, setSelectedCell, toggleSelectCell } = useCellSelection()
   const {
-    mapState: { currentPosition },
+    mapState: { currentPosition, ...rest },
     getCellState,
   } = useMapState()
   const currentBiome = getCellState(currentPosition)?.biome ?? 'unexplored'

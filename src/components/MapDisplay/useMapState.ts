@@ -19,7 +19,7 @@ export type CharacterCellData = {
 }
 
 export const useMapState = () => {
-  const map = useWatchedMap()
+  const { map } = useWatchedMap()
   const mapState = normalizeMapState(map)
   const cellsByKey = useMemo(() => {
     const next = new Map<string, CharacterMapCell>()
