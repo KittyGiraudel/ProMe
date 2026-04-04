@@ -4,6 +4,7 @@ import { AppConfig } from 'next-intl'
 import { getLocale, getTranslations } from 'next-intl/server'
 import { AppProviders } from '@/components/AppProviders/AppProviders'
 import './globals.css'
+import Head from 'next/head'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -38,6 +39,23 @@ export default async function RootLayout({
     <html
       lang={locale}
       className={`${geistSans.variable} ${geistMono.variable}`}>
+      <Head>
+        <link
+          rel='icon'
+          type='image/png'
+          href='/favicon-96x96.png'
+          sizes='96x96'
+        />
+        <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+        <link rel='shortcut icon' href='/favicon.ico' />
+        <link
+          rel='apple-touch-icon'
+          sizes='180x180'
+          href='/apple-touch-icon.png'
+        />
+        <meta name='apple-mobile-web-app-title' content='ProMe' />
+        <link rel='manifest' href='/site.webmanifest' />
+      </Head>
       <body>
         <AntdRegistry>
           <AppProviders>
