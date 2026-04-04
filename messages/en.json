@@ -143,10 +143,12 @@
       "card_drawing": "Drawing…",
       "card_empty": "No card",
       "card_title": "Card",
+      "card_tooltip": "You can trigger a card draw at any time by pressing cmd + D (Mac) or ctrl + D (Windows).",
       "die_action": "Roll 1D6",
       "die_empty": "No roll",
       "die_rolling": "Rolling…",
       "die_title": "Die",
+      "die_tooltip": "You can trigger a die roll at any time by pressing cmd + R (Mac) or ctrl + R (Windows).",
       "title": "Tools"
     },
     "actions": {
