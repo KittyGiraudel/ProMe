@@ -15,7 +15,7 @@ export function MapRow({
   selectCell,
 }: MapRowProps) {
   return (
-    <div className='MapRow' key={`row-${index}`}>
+    <div className='MapRow'>
       {Array.from({ length: MAP_COLS }, (_, ci) => {
         return (
           <MapCell
