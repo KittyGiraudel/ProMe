@@ -7,7 +7,7 @@ import { useWatchedMap } from './useCharacterSheetDerived'
 export function useBiomeAtCurrentMapPosition(
   form?: FormInstance
 ): PossibleBiomeId {
-  const map = useWatchedMap(form)
+  const { map } = useWatchedMap(form)
   const state = normalizeCharacterMapState(map)
   const posKey = toCellKey(state.currentPosition)
 
