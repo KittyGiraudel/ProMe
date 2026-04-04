@@ -24,14 +24,14 @@ export function CharacterStats() {
             <Row gutter={[16, 16]}>
               <Col xs={12} md={6}>
                 <Statistic
-                  title={t('characters.identity.inspiration_label')}
-                  value={inspiration}
+                  title={t('characters.identity.honor_label')}
+                  value={honor}
                 />
               </Col>
               <Col xs={12} md={6}>
                 <Statistic
-                  title={t('characters.identity.honor_label')}
-                  value={honor}
+                  title={t('characters.identity.inspiration_label')}
+                  value={inspiration}
                 />
               </Col>
               <Col xs={12} md={6}>
