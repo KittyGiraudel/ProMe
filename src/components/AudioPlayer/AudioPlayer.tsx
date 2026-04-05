@@ -1,99 +1,137 @@
 'use client'
 
 import {
-  LoadingOutlined,
   PauseOutlined,
   PlayCircleOutlined,
+  RetweetOutlined,
   SoundOutlined,
-  WarningOutlined,
+  StepBackwardOutlined,
 } from '@ant-design/icons'
-import { App, Button, Slider, Space, Spin, Tooltip } from 'antd'
+import { Button, Slider, Space, Tooltip, Typography } from 'antd'
 import { useTranslations } from 'next-intl'
-import { useEffect, useRef } from 'react'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { useAudioPlayer } from '@/hooks/useAudioPlayer'
-import type { BiomeId } from '@/lib/types'
+import type { PossibleBiomeId } from '@/lib/types'
+
 import './AudioPlayer.css'
 
-export function AudioPlayer({ biome }: { biome: BiomeId | 'unexplored' }) {
+function formatTime(totalSeconds: number): string {
+  if (!Number.isFinite(totalSeconds) || totalSeconds < 0) {
+    return '0:00'
+  }
+  const s = Math.floor(totalSeconds % 60)
+  const m = Math.floor(totalSeconds / 60)
+  return `${m}:${s.toString().padStart(2, '0')}`
+}
+
+export function AudioPlayer({ biome }: { biome: PossibleBiomeId }) {
   const { settings } = useSettings()
   const t = useTranslations()
-  const { notification } = App.useApp()
 
   const {
     isPlaying,
     volume,
     setVolume,
     togglePlay,
-    isPreloading,
-    preloadError,
+    currentTrack,
+    currentTime,
+    duration,
+    seekTo,
+    restartFromBeginning,
+    pickNewRandomTrack,
   } = useAudioPlayer({
     biome,
     enabled: settings.sound.enabled,
     variant: settings.sound.variant,
   })
 
-  const wasPreloadingRef = useRef(false)
-
-  useEffect(() => {
-    if (isPreloading && !wasPreloadingRef.current) {
-      wasPreloadingRef.current = true
-      notification.info({
-        key: 'audio-preload',
-        message: t('audio_player.preloading'),
-        icon: <LoadingOutlined />,
-        duration: 0,
-        placement: 'bottomLeft',
-      })
-    } else if (!isPreloading && wasPreloadingRef.current) {
-      wasPreloadingRef.current = false
-      notification.success({
-        key: 'audio-preload',
-        message: t('audio_player.preload_complete'),
-        duration: 3,
-        placement: 'bottomLeft',
-      })
-    }
-  }, [isPreloading, notification, t])
-
   if (!settings.sound.enabled) return null
+
+  const hasTrack = currentTrack !== null
+  const canSeek = hasTrack && Number.isFinite(duration) && duration > 0
+  const progressMax = canSeek ? duration : 1
 
   return (
     <div className='AudioPlayer'>
-      {isPreloading ? (
-        <Spin indicator={<LoadingOutlined />} size='small' />
-      ) : (
-        <Tooltip
-          title={isPlaying ? t('audio_player.pause') : t('audio_player.play')}>
-          <Button
-            type='text'
-            size='small'
-            icon={isPlaying ? <PauseOutlined /> : <PlayCircleOutlined />}
-            onClick={togglePlay}
-          />
-        </Tooltip>
-      )}
+      <div className='AudioPlayer__controls'>
+        <div className='AudioPlayer__controlsLeft'>
+          <Tooltip
+            title={
+              isPlaying ? t('audio_player.pause') : t('audio_player.play')
+            }>
+            <Button
+              type='primary'
+              shape='circle'
+              size='small'
+              icon={isPlaying ? <PauseOutlined /> : <PlayCircleOutlined />}
+              onClick={togglePlay}
+              disabled={!hasTrack}
+              aria-label={
+                isPlaying ? t('audio_player.pause') : t('audio_player.play')
+              }
+            />
+          </Tooltip>
+          <Tooltip title={t('audio_player.restart_track')}>
+            <Button
+              type='default'
+              size='small'
+              icon={<StepBackwardOutlined />}
+              onClick={restartFromBeginning}
+              disabled={!hasTrack}
+              aria-label={t('audio_player.restart_track')}
+            />
+          </Tooltip>
+          <Tooltip title={t('audio_player.new_track')}>
+            <Button
+              type='default'
+              size='small'
+              icon={<RetweetOutlined />}
+              onClick={pickNewRandomTrack}
+              disabled={!hasTrack}
+              aria-label={t('audio_player.new_track')}
+            />
+          </Tooltip>
+        </div>
+        <Typography.Text
+          className='AudioPlayer__trackName'
+          ellipsis={{ tooltip: currentTrack?.name }}
+          type='secondary'>
+          {currentTrack?.name ?? t('audio_player.idle')}
+        </Typography.Text>
 
-      {preloadError ? (
-        <span className='AudioPlayer-error'>
-          <WarningOutlined /> {t('audio_player.error')}
-        </span>
-      ) : null}
-
-      {!preloadError ? (
-        <Space className='AudioPlayer-volume' align='center'>
-          <SoundOutlined style={{ fontSize: 12 }} />
+        <Space className='AudioPlayer__volume' align='center'>
+          <SoundOutlined className='AudioPlayer__volumeIcon' />
           <Slider
+            className='AudioPlayer__volumeSlider'
             min={0}
             max={1}
             step={0.05}
             value={volume}
             onChange={setVolume}
-            style={{ width: 80 }}
             tooltip={{ formatter: v => `${Math.round((v ?? 0) * 100)}%` }}
+            aria-label={t('audio_player.volume')}
           />
         </Space>
-      ) : null}
+      </div>
+      <div className='AudioPlayer__progressRow'>
+        <span className='AudioPlayer__time'>{formatTime(currentTime)}</span>
+        <Slider
+          className='AudioPlayer__progress'
+          min={0}
+          max={progressMax}
+          step={0.1}
+          value={canSeek ? Math.min(currentTime, duration) : 0}
+          onChange={seekTo}
+          disabled={!canSeek}
+          tooltip={{
+            formatter: v => (v === undefined ? '' : formatTime(v)),
+          }}
+          aria-label={t('audio_player.progress_label')}
+        />
+        <span className='AudioPlayer__time' aria-hidden>
+          {formatTime(duration)}
+        </span>
+      </div>
     </div>
   )
 }

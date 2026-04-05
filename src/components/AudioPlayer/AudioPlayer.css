@@ -1,17 +1,36 @@
 .AudioPlayer {
   display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.AudioPlayer__controls {
+  display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 0;
-  border-top: 1px solid var(--ant-color-border);
-  margin-top: 16px;
+  justify-content: space-between;
 }
 
-.AudioPlayer-volume {
-  width: 80px;
+.AudioPlayer__controlsLeft {
+  display: flex;
+  gap: 0.5em;
 }
 
-.AudioPlayer-error {
-  font-size: 12px;
-  color: var(--ant-color-error);
+.AudioPlayer__trackName {
+  font-weight: bold;
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
+
+.AudioPlayer__progressRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.AudioPlayer__progress {
+  flex: 1;
+}
+
+.AudioPlayer__volumeSlider {
+  min-width: 100px;
 }

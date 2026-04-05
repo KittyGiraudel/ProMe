@@ -1,32 +1,38 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { useSoundtrackPreload } from '@/hooks/useSoundtrackPreload'
 import {
-  getAllTrackPaths,
   getTrackPath,
   pickRandomTrack,
   type SoundVariant,
+  type TrackEntry,
 } from '@/lib/sounds/catalog'
-import type { BiomeId } from '@/lib/types'
+import type { BiomeId, PossibleBiomeId } from '@/lib/types'
 
 export type AudioPlayerState = {
   isPlaying: boolean
   volume: number
   setVolume: (v: number) => void
   togglePlay: () => void
-  isPreloading: boolean
-  preloadError: string | null
+  currentTrack: TrackEntry | null
+  currentTime: number
+  duration: number
+  seekTo: (time: number) => void
+  /** Seek to the start of the current track. */
+  restartFromBeginning: () => void
+  /** Fade out and start another random track for the current biome (no-op if idle). */
+  pickNewRandomTrack: () => void
 }
 
-const FADE_DURATION_MS = 2000
-const CACHE_NAME = 'prome-sounds-v1'
+const FADE_DURATION_MS = 5_000
 
 export function useAudioPlayer({
   biome,
   enabled,
   variant,
 }: {
-  biome: BiomeId | 'unexplored'
+  biome: PossibleBiomeId
   enabled: boolean
   variant: SoundVariant
 }): AudioPlayerState {
@@ -39,23 +45,42 @@ export function useAudioPlayer({
 
   const [isPlaying, setIsPlaying] = useState(false)
   const [volume, setVolumeState] = useState(0.8)
-  const [isPreloading, setIsPreloading] = useState(false)
-  const [preloadError, setPreloadError] = useState<string | null>(null)
+  const [currentTrack, setCurrentTrack] = useState<TrackEntry | null>(null)
+  const [currentTime, setCurrentTime] = useState(0)
+  const [duration, setDuration] = useState(0)
 
-  // Create HTMLAudioElement once on mount
+  // Create HTMLAudioElement once on mount; attach time/duration listeners
   useEffect(() => {
     const audio = new Audio()
     audio.loop = true
     audioRef.current = audio
+
+    const syncDuration = () =>
+      setDuration(
+        !Number.isFinite(audio.duration) || Number.isNaN(audio.duration)
+          ? 0
+          : audio.duration
+      )
+
+    const onTimeUpdate = () => setCurrentTime(audio.currentTime)
+    const onDurationChange = syncDuration
+    const onLoadedMetadata = syncDuration
+
+    audio.addEventListener('timeupdate', onTimeUpdate)
+    audio.addEventListener('durationchange', onDurationChange)
+    audio.addEventListener('loadedmetadata', onLoadedMetadata)
+
     return () => {
       audio.pause()
+      audio.removeEventListener('timeupdate', onTimeUpdate)
+      audio.removeEventListener('durationchange', onDurationChange)
+      audio.removeEventListener('loadedmetadata', onLoadedMetadata)
       audioRef.current = null
       void audioContextRef.current?.close()
       audioContextRef.current = null
     }
   }, [])
 
-  // Lazily initialize Web Audio API — must happen after user gesture
   function getAudioContext(): AudioContext {
     if (!audioContextRef.current) {
       const ctx = new AudioContext()
@@ -78,10 +103,7 @@ export function useAudioPlayer({
     return new Promise(resolve => {
       const ctx = audioContextRef.current
       const gain = gainNodeRef.current
-      if (!ctx || !gain) {
-        resolve()
-        return
-      }
+      if (!ctx || !gain) return resolve()
       isFadingRef.current = true
       gain.gain.setValueAtTime(gain.gain.value, ctx.currentTime)
       gain.gain.exponentialRampToValueAtTime(
@@ -103,43 +125,6 @@ export function useAudioPlayer({
     gain.gain.cancelScheduledValues(ctx.currentTime)
     gain.gain.setValueAtTime(volumeRef.current, ctx.currentTime)
   }
-
-  // Preload all track files for the current variant using the Cache API.
-  // Runs when enabled transitions to true, or when variant changes while enabled.
-  useEffect(() => {
-    if (!enabled) return
-    if (typeof caches === 'undefined') return
-
-    let cancelled = false
-    setIsPreloading(true)
-    setPreloadError(null)
-
-    async function preload() {
-      try {
-        const cache = await caches.open(CACHE_NAME)
-        const paths = getAllTrackPaths(variant)
-        await Promise.all(
-          paths.map(async path => {
-            const match = await cache.match(path)
-            if (!match) {
-              const response = await fetch(path)
-              if (!response.ok) throw new Error(`Failed to fetch ${path}`)
-              await cache.put(path, response)
-            }
-          })
-        )
-      } catch (err) {
-        if (!cancelled) setPreloadError(String(err))
-      } finally {
-        if (!cancelled) setIsPreloading(false)
-      }
-    }
-
-    void preload()
-    return () => {
-      cancelled = true
-    }
-  }, [enabled, variant])
 
   // React to biome and enabled changes: fade out current and start new track
   useEffect(() => {
@@ -165,9 +150,21 @@ export function useAudioPlayer({
       if (cancelled) return
       currentBiomeRef.current = targetBiome
 
-      if (!targetBiome || !audioRef.current) return
+      if (!targetBiome || !audioRef.current) {
+        if (!cancelled) {
+          setCurrentTrack(null)
+          setCurrentTime(0)
+          setDuration(0)
+        }
+        return
+      }
 
       const track = pickRandomTrack(targetBiome)
+      if (!cancelled) {
+        setCurrentTrack(track)
+        setCurrentTime(0)
+        setDuration(0)
+      }
       const path = getTrackPath(track, variant)
 
       audioRef.current.src = path
@@ -190,7 +187,6 @@ export function useAudioPlayer({
     return () => {
       cancelled = true
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [biome, enabled, variant])
 
   const setVolume = useCallback((v: number) => {
@@ -211,6 +207,55 @@ export function useAudioPlayer({
     }
   }, [])
 
+  const seekTo = useCallback((time: number) => {
+    const el = audioRef.current
+    if (!el) return
+    const d = el.duration
+    const max = Number.isFinite(d) && d > 0 ? d : Number.POSITIVE_INFINITY
+    const clamped =
+      max === Number.POSITIVE_INFINITY
+        ? Math.max(0, time)
+        : Math.min(Math.max(0, time), max)
+    el.currentTime = clamped
+    setCurrentTime(clamped)
+  }, [])
+
+  const restartFromBeginning = useCallback(() => seekTo(0), [seekTo])
+
+  const pickNewRandomTrack = useCallback(() => {
+    const biome = currentBiomeRef.current
+    if (!biome || !audioRef.current) return
+    const activeBiome: BiomeId = biome
+
+    async function run() {
+      await fadeOut()
+      if (!audioRef.current) return
+      audioRef.current.pause()
+      setIsPlaying(false)
+
+      const track = pickRandomTrack(activeBiome)
+      setCurrentTrack(track)
+      setCurrentTime(0)
+      setDuration(0)
+      const path = getTrackPath(track, variant)
+
+      audioRef.current.src = path
+      audioRef.current.load()
+
+      getAudioContext()
+      resetGain()
+
+      try {
+        await audioRef.current.play()
+        setIsPlaying(true)
+      } catch {
+        setIsPlaying(false)
+      }
+    }
+
+    void run()
+  }, [variant])
+
   const togglePlay = useCallback(() => {
     if (!audioRef.current) return
     if (audioRef.current.paused) {
@@ -221,7 +266,6 @@ export function useAudioPlayer({
       audioRef.current.pause()
       setIsPlaying(false)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return {
@@ -229,7 +273,11 @@ export function useAudioPlayer({
     volume,
     setVolume,
     togglePlay,
-    isPreloading,
-    preloadError,
+    currentTrack,
+    currentTime,
+    duration,
+    seekTo,
+    restartFromBeginning,
+    pickNewRandomTrack,
   }
 }
