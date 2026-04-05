@@ -17,6 +17,10 @@ export const DEFAULT_SETTINGS: AppSettings = {
     showBiomeBackground: true,
     coordinatesDisplay: 'both',
   },
+  sound: {
+    enabled: false,
+    variant: 'mix',
+  },
 }
 
 export function normalizeSettings(value: unknown): AppSettings {
@@ -43,6 +47,14 @@ export function normalizeSettings(value: unknown): AppSettings {
       )
         ? (source!.map!.coordinatesDisplay as 'axes' | 'cells' | 'both')
         : 'both',
+    },
+    sound: {
+      enabled: source?.sound?.enabled === true,
+      variant: (['mix', 'music', 'ambiance'] as const).includes(
+        source?.sound?.variant as 'mix' | 'music' | 'ambiance'
+      )
+        ? (source!.sound!.variant as 'mix' | 'music' | 'ambiance')
+        : 'mix',
     },
   }
 }
