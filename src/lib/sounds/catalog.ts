@@ -117,6 +117,6 @@ export function getAllTrackPaths(variant: SoundVariant): string[] {
 }
 
 export function pickRandomTrack(biome: BiomeId): TrackEntry {
-  const tracks = CATALOG[biome]
+  const tracks = getTracksForBiome(biome)
   return tracks[Math.floor(Math.random() * tracks.length)]
 }

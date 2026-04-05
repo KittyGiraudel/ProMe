@@ -1,4 +1,4 @@
-import { Empty, Spin } from 'antd'
+import { Empty, Result, Spin } from 'antd'
 import { SizeType } from 'antd/es/config-provider/SizeContext'
 import { useTranslations } from 'next-intl'
 
@@ -12,9 +12,10 @@ export function LoadingState({
   const t = useTranslations()
 
   return (
-    <Empty
-      image={<Spin size={size} />}
-      description={description ?? t('common.loading')}
+    <Result
+      status='info'
+      title={description ?? t('common.loading')}
+      extra={<Spin size={size} />}
     />
   )
 }

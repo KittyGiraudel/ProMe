@@ -15,11 +15,7 @@
   gap: 0.5em;
 }
 
-.AudioPlayer__trackName {
-  font-weight: bold;
-  font-variant: small-caps;
-  letter-spacing: 0.05em;
-}
+.AudioPlayer__trackName {}
 
 .AudioPlayer__progressRow {
   display: flex;

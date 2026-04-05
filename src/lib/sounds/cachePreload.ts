@@ -17,8 +17,7 @@ export async function preloadSoundtracksForVariant(
 
   await Promise.all(
     paths.map(async path => {
-      const match = await cache.match(path)
-      if (match) return
+      if (await cache.match(path)) return
       const response = await fetch(path)
       if (!response.ok) throw new Error(`Failed to fetch ${path}`)
       await cache.put(path, response)

@@ -1,6 +1,6 @@
 import LoadingOutlined from '@ant-design/icons/lib/icons/LoadingOutlined'
 import WarningOutlined from '@ant-design/icons/lib/icons/WarningOutlined'
-import { App, Card } from 'antd'
+import { App, Card, Result } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useEffect, useRef } from 'react'
 import { useSoundtrackPreload } from '@/hooks/useSoundtrackPreload'
@@ -43,17 +43,20 @@ export function AudioCard({ biome }: { biome: PossibleBiomeId }) {
     }
   }, [isPreloading, notification, t])
 
+  if (!settings.sound.enabled) return null
+
   if (preloadError) {
     return (
       <Card title={t('audio_player.title')}>
-        <Spacing size='small' className='AudioPlayer__errorRow'>
-          <span className='AudioPlayer__error'>
-            <WarningOutlined /> {t('audio_player.error')}
-          </span>
-          <Button size='small' type='default' onClick={retryPreload}>
-            {t('audio_player.retry')}
-          </Button>
-        </Spacing>
+        <Result
+          status='error'
+          title={t('audio_player.error')}
+          extra={
+            <Button type='default' onClick={retryPreload}>
+              {t('audio_player.retry')}
+            </Button>
+          }
+        />
       </Card>
     )
   }

@@ -45,8 +45,6 @@ export function AudioPlayer({ biome }: { biome: PossibleBiomeId }) {
     variant: settings.sound.variant,
   })
 
-  if (!settings.sound.enabled) return null
-
   const hasTrack = currentTrack !== null
   const canSeek = hasTrack && Number.isFinite(duration) && duration > 0
   const progressMax = canSeek ? duration : 1
@@ -92,6 +90,7 @@ export function AudioPlayer({ biome }: { biome: PossibleBiomeId }) {
             />
           </Tooltip>
         </div>
+
         <Typography.Text
           className='AudioPlayer__trackName'
           ellipsis={{ tooltip: currentTrack?.name }}
@@ -128,9 +127,7 @@ export function AudioPlayer({ biome }: { biome: PossibleBiomeId }) {
           }}
           aria-label={t('audio_player.progress_label')}
         />
-        <span className='AudioPlayer__time' aria-hidden>
-          {formatTime(duration)}
-        </span>
+        <span className='AudioPlayer__time'>{formatTime(duration)}</span>
       </div>
     </div>
   )
