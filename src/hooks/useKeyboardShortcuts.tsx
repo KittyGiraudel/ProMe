@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl'
 import { useEffect } from 'react'
 import { CardDrawResult } from '@/components/CardDrawResult/CardDrawResult'
 import { DiceRollResult } from '@/components/DiceRollResult/DiceRollResult'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 
 export function useKeyboardShortcuts({
   form,
@@ -14,6 +15,7 @@ export function useKeyboardShortcuts({
 }) {
   const t = useTranslations()
   const { notification } = App.useApp()
+  const { updateSettings } = useSettings()
 
   useEffect(
     function bindDOMListeners() {
@@ -42,11 +44,19 @@ export function useKeyboardShortcuts({
             placement: 'bottomLeft',
           })
         }
+
+        if (isMeta && e.key === 'm') {
+          e.preventDefault()
+          updateSettings(prev => ({
+            ...prev,
+            sound: { ...prev.sound, enabled: !prev.sound.enabled },
+          }))
+        }
       }
 
       window.addEventListener('keydown', handleKeyDown)
       return () => window.removeEventListener('keydown', handleKeyDown)
     },
-    [form, isDead, notification, t]
+    [form, isDead, notification, t, updateSettings]
   )
 }

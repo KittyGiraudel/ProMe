@@ -4,6 +4,7 @@ import { Empty, Spin } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
+import { LoadingState } from '../LoadingState/LoadingState'
 
 export function CharacterSheetEmptyState({
   loading = false,
@@ -21,10 +22,7 @@ export function CharacterSheetEmptyState({
         { title: t('nav.characters'), path: '/characters' },
       ]}>
       {loading ? (
-        <Empty
-          image={<Spin size='large' />}
-          description={t('common.loading')}
-        />
+        <LoadingState description={t('common.loading')} />
       ) : (
         <Empty
           description={

@@ -1,0 +1,32 @@
+.AudioPlayer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.AudioPlayer__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.AudioPlayer__controlsLeft {
+  display: flex;
+  gap: 0.5em;
+}
+
+.AudioPlayer__trackName {}
+
+.AudioPlayer__progressRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.AudioPlayer__progress {
+  flex: 1;
+}
+
+.AudioPlayer__volumeSlider {
+  min-width: 100px;
+}

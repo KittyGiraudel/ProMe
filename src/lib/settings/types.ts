@@ -1,3 +1,5 @@
+import type { SoundVariant } from '@/lib/sounds/catalog'
+
 export const SETTINGS_SCHEMA_VERSION = 1 as const
 
 export type AppSettings = {
@@ -25,5 +27,11 @@ export type AppSettings = {
     showBiomeBackground: boolean
     /** Controls how cell coordinates are displayed: on the axes, inside cells, or both. */
     coordinatesDisplay: 'axes' | 'cells' | 'both'
+  }
+  sound: {
+    /** When true, ambient music plays based on the current biome. Defaults to false. */
+    enabled: boolean
+    /** Which variant of the soundtrack to play. Defaults to 'mix'. */
+    variant: SoundVariant
   }
 }

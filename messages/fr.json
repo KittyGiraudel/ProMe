@@ -549,6 +549,14 @@
     "section_map": "Carte",
     "section_sheet": "Feuille de Protecteur",
     "section_village": "Générateur de village",
+    "section_sound": "Son",
+    "sound_enabled_label": "Musique d'ambiance",
+    "sound_enabled_help": "Joue une musique d'ambiance correspondant au biome actuel. L'activer téléchargera environ 180 Mo de fichiers audio la première fois.",
+    "sound_variant_label": "Variante de la bande-son",
+    "sound_variant_help": "Choisissez entre la bande-son complète (musique + ambiance), musique seule ou ambiance seule. Changer la variante rechargera les fichiers concernés.",
+    "sound_variant_mix": "Bande-son complète",
+    "sound_variant_music": "Musique seule",
+    "sound_variant_ambiance": "Ambiance seule",
     "reset_label": "Réinitialiser",
     "title": "Paramètres",
     "village_merge_duplicate_establishments_help": "Fusionne les établissements de village identiques en plus gros établissements (petit + petit → grande, etc.).",
@@ -596,5 +604,19 @@
       }
     },
     "village_faction_label": "Peuple du village"
+  },
+  "audio_player": {
+    "title": "Musique d’ambiance",
+    "idle": "Aucune piste (placez-vous sur un biome sur la carte)",
+    "preloading": "Préchargement des bandes sons…",
+    "preload_complete": "La musique est prête à jouer.",
+    "play": "Lire",
+    "pause": "Pause",
+    "volume": "Volume",
+    "progress_label": "Position de lecture",
+    "restart_track": "Revenir au début",
+    "new_track": "Autre piste aléatoire pour ce biome",
+    "error": "Impossible de charger l'audio.",
+    "retry": "Réessayer"
   }
 }
