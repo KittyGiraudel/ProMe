@@ -55,7 +55,7 @@ export function JournalEntry({
   const { getEntry, updateEntryField } = useWatchedJournal()
   const draftContent = getEntry(field.name)?.content
   const hasContent = Boolean(content?.trim())
-  const entryAnchor = entryId ? `journal-entry-${entryId}` : undefined
+  const entryAnchor = entryId ? `journal-${entryId}` : undefined
 
   useEffect(
     function storeInitialContentOnEdit() {
