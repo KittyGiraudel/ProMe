@@ -17,6 +17,8 @@ type SettingsFormValues = {
   mapTickClockOnMove: boolean
   mapShowBiomeBackground: boolean
   mapCoordinatesDisplay: 'axes' | 'cells' | 'both'
+  soundEnabled: boolean
+  soundVariant: 'mix' | 'music' | 'ambiance'
 }
 
 export function Settings() {
@@ -39,6 +41,8 @@ export function Settings() {
     mapTickClockOnMove: settings.map.tickClockOnMove,
     mapShowBiomeBackground: settings.map.showBiomeBackground,
     mapCoordinatesDisplay: settings.map.coordinatesDisplay,
+    soundEnabled: settings.sound.enabled,
+    soundVariant: settings.sound.variant,
   }
 
   const handleReset = () => {
@@ -53,6 +57,8 @@ export function Settings() {
       mapTickClockOnMove: DEFAULT_SETTINGS.map.tickClockOnMove,
       mapShowBiomeBackground: DEFAULT_SETTINGS.map.showBiomeBackground,
       mapCoordinatesDisplay: DEFAULT_SETTINGS.map.coordinatesDisplay,
+      soundEnabled: DEFAULT_SETTINGS.sound.enabled,
+      soundVariant: DEFAULT_SETTINGS.sound.variant,
     })
   }
 
@@ -79,6 +85,11 @@ export function Settings() {
         tickClockOnMove: allValues.mapTickClockOnMove === true,
         showBiomeBackground: allValues.mapShowBiomeBackground !== false,
         coordinatesDisplay: allValues.mapCoordinatesDisplay ?? 'both',
+      },
+      sound: {
+        ...prev.sound,
+        enabled: allValues.soundEnabled === true,
+        variant: allValues.soundVariant ?? 'mix',
       },
     }))
   }
@@ -227,6 +238,42 @@ export function Settings() {
                   </Spacing>
                 </Card>
               </Spacing>
+            </Col>
+          </Row>
+          <Row gutter={[16, 16]}>
+            <Col xs={24} md={12}>
+              <Card title={t('settings.section_sound')}>
+                <Spacing size='small'>
+                  <Form.Item
+                    name='soundEnabled'
+                    valuePropName='checked'
+                    help={t('settings.sound_enabled_help')}>
+                    <Checkbox>{t('settings.sound_enabled_label')}</Checkbox>
+                  </Form.Item>
+                  <Form.Item
+                    name='soundVariant'
+                    label={t('settings.sound_variant_label')}
+                    help={t('settings.sound_variant_help')}
+                    style={{ marginBottom: 0 }}>
+                    <Select
+                      options={[
+                        {
+                          value: 'mix',
+                          label: t('settings.sound_variant_mix'),
+                        },
+                        {
+                          value: 'music',
+                          label: t('settings.sound_variant_music'),
+                        },
+                        {
+                          value: 'ambiance',
+                          label: t('settings.sound_variant_ambiance'),
+                        },
+                      ]}
+                    />
+                  </Form.Item>
+                </Spacing>
+              </Card>
             </Col>
           </Row>
         </Spacing>
