@@ -41,7 +41,7 @@ describe('character/store/localStorageStore dead freeze', () => {
         ...dead,
         name: 'Changed after death',
       })
-    ).toThrow(/frozen/i)
+    ).toThrow('DEAD_CHARACTER')
   })
 
   it('allows idempotent save payload for dead characters', () => {

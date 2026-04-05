@@ -6,6 +6,7 @@ import {
   normalizeCharacter,
   validateCharacterForPersistence,
 } from './model'
+import { ValidationError } from './store/localStorageStore'
 
 describe('character/model', () => {
   it('default pools match archetype mapping', () => {
@@ -100,7 +101,10 @@ describe('character/model', () => {
     const result = validateCharacterForPersistence(pc)
     expect(result.ok).toBe(false)
     if (!result.ok) {
-      expect(result.errors.join(';')).toMatch(/inventory item/i)
+      expect(result.errors[0]).toBeInstanceOf(ValidationError)
+      expect(result.errors[0].key).toBe(
+        'characters.actions.save.invalid_inventory_item'
+      )
     }
   })
 
@@ -113,7 +117,10 @@ describe('character/model', () => {
     const result = validateCharacterForPersistence(pc)
     expect(result.ok).toBe(false)
     if (!result.ok) {
-      expect(result.errors.join(';')).toMatch(/spell/i)
+      expect(result.errors[0]).toBeInstanceOf(ValidationError)
+      expect(result.errors[0].key).toBe(
+        'characters.actions.save.invalid_spellbook_item'
+      )
     }
   })
 
@@ -146,7 +153,10 @@ describe('character/model', () => {
     const result = validateCharacterForPersistence(pc)
     expect(result.ok).toBe(false)
     if (!result.ok) {
-      expect(result.errors.join(';')).toMatch(/Stamina/i)
+      expect(result.errors[0]).toBeInstanceOf(ValidationError)
+      expect(result.errors[0].key).toBe(
+        'characters.actions.save.invalid_inventory'
+      )
     }
   })
 
@@ -231,7 +241,10 @@ describe('character/model', () => {
     const result = validateCharacterForPersistence(pc)
     expect(result.ok).toBe(false)
     if (!result.ok) {
-      expect(result.errors.join(';')).toMatch(/core map cell/i)
+      expect(result.errors[0]).toBeInstanceOf(ValidationError)
+      expect(result.errors[0].key).toBe(
+        'characters.actions.save.invalid_map_cell_core'
+      )
     }
   })
 
