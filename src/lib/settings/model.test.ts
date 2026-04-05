@@ -37,4 +37,32 @@ describe('settings/model', () => {
       }).map.tickClockOnMove
     ).toBe(true)
   })
+
+  it('defaults sound to disabled with mix variant', () => {
+    expect(normalizeSettings(undefined).sound).toEqual({
+      enabled: false,
+      variant: 'mix',
+    })
+  })
+
+  it('keeps sound.enabled when true', () => {
+    expect(normalizeSettings({ sound: { enabled: true } }).sound.enabled).toBe(
+      true
+    )
+  })
+
+  it('keeps sound.variant when valid', () => {
+    expect(
+      normalizeSettings({ sound: { variant: 'music' } }).sound.variant
+    ).toBe('music')
+    expect(
+      normalizeSettings({ sound: { variant: 'ambiance' } }).sound.variant
+    ).toBe('ambiance')
+  })
+
+  it('defaults invalid sound.variant to mix', () => {
+    expect(
+      normalizeSettings({ sound: { variant: 'invalid' } }).sound.variant
+    ).toBe('mix')
+  })
 })
