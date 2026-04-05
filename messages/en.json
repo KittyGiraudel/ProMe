@@ -549,6 +549,14 @@
     "section_map": "Map",
     "section_sheet": "Protector Sheet",
     "section_village": "Village Generator",
+    "section_sound": "Sound",
+    "sound_enabled_label": "Background music",
+    "sound_enabled_help": "Plays ambient music matching the current biome. Enabling this will preload approximately 180 MB of audio files the first time.",
+    "sound_variant_label": "Soundtrack variant",
+    "sound_variant_help": "Choose between full soundtracks (music + ambiance), music-only, or ambiance-only. Changing this variant will reload the relevant files.",
+    "sound_variant_mix": "Full soundtrack",
+    "sound_variant_music": "Music only",
+    "sound_variant_ambiance": "Ambiance only",
     "title": "Settings",
     "village_merge_duplicate_establishments_help": "Merges duplicate village establishments into larger ones (small + small → large, etc.).",
     "village_merge_duplicate_establishments_label": "Merge duplicate establishments",
@@ -595,5 +603,14 @@
       }
     },
     "village_faction_label": "Faction"
+  },
+  "audio_player": {
+    "preloading": "Preloading soundtracks…",
+    "preload_complete": "Music is ready to play.",
+    "play": "Play",
+    "pause": "Pause",
+    "volume": "Volume",
+    "error": "Failed to load audio.",
+    "retry": "Retry"
   }
 }
