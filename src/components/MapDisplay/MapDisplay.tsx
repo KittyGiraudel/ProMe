@@ -24,7 +24,7 @@ export function MapDisplay({
   const showAxes = settings.map.coordinatesDisplay !== 'cells'
 
   return (
-    <div className='MapScroller'>
+    <div className='MapScroller' data-style='tilted'>
       <div className='Map'>
         {showAxes && (
           <>
