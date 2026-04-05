@@ -1,4 +1,4 @@
-@media(min-width: 768px) {
+@media (min-width: 768px) {
   .MapScroller:is([data-style="tilted"], [data-style="tilting-on-hover"]) {
     perspective: 1000px;
   }
@@ -34,16 +34,42 @@
   will-change: transform;
 }
 
-[data-style="tilting-on-hover"] .Map:has(.MapRow:nth-child(1):hover) { translate: y -30px; rotate: x 18deg; }
-[data-style="tilting-on-hover"] .Map:has(.MapRow:nth-child(2):hover) { translate: y -27px; rotate: x 16deg; }
-[data-style="tilting-on-hover"] .Map:has(.MapRow:nth-child(3):hover) { translate: y -24px; rotate: x 14deg; }
-[data-style="tilting-on-hover"] .Map:has(.MapRow:nth-child(4):hover) { translate: y -21px; rotate: x 12deg; }
-[data-style="tilting-on-hover"] .Map:has(.MapRow:nth-child(5):hover) { translate: y -18px; rotate: x 10deg; }
-[data-style="tilting-on-hover"] .Map:has(.MapRow:nth-child(6):hover) { translate: y -15px; rotate: x  8deg; }
-[data-style="tilting-on-hover"] .Map:has(.MapRow:nth-child(7):hover) { translate: y -12px; rotate: x  6deg; }
-[data-style="tilting-on-hover"] .Map:has(.MapRow:nth-child(8):hover) { translate: y  -9px; rotate: x  4deg; }
-[data-style="tilting-on-hover"] .Map:has(.MapRow:nth-child(9):hover) { translate: y  -6px; rotate: x  2deg; }
-
+[data-style="tilting-on-hover"] .Map:has(.MapRow:nth-child(1):hover) {
+  translate: y -30px;
+  rotate: x 18deg;
+}
+[data-style="tilting-on-hover"] .Map:has(.MapRow:nth-child(2):hover) {
+  translate: y -27px;
+  rotate: x 16deg;
+}
+[data-style="tilting-on-hover"] .Map:has(.MapRow:nth-child(3):hover) {
+  translate: y -24px;
+  rotate: x 14deg;
+}
+[data-style="tilting-on-hover"] .Map:has(.MapRow:nth-child(4):hover) {
+  translate: y -21px;
+  rotate: x 12deg;
+}
+[data-style="tilting-on-hover"] .Map:has(.MapRow:nth-child(5):hover) {
+  translate: y -18px;
+  rotate: x 10deg;
+}
+[data-style="tilting-on-hover"] .Map:has(.MapRow:nth-child(6):hover) {
+  translate: y -15px;
+  rotate: x 8deg;
+}
+[data-style="tilting-on-hover"] .Map:has(.MapRow:nth-child(7):hover) {
+  translate: y -12px;
+  rotate: x 6deg;
+}
+[data-style="tilting-on-hover"] .Map:has(.MapRow:nth-child(8):hover) {
+  translate: y -9px;
+  rotate: x 4deg;
+}
+[data-style="tilting-on-hover"] .Map:has(.MapRow:nth-child(9):hover) {
+  translate: y -6px;
+  rotate: x 2deg;
+}
 
 /**
  * 1. No idea how it works or what it does.

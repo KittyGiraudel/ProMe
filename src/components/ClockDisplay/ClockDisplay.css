@@ -32,15 +32,14 @@
   inherits: true;
 }
 
-
 .ClockDisplayLabel {
   --curve-intensity: 30px;
- 
+
   color: rgb(0 0 0 / 0.25);
   display: flex;
   gap: 0.5ch;
   font: bold 3em monospace;
-  transition: --direction .3s;
+  transition: --direction 0.3s;
   user-select: none;
 }
 
@@ -53,10 +52,11 @@
 }
 
 .ClockDisplayLabel span {
-  offset-path: 
-    shape(
-      from 0.5ch 50%, curve to calc(100% - 0.5ch) 50% 
-      with 30% calc(50% - var(--direction) * var(--curve-intensity)) / 70% calc(50% - var(--direction) * var(--curve-intensity))
-    );
+  offset-path: shape(
+    from 0.5ch 50%,
+    curve to calc(100% - 0.5ch) 50% with 30%
+      calc(50% - var(--direction) * var(--curve-intensity)) /
+    70% calc(50% - var(--direction) * var(--curve-intensity))
+  );
   offset-distance: calc(99.9% * (sibling-index() - 1) / (sibling-count() - 1));
 }
