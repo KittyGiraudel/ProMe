@@ -508,6 +508,8 @@
     "inheritance_select_help": "Si vous choisissez un Protecteur existant, ce nouveau Protecteur héritera de ses souvenirs (i.e. sa carte et son journal).",
     "inheritance_select_label": "Hériter les souvenirs de …",
     "inheritance_select_placeholder": "Choisir un Protecteur existant",
+    "inheritance_same_archetype_description": "Même archétype : {nameNew} apparaîtra à l’emplacement où {nameOld} est décédé·e, mais avec un seul point d’Âme. L’exploration de la carte et l’intégrité du journal demeurent inchangés.",
+    "inheritance_different_archetype_description": "Archétypes différents : {nameNew} apparaîtra au Noyau, avec tous ses points d’Âme. L’exploration de la carte et l’intégrité du journal demeurent inchangés.",
     "title": "Nouveau Protecteur"
   },
   "rulebook": {

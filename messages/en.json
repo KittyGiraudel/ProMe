@@ -509,6 +509,8 @@
     "inheritance_select_help": "If you choose an existing Protector, this new Protector will inherit their memories (i.e., their map and journal).",
     "inheritance_select_label": "Inherit memories from…",
     "inheritance_select_placeholder": "Choose an existing Protector",
+    "inheritance_same_archetype_description": "Same archetype: {nameNew} will appear at the location where {nameOld} died, but with only one Soul point. Map exploration and journal integrity remain unchanged.",
+    "inheritance_different_archetype_description": "Different archetypes: {nameNew} will appear at the Core with all their Soul points. Map exploration and journal integrity remain unchanged.",
     "title": "New Protector"
   },
   "rulebook": {
