@@ -1,3 +1,7 @@
+.AudioPlayer__native {
+  width: 100%;
+}
+
 .AudioPlayer {
   display: flex;
   flex-direction: column;
@@ -15,7 +19,8 @@
   gap: 0.5em;
 }
 
-.AudioPlayer__trackName {}
+.AudioPlayer__trackName {
+}
 
 .AudioPlayer__progressRow {
   display: flex;

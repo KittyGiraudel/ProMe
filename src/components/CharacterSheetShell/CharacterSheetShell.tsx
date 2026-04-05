@@ -2,7 +2,7 @@
 
 import { Alert, ConfigProvider, Form } from 'antd'
 import { useTranslations } from 'next-intl'
-import { type ReactNode } from 'react'
+import { type ReactNode, useEffect } from 'react'
 import { Button } from '@/components/Button/Button'
 import { CharacterProvider } from '@/components/CharacterContext/CharacterContext'
 import { CharacterSheetEmptyState } from '@/components/CharacterSheetEmptyState/CharacterSheetEmptyState'

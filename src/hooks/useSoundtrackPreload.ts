@@ -4,9 +4,12 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { preloadSoundtracksForVariant } from '@/lib/sounds/cachePreload'
 import type { SoundVariant } from '@/lib/sounds/catalog'
 
+export type SoundtrackPreloadStatus = 'idle' | 'loading' | 'ready' | 'error'
+
 export type SoundtrackPreloadState = {
-  isPreloading: boolean
-  preloadError: string | null
+  status: SoundtrackPreloadStatus
+  /** Set when `status` is `'error'`. */
+  errorMessage: string | null
   retryPreload: () => void
 }
 
@@ -21,24 +24,41 @@ export function useSoundtrackPreload({
   enabled: boolean
   variant: SoundVariant
 }): SoundtrackPreloadState {
-  const [isPreloading, setIsPreloading] = useState(false)
-  const [preloadError, setPreloadError] = useState<string | null>(null)
+  const [status, setStatus] = useState<SoundtrackPreloadStatus>(() =>
+    enabled ? 'loading' : 'idle'
+  )
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [preloadAttempt, setPreloadAttempt] = useState(0)
 
   useEffect(() => {
-    if (!enabled) return setIsPreloading(false)
-    if (typeof caches === 'undefined') return setIsPreloading(false)
+    if (!enabled) {
+      setStatus('idle')
+      setErrorMessage(null)
+      return
+    }
+
+    if (typeof caches === 'undefined') {
+      setStatus('ready')
+      setErrorMessage(null)
+      return
+    }
 
     let cancelled = false
-    setIsPreloading(true)
-    setPreloadError(null)
+    setStatus('loading')
+    setErrorMessage(null)
 
     void preloadSoundtracksForVariant(variant)
-      .catch(err => {
-        if (!cancelled) setPreloadError(String(err))
+      .then(() => {
+        if (!cancelled) {
+          setErrorMessage(null)
+          setStatus('ready')
+        }
       })
-      .finally(() => {
-        if (!cancelled) setIsPreloading(false)
+      .catch(err => {
+        if (!cancelled) {
+          setErrorMessage(String(err))
+          setStatus('error')
+        }
       })
 
     return () => {
@@ -47,12 +67,12 @@ export function useSoundtrackPreload({
   }, [enabled, variant, preloadAttempt])
 
   const retryPreload = useCallback(() => {
-    setPreloadError(null)
+    setErrorMessage(null)
     setPreloadAttempt(n => n + 1)
   }, [])
 
   return useMemo(
-    () => ({ isPreloading, preloadError, retryPreload }),
-    [isPreloading, preloadError, retryPreload]
+    () => ({ status, errorMessage, retryPreload }),
+    [status, errorMessage, retryPreload]
   )
 }

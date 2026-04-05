@@ -1,7 +1,6 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useSoundtrackPreload } from '@/hooks/useSoundtrackPreload'
 import {
   getTrackPath,
   pickRandomTrack,
@@ -27,6 +26,12 @@ export type AudioPlayerState = {
 
 const FADE_DURATION_MS = 5_000
 
+/** play() rejects if paused, load(), or src change interrupts before playback starts. */
+function isBenignPlayRejection(error: unknown): boolean {
+  if (!(error instanceof DOMException)) return false
+  return error.name === 'AbortError' || error.message.includes('interrupted')
+}
+
 export function useAudioPlayer({
   biome,
   enabled,
@@ -37,11 +42,10 @@ export function useAudioPlayer({
   variant: SoundVariant
 }): AudioPlayerState {
   const audioRef = useRef<HTMLAudioElement | null>(null)
-  const audioContextRef = useRef<AudioContext | null>(null)
-  const gainNodeRef = useRef<GainNode | null>(null)
   const currentBiomeRef = useRef<BiomeId | null>(null)
   const volumeRef = useRef(0.8)
   const isFadingRef = useRef(false)
+  const fadeRafRef = useRef<number | null>(null)
 
   const [isPlaying, setIsPlaying] = useState(false)
   const [volume, setVolumeState] = useState(0.8)
@@ -49,10 +53,19 @@ export function useAudioPlayer({
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
 
+  function cancelVolumeFade() {
+    if (fadeRafRef.current !== null) {
+      cancelAnimationFrame(fadeRafRef.current)
+      fadeRafRef.current = null
+    }
+    isFadingRef.current = false
+  }
+
   // Create HTMLAudioElement once on mount; attach time/duration listeners
   useEffect(() => {
     const audio = new Audio()
     audio.loop = true
+    audio.volume = volumeRef.current
     audioRef.current = audio
 
     const syncDuration = () =>
@@ -71,59 +84,50 @@ export function useAudioPlayer({
     audio.addEventListener('loadedmetadata', onLoadedMetadata)
 
     return () => {
+      cancelVolumeFade()
       audio.pause()
       audio.removeEventListener('timeupdate', onTimeUpdate)
       audio.removeEventListener('durationchange', onDurationChange)
       audio.removeEventListener('loadedmetadata', onLoadedMetadata)
       audioRef.current = null
-      void audioContextRef.current?.close()
-      audioContextRef.current = null
     }
   }, [])
 
-  function getAudioContext(): AudioContext {
-    if (!audioContextRef.current) {
-      const ctx = new AudioContext()
-      const gainNode = ctx.createGain()
-      gainNodeRef.current = gainNode
-      if (audioRef.current) {
-        const source = ctx.createMediaElementSource(audioRef.current)
-        source.connect(gainNode)
-        gainNode.connect(ctx.destination)
-      }
-      audioContextRef.current = ctx
-    }
-    if (audioContextRef.current.state === 'suspended') {
-      void audioContextRef.current.resume()
-    }
-    return audioContextRef.current
-  }
-
   function fadeOut(): Promise<void> {
+    cancelVolumeFade()
     return new Promise(resolve => {
-      const ctx = audioContextRef.current
-      const gain = gainNodeRef.current
-      if (!ctx || !gain) return resolve()
+      const el = audioRef.current
+      if (!el) return resolve()
       isFadingRef.current = true
-      gain.gain.setValueAtTime(gain.gain.value, ctx.currentTime)
-      gain.gain.exponentialRampToValueAtTime(
-        0.001,
-        ctx.currentTime + FADE_DURATION_MS / 1000
-      )
-      setTimeout(() => {
-        isFadingRef.current = false
-        resolve()
-      }, FADE_DURATION_MS + 100)
+      const startVol = el.volume
+      const startTime = performance.now()
+
+      function tick(now: number) {
+        const target = audioRef.current
+        if (!target) {
+          cancelVolumeFade()
+          resolve()
+          return
+        }
+        const t = Math.min(1, (now - startTime) / FADE_DURATION_MS)
+        target.volume = Math.max(0, startVol * (1 - t))
+        if (t < 1) {
+          fadeRafRef.current = requestAnimationFrame(tick)
+        } else {
+          fadeRafRef.current = null
+          isFadingRef.current = false
+          resolve()
+        }
+      }
+
+      fadeRafRef.current = requestAnimationFrame(tick)
     })
   }
 
-  function resetGain() {
-    isFadingRef.current = false
-    const ctx = audioContextRef.current
-    const gain = gainNodeRef.current
-    if (!ctx || !gain) return
-    gain.gain.cancelScheduledValues(ctx.currentTime)
-    gain.gain.setValueAtTime(volumeRef.current, ctx.currentTime)
+  function resetOutputVolume() {
+    cancelVolumeFade()
+    const el = audioRef.current
+    if (el) el.volume = volumeRef.current
   }
 
   // React to biome and enabled changes: fade out current and start new track
@@ -170,15 +174,19 @@ export function useAudioPlayer({
       audioRef.current.src = path
       audioRef.current.load()
 
-      getAudioContext()
-      resetGain()
+      resetOutputVolume()
 
       try {
         await audioRef.current.play()
         if (!cancelled) setIsPlaying(true)
-      } catch {
-        // Autoplay blocked — user must interact via the play button
-        if (!cancelled) setIsPlaying(false)
+      } catch (error) {
+        if (cancelled) return
+        if (isBenignPlayRejection(error)) {
+          setIsPlaying(audioRef.current ? !audioRef.current.paused : false)
+          return
+        }
+        // Autoplay blocked (NotAllowedError) or other failure
+        setIsPlaying(false)
       }
     }
 
@@ -192,17 +200,7 @@ export function useAudioPlayer({
   const setVolume = useCallback((v: number) => {
     volumeRef.current = v
     setVolumeState(v)
-    if (
-      gainNodeRef.current &&
-      audioContextRef.current &&
-      !isFadingRef.current
-    ) {
-      gainNodeRef.current.gain.setValueAtTime(
-        v,
-        audioContextRef.current.currentTime
-      )
-    }
-    if (audioRef.current) {
+    if (audioRef.current && !isFadingRef.current) {
       audioRef.current.volume = v
     }
   }, [])
@@ -242,13 +240,16 @@ export function useAudioPlayer({
       audioRef.current.src = path
       audioRef.current.load()
 
-      getAudioContext()
-      resetGain()
+      resetOutputVolume()
 
       try {
         await audioRef.current.play()
         setIsPlaying(true)
-      } catch {
+      } catch (error) {
+        if (isBenignPlayRejection(error)) {
+          setIsPlaying(audioRef.current ? !audioRef.current.paused : false)
+          return
+        }
         setIsPlaying(false)
       }
     }
@@ -257,13 +258,22 @@ export function useAudioPlayer({
   }, [variant])
 
   const togglePlay = useCallback(() => {
-    if (!audioRef.current) return
-    if (audioRef.current.paused) {
-      getAudioContext()
-      resetGain()
-      void audioRef.current.play().then(() => setIsPlaying(true))
+    const el = audioRef.current
+    if (!el) return
+    if (el.paused) {
+      resetOutputVolume()
+      void el.play().then(
+        () => setIsPlaying(true),
+        (error: unknown) => {
+          if (isBenignPlayRejection(error)) {
+            setIsPlaying(!el.paused)
+            return
+          }
+          setIsPlaying(false)
+        }
+      )
     } else {
-      audioRef.current.pause()
+      el.pause()
       setIsPlaying(false)
     }
   }, [])
