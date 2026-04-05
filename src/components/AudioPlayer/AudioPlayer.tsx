@@ -9,7 +9,7 @@ import {
 } from '@ant-design/icons'
 import { App, Button, Slider, Space, Spin, Tooltip } from 'antd'
 import { useTranslations } from 'next-intl'
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { useAudioPlayer } from '@/hooks/useAudioPlayer'
 import type { BiomeId } from '@/lib/types'
@@ -33,14 +33,13 @@ export function AudioPlayer({ biome }: { biome: BiomeId | 'unexplored' }) {
     variant: settings.sound.variant,
   })
 
-  const notificationKeyRef = useRef('audio-preload')
   const wasPreloadingRef = useRef(false)
 
   useEffect(() => {
     if (isPreloading && !wasPreloadingRef.current) {
       wasPreloadingRef.current = true
       notification.info({
-        key: notificationKeyRef.current,
+        key: 'audio-preload',
         message: t('audio_player.preloading'),
         icon: <LoadingOutlined />,
         duration: 0,
@@ -49,7 +48,7 @@ export function AudioPlayer({ biome }: { biome: BiomeId | 'unexplored' }) {
     } else if (!isPreloading && wasPreloadingRef.current) {
       wasPreloadingRef.current = false
       notification.success({
-        key: notificationKeyRef.current,
+        key: 'audio-preload',
         message: t('audio_player.preload_complete'),
         duration: 3,
         placement: 'bottomLeft',
@@ -81,18 +80,20 @@ export function AudioPlayer({ biome }: { biome: BiomeId | 'unexplored' }) {
         </span>
       ) : null}
 
-      <Space className='AudioPlayer-volume' align='center'>
-        <SoundOutlined style={{ fontSize: 12 }} />
-        <Slider
-          min={0}
-          max={1}
-          step={0.05}
-          value={volume}
-          onChange={setVolume}
-          style={{ width: 80 }}
-          tooltip={{ formatter: v => `${Math.round((v ?? 0) * 100)}%` }}
-        />
-      </Space>
+      {!preloadError ? (
+        <Space className='AudioPlayer-volume' align='center'>
+          <SoundOutlined style={{ fontSize: 12 }} />
+          <Slider
+            min={0}
+            max={1}
+            step={0.05}
+            value={volume}
+            onChange={setVolume}
+            style={{ width: 80 }}
+            tooltip={{ formatter: v => `${Math.round((v ?? 0) * 100)}%` }}
+          />
+        </Space>
+      ) : null}
     </div>
   )
 }
