@@ -138,7 +138,6 @@ export function CharacterSheetShell({
                 {isDead ? (
                   <Alert
                     showIcon
-                    closable
                     type='warning'
                     title={t('characters.dead_readonly_title')}
                     description={t.rich(
