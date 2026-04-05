@@ -5,6 +5,7 @@
  * 4. Squeeze the cells back into a tight grid.
  * 5. Prevent selection the cell content when double-clicking it.
  * 6. Give the cell a little depth by adding an inner shade.
+ * 7. Center the cell in the viewport when it is targeted by a hash link.
  */
 .MapCell {
   position: relative; /* 1 */
@@ -22,6 +23,8 @@
   background-color: var(--biome-light);
   color: var(--biome-light-contrast);
   transition: 0.25s ease-in-out;
+
+  scroll-margin-top: 50vh; /* 7 */
 }
 
 @supports not ((corner-shape: bevel) and (aspect-ratio: cos(30deg))) {

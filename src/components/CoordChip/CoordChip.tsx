@@ -8,6 +8,7 @@ import { formatDisplayedCellReference } from '@/lib/map/coordinates'
 import type { PossibleBiomeId } from '@/lib/types'
 
 import './CoordChip.css'
+import { useSettings } from '../PageSettings/SettingsContext'
 
 export function CoordChip({
   biome,
@@ -21,6 +22,8 @@ export function CoordChip({
   /** When false, never link to the map (e.g. journal preview inside a modal). */
   interactive?: boolean
 }) {
+  const { settings } = useSettings()
+  const singlePageMode = settings.sheet.singlePageMode
   const getCharacterLink = useCharacterLink({ tabId: 'map' })
   const inner = (
     <>
@@ -30,12 +33,21 @@ export function CoordChip({
   )
 
   if (coord && interactive) {
+    const hash = formatDisplayedCellReference(coord)
+
+    // For some reason, the `hashchange` event is not firing when using a `Link`
+    // component. In the case of single page mode, we don’t need a full blown
+    // link, we can just use an `a` tag with a hash.
+    if (singlePageMode) {
+      return (
+        <a className='CoordChip' href={'#' + hash}>
+          {inner}
+        </a>
+      )
+    }
+
     return (
-      <Link
-        className='CoordChip'
-        href={getCharacterLink({
-          hash: formatDisplayedCellReference(coord),
-        })}>
+      <Link className='CoordChip' href={getCharacterLink({ hash })}>
         {inner}
       </Link>
     )

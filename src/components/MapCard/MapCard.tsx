@@ -2,6 +2,7 @@
 
 import { Card, Form, Popover } from 'antd'
 import { useTranslations } from 'next-intl'
+import { useEffect } from 'react'
 import { BiomeBubble } from '@/components/BiomeBubble/BiomeBubble'
 import { BrowserWarning } from '@/components/BrowserWarning/BrowserWarning'
 import { EncountersButton } from '@/components/EncountersList/EncountersButton'
@@ -18,23 +19,32 @@ import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { SettingsHint } from '@/components/SettingsHint/SettingsHint'
 import { Spacing } from '@/components/Spacing/Spacing'
 import { BIOME_IDS } from '@/lib/constants/misc'
+import { resolveDisplayedCellReference } from '@/lib/map/coordinates'
+import { useCharacterContext } from '../CharacterContext/CharacterContext'
+import { useHash } from '../Navigation/useHash'
 
 import './MapCard.css'
-import { useCharacterContext } from '../CharacterContext/CharacterContext'
 
 export function MapCard() {
   const t = useTranslations()
   const { selectedCell, setSelectedCell, toggleSelectCell } = useCellSelection()
   const {
-    mapState: { currentPosition, ...rest },
+    mapState: { currentPosition },
     getCellState,
   } = useMapState()
   const currentBiome = getCellState(currentPosition)?.biome ?? 'unexplored'
   const { cardRef, visibleSheet, setVisibleSheet, isViewingCurrentSheet } =
     useMapSheet({ currentPosition, selectedCell, setSelectedCell })
   const { isDead } = useCharacterContext()
+  const hash = useHash()
 
   useMapCopyPaste({ selectedCell })
+
+  useEffect(() => {
+    if (!hash) return
+    const coord = resolveDisplayedCellReference(hash)
+    if (coord) setSelectedCell(coord)
+  }, [setSelectedCell, hash])
 
   return (
     <>
