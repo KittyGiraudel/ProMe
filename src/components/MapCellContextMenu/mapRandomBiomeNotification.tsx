@@ -1,21 +1,14 @@
 import InfoCircleFilled from '@ant-design/icons/lib/icons/InfoCircleFilled'
+import { NotificationInstance } from 'antd/es/notification/interface'
 import type { _Translator } from 'next-intl'
-import type { ReactNode } from 'react'
 import type { RandomBiomeResult } from '@/lib/random/randomBiome'
-
-type NotificationInfo = (args: {
-  icon: ReactNode
-  title: ReactNode
-  description: ReactNode
-  placement?: 'bottomRight'
-}) => void
 
 export function showRandomBiomeDiscoveredNotification({
   notification,
   t,
   rolled,
 }: {
-  notification: { info: NotificationInfo }
+  notification: NotificationInstance
   t: _Translator
   rolled: RandomBiomeResult
 }) {
@@ -32,6 +25,7 @@ export function showRandomBiomeDiscoveredNotification({
       biomeName,
       additionalTilesToMark: rolled.additionalTilesToMark,
     }),
+    duration: 10,
     placement: 'bottomRight',
   })
 }
