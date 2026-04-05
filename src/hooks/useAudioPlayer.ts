@@ -50,6 +50,8 @@ export function useAudioPlayer({
     return () => {
       audio.pause()
       audioRef.current = null
+      void audioContextRef.current?.close()
+      audioContextRef.current = null
     }
   }, [])
 
@@ -94,6 +96,7 @@ export function useAudioPlayer({
   }
 
   function resetGain() {
+    isFadingRef.current = false
     const ctx = audioContextRef.current
     const gain = gainNodeRef.current
     if (!ctx || !gain) return
@@ -148,14 +151,18 @@ export function useAudioPlayer({
     // Same biome while enabled: do nothing
     if (targetBiome === currentBiomeRef.current) return
 
+    let cancelled = false
+
     async function transition() {
       // Fade out current track if something is playing
       if (currentBiomeRef.current !== null && audioRef.current) {
         await fadeOut()
+        if (cancelled) return
         audioRef.current.pause()
         setIsPlaying(false)
       }
 
+      if (cancelled) return
       currentBiomeRef.current = targetBiome
 
       if (!targetBiome || !audioRef.current) return
@@ -171,14 +178,18 @@ export function useAudioPlayer({
 
       try {
         await audioRef.current.play()
-        setIsPlaying(true)
+        if (!cancelled) setIsPlaying(true)
       } catch {
         // Autoplay blocked — user must interact via the play button
-        setIsPlaying(false)
+        if (!cancelled) setIsPlaying(false)
       }
     }
 
     void transition()
+
+    return () => {
+      cancelled = true
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [biome, enabled, variant])
 
