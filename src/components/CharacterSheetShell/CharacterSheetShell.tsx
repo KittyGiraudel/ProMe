@@ -3,7 +3,6 @@
 import { Alert, ConfigProvider, Form } from 'antd'
 import { useTranslations } from 'next-intl'
 import { type ReactNode } from 'react'
-import { AudioPlayer } from '@/components/AudioPlayer/AudioPlayer'
 import { Button } from '@/components/Button/Button'
 import { CharacterProvider } from '@/components/CharacterContext/CharacterContext'
 import { CharacterSheetEmptyState } from '@/components/CharacterSheetEmptyState/CharacterSheetEmptyState'
@@ -26,6 +25,7 @@ import { Link } from '@/i18n/navigation'
 import { getProtectorSummary } from '@/lib/character/getProtectorSummary'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
 import { toFormValues } from '@/lib/character/toFormValues'
+import { AudioCard } from '../AudioCard/AudioCard'
 
 export function CharacterSheetShell({
   characterId,
@@ -158,7 +158,7 @@ export function CharacterSheetShell({
                 <CharacterSheetTabNav />
                 <CharacterStats />
                 {children}
-                <AudioPlayer biome={bannerBiome} />
+                <AudioCard biome={bannerBiome} />
                 {settings.sheet.singlePageMode && !isDead && (
                   <SettingsHint hintId='sheet' />
                 )}

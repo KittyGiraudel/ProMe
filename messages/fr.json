@@ -606,11 +606,16 @@
     "village_faction_label": "Peuple du village"
   },
   "audio_player": {
+    "title": "Musique d’ambiance",
+    "idle": "Aucune piste (placez-vous sur un biome sur la carte)",
     "preloading": "Préchargement des bandes sons…",
     "preload_complete": "La musique est prête à jouer.",
     "play": "Lire",
     "pause": "Pause",
     "volume": "Volume",
+    "progress_label": "Position de lecture",
+    "restart_track": "Revenir au début",
+    "new_track": "Autre piste aléatoire pour ce biome",
     "error": "Impossible de charger l'audio.",
     "retry": "Réessayer"
   }
