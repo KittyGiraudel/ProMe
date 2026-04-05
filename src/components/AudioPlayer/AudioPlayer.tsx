@@ -9,7 +9,7 @@ import {
 } from '@ant-design/icons'
 import { App, Button, Slider, Space, Spin, Tooltip } from 'antd'
 import { useTranslations } from 'next-intl'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { useAudioPlayer } from '@/hooks/useAudioPlayer'
 import type { BiomeId } from '@/lib/types'
