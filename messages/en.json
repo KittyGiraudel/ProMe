@@ -526,7 +526,10 @@
     "village_footnote": "Rulebook — Villages: page 42. \"Establishment\" table: page 43."
   },
   "settings": {
-    "adaptive_night_mode_help": "Automatically switches between light and dark themes based on the clock value.",
+    "app_theme_dark": "Dark",
+    "app_theme_label": "Theme",
+    "app_theme_light": "Light",
+    "adaptive_night_mode_help": "Overrides the app theme for the character sheet. Automatically switches to dark mode at night and light mode during the day based on the clock value.",
     "adaptive_night_mode_label": "Adaptive theme",
     "sheet_single_page_mode_help": "Displays the character sheet as one scrollable page instead of tabbed sections.",
     "sheet_single_page_mode_label": "Single page mode",
@@ -553,6 +556,7 @@
     "language_fr": "Français",
     "language_warning": "Please note that only the French language is canonical, as it is the language in which my game version is written. The English version is automatically translated without support from an English rulebook.",
     "language_label": "Language",
+    "section_appearance": "Appearance",
     "section_journal": "Journal",
     "section_language": "Language",
     "section_map": "Map",
