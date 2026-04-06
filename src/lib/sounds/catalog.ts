@@ -96,14 +96,16 @@ const CATALOG: Record<BiomeId, [TrackEntry, TrackEntry]> = {
   ],
 }
 
+const SOUNDS_BASE_URL = process.env.NEXT_PUBLIC_SOUNDS_BASE_URL ?? ''
+
 export function getTrackPath(track: TrackEntry, variant: SoundVariant): string {
   if (variant === 'music' && track.hasMusic) {
-    return `/musics/${track.file}_MUS_Only.mp3`
+    return `${SOUNDS_BASE_URL}/musics/${track.file}_MUS_Only.mp3`
   }
   if (variant === 'ambiance' && track.hasAmbiance) {
-    return `/musics/${track.file}_AMB_Only.mp3`
+    return `${SOUNDS_BASE_URL}/musics/${track.file}_AMB_Only.mp3`
   }
-  return `/musics/${track.file}.mp3`
+  return `${SOUNDS_BASE_URL}/musics/${track.file}.mp3`
 }
 
 export function getTracksForBiome(biome: BiomeId): [TrackEntry, TrackEntry] {
