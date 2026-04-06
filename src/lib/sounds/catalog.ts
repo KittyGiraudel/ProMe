@@ -105,7 +105,10 @@ export function getTrackPath(track: TrackEntry, variant: SoundVariant): string {
   } else {
     filename = `${track.file}.mp3`
   }
-  return `/api/proxy-audio?filename=${encodeURIComponent(filename)}`
+  if (process.env.NODE_ENV === 'production') {
+    return `/audio/${encodeURIComponent(filename)}`
+  }
+  return `https://pub-6f5ba7aac9c745d3ac681827814ac01a.r2.dev/musics/${encodeURIComponent(filename)}`
 }
 
 export function getTracksForBiome(biome: BiomeId): [TrackEntry, TrackEntry] {
