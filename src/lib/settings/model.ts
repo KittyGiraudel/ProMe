@@ -17,6 +17,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
     tickClockOnMove: false,
     showBiomeBackground: true,
     coordinatesDisplay: 'both',
+    style: 'flat',
   },
   sound: {
     enabled: false,
@@ -49,6 +50,11 @@ export function normalizeSettings(value: unknown): AppSettings {
       )
         ? (source!.map!.coordinatesDisplay as 'axes' | 'cells' | 'both')
         : 'both',
+      style: (['flat', 'tilted', 'tilting-on-hover'] as const).includes(
+        source?.map?.style as 'flat' | 'tilted' | 'tilting-on-hover'
+      )
+        ? (source!.map!.style as 'flat' | 'tilted' | 'tilting-on-hover')
+        : 'flat',
     },
     sound: {
       enabled: source?.sound?.enabled === true,

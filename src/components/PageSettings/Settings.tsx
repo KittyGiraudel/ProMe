@@ -18,6 +18,7 @@ type SettingsFormValues = {
   mapTickClockOnMove: boolean
   mapShowBiomeBackground: boolean
   mapCoordinatesDisplay: 'axes' | 'cells' | 'both'
+  mapStyle: 'flat' | 'tilted' | 'tilting-on-hover'
   soundEnabled: boolean
   soundVariant: 'mix' | 'music' | 'ambiance'
 }
@@ -43,6 +44,7 @@ export function Settings() {
     mapTickClockOnMove: settings.map.tickClockOnMove,
     mapShowBiomeBackground: settings.map.showBiomeBackground,
     mapCoordinatesDisplay: settings.map.coordinatesDisplay,
+    mapStyle: settings.map.style,
     soundEnabled: settings.sound.enabled,
     soundVariant: settings.sound.variant,
   }
@@ -60,6 +62,7 @@ export function Settings() {
       mapTickClockOnMove: DEFAULT_SETTINGS.map.tickClockOnMove,
       mapShowBiomeBackground: DEFAULT_SETTINGS.map.showBiomeBackground,
       mapCoordinatesDisplay: DEFAULT_SETTINGS.map.coordinatesDisplay,
+      mapStyle: DEFAULT_SETTINGS.map.style,
       soundEnabled: DEFAULT_SETTINGS.sound.enabled,
       soundVariant: DEFAULT_SETTINGS.sound.variant,
     })
@@ -89,6 +92,7 @@ export function Settings() {
         tickClockOnMove: allValues.mapTickClockOnMove === true,
         showBiomeBackground: allValues.mapShowBiomeBackground !== false,
         coordinatesDisplay: allValues.mapCoordinatesDisplay ?? 'both',
+        style: allValues.mapStyle ?? 'flat',
       },
       sound: {
         ...prev.sound,
@@ -185,8 +189,7 @@ export function Settings() {
                   <Form.Item
                     name='mapCoordinatesDisplay'
                     label={t('settings.map_coordinates_display_label')}
-                    help={t('settings.map_coordinates_display_help')}
-                    style={{ marginBottom: 0 }}>
+                    help={t('settings.map_coordinates_display_help')}>
                     <Select
                       options={[
                         {
@@ -200,6 +203,28 @@ export function Settings() {
                         {
                           value: 'cells',
                           label: t('settings.map_coordinates_display_cells'),
+                        },
+                      ]}
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    name='mapStyle'
+                    label={t('settings.map_style_label')}
+                    help={t('settings.map_style_help')}
+                    style={{ marginBottom: 0 }}>
+                    <Select
+                      options={[
+                        {
+                          value: 'flat',
+                          label: t('settings.map_style_flat'),
+                        },
+                        {
+                          value: 'tilted',
+                          label: t('settings.map_style_tilted'),
+                        },
+                        {
+                          value: 'tilting-on-hover',
+                          label: t('settings.map_style_tilting_on_hover'),
                         },
                       ]}
                     />

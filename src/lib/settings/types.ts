@@ -29,6 +29,8 @@ export type AppSettings = {
     showBiomeBackground: boolean
     /** Controls how cell coordinates are displayed: on the axes, inside cells, or both. */
     coordinatesDisplay: 'axes' | 'cells' | 'both'
+    /** Controls the perspective style of the map display. */
+    style: 'flat' | 'tilted' | 'tilting-on-hover'
   }
   sound: {
     /** When true, ambient music plays based on the current biome. Defaults to false. */
