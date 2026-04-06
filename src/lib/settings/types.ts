@@ -38,4 +38,8 @@ export type AppSettings = {
     /** Which variant of the soundtrack to play. Defaults to 'mix'. */
     variant: SoundVariant
   }
+  appearance: {
+    /** Controls the theme (light or dark mode). Defaults to 'light'. */
+    theme: 'light' | 'dark'
+  }
 }

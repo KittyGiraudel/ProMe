@@ -73,4 +73,20 @@ describe('settings/model', () => {
       normalizeSettings({ sound: { variant: 'invalid' } }).sound.variant
     ).toBe('mix')
   })
+
+  it('defaults appearance.theme to light', () => {
+    expect(normalizeSettings(undefined).appearance.theme).toBe('light')
+  })
+
+  it('keeps appearance.theme when dark', () => {
+    expect(
+      normalizeSettings({ appearance: { theme: 'dark' } }).appearance.theme
+    ).toBe('dark')
+  })
+
+  it('defaults invalid appearance.theme to light', () => {
+    expect(
+      normalizeSettings({ appearance: { theme: 'midnight' } }).appearance.theme
+    ).toBe('light')
+  })
 })

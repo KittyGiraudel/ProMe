@@ -23,6 +23,9 @@ export const DEFAULT_SETTINGS: AppSettings = {
     enabled: false,
     variant: 'mix',
   },
+  appearance: {
+    theme: 'light',
+  },
 }
 
 export function normalizeSettings(value: unknown): AppSettings {
@@ -63,6 +66,13 @@ export function normalizeSettings(value: unknown): AppSettings {
       )
         ? (source!.sound!.variant as 'mix' | 'music' | 'ambiance')
         : 'mix',
+    },
+    appearance: {
+      theme: (['light', 'dark'] as const).includes(
+        source?.appearance?.theme as 'light' | 'dark'
+      )
+        ? (source!.appearance!.theme as 'light' | 'dark')
+        : 'light',
     },
   }
 }
