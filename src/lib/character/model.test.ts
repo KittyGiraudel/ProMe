@@ -248,7 +248,7 @@ describe('character/model', () => {
     }
   })
 
-  it('normalize drops legacy clock adaptive-night flag from character payload', () => {
+  it('normalize drops legacy clock adaptive-appearance flag from character payload', () => {
     const normalized = normalizeCharacter({
       id: 'pc-legacy-clock',
       name: 'Legacy',

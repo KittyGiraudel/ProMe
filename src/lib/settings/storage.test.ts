@@ -40,13 +40,14 @@ describe('settings/storage', () => {
   it('persists and reloads normalized settings', () => {
     saveSettings({
       ...DEFAULT_SETTINGS,
-      sheet: { adaptiveNightMode: true, singlePageMode: true },
-      journal: { timelineReverseChronological: true },
+      sheet: { adaptiveAppearanceTheme: true, singlePageMode: true },
+      journal: { timelineReverseChronological: true, createEntryOnMove: true },
     })
 
     const loaded = loadSettings()
-    expect(loaded.sheet.adaptiveNightMode).toBe(true)
+    expect(loaded.sheet.adaptiveAppearanceTheme).toBe(true)
     expect(loaded.journal.timelineReverseChronological).toBe(true)
+    expect(loaded.journal.createEntryOnMove).toBe(true)
   })
 
   it('falls back to defaults on malformed JSON', () => {

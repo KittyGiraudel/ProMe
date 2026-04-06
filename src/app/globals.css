@@ -88,8 +88,8 @@ a {
   --biome-light-contrast: var(--biome-unexplored-light-contrast);
 }
 
-[data-sheet-night="true"] [data-biome="unexplored"],
-body:has([data-sheet-night="true"]) [data-biome="unexplored"] {
+[data-appearance="dark"] [data-biome="unexplored"],
+body:has([data-appearance="dark"]) [data-biome="unexplored"] {
   --biome-light: #2c3834;
   --biome-dark: #1a2320;
   --biome-contrast: #b8c9c2;

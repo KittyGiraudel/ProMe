@@ -68,17 +68,6 @@
   margin-top: 0.2em;
 }
 
-.Layout.Layout.Layout--dark {
-  --ant-layout-body-bg: #1a2420;
-  --ant-layout-footer-bg: #1a2420;
-  --ant-color-text: #e8f0ed;
-  --ant-color-text-base: #e8f0ed;
-}
-
-.Layout.Layout--dark .Layout__title {
-  color: inherit;
-}
-
 .Layout__menu .ant-menu-item:has([data-current="true"]),
 .Layout__menu .ant-menu-item:has([data-current="true"]):hover {
   background-color: var(--biome-dark);

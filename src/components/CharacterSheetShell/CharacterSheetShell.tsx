@@ -1,6 +1,6 @@
 'use client'
 
-import { Alert, ConfigProvider, Form } from 'antd'
+import { Alert, App, ConfigProvider, Form } from 'antd'
 import { useTranslations } from 'next-intl'
 import { type ReactNode, useEffect } from 'react'
 import { Button } from '@/components/Button/Button'
@@ -49,11 +49,9 @@ export function CharacterSheetShell({
   } = useCharacterSheetForm({ characterId })
   const onFieldsChange = useOnFieldsChanged(form)
 
-  // Watches clock/stamina (preserve-aware) to drive adaptive sheet “night”
+  // Watches clock/stamina (preserve-aware) to drive adaptive sheet appearance
   // chrome and Ant Design theme.
-  const { characterSheetNightMode, configTheme } = useCharacterSheetTheme({
-    form,
-  })
+  const { theme, appearance } = useCharacterSheetTheme(form)
 
   const { settings } = useSettings()
   const bannerBiome = useBiomeAtCurrentMapPosition(form)
@@ -71,70 +69,72 @@ export function CharacterSheetShell({
     return <CharacterSheetEmptyState loading={!hydratedFromStore} />
   }
 
+  // This `ConfigProvider` component is used to override the global theme for
+  // the sheet when the adaptive appearance is enabled. The `App` component is
+  // needed for the Ant Design notifications to adjust to this theme provider.
   return (
-    <Layout
-      sheetNightChrome={characterSheetNightMode}
-      bannerBiome={bannerBiome}
-      title={character.name || t('characters_list.unnamed')}
-      breadcrumbs={[
-        { title: t('nav.home'), path: '/' },
-        { title: t('nav.characters'), path: '/characters' },
-        ...(settings.sheet.singlePageMode
-          ? [{ title: character.name, path: undefined }]
-          : [
-              {
-                title: character.name,
-                path: getCharacterLink({ tabId: 'identity' }),
-              },
-              {
-                title: t(`characters.${activeTab}.title`),
-                path: undefined,
-              },
-            ]),
-      ]}
-      headerActions={[
-        <CopyDropdown
-          key='sheet-copy'
-          description={getProtectorSummary(character, t)}
-          journalBrace={`{protector/${character.id}}`}
-        />,
-        ...(!isDead
-          ? [
-              <Button
-                key='save'
-                type='primary'
-                htmlType='submit'
-                form={character.id}>
-                {t('common.actions.save')}
-              </Button>,
-            ]
-          : []),
-      ]}>
-      <Form
-        id={character.id}
-        key={`${character.id}-${character.updatedAt}`}
-        form={form}
-        onFieldsChange={onFieldsChange}
-        scrollToFirstError
-        initialValues={toFormValues(character)}
-        onFinish={_values => {
-          // We need *not* to pass the received values to our `saveForm`
-          // function because:
-          // 1. They do not contain journal entries since these entries are only
-          //    registered when the edit modal is open.
-          // 2. Our `saveForm` function already calls `getCharacterFromForm()`
-          //    to get the correct values.
-          saveForm()
-        }}
-        disabled={isDead}
-        layout='vertical'
-        colon={false}
-        preserve>
-        <CharacterSheetValidationErrors errors={validationErrors} />
-        <CharacterProvider isDead={isDead} saveForm={saveForm}>
-          <ConfigProvider theme={configTheme}>
-            <div
-              data-sheet-night={characterSheetNightMode ? 'true' : undefined}>
+    <ConfigProvider theme={theme}>
+      <App>
+        <Layout
+          appearance={appearance}
+          bannerBiome={bannerBiome}
+          title={character.name || t('characters_list.unnamed')}
+          breadcrumbs={[
+            { title: t('nav.home'), path: '/' },
+            { title: t('nav.characters'), path: '/characters' },
+            ...(settings.sheet.singlePageMode
+              ? [{ title: character.name, path: undefined }]
+              : [
+                  {
+                    title: character.name,
+                    path: getCharacterLink({ tabId: 'identity' }),
+                  },
+                  {
+                    title: t(`characters.${activeTab}.title`),
+                    path: undefined,
+                  },
+                ]),
+          ]}
+          headerActions={[
+            <CopyDropdown
+              key='sheet-copy'
+              description={getProtectorSummary(character, t)}
+              journalBrace={`{protector/${character.id}}`}
+            />,
+            ...(!isDead
+              ? [
+                  <Button
+                    key='save'
+                    type='primary'
+                    htmlType='submit'
+                    form={character.id}>
+                    {t('common.actions.save')}
+                  </Button>,
+                ]
+              : []),
+          ]}>
+          <Form
+            id={character.id}
+            key={`${character.id}-${character.updatedAt}`}
+            form={form}
+            onFieldsChange={onFieldsChange}
+            scrollToFirstError
+            initialValues={toFormValues(character)}
+            onFinish={_values => {
+              // We need *not* to pass the received values to our `saveForm`
+              // function because:
+              // 1. They do not contain journal entries since these entries are only
+              //    registered when the edit modal is open.
+              // 2. Our `saveForm` function already calls `getCharacterFromForm()`
+              //    to get the correct values.
+              saveForm()
+            }}
+            disabled={isDead}
+            layout='vertical'
+            colon={false}
+            preserve>
+            <CharacterSheetValidationErrors errors={validationErrors} />
+            <CharacterProvider isDead={isDead} saveForm={saveForm}>
               <Spacing>
                 {isDead ? (
                   <Alert
@@ -163,10 +163,10 @@ export function CharacterSheetShell({
                   <SettingsHint hintId='sheet' />
                 )}
               </Spacing>
-            </div>
-          </ConfigProvider>
-        </CharacterProvider>
-      </Form>
-    </Layout>
+            </CharacterProvider>
+          </Form>
+        </Layout>
+      </App>
+    </ConfigProvider>
   )
 }

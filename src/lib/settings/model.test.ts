@@ -6,11 +6,11 @@ describe('settings/model', () => {
     expect(normalizeSettings(undefined)).toEqual(DEFAULT_SETTINGS)
   })
 
-  it('keeps adaptiveNightMode when payload enables it', () => {
+  it('keeps adaptiveAppearanceTheme when payload enables it', () => {
     expect(
       normalizeSettings({
-        sheet: { adaptiveNightMode: true },
-      }).sheet.adaptiveNightMode
+        sheet: { adaptiveAppearanceTheme: true },
+      }).sheet.adaptiveAppearanceTheme
     ).toBe(true)
   })
 

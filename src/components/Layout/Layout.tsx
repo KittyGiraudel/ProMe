@@ -16,12 +16,12 @@ import './Layout.css'
 type LayoutProps = {
   title: string
   headerActions?: ReactNode
-  sheetNightChrome?: boolean
   /** Tints the page cover from map palette (character sheet). */
   bannerBiome?: PossibleBiomeId
   breadcrumbs: BreadcrumbProps['items']
   children: ReactNode
   className?: string
+  appearance?: 'light' | 'dark'
 }
 
 export const Layout = ({
@@ -29,9 +29,9 @@ export const Layout = ({
   breadcrumbs,
   children,
   headerActions,
-  sheetNightChrome,
   bannerBiome,
   className = '',
+  appearance,
 }: LayoutProps) => {
   const pathname = usePathname()
   const t = useTranslations()
@@ -101,13 +101,8 @@ export const Layout = ({
   )
 
   return (
-    <AntLayout
-      className={
-        sheetNightChrome
-          ? `Layout Layout--dark ${className}`
-          : `Layout ${className}`
-      }
-      data-sheet-night={sheetNightChrome ? 'true' : undefined}>
+    <AntLayout className={`Layout ${className}`} data-appearance={appearance}>
+      {' '}
       <AntLayout.Header className='Layout__header'>
         <span className='Layout__logo'>ProMe</span>
         <Menu

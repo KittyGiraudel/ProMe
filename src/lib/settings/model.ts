@@ -3,7 +3,7 @@ import { type AppSettings, SETTINGS_SCHEMA_VERSION } from './types'
 export const DEFAULT_SETTINGS: AppSettings = {
   schemaVersion: SETTINGS_SCHEMA_VERSION,
   sheet: {
-    adaptiveNightMode: false,
+    adaptiveAppearanceTheme: false,
     singlePageMode: true,
   },
   journal: {
@@ -33,7 +33,7 @@ export function normalizeSettings(value: unknown): AppSettings {
   return {
     schemaVersion: SETTINGS_SCHEMA_VERSION,
     sheet: {
-      adaptiveNightMode: source?.sheet?.adaptiveNightMode === true,
+      adaptiveAppearanceTheme: source?.sheet?.adaptiveAppearanceTheme === true,
       singlePageMode: source?.sheet?.singlePageMode !== false,
     },
     journal: {

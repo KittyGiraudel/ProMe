@@ -11,7 +11,7 @@ import { useSettings } from './SettingsContext'
 
 type SettingsFormValues = {
   appTheme: 'light' | 'dark'
-  adaptiveNightMode: boolean
+  adaptiveAppearanceTheme: boolean
   sheetSinglePageMode: boolean
   timelineReverseChronological: boolean
   journalCreateEntryOnMove: boolean
@@ -37,7 +37,7 @@ export function Settings() {
 
   const initialValues: SettingsFormValues = {
     appTheme: settings.appearance.theme,
-    adaptiveNightMode: settings.sheet.adaptiveNightMode,
+    adaptiveAppearanceTheme: settings.sheet.adaptiveAppearanceTheme,
     sheetSinglePageMode: settings.sheet.singlePageMode,
     timelineReverseChronological: settings.journal.timelineReverseChronological,
     journalCreateEntryOnMove: settings.journal.createEntryOnMove,
@@ -55,7 +55,7 @@ export function Settings() {
     updateSettings(() => DEFAULT_SETTINGS)
     form.setFieldsValue({
       appTheme: DEFAULT_SETTINGS.appearance.theme,
-      adaptiveNightMode: DEFAULT_SETTINGS.sheet.adaptiveNightMode,
+      adaptiveAppearanceTheme: DEFAULT_SETTINGS.sheet.adaptiveAppearanceTheme,
       sheetSinglePageMode: DEFAULT_SETTINGS.sheet.singlePageMode,
       timelineReverseChronological:
         DEFAULT_SETTINGS.journal.timelineReverseChronological,
@@ -80,7 +80,7 @@ export function Settings() {
       },
       sheet: {
         ...prev.sheet,
-        adaptiveNightMode: allValues.adaptiveNightMode === true,
+        adaptiveAppearanceTheme: allValues.adaptiveAppearanceTheme === true,
         singlePageMode: allValues.sheetSinglePageMode === true,
       },
       journal: {
@@ -177,11 +177,11 @@ export function Settings() {
               <Card title={t('settings.section_sheet')}>
                 <Spacing>
                   <Form.Item
-                    name='adaptiveNightMode'
+                    name='adaptiveAppearanceTheme'
                     valuePropName='checked'
-                    extra={t('settings.adaptive_night_mode_help')}>
+                    extra={t('settings.adaptive_appearance_theme_help')}>
                     <Checkbox>
-                      {t('settings.adaptive_night_mode_label')}
+                      {t('settings.adaptive_appearance_theme_label')}
                     </Checkbox>
                   </Form.Item>
                   <Form.Item
