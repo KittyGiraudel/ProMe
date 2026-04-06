@@ -38,6 +38,14 @@ describe('settings/model', () => {
     ).toBe(true)
   })
 
+  it('keeps createEntryOnMove when payload enables it', () => {
+    expect(
+      normalizeSettings({
+        journal: { createEntryOnMove: true },
+      }).journal.createEntryOnMove
+    ).toBe(true)
+  })
+
   it('defaults sound to disabled with mix variant', () => {
     expect(normalizeSettings(undefined).sound).toEqual({
       enabled: false,

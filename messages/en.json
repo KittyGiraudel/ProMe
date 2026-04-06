@@ -136,7 +136,9 @@
       "preview_entry": "Preview",
       "slice_label": "Slice",
       "tab_edit": "Edit",
-      "title": "Journal"
+      "title": "Journal",
+      "auto_map_move_content": "# From {curr} to {next}\n\n_Write down your adventures over here._",
+      "auto_map_move_content_discovered": "# From {curr} to {next}\n\n- Discovered {biomeName}\n\n_Write down your other adventures over here._"
     },
     "tools": {
       "card_action": "Draw 1 card",
@@ -530,6 +532,8 @@
     "sheet_single_page_mode_label": "Single page mode",
     "journal_timeline_reverse_chronological_help": "By default, the journal is chronological; uncheck to display entries from newest to oldest.",
     "journal_timeline_reverse_chronological_label": "Reverse chronological journal",
+    "journal_create_entry_on_map_move_help": "When you move to an adjacent map cell, a new journal entry is added with the next clock slice and a starter heading. Separate from automatically advancing the clock.",
+    "journal_create_entry_on_map_move_label": "Create a journal entry when moving on the map",
     "map_tick_clock_on_move_help": "When you move to an adjacent cell, the clock position advances as if you had used the \"Advance\" button.",
     "map_tick_clock_on_move_label": "Auto-advancing clock",
     "map_show_biome_background_help": "Show patterned backgrounds inside each cell based on its biome. Useful for distinguishing biomes without relying on color alone.",

@@ -12,6 +12,8 @@ export type AppSettings = {
   journal: {
     /** When true, journal timeline is reverse chronological (newest first). */
     timelineReverseChronological: boolean
+    /** When true, moving on the map appends a prefilled journal entry (next clock slice). */
+    createEntryOnMove: boolean
   }
   village: {
     /**

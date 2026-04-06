@@ -13,6 +13,7 @@ type SettingsFormValues = {
   adaptiveNightMode: boolean
   sheetSinglePageMode: boolean
   timelineReverseChronological: boolean
+  journalCreateEntryOnMove: boolean
   villageMergeDuplicateEstablishments: boolean
   mapTickClockOnMove: boolean
   mapShowBiomeBackground: boolean
@@ -36,6 +37,7 @@ export function Settings() {
     adaptiveNightMode: settings.sheet.adaptiveNightMode,
     sheetSinglePageMode: settings.sheet.singlePageMode,
     timelineReverseChronological: settings.journal.timelineReverseChronological,
+    journalCreateEntryOnMove: settings.journal.createEntryOnMove,
     villageMergeDuplicateEstablishments:
       settings.village.mergeDuplicateEstablishments,
     mapTickClockOnMove: settings.map.tickClockOnMove,
@@ -52,6 +54,7 @@ export function Settings() {
       sheetSinglePageMode: DEFAULT_SETTINGS.sheet.singlePageMode,
       timelineReverseChronological:
         DEFAULT_SETTINGS.journal.timelineReverseChronological,
+      journalCreateEntryOnMove: DEFAULT_SETTINGS.journal.createEntryOnMove,
       villageMergeDuplicateEstablishments:
         DEFAULT_SETTINGS.village.mergeDuplicateEstablishments,
       mapTickClockOnMove: DEFAULT_SETTINGS.map.tickClockOnMove,
@@ -74,6 +77,7 @@ export function Settings() {
         ...prev.journal,
         timelineReverseChronological:
           allValues.timelineReverseChronological === true,
+        createEntryOnMove: allValues.journalCreateEntryOnMove === true,
       },
       village: {
         ...prev.village,
@@ -217,6 +221,16 @@ export function Settings() {
                         {t(
                           'settings.journal_timeline_reverse_chronological_label'
                         )}
+                      </Checkbox>
+                    </Form.Item>
+                    <Form.Item
+                      name='journalCreateEntryOnMove'
+                      valuePropName='checked'
+                      help={t(
+                        'settings.journal_create_entry_on_map_move_help'
+                      )}>
+                      <Checkbox>
+                        {t('settings.journal_create_entry_on_map_move_label')}
                       </Checkbox>
                     </Form.Item>
                   </Spacing>

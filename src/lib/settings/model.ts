@@ -8,6 +8,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   },
   journal: {
     timelineReverseChronological: false,
+    createEntryOnMove: false,
   },
   village: {
     mergeDuplicateEstablishments: false,
@@ -34,6 +35,7 @@ export function normalizeSettings(value: unknown): AppSettings {
     journal: {
       timelineReverseChronological:
         source?.journal?.timelineReverseChronological === true,
+      createEntryOnMove: source?.journal?.createEntryOnMove === true,
     },
     village: {
       mergeDuplicateEstablishments:
