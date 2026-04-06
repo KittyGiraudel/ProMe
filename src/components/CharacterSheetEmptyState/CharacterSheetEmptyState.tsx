@@ -1,10 +1,9 @@
 'use client'
 
-import { Empty, Spin } from 'antd'
+import { Empty, Skeleton } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
-import { LoadingState } from '../LoadingState/LoadingState'
 
 export function CharacterSheetEmptyState({
   loading = false,
@@ -22,7 +21,7 @@ export function CharacterSheetEmptyState({
         { title: t('nav.characters'), path: '/characters' },
       ]}>
       {loading ? (
-        <LoadingState description={t('common.loading')} />
+        <Skeleton active />
       ) : (
         <Empty
           description={

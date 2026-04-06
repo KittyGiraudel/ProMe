@@ -9,6 +9,7 @@ import {
   Form,
   InputNumber,
   Popover,
+  Progress,
   Row,
   Tooltip,
   Typography,
@@ -22,6 +23,7 @@ import {
   useWatchedHealth,
   useWatchedStamina,
 } from '@/hooks/useCharacterSheetDerived'
+import { StatPool } from '@/lib/character/types'
 
 type PoolKey = 'health' | 'courage' | 'stamina'
 type ResourceKey = 'honor' | 'inspiration' | 'money'
@@ -50,24 +52,24 @@ export function CharacteristicsCard() {
     ],
   ]
 
-  const pools: readonly [PoolKey, string, string, number][] = [
+  const pools: readonly [PoolKey, string, string, StatPool][] = [
     [
       'health',
       t('characters.identity.health_label'),
       t('characters.identity.health_tooltip'),
-      health.max,
+      health,
     ],
     [
       'courage',
       t('characters.identity.courage_label'),
       t('characters.identity.courage_tooltip'),
-      courage.max,
+      courage,
     ],
     [
       'stamina',
       t('characters.identity.stamina_label'),
       t('characters.identity.stamina_tooltip'),
-      stamina.max,
+      stamina,
     ],
   ]
 
@@ -100,7 +102,7 @@ export function CharacteristicsCard() {
         <Divider />
 
         <Row gutter={[16, 16]}>
-          {pools.map(([poolKey, label, tooltip, max]) => (
+          {pools.map(([poolKey, label, tooltip, { max, current }]) => (
             <Col xs={24} md={8} key={poolKey}>
               <div
                 style={{
@@ -131,6 +133,23 @@ export function CharacteristicsCard() {
                     style={{ marginBottom: 0 }}>
                     <InputNumber min={1} style={{ width: '100%' }} />
                   </Form.Item>
+                </Col>
+
+                <Col xs={24}>
+                  <Progress
+                    data-current={current}
+                    data-max={max}
+                    size='small'
+                    format={percent => `${percent?.toFixed(2) ?? 0}%`}
+                    status={
+                      current <= 1
+                        ? 'exception'
+                        : current === max
+                          ? 'success'
+                          : 'active'
+                    }
+                    percent={(current / max) * 100}
+                  />
                 </Col>
               </Row>
             </Col>

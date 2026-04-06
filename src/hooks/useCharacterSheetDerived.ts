@@ -41,11 +41,11 @@ export function useWatchedStamina(oForm?: FormInstance) {
 
   const updateCurrentStamina = useCallback(
     (stamina: number) => form.setFieldValue(['stamina', 'current'], stamina),
-    []
+    [form]
   )
   const updateMaxStamina = useCallback(
     (stamina: number) => form.setFieldValue(['stamina', 'max'], stamina),
-    []
+    [form]
   )
 
   return useMemo(
@@ -63,11 +63,11 @@ export function useWatchedHealth(oForm?: FormInstance) {
 
   const updateCurrentHealth = useCallback(
     (health: number) => form.setFieldValue(['health', 'current'], health),
-    []
+    [form]
   )
   const updateMaxHealth = useCallback(
     (health: number) => form.setFieldValue(['health', 'max'], health),
-    []
+    [form]
   )
 
   return useMemo(
@@ -85,11 +85,11 @@ export function useWatchedCourage(oForm?: FormInstance) {
 
   const updateCurrentCourage = useCallback(
     (courage: number) => form.setFieldValue(['courage', 'current'], courage),
-    []
+    [form]
   )
   const updateMaxCourage = useCallback(
     (courage: number) => form.setFieldValue(['courage', 'max'], courage),
-    []
+    [form]
   )
 
   return useMemo(
@@ -105,7 +105,7 @@ export function useWatchedHonor(oForm?: FormInstance) {
 
   const updateHonor = useCallback(
     (honor: number) => form.setFieldValue('honor', honor),
-    []
+    [form]
   )
 
   return useMemo(() => ({ honor, updateHonor }), [honor, updateHonor])
@@ -119,7 +119,7 @@ export function useWatchedInspiration(oForm?: FormInstance) {
 
   const updateInspiration = useCallback(
     (inspiration: number) => form.setFieldValue('inspiration', inspiration),
-    []
+    [form]
   )
 
   return useMemo(

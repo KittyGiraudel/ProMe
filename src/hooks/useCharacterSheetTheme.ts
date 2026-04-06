@@ -10,14 +10,6 @@ import {
 } from '@/lib/character/clock'
 import { useWatchedClock, useWatchedStamina } from './useCharacterSheetDerived'
 
-const CHARACTER_SHEET_NIGHT_THEME = {
-  algorithm: antdTheme.darkAlgorithm,
-}
-
-const CHARACTER_SHEET_DAY_THEME = {
-  algorithm: antdTheme.defaultAlgorithm,
-}
-
 export function useCharacterSheetTheme(form: FormInstance) {
   const { clock } = useWatchedClock(form)
   const { stamina } = useWatchedStamina(form)
@@ -48,6 +40,11 @@ export function useCharacterSheetTheme(form: FormInstance) {
           : algorithm,
       },
     }),
-    [isClockNight, settings.appearance.theme, algorithm]
+    [
+      isClockNight,
+      settings.appearance.theme,
+      algorithm,
+      adaptiveAppearanceTheme,
+    ]
   )
 }

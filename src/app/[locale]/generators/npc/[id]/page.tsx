@@ -1,4 +1,4 @@
-import { Typography } from 'antd'
+import { Skeleton } from 'antd'
 import { notFound } from 'next/navigation'
 import { AppConfig, useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
@@ -28,7 +28,7 @@ function NpcGeneratorFallback() {
         { title: t('nav.home'), path: '/' },
         { title: t('nav.inhabitant_generator'), path: '/generators/npc' },
       ]}>
-      <Typography.Paragraph>{t('common.loading')}</Typography.Paragraph>
+      <Skeleton active />
     </Layout>
   )
 }

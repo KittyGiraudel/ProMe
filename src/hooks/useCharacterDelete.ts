@@ -7,7 +7,7 @@ import { getCharacterStore } from '@/lib/character/store'
 export function useCharacterDelete(characterId: string) {
   const store = useMemo(() => getCharacterStore(), [])
   const router = useRouter()
-  const { message, modal } = App.useApp()
+  const { message } = App.useApp()
   const t = useTranslations()
 
   const onDelete = useCallback(() => {
@@ -18,19 +18,5 @@ export function useCharacterDelete(characterId: string) {
     router.push('/characters')
   }, [t, message, router, store, characterId])
 
-  const deleteWithConfirmation = useCallback(() => {
-    modal.confirm({
-      title: t('characters.actions.delete_confirm_title'),
-      content: t('characters.actions.delete_confirm_description'),
-      okText: t('common.actions.delete'),
-      cancelText: t('common.actions.cancel'),
-      okButtonProps: { danger: true, type: 'primary' },
-      onOk: onDelete,
-    })
-  }, [modal, t, onDelete])
-
-  return useMemo(
-    () => ({ delete: onDelete, deleteWithConfirmation }),
-    [onDelete, deleteWithConfirmation]
-  )
+  return useMemo(() => ({ delete: onDelete }), [onDelete])
 }

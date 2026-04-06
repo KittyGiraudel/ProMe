@@ -1,12 +1,11 @@
 import LoadingOutlined from '@ant-design/icons/lib/icons/LoadingOutlined'
-import { App, Card, Result } from 'antd'
+import { App, Card, Result, Skeleton } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useEffect, useRef } from 'react'
 import { useSoundtrackPreload } from '@/hooks/useSoundtrackPreload'
 import { PossibleBiomeId } from '@/lib/types'
 import { AudioPlayer } from '../AudioPlayer/AudioPlayer'
 import { Button } from '../Button/Button'
-import { LoadingState } from '../LoadingState/LoadingState'
 import { useSettings } from '../PageSettings/SettingsContext'
 
 export function AudioCard({ biome }: { biome: PossibleBiomeId }) {
@@ -68,7 +67,7 @@ export function AudioCard({ biome }: { biome: PossibleBiomeId }) {
   if (preloadStatus === 'loading') {
     return (
       <Card title={t('audio_player.title')}>
-        <LoadingState description={t('audio_player.preloading')} />
+        <Skeleton active />
       </Card>
     )
   }

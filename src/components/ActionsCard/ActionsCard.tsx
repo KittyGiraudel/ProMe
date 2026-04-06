@@ -4,13 +4,15 @@ import DeleteOutlined from '@ant-design/icons/lib/icons/DeleteOutlined'
 import DownloadOutlined from '@ant-design/icons/lib/icons/DownloadOutlined'
 import FrownOutlined from '@ant-design/icons/lib/icons/FrownOutlined'
 import HeartOutlined from '@ant-design/icons/lib/icons/HeartOutlined'
-import { App, Avatar, Card, Form, List } from 'antd'
+import { App, Avatar, Card, Form, List, Popconfirm } from 'antd'
 import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
 import { Button } from '@/components/Button/Button'
 import { useCharacterContext } from '@/components/CharacterContext/CharacterContext'
 import { useCharacterDelete } from '@/hooks/useCharacterDelete'
+import { useCharacterLifeStatusActions } from '@/hooks/useCharacterLifeStatusActions'
+import { getCharacterStore } from '@/lib/character/store'
 import { stringifyCharacters } from '@/lib/character/store/migrations'
 import {
   buildCharacterExportFileName,
@@ -18,17 +20,15 @@ import {
 } from '@/lib/download/downloadJsonFile'
 
 import './ActionsCard.css'
-import { useCharacterLifeStatusActions } from '@/hooks/useCharacterLifeStatusActions'
-import { getCharacterStore } from '@/lib/character/store'
 
 export function ActionsCard() {
   const t = useTranslations()
   const { isDead } = useCharacterContext()
   const { onKill, onRevive } = useCharacterLifeStatusActions()
-  const { modal, message } = App.useApp()
+  const { message } = App.useApp()
   const form = Form.useFormInstance()
   const { id: characterId } = useParams()
-  const { deleteWithConfirmation } = useCharacterDelete(characterId as string)
+  const { delete: onDelete } = useCharacterDelete(characterId as string)
 
   const onExport = useCallback(() => {
     const saved = getCharacterStore().get(characterId as string)
@@ -42,27 +42,6 @@ export function ActionsCard() {
       message.error(t('characters.actions.export_download_error'))
     }
   }, [characterId, message, t, form])
-
-  const handleRequestRevive = () => {
-    modal.confirm({
-      title: t('characters.actions.revive_confirm_title'),
-      content: t('characters.actions.revive_confirm_description'),
-      okText: t('characters.actions.revive_action'),
-      cancelText: t('common.actions.cancel'),
-      onOk: onRevive,
-    })
-  }
-
-  const handleRequestMarkAsDead = () => {
-    modal.confirm({
-      title: t('characters.actions.mark_dead_confirm_title'),
-      content: t('characters.actions.mark_dead_confirm_description'),
-      okText: t('characters.actions.mark_dead_action'),
-      cancelText: t('common.actions.cancel'),
-      okButtonProps: { danger: true },
-      onOk: onKill,
-    })
-  }
 
   const items = [
     {
@@ -90,13 +69,17 @@ export function ActionsCard() {
             title: t('characters.actions.revive_action'),
             description: t('characters.actions.revive_confirm_description'),
             action: (
-              <Button
-                type='primary'
-                htmlType='button'
-                onClick={handleRequestRevive}
-                disabled={false}>
-                {t('characters.actions.revive_action')}
-              </Button>
+              <Popconfirm
+                title={t('characters.actions.revive_confirm_title')}
+                description={t('characters.actions.revive_confirm_description')}
+                okText={t('characters.actions.revive_action')}
+                cancelText={t('common.actions.cancel')}
+                onConfirm={onRevive}
+                styles={{ container: { maxWidth: 300 } }}>
+                <Button type='primary' htmlType='button' disabled={false}>
+                  {t('characters.actions.revive_action')}
+                </Button>
+              </Popconfirm>
             ),
           },
         ]
@@ -110,14 +93,23 @@ export function ActionsCard() {
             title: t('characters.actions.mark_dead_action'),
             description: t('characters.actions.danger_mark_dead_help'),
             action: (
-              <Button
-                danger
-                type='default'
-                htmlType='button'
-                onClick={handleRequestMarkAsDead}
-                disabled={false}>
-                {t('characters.actions.mark_dead_action')}
-              </Button>
+              <Popconfirm
+                title={t('characters.actions.mark_dead_confirm_title')}
+                description={t(
+                  'characters.actions.mark_dead_confirm_description'
+                )}
+                okText={t('characters.actions.mark_dead_action')}
+                cancelText={t('common.actions.cancel')}
+                onConfirm={onKill}
+                styles={{ container: { maxWidth: 300 } }}>
+                <Button
+                  danger
+                  type='default'
+                  htmlType='button'
+                  disabled={false}>
+                  {t('characters.actions.mark_dead_action')}
+                </Button>
+              </Popconfirm>
             ),
           },
         ]),
@@ -130,14 +122,17 @@ export function ActionsCard() {
       title: t('common.actions.delete'),
       description: t('characters.actions.delete_confirm_description'),
       action: (
-        <Button
-          danger
-          type='primary'
-          htmlType='button'
-          disabled={false}
-          onClick={deleteWithConfirmation}>
-          {t('common.actions.delete')}
-        </Button>
+        <Popconfirm
+          title={t('characters.actions.delete_confirm_title')}
+          description={t('characters.actions.delete_confirm_description')}
+          okText={t('common.actions.delete')}
+          cancelText={t('common.actions.cancel')}
+          onConfirm={onDelete}
+          styles={{ container: { maxWidth: 300 } }}>
+          <Button danger type='primary' htmlType='button' disabled={false}>
+            {t('common.actions.delete')}
+          </Button>
+        </Popconfirm>
       ),
     },
   ]

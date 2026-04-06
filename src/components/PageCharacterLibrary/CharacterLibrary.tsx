@@ -1,11 +1,10 @@
 'use client'
 
-import { Card, Empty, Typography } from 'antd'
+import { Card, Empty, Skeleton, Typography } from 'antd'
 import { useFormatter, useTranslations } from 'next-intl'
 import { useCallback, useRef } from 'react'
 import { Button } from '@/components/Button/Button'
 import { Layout } from '@/components/Layout/Layout'
-import { LoadingState } from '@/components/LoadingState/LoadingState'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { Spacing } from '@/components/Spacing/Spacing'
 import { useCharacterLibraryActions } from '@/hooks/useCharacterLibraryActions'
@@ -50,7 +49,7 @@ export function CharacterLibrary() {
 
       {!hydrated ? (
         <Card>
-          <LoadingState />
+          <Skeleton active />
         </Card>
       ) : characters.length === 0 ? (
         <Card>

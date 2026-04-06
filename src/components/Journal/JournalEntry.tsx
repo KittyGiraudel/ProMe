@@ -1,7 +1,7 @@
 'use client'
 
 import EditOutlined from '@ant-design/icons/lib/icons/EditOutlined'
-import { App, ConfigProvider, Form } from 'antd'
+import { ConfigProvider, Form } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
 import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useRef } from 'react'
@@ -28,7 +28,6 @@ export function JournalEntry({
   deleteEntry,
 }: JournalEntryProps) {
   const form = Form.useFormInstance()
-  const { modal } = App.useApp()
   const { componentDisabled } = ConfigProvider.useConfig()
   const initialContentRef = useRef<string | undefined>(undefined)
   const t = useTranslations()
@@ -54,7 +53,6 @@ export function JournalEntry({
 
   const { getEntry, updateEntryField } = useWatchedJournal()
   const draftContent = getEntry(field.name)?.content
-  const hasContent = Boolean(content?.trim())
   const entryAnchor = entryId ? `journal-${entryId}` : undefined
 
   useEffect(
@@ -68,21 +66,6 @@ export function JournalEntry({
       }
     },
     [editing, field.name, form]
-  )
-
-  const handleDelete = useCallback(
-    (index: number) => {
-      if (!hasContent) deleteEntry(index)
-      else
-        modal.confirm({
-          title: t('characters.journal.delete_confirm_title'),
-          content: t('characters.journal.delete_confirm_description'),
-          okText: t('common.actions.delete'),
-          cancelText: t('common.actions.cancel'),
-          onOk: () => deleteEntry(index),
-        })
-    },
-    [deleteEntry, hasContent, t, modal]
   )
 
   const handleModalSave = useCallback(() => {
@@ -131,7 +114,7 @@ export function JournalEntry({
         draftContent={draftContent}
         onCancel={handleModalCancel}
         onSave={handleModalSave}
-        onDelete={() => handleDelete(field.name)}
+        onDelete={() => deleteEntry(field.name)}
       />
     </div>
   )

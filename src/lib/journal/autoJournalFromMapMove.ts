@@ -1,8 +1,6 @@
-import type { _Translator } from 'next-intl'
 import {
   clampClockSliceIndex,
   computeClockMoveFromRawTarget,
-  countClockSegments,
   countHalfClockSegments,
   isClockDayPhase,
 } from '@/lib/character/clock'

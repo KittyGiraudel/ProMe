@@ -1,5 +1,5 @@
 import { FormProps } from 'antd'
-import form, { FormInstance } from 'antd/es/form'
+import { FormInstance } from 'antd/es/form'
 import { useCallback } from 'react'
 import { normalizeClock } from '@/lib/character/clock'
 import { useWatchedClock } from './useCharacterSheetDerived'
@@ -22,7 +22,7 @@ export function useOnFieldsChanged(form: FormInstance) {
         updateClock(normalizeClock(clock, staminaCurrentField.value as number))
       }
     },
-    [updateClock, clock, form]
+    [updateClock, clock]
   )
 
   return onFieldsChange

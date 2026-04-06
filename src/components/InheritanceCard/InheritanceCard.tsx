@@ -1,6 +1,6 @@
 'use client'
 
-import { Alert, Card, Form, Select, Typography } from 'antd'
+import { Alert, Card, Form, Select } from 'antd'
 import { useTranslations } from 'next-intl'
 import type { InheritanceCandidate } from '@/hooks/useInheritanceCandidates'
 import type { Archetype } from '@/lib/character/types'

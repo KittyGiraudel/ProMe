@@ -9,6 +9,7 @@ import {
   Input,
   InputNumber,
   Modal,
+  Popconfirm,
   Row,
   Select,
   Tabs,
@@ -76,14 +77,21 @@ export function JournalEntryEditModal({
       centered={false}
       footer={
         <div className='Journal__modalFooter'>
-          <Button
-            danger
-            type='link'
-            htmlType='button'
-            disabled={componentDisabled}
-            onClick={onDelete}>
-            {t('common.actions.delete')}
-          </Button>
+          <Popconfirm
+            title={t('characters.journal.delete_confirm_title')}
+            description={t('characters.journal.delete_confirm_description')}
+            okText={t('common.actions.delete')}
+            cancelText={t('common.actions.cancel')}
+            onConfirm={onDelete}
+            styles={{ container: { maxWidth: 300 } }}>
+            <Button
+              danger
+              type='link'
+              htmlType='button'
+              disabled={componentDisabled}>
+              {t('common.actions.delete')}
+            </Button>
+          </Popconfirm>
           <Spacing orientation='horizontal' size='small'>
             <Button htmlType='button' onClick={onCancel}>
               {t('common.actions.cancel')}

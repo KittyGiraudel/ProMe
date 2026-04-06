@@ -1,4 +1,4 @@
-import { Typography } from 'antd'
+import { Skeleton } from 'antd'
 import { AppConfig, useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { Suspense } from 'react'
@@ -26,7 +26,7 @@ function VillageGeneratorFallback() {
         { title: t('nav.home'), path: '/' },
         { title: t('nav.village_generator'), path: '/generators/village' },
       ]}>
-      <Typography.Paragraph>{t('common.loading')}</Typography.Paragraph>
+      <Skeleton active />
     </Layout>
   )
 }
