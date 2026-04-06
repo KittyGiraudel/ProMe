@@ -10,6 +10,7 @@ import { Spacing } from '../Spacing/Spacing'
 import { useSettings } from './SettingsContext'
 
 type SettingsFormValues = {
+  appTheme: 'light' | 'dark'
   adaptiveNightMode: boolean
   sheetSinglePageMode: boolean
   timelineReverseChronological: boolean
@@ -35,6 +36,7 @@ export function Settings() {
     router.replace(pathname, { locale: locale as AppConfig['Locale'] })
 
   const initialValues: SettingsFormValues = {
+    appTheme: settings.appearance.theme,
     adaptiveNightMode: settings.sheet.adaptiveNightMode,
     sheetSinglePageMode: settings.sheet.singlePageMode,
     timelineReverseChronological: settings.journal.timelineReverseChronological,
@@ -52,6 +54,7 @@ export function Settings() {
   const handleReset = () => {
     updateSettings(() => DEFAULT_SETTINGS)
     form.setFieldsValue({
+      appTheme: DEFAULT_SETTINGS.appearance.theme,
       adaptiveNightMode: DEFAULT_SETTINGS.sheet.adaptiveNightMode,
       sheetSinglePageMode: DEFAULT_SETTINGS.sheet.singlePageMode,
       timelineReverseChronological:
@@ -71,6 +74,10 @@ export function Settings() {
   const handleValuesChange = (_: unknown, allValues: SettingsFormValues) => {
     updateSettings(prev => ({
       ...prev,
+      appearance: {
+        ...prev.appearance,
+        theme: allValues.appTheme ?? 'light',
+      },
       sheet: {
         ...prev.sheet,
         adaptiveNightMode: allValues.adaptiveNightMode === true,
@@ -121,6 +128,29 @@ export function Settings() {
         <Spacing>
           <Row gutter={[16, 16]}>
             <Col xs={24} md={12}>
+              <Card title={t('settings.section_appearance')}>
+                <Form.Item
+                  name='appTheme'
+                  label={t('settings.app_theme_label')}
+                  style={{ marginBottom: 0 }}>
+                  <Select
+                    options={[
+                      {
+                        value: 'light',
+                        label: t('settings.app_theme_light'),
+                      },
+                      {
+                        value: 'dark',
+                        label: t('settings.app_theme_dark'),
+                      },
+                    ]}
+                  />
+                </Form.Item>
+              </Card>
+            </Col>
+          </Row>
+          <Row gutter={[16, 16]}>
+            <Col xs={24} md={12}>
               <Card title={t('settings.section_language')}>
                 <Spacing size='small'>
                   <Form.Item
@@ -149,7 +179,7 @@ export function Settings() {
                   <Form.Item
                     name='adaptiveNightMode'
                     valuePropName='checked'
-                    help={t('settings.adaptive_night_mode_help')}>
+                    extra={t('settings.adaptive_night_mode_help')}>
                     <Checkbox>
                       {t('settings.adaptive_night_mode_label')}
                     </Checkbox>
@@ -157,7 +187,7 @@ export function Settings() {
                   <Form.Item
                     name='sheetSinglePageMode'
                     valuePropName='checked'
-                    help={t('settings.sheet_single_page_mode_help')}>
+                    extra={t('settings.sheet_single_page_mode_help')}>
                     <Checkbox>
                       {t('settings.sheet_single_page_mode_label')}
                     </Checkbox>
@@ -173,7 +203,7 @@ export function Settings() {
                   <Form.Item
                     name='mapTickClockOnMove'
                     valuePropName='checked'
-                    help={t('settings.map_tick_clock_on_move_help')}>
+                    extra={t('settings.map_tick_clock_on_move_help')}>
                     <Checkbox>
                       {t('settings.map_tick_clock_on_move_label')}
                     </Checkbox>
@@ -181,7 +211,7 @@ export function Settings() {
                   <Form.Item
                     name='mapShowBiomeBackground'
                     valuePropName='checked'
-                    help={t('settings.map_show_biome_background_help')}>
+                    extra={t('settings.map_show_biome_background_help')}>
                     <Checkbox>
                       {t('settings.map_show_biome_background_label')}
                     </Checkbox>
@@ -189,7 +219,7 @@ export function Settings() {
                   <Form.Item
                     name='mapCoordinatesDisplay'
                     label={t('settings.map_coordinates_display_label')}
-                    help={t('settings.map_coordinates_display_help')}>
+                    extra={t('settings.map_coordinates_display_help')}>
                     <Select
                       options={[
                         {
@@ -210,7 +240,7 @@ export function Settings() {
                   <Form.Item
                     name='mapStyle'
                     label={t('settings.map_style_label')}
-                    help={t('settings.map_style_help')}
+                    extra={t('settings.map_style_help')}
                     style={{ marginBottom: 0 }}>
                     <Select
                       options={[
@@ -239,7 +269,7 @@ export function Settings() {
                     <Form.Item
                       name='timelineReverseChronological'
                       valuePropName='checked'
-                      help={t(
+                      extra={t(
                         'settings.journal_timeline_reverse_chronological_help'
                       )}>
                       <Checkbox>
@@ -251,7 +281,7 @@ export function Settings() {
                     <Form.Item
                       name='journalCreateEntryOnMove'
                       valuePropName='checked'
-                      help={t(
+                      extra={t(
                         'settings.journal_create_entry_on_map_move_help'
                       )}>
                       <Checkbox>
@@ -265,7 +295,7 @@ export function Settings() {
                     <Form.Item
                       name='villageMergeDuplicateEstablishments'
                       valuePropName='checked'
-                      help={t(
+                      extra={t(
                         'settings.village_merge_duplicate_establishments_help'
                       )}>
                       <Checkbox>
@@ -286,13 +316,13 @@ export function Settings() {
                   <Form.Item
                     name='soundEnabled'
                     valuePropName='checked'
-                    help={t('settings.sound_enabled_help')}>
+                    extra={t('settings.sound_enabled_help')}>
                     <Checkbox>{t('settings.sound_enabled_label')}</Checkbox>
                   </Form.Item>
                   <Form.Item
                     name='soundVariant'
                     label={t('settings.sound_variant_label')}
-                    help={t('settings.sound_variant_help')}
+                    extra={t('settings.sound_variant_help')}
                     style={{ marginBottom: 0 }}>
                     <Select
                       options={[
