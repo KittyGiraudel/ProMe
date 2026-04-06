@@ -1,7 +1,6 @@
 'use client'
 
 import {
-  Alert,
   Button,
   Card,
   Checkbox,
@@ -10,8 +9,6 @@ import {
   Popover,
   Row,
   Segmented,
-  Select,
-  Tooltip,
 } from 'antd'
 import { AppConfig, useLocale, useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
