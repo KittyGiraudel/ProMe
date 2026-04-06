@@ -54,7 +54,7 @@ export default async function RootLayout({
           href='/apple-touch-icon.png'
         />
         <meta name='apple-mobile-web-app-title' content='ProMe' />
-        <link rel='manifest' href='/site.webmanifest' />
+        <link rel='manifest' href='/manifest.webmanifest' />
       </Head>
       <body>
         <AntdRegistry>
