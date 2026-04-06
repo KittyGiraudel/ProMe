@@ -3,3 +3,8 @@
   to = "https://pub-6f5ba7aac9c745d3ac681827814ac01a.r2.dev/musics/:filename"
   status = 200
   force = true
+
+[[headers]]
+  for = "/audio/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
