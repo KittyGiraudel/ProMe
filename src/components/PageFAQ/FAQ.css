@@ -11,3 +11,7 @@
 .FAQ .Layout__content h2.ant-typography {
   margin-top: 1em;
 }
+
+.FAQ .Layout__content :where(ol, ul) {
+  padding-left: 1.25em;
+}
