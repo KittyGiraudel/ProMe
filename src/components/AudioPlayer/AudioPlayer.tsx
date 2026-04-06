@@ -12,7 +12,6 @@ import { useSettings } from '../PageSettings/SettingsContext'
 import './AudioPlayer.css'
 
 const FADE_DURATION_MS = 5_000
-Howler.html5PoolSize = 20
 
 const useBiomeTrack = (biome: PossibleBiomeId) => {
   const { settings } = useSettings()
@@ -31,43 +30,68 @@ export function AudioPlayer({ biome }: { biome: PossibleBiomeId }) {
   const { name, url } = useBiomeTrack(biome)
   const howl = useRef<Howl | null>(null)
   const volumeRef = useRef(0.8)
+  const wasPlayingRef = useRef(false)
   const [volume, setVolume] = useState(0.8)
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
 
-  useEffect(() => {
-    // If we already have a sound playing, fade it out
-    if (howl.current) {
-      howl.current.fade(volumeRef.current, 0, FADE_DURATION_MS)
-    }
-
-    // If there is no URL, stop the player and reset the state (which can happen
-    // when moving into the Core cell, which has no biome and thus no audio)
-    if (!url) {
-      setIsPlaying(false)
-      setCurrentTime(0)
-      return
-    }
-
-    // Load the new sound
+  // Extracted so both the effect and togglePlay can create a Howl consistently.
+  // The `wasPlayingRef` is updated via onplay/onpause so its value survives
+  // effect cleanup.
+  const buildHowl = useCallback((src: string) => {
     const sound = new Howl({
-      src: [url],
+      src: [src],
       format: ['mp3'],
       html5: true,
       loop: true,
       volume: volumeRef.current,
       onload: () => setDuration(sound.duration()),
-      onplay: () => setIsPlaying(true),
-      onpause: () => setIsPlaying(false),
-      // It’s important not to set `isPlaying` to `false` on sound stop, because
+      onplay: () => {
+        setIsPlaying(true)
+        wasPlayingRef.current = true
+      },
+      onpause: () => {
+        setIsPlaying(false)
+        wasPlayingRef.current = false
+      },
+      // It's important not to set `isPlaying` to `false` on sound stop, because
       // this is invoked automatically when unloading the sound. So as the sound
       // fades out, Howler calls `stop`, which would turn off the player.
       // onstop: () => setIsPlaying(false),
     })
+    return sound
+  }, [])
 
-    // Play the new sound and store it in the ref — note that doing this doesn’t
-    // flush the existing sound, which keeps playing until we fade it out.
+  useEffect(() => {
+    // `wasPlayingRef` survives cleanup (unlike `howl.current` which is nulled
+    // there), so we can reliably know whether to auto-start the incoming track.
+    const wasPlaying = wasPlayingRef.current
+
+    // Fade out the previous sound (cleanup will unload it after the fade).
+    if (howl.current) {
+      howl.current.fade(volumeRef.current, 0, FADE_DURATION_MS)
+    }
+
+    // If there is no URL, stop the player and reset the state (which can happen
+    // when moving into the Core cell, which has no biome and thus no audio).
+    if (!url) {
+      setIsPlaying(false)
+      setCurrentTime(0)
+      wasPlayingRef.current = false
+      return
+    }
+
+    // If nothing was playing, don’t construct a Howl yet — wait for the user to
+    // click play. This avoids the “HTML5 Audio pool exhausted” warning firing
+    // when Howler tries to obtain an audio node before any user gesture.
+    if (!wasPlaying) {
+      howl.current = null
+      return
+    }
+
+    // Something was already playing: swap to the new track immediately.
+    const sound = buildHowl(url)
     sound.play()
     howl.current = sound
 
@@ -76,7 +100,7 @@ export function AudioPlayer({ biome }: { biome: PossibleBiomeId }) {
       setTimeout(() => sound.unload(), FADE_DURATION_MS)
       howl.current = null
     }
-  }, [url])
+  }, [url, buildHowl])
 
   // Poll current playback position while playing
   useEffect(() => {
@@ -89,11 +113,17 @@ export function AudioPlayer({ biome }: { biome: PossibleBiomeId }) {
   }, [isPlaying])
 
   const togglePlay = useCallback(() => {
-    const sound = howl.current
-    if (!sound) return
-    if (sound.playing()) sound.pause()
-    else sound.play()
-  }, [])
+    if (!howl.current) {
+      // Howl was never created (lazy init path) — build it now on user gesture.
+      if (!url) return
+      const sound = buildHowl(url)
+      sound.play()
+      howl.current = sound
+      return
+    }
+    if (howl.current.playing()) howl.current.pause()
+    else howl.current.play()
+  }, [url, buildHowl])
 
   const seekTo = useCallback((time: number) => {
     howl.current?.seek(time)
