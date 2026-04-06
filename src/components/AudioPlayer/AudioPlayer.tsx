@@ -53,6 +53,7 @@ export function AudioPlayer({ biome }: { biome: PossibleBiomeId }) {
     // Load the new sound
     const sound = new Howl({
       src: [url],
+      format: ['mp3'],
       html5: true,
       loop: true,
       volume: volumeRef.current,

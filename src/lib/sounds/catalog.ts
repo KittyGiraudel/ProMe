@@ -96,8 +96,6 @@ const CATALOG: Record<BiomeId, [TrackEntry, TrackEntry]> = {
   ],
 }
 
-const SOUNDS_BASE_URL = process.env.NEXT_PUBLIC_SOUNDS_BASE_URL ?? ''
-
 export function getTrackPath(track: TrackEntry, variant: SoundVariant): string {
   let filename: string
   if (variant === 'music' && track.hasMusic) {
