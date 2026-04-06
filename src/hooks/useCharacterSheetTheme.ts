@@ -7,28 +7,22 @@ import {
   countHalfClockSegments,
   isClockNightPhase,
 } from '@/lib/character/clock'
+import { DARK_THEME_TOKENS, LIGHT_THEME_TOKENS } from '@/lib/theme/tokens'
 import { useWatchedClock, useWatchedStamina } from './useCharacterSheetDerived'
 
 const CHARACTER_SHEET_NIGHT_THEME = {
   algorithm: antdTheme.darkAlgorithm,
-  token: {
-    colorPrimary: '#5cb399',
-    colorBgLayout: '#1a2420',
-    colorBgContainer: '#243029',
-    colorBgElevated: '#2d3b36',
-    colorText: '#e8f0ed',
-    colorTextSecondary: '#9eb5ac',
-    colorBorder: '#3d4f47',
-    colorBorderSecondary: '#3d4f47',
-    borderRadius: 10,
-    fontSize: 15,
-    fontFamily:
-      'var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, sans-serif',
-  },
+  token: DARK_THEME_TOKENS,
   components: {
-    Layout: {
-      bodyBg: '#1a2420',
-    },
+    Layout: { bodyBg: DARK_THEME_TOKENS.colorBgLayout },
+  },
+}
+
+const CHARACTER_SHEET_DAY_THEME = {
+  algorithm: antdTheme.defaultAlgorithm,
+  token: LIGHT_THEME_TOKENS,
+  components: {
+    Layout: { bodyBg: LIGHT_THEME_TOKENS.colorBgLayout },
   },
 }
 
@@ -46,10 +40,15 @@ export function useCharacterSheetTheme({ form }: { form: FormInstance }) {
   )
   const characterSheetNightMode = isClockNight && adaptiveNightMode
 
+  let configTheme
+  if (adaptiveNightMode) {
+    configTheme = isClockNight
+      ? CHARACTER_SHEET_NIGHT_THEME
+      : CHARACTER_SHEET_DAY_THEME
+  }
+
   return {
     characterSheetNightMode,
-    configTheme: characterSheetNightMode
-      ? CHARACTER_SHEET_NIGHT_THEME
-      : undefined,
+    configTheme,
   }
 }
