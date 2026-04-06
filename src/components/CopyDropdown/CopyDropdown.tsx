@@ -29,7 +29,7 @@ export function CopyDropdown({
 
   const pageUrl = useMemo(() => {
     if (typeof window === 'undefined') return ''
-    const q = searchParams.toString()
+    const q = searchParams?.toString() ?? ''
     return `${window.location.origin}${pathname}${q ? `?${q}` : ''}`
   }, [pathname, searchParams])
 

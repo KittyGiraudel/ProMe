@@ -38,7 +38,7 @@ export function VillageGenerator({
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  const factionEncoded = searchParams.get('f')
+  const factionEncoded = searchParams?.get('f') ?? null
   const villageFaction = useMemo<Faction>(
     () => decodeVillageFactionParam(factionEncoded) ?? DEFAULT_VILLAGE_FACTION,
     [factionEncoded]
