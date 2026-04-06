@@ -31,7 +31,8 @@ export function useCharacterLink({
   hash?: string
 } = {}) {
   const { settings } = useSettings()
-  const characterId = useParams<{ id: string }>().id
+  const params = useParams<{ id: string }>()
+  const characterId = params?.id
   const singlePageMode = settings.sheet.singlePageMode
 
   const getCharacterLink = useCallback(

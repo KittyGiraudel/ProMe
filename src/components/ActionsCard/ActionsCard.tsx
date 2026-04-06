@@ -27,9 +27,9 @@ export function ActionsCard() {
   const { onKill, onRevive } = useCharacterLifeStatusActions()
   const { message } = App.useApp()
   const form = Form.useFormInstance()
-  const { id: characterId } = useParams()
+  const params = useParams<{ id: string }>()
+  const characterId = params?.id
   const { delete: onDelete } = useCharacterDelete(characterId as string)
-
   const onExport = useCallback(() => {
     const saved = getCharacterStore().get(characterId as string)
     const character = { ...saved, ...form.getFieldsValue(true) }
