@@ -3,9 +3,9 @@
 import { useTranslations } from 'next-intl'
 import { Spiral } from '@/components/Spiral/Spiral'
 import { Link } from '@/i18n/navigation'
+import { RichText } from '../RichText/RichText'
 
 import './LandingHero.css'
-import { RichText } from '../RichText/RichText'
 
 export function LandingHero() {
   const t = useTranslations()
