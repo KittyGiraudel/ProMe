@@ -654,7 +654,7 @@
       "character": {
         "number": "01 — Votre Protecteur",
         "title": "Une fiche de personnage à jour",
-        "body": "Suivez tout ce qui compte — santé, endurance, ressources, inventaire, sorts — sur une fiche persistante qui se souvient de votre Protecteur entre les sessions. Ni tableur, ni papier.",
+        "body": "Suivez tout ce qui compte — santé, endurance, ressources, inventaire, sorts — sur une fiche persistante qui se souvient de votre Protecteur entre les sessions. Aucune feuille : ni Excel, ni papier.",
         "tags": {
           "1": "Stats",
           "2": "Inventaire & Grimoire",
@@ -673,7 +673,7 @@
       "map": {
         "number": "02 — Le Monde",
         "title": "Une carte interactive à chaque étape",
-        "body": "Dessinez votre voyage hexagone par hexagone. Chaque case contient son biome, ses rencontres et ses notes. Le monde grandit au fil de votre exploration.",
+        "body": "Dessinez votre voyage jour par jour, hexagone par hexagone. Annotez votre carte au fil de votre aventure, marquant ses biomes et points d’intérêt. Le monde s’ouvre à vous au fil de votre exploration.",
         "tags": {
           "1": "Grille hexagonale",
           "2": "6 biomes uniques",
@@ -684,7 +684,7 @@
       "journal": {
         "number": "03 — Votre Histoire",
         "title": "Un journal canonique",
-        "body": "Rédigez vos souvenirs en Markdown enrichi. Intégrez des jets de dés, des tirages de cartes et des références à la carte directement dans vos entrées. Votre histoire, écrite avec vos mots.",
+        "body": "Rédigez vos souvenirs en [Markdown](https://www.markdownguide.org/basic-syntax/) enrichi. Intégrez des jets de dés, des tirages de cartes et des références à la carte directement dans vos entrées. *Votre* histoire, écrite avec *vos* mots.",
         "tags": {
           "1": "Markdown",
           "2": "Intégrations",
@@ -703,13 +703,14 @@
         "body": "Lancez un dé à six faces ou tirez d’un jeu de cartes — tout depuis l’application. Les résultats alimentent directement votre journal et votre fiche de personnage.",
         "tags": {
           "1": "D6",
-          "2": "Jeu de cartes"
+          "2": "Jeu de cartes",
+          "3": "Accès rapide"
         }
       },
       "music": {
         "number": "05 — L’Ambiance",
         "title": "Une ambiance sonore adaptée",
-        "body": "Des bandes-son pour chaque biome : de la forêt des ombres aux plaines inondées, rentrez dans l’atmosphère du jeu sans quitter l’application.",
+        "body": "Des bandes-son pour chaque biome : de la Forêt des ombres aux Plaines inondées, rentrez dans l’atmosphère du jeu sans même quitter l’application grâce aux musiques de [TableTopAudio](https://tabletopaudio.com/).",
         "tags": {
           "1": "Fond sonore",
           "2": "Musique d’ambiance",
@@ -725,11 +726,11 @@
       "generators": {
         "number": "06 — Les Gens du Monde",
         "title": "Des générateurs de villages et d’habitants",
-        "body": "Peuplez votre monde instantanément. Générez des habitants nommés avec faction, âge, personnalité et contexte — ou créez un village entier avec ses établissements et ses traits.",
+        "body": "Peuplez votre monde instantanément : générez des villages et leurs habitants sans avoir à feuilleter le livre de règles pour assembler les paramètres. Sauvez-les pour les retrouver facilement.",
         "tags": {
           "1": "Générateur de PNJ",
           "2": "Générateur de village",
-          "3": "Factions"
+          "3": "Règles intégrées"
         },
         "demo": {
           "name": "Carmilia",

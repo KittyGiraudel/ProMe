@@ -3,6 +3,7 @@
 import type { ReactNode } from 'react'
 import { useFadeIn } from './useFadeIn'
 import './LandingFeature.css'
+import { RichText } from '../RichText/RichText'
 
 type ColorScheme =
   | 'sage'
@@ -47,7 +48,9 @@ export function LandingFeature({
         <div className='LandingFeature__text'>
           <p className='LandingFeature__number'>{number}</p>
           <h2 className='LandingFeature__title'>{title}</h2>
-          <p className='LandingFeature__body'>{body}</p>
+          <div className='LandingFeature__body'>
+            <RichText text={body} />
+          </div>
           <div className='LandingFeature__tags'>
             {tags.map(tag => (
               <span key={tag} className='LandingFeature__tag'>

@@ -656,7 +656,7 @@
     "features": {
       "character": {
         "number": "01 — Your Protector",
-        "title": "A complete, up-to-date character sheet",
+        "title": "An up-to-date character sheet",
         "body": "Track everything that matters — health, stamina, resources, inventory, spells — on a persistent sheet that remembers your Protector between sessions. No spreadsheets, no paper.",
         "tags": {
           "1": "Stats",
@@ -676,7 +676,7 @@
       "map": {
         "number": "02 — The World",
         "title": "An interactive map at every step",
-        "body": "Draw your journey hex by hex. Each cell holds its biome, encounters, and notes. The world grows as you explore.",
+        "body": "Draw your journey day by day, hex by hex. Annotate your map as your adventure unfolds, marking biomes and points of interest. The world opens up as you explore.",
         "tags": {
           "1": "Hex Grid",
           "2": "6 unique biomes",
@@ -706,13 +706,14 @@
         "body": "Roll a six-sided die or draw from a playing card deck — all from inside the app. Results feed directly into your journal and character sheet.",
         "tags": {
           "1": "D6",
-          "2": "Card Deck"
+          "2": "Card Deck",
+          "3": "Quick Access"
         }
       },
       "music": {
         "number": "05 — The Ambiance",
         "title": "Adaptive ambient sound",
-        "body": "Soundtracks for every biome: from Shadow Forest to Flooded Plains, immerse yourself in the game’s atmosphere without leaving the app.",
+        "body": "Soundtracks for every biome: from Shadow Forest to Flooded Plains, immerse yourself in the game’s atmosphere without leaving the app — powered by [TableTopAudio](https://tabletopaudio.com/).",
         "tags": {
           "1": "Background audio",
           "2": "Ambient music",
@@ -728,11 +729,11 @@
       "generators": {
         "number": "06 — The World's People",
         "title": "Village and inhabitant generators",
-        "body": "Populate your world instantly. Generate named inhabitants with faction, age, personality, and backstory — or roll up an entire village with establishments and traits.",
+        "body": "Populate your world instantly — generate villages and their inhabitants without flipping through the rulebook. Save them to find them easily later.",
         "tags": {
           "1": "NPC Generator",
           "2": "Village Generator",
-          "3": "Factions"
+          "3": "Rules built-in"
         },
         "demo": {
           "name": "Carmilia",

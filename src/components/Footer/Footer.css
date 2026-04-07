@@ -5,6 +5,8 @@
   flex-wrap: wrap;
   gap: 0.75em;
   width: 100%;
+  background-color: var(--ant-layout-body-bg, black);
+  color: var(--ant-layout-body-color, white);
 }
 
 .Footer__copyright {
