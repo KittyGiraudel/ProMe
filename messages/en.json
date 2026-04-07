@@ -652,10 +652,10 @@
         "title": "A living character sheet",
         "body": "Track everything that matters — health, stamina, resources, inventory, spells — on a persistent sheet that remembers your Protector between sessions. No spreadsheets, no paper.",
         "tags": {
-          "one": "Stats & Clock",
-          "two": "Inventory",
-          "three": "Spellbook",
-          "four": "Notes"
+          "1": "Stats & Clock",
+          "2": "Inventory",
+          "3": "Spellbook",
+          "4": "Notes"
         }
       },
       "map": {
@@ -663,10 +663,10 @@
         "title": "An interactive map of every step",
         "body": "Draw your journey hex by hex. Each cell holds its biome, encounters, and notes. The world grows as you explore — and stays exactly as you left it.",
         "tags": {
-          "one": "6 Biomes",
-          "two": "Hex Grid",
-          "three": "Encounters",
-          "four": "Annotations"
+          "1": "6 Biomes",
+          "2": "Hex Grid",
+          "3": "Encounters",
+          "4": "Annotations"
         }
       },
       "journal": {
@@ -674,9 +674,9 @@
         "title": "Markdown-powered journaling",
         "body": "Write your memories in rich Markdown. Embed dice rolls, card draws, and map references directly in your entries. Your story, told in your words.",
         "tags": {
-          "one": "Markdown",
-          "two": "Embeds",
-          "three": "Timeline"
+          "1": "Markdown",
+          "2": "Embeds",
+          "3": "Timeline"
         }
       },
       "dice": {
@@ -684,9 +684,9 @@
         "title": "Dice rolls & card draws, built in",
         "body": "Roll any die, draw from a standard deck — all within the app. Results feed directly into your journal and character sheet. No physical dice required.",
         "tags": {
-          "one": "d4–d20",
-          "two": "Card Deck",
-          "three": "Roll History"
+          "1": "d4–d20",
+          "2": "Card Deck",
+          "3": "Roll History"
         }
       },
       "music": {
@@ -694,9 +694,9 @@
         "title": "Atmospheric soundtracks, always ready",
         "body": "Curated TableTopAudio playlists for every biome and mood — shadow forest, flooded plains, silent desert. Set the scene without leaving the app.",
         "tags": {
-          "one": "TableTopAudio",
-          "two": "Per-biome",
-          "three": "Background play"
+          "1": "TableTopAudio",
+          "2": "Per-biome",
+          "3": "Background play"
         }
       },
       "generators": {
@@ -704,13 +704,13 @@
         "title": "NPC & village generators",
         "body": "Populate your world instantly. Generate named inhabitants with faction, age, personality, and backstory — or roll up an entire village with establishments and traits.",
         "tags": {
-          "one": "NPC Generator",
-          "two": "Village Generator",
-          "three": "Factions"
+          "1": "NPC Generator",
+          "2": "Village Generator",
+          "3": "Factions"
         }
       }
     },
-    "finalCta": {
+    "final_cta": {
       "title": "Ready to begin your journey?",
       "sub": "Create your Protector and step into the world.",
       "cta": "Create your Protector"

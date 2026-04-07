@@ -653,10 +653,10 @@
         "title": "Une fiche de personnage vivante",
         "body": "Suivez tout ce qui compte — santé, endurance, ressources, inventaire, sorts — sur une fiche persistante qui se souvient de votre Protecteur entre les sessions. Ni tableur, ni papier.",
         "tags": {
-          "one": "Stats & Horloge",
-          "two": "Inventaire",
-          "three": "Grimoire",
-          "four": "Notes"
+          "1": "Stats & Horloge",
+          "2": "Inventaire",
+          "3": "Grimoire",
+          "4": "Notes"
         }
       },
       "map": {
@@ -664,10 +664,10 @@
         "title": "Une carte interactive de chaque pas",
         "body": "Dessinez votre voyage hexagone par hexagone. Chaque case contient son biome, ses rencontres et ses notes. Le monde grandit au fil de votre exploration.",
         "tags": {
-          "one": "6 Biomes",
-          "two": "Grille hexagonale",
-          "three": "Rencontres",
-          "four": "Annotations"
+          "1": "6 Biomes",
+          "2": "Grille hexagonale",
+          "3": "Rencontres",
+          "4": "Annotations"
         }
       },
       "journal": {
@@ -675,9 +675,9 @@
         "title": "Journalisation en Markdown",
         "body": "Rédigez vos souvenirs en Markdown enrichi. Intégrez des jets de dés, des tirages de cartes et des références à la carte directement dans vos entrées. Votre histoire, dans vos mots.",
         "tags": {
-          "one": "Markdown",
-          "two": "Intégrations",
-          "three": "Chronologie"
+          "1": "Markdown",
+          "2": "Intégrations",
+          "3": "Chronologie"
         }
       },
       "dice": {
@@ -685,9 +685,9 @@
         "title": "Jets de dés & tirages de cartes intégrés",
         "body": "Lancez n’importe quel dé, tirez d’un jeu standard — tout depuis l’application. Les résultats alimentent directement votre journal et votre fiche de personnage.",
         "tags": {
-          "one": "d4–d20",
-          "two": "Jeu de cartes",
-          "three": "Historique"
+          "1": "d4–d20",
+          "2": "Jeu de cartes",
+          "3": "Historique"
         }
       },
       "music": {
@@ -695,9 +695,9 @@
         "title": "Bandes sonores atmosphériques, toujours prêtes",
         "body": "Des playlists TableTopAudio pour chaque biome — forêt des ombres, plaines inondées, désert silencieux. Posez l’atmosphère sans quitter l’application.",
         "tags": {
-          "one": "TableTopAudio",
-          "two": "Par biome",
-          "three": "Lecture en arrière-plan"
+          "1": "TableTopAudio",
+          "2": "Par biome",
+          "3": "Lecture en arrière-plan"
         }
       },
       "generators": {
@@ -705,13 +705,13 @@
         "title": "Générateurs de PNJ & de villages",
         "body": "Peuplez votre monde instantanément. Générez des habitants nommés avec faction, âge, personnalité et contexte — ou créez un village entier avec ses établissements et ses traits.",
         "tags": {
-          "one": "Générateur de PNJ",
-          "two": "Générateur de village",
-          "three": "Factions"
+          "1": "Générateur de PNJ",
+          "2": "Générateur de village",
+          "3": "Factions"
         }
       }
     },
-    "finalCta": {
+    "final_cta": {
       "title": "Prêt à commencer votre voyage ?",
       "sub": "Créez votre Protecteur et entrez dans le monde.",
       "cta": "Créer votre Protecteur"
