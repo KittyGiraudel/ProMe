@@ -1,29 +1,30 @@
 .JournalVisual {
-  padding: 1.25rem 1.5rem;
+  padding: 1.25em 1.5em;
   width: 100%;
+  font-size: 1.5em;
 }
 
 .JournalVisual__date {
-  font-size: 0.58rem;
+  font-size: 0.58em;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #b89050;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.35em;
 }
 
 .JournalVisual__title {
   font-family: Georgia, serif;
-  font-size: 1rem;
+  font-size: 1em;
   font-weight: 700;
   color: #3a2e1a;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.6em;
 }
 
 .JournalVisual__line {
   height: 7px;
   background: #e8dfc8;
   border-radius: 3px;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.35em;
 }
 
 .JournalVisual__line--short {
@@ -38,13 +39,13 @@
 
 .JournalVisual__embed {
   height: 22px;
-  background: rgba(184, 144, 80, 0.12);
-  border-left: 2px solid rgba(184, 144, 80, 0.55);
+  background: rgb(184 144 80 / 0.12);
+  border-left: 2px solid rgb(184 144 80 / 0.55);
   border-radius: 0 4px 4px 0;
   display: flex;
   align-items: center;
-  padding-left: 0.5rem;
-  font-size: 0.55rem;
+  padding-left: 0.5em;
+  font-size: 0.55em;
   color: #9a7040;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.35em;
 }

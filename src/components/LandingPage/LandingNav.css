@@ -16,7 +16,7 @@
 
 .LandingNav__menu .ant-menu-item:has([data-current="true"]),
 .LandingNav__menu .ant-menu-item:has([data-current="true"]):hover {
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgb(255 255 255 / 0.15);
 }
 
 .LandingNav__cta {
@@ -33,7 +33,7 @@
 }
 
 .LandingNav__cta.LandingNav__cta:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgb(255 255 255 / 0.25);
 }
 
 @media (max-width: 767px) {

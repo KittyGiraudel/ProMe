@@ -10,9 +10,9 @@
   background:
     linear-gradient(
       180deg,
-      rgba(0, 0, 0, 0.06) 0%,
-      rgba(0, 0, 0, 0.02) 40%,
-      rgba(0, 0, 0, 0.38) 100%
+      rgb(0 0 0 / 0.06) 0%,
+      rgb(0 0 0 / 0.02) 40%,
+      rgb(0 0 0 / 0.38) 100%
     ),
     linear-gradient(180deg, #a8d8d2 0%, #c0e4b8 42%, #d8c880 72%, #c8a860 100%);
 
@@ -35,7 +35,7 @@
   font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.88);
+  color: rgb(255 255 255 / 0.88);
   margin-bottom: 0.6rem;
 }
 
@@ -44,7 +44,7 @@
   font-size: clamp(3.5rem, 8vw, 6rem);
   font-weight: 700;
   color: white;
-  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.18);
+  text-shadow: 0 2px 24px rgb(0 0 0 / 0.18);
   letter-spacing: 0.04em;
   line-height: 1;
   margin-bottom: 0;
@@ -53,16 +53,16 @@
 .LandingHero__divider {
   width: 60px;
   height: 1px;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgb(255 255 255 / 0.5);
   margin: 1rem auto;
 }
 
 .LandingHero__tagline {
   font-size: clamp(0.95rem, 2vw, 1.1rem);
-  color: rgba(255, 255, 255, 0.92);
+  color: rgb(255 255 255 / 0.92);
   font-style: italic;
   line-height: 1.6;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+  text-shadow: 0 1px 6px rgb(0 0 0 / 0.25);
   margin-bottom: 1.75rem;
 }
 
@@ -76,7 +76,7 @@
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 4px 20px rgb(0 0 0 / 0.18);
   transition:
     transform 150ms,
     box-shadow 150ms;
@@ -84,14 +84,14 @@
 
 .LandingHero__cta:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 6px 28px rgb(0 0 0 / 0.22);
 }
 
 .LandingHero__sub {
   display: block;
   margin-top: 1rem;
   font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.65);
+  color: rgb(255 255 255 / 0.65);
   letter-spacing: 0.06em;
 }
 

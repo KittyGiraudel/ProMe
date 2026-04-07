@@ -16,7 +16,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.18);
+  background: rgb(0 0 0 / 0.18);
   pointer-events: none;
 }
 
@@ -47,16 +47,16 @@
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(1.8rem, 4vw, 2.6rem);
   color: white;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+      text-shadow: 0 2px 12px rgb(0 0 0 / 0.2);
   margin-bottom: 0.5rem;
 }
 
 .LandingFinalCta__sub {
-  color: rgba(255, 255, 255, 0.88);
+  color: rgb(255 255 255 / 0.88);
   font-size: 1rem;
   font-style: italic;
   margin-bottom: 2rem;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 4px rgb(0 0 0 / 0.2);
 }
 
 .LandingFinalCta__cta {
@@ -69,7 +69,7 @@
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 4px 20px rgb(0 0 0 / 0.18);
   transition:
     transform 150ms,
     box-shadow 150ms;
@@ -77,5 +77,5 @@
 
 .LandingFinalCta__cta:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 6px 28px rgb(0 0 0 / 0.22);
 }

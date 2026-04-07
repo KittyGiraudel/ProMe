@@ -76,7 +76,7 @@
   margin-top: 0.5em;
   padding: 0.5em 0.65em;
   border-radius: 0.5em;
-  background: rgba(31, 45, 42, 0.04);
+  background: rgb(31 45 42 / 0.04);
   display: flex;
   flex-direction: column;
   gap: 0.35em;

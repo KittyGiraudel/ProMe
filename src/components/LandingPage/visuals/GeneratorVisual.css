@@ -1,7 +1,7 @@
 .GeneratorVisual {
   padding: 1.25em;
   width: 100%;
-  font-size: 1.5em
+  font-size: 1.5em;
 }
 
 .GeneratorVisual__name {
@@ -15,7 +15,7 @@
   font-size: 0.58em;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(220, 180, 80, 0.75);
+  color: rgb(220 180 80 / 0.75);
   margin-bottom: 0.7em;
 }
 
@@ -32,8 +32,8 @@
   gap: 0.5em;
   font-size: 0.7em;
   padding: 0.28em 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-  color: rgba(244, 232, 204, 0.78);
+  border-bottom: 1px solid rgb(255 255 255 / 0.07);
+  color: rgb(244 232 204 / 0.78);
 }
 
 .GeneratorVisual__attr:last-child {

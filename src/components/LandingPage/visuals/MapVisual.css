@@ -59,7 +59,7 @@
   --pattern-size: 25px;
 }
 .MapVisual__cell--current {
-  border: 2px solid rgba(255, 255, 255, 0.75);
+  border: 2px solid rgb(255 255 255 / 0.75);
 }
 
 @supports not ((corner-shape: bevel) and (aspect-ratio: cos(30deg))) {

@@ -1,22 +1,22 @@
 .MusicVisual {
-  padding: 1.25rem 1.5rem;
+  padding: 1.25em 1.5em;
   width: 100%;
-  font-size: 0.8rem;
   color: #1a4a50;
+  font-size: 1.5em;
 }
 
 .MusicVisual__track {
   font-weight: 700;
-  font-size: 0.85rem;
-  margin-bottom: 0.15rem;
+  font-size: 0.85em;
+  margin-bottom: 0.15em;
 }
 
 .MusicVisual__source {
-  font-size: 0.58rem;
+  font-size: 0.58em;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(26, 74, 80, 0.6);
-  margin-bottom: 0.6rem;
+  color: rgb(26 74 80 / 0.6);
+  margin-bottom: 0.6em;
 }
 
 .MusicVisual__bar {
@@ -24,7 +24,7 @@
   background: #a8d0d8;
   border-radius: 2px;
   position: relative;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.5em;
 }
 
 .MusicVisual__bar::after {
@@ -39,16 +39,16 @@
 
 .MusicVisual__controls {
   display: flex;
-  gap: 0.6rem;
+  gap: 0.6em;
   align-items: center;
-  font-size: 1rem;
-  margin-bottom: 0.75rem;
-  color: rgba(26, 74, 80, 0.5);
+  font-size: 1em;
+  margin-bottom: 0.75em;
+  color: rgb(26 74 80 / 0.5);
 }
 
 .MusicVisual__controls--play {
   color: #1a6870;
-  font-size: 1.15rem;
+  font-size: 1.15em;
 }
 
 .MusicVisual__playlist {
@@ -61,10 +61,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.65rem;
-  padding: 0.28rem 0;
-  border-bottom: 1px solid rgba(26, 74, 80, 0.1);
-  color: rgba(26, 74, 80, 0.65);
+  font-size: 0.65em;
+  padding: 0.28em 0;
+  border-bottom: 1px solid rgb(26 74 80 / 0.1);
+  color: rgb(26 74 80 / 0.65);
 }
 
 .MusicVisual__playlist-item:last-child {
