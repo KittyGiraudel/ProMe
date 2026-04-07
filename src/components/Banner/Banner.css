@@ -1,7 +1,7 @@
 .Banner {
   flex-shrink: 0;
   width: 100%;
-  height: clamp(132px, 26vw, 300px);
+  height: clamp(132px, 26vw, 250px);
   position: relative;
   overflow: hidden;
   background-color: var(--pc-sky-mid);
