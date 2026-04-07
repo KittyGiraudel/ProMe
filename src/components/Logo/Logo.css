@@ -1,8 +1,7 @@
 .Logo {
   color: white;
-  font-variant: small-caps;
   letter-spacing: 0.05em;
-  font-family: cursive;
+  font-family: Georgia, "Times New Roman", serif;
   font-weight: 700;
   font-size: 1.1rem;
   padding-inline-end: 1rem;

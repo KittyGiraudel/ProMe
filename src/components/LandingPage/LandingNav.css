@@ -38,7 +38,7 @@
 
 .LandingNav__cta.LandingNav__cta:hover {
   background: rgb(255 255 255 / 0.25);
-  color: inherit;
+  color: white;
 }
 
 @media (max-width: 767px) {

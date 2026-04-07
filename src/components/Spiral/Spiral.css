@@ -7,7 +7,7 @@
   height: min(90vh, 90vw);
   /* Warm amber-brown against the light hero gradient */
   color: #6b4010;
-  opacity: 0.28;
+  opacity: 0.25;
   z-index: 1;
   pointer-events: none;
 }

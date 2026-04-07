@@ -133,8 +133,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .LandingFeature__visual {
-    --feature-visual-shift-y: 0px;
-    --feature-visual-rotate-x: 5deg;
+    --feature-visual-shift-y: 0px !important;
+    --feature-visual-rotate-x: 5deg !important;
   }
 }
 
@@ -240,4 +240,14 @@
 .LandingFeature[data-color-scheme="gold-dark"] .LandingFeature__visual {
   background: #2c2410;
   border: 1px solid rgb(232 200 112 / 0.2);
+}
+
+
+@media screen and (min--moz-device-pixel-ratio:0) {
+  /**
+   * 1. Fix for Firefox that completely breaks nested transforms.
+   */
+  .LandingFeature:has(.DiceVisual) .LandingFeature__visual {
+    transform: none; /* 1 */
+  }
 }

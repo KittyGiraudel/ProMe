@@ -644,7 +644,7 @@
       "cta": "Commencer"
     },
     "hero": {
-      "eyebrow": "Une aide de jeu pour Les Souvenirs du Protecteur",
+      "eyebrow": "Une aide de jeu pour « *Les Souvenirs du Protecteur* »",
       "title": "ProMe",
       "tagline": "Votre journal, carte et boîte à outils pour explorer un monde oublié.",
       "cta": "Commencez votre voyage",
@@ -700,7 +700,7 @@
       "dice": {
         "number": "04 — L’Oracle",
         "title": "Des outils de jeu intégrés",
-        "body": "Lancez un dé à six faces ou tirez d’un jeu de cartes — tout depuis l’application. Les résultats alimentent directement votre journal et votre fiche de personnage.",
+        "body": "Lancez un dé à six faces ou tirez une carte aléatoire — tout depuis l’application. Les résultats alimentent directement votre journal et votre fiche de personnage.",
         "tags": {
           "1": "D6",
           "2": "Jeu de cartes",
@@ -710,7 +710,7 @@
       "music": {
         "number": "05 — L’Ambiance",
         "title": "Une ambiance sonore adaptée",
-        "body": "Des bandes-son pour chaque biome : de la Forêt des ombres aux Plaines inondées, rentrez dans l’atmosphère du jeu sans même quitter l’application grâce aux musiques de [TableTopAudio](https://tabletopaudio.com/).",
+        "body": "Des bandes-son pour chaque biome : de la Forêt des ombres aux Plaines inondées, rentrez dans l’atmosphère du jeu sans même quitter l’application grâce aux musiques épiques de [TableTopAudio](https://tabletopaudio.com/).",
         "tags": {
           "1": "Fond sonore",
           "2": "Musique d’ambiance",

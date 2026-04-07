@@ -24,6 +24,8 @@ const GRID: Array<[CellType, string?]> = [
   ['silentDesert'],
   ['unexplored'],
   ['unexplored'],
+  ['unexplored'],
+  ['unexplored'],
 ]
 
 export function MapVisual() {

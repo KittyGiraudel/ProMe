@@ -7,12 +7,12 @@ import './Spiral.css'
 const R = 6,
   r = 1,
   D = 3,
-  SCALE = 2.2,
+  SCALE = 3.5,
   BREATH = 0.45
 const PARTICLES = 86
 const TRAIL_SPAN = 0.34
-const DURATION_MS = 4_600 * 3
-const ROTATION_MS = 28000 * 1.5
+const DURATION_MS = 4_600 * 5
+const ROTATION_MS = 28000 * 2
 const PULSE_MS = 4200
 
 function spiralPoint(progress: number, detailScale: number) {
