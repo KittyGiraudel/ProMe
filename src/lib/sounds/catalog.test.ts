@@ -6,6 +6,8 @@ import {
   pickRandomTrack,
 } from './catalog'
 
+const CDN = 'https://pub-6f5ba7aac9c745d3ac681827814ac01a.r2.dev/musics'
+
 describe('getTrackPath', () => {
   it('mix variant always returns {file}.mp3', () => {
     const track = {
@@ -14,7 +16,7 @@ describe('getTrackPath', () => {
       hasMusic: true,
       hasAmbiance: true,
     }
-    expect(getTrackPath(track, 'mix')).toBe('/musics/344_Yokai_Forest.mp3')
+    expect(getTrackPath(track, 'mix')).toBe(`${CDN}/344_Yokai_Forest.mp3`)
   })
 
   it('music variant with hasMusic=true returns _MUS_Only.mp3', () => {
@@ -25,7 +27,7 @@ describe('getTrackPath', () => {
       hasAmbiance: true,
     }
     expect(getTrackPath(track, 'music')).toBe(
-      '/musics/344_Yokai_Forest_MUS_Only.mp3'
+      `${CDN}/344_Yokai_Forest_MUS_Only.mp3`
     )
   })
 
@@ -36,7 +38,7 @@ describe('getTrackPath', () => {
       hasMusic: false,
       hasAmbiance: false,
     }
-    expect(getTrackPath(track, 'music')).toBe('/musics/96_Windswept_Plains.mp3')
+    expect(getTrackPath(track, 'music')).toBe(`${CDN}/96_Windswept_Plains.mp3`)
   })
 
   it('ambiance variant with hasAmbiance=true returns _AMB_Only.mp3', () => {
@@ -47,7 +49,7 @@ describe('getTrackPath', () => {
       hasAmbiance: true,
     }
     expect(getTrackPath(track, 'ambiance')).toBe(
-      '/musics/344_Yokai_Forest_AMB_Only.mp3'
+      `${CDN}/344_Yokai_Forest_AMB_Only.mp3`
     )
   })
 
@@ -59,7 +61,7 @@ describe('getTrackPath', () => {
       hasAmbiance: false,
     }
     expect(getTrackPath(track, 'ambiance')).toBe(
-      '/musics/96_Windswept_Plains.mp3'
+      `${CDN}/96_Windswept_Plains.mp3`
     )
   })
 })
@@ -137,17 +139,17 @@ describe('getAllTrackPaths', () => {
 
   it('music variant contains MUS_Only path for tracks that have it', () => {
     const paths = getAllTrackPaths('music')
-    expect(paths).toContain('/musics/344_Yokai_Forest_MUS_Only.mp3')
+    expect(paths).toContain(`${CDN}/344_Yokai_Forest_MUS_Only.mp3`)
   })
 
   it('music variant falls back to .mp3 for tracks without music variant', () => {
     const paths = getAllTrackPaths('music')
-    expect(paths).toContain('/musics/96_Windswept_Plains.mp3')
+    expect(paths).toContain(`${CDN}/96_Windswept_Plains.mp3`)
   })
 
   it('ambiance variant contains AMB_Only path for tracks that have it', () => {
     const paths = getAllTrackPaths('ambiance')
-    expect(paths).toContain('/musics/138_Desert_Winds_AMB_Only.mp3')
+    expect(paths).toContain(`${CDN}/138_Desert_Winds_AMB_Only.mp3`)
   })
 })
 
