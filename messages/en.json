@@ -21,6 +21,7 @@
       "archetype_power_label": "Archetype Power",
       "characteristics_section": "Characteristics",
       "courage_label": "Courage",
+      "courage_label_short": "Courage",
       "courage_roll_aria": "Roll a Courage test",
       "courage_roll_result": "The Courage Test has {status, select, success {succeeded} failure {failed} other {been cancelled}}.\nDie result: {roll}. Current Courage: {target}.",
       "courage_roll_title": "Courage Test",
@@ -28,6 +29,7 @@
       "courage_tooltip": "They represent your ability to do what you want.\nWhenever you need to do something that could go wrong—running, jumping, hiding, distracting, fleeing, attacking, etc.—you must use your Courage.",
       "gender_label": "Gender",
       "health_label": "Soul",
+      "health_label_short": "Soul",
       "health_tooltip": "They represent your vitality.\nWhenever you find yourself in a hostile environment or facing a dangerous creature, your Soul Points will be at risk. If they reach zero, your Protector dies.",
       "honor_label": "Honor",
       "honor_tooltip": "The air, waterways, creatures, and shadows perceive Honor around you. The greater your Honor, the more you are respected.\nBy helping others, protecting your memories, and accomplishing your mission, you will gain Honor. But beware: giving in to violence or harming a creature will cause you to lose Honor. Honor Points can be negative, and if so, your freedom to buy items or enter certain places will be limited.",
@@ -38,6 +40,7 @@
       "money_tooltip": "They allow you to trade, buying or selling items.",
       "name_label": "Name",
       "stamina_label": "Stamina Points",
+      "stamina_label_short": "Stamina",
       "stamina_tooltip": "They represent your ability to keep going.\nYour Stamina Points determine how many items you can carry or how fast the Clock advances.",
       "title": "Identity & Stats"
     },
@@ -380,7 +383,8 @@
         "4": "1 × Courage mushroom",
         "5": "1 × Stamina mushroom",
         "6": "One of the above choices",
-        "warn": "Gathering in the Mushroom Jungle requires finding and reaching the top of a Titan Boletus (see page 26)."
+        "warn": "Gathering in the Mushroom Jungle requires finding and reaching the top of a Titan Boletus (see page 26).",
+        "warning": "Gathering in the Mushroom Jungle requires finding and reaching the top of a Titan Boletus (see page 26)."
       },
       "fieldSea": {
         "1": "10 coins",
@@ -407,7 +411,8 @@
         "4": "A Residence (page 57)",
         "5": "Ruins (page 63)",
         "6": "Any item",
-        "warn": "Gathering in the Gigantic Gardens requires finding and reaching the garden on the back of a luxurious whale (see page 40)."
+        "warn": "Gathering in the Gigantic Gardens requires finding and reaching the garden on the back of a luxurious whale (see page 40).",
+        "warning": "Gathering in the Gigantic Gardens requires finding and reaching the garden on the back of a luxurious whale (see page 40)."
       }
     }
   },
@@ -574,6 +579,8 @@
     "sound_variant_mix": "Full soundtrack",
     "sound_variant_music": "Music only",
     "sound_variant_ambiance": "Ambiance only",
+    "reset_label": "Reset",
+    "save_success": "Settings saved.",
     "title": "Settings",
     "village_merge_duplicate_establishments_help": "Merges duplicate village establishments into larger ones (small + small → large, etc.).",
     "village_merge_duplicate_establishments_label": "Merge duplicate establishments",
@@ -637,10 +644,10 @@
   },
   "landing": {
     "nav": {
-      "cta": "Begin your journey →"
+      "cta": "Get started"
     },
     "hero": {
-      "eyebrow": "A companion app for The Protector's Memories",
+      "eyebrow": "A game companion for The Protector’s Memories",
       "title": "ProMe",
       "tagline": "Your journal, map, and toolkit for journeying through a forgotten world.",
       "cta": "Begin your journey",
@@ -649,40 +656,54 @@
     "features": {
       "character": {
         "number": "01 — Your Protector",
-        "title": "A living character sheet",
+        "title": "A complete, up-to-date character sheet",
         "body": "Track everything that matters — health, stamina, resources, inventory, spells — on a persistent sheet that remembers your Protector between sessions. No spreadsheets, no paper.",
         "tags": {
-          "1": "Stats & Clock",
-          "2": "Inventory",
-          "3": "Spellbook",
-          "4": "Notes"
+          "1": "Stats",
+          "2": "Inventory & Spellbook",
+          "3": "Map & Clock",
+          "4": "Journal"
+        },
+        "demo": {
+          "name": "Laokys, Pilgrim",
+          "items": {
+            "1": "Teleportation Potion",
+            "2": "Roots",
+            "3": "Torch"
+          }
         }
       },
       "map": {
         "number": "02 — The World",
-        "title": "An interactive map of every step",
-        "body": "Draw your journey hex by hex. Each cell holds its biome, encounters, and notes. The world grows as you explore — and stays exactly as you left it.",
+        "title": "An interactive map at every step",
+        "body": "Draw your journey hex by hex. Each cell holds its biome, encounters, and notes. The world grows as you explore.",
         "tags": {
-          "1": "6 Biomes",
-          "2": "Hex Grid",
+          "1": "Hex Grid",
+          "2": "6 unique biomes",
           "3": "Encounters",
           "4": "Annotations"
         }
       },
       "journal": {
         "number": "03 — Your Story",
-        "title": "Markdown-powered journaling",
-        "body": "Write your memories in rich Markdown. Embed dice rolls, card draws, and map references directly in your entries. Your story, told in your words.",
+        "title": "A canonical journal",
+        "body": "Write your memories in rich Markdown. Embed dice rolls, card draws, and map references directly in your entries. Your story, written in your own words.",
         "tags": {
           "1": "Markdown",
           "2": "Embeds",
-          "3": "Timeline"
+          "3": "Timeline",
+          "4": "References"
+        },
+        "demo": {
+          "title": "Day 12 — Flooded Plains",
+          "content": "The bridge was destroyed by the torrent.",
+          "embed": "Arrived at Flooded Plains"
         }
       },
       "dice": {
         "number": "04 — The Oracle",
-        "title": "Dice rolls & card draws, built in",
-        "body": "Roll any die, draw from a standard deck — all within the app. Results feed directly into your journal and character sheet. No physical dice required.",
+        "title": "Built-in game tools",
+        "body": "Roll any die, draw from a standard deck — all from inside the app. Results feed directly into your journal and character sheet.",
         "tags": {
           "1": "d4–d20",
           "2": "Card Deck",
@@ -691,22 +712,33 @@
       },
       "music": {
         "number": "05 — The Ambiance",
-        "title": "Atmospheric soundtracks, always ready",
-        "body": "Curated TableTopAudio playlists for every biome and mood — shadow forest, flooded plains, silent desert. Set the scene without leaving the app.",
+        "title": "Adaptive ambient sound",
+        "body": "Soundtracks for every biome: from Shadow Forest to Flooded Plains, immerse yourself in the game’s atmosphere without leaving the app.",
         "tags": {
-          "1": "TableTopAudio",
-          "2": "Per-biome",
-          "3": "Background play"
+          "1": "Background audio",
+          "2": "Ambient music",
+          "3": "Biome-aware"
+        },
+        "demo": {
+          "track_1": "Shadow Forest — Yokai Forest",
+          "track_2": "Flooded Plains — Spirit of the Plains",
+          "track_3": "Silent Desert — Desert Winds",
+          "source": "TableTopAudio · Atmospheric"
         }
       },
       "generators": {
         "number": "06 — The World's People",
-        "title": "NPC & village generators",
+        "title": "Village and inhabitant generators",
         "body": "Populate your world instantly. Generate named inhabitants with faction, age, personality, and backstory — or roll up an entire village with establishments and traits.",
         "tags": {
           "1": "NPC Generator",
           "2": "Village Generator",
           "3": "Factions"
+        },
+        "demo": {
+          "name": "Carmilia",
+          "role": "Adult, Herbalist",
+          "context": "Searching for rare plants"
         }
       }
     },

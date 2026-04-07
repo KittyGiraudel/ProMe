@@ -4,8 +4,10 @@ import { Layout, Menu } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
-import { usePathname } from '@/i18n/navigation'
+import { Link, usePathname } from '@/i18n/navigation'
 import './LandingNav.css'
+import { ArrowRightOutlined } from '@ant-design/icons'
+import { Logo } from '../Logo/Logo'
 
 export function LandingNav() {
   const t = useTranslations()
@@ -78,17 +80,16 @@ export function LandingNav() {
 
   return (
     <Layout.Header className='LandingNav'>
-      <span className='LandingNav__logo'>ProMe</span>
+      <Logo />
       <Menu
         className='LandingNav__menu'
         theme='dark'
         mode='horizontal'
         items={items}
-        style={{ flex: 1, minWidth: 0 }}
       />
-      <BlockedLink href='/characters/new' className='LandingNav__cta'>
-        {t('landing.nav.cta')}
-      </BlockedLink>
+      <Link href='/characters/new' className='LandingNav__cta'>
+        {t('landing.nav.cta')} <ArrowRightOutlined />
+      </Link>
     </Layout.Header>
   )
 }

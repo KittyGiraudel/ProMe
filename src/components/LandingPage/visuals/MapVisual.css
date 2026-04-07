@@ -13,6 +13,10 @@
   align-items: center;
   justify-content: center;
   font-size: 0.8rem;
+  aspect-ratio: cos(30deg);
+  border-radius: 50% / 25%;
+  corner-shape: bevel;
+  margin-bottom: calc(1 / (-4 * cos(30deg)));
 }
 
 .MapVisual__cell--unexplored {

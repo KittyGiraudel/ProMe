@@ -1,0 +1,19 @@
+.LandingPage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.LandingPage__main {
+  flex: 1;
+}
+
+.LandingPage .Footer {
+  padding: 1em 3em;
+}
+
+@media (max-width: 767px) {
+  .LandingPage .Footer {
+    padding: 1em;
+  }
+}

@@ -21,6 +21,7 @@
       "archetype_power_label": "Pouvoir de l’archetype",
       "characteristics_section": "Caractéristiques",
       "courage_label": "Points de Courage",
+      "courage_label_short": "Courage",
       "courage_roll_aria": "Lancer un test de Courage",
       "courage_roll_result": "Le test de courage a {status, select, success {réussi} failure {échoué} other {été annulé}}.\nRésultat du dé : {roll}. Courage actuel : {target}.",
       "courage_roll_title": "Test de Courage",
@@ -28,6 +29,7 @@
       "courage_tooltip": "Ils représentent votre capacité à réaliser ce que vous voulez.\nÀ chaque fois que vous avez besoin de faire quelque chose qui pourrait mal tourner — courir, sauter, vous cacher, distraire, fuir, attaquer, etc. —, vous devez utiliser votre Courage.",
       "gender_label": "Genre",
       "health_label": "Points d’Âme",
+      "health_label_short": "Âme",
       "health_tooltip": "Ils représentent votre force vitale.\nChaque fois que vous vous retrouvez dans un environnement hostile ou face à une créature dangereuse, vos points d’Âme seront menacés. S’ils atteignent zéro, votre Protecteur meurt.",
       "honor_label": "Points d’Honneur",
       "honor_tooltip": "L’air, les cours d’eau, les créatures et les ombres perçoivent l’Honneur autour de vous. Plus votre Honneur est grand, plus vous êtes respecté.\nEn aidant les autres, en protégeant vos souvenirs et en accomplissant votre mission, vous gagnerez de l’Honneur. Mais attention, céder à la violence ou nuire à une créature vous fera perdre de l’Honneur. Les points d’Honneur peuvent être négatifs et, si c’est le cas, votre liberté d’acheter des objets ou d’entrer dans certains endroits sera limitée.",
@@ -38,6 +40,7 @@
       "money_tooltip": "Elles permettent de faire du commerce, en achetant ou vendant des objets.",
       "name_label": "Nom",
       "stamina_label": "Points d’Endurance",
+      "stamina_label_short": "Endurance",
       "stamina_tooltip": "Ils représentent votre capacité à continuer d’avancer.\nVos points d’Endurance déterminent la quantité d’objets que vous pouvez porter ou le temps que l’Horloge met à avancer.",
       "title": "Identité & Stats"
     },
@@ -638,10 +641,10 @@
   },
   "landing": {
     "nav": {
-      "cta": "Commencer votre voyage →"
+      "cta": "Commencer"
     },
     "hero": {
-      "eyebrow": "Une application compagnon pour Les Mémoires du Protecteur",
+      "eyebrow": "Une aide de jeu pour Les Souvenirs du Protecteur",
       "title": "ProMe",
       "tagline": "Votre journal, carte et boîte à outils pour explorer un monde oublié.",
       "cta": "Commencer votre voyage",
@@ -650,39 +653,53 @@
     "features": {
       "character": {
         "number": "01 — Votre Protecteur",
-        "title": "Une fiche de personnage vivante",
+        "title": "Une fiche de personnage à jour",
         "body": "Suivez tout ce qui compte — santé, endurance, ressources, inventaire, sorts — sur une fiche persistante qui se souvient de votre Protecteur entre les sessions. Ni tableur, ni papier.",
         "tags": {
-          "1": "Stats & Horloge",
-          "2": "Inventaire",
-          "3": "Grimoire",
-          "4": "Notes"
+          "1": "Stats",
+          "2": "Inventaire & Grimoire",
+          "3": "Carte & Horloge",
+          "4": "Journal"
+        },
+        "demo": {
+          "name": "Laokys, Pélerin",
+          "items": {
+            "1": "Potion de téléportation",
+            "2": "Racines",
+            "3": "Torche"
+          }
         }
       },
       "map": {
         "number": "02 — Le Monde",
-        "title": "Une carte interactive de chaque pas",
+        "title": "Une carte interactive à chaque étape",
         "body": "Dessinez votre voyage hexagone par hexagone. Chaque case contient son biome, ses rencontres et ses notes. Le monde grandit au fil de votre exploration.",
         "tags": {
-          "1": "6 Biomes",
-          "2": "Grille hexagonale",
+          "1": "Grille hexagonale",
+          "2": "6 biomes uniques",
           "3": "Rencontres",
           "4": "Annotations"
         }
       },
       "journal": {
         "number": "03 — Votre Histoire",
-        "title": "Journalisation en Markdown",
-        "body": "Rédigez vos souvenirs en Markdown enrichi. Intégrez des jets de dés, des tirages de cartes et des références à la carte directement dans vos entrées. Votre histoire, dans vos mots.",
+        "title": "Un journal canonique",
+        "body": "Rédigez vos souvenirs en Markdown enrichi. Intégrez des jets de dés, des tirages de cartes et des références à la carte directement dans vos entrées. Votre histoire, écrite avec vos mots.",
         "tags": {
           "1": "Markdown",
           "2": "Intégrations",
-          "3": "Chronologie"
+          "3": "Chronologie",
+          "4": "Références"
+        },
+        "demo": {
+          "title": "Jour 12 — Plaines inondées",
+          "content": "Le pont a été détruit par le torrent.",
+          "embed": "Arrivée aux Plaines inondées"
         }
       },
       "dice": {
         "number": "04 — L’Oracle",
-        "title": "Jets de dés & tirages de cartes intégrés",
+        "title": "Des outils de jeu intégrés",
         "body": "Lancez n’importe quel dé, tirez d’un jeu standard — tout depuis l’application. Les résultats alimentent directement votre journal et votre fiche de personnage.",
         "tags": {
           "1": "d4–d20",
@@ -692,27 +709,38 @@
       },
       "music": {
         "number": "05 — L’Ambiance",
-        "title": "Bandes sonores atmosphériques, toujours prêtes",
-        "body": "Des playlists TableTopAudio pour chaque biome — forêt des ombres, plaines inondées, désert silencieux. Posez l’atmosphère sans quitter l’application.",
+        "title": "Une ambiance sonore adaptée",
+        "body": "Des bandes-son pour chaque biome : de la forêt des ombres aux plaines inondées, rentrez dans l’atmosphère du jeu sans quitter l’application.",
         "tags": {
-          "1": "TableTopAudio",
-          "2": "Par biome",
-          "3": "Lecture en arrière-plan"
+          "1": "Fond sonore",
+          "2": "Musique d’ambiance",
+          "3": "Adapté au Biome"
+        },
+        "demo": {
+          "track_1": "Forêt des Ombres — Yōkai Forest",
+          "track_2": "Plaines inondées — Spirit of the Plains",
+          "track_3": "Désert silencieux — Desert Winds",
+          "source": "TableTopAudio · Atmospheric"
         }
       },
       "generators": {
         "number": "06 — Les Gens du Monde",
-        "title": "Générateurs de PNJ & de villages",
+        "title": "Des générateurs de villages et d’habitants",
         "body": "Peuplez votre monde instantanément. Générez des habitants nommés avec faction, âge, personnalité et contexte — ou créez un village entier avec ses établissements et ses traits.",
         "tags": {
           "1": "Générateur de PNJ",
           "2": "Générateur de village",
           "3": "Factions"
+        },
+        "demo": {
+          "name": "Carmilia",
+          "role": "Adulte, Herboriste",
+          "context": "Recherche de plantes rares"
         }
       }
     },
     "final_cta": {
-      "title": "Prêt à commencer votre voyage ?",
+      "title": "Prêt·e à commencer votre voyage ?",
       "sub": "Créez votre Protecteur et entrez dans le monde.",
       "cta": "Créer votre Protecteur"
     }

@@ -12,6 +12,7 @@ import { usePathname } from '@/i18n/navigation'
 import type { PossibleBiomeId } from '@/lib/types'
 
 import './Layout.css'
+import { Logo } from '../Logo/Logo'
 
 type LayoutProps = {
   title: string
@@ -102,9 +103,8 @@ export const Layout = ({
 
   return (
     <AntLayout className={`Layout ${className}`} data-appearance={appearance}>
-      {' '}
       <AntLayout.Header className='Layout__header'>
-        <span className='Layout__logo'>ProMe</span>
+        <Logo />
         <Menu
           data-biome={bannerBiome}
           className='Layout__menu'

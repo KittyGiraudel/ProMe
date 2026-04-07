@@ -1,16 +1,21 @@
+import { useTranslations } from 'next-intl'
 import './MusicVisual.css'
 
-const PLAYLIST = [
-  { name: 'Shadow Forest — Nightfall', active: true },
-  { name: 'Flooded Plains — Rain', active: false },
-  { name: 'Silent Desert — Wind', active: false },
-]
-
 export function MusicVisual() {
+  const t = useTranslations()
+  const PLAYLIST = [
+    { name: t('landing.features.music.demo.track_1'), active: true },
+    { name: t('landing.features.music.demo.track_2'), active: false },
+    { name: t('landing.features.music.demo.track_3'), active: false },
+  ]
   return (
     <div className='MusicVisual' aria-hidden='true'>
-      <div className='MusicVisual__track'>Shadow Forest — Nightfall</div>
-      <div className='MusicVisual__source'>TableTopAudio · Atmospheric</div>
+      <div className='MusicVisual__track'>
+        {t('landing.features.music.demo.track_1')}
+      </div>
+      <div className='MusicVisual__source'>
+        {t('landing.features.music.demo.source')}
+      </div>
       <div className='MusicVisual__bar' />
       <div className='MusicVisual__controls'>
         <span>⏮</span>

@@ -1,0 +1,81 @@
+.LandingFinalCta {
+  position: relative;
+  padding: 6rem 2rem;
+  text-align: center;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    #a8d8d2 0%,
+    #c0e4b8 45%,
+    #d8c880 78%,
+    #c8a860 100%
+  );
+}
+
+.LandingFinalCta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.18);
+  pointer-events: none;
+}
+
+.LandingFinalCta__content {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 400ms ease-out,
+    transform 400ms ease-out;
+}
+
+.LandingFinalCta__content.FadeIn--visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .LandingFinalCta__content {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+.LandingFinalCta__title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  color: white;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  margin-bottom: 0.5rem;
+}
+
+.LandingFinalCta__sub {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 1rem;
+  font-style: italic;
+  margin-bottom: 2rem;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.LandingFinalCta__cta {
+  display: inline-block;
+  padding: 0.85rem 2.4rem;
+  background: white;
+  color: #2d5e28;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+  transition:
+    transform 150ms,
+    box-shadow 150ms;
+}
+
+.LandingFinalCta__cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.22);
+}

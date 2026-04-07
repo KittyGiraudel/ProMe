@@ -1,22 +1,12 @@
 .LandingNav.LandingNav {
   display: flex;
   align-items: center;
-  padding-inline: 1.5rem;
+  padding-inline: 50px;
   position: sticky;
   top: 0;
   z-index: 100;
   --ant-layout-header-height: 3em;
-}
-
-.LandingNav__logo {
-  color: white;
-  font-variant: small-caps;
-  letter-spacing: 0.05em;
-  font-family: cursive;
-  font-weight: 700;
-  font-size: 1.1rem;
-  padding-inline-end: 1rem;
-  flex-shrink: 0;
+  background: rgb(0 21 41);
 }
 
 .LandingNav__menu {
@@ -29,15 +19,13 @@
   background-color: rgba(255, 255, 255, 0.15);
 }
 
-.LandingNav__cta.LandingNav__cta {
+.LandingNav__cta {
   flex-shrink: 0;
-  margin-inline-start: 1rem;
-  padding: 0.3rem 1rem;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 20px;
+  padding: 0.3em 1em;
+  background: rgb(255 255 255 / 0.15);
+  border: 1px solid rgb(255 255 255 / 0.3);
   color: white;
-  font-size: 0.78rem;
+  font-size: 1em;
   font-weight: 600;
   letter-spacing: 0.04em;
   white-space: nowrap;

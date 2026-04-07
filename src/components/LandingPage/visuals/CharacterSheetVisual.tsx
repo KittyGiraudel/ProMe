@@ -1,15 +1,23 @@
+import { useFormatter, useTranslations } from 'next-intl'
 import './CharacterSheetVisual.css'
 
 export function CharacterSheetVisual() {
+  const t = useTranslations()
+  const format = useFormatter()
   return (
     <div className='CharacterSheetVisual' aria-hidden='true'>
-      <div className='CharacterSheetVisual__name'>Elden · Shadow Forest</div>
+      <div className='CharacterSheetVisual__name'>
+        {t('landing.features.character.demo.name')}
+      </div>
       <div className='CharacterSheetVisual__stats'>
         {[
-          { value: '8', label: 'Health' },
-          { value: '6', label: 'Stamina' },
-          { value: '3', label: 'Magic' },
-          { value: '12', label: 'Gold' },
+          { value: '3', label: t('characters.identity.health_label_short') },
+          { value: '4', label: t('characters.identity.stamina_label_short') },
+          { value: '2', label: t('characters.identity.courage_label_short') },
+          {
+            value: format.number(1200),
+            label: t('characters.identity.money_label'),
+          },
         ].map(s => (
           <div key={s.label} className='CharacterSheetVisual__stat'>
             <span className='CharacterSheetVisual__stat-value'>{s.value}</span>
@@ -19,10 +27,10 @@ export function CharacterSheetVisual() {
       </div>
       <div className='CharacterSheetVisual__inventory'>
         {[
-          ['Healing Potion', '×2'],
-          ['Old Lantern', '×1'],
-          ['Rope (10m)', '×1'],
-        ].map(([name, qty]) => (
+          { name: t('landing.features.character.demo.items.1'), qty: '×2' },
+          { name: t('landing.features.character.demo.items.2'), qty: '×10' },
+          { name: t('landing.features.character.demo.items.3'), qty: '×1' },
+        ].map(({ name, qty }) => (
           <div key={name} className='CharacterSheetVisual__item'>
             <span>{name}</span>
             <span>{qty}</span>
