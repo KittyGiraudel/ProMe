@@ -1,0 +1,13 @@
+/* Card headers: green-to-parchment gradient wash */
+.ant-card .ant-card-head {
+  background: linear-gradient(135deg, #e2f0e8 0%, #f5f0e4 100%);
+  border-bottom-color: #d8cfbe;
+}
+
+/* Breadcrumb: warm separator and active item */
+.ant-breadcrumb .ant-breadcrumb-separator {
+  color: #c4b89a;
+}
+.ant-breadcrumb li:last-child .ant-breadcrumb-link {
+  color: #4a4036;
+}
