@@ -26,12 +26,12 @@
     (100cqw - (var(--s) - var(--g)) / 2) /
     (var(--s) + var(--g))
   );
-  --_c: round(
+  --_x: round(
     down,
     1 -
     mod((sibling-index() - 1 + var(--_m)) / (var(--_n) + var(--_m)), 1)
   );
-  margin-left: calc(var(--_c) * (var(--s) + var(--g)) / 2);
+  margin-left: calc(var(--_x) * (var(--s) + var(--g)) / 2);
 }
 
 .MapVisual__cell {
