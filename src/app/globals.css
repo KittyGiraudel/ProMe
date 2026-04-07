@@ -1,9 +1,10 @@
 :root {
-  --prome-bg: #f6f9f7;
-  --prome-surface: #ffffff;
+  --prome-bg: #faf8f3;
+  --prome-surface: #fff9ee;
   --prome-text: #1f2d2a;
   --prome-muted: #5c726b;
-  --prome-border: #d8e5df;
+  --prome-border: #e2d9c4;
+  --prome-border-radius: 10px;
 }
 
 html {
