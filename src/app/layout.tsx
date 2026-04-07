@@ -26,6 +26,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
+      data-theme='light'
       className={`${geistSans.variable} ${geistMono.variable}`}>
       <Head>
         <link

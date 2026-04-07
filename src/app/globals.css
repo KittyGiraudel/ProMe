@@ -202,15 +202,16 @@ html:has([role="dialog"]) {
 .Pattern[data-biome="shadowForest"] {
   --c1: #7dc8a0;
   --c2: #63b68a;
-  --_g: #0000 24%,
-    var(--c2) 26% 34%,var(--c1) 36% 44%,
-    var(--c2) 46% 54%,var(--c1) 56% 64%,
-    var(--c2) 66% 74%,#0000 76%;
+  --_g:
+    #0000 24%,
+    var(--c2) 26% 34%, var(--c1) 36% 44%,
+    var(--c2) 46% 54%, var(--c1) 56% 64%,
+    var(--c2) 66% 74%, #0000 76%;
   background:
-    radial-gradient(100% 100% at 100% 0,var(--_g)),
-    radial-gradient(100% 100% at 0 100%,var(--_g)),
-    radial-gradient(var(--c2) 14%,var(--c1) 16%) 
-      calc(var(--pattern-size)/2) calc(var(--pattern-size)/2);
+    radial-gradient(100% 100% at 100% 0, var(--_g)),
+    radial-gradient(100% 100% at 0 100%, var(--_g)),
+    radial-gradient(var(--c2) 14%, var(--c1) 16%) calc(var(--pattern-size) / 2)
+    calc(var(--pattern-size) / 2);
   background-size: var(--pattern-size) var(--pattern-size);
 }
 
