@@ -34,13 +34,24 @@
 
 @media (min-width: 1025px) {
   .LandingFeature[data-reversed="true"] .LandingFeature__visual {
-    transform: perspective(600px) rotateY(10deg) rotateX(5deg);
+    --feature-visual-rotate-y: 10deg;
+    transform: perspective(600px) translateY(var(--feature-visual-shift-y))
+      rotateY(var(--feature-visual-rotate-y))
+      rotateX(var(--feature-visual-rotate-x));
     filter: drop-shadow(0 24px 32px rgb(0 0 0 / 0.2));
+    transition: transform 220ms ease-out;
+    transform-style: preserve-3d;
+    will-change: transform;
   }
 
   .LandingFeature:not([data-reversed="true"]) .LandingFeature__visual {
-    transform: perspective(600px) rotateY(-10deg) rotateX(5deg);
+    --feature-visual-rotate-y: -10deg;
+    transform: perspective(600px) translateY(var(--feature-visual-shift-y))
+      rotateY(var(--feature-visual-rotate-y))
+      rotateX(var(--feature-visual-rotate-x));
     filter: drop-shadow(0 24px 32px rgb(0 0 0 / 0.2));
+    transition: transform 220ms ease-out;
+    will-change: transform;
   }
 }
 
@@ -115,6 +126,16 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  --feature-visual-shift-y: 0px;
+  --feature-visual-rotate-x: 5deg;
+  --feature-visual-rotate-y: -10deg;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .LandingFeature__visual {
+    --feature-visual-shift-y: 0px;
+    --feature-visual-rotate-x: 5deg;
+  }
 }
 
 /* ── Color schemes ── */

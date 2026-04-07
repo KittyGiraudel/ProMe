@@ -1,9 +1,11 @@
 'use client'
 
 import type { ReactNode } from 'react'
+import { useFeatureVisualParallax } from '@/hooks/useFeatureVisualParallax'
 import { useFadeIn } from '../../hooks/useFadeIn'
-import './LandingFeature.css'
 import { RichText } from '../RichText/RichText'
+
+import './LandingFeature.css'
 
 type ColorScheme =
   | 'sage'
@@ -33,6 +35,7 @@ export function LandingFeature({
   colorScheme,
 }: Props) {
   const ref = useFadeIn<HTMLElement>()
+  const visualRef = useFeatureVisualParallax({ reversed })
 
   return (
     <section
@@ -55,7 +58,9 @@ export function LandingFeature({
             ))}
           </div>
         </div>
-        <div className='LandingFeature__visual'>{visual}</div>
+        <div ref={visualRef} className='LandingFeature__visual'>
+          {visual}
+        </div>
       </div>
     </section>
   )
