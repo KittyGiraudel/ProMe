@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
+import { SpiralVisual } from './SpiralVisual'
 import './LandingHero.css'
 
 export function LandingHero() {
@@ -9,6 +10,7 @@ export function LandingHero() {
 
   return (
     <section className='LandingHero'>
+      <SpiralVisual />
       <div className='LandingHero__content'>
         <p className='LandingHero__eyebrow'>{t('landing.hero.eyebrow')}</p>
         <h1 className='LandingHero__title'>{t('landing.hero.title')}</h1>

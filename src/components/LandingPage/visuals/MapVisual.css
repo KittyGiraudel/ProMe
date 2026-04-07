@@ -58,6 +58,13 @@
 .MapVisual__cell--silentDesert {
   --pattern-size: 25px;
 }
+.MapVisual__cell--giganticGardens {
+  --pattern-size: 50px;
+}
+.MapVisual__cell--mushroomJungle {
+  --pattern-size: 30px;
+}
+
 .MapVisual__cell--current {
   border: 2px solid rgb(255 255 255 / 0.75);
 }
