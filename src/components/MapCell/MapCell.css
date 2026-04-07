@@ -170,7 +170,7 @@
   --pattern-size: 40px;
 }
 .MapCell.Pattern[data-biome="shadowForest"] {
-  --pattern-size: 15px;
+  --pattern-size: 25px;
 }
 .MapCell.Pattern[data-biome="floodedPlains"] {
   --pattern-size: 20px;

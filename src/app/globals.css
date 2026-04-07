@@ -200,23 +200,18 @@ html:has([role="dialog"]) {
 
 [data-biome="shadowForest"] .Pattern,
 .Pattern[data-biome="shadowForest"] {
-  --c1: rgb(111 169 131);
-  --c2: rgb(138 194 158);
-  --_s: calc(2 * var(--pattern-size)) calc(2 * var(--pattern-size));
-  --_g: 35.36% 35.36% at;
-  --_c: #0000 66%, var(--c2) 68% 70%, #0000 72%;
-
-  background-color: var(--c1);
+  --c1: #7dc8a0;
+  --c2: #63b68a;
+  --_g: #0000 24%,
+    var(--c2) 26% 34%,var(--c1) 36% 44%,
+    var(--c2) 46% 54%,var(--c1) 56% 64%,
+    var(--c2) 66% 74%,#0000 76%;
   background:
-    radial-gradient(var(--_g) 100% 25%, var(--_c)) var(--pattern-size)
-    var(--pattern-size) / var(--_s),
-    radial-gradient(var(--_g) 0 75%, var(--_c)) var(--pattern-size)
-    var(--pattern-size) / var(--_s),
-    radial-gradient(var(--_g) 100% 25%, var(--_c)) 0 0 / var(--_s),
-    radial-gradient(var(--_g) 0 75%, var(--_c)) 0 0 / var(--_s),
-    repeating-conic-gradient(var(--c1) 0 25%, #0000 0 50%) 0 0 / var(--_s),
-    radial-gradient(var(--_c)) 0 calc(var(--pattern-size) / 2) /
-    var(--pattern-size) var(--pattern-size) var(--c1);
+    radial-gradient(100% 100% at 100% 0,var(--_g)),
+    radial-gradient(100% 100% at 0 100%,var(--_g)),
+    radial-gradient(var(--c2) 14%,var(--c1) 16%) 
+      calc(var(--pattern-size)/2) calc(var(--pattern-size)/2);
+  background-size: var(--pattern-size) var(--pattern-size);
 }
 
 [data-biome="floodedPlains"] .Pattern,

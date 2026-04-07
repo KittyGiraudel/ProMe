@@ -1,7 +1,7 @@
 'use client'
 
 import { theme as antdTheme, ConfigProvider } from 'antd'
-import { type ReactNode, useMemo } from 'react'
+import { type ReactNode, useEffect, useMemo } from 'react'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 
 const LIGHT_TOKENS = {
@@ -28,6 +28,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const algorithm = isDark
     ? antdTheme.darkAlgorithm
     : antdTheme.defaultAlgorithm
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = isDark ? 'dark' : 'light'
+  }, [isDark])
 
   const theme = useMemo(
     () => ({

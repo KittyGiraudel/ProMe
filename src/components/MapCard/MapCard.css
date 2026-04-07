@@ -16,7 +16,7 @@
   --pattern-size: 15px;
 }
 .MapCard__legend li:has([data-biome="shadowForest"]) {
-  --pattern-size: 10px;
+  --pattern-size: 15px;
 }
 .MapCard__legend li:has([data-biome="floodedPlains"]) {
   --pattern-size: 10px;
