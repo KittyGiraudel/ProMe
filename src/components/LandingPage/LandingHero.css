@@ -6,7 +6,6 @@
   justify-content: center;
   overflow: hidden;
 
-  /* Gradient fallback — replaced by real image once available */
   background:
     linear-gradient(
       180deg,
@@ -14,14 +13,11 @@
       rgb(0 0 0 / 0.02) 40%,
       rgb(0 0 0 / 0.38) 100%
     ),
-    linear-gradient(180deg, #a8d8d2 0%, #c0e4b8 42%, #d8c880 72%, #c8a860 100%);
+    url("/images/home-cover.jpg");
 
   background-size: cover;
   background-position: center;
 }
-
-/* When the real hero image exists, add it here: */
-/* .LandingHero { background-image: url('/images/landing-hero.webp'), ... } */
 
 .LandingHero__content {
   position: relative;

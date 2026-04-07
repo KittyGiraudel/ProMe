@@ -42,7 +42,7 @@
 }
 
 @media (max-width: 767px) {
-  .LandingNav__logo {
+  .LandingNav .Logo {
     display: none;
   }
 }
