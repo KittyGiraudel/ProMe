@@ -1,0 +1,55 @@
+.LandingNav.LandingNav {
+  display: flex;
+  align-items: center;
+  padding-inline: 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  --ant-layout-header-height: 3em;
+}
+
+.LandingNav__logo {
+  color: white;
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+  font-family: cursive;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding-inline-end: 1rem;
+  flex-shrink: 0;
+}
+
+.LandingNav__menu {
+  flex: 1;
+  min-width: 0;
+}
+
+.LandingNav__menu .ant-menu-item:has([data-current="true"]),
+.LandingNav__menu .ant-menu-item:has([data-current="true"]):hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.LandingNav__cta.LandingNav__cta {
+  flex-shrink: 0;
+  margin-inline-start: 1rem;
+  padding: 0.3rem 1rem;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: background 200ms;
+}
+
+.LandingNav__cta.LandingNav__cta:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+@media (max-width: 767px) {
+  .LandingNav__logo {
+    display: none;
+  }
+}
