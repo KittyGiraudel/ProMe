@@ -8,6 +8,7 @@
   background-color: var(--prome-bg);
   color: var(--prome-text);
   border-top: 1px solid var(--prome-border);
+  padding-top: 1em;
 }
 
 .Footer__copyright {

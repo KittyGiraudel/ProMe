@@ -138,7 +138,7 @@ export function Settings() {
         layout='vertical'
         initialValues={initialValues}
         onValuesChange={handleValuesChange}>
-        <Spacing>
+        <Spacing size='large'>
           <Row gutter={[16, 16]}>
             <Col xs={24} md={12}>
               <Card title={t('settings.section_appearance')}>

@@ -13,7 +13,7 @@ import { SpellbookCard } from '@/components/SpellbookCard/SpellbookCard'
 
 export default function CharacterAllPage() {
   return (
-    <Spacing>
+    <Spacing size='large'>
       <IdentityCard isArchetypeReadonly />
       <CharacteristicsCard />
       <MapCard />

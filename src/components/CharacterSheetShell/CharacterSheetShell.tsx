@@ -135,7 +135,7 @@ export function CharacterSheetShell({
             preserve>
             <CharacterSheetValidationErrors errors={validationErrors} />
             <CharacterProvider isDead={isDead} saveForm={saveForm}>
-              <Spacing>
+              <Spacing size='large'>
                 {isDead ? (
                   <Alert
                     showIcon
