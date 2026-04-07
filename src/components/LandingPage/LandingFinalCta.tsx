@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
-import { useFadeIn } from './useFadeIn'
+import { useFadeIn } from '../../hooks/useFadeIn'
 import './LandingFinalCta.css'
 
 export function LandingFinalCta() {

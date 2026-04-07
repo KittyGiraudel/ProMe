@@ -1,13 +1,14 @@
 'use client'
 
+import { ArrowRightOutlined } from '@ant-design/icons'
 import { Layout, Menu } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { Link, usePathname } from '@/i18n/navigation'
-import './LandingNav.css'
-import { ArrowRightOutlined } from '@ant-design/icons'
 import { Logo } from '../Logo/Logo'
+
+import './LandingNav.css'
 
 export function LandingNav() {
   const t = useTranslations()

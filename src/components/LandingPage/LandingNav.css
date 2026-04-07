@@ -19,6 +19,11 @@
   background-color: rgb(255 255 255 / 0.15);
 }
 
+.LandingNav__menu .ant-menu-item:hover [data-current]::before {
+  background-color: rgb(255 255 255 / 0.1);
+  transition: background-color 200ms;
+}
+
 .LandingNav__cta {
   flex-shrink: 0;
   padding: 0 1em;
@@ -33,6 +38,7 @@
 
 .LandingNav__cta.LandingNav__cta:hover {
   background: rgb(255 255 255 / 0.25);
+  color: inherit;
 }
 
 @media (max-width: 767px) {

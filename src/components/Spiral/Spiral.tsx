@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import './SpiralVisual.css'
+import './Spiral.css'
 
 // Hypotrochoid parameters — R=6, r=1, d=3 gives the six-petal shape
 const R = 6,
@@ -40,7 +40,7 @@ function buildPath(ds: number) {
   }).join(' ')
 }
 
-export function SpiralVisual() {
+export function Spiral() {
   const groupRef = useRef<SVGGElement>(null)
   const pathRef = useRef<SVGPathElement>(null)
   const circlesRef = useRef<(SVGCircleElement | null)[]>([])
