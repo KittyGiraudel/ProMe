@@ -1,0 +1,209 @@
+.LandingFeature {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 400ms ease-out,
+    transform 400ms ease-out;
+}
+
+.LandingFeature.FadeIn--visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .LandingFeature {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+.LandingFeature__inner {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  padding: 5rem 6rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.LandingFeature--reversed .LandingFeature__inner {
+  flex-direction: row-reverse;
+}
+
+@media (max-width: 1024px) {
+  .LandingFeature__inner {
+    padding: 3.5rem 3rem;
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .LandingFeature__inner,
+  .LandingFeature--reversed .LandingFeature__inner {
+    flex-direction: column;
+    padding: 2.5rem 1.5rem;
+    gap: 2rem;
+  }
+}
+
+/* Text side */
+.LandingFeature__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.LandingFeature__number {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 0.5rem;
+}
+
+.LandingFeature__title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+}
+
+.LandingFeature__body {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  opacity: 0.82;
+  max-width: 420px;
+}
+
+.LandingFeature__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+.LandingFeature__tag {
+  font-size: 0.65rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Visual side */
+.LandingFeature__visual {
+  flex: 1;
+  min-height: 260px;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Color schemes ── */
+
+/* sage (character sheet) */
+.LandingFeature--sage {
+  background: #f2f8ef;
+  color: #1e3820;
+}
+.LandingFeature--sage .LandingFeature__title {
+  color: #2d5e28;
+}
+.LandingFeature--sage .LandingFeature__tag {
+  background: #cce8c2;
+  color: #2d5e28;
+}
+.LandingFeature--sage .LandingFeature__visual {
+  background: linear-gradient(135deg, #e4f2df 0%, #cce4c6 100%);
+  border: 1px solid #b8d8b0;
+}
+
+/* purple-dark (map) */
+.LandingFeature--purple-dark {
+  background: #18122a;
+  color: #e2d8f4;
+}
+.LandingFeature--purple-dark .LandingFeature__title {
+  color: #cbbcee;
+}
+.LandingFeature--purple-dark .LandingFeature__tag {
+  background: rgba(203, 188, 238, 0.18);
+  color: #cbbcee;
+}
+.LandingFeature--purple-dark .LandingFeature__visual {
+  background: #221a38;
+  border: 1px solid rgba(203, 188, 238, 0.2);
+}
+
+/* parchment (journal) */
+.LandingFeature--parchment {
+  background: #faf5e8;
+  color: #3a2e1a;
+}
+.LandingFeature--parchment .LandingFeature__title {
+  color: #5a3e14;
+}
+.LandingFeature--parchment .LandingFeature__tag {
+  background: #ede0c4;
+  color: #7a5820;
+}
+.LandingFeature--parchment .LandingFeature__visual {
+  background: #f2e8d0;
+  border: 1px solid #ddd0a8;
+}
+
+/* terracotta-dark (dice) */
+.LandingFeature--terracotta-dark {
+  background: #201410;
+  color: #f0e0d0;
+}
+.LandingFeature--terracotta-dark .LandingFeature__title {
+  color: #e8a078;
+}
+.LandingFeature--terracotta-dark .LandingFeature__tag {
+  background: rgba(232, 160, 120, 0.18);
+  color: #e8a078;
+}
+.LandingFeature--terracotta-dark .LandingFeature__visual {
+  background: #301c14;
+  border: 1px solid rgba(232, 160, 120, 0.2);
+}
+
+/* teal (music) */
+.LandingFeature--teal {
+  background: #edf8f8;
+  color: #1a3838;
+}
+.LandingFeature--teal .LandingFeature__title {
+  color: #1a6870;
+}
+.LandingFeature--teal .LandingFeature__tag {
+  background: #c4e8ec;
+  color: #1a6070;
+}
+.LandingFeature--teal .LandingFeature__visual {
+  background: linear-gradient(135deg, #d4f0f4 0%, #b8e4ea 100%);
+  border: 1px solid #a8d4dc;
+}
+
+/* gold-dark (generators) */
+.LandingFeature--gold-dark {
+  background: #1c1808;
+  color: #f0e8cc;
+}
+.LandingFeature--gold-dark .LandingFeature__title {
+  color: #e8c870;
+}
+.LandingFeature--gold-dark .LandingFeature__tag {
+  background: rgba(232, 200, 112, 0.18);
+  color: #e8c870;
+}
+.LandingFeature--gold-dark .LandingFeature__visual {
+  background: #2c2410;
+  border: 1px solid rgba(232, 200, 112, 0.2);
+}
