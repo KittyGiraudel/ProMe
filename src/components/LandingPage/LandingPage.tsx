@@ -69,7 +69,6 @@ export function LandingPage() {
           tags={[
             t('landing.features.dice.tags.1'),
             t('landing.features.dice.tags.2'),
-            t('landing.features.dice.tags.3'),
           ]}
           visual={<DiceVisual />}
           colorScheme='terracotta-dark'

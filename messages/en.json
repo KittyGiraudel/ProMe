@@ -703,11 +703,10 @@
       "dice": {
         "number": "04 — The Oracle",
         "title": "Built-in game tools",
-        "body": "Roll any die, draw from a standard deck — all from inside the app. Results feed directly into your journal and character sheet.",
+        "body": "Roll a six-sided die or draw from a playing card deck — all from inside the app. Results feed directly into your journal and character sheet.",
         "tags": {
-          "1": "d4–d20",
-          "2": "Card Deck",
-          "3": "Roll History"
+          "1": "D6",
+          "2": "Card Deck"
         }
       },
       "music": {

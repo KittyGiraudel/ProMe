@@ -700,11 +700,10 @@
       "dice": {
         "number": "04 — L’Oracle",
         "title": "Des outils de jeu intégrés",
-        "body": "Lancez n’importe quel dé, tirez d’un jeu standard — tout depuis l’application. Les résultats alimentent directement votre journal et votre fiche de personnage.",
+        "body": "Lancez un dé à six faces ou tirez d’un jeu de cartes — tout depuis l’application. Les résultats alimentent directement votre journal et votre fiche de personnage.",
         "tags": {
-          "1": "d4–d20",
-          "2": "Jeu de cartes",
-          "3": "Historique"
+          "1": "D6",
+          "2": "Jeu de cartes"
         }
       },
       "music": {
