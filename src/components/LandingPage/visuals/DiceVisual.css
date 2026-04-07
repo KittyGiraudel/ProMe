@@ -1,0 +1,43 @@
+.DiceVisual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  width: 100%;
+}
+
+.DiceVisual__die {
+  width: 52px;
+  height: 52px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: white;
+}
+
+.DiceVisual__die--featured {
+  width: 66px;
+  height: 66px;
+  font-size: 1.7rem;
+  background: rgba(232, 160, 120, 0.3);
+  border-color: rgba(232, 160, 120, 0.6);
+}
+
+.DiceVisual__card {
+  width: 44px;
+  height: 62px;
+  background: white;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.4);
+}

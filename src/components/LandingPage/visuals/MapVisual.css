@@ -1,0 +1,41 @@
+.MapVisual {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  padding: 1.25rem;
+  width: 100%;
+}
+
+.MapVisual__cell {
+  aspect-ratio: 1;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+}
+
+.MapVisual__cell--unexplored {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.MapVisual__cell--forest {
+  background: rgba(90, 160, 100, 0.45);
+  border: 1px solid rgba(90, 160, 100, 0.65);
+}
+.MapVisual__cell--purple {
+  background: rgba(167, 147, 195, 0.4);
+  border: 1px solid rgba(167, 147, 195, 0.6);
+}
+.MapVisual__cell--blue {
+  background: rgba(94, 196, 232, 0.35);
+  border: 1px solid rgba(94, 196, 232, 0.6);
+}
+.MapVisual__cell--sand {
+  background: rgba(220, 185, 110, 0.4);
+  border: 1px solid rgba(220, 185, 110, 0.6);
+}
+.MapVisual__cell--current {
+  background: rgba(255, 255, 255, 0.14);
+  border: 2px solid rgba(255, 255, 255, 0.75);
+}

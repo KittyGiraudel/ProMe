@@ -1,0 +1,68 @@
+.CharacterSheetVisual {
+  padding: 1.25rem;
+  width: 100%;
+  font-size: 0.82rem;
+}
+
+.CharacterSheetVisual__name {
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2d5e28;
+  border-bottom: 1px solid #b8d8b0;
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.CharacterSheetVisual__stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.CharacterSheetVisual__stat {
+  background: white;
+  border: 1px solid #b8d8b0;
+  border-radius: 6px;
+  padding: 0.35rem 0.25rem;
+  text-align: center;
+}
+
+.CharacterSheetVisual__stat-value {
+  display: block;
+  font-family: Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2d5e28;
+  line-height: 1;
+}
+
+.CharacterSheetVisual__stat-label {
+  display: block;
+  font-size: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #5a8055;
+  margin-top: 0.2rem;
+}
+
+.CharacterSheetVisual__inventory {
+  background: white;
+  border: 1px solid #b8d8b0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.CharacterSheetVisual__item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.7rem;
+  color: #3a5838;
+  border-bottom: 1px dashed #d4ecd0;
+}
+
+.CharacterSheetVisual__item:last-child {
+  border-bottom: none;
+}
