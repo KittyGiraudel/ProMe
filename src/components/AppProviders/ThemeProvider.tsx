@@ -21,9 +21,9 @@ const LIGHT_TOKENS = {
       borderRadiusLG: 24,
     },
     Segmented: {
-      trackBg: '#ddd0b8',
-      itemSelectedBg: '#2d6a4f',
-      itemSelectedColor: '#ffffff',
+      trackBg: '#c8b89a',
+      itemSelectedBg: '#fff9ee',
+      itemSelectedColor: '#1f3a2a',
     },
   },
 }
