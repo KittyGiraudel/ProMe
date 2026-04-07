@@ -1,6 +1,4 @@
-'use client'
-
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { Footer } from '@/components/Footer/Footer'
 import { LandingFeature } from './LandingFeature'
 import { LandingFinalCta } from './LandingFinalCta'
@@ -14,8 +12,8 @@ import { MapVisual } from './visuals/MapVisual'
 import { MusicVisual } from './visuals/MusicVisual'
 import './LandingPage.css'
 
-export function LandingPage() {
-  const t = useTranslations()
+export async function LandingPage() {
+  const t = await getTranslations()
 
   return (
     <div className='LandingPage'>
