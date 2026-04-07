@@ -20,6 +20,11 @@ const LIGHT_TOKENS = {
       borderRadiusSM: 16,
       borderRadiusLG: 24,
     },
+    Segmented: {
+      trackBg: '#ddd0b8',
+      itemSelectedBg: '#2d6a4f',
+      itemSelectedColor: '#ffffff',
+    },
   },
 }
 
