@@ -7,49 +7,59 @@
   width: 100%;
 }
 
+/* Die: 2×2 pip grid (face 4) */
 .DiceVisual__die {
-  width: 80px;
-  height: 80px;
-  background: rgba(232, 160, 120, 0.18);
-  border: 2px solid rgba(232, 160, 120, 0.55);
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 96px;
+  height: 96px;
+  background: rgba(232, 160, 120, 0.15);
+  border: 2px solid rgba(232, 160, 120, 0.5);
+  border-radius: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  padding: 16px;
+  gap: 10px;
+  transform: scale(0.7);
   box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    0 6px 20px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.DiceVisual__die-value {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: rgba(232, 160, 120, 0.95);
-  line-height: 1;
+.DiceVisual__pip {
+  width: 14px;
+  height: 14px;
+  background: rgba(232, 160, 120, 0.9);
+  border-radius: 50%;
+  margin: auto;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
+/* Card: slightly bigger, subtle 3D tilt */
 .DiceVisual__card {
-  width: 56px;
-  height: 80px;
+  width: 72px;
+  height: 100px;
   background: white;
-  border-radius: 6px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  box-shadow: 3px 4px 14px rgba(0, 0, 0, 0.45);
+  transform: perspective(600px) rotateY(-12deg) rotateX(5deg);
+  box-shadow:
+    5px 8px 20px rgba(0, 0, 0, 0.55),
+    1px 1px 0 rgba(0, 0, 0, 0.08);
 }
 
 .DiceVisual__card-suit {
-  font-size: 1.6rem;
+  font-size: 1.9rem;
   line-height: 1;
   color: #c22;
 }
 
 .DiceVisual__card-corner {
   position: absolute;
-  font-size: 0.55rem;
+  font-size: 0.6rem;
   font-weight: 700;
   color: #c22;
   font-family: Georgia, serif;
@@ -58,12 +68,12 @@
 }
 
 .DiceVisual__card-corner--tl {
-  top: 5px;
-  left: 6px;
+  top: 6px;
+  left: 7px;
 }
 
 .DiceVisual__card-corner--br {
-  bottom: 5px;
-  right: 6px;
+  bottom: 6px;
+  right: 7px;
   transform: rotate(180deg);
 }
