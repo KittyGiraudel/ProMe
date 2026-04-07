@@ -10,7 +10,8 @@ const LIGHT_TOKENS = {
     colorBgContainer: '#fff9ee',
     colorBgLayout: '#faf8f3',
     colorBgElevated: '#fff9ee',
-    colorBorder: '#e2d9c4',
+    colorBorder: '#c4b49a',
+    colorBorderSecondary: '#d4c5a9',
     borderRadius: 10,
   },
   components: {

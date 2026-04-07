@@ -1,7 +1,7 @@
 /* Card headers: green-to-parchment gradient wash (light mode only) */
 html[data-theme="light"] .ant-card .ant-card-head {
   background: linear-gradient(135deg, #e2f0e8 0%, #f5f0e4 100%);
-  border-bottom-color: #d8cfbe;
+  border-bottom-color: #c4b49a;
 }
 
 /* Breadcrumb: warm separator and active item (light mode only) */
