@@ -1,38 +1,44 @@
+import { PossibleBiomeId } from '@/lib/types'
 import './MapVisual.css'
 
-type CellType = 'unexplored' | 'forest' | 'purple' | 'blue' | 'sand' | 'current'
+type CellType = PossibleBiomeId | 'current'
 
 const GRID: Array<[CellType, string?]> = [
   ['unexplored'],
-  ['forest', '🌿'],
-  ['forest'],
+  ['shadowForest', '🌿'],
+  ['shadowForest'],
   ['unexplored'],
   ['unexplored'],
-  ['forest'],
+  ['shadowForest'],
   ['current', '📍'],
-  ['purple'],
-  ['purple'],
+  ['fieldSea'],
+  ['fieldSea'],
   ['unexplored'],
-  ['sand'],
-  ['sand'],
-  ['blue'],
-  ['blue'],
+  ['silentDesert'],
+  ['silentDesert'],
+  ['floodedPlains'],
+  ['floodedPlains'],
   ['unexplored'],
   ['unexplored'],
-  ['sand'],
-  ['sand'],
+  ['silentDesert'],
+  ['silentDesert'],
   ['unexplored'],
   ['unexplored'],
 ]
 
 export function MapVisual() {
   return (
-    <div className='MapVisual' aria-hidden='true'>
-      {GRID.map(([type, icon], i) => (
-        <div key={i} className={`MapVisual__cell MapVisual__cell--${type}`}>
-          {icon}
-        </div>
-      ))}
+    <div className='MapVisualWrapper' aria-hidden='true'>
+      <div className='MapVisual'>
+        {GRID.map(([type, icon], i) => (
+          <div
+            key={i}
+            data-biome={type}
+            className={`MapVisual__cell MapVisual__cell--${type} Pattern`}>
+            <span>{icon}</span>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
