@@ -2,57 +2,162 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2.5rem;
+  gap: 3rem;
   padding: 2rem;
   width: 100%;
 }
 
-/* Die: 2×2 pip grid (face 4) */
-.DiceVisual__die {
-  width: 96px;
-  height: 96px;
-  background: rgb(232 160 120 / 0.15);
-  border: 2px solid rgb(232 160 120 / 0.5);
-  border-radius: 18px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  padding: 16px;
+/* ── 3D die ── */
+
+.DiceVisual__die-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 10px;
-  transform: scale(0.7);
+}
+
+.DiceVisual__die-scene {
+  perspective: 500px;
+  width: 80px;
+  height: 80px;
+  position: relative;
+  transform: translateY(2em);
+}
+
+.DiceVisual__die-shadow {
+  width: 100px;
+  height: 30px;
+  background: rgb(0 0 0 / 0.3);
+  border-radius: 50%;
+  filter: blur(6px);
+  transform: translateY(1.5em);
+  z-index: -1;
+}
+
+.DiceVisual__die {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(-22deg) rotateY(38deg);
+}
+
+.DiceVisual__face {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border: 2px solid rgb(232 160 120 / 0.45);
+  border-radius: 14px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  padding: 10px;
   box-shadow:
-    0 6px 20px rgb(0 0 0 / 0.4),
     inset 0 1px 0 rgb(255 255 255 / 0.1),
-    inset 0 -2px 4px rgb(0 0 0 / 0.2);
+    inset 0 -2px 4px rgb(0 0 0 / 0.25);
+}
+
+/* Per-face solid colors to fake directional lighting — opaque so backfaces don't bleed through */
+.DiceVisual__face--front {
+  background: #3c2015;
+  transform: translateZ(40px);
+}
+.DiceVisual__face--top {
+  background: #4e2c1c;
+  transform: rotateX(90deg) translateZ(40px);
+}
+.DiceVisual__face--right {
+  background: #1e0e06;
+  transform: rotateY(90deg) translateZ(40px);
+}
+.DiceVisual__face--back {
+  background: #1e0e06;
+  transform: rotateY(180deg) translateZ(40px);
+}
+.DiceVisual__face--left {
+  background: #32180e;
+  transform: rotateY(-90deg) translateZ(40px);
+}
+.DiceVisual__face--bottom {
+  background: #1e0e06;
+  transform: rotateX(-90deg) translateZ(40px);
 }
 
 .DiceVisual__pip {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   background: rgb(232 160 120 / 0.9);
   border-radius: 50%;
   margin: auto;
-  box-shadow: 0 1px 3px rgb(0 0 0 / 0.4);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.5);
 }
 
-/* Card: slightly bigger, subtle 3D tilt */
+/* Pip brightness follows face lighting */
+.DiceVisual__face--top .DiceVisual__pip {
+  background: rgb(245 175 138 / 0.95);
+}
+.DiceVisual__face--left .DiceVisual__pip {
+  background: rgb(160 95 65 / 0.85);
+}
+
+/* ── Card stack ── */
+
+.DiceVisual__stack {
+  position: relative;
+  width: 84px;
+  height: 118px;
+}
+
 .DiceVisual__card {
-  width: 72px;
-  height: 100px;
-  background: white;
+  position: absolute;
+  inset: 0;
+  width: 84px;
+  height: 118px;
   border-radius: 8px;
+}
+
+/* Card backs — terracotta diagonal stripe pattern */
+.DiceVisual__card--back {
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgb(232 100 60 / 0.15) 0px,
+      rgb(232 100 60 / 0.15) 2px,
+      transparent 2px,
+      transparent 8px
+    ),
+    #5a1e0e;
+  border: 2px solid rgb(232 160 120 / 0.4);
+  box-shadow:
+    3px 6px 16px rgb(0 0 0 / 0.5),
+    inset 0 1px 0 rgb(255 255 255 / 0.08);
+}
+
+.DiceVisual__card--back-2 {
+  transform: rotate(-9deg) translate(-18px, 10px);
+  z-index: 1;
+}
+
+.DiceVisual__card--back-1 {
+  transform: rotate(-4deg) translate(-9px, 5px);
+  z-index: 2;
+}
+
+/* Front card — Queen of Hearts */
+.DiceVisual__card--front {
+  background: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  transform: perspective(600px) rotateY(-12deg) rotateX(5deg);
+  transform: perspective(600px) rotateY(-10deg) rotateX(4deg);
   box-shadow:
-    5px 8px 20px rgb(0 0 0 / 0.55),
+    6px 10px 24px rgb(0 0 0 / 0.6),
     1px 1px 0 rgb(0 0 0 / 0.08);
+  z-index: 3;
 }
 
 .DiceVisual__card-suit {
-  font-size: 1.9rem;
+  font-size: 2rem;
   line-height: 1;
   color: #c22;
 }

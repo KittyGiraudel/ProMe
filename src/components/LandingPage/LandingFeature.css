@@ -32,14 +32,16 @@
   flex-direction: row-reverse;
 }
 
-.LandingFeature--reversed .LandingFeature__visual {
-  transform: perspective(600px) rotateY(10deg) rotateX(5deg);
-  filter: drop-shadow(0 24px 32px rgb(0 0 0 / 0.2));
-}
+@media (min-width: 1025px) {
+  .LandingFeature--reversed .LandingFeature__visual {
+    transform: perspective(600px) rotateY(10deg) rotateX(5deg);
+    filter: drop-shadow(0 24px 32px rgb(0 0 0 / 0.2));
+  }
 
-.LandingFeature:not(.LandingFeature--reversed) .LandingFeature__visual {
-  transform: perspective(600px) rotateY(-10deg) rotateX(5deg);
-  filter: drop-shadow(0 24px 32px rgb(0 0 0 / 0.2));
+  .LandingFeature:not(.LandingFeature--reversed) .LandingFeature__visual {
+    transform: perspective(600px) rotateY(-10deg) rotateX(5deg);
+    filter: drop-shadow(0 24px 32px rgb(0 0 0 / 0.2));
+  }
 }
 
 @media (max-width: 1024px) {

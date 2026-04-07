@@ -21,13 +21,12 @@
 
 .LandingNav__cta {
   flex-shrink: 0;
-  padding: 0.3em 1em;
-  background: rgb(255 255 255 / 0.15);
-  border: 1px solid rgb(255 255 255 / 0.3);
+  padding: 0 1em;
+  background-color: rgb(255 255 255 / 0.15);
   color: white;
-  font-size: 1em;
   font-weight: 600;
   letter-spacing: 0.04em;
+  font-variant: small-caps;
   white-space: nowrap;
   transition: background 200ms;
 }
