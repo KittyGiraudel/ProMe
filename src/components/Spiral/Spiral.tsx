@@ -41,6 +41,7 @@ function buildPath(ds: number) {
 }
 
 export function Spiral() {
+  const svgRef = useRef<SVGSVGElement>(null)
   const groupRef = useRef<SVGGElement>(null)
   const pathRef = useRef<SVGPathElement>(null)
   const circlesRef = useRef<(SVGCircleElement | null)[]>([])
@@ -49,9 +50,16 @@ export function Spiral() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
+    const svgEl = svgRef.current
+    if (!svgEl) return
+
     let startTime: number | null = null
+    let pausedAt: number | null = null
+    let isRunning = false
+    let isInView = false
 
     function tick(now: number) {
+      if (!isRunning) return
       if (startTime === null) startTime = now
       const time = now - startTime
 
@@ -77,12 +85,60 @@ export function Spiral() {
       rafRef.current = requestAnimationFrame(tick)
     }
 
-    rafRef.current = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(rafRef.current)
+    const stop = () => {
+      if (!isRunning) return
+      isRunning = false
+      pausedAt = performance.now()
+      cancelAnimationFrame(rafRef.current)
+    }
+
+    const start = () => {
+      if (isRunning || !isInView || document.visibilityState === 'hidden')
+        return
+      if (pausedAt !== null && startTime !== null) {
+        startTime += performance.now() - pausedAt
+      }
+      pausedAt = null
+      isRunning = true
+      rafRef.current = requestAnimationFrame(tick)
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isInView = entry.isIntersecting
+        if (isInView) {
+          start()
+          return
+        }
+        stop()
+      },
+      { threshold: 0.01 }
+    )
+
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        stop()
+        return
+      }
+      start()
+    }
+
+    observer.observe(svgEl)
+    document.addEventListener('visibilitychange', onVisibilityChange)
+
+    return () => {
+      observer.disconnect()
+      document.removeEventListener('visibilitychange', onVisibilityChange)
+      stop()
+    }
   }, [])
 
   return (
-    <svg className='SpiralVisual' viewBox='0 0 100 100' aria-hidden='true'>
+    <svg
+      ref={svgRef}
+      className='SpiralVisual'
+      viewBox='0 0 100 100'
+      aria-hidden='true'>
       <g ref={groupRef}>
         <path
           ref={pathRef}
