@@ -242,8 +242,7 @@
   border: 1px solid rgb(232 200 112 / 0.2);
 }
 
-
-@media screen and (min--moz-device-pixel-ratio:0) {
+@media screen and (min--moz-device-pixel-ratio: 0) {
   /**
    * 1. Fix for Firefox that completely breaks nested transforms.
    */

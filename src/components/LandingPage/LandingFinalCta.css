@@ -3,7 +3,9 @@
   padding: 8rem 2rem;
   text-align: center;
   overflow: hidden;
-  background: linear-gradient(#0000000f 0%, #00000005 40%, #00000061 100%), url("/images/home-footer.avif");
+  background:
+    linear-gradient(#0000000f 0%, #00000005 40%, #00000061 100%),
+    url("/images/home-footer.avif");
   background-size: cover;
   background-position: center bottom;
 }
