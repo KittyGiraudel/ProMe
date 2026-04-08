@@ -2,13 +2,11 @@
 
 import { Form } from 'antd'
 import { useEffect, useMemo, useState } from 'react'
-import { usePathname } from '@/i18n/navigation'
 import { getCharacterStore } from '@/lib/character/store'
 import { SheetFormValues } from '@/lib/character/toFormValues'
 import type { Character } from '@/lib/character/types'
 import { useCharacterSave } from './useCharacterSave'
 import { useCharacterSaveGuard } from './useCharacterSaveGuard'
-import { tabKeyFromPathname } from './useCharacterSheetDocumentTitle'
 
 export function useCharacterSheetForm({
   characterId,
@@ -18,15 +16,12 @@ export function useCharacterSheetForm({
   const [form] = Form.useForm<SheetFormValues>()
   const [character, setCharacter] = useState<Character | null>(null)
   const [hydratedFromStore, setHydratedFromStore] = useState(false)
-  const pathname = usePathname()
-  const activeTab = tabKeyFromPathname(pathname)
   const { saveForm, validationErrors } = useCharacterSave({
     character,
     form,
     onSave: setCharacter,
   })
 
-  // Avoid hydration mismatches by deferring localStorage/sessionStorage reads to the client.
   useEffect(
     function hydrateCharacterFromStorage() {
       void Promise.resolve().then(() => {
@@ -47,9 +42,8 @@ export function useCharacterSheetForm({
       character,
       hydratedFromStore,
       saveForm,
-      activeTab,
       validationErrors,
     }),
-    [form, character, hydratedFromStore, saveForm, activeTab, validationErrors]
+    [form, character, hydratedFromStore, saveForm, validationErrors]
   )
 }
