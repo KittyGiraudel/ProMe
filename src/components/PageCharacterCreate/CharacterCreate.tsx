@@ -26,6 +26,7 @@ export function CharacterCreate() {
   const [form] = Form.useForm<CharacterCreateFormValues>()
   const handleCreate = useCharacterCreate()
   const candidates = useInheritanceCandidates()
+  const gender = Form.useWatch('gender', form)
 
   return (
     <Layout
@@ -81,7 +82,7 @@ export function CharacterCreate() {
             rules={[{ required: true }]}
             name='archetype'
             label={t('characters.identity.archetype_label')}>
-            <ArchetypeSelector />
+            <ArchetypeSelector gender={gender} />
           </Form.Item>
 
           <InheritanceCard candidates={candidates} />

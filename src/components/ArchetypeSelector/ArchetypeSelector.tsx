@@ -3,6 +3,8 @@
 import { useTranslations } from 'next-intl'
 import { getDefaultPoolsForArchetype } from '@/lib/character/model'
 import type { Archetype } from '@/lib/character/types'
+import { ARCHETYPES } from '@/lib/constants/misc'
+import type { Gender } from '@/lib/types'
 import './ArchetypeSelector.css'
 
 const ARCHETYPE_ICONS: Record<Archetype, string> = {
@@ -11,14 +13,13 @@ const ARCHETYPE_ICONS: Record<Archetype, string> = {
   bard: '🎵',
 }
 
-const ARCHETYPES: Archetype[] = ['warrior', 'pilgrim', 'bard']
-
 type Props = {
   value?: Archetype
   onChange?: (value: Archetype) => void
+  gender?: Gender
 }
 
-export function ArchetypeSelector({ value, onChange }: Props) {
+export function ArchetypeSelector({ value, onChange, gender }: Props) {
   const t = useTranslations()
 
   return (
@@ -45,7 +46,7 @@ export function ArchetypeSelector({ value, onChange }: Props) {
             <div className='ArchetypeSelector__Body'>
               <div className='ArchetypeSelector__Name'>
                 {t(`common.archetypes.name.${archetype}`, {
-                  gender: 'indeterminate',
+                  gender: gender ?? 'indeterminate',
                 })}
               </div>
               <blockquote className='ArchetypeSelector__Quote'>
