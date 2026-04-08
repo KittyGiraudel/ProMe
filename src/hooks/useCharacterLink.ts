@@ -1,23 +1,20 @@
+'use client'
+
 import { useParams } from 'next/navigation'
 import { useCallback } from 'react'
-import { useSettings } from '@/components/PageSettings/SettingsContext'
-import {
-  CHARACTER_SHEET_TAB_KEYS,
-  CharacterSheetTabId,
-} from '@/constants/characterSheetRoutes'
 
 type CharacterLinkOptions = {
   characterId?: string
-  tabId?: CharacterSheetTabId
+  tabId?: string
   hash?: string
 }
 
 type GetterOptionsRequiringTabId = Omit<CharacterLinkOptions, 'tabId'> & {
-  tabId: CharacterSheetTabId
+  tabId: string
 }
 
 export function useCharacterLink(options: {
-  tabId: CharacterSheetTabId
+  tabId: string
   hash?: string
 }): (options?: CharacterLinkOptions) => string
 export function useCharacterLink(options?: {
@@ -27,13 +24,11 @@ export function useCharacterLink({
   tabId,
   hash,
 }: {
-  tabId?: CharacterSheetTabId
+  tabId?: string
   hash?: string
 } = {}) {
-  const { settings } = useSettings()
   const params = useParams<{ id: string }>()
   const characterId = params?.id
-  const singlePageMode = settings.sheet.singlePageMode
 
   const getCharacterLink = useCallback(
     ({
@@ -49,29 +44,13 @@ export function useCharacterLink({
         throw new Error('Missing character ID for character sheet link.')
       }
 
-      const requestedTab = CHARACTER_SHEET_TAB_KEYS.find(
-        tab => tab.id === resolvedTabId
-      )!
-
       const basePath = `/characters/${resolvedCharacterId}`
 
-      // If a hash is provided, we need to handle it like this:
-      // - In SPM: just point to it. The referenced ID exists somewhere on the page,
-      //   so just keep it as is.
-      // - In MPM: use the right tab, *and* preserve the hash.
-      if (resolvedHash)
-        return singlePageMode
-          ? `${basePath}#${resolvedHash}`
-          : `${basePath}/${requestedTab.path}#${resolvedHash}`
-
-      // Otherwise if there is no provided hash:
-      // - In SPM: reference the right section using an anchor.
-      // - In MPM: use the right tab.
-      return singlePageMode
-        ? `${basePath}#${requestedTab.path}`
-        : `${basePath}/${requestedTab.path}`
+      if (resolvedHash) return `${basePath}#${resolvedHash}`
+      if (resolvedTabId) return `${basePath}#${resolvedTabId}`
+      return basePath
     },
-    [characterId, tabId, hash, singlePageMode]
+    [characterId, tabId, hash]
   )
 
   return getCharacterLink
