@@ -10,13 +10,16 @@
   width: min(480px, calc(100vw - 2em));
   z-index: 100; /* 2 */
   box-shadow: var(--ant-box-shadow-secondary); /* 3 */
+  transition: width 160ms ease;
 }
 
 /**
  * 1. When collapsed, shrink the width to 200px to take less room.
+ * 2. Delay the shrinking once the editor was fully collapsed.
  */
 .JournalFloatingEditor[data-collapsed="true"] {
   width: 180px; /* 1 */
+  transition-delay: 500ms; /* 2 */
 }
 
 /**
@@ -41,4 +44,25 @@
 [data-theme="light" ].JournalFloatingEditor.JournalFloatingEditor textarea,
 [data-theme="light" ].JournalFloatingEditor.JournalFloatingEditor textarea:hover {
   background-color: white;
+}
+
+@supports (transition-behavior: allow-discrete) {
+  .JournalFloatingEditor .ant-card-body.ant-card-body,
+  .JournalFloatingEditor .ant-card-actions.ant-card-actions {
+    transition:
+      opacity 300ms ease,
+      display 300ms allow-discrete;
+  }
+
+  [data-collapsed="true"] .ant-card-body.ant-card-body,
+  [data-collapsed="true"] .ant-card-actions.ant-card-actions {
+    opacity: 0;
+  }
+
+  @starting-style {
+    [data-collapsed="false"] .ant-card-body.ant-card-body,
+    [data-collapsed="false"] .ant-card-actions.ant-card-actions {
+      opacity: 0;
+    }
+  }
 }
