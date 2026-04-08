@@ -58,7 +58,13 @@ export function JournalCardInner({
   const [currentPage, setCurrentPage] = useState(1)
   const totalCount = fields.length
 
-  const { isEditing, setEditingMode } = useJournalEntryViewModes(fields)
+  const {
+    isEditing,
+    setEditingMode,
+    isFloating,
+    setFloatingMode,
+    anyEditingActive,
+  } = useJournalEntryViewModes(fields)
   const { addEntry, removeEntry } = useJournalActions({
     count: totalCount,
     setCurrentPage,
@@ -132,6 +138,9 @@ export function JournalCardInner({
                   deleteEntry={removeEntry}
                   isEditing={isEditing}
                   setEditingMode={setEditingMode}
+                  isFloating={isFloating}
+                  setFloatingMode={setFloatingMode}
+                  anyEditingActive={anyEditingActive}
                 />
 
                 {filteredFields.length > PAGE_SIZE && (
