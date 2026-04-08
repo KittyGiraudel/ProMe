@@ -18,7 +18,7 @@ export function useDiceRollNotification() {
       key: 'dice-roll',
       title: t('characters.tools.die_title'),
       description: <DiceRollResult />,
-      placement: 'bottomLeft',
+      placement: 'topRight',
       duration: 4,
       style: { width: 150 },
     })

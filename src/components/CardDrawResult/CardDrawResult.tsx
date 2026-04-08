@@ -19,7 +19,7 @@ export function useCardDrawNotification() {
       key: 'card-draw',
       title: t('characters.tools.card_title'),
       description: <CardDrawResult />,
-      placement: 'bottomLeft',
+      placement: 'topRight',
       duration: 4,
       style: { width: 150 },
     })
