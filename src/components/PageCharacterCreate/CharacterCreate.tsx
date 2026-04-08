@@ -48,7 +48,7 @@ export function CharacterCreate() {
           inheritFromCharacterId: undefined,
         }}
         onFinish={handleCreate}>
-        <Spacing>
+        <Spacing size='large'>
           <Card title={t('characters.identity.identity_section')} id='identity'>
             <Row gutter={[16, 16]}>
               <Col xs={24} md={16}>
