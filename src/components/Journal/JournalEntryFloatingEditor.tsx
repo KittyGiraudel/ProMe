@@ -3,7 +3,7 @@
 import ArrowsAltOutlined from '@ant-design/icons/lib/icons/ArrowsAltOutlined'
 import MinusOutlined from '@ant-design/icons/lib/icons/MinusOutlined'
 import PlusOutlined from '@ant-design/icons/lib/icons/PlusOutlined'
-import { Card, Form, Input } from 'antd'
+import { Card, Form, Input, Tooltip } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
@@ -58,40 +58,43 @@ export function JournalEntryFloatingEditor({
       data-collapsed={isCollapsed}
       aria-label={t('characters.journal.floating_editor_title')}
       extra={[
-        <Button
-          key='expand'
-          type='text'
-          size='small'
-          htmlType='button'
-          title={t('characters.journal.floating_editor_expand')}
-          aria-label={t('characters.journal.floating_editor_expand')}
-          onClick={e => {
-            e.stopPropagation()
-            onExpand()
-          }}>
-          <ArrowsAltOutlined />
-        </Button>,
-        <Button
-          key='collapse'
-          type='text'
-          size='small'
-          htmlType='button'
+        <Tooltip title={t('characters.journal.floating_editor_expand')}>
+          <Button
+            key='expand'
+            type='text'
+            size='small'
+            htmlType='button'
+            aria-label={t('characters.journal.floating_editor_expand')}
+            onClick={e => {
+              e.stopPropagation()
+              onExpand()
+            }}>
+            <ArrowsAltOutlined />
+          </Button>
+        </Tooltip>,
+        <Tooltip
           title={
             isCollapsed
-              ? t('characters.journal.floating_editor_restore')
-              : t('characters.journal.floating_editor_collapse')
-          }
-          aria-label={
-            isCollapsed
-              ? t('characters.journal.floating_editor_restore')
-              : t('characters.journal.floating_editor_collapse')
-          }
-          onClick={e => {
-            e.stopPropagation()
-            setIsCollapsed(c => !c)
-          }}>
-          {isCollapsed ? <PlusOutlined /> : <MinusOutlined />}
-        </Button>,
+              ? t('common.actions.expand')
+              : t('common.actions.collapse')
+          }>
+          <Button
+            key='collapse'
+            type='text'
+            size='small'
+            htmlType='button'
+            aria-label={
+              isCollapsed
+                ? t('common.actions.expand')
+                : t('common.actions.collapse')
+            }
+            onClick={e => {
+              e.stopPropagation()
+              setIsCollapsed(c => !c)
+            }}>
+            {isCollapsed ? <PlusOutlined /> : <MinusOutlined />}
+          </Button>
+        </Tooltip>,
       ]}
       actions={[
         <Button key='cancel' htmlType='button' onClick={onCancel}>
