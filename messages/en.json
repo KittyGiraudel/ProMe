@@ -249,6 +249,11 @@
         "pilgrim_description": "You only need to eat once per day, at the end of each night.",
         "bard_title": "The Power of the Mandolin",
         "bard_description": "When you arrive in a village for the first time, you can play a song and earn 1D6 × 10 coins."
+      },
+      "lore": {
+        "warrior": "Your memories may be fragmented, but something tells you that to save the world, combat will be inevitable.",
+        "pilgrim": "The world is unknown to you, but you know the journey will be long and fraught with peril. To accomplish your mission, everything will depend on this voyage.",
+        "bard": "To fulfil your mission, your heart must be open and your mind curious to collect the stories that await you along the way."
       }
     },
     "factions": {
@@ -633,6 +638,7 @@
     "idle": "No track (move to a biome on the map)",
     "preloading": "Preloading soundtracks…",
     "preload_complete": "Music is ready to play.",
+    "preload_complete_hint": "Due to browser restrictions, you must manually play the music for the first time.",
     "play": "Play",
     "pause": "Pause",
     "volume": "Volume",

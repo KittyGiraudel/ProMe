@@ -248,6 +248,11 @@
         "pilgrim_description": "Vous n’avez besoin de vous nourrir qu’une fois par jour, à la fin de chaque nuit.",
         "bard_title": "Le pouvoir de la mandoline",
         "bard_description": "Lorsque vous arrivez dans un village pour la première fois, vous pouvez jouer une chanson et gagner 1D6 × 10 pièces."
+      },
+      "lore": {
+        "warrior": "Vos souvenirs peuvent être fragmentaires mais quelque chose vous dit que pour sauver le monde, combat sera inévitable.",
+        "pilgrim": "Le monde vous est inconnu mais vous savez que le périple sera long et parsemé d’embûches. Pour accomplir votre mission, tout dépendra de ce voyage.",
+        "bard": "Pour remplir votre mission, il faudra que votre cœur soit ouvert et votre esprit curieux pour collecter les histoires qui vous attendent en chemin."
       }
     },
     "factions": {
@@ -630,6 +635,7 @@
     "idle": "Aucune piste (placez-vous sur un biome sur la carte)",
     "preloading": "Préchargement des bandes sons…",
     "preload_complete": "La musique est prête à jouer.",
+    "preload_complete_hint": "À cause de restrictions du navigateur, vous devez lancer la musique manuellement pour la première fois.",
     "play": "Lire",
     "pause": "Pause",
     "volume": "Volume",
