@@ -2,9 +2,24 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ArchetypeSelector__Input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
 }
 
 .ArchetypeSelector__Card {
+  display: block;
   background: var(--ant-color-bg-container);
   border: 1.5px solid var(--ant-color-border);
   border-radius: 10px;
@@ -13,7 +28,6 @@
   transition:
     border-color 0.15s,
     box-shadow 0.15s;
-  outline: none;
 }
 
 .ArchetypeSelector__Card:hover {
@@ -21,12 +35,12 @@
   box-shadow: 0 2px 8px rgba(45, 106, 79, 0.12);
 }
 
-.ArchetypeSelector__Card--selected {
+.ArchetypeSelector__Card:has(:checked) {
   border: 2px solid #2d6a4f;
   box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.12);
 }
 
-.ArchetypeSelector__Card:focus-visible {
+.ArchetypeSelector__Card:has(:focus-visible) {
   outline: 2px solid #2d6a4f;
   outline-offset: 2px;
 }
@@ -56,7 +70,7 @@
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
 }
 
-.ArchetypeSelector__Card--selected .ArchetypeSelector__Image::after {
+.ArchetypeSelector__Card:has(:checked) .ArchetypeSelector__Image::after {
   content: "✓";
   position: absolute;
   top: 8px;
@@ -83,7 +97,7 @@
   margin-bottom: 8px;
 }
 
-.ArchetypeSelector__Card--selected .ArchetypeSelector__Name {
+.ArchetypeSelector__Card:has(:checked) .ArchetypeSelector__Name {
   color: #2d6a4f;
 }
 
@@ -97,7 +111,7 @@
   border-left: 2px solid var(--ant-color-border);
 }
 
-.ArchetypeSelector__Card--selected .ArchetypeSelector__Quote {
+.ArchetypeSelector__Card:has(:checked) .ArchetypeSelector__Quote {
   border-left-color: #2d6a4f;
 }
 

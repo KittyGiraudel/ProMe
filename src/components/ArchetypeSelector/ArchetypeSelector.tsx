@@ -22,22 +22,20 @@ export function ArchetypeSelector({ value, onChange }: Props) {
   const t = useTranslations()
 
   return (
-    <div className='ArchetypeSelector' role='radiogroup'>
+    <fieldset className='ArchetypeSelector'>
       {ARCHETYPES.map(archetype => {
         const pools = getDefaultPoolsForArchetype(archetype)
-        const isSelected = value === archetype
 
         return (
-          <div
-            key={archetype}
-            className={`ArchetypeSelector__Card${isSelected ? ' ArchetypeSelector__Card--selected' : ''}`}
-            role='radio'
-            aria-checked={isSelected}
-            tabIndex={0}
-            onClick={() => onChange?.(archetype)}
-            onKeyDown={e => {
-              if (e.key === 'Enter' || e.key === ' ') onChange?.(archetype)
-            }}>
+          <label key={archetype} className='ArchetypeSelector__Card'>
+            <input
+              type='radio'
+              className='ArchetypeSelector__Input'
+              name='archetype'
+              value={archetype}
+              checked={value === archetype}
+              onChange={() => onChange?.(archetype)}
+            />
             <div
               className={`ArchetypeSelector__Image ArchetypeSelector__Image--${archetype}`}>
               <span className='ArchetypeSelector__Icon'>
@@ -86,9 +84,9 @@ export function ArchetypeSelector({ value, onChange }: Props) {
                 {t(`common.archetypes.power.${archetype}_description`)}
               </div>
             </div>
-          </div>
+          </label>
         )
       })}
-    </div>
+    </fieldset>
   )
 }
