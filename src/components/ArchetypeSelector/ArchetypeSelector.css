@@ -56,15 +56,6 @@
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
 }
 
-.ArchetypeSelector__ImageHint {
-  position: absolute;
-  bottom: 6px;
-  right: 8px;
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.4);
-  font-style: italic;
-}
-
 .ArchetypeSelector__Card--selected .ArchetypeSelector__Image::after {
   content: "✓";
   position: absolute;

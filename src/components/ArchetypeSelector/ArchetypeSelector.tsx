@@ -43,9 +43,6 @@ export function ArchetypeSelector({ value, onChange }: Props) {
               <span className='ArchetypeSelector__Icon'>
                 {ARCHETYPE_ICONS[archetype]}
               </span>
-              <span className='ArchetypeSelector__ImageHint'>
-                illustration à venir
-              </span>
             </div>
             <div className='ArchetypeSelector__Body'>
               <div className='ArchetypeSelector__Name'>
