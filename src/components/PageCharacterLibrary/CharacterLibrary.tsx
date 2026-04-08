@@ -63,6 +63,7 @@ export function CharacterLibrary() {
           return (
             <Card
               key={character.id}
+              className='u-contain-layout u-cv-auto-card'
               title={
                 dead
                   ? t.rich('characters_list.dead_character_name', {

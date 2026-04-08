@@ -25,7 +25,7 @@ export function MapDisplay({
 
   return (
     <div className='MapScroller' data-style={settings.map.style}>
-      <div className='Map'>
+      <div className='Map u-contain-layout'>
         {showAxes && (
           <>
             <MapLegendRow position='top' offset={0} />

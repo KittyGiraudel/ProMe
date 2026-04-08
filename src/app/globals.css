@@ -291,3 +291,25 @@ html:has([role="dialog"]) {
     var(--_g) var(--pattern-size) var(--pattern-size) var(--c1);
   background-size: calc(2 * var(--pattern-size)) calc(2 * var(--pattern-size));
 }
+
+/**
+ * Performance utilities (opt-in).
+ *
+ * - `contain: layout style` gives the browser a safe containment boundary
+ *   without the clipping risk of paint containment (e.g. box-shadows).
+ * - `content-visibility: auto` can skip rendering work for far-offscreen items;
+ *   `contain-intrinsic-size` reduces layout shift while content is skipped.
+ */
+.u-contain-layout {
+  contain: layout style;
+}
+
+.u-cv-auto-card {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 220px;
+}
+
+.u-cv-auto-row {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 160px;
+}

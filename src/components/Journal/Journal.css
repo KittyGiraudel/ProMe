@@ -5,6 +5,8 @@
 .Journal__entry {
   position: relative;
   padding-bottom: 1em;
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 160px;
 }
 
 .Journal__edit.Journal__edit {
