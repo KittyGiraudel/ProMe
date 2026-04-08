@@ -1,9 +1,11 @@
 'use client'
 
-import { Alert, Card, Col, Form, Input, Row, Select } from 'antd'
+import { Card, Col, Form, Input, Row, Select } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useWatchedIdentity } from '@/hooks/useCharacterSheetDerived'
 import { GENDERS } from '@/lib/constants/misc'
+
+import './IdentityCard.css'
 
 export function IdentityCard({
   isArchetypeReadonly = false,
@@ -73,13 +75,10 @@ export function IdentityCard({
       {archetype ? (
         <Row style={{ marginTop: 16 }}>
           <Col xs={24}>
-            <Alert
-              type='info'
-              title={t(`common.archetypes.power.${archetype}_title`)}
-              description={t(
-                `common.archetypes.power.${archetype}_description`
-              )}
-            />
+            <p className='IdentityCard__Power'>
+              <strong>{t(`common.archetypes.power.${archetype}_title`)}</strong>
+              {t(`common.archetypes.power.${archetype}_description`)}
+            </p>
           </Col>
         </Row>
       ) : null}

@@ -1,0 +1,22 @@
+.IdentityCard__Power {
+  border-radius: 0.5em;
+  padding: 1em;
+}
+
+[data-theme='light'] .IdentityCard__Power {
+  background: #f5ece0;
+  color: #5a4a2e;
+}
+[data-theme='dark'] .IdentityCard__Power {
+  background: #1f3a2a;
+  color: #f5ece0;
+}
+
+.IdentityCard__Power strong {
+  margin-right: 1ch;
+}
+
+.IdentityCard__Power strong::after {
+  content: '·';
+  margin-left: 1ch;
+}
