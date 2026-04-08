@@ -87,7 +87,12 @@ export function CharacterSheet({ characterId }: { characterId: string }) {
             onFieldsChange={onFieldsChange}
             scrollToFirstError
             initialValues={toFormValues(character)}
-            onFinish={() => saveForm()}
+            onFinish={() => {
+              // Do NOT pass the received values to saveForm: journal entries
+              // are not registered when the edit modal is closed, and saveForm
+              // calls getCharacterFromForm() internally for correct values.
+              saveForm()
+            }}
             disabled={isDead}
             layout='vertical'
             colon={false}
