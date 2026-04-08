@@ -106,6 +106,11 @@ export function JournalEntry({
     setEditingMode(field.key, false)
   }, [field.key, field.name, updateEntryField, setEditingMode])
 
+  const handleModalFloat = useCallback(() => {
+    setEditingMode(field.key, false)
+    setFloatingMode(field.key)
+  }, [field.key, setEditingMode, setFloatingMode])
+
   const handleFloatingSave = useCallback(() => {
     if (!componentDisabled) {
       updateEntryField(field.name, 'updatedAt', new Date().toISOString())
@@ -159,6 +164,7 @@ export function JournalEntry({
         draftContent={draftContent}
         onCancel={handleModalCancel}
         onSave={handleModalSave}
+        onFloat={handleModalFloat}
         onDelete={() => deleteEntry(field.name)}
       />
     </div>

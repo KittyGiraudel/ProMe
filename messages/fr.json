@@ -134,6 +134,7 @@
       "floating_editor_expand": "Ouvrir l'éditeur complet",
       "floating_editor_collapse": "Réduire",
       "floating_editor_restore": "Restaurer",
+      "floating_editor_dock": "Passer en panneau flottant",
       "metadata": "Créé le {createdAt} · Mis à jour le {updatedAt}",
       "modal_title": "Éditer l’entrée du journal",
       "notes_section": "Journal",

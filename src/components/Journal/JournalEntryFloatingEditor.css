@@ -1,57 +1,44 @@
-.JournalFloatingEditor {
-  position: fixed;
-  bottom: 1em;
-  right: 1em;
+/**
+ * 1. Anchor the floating editor to the bottom-left of the viewport.
+ * 2. Make sure it sits on top of other content.
+ * 3. Add a subtle shadow for depth.
+ */
+.JournalFloatingEditor.JournalFloatingEditor {
+  position: fixed; /* 1 */
+  bottom: 1em; /* 1 */
+  left: 1em; /* 1 */
   width: min(480px, calc(100vw - 2em));
-  z-index: 900;
-  background: var(--ant-color-bg-container);
-  border: 1px solid var(--ant-color-border);
-  border-radius: var(--ant-border-radius-lg);
-  box-shadow: var(--ant-box-shadow-secondary);
-  overflow: hidden;
+  z-index: 100; /* 2 */
+  box-shadow: var(--ant-box-shadow-secondary); /* 3 */
 }
 
-.JournalFloatingEditor__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5em 0.5em 0.5em 0.75em;
-  background: var(--ant-color-bg-elevated);
-  border-bottom: 1px solid var(--ant-color-border-secondary);
-  cursor: pointer;
-  user-select: none;
+/**
+ * 1. When collapsed, shrink the width to 200px to take less room.
+ */
+.JournalFloatingEditor[data-collapsed="true"] {
+  width: 180px; /* 1 */
 }
 
-.JournalFloatingEditor__title {
-  font-weight: 600;
-  font-size: 0.85em;
-  color: var(--ant-color-text-secondary);
+/**
+ * 1. When collapsed, round the corners of the header to make a pill.
+ */
+.JournalFloatingEditor[data-collapsed="true"] .ant-card-head {
+  border-radius: var(--ant-border-radius-lg); /* 1 */
 }
 
-.JournalFloatingEditor__actions {
-  display: flex;
-  gap: 0.1em;
-}
-
-.JournalFloatingEditor__body {
-  padding: 0.75em 0.75em 0;
-}
-
-.JournalFloatingEditor__body--collapsed {
-  display: none;
+/**
+ * 1. When collapsed, hide the body and actions to keep only the header visible.
+ */
+[data-collapsed="true"] .ant-card-body.ant-card-body, 
+[data-collapsed="true"] .ant-card-actions.ant-card-actions {
+  display: none; /* 1 */
 }
 
 .JournalFloatingEditor__field.JournalFloatingEditor__field {
   margin-bottom: 0;
 }
 
-.JournalFloatingEditor__footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.5em;
-  padding: 0.5em 0.75em 0.75em;
-}
-
-.JournalFloatingEditor__footer--collapsed {
-  display: none;
+[data-theme="light" ].JournalFloatingEditor.JournalFloatingEditor textarea,
+[data-theme="light" ].JournalFloatingEditor.JournalFloatingEditor textarea:hover {
+  background-color: white;
 }

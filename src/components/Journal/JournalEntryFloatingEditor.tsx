@@ -1,6 +1,9 @@
 'use client'
 
-import { Form, Input } from 'antd'
+import ArrowsAltOutlined from '@ant-design/icons/lib/icons/ArrowsAltOutlined'
+import MinusOutlined from '@ant-design/icons/lib/icons/MinusOutlined'
+import PlusOutlined from '@ant-design/icons/lib/icons/PlusOutlined'
+import { Card, Form, Input } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
@@ -47,75 +50,67 @@ export function JournalEntryFloatingEditor({
 
   if (!isMounted || !open) return null
 
-  const bodyClass = `JournalFloatingEditor__body${isCollapsed ? ' JournalFloatingEditor__body--collapsed' : ''}`
-  const footerClass = `JournalFloatingEditor__footer${isCollapsed ? ' JournalFloatingEditor__footer--collapsed' : ''}`
-
   return createPortal(
-    <div
+    <Card
+      title={t('characters.journal.floating_editor_title')}
       className='JournalFloatingEditor'
-      role='dialog'
-      aria-label={t('characters.journal.floating_editor_title')}>
-      <div
-        className='JournalFloatingEditor__header'
-        onClick={() => setIsCollapsed(c => !c)}>
-        <span className='JournalFloatingEditor__title'>
-          {t('characters.journal.floating_editor_title')}
-        </span>
-        <span className='JournalFloatingEditor__actions'>
-          <Button
-            type='text'
-            size='small'
-            htmlType='button'
-            title={t('characters.journal.floating_editor_expand')}
-            aria-label={t('characters.journal.floating_editor_expand')}
-            onClick={e => {
-              e.stopPropagation()
-              onExpand()
-            }}>
-            ⤢
-          </Button>
-          <Button
-            type='text'
-            size='small'
-            htmlType='button'
-            title={
-              isCollapsed
-                ? t('characters.journal.floating_editor_restore')
-                : t('characters.journal.floating_editor_collapse')
-            }
-            aria-label={
-              isCollapsed
-                ? t('characters.journal.floating_editor_restore')
-                : t('characters.journal.floating_editor_collapse')
-            }
-            onClick={e => {
-              e.stopPropagation()
-              setIsCollapsed(c => !c)
-            }}>
-            {isCollapsed ? '+' : '−'}
-          </Button>
-        </span>
-      </div>
-      <div className={bodyClass}>
-        <Form.Item
-          name={[fieldName, 'content']}
-          className='JournalFloatingEditor__field'>
-          <Input.TextArea
-            autoSize={{ minRows: 4, maxRows: 8 }}
-            placeholder={t('characters.journal.entry_content_placeholder')}
-            onKeyDown={handleKeyDown}
-          />
-        </Form.Item>
-      </div>
-      <div className={footerClass}>
-        <Button htmlType='button' onClick={onCancel}>
+      role='region'
+      data-collapsed={isCollapsed}
+      aria-label={t('characters.journal.floating_editor_title')}
+      extra={[
+        <Button
+          key='expand'
+          type='text'
+          size='small'
+          htmlType='button'
+          title={t('characters.journal.floating_editor_expand')}
+          aria-label={t('characters.journal.floating_editor_expand')}
+          onClick={e => {
+            e.stopPropagation()
+            onExpand()
+          }}>
+          <ArrowsAltOutlined />
+        </Button>,
+        <Button
+          key='collapse'
+          type='text'
+          size='small'
+          htmlType='button'
+          title={
+            isCollapsed
+              ? t('characters.journal.floating_editor_restore')
+              : t('characters.journal.floating_editor_collapse')
+          }
+          aria-label={
+            isCollapsed
+              ? t('characters.journal.floating_editor_restore')
+              : t('characters.journal.floating_editor_collapse')
+          }
+          onClick={e => {
+            e.stopPropagation()
+            setIsCollapsed(c => !c)
+          }}>
+          {isCollapsed ? <PlusOutlined /> : <MinusOutlined />}
+        </Button>,
+      ]}
+      actions={[
+        <Button key='cancel' htmlType='button' onClick={onCancel}>
           {t('common.actions.cancel')}
-        </Button>
-        <Button type='primary' htmlType='button' onClick={onSave}>
+        </Button>,
+        <Button key='save' type='primary' htmlType='button' onClick={onSave}>
           {t('common.actions.finish')}
-        </Button>
-      </div>
-    </div>,
+        </Button>,
+      ]}>
+      <Form.Item
+        name={[fieldName, 'content']}
+        className='JournalFloatingEditor__field'>
+        <Input.TextArea
+          autoSize={{ minRows: 4, maxRows: 8 }}
+          placeholder={t('characters.journal.entry_content_placeholder')}
+          onKeyDown={handleKeyDown}
+        />
+      </Form.Item>
+    </Card>,
     document.body
   )
 }

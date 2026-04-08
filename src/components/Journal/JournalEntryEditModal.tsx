@@ -40,6 +40,7 @@ type JournalEntryEditModalProps = {
   draftContent: string | undefined
   onCancel: () => void
   onSave: () => void
+  onFloat: () => void
   onDelete: () => void
 }
 
@@ -52,6 +53,7 @@ export function JournalEntryEditModal({
   draftContent,
   onCancel,
   onSave,
+  onFloat,
   onDelete,
 }: JournalEntryEditModalProps) {
   const { componentDisabled } = ConfigProvider.useConfig()
@@ -93,6 +95,9 @@ export function JournalEntryEditModal({
             </Button>
           </Popconfirm>
           <Spacing orientation='horizontal' size='small'>
+            <Button htmlType='button' type='link' onClick={onFloat}>
+              {t('characters.journal.floating_editor_dock')}
+            </Button>
             <Button htmlType='button' onClick={onCancel}>
               {t('common.actions.cancel')}
             </Button>
