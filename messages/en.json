@@ -483,18 +483,11 @@
     "one_liner": "{gender} {name}, {personality} {faction} {age}",
     "page_description": "Generate an inhabitant for your village.",
     "section_age": "Age",
-    "section_characteristics": "Characteristics",
     "section_context": "Context",
     "section_faction": "Faction",
     "section_gender": "Gender",
-    "section_identity": "Identity",
-    "section_inventory": "Inventory",
     "section_name": "Name",
-    "section_notes": "Journal",
     "section_personality": "Personality",
-    "section_pools": "Pools",
-    "section_resources": "Resources",
-    "section_spellbook": "Spellbook",
     "title": "Inhabitant Generator"
   },
   "metadata": {
