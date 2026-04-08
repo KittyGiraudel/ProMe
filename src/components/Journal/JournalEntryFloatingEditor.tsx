@@ -58,9 +58,10 @@ export function JournalEntryFloatingEditor({
       data-collapsed={isCollapsed}
       aria-label={t('characters.journal.floating_editor_title')}
       extra={[
-        <Tooltip title={t('characters.journal.floating_editor_expand')}>
+        <Tooltip
+          title={t('characters.journal.floating_editor_expand')}
+          key='expand'>
           <Button
-            key='expand'
             type='text'
             size='small'
             htmlType='button'
@@ -77,9 +78,9 @@ export function JournalEntryFloatingEditor({
             isCollapsed
               ? t('common.actions.expand')
               : t('common.actions.collapse')
-          }>
+          }
+          key='collapse'>
           <Button
-            key='collapse'
             type='text'
             size='small'
             htmlType='button'

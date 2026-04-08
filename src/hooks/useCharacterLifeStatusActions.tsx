@@ -3,13 +3,16 @@
 import { App, Button } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useMemo, useRef } from 'react'
-import { useCharacterContext } from '@/components/CharacterContext/CharacterContext'
+import { SaveForm } from './useCharacterSave'
 import { useWatchedHealth } from './useCharacterSheetDerived'
 
 const DEATH_SUGGESTION_KEY = 'death-suggestion'
 
-export function useCharacterLifeStatusActions() {
-  const { saveForm } = useCharacterContext()
+export function useCharacterLifeStatusActions({
+  saveForm,
+}: {
+  saveForm: SaveForm
+}) {
   const { notification } = App.useApp()
 
   const onKill = useCallback(() => {
@@ -34,13 +37,18 @@ export function useCharacterLifeStatusActions() {
   return useMemo(() => ({ onKill, onRevive }), [onKill, onRevive])
 }
 
-export const useWarnDeath = () => {
+export const useWarnDeath = ({
+  isDead,
+  saveForm,
+}: {
+  isDead: boolean
+  saveForm: SaveForm
+}) => {
   const t = useTranslations()
   const { notification } = App.useApp()
   const { health } = useWatchedHealth()
   const prevHealthCurrentRef = useRef<number | null>(null)
-  const { isDead } = useCharacterContext()
-  const { onKill } = useCharacterLifeStatusActions()
+  const { onKill } = useCharacterLifeStatusActions({ saveForm })
 
   const warn = useCallback(
     () =>

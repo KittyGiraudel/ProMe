@@ -18,6 +18,7 @@ import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { useWarnDeath } from '@/hooks/useCharacterLifeStatusActions'
+import { SaveForm } from '@/hooks/useCharacterSave'
 import {
   useWatchedCourage,
   useWatchedHealth,
@@ -28,7 +29,13 @@ import { StatPool } from '@/lib/character/types'
 type PoolKey = 'health' | 'courage' | 'stamina'
 type ResourceKey = 'honor' | 'inspiration' | 'money'
 
-export function CharacteristicsCard() {
+export function CharacteristicsCard({
+  isDead,
+  saveForm,
+}: {
+  isDead: boolean
+  saveForm: SaveForm
+}) {
   const t = useTranslations()
   const { health } = useWatchedHealth()
   const { courage } = useWatchedCourage()
@@ -75,7 +82,7 @@ export function CharacteristicsCard() {
 
   // Warn the user when their health crosses to non-positive and suggest
   // marking the character as dead.
-  useWarnDeath()
+  useWarnDeath({ isDead, saveForm })
 
   return (
     <>
@@ -85,7 +92,8 @@ export function CharacteristicsCard() {
           <Tooltip title={t('rulebook.characteristics_footnote')}>
             <HelpButton label={t('rulebook.information')} />
           </Tooltip>
-        }>
+        }
+        id='characteristics'>
         <Row gutter={[16, 16]}>
           {resources.map(([resourceKey, label, tooltip]) => (
             <Col xs={24} md={8} key={resourceKey}>

@@ -6,11 +6,10 @@ import { ActionsCard } from '@/components/ActionsCard/ActionsCard'
 import { AudioCard } from '@/components/AudioCard/AudioCard'
 import { Button } from '@/components/Button/Button'
 import { CardDraw } from '@/components/CardDraw/CardDraw'
-import { CharacterProvider } from '@/components/CharacterContext/CharacterContext'
+import { CharacteristicsCard } from '@/components/CharacteristicsCard/CharacteristicsCard'
 import { CharacterSheetEmptyState } from '@/components/CharacterSheetEmptyState/CharacterSheetEmptyState'
 import { CharacterSheetValidationErrors } from '@/components/CharacterSheetValidationErrors/CharacterSheetValidationErrors'
 import { CharacterStats } from '@/components/CharacterStats/CharacterStats'
-import { CharacteristicsCard } from '@/components/CharacteristicsCard/CharacteristicsCard'
 import { ClockCard } from '@/components/ClockCard/ClockCard'
 import { CopyDropdown } from '@/components/CopyDropdown/CopyDropdown'
 import { DiceRoll } from '@/components/DiceRoll/DiceRoll'
@@ -97,47 +96,42 @@ export function CharacterSheet({ characterId }: { characterId: string }) {
             layout='vertical'
             colon={false}
             preserve>
-            <CharacterSheetValidationErrors errors={validationErrors} />
-            <CharacterProvider isDead={isDead} saveForm={saveForm}>
-              <Spacing size='large'>
-                {isDead ? (
-                  <Alert
-                    showIcon
-                    type='warning'
-                    title={t('characters.dead_readonly_title')}
-                    description={t.rich(
-                      'characters.dead_readonly_description',
-                      {
-                        gender: character.gender ?? 'indeterminate',
-                        link: content => (
-                          <Link href={getCharacterLink({ tabId: 'actions' })}>
-                            {content}
-                          </Link>
-                        ),
-                      }
-                    )}
-                  />
-                ) : null}
-                <CharacterStats />
-                <IdentityCard isArchetypeReadonly />
-                <CharacteristicsCard />
-                <MapCard />
-                <ClockCard />
-                <JournalCard />
-                <InventoryCard />
-                <SpellbookCard />
-                <Row gutter={[16, 16]} id='tools'>
-                  <Col xs={24} md={12}>
-                    <DiceRoll />
-                  </Col>
-                  <Col xs={24} md={12}>
-                    <CardDraw />
-                  </Col>
-                </Row>
-                <ActionsCard />
-                <AudioCard biome={bannerBiome} />
-              </Spacing>
-            </CharacterProvider>
+            <Spacing size='large'>
+              <CharacterSheetValidationErrors errors={validationErrors} />
+              {isDead ? (
+                <Alert
+                  showIcon
+                  type='warning'
+                  title={t('characters.dead_readonly_title')}
+                  description={t.rich('characters.dead_readonly_description', {
+                    gender: character.gender ?? 'indeterminate',
+                    link: content => (
+                      <Link href={getCharacterLink({ tabId: 'actions' })}>
+                        {content}
+                      </Link>
+                    ),
+                  })}
+                />
+              ) : null}
+              <CharacterStats />
+              <IdentityCard isArchetypeReadonly />
+              <CharacteristicsCard isDead={isDead} saveForm={saveForm} />
+              <MapCard isDead={isDead} />
+              <ClockCard />
+              <JournalCard isDead={isDead} />
+              <InventoryCard />
+              <SpellbookCard />
+              <Row gutter={[16, 16]} id='tools'>
+                <Col xs={24} md={12}>
+                  <DiceRoll />
+                </Col>
+                <Col xs={24} md={12}>
+                  <CardDraw />
+                </Col>
+              </Row>
+              <ActionsCard isDead={isDead} saveForm={saveForm} />
+              <AudioCard biome={bannerBiome} />
+            </Spacing>
           </Form>
         </Layout>
       </App>

@@ -12,7 +12,6 @@ import {
 import { useTranslations } from 'next-intl'
 import { useEffect, useMemo, useState } from 'react'
 import { Button } from '@/components/Button/Button'
-import { useCharacterContext } from '@/components/CharacterContext/CharacterContext'
 import { Journal } from '@/components/Journal/Journal'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { SettingsHint } from '@/components/SettingsHint/SettingsHint'
@@ -21,7 +20,7 @@ import { useJournalEntryViewModes } from '@/hooks/useJournalEntryViewModes'
 import { useJournalSearch } from '@/hooks/useJournalSearch'
 import { randomId } from '@/lib/character/model'
 
-export function JournalCard() {
+export function JournalCard({ isDead }: { isDead: boolean }) {
   return (
     <Form.List name='journalEntries'>
       {(fields, { add, remove }) => (
@@ -36,6 +35,7 @@ export function JournalCard() {
             })
           }
           onRemoveEntry={(index: number | number[]) => remove(index)}
+          isDead={isDead}
         />
       )}
     </Form.List>
@@ -46,12 +46,13 @@ export function JournalCardInner({
   fields,
   onAddEntry,
   onRemoveEntry,
+  isDead,
 }: {
   fields: FormListFieldData[]
   onAddEntry: () => void
   onRemoveEntry: (index: number | number[]) => void
+  isDead: boolean
 }) {
-  const { isDead } = useCharacterContext()
   const { componentDisabled } = ConfigProvider.useConfig()
   const { settings } = useSettings()
   const t = useTranslations()

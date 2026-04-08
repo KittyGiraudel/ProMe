@@ -20,12 +20,11 @@ import { SettingsHint } from '@/components/SettingsHint/SettingsHint'
 import { Spacing } from '@/components/Spacing/Spacing'
 import { BIOME_IDS } from '@/lib/constants/misc'
 import { resolveDisplayedCellReference } from '@/lib/map/coordinates'
-import { useCharacterContext } from '../CharacterContext/CharacterContext'
 import { useHash } from '../Navigation/useHash'
 
 import './MapCard.css'
 
-export function MapCard() {
+export function MapCard({ isDead }: { isDead: boolean }) {
   const t = useTranslations()
   const { selectedCell, setSelectedCell, toggleSelectCell } = useCellSelection()
   const {
@@ -35,10 +34,9 @@ export function MapCard() {
   const currentBiome = getCellState(currentPosition)?.biome ?? 'unexplored'
   const { cardRef, visibleSheet, setVisibleSheet, isViewingCurrentSheet } =
     useMapSheet({ currentPosition, selectedCell, setSelectedCell })
-  const { isDead } = useCharacterContext()
   const hash = useHash()
 
-  useMapCopyPaste({ selectedCell })
+  useMapCopyPaste({ selectedCell, isDead })
 
   useEffect(() => {
     if (!hash) return

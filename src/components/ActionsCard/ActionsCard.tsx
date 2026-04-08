@@ -9,7 +9,6 @@ import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
 import { Button } from '@/components/Button/Button'
-import { useCharacterContext } from '@/components/CharacterContext/CharacterContext'
 import { useCharacterDelete } from '@/hooks/useCharacterDelete'
 import { useCharacterLifeStatusActions } from '@/hooks/useCharacterLifeStatusActions'
 import { getCharacterStore } from '@/lib/character/store'
@@ -20,11 +19,17 @@ import {
 } from '@/lib/download/downloadJsonFile'
 
 import './ActionsCard.css'
+import { SaveForm } from '@/hooks/useCharacterSave'
 
-export function ActionsCard() {
+export function ActionsCard({
+  isDead,
+  saveForm,
+}: {
+  isDead: boolean
+  saveForm: SaveForm
+}) {
   const t = useTranslations()
-  const { isDead } = useCharacterContext()
-  const { onKill, onRevive } = useCharacterLifeStatusActions()
+  const { onKill, onRevive } = useCharacterLifeStatusActions({ saveForm })
   const { message } = App.useApp()
   const form = Form.useFormInstance()
   const params = useParams<{ id: string }>()

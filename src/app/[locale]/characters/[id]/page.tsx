@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-import { CharacterSheet } from './CharacterSheet'
+import { CharacterSheet } from '@/components/CharacterSheet/CharacterSheet'
 
 type Props = {
   params: Promise<{ id: string; locale: string }>
