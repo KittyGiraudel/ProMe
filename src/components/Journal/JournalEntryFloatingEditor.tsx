@@ -31,6 +31,10 @@ export function JournalEntryFloatingEditor({
     setIsMounted(true)
   }, [])
 
+  useEffect(() => {
+    if (open) setIsCollapsed(false)
+  }, [open])
+
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key !== 'Enter') return
