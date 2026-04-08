@@ -1,9 +1,18 @@
-:root {
+html {
   --prome-bg: #faf8f3;
   --prome-surface: #fff9ee;
   --prome-text: #1f2d2a;
   --prome-muted: #5c726b;
   --prome-border: #c4b49a;
+  --prome-border-radius: 10px;
+}
+
+html[data-theme='dark'] {
+  --prome-bg: #1f2d2a;
+  --prome-surface: #2c3834;
+  --prome-text: #f5ece0;
+  --prome-muted: #a0a0a0;
+  --prome-border: #404040;
   --prome-border-radius: 10px;
 }
 
