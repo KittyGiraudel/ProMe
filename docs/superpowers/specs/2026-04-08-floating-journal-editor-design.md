@@ -65,7 +65,7 @@ Collapse is a local `useState` that hides the textarea and footer via a CSS clas
 
 ## Interaction Flows
 
-**Open:** Click the edit button on a journal entry → floating panel opens for that entry. Any previously open floating panel closes (single `floatingFieldKey`).
+**Open:** Click the edit button on a journal entry → floating panel opens for that entry. While the floating panel is open (or the full modal), all other entries' edit buttons are hidden so only one entry can be edited at a time.
 
 **Auto-open on add:** The `editNewlyAddedEntry` effect in `useJournalEntryViewModes` currently calls `setEditingMode` (full modal). Change it to call `setFloatingMode` so newly added entries also open in the floating panel.
 
