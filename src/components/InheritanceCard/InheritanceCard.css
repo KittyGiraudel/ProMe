@@ -1,0 +1,74 @@
+.InheritanceCard__Banner {
+  position: relative;
+  height: 5em;
+  background:
+    linear-gradient(to bottom, transparent 20%, rgb(0 0 0 / 0.55) 100%),
+    url("/images/home-cover.avif") center 40% / cover no-repeat;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 1em 0.65em;
+}
+
+.InheritanceCard__BannerTitle {
+  color: white;
+  font-size: 0.9em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 6px rgb(0 0 0 / 0.4);
+}
+
+.InheritanceCard__Cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75em 1em;
+}
+
+.InheritanceCard__ColLabel {
+  font-size: 0.7em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 0.4em;
+}
+
+.InheritanceCard__ColLabel--inherited {
+  color: rgb(82 196 26);
+}
+
+.InheritanceCard__ColLabel--fresh {
+  color: rgb(192 192 192);
+}
+
+.InheritanceCard__Row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45em;
+  padding: 0.25em 0;
+  font-size: 0.85em;
+  line-height: 1.4;
+  border-bottom: 1px solid rgb(250 250 250);
+}
+
+.InheritanceCard__Row--inherited {
+  color: inherit;
+}
+
+.InheritanceCard__Row--fresh {
+  color: rgb(192 192 192);
+}
+
+.InheritanceCard__Dot {
+  width: 0.4em;
+  height: 0.4em;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 0.4em;
+}
+
+.InheritanceCard__Row--inherited .InheritanceCard__Dot {
+  background: rgb(82 196 26);
+}
+
+.InheritanceCard__Row--fresh .InheritanceCard__Dot {
+  background: rgb(217 217 217);
+}
