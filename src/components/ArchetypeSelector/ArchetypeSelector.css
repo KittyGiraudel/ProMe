@@ -1,0 +1,179 @@
+.ArchetypeSelector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.ArchetypeSelector__Card {
+  background: var(--ant-color-bg-container);
+  border: 1.5px solid var(--ant-color-border);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+  outline: none;
+}
+
+.ArchetypeSelector__Card:hover {
+  border-color: #8ab4a0;
+  box-shadow: 0 2px 8px rgba(45, 106, 79, 0.12);
+}
+
+.ArchetypeSelector__Card--selected {
+  border: 2px solid #2d6a4f;
+  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.12);
+}
+
+.ArchetypeSelector__Card:focus-visible {
+  outline: 2px solid #2d6a4f;
+  outline-offset: 2px;
+}
+
+.ArchetypeSelector__Image {
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.ArchetypeSelector__Image--warrior {
+  background: linear-gradient(160deg, #3d1f1f 0%, #6b2d2d 50%, #8b4a3a 100%);
+}
+
+.ArchetypeSelector__Image--pilgrim {
+  background: linear-gradient(160deg, #1f2d3d 0%, #2d4a6b 50%, #3a6b8b 100%);
+}
+
+.ArchetypeSelector__Image--bard {
+  background: linear-gradient(160deg, #3d3220 0%, #7a5c2a 50%, #a07840 100%);
+}
+
+.ArchetypeSelector__Icon {
+  font-size: 36px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+.ArchetypeSelector__ImageHint {
+  position: absolute;
+  bottom: 6px;
+  right: 8px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+}
+
+.ArchetypeSelector__Card--selected .ArchetypeSelector__Image::after {
+  content: "✓";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 20px;
+  height: 20px;
+  background: #2d6a4f;
+  color: white;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+}
+
+.ArchetypeSelector__Body {
+  padding: 12px 14px 14px;
+}
+
+.ArchetypeSelector__Name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1f3a2a;
+  margin-bottom: 8px;
+}
+
+.ArchetypeSelector__Card--selected .ArchetypeSelector__Name {
+  color: #2d6a4f;
+}
+
+.ArchetypeSelector__Quote {
+  font-size: 11.5px;
+  font-style: italic;
+  color: #7a6447;
+  line-height: 1.5;
+  margin: 0 0 10px;
+  padding-left: 8px;
+  border-left: 2px solid var(--ant-color-border);
+}
+
+.ArchetypeSelector__Card--selected .ArchetypeSelector__Quote {
+  border-left-color: #2d6a4f;
+}
+
+.ArchetypeSelector__Stats {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.ArchetypeSelector__StatPill {
+  flex: 1;
+  text-align: center;
+  background: #f5ece0;
+  border: 1px solid var(--ant-color-border-secondary);
+  border-radius: 6px;
+  padding: 4px 2px;
+}
+
+.ArchetypeSelector__StatLabel {
+  display: block;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #9b8b72;
+  margin-bottom: 2px;
+}
+
+.ArchetypeSelector__StatValue {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ArchetypeSelector__StatValue--health {
+  color: #b94040;
+}
+
+.ArchetypeSelector__StatValue--courage {
+  color: #c07820;
+}
+
+.ArchetypeSelector__StatValue--stamina {
+  color: #2d7a50;
+}
+
+.ArchetypeSelector__Power {
+  background: #f5ece0;
+  border-radius: 6px;
+  padding: 7px 9px;
+  font-size: 11px;
+  color: #5a4a2e;
+  line-height: 1.45;
+}
+
+.ArchetypeSelector__PowerLabel {
+  display: block;
+  font-weight: 700;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #9b8b72;
+  margin-bottom: 3px;
+}
+
+@media (max-width: 600px) {
+  .ArchetypeSelector {
+    grid-template-columns: 1fr;
+  }
+}
