@@ -8,6 +8,7 @@ import { useCallback, useEffect, useRef } from 'react'
 import { Button } from '@/components/Button/Button'
 import { JournalEntryBodyPreview } from '@/components/Journal/JournalEntryBodyPreview'
 import { JournalEntryEditModal } from '@/components/Journal/JournalEntryEditModal'
+import { JournalEntryFloatingEditor } from '@/components/Journal/JournalEntryFloatingEditor'
 import { useWatchedJournal } from '@/hooks/useCharacterSheetDerived'
 
 type JournalEntryProps = {
@@ -15,6 +16,9 @@ type JournalEntryProps = {
   editing: boolean
   setEditingMode: (fieldKey: number, isEditing: boolean) => void
   deleteEntry: (entryIndex: number) => void
+  isFloating: boolean
+  setFloatingMode: (fieldKey: number | null) => void
+  anyEditingActive: boolean
 }
 
 /**
@@ -26,6 +30,9 @@ export function JournalEntry({
   editing,
   setEditingMode,
   deleteEntry,
+  isFloating,
+  setFloatingMode,
+  anyEditingActive,
 }: JournalEntryProps) {
   const form = Form.useFormInstance()
   const { componentDisabled } = ConfigProvider.useConfig()
@@ -68,6 +75,19 @@ export function JournalEntry({
     [editing, field.name, form]
   )
 
+  useEffect(
+    function storeInitialContentOnFloatingEdit() {
+      if (isFloating) {
+        initialContentRef.current = form.getFieldValue([
+          'journalEntries',
+          field.name,
+          'content',
+        ]) as string | undefined
+      }
+    },
+    [isFloating, field.name, form]
+  )
+
   const handleModalSave = useCallback(() => {
     if (!componentDisabled) {
       updateEntryField(field.name, 'updatedAt', new Date().toISOString())
@@ -86,15 +106,32 @@ export function JournalEntry({
     setEditingMode(field.key, false)
   }, [field.key, field.name, updateEntryField, setEditingMode])
 
+  const handleFloatingSave = useCallback(() => {
+    if (!componentDisabled) {
+      updateEntryField(field.name, 'updatedAt', new Date().toISOString())
+      setFloatingMode(null)
+    }
+  }, [componentDisabled, field.name, updateEntryField, setFloatingMode])
+
+  const handleFloatingCancel = useCallback(() => {
+    updateEntryField(field.name, 'content', initialContentRef.current)
+    setFloatingMode(null)
+  }, [field.name, updateEntryField, setFloatingMode])
+
+  const handleFloatingExpand = useCallback(() => {
+    setFloatingMode(null)
+    setEditingMode(field.key, true)
+  }, [field.key, setFloatingMode, setEditingMode])
+
   return (
     <div id={entryAnchor} className='Journal__entry'>
-      {!componentDisabled && !editing ? (
+      {!componentDisabled && !anyEditingActive ? (
         <Button
           className='Journal__edit'
           htmlType='button'
           type='link'
           icon={<EditOutlined />}
-          onClick={() => setEditingMode(field.key, true)}>
+          onClick={() => setFloatingMode(field.key)}>
           <span className='Journal__edit-label'>
             {t('common.actions.edit')}
           </span>
@@ -106,6 +143,14 @@ export function JournalEntry({
         entryAnchor={entryAnchor}
         createdAt={createdAt}
         updatedAt={updatedAt}
+      />
+
+      <JournalEntryFloatingEditor
+        open={isFloating}
+        fieldName={field.name}
+        onSave={handleFloatingSave}
+        onCancel={handleFloatingCancel}
+        onExpand={handleFloatingExpand}
       />
 
       <JournalEntryEditModal
