@@ -14,7 +14,7 @@ export function showRandomBiomeDiscoveredNotification({
 }) {
   const biomeName = t(`common.biomes.${rolled.biome}`)
 
-  notification.info({
+  notification.open({
     icon: (
       <span className='Map__NotificationIcon' data-biome={rolled.biome}>
         <InfoCircleFilled />

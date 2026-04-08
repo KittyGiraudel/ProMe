@@ -1,5 +1,6 @@
 .DiceRollResult__face {
   font-size: 5em;
+  line-height: 1;
 }
 
 .DiceRollResult--rolling .DiceRollResult__face {

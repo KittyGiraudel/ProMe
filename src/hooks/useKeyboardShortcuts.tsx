@@ -2,8 +2,14 @@ import { App } from 'antd'
 import type { FormInstance } from 'antd/es/form'
 import { useTranslations } from 'next-intl'
 import { useEffect } from 'react'
-import { CardDrawResult } from '@/components/CardDrawResult/CardDrawResult'
-import { DiceRollResult } from '@/components/DiceRollResult/DiceRollResult'
+import {
+  CardDrawResult,
+  useCardDrawNotification,
+} from '@/components/CardDrawResult/CardDrawResult'
+import {
+  DiceRollResult,
+  useDiceRollNotification,
+} from '@/components/DiceRollResult/DiceRollResult'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 
 export function useKeyboardShortcuts({
@@ -16,6 +22,8 @@ export function useKeyboardShortcuts({
   const t = useTranslations()
   const { notification } = App.useApp()
   const { updateSettings } = useSettings()
+  const openDiceRollNotification = useDiceRollNotification()
+  const openCardDrawNotification = useCardDrawNotification()
 
   useEffect(
     function bindDOMListeners() {
@@ -29,20 +37,12 @@ export function useKeyboardShortcuts({
 
         if (isMeta && e.key === 'r') {
           e.preventDefault()
-          notification.open({
-            title: t('characters.tools.die_title'),
-            description: <DiceRollResult />,
-            placement: 'bottomLeft',
-          })
+          openDiceRollNotification()
         }
 
         if (isMeta && e.key === 'd') {
           e.preventDefault()
-          notification.open({
-            title: t('characters.tools.card_title'),
-            description: <CardDrawResult />,
-            placement: 'bottomLeft',
-          })
+          openCardDrawNotification()
         }
 
         if (isMeta && e.key === 'm') {
@@ -57,6 +57,12 @@ export function useKeyboardShortcuts({
       window.addEventListener('keydown', handleKeyDown)
       return () => window.removeEventListener('keydown', handleKeyDown)
     },
-    [form, isDead, notification, t, updateSettings]
+    [
+      form,
+      isDead,
+      openDiceRollNotification,
+      openCardDrawNotification,
+      updateSettings,
+    ]
   )
 }

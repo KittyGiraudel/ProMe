@@ -44,6 +44,7 @@ export function GatheringList({ biome }: { biome: GatherableBiomeId }) {
       title: t('characters.map.gathering_collected'),
       description: `${quantity} × ${label}`,
       placement: 'bottomRight',
+      duration: 5,
     })
   }
 
