@@ -9,7 +9,7 @@ import type { TranslationKey } from '@/lib/types'
 
 import './FAQ.css'
 
-const ENTRY_COUNT = 6
+const ENTRY_COUNT = 7
 
 export function FAQ() {
   const t = useTranslations()
