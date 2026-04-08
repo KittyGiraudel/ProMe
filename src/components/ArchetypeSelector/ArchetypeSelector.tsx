@@ -6,6 +6,7 @@ import type { Archetype } from '@/lib/character/types'
 import { ARCHETYPES } from '@/lib/constants/misc'
 import type { Gender } from '@/lib/types'
 import './ArchetypeSelector.css'
+import { VisuallyHidden } from '../VisuallyHidden/VisuallyHidden'
 
 const ARCHETYPE_ICONS: Record<Archetype, string> = {
   warrior: '⚔️',
@@ -24,6 +25,9 @@ export function ArchetypeSelector({ value, onChange, gender }: Props) {
 
   return (
     <fieldset className='ArchetypeSelector'>
+      <VisuallyHidden as='legend'>
+        {t('characters.identity.archetype_label')}
+      </VisuallyHidden>
       {ARCHETYPES.map(archetype => {
         const pools = getDefaultPoolsForArchetype(archetype)
 

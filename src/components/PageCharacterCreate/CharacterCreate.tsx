@@ -81,7 +81,8 @@ export function CharacterCreate() {
           <Form.Item
             rules={[{ required: true }]}
             name='archetype'
-            label={t('characters.identity.archetype_label')}>
+            label={t('characters.identity.archetype_label')}
+            noStyle>
             <ArchetypeSelector gender={gender} />
           </Form.Item>
 

@@ -49,7 +49,7 @@
 }
 
 .ArchetypeSelector__Image {
-  height: 90px;
+  height: 6.5em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -76,25 +76,26 @@
 .ArchetypeSelector__Card:has(:checked) .ArchetypeSelector__Image::after {
   content: "✓";
   position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 20px;
-  height: 20px;
+  top: 0.75em;
+  right: 0.75em;
+  width: 1.5em;
+  height: 1.5em;
   background: #2d6a4f;
   color: white;
   border-radius: 50%;
-  font-size: 11px;
+  font-size: 1em;
   font-weight: 700;
-  line-height: 20px;
+  line-height: 1.5em;
   text-align: center;
+  border: 1px solid;
 }
 
 .ArchetypeSelector__Body {
-  padding: 12px 14px 14px;
+  padding: 1em 1.25em 1.25em;
 }
 
 .ArchetypeSelector__Name {
-  font-size: 15px;
+  font-size: 1.25em;
   font-weight: 700;
   color: #1f3a2a;
   margin-bottom: 8px;
@@ -105,12 +106,12 @@
 }
 
 .ArchetypeSelector__Quote {
-  font-size: 11.5px;
+  font-size: 0.9em;
   font-style: italic;
   color: #7a6447;
   line-height: 1.5;
-  margin: 0 0 10px;
-  padding-left: 8px;
+  margin: 0 0 1em;
+  padding-left: 0.75em;
   border-left: 2px solid var(--ant-color-border);
 }
 
@@ -120,8 +121,8 @@
 
 .ArchetypeSelector__Stats {
   display: flex;
-  gap: 4px;
-  margin-bottom: 10px;
+  gap: 0.75em;
+  margin-bottom: 1em;
 }
 
 .ArchetypeSelector__StatPill {
@@ -129,22 +130,22 @@
   text-align: center;
   background: #f5ece0;
   border: 1px solid var(--ant-color-border-secondary);
-  border-radius: 6px;
-  padding: 4px 2px;
+  border-radius: 0.5em;
+  padding: 0.25em 0.5em;
 }
 
 .ArchetypeSelector__StatLabel {
   display: block;
-  font-size: 9px;
+  font-size: 0.75em;
   text-transform: uppercase;
   letter-spacing: 0.4px;
   color: #9b8b72;
-  margin-bottom: 2px;
+  margin-bottom: 0.25em;
 }
 
 .ArchetypeSelector__StatValue {
   display: block;
-  font-size: 16px;
+  font-size: 1.25em;
   font-weight: 700;
   line-height: 1;
 }
@@ -163,9 +164,9 @@
 
 .ArchetypeSelector__Power {
   background: #f5ece0;
-  border-radius: 6px;
-  padding: 7px 9px;
-  font-size: 11px;
+  border-radius: 0.5em;
+  padding: 0.5em 0.75em;
+  font-size: 0.9em;
   color: #5a4a2e;
   line-height: 1.45;
 }
@@ -173,11 +174,11 @@
 .ArchetypeSelector__PowerLabel {
   display: block;
   font-weight: 700;
-  font-size: 10px;
+  font-size: 0.9em;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: #9b8b72;
-  margin-bottom: 3px;
+  margin-bottom: 0.25em;
 }
 
 @media (max-width: 600px) {
