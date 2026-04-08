@@ -38,6 +38,13 @@ const useSoundtrackPreloadNotification = (
         description: t('audio_player.preload_complete_hint'),
         duration: 10,
         placement: 'bottomRight',
+        actions: (
+          <a href='#audio'>
+            {t('common.actions.go_to', {
+              destination: t('audio_player.title'),
+            })}
+          </a>
+        ),
       })
     } else if (preloadStatus === 'error' && wasLoadingRef.current) {
       wasLoadingRef.current = false
@@ -63,7 +70,7 @@ export function AudioCard({ biome }: { biome: PossibleBiomeId }) {
 
   if (preloadStatus === 'error') {
     return (
-      <Card title={t('audio_player.title')}>
+      <Card title={t('audio_player.title')} id='audio'>
         <Result
           status='error'
           title={t('audio_player.error')}
@@ -79,14 +86,14 @@ export function AudioCard({ biome }: { biome: PossibleBiomeId }) {
 
   if (preloadStatus === 'loading') {
     return (
-      <Card title={t('audio_player.title')}>
+      <Card title={t('audio_player.title')} id='audio'>
         <Skeleton active />
       </Card>
     )
   }
 
   return (
-    <Card title={t('audio_player.title')}>
+    <Card title={t('audio_player.title')} id='audio'>
       <AudioPlayer biome={biome} />
     </Card>
   )
