@@ -14,3 +14,6 @@ This version has breaking changes — APIs, conventions, and file structure may 
   - Use PascalCase BEM style convention for CSS class names.
 - Prefer using the `Space` component for layout and spacing purposes.
   - Remember the `direction` prop is outdated for `Space`: use `orientation`.
+- Use `rgb(r g b / a)` format, not `rgba(r, g, b, a)`.
+- Use `em` unit over `px` and `rem` where it makes sense.
+- Ensure WCAG 2.2 requirements are respected.
