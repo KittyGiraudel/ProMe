@@ -51,15 +51,15 @@ a {
   --biome-unexplored-light-contrast: #262626;
   --biome-unexplored-dark-contrast: #262626;
 
-  --biome-shadowForest-light: #7dc8a0;
-  --biome-shadowForest-dark: #4a9f72;
-  --biome-shadowForest-light-contrast: #262626;
-  --biome-shadowForest-dark-contrast: #ffffff;
-
-  --biome-fieldSea-light: #a793c3;
-  --biome-fieldSea-dark: #57446f;
+  --biome-fieldSea-light: #7dc8a0;
+  --biome-fieldSea-dark: #4a9f72;
   --biome-fieldSea-light-contrast: #ffffff;
   --biome-fieldSea-dark-contrast: #ffffff;
+
+  --biome-shadowForest-light: #a793c3;
+  --biome-shadowForest-dark: #57446f;
+  --biome-shadowForest-light-contrast: #ffffff;
+  --biome-shadowForest-dark-contrast: #ffffff;
 
   --biome-mushroomJungle-light: #ae9178;
   --biome-mushroomJungle-dark: #624838;
@@ -154,8 +154,8 @@ html:has([role="dialog"]) {
 
 [data-biome="fieldSea"] .Pattern,
 .Pattern[data-biome="fieldSea"] {
-  --c1: rgb(177, 162, 203);
-  --c2: rgb(159, 144, 186);
+  --c1: #7dc892;
+  --c2: #63b66e;
 
   --_g: var(--pattern-size) var(--pattern-size)
     radial-gradient(var(--c1) 17%, var(--c2) 18% 35%, #0000 36.5%);
@@ -200,8 +200,8 @@ html:has([role="dialog"]) {
 
 [data-biome="shadowForest"] .Pattern,
 .Pattern[data-biome="shadowForest"] {
-  --c1: #7dc8a0;
-  --c2: #63b68a;
+  --c1: rgb(177 162 203);
+  --c2: rgb(159 144 186);
   --_g:
     #0000 24%,
     var(--c2) 26% 34%, var(--c1) 36% 44%,
