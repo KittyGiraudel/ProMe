@@ -1,7 +1,7 @@
 .ArchetypeSelector {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: 1em;
   border: none;
   margin: 0;
   padding: 0;
@@ -22,15 +22,18 @@
   display: block;
   background: var(--ant-color-bg-container);
   border: 1.5px solid var(--ant-color-border);
-  border-radius: 10px;
+  border-radius: 2em;
+  corner-shape: squircle;
   overflow: hidden;
   cursor: pointer;
   transition:
+    background-color 0.15s,
     border-color 0.15s,
     box-shadow 0.15s;
 }
 
 .ArchetypeSelector__Card:hover {
+  background-color: rgba(45, 106, 79, 0.04);
   border-color: #8ab4a0;
   box-shadow: 0 2px 8px rgba(45, 106, 79, 0.12);
 }
@@ -66,7 +69,7 @@
 }
 
 .ArchetypeSelector__Icon {
-  font-size: 36px;
+  font-size: 2.5em;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
 }
 
