@@ -34,6 +34,7 @@ export function AudioCard({ biome }: { biome: PossibleBiomeId }) {
       notification.success({
         key: 'audio-preload',
         title: t('audio_player.preload_complete'),
+        description: t('audio_player.preload_complete_hint'),
         duration: 3,
         placement: 'bottomRight',
       })
