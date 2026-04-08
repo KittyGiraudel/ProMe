@@ -24,7 +24,6 @@ Remove the multi-page mode (MPM) / single-page mode (SPM) duality from the chara
 | Settings UI checkbox | `src/components/PageSettings/Settings.tsx` |
 | `activeTab` / `tabKeyFromPathname` | `src/hooks/useCharacterSheetForm.ts`, `useCharacterSheetDocumentTitle.ts` |
 | MPM branching in `useCharacterLink` | `src/hooks/useCharacterLink.ts` |
-| `Form preserve` prop | `src/components/CharacterSheetShell/CharacterSheetShell.tsx` (then gone) |
 | `SettingsHint` conditioned on SPM | `src/components/CharacterSheetShell/CharacterSheetShell.tsx` (then gone) |
 
 ## What the Character Sheet Becomes
@@ -44,7 +43,7 @@ Remove all SPM/MPM branching. The function always returns:
 The `singlePageMode` read from settings is removed entirely.
 
 ### `Form preserve`
-The `preserve` prop on `<Form>` in `CharacterSheetShell` is removed. Since all cards are always mounted on the single page, form field values are never cleared by unmounting.
+Keep the `preserve` prop on `<Form>`. Some fields are conditionally mounted (e.g. the journal floating editor only registers its form fields while open) — without `preserve`, closing the editor would clear those values from the form store.
 
 ### `Form.useWatch({ preserve: true })` in `InheritanceCard`
 This is part of the new-character flow (a separate form) — leave it untouched.
