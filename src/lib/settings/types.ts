@@ -6,8 +6,6 @@ export type AppSettings = {
   schemaVersion: typeof SETTINGS_SCHEMA_VERSION
   sheet: {
     adaptiveAppearanceTheme: boolean
-    /** When true, the character sheet is rendered as a single scrollable page instead of tabs. */
-    singlePageMode: boolean
   }
   journal: {
     /** When true, journal timeline is reverse chronological (newest first). */

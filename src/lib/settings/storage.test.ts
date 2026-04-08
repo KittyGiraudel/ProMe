@@ -40,7 +40,7 @@ describe('settings/storage', () => {
   it('persists and reloads normalized settings', () => {
     saveSettings({
       ...DEFAULT_SETTINGS,
-      sheet: { adaptiveAppearanceTheme: true, singlePageMode: true },
+      sheet: { adaptiveAppearanceTheme: true },
       journal: { timelineReverseChronological: true, createEntryOnMove: true },
     })
 

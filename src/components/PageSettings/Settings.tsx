@@ -22,7 +22,6 @@ import { useSettings } from './SettingsContext'
 type SettingsFormValues = {
   appTheme: 'light' | 'dark'
   adaptiveAppearanceTheme: boolean
-  sheetSinglePageMode: boolean
   timelineReverseChronological: boolean
   journalCreateEntryOnMove: boolean
   villageMergeDuplicateEstablishments: boolean
@@ -51,7 +50,6 @@ export function Settings() {
   const initialValues: SettingsFormValues = {
     appTheme: settings.appearance.theme,
     adaptiveAppearanceTheme: settings.sheet.adaptiveAppearanceTheme,
-    sheetSinglePageMode: settings.sheet.singlePageMode,
     timelineReverseChronological: settings.journal.timelineReverseChronological,
     journalCreateEntryOnMove: settings.journal.createEntryOnMove,
     villageMergeDuplicateEstablishments:
@@ -69,7 +67,6 @@ export function Settings() {
     form.setFieldsValue({
       appTheme: DEFAULT_SETTINGS.appearance.theme,
       adaptiveAppearanceTheme: DEFAULT_SETTINGS.sheet.adaptiveAppearanceTheme,
-      sheetSinglePageMode: DEFAULT_SETTINGS.sheet.singlePageMode,
       timelineReverseChronological:
         DEFAULT_SETTINGS.journal.timelineReverseChronological,
       journalCreateEntryOnMove: DEFAULT_SETTINGS.journal.createEntryOnMove,
@@ -94,7 +91,6 @@ export function Settings() {
       sheet: {
         ...prev.sheet,
         adaptiveAppearanceTheme: allValues.adaptiveAppearanceTheme === true,
-        singlePageMode: allValues.sheetSinglePageMode === true,
       },
       journal: {
         ...prev.journal,
@@ -185,28 +181,14 @@ export function Settings() {
             </Col>
           </Row>
           <Card title={t('settings.section_sheet')}>
-            <Row gutter={[64, 16]}>
-              <Col xs={24} md={12}>
-                <Form.Item
-                  name='adaptiveAppearanceTheme'
-                  valuePropName='checked'
-                  extra={t('settings.adaptive_appearance_theme_help')}>
-                  <Checkbox>
-                    {t('settings.adaptive_appearance_theme_label')}
-                  </Checkbox>
-                </Form.Item>
-              </Col>
-              <Col xs={24} md={12}>
-                <Form.Item
-                  name='sheetSinglePageMode'
-                  valuePropName='checked'
-                  extra={t('settings.sheet_single_page_mode_help')}>
-                  <Checkbox>
-                    {t('settings.sheet_single_page_mode_label')}
-                  </Checkbox>
-                </Form.Item>
-              </Col>
-            </Row>
+            <Form.Item
+              name='adaptiveAppearanceTheme'
+              valuePropName='checked'
+              extra={t('settings.adaptive_appearance_theme_help')}>
+              <Checkbox>
+                {t('settings.adaptive_appearance_theme_label')}
+              </Checkbox>
+            </Form.Item>
           </Card>
           <Card title={t('settings.section_map')}>
             <Row gutter={[64, 16]}>

@@ -4,7 +4,6 @@ export const DEFAULT_SETTINGS: AppSettings = {
   schemaVersion: SETTINGS_SCHEMA_VERSION,
   sheet: {
     adaptiveAppearanceTheme: false,
-    singlePageMode: true,
   },
   journal: {
     timelineReverseChronological: false,
@@ -34,7 +33,6 @@ export function normalizeSettings(value: unknown): AppSettings {
     schemaVersion: SETTINGS_SCHEMA_VERSION,
     sheet: {
       adaptiveAppearanceTheme: source?.sheet?.adaptiveAppearanceTheme === true,
-      singlePageMode: source?.sheet?.singlePageMode !== false,
     },
     journal: {
       timelineReverseChronological:
