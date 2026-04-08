@@ -39,7 +39,9 @@ const useSoundtrackPreloadNotification = (
         duration: 10,
         placement: 'bottomRight',
         actions: (
-          <a href='#audio'>
+          <a
+            href='#audio'
+            onClick={() => notification.destroy(NOTIFICATION_KEY)}>
             {t('common.actions.go_to', {
               destination: t('audio_player.title'),
             })}
