@@ -125,7 +125,7 @@ export function MapCell({
         label={t('characters.map.cell', {
           coord: label,
           biome: isCore
-            ? t('characters.map.core')
+            ? t('common.biomes.core')
             : t(`common.biomes.${biome ?? 'unexplored'}` as TranslationKey),
           status,
         })}

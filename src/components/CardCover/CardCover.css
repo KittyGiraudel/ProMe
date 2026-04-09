@@ -1,0 +1,209 @@
+/**
+ * 1. Reproduce the border and border radius from the <Card> component to which
+ *    it is attached.
+ */
+ .CardCover {
+  border-radius: var(--prome-border-radius) var(--prome-border-radius) 0 0; /* 1 */
+  border: var(--ant-line-width) var(--ant-line-type) var(--ant-color-border-secondary); /* 1 */
+}
+
+/**
+ * 1. Remove the rounded corners from the <Card> component to which it is
+ *    attached.
+ * 2. Remove the top border from the <Card> component to which it is attached.
+ */
+.CardCover + .ant-card {
+  border-top-left-radius: 0; /* 1 */
+  border-top-right-radius: 0; /* 1 */
+  border-top: none; /* 2 */
+
+  & .ant-card-head {
+    border-top-left-radius: inherit; /* 1 */
+    border-top-right-radius: inherit; /* 1 */
+  }
+}
+
+/**
+ * 1. Define the height for the cover. This can be changed if desired, but it
+ *    should remain consistent across all biomes so it doesn’t change the layout.
+ * 2. Use a custom property for the background URL so we do not have to repeat 
+ *    the gradient for every biome.
+ * 3. Position context for the absolutely positioned content inside it.
+ * 4. Hides the overflowing overlay.
+ * 5. Controls the transition for the whole effect: all children elements will
+ *    inherit this value.
+ */
+.CardCover {
+  height: 20em; /* 1 */
+
+  background-image: linear-gradient(to bottom, transparent 0%, rgb(0 0 0 / 0.5) 85%), var(--image); /* 2 */
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  background-color: var(--biome-dark);
+  color: var(--biome-dark-contrast);
+
+  position: relative; /* 3 */
+  overflow: hidden; /* 4 */
+  transition: 0.3s ease-in-out; /* 5 */
+
+  /**
+   * 1. Hacky fix for cells with an unexplored biome (i.e. the Core), because 
+   *    the “dark” background is actually a light color, which means the text
+   *    ends up dark on dark.
+   */
+  &[data-biome="unexplored"] {
+    color: var(--biome-unexplored-light); /* 1 */
+  }
+}
+
+@keyframes background-animation {
+  from { background-position: center calc(var(--from, 0%) * 1%); }
+  to { background-position: center calc(var(--to, 100%) * 1%); }
+}
+
+/**
+ * Most backgrounds are quite a bit taller than the cover itself, which means
+ * they’re not fully visible. To still enjoy them fully and to make the cover a
+ * little dynamic, we animation the background position up and down.
+ *
+ * However, the animation needs to be tailored per biome, since not all of them
+ * will need the same variation. Each biome defines a `--from` and `--to` custom
+ * properties, determining the background-position Y animation range. 0 to 100%
+ * means animating the whole height of the background.
+ * 
+ * The animation duration is then calculated based on the difference between the
+ * `--from` and `--to` custom properties. This makes sure that all backgrounds 
+ * animate at the same speed, regardless of the animation aperture. 
+ *
+ * 1. Adjust the initial background position for each biome, defaulting to
+ *    `center` if not provided.
+ */
+.CardCover {
+  background-position: var(--position, center); /* 1 */
+  animation-name: background-animation; 
+  animation-duration: calc((abs(var(--to) - var(--from))) * 0.5s);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+
+  &[data-biome="fieldSea"] {
+    --position: center 68%;
+    --from: 0;
+    --to: 100;
+  }
+
+  &[data-biome="silentDesert"] {
+    --position: center 100%;
+    --from: 50;
+    --to: 100;
+  }
+}
+
+
+/**
+ * This overlay is necessary to help the text stand out when the cover is inter-
+ * acted with. The gradient on the cover itself is intended to make the title
+ * more readable, but it’s too short and light for when the cover is hovered and
+ * the whole text is revealed. This is where the overlay comes in.
+ * 1. In order to make the overlay a bit more subtle, it’s made by blending in
+ *    the biome color. This way it’s a shade of whatever the color is instead of
+ *    just plain black.
+ */
+.CardCover__overlay {
+  inset: 0;
+  position: absolute;
+  background-image: linear-gradient(to bottom, transparent 50%, color-mix(in srgb, var(--biome-dark) 25%, black) 100%); /* 1 */
+  transition: inherit;
+  opacity: 0;
+}
+
+/**
+ * This element contains both the title and the description. It’s positioned off
+ * screen from the cover itself (the title pulls itself back in), and gets 
+ * pulled up when the cover is interacted with.
+ * 1. Position the content offscreen from the cover.
+ * 2. Spacing from the edges of the container.
+ * 3. Improve readability of the text by adding a subtle shadow.
+ */
+.CardCover__content {
+  position: absolute; /* 1 */
+  top: 100%; /* 1 */
+  right: 0;
+  left: 0;
+  padding: 0 1.5em 1.5em; /* 2 */
+  transition: inherit;
+  text-shadow: 0 1px 4px rgb(0 0 0 / 0.35); /* 3 */
+}
+
+/**
+ * 1. The content is off-screen but we want the title to remain visible at
+ *    all time, so we translate it upwards by its full height + a bit of spacing
+ *    to avoid it sticking to the bottom of the container.
+ */
+.CardCover__title {
+  transform: translateY(calc(-100% - 0.75em)); /* 1 */
+  transition: inherit;
+  font-size: 1.4em;
+}
+
+.CardCover__title strong {
+  font-weight: bold;
+  letter-spacing: 0.02em;
+}
+
+/**
+ * 1. Prevent the description from being too wide and harder to read.
+ * 2. Give some breathing room between the title and the description.
+ * 3. Apply a thin left border, àla quotation style.
+ * 4. The description gets made opaque when the cover is interacted with. It’s
+ *    not needed per se but it makes for a nicer effect.
+ */
+.CardCover__description {
+  max-width: 100ch; /* 1 */
+  margin-top: 0.5em; /* 2 */
+  font-style: italic;
+  font-size: 0.9em;
+  border-left: 1px solid; /* 3 */
+  padding-left: 1em; /* 3 */
+  margin-left: 0.4em; /* 3 */
+  opacity: 0.3; /* 4 */
+  transition: inherit;
+}
+
+/**
+ * When the cover gets interacted with:
+ */
+.CardCover:has(.CardCover__description):is(:hover, :focus-visible) {
+  /**
+   * 1. Slide the content up to reveal it.
+   */
+  & .CardCover__content {
+    transform: translateY(-100%); /* 1 */
+  }
+
+  /**
+   * 2. Cancel the title’s translation to avoid having a huge gap between itself
+   *    and the description. This acts as a counter-transition: content goes up,
+   *    title goes down.
+   */
+  & .CardCover__title {
+    transform: translateY(0); /* 2 */
+  }
+
+  /**
+   * 3. Make the description fully opaque. This opacity transition isn’t needed 
+   *    per se, but it makes the effect a bit smoother by fading the text in.
+   */
+  & .CardCover__description {
+    opacity: 1; /* 3 */
+  }
+
+  /**
+   * 4. Make the overlay visible to improve readability of the content. Note: if
+   *    we could animate linear gradients, we wouldn’t need an overlay element.
+   */
+  & .CardCover__overlay {
+    opacity: 0.8; /* 4 */
+  }
+}
