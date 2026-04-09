@@ -79,6 +79,8 @@ export function ActionsCard({
                 description={t('characters.actions.revive_confirm_description')}
                 okText={t('characters.actions.revive_action')}
                 cancelText={t('common.actions.cancel')}
+                okButtonProps={{ disabled: false }}
+                cancelButtonProps={{ disabled: false }}
                 onConfirm={onRevive}
                 styles={{ container: { maxWidth: 300 } }}>
                 <Button type='primary' htmlType='button' disabled={false}>
@@ -133,6 +135,8 @@ export function ActionsCard({
           okText={t('common.actions.delete')}
           cancelText={t('common.actions.cancel')}
           onConfirm={onDelete}
+          okButtonProps={{ disabled: false }}
+          cancelButtonProps={{ disabled: false }}
           styles={{ container: { maxWidth: 300 } }}>
           <Button danger type='primary' htmlType='button' disabled={false}>
             {t('common.actions.delete')}

@@ -13,6 +13,7 @@ export function BrowserWarning() {
 
   return (
     <Alert
+      showIcon
       closable={{ closeIcon: true, onClose: dismiss }}
       type='warning'
       title={t.rich('characters.map.browser_warning', {

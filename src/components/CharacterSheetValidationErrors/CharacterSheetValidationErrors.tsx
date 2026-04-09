@@ -14,7 +14,7 @@ export function CharacterSheetValidationErrors({
   return (
     <Alert
       showIcon
-      type='warning'
+      type='error'
       description={errors.map(error => t(error.key, error.params)).join('\n')}
     />
   )

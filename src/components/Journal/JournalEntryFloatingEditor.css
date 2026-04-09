@@ -42,7 +42,8 @@
 }
 
 [data-app-theme="light"] .JournalFloatingEditor.JournalFloatingEditor textarea,
-[data-app-theme="light"] .JournalFloatingEditor.JournalFloatingEditor
+[data-app-theme="light"]
+  .JournalFloatingEditor.JournalFloatingEditor
   textarea:hover {
   background-color: white;
 }

@@ -98,8 +98,8 @@ a {
 }
 
 /**
- * The unexplored theme looks too bright for the dark mode, and since there are 
- * typically a lot of unexplored nodes, it’s better to adjust their color in 
+ * The unexplored theme looks too bright for the dark mode, and since there are
+ * typically a lot of unexplored nodes, it’s better to adjust their color in
  * dark mode so they look more muted.
  */
 [data-app-theme="dark"] [data-biome="unexplored"] {
@@ -328,5 +328,27 @@ html:has([role="dialog"]) {
 }
 
 .ant-card .ant-card-head {
-  background-image: linear-gradient(135deg, light-dark(#e2f0e8, #2a3a30) 0%, light-dark(#f5f0e4, #243028) 100%) !important;
+  background-image: linear-gradient(
+    135deg,
+    light-dark(#e2f0e8, #2a3a30) 0%,
+    light-dark(#f5f0e4, #243028) 100%
+  ) !important;
+}
+
+/* Alert: info → sage green (matches forest palette) */
+.ant-alert-info {
+  --ant-color-info-bg: light-dark(#eef5f1, #1c2c24) !important;
+  --ant-color-info-border: light-dark(#a8cdb8, #2e5040) !important;
+}
+.ant-alert-info .ant-alert-icon {
+  color: light-dark(#2d6a4f, #6aaa88);
+}
+
+/* Alert: warning → warm ochre (matches parchment palette) */
+.ant-alert-warning {
+  --ant-color-warning-bg: light-dark(#fdf6e4, #28220e) !important;
+  --ant-color-warning-border: light-dark(#d4b870, #4a3e18) !important;
+}
+.ant-alert-warning .ant-alert-icon {
+  color: light-dark(#9a7020, #c0a040);
 }
