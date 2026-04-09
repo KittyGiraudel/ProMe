@@ -1,13 +1,7 @@
 .IdentityCard__Power {
   border-radius: 0.5em;
   padding: 1em;
-}
-
-[data-app-theme="light"] .IdentityCard__Power {
-  background: rgb(0 0 0 / 0.05);
-}
-[data-app-theme="dark"] .IdentityCard__Power {
-  background: rgb(255 255 255 / 0.05);
+  background: light-dark(rgb(0 0 0 / 0.05), rgb(255 255 255 / 0.05));
 }
 
 .IdentityCard__Power strong {

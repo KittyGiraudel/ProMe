@@ -1,19 +1,18 @@
+:root {
+  color-scheme: light dark;
+  --prome-bg: light-dark(#faf8f3, #1a2420);
+  --prome-surface: light-dark(#fff9ee, #243028);
+  --prome-text: light-dark(#1f2d2a, #c8ddd0);
+  --prome-muted: light-dark(#5c726b, #7a9e88);
+  --prome-border: light-dark(#c4b49a, #3a4e44);
+}
+
 [data-app-theme="light"] {
-  --prome-bg: #faf8f3;
-  --prome-surface: #fff9ee;
-  --prome-text: #1f2d2a;
-  --prome-muted: #5c726b;
-  --prome-border: #c4b49a;
-  --prome-border-radius: 10px;
+  color-scheme: light;
 }
 
 [data-app-theme="dark"] {
-  --prome-bg: #1a2420;
-  --prome-surface: #243028;
-  --prome-text: #c8ddd0;
-  --prome-muted: #7a9e88;
-  --prome-border: #3a4e44;
-  --prome-border-radius: 10px;
+  color-scheme: dark;
 }
 
 html {
@@ -98,6 +97,11 @@ a {
   --biome-light-contrast: var(--biome-unexplored-light-contrast);
 }
 
+/**
+ * The unexplored theme looks too bright for the dark mode, and since there are 
+ * typically a lot of unexplored nodes, it’s better to adjust their color in 
+ * dark mode so they look more muted.
+ */
 [data-app-theme="dark"] [data-biome="unexplored"] {
   --biome-light: #2c3834;
   --biome-dark: #1a2320;
@@ -322,12 +326,6 @@ html:has([role="dialog"]) {
   contain-intrinsic-size: 1px 160px;
 }
 
-[data-app-theme="light"] .ant-card .ant-card-head {
-  background: linear-gradient(135deg, #e2f0e8 0%, #f5f0e4 100%) !important;
-  border-bottom-color: #c4b49a !important;
-}
-
-[data-app-theme="dark"] .ant-card .ant-card-head {
-  background: linear-gradient(135deg, #2a3a30 0%, #243028 100%) !important;
-  border-bottom-color: #3a4e44 !important;
+.ant-card .ant-card-head {
+  background-image: linear-gradient(135deg, light-dark(#e2f0e8, #2a3a30) 0%, light-dark(#f5f0e4, #243028) 100%) !important;
 }

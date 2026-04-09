@@ -2,7 +2,7 @@
 
 import { Layout as AntLayout, BreadcrumbProps, Menu, Typography } from 'antd'
 import { useTranslations } from 'next-intl'
-import { type ReactNode, useContext, useMemo } from 'react'
+import { type ReactNode, useContext, useEffect, useMemo } from 'react'
 import { Banner } from '@/components/Banner/Banner'
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
 import { Footer } from '@/components/Footer/Footer'
@@ -104,10 +104,16 @@ export const Layout = ({
     [pathname, t]
   )
 
+  useEffect(() => {
+    // The reason we do that with a `useEffect` instead of just placing the
+    // `data-app-theme` attribute on `AntLayout` is because there are components
+    // that get rendered outside of `AntLayout` (e.g. notifications, floating
+    // editor, etc.).
+    document.documentElement.dataset.appTheme = appThemeOverride ?? appTheme
+  }, [appThemeOverride, appTheme])
+
   return (
-    <AntLayout
-      className={`Layout ${className}`}
-      data-app-theme={appThemeOverride ?? appTheme}>
+    <AntLayout className={`Layout ${className}`}>
       <AntLayout.Header className='Layout__header'>
         <Logo />
         <Menu

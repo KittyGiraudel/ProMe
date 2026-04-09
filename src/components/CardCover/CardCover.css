@@ -3,7 +3,7 @@
  *    it is attached.
  */
 .CardCover {
-  border-radius: var(--prome-border-radius) var(--prome-border-radius) 0 0; /* 1 */
+  border-radius: var(--ant-border-radius-lg) var(--ant-border-radius-lg) 0 0; /* 1 */
   border: var(--ant-line-width) var(--ant-line-type)
     var(--ant-color-border-secondary); /* 1 */
 }
