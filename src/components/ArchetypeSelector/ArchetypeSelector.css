@@ -133,11 +133,11 @@
   padding: 0.25em 0.5em;
 }
 
-[data-theme='light'] .ArchetypeSelector__StatPill {
+[data-theme="light"] .ArchetypeSelector__StatPill {
   background: #f5ece0;
   color: #5a4a2e;
 }
-[data-theme='dark'] .ArchetypeSelector__StatPill {
+[data-theme="dark"] .ArchetypeSelector__StatPill {
   background: #1f3a2a;
   color: #f5ece0;
 }
@@ -177,12 +177,12 @@
   line-height: 1.45;
 }
 
-[data-theme='light'] .ArchetypeSelector__Power {
+[data-theme="light"] .ArchetypeSelector__Power {
   background: #f5ece0;
   color: #5a4a2e;
 }
 
-[data-theme='dark'] .ArchetypeSelector__Power {
+[data-theme="dark"] .ArchetypeSelector__Power {
   background: #1f3a2a;
   color: #f5ece0;
 }

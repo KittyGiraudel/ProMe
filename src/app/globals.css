@@ -7,7 +7,7 @@ html {
   --prome-border-radius: 10px;
 }
 
-html[data-theme='dark'] {
+html[data-theme="dark"] {
   --prome-bg: #1f2d2a;
   --prome-surface: #2c3834;
   --prome-text: #f5ece0;

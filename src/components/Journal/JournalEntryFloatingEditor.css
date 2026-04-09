@@ -32,7 +32,7 @@
 /**
  * 1. When collapsed, hide the body and actions to keep only the header visible.
  */
-[data-collapsed="true"] .ant-card-body.ant-card-body, 
+[data-collapsed="true"] .ant-card-body.ant-card-body,
 [data-collapsed="true"] .ant-card-actions.ant-card-actions {
   display: none; /* 1 */
 }
@@ -41,8 +41,9 @@
   margin-bottom: 0;
 }
 
-[data-theme="light" ].JournalFloatingEditor.JournalFloatingEditor textarea,
-[data-theme="light" ].JournalFloatingEditor.JournalFloatingEditor textarea:hover {
+[data-theme="light"].JournalFloatingEditor.JournalFloatingEditor textarea,
+[data-theme="light"].JournalFloatingEditor.JournalFloatingEditor
+  textarea:hover {
   background-color: white;
 }
 
