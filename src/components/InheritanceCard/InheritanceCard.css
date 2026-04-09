@@ -1,23 +1,10 @@
-.InheritanceCard__Banner.InheritanceCard__Banner.InheritanceCard__Banner {
-  height: 10em;
-  background:
-    linear-gradient(to bottom, transparent 20%, rgb(0 0 0 / 0.55) 100%),
-    url("/images/inheritance-banner.avif") center 60% / cover no-repeat;
-  display: flex;
-  align-items: flex-end;
-  padding: 1em;
-  display: flex;
-  align-items: flex-end;
-}
-
-.InheritanceCard__BannerTitle {
+.InheritanceCard__Cover h2 {
   color: white;
   margin: 0;
   font-size: 2em;
   font-weight: 500;
   letter-spacing: 0.02em;
   line-height: 1.3;
-  text-shadow: 0 1px 4px rgb(0 0 0 / 0.35);
 }
 
 .InheritanceCard__Cols {

@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import type { InheritanceCandidate } from '@/hooks/useInheritanceCandidates'
 import type { Archetype } from '@/lib/character/types'
 import './InheritanceCard.css'
+import { CardCover } from '../CardCover/CardCover'
 
 export function InheritanceCard({
   candidates,
@@ -38,85 +39,87 @@ export function InheritanceCard({
     : null
 
   return (
-    <Card
-      className='InheritanceCard'
-      cover={
-        <div className='InheritanceCard__Banner'>
-          <h2 className='InheritanceCard__BannerTitle'>
-            {t('new_character.inheritance_section')}
-          </h2>
-        </div>
-      }>
-      <Form.Item
-        name='inheritFromCharacterId'
-        label={t('new_character.inheritance_select_label')}>
-        <Select
-          allowClear
-          placeholder={t('new_character.inheritance_select_placeholder')}
-          options={candidates.map(candidate => ({
-            value: candidate.id,
-            label: candidate.label,
-          }))}
-          notFoundContent={t('new_character.inheritance_empty')}
-        />
-      </Form.Item>
+    <>
+      <CardCover
+        url='/images/inheritance-banner.avif'
+        title={t('new_character.inheritance_section')}
+        titleAs='h2'
+        data-biome='unexplored'
+        className='InheritanceCard__Cover'
+        height='10em'
+      />
+      <Card className='InheritanceCard'>
+        <Form.Item
+          name='inheritFromCharacterId'
+          label={t('new_character.inheritance_select_label')}>
+          <Select
+            allowClear
+            placeholder={t('new_character.inheritance_select_placeholder')}
+            options={candidates.map(candidate => ({
+              value: candidate.id,
+              label: candidate.label,
+            }))}
+            notFoundContent={t('new_character.inheritance_empty')}
+          />
+        </Form.Item>
 
-      {description && (
-        <Alert
-          className='InheritanceCard__Alert'
-          description={description}
-          type='info'
-        />
-      )}
-      <Divider className='InheritanceCard__Divider' />
-      <div className='InheritanceCard__Cols'>
-        <div>
-          <h3 className='InheritanceCard__ColLabel InheritanceCard__ColLabel--inherited'>
-            {t('new_character.inheritance_list_inherited_label')}
-          </h3>
-          <ul className='InheritanceCard__List'>
-            <li className='InheritanceCard__Row InheritanceCard__Row--inherited'>
-              <span className='InheritanceCard__Dot' aria-hidden='true' />
-              <span>{t('new_character.inheritance_inherited_map')}</span>
-            </li>
-            <li className='InheritanceCard__Row InheritanceCard__Row--inherited'>
-              <span className='InheritanceCard__Dot' aria-hidden='true' />
-              <span>{t('new_character.inheritance_inherited_journal')}</span>
-            </li>
-          </ul>
+        {description && (
+          <Alert
+            className='InheritanceCard__Alert'
+            description={description}
+            type='info'
+          />
+        )}
+        <Divider className='InheritanceCard__Divider' />
+        <div className='InheritanceCard__Cols'>
+          <div>
+            <h3 className='InheritanceCard__ColLabel InheritanceCard__ColLabel--inherited'>
+              {t('new_character.inheritance_list_inherited_label')}
+            </h3>
+            <ul className='InheritanceCard__List'>
+              <li className='InheritanceCard__Row InheritanceCard__Row--inherited'>
+                <span className='InheritanceCard__Dot' aria-hidden='true' />
+                <span>{t('new_character.inheritance_inherited_map')}</span>
+              </li>
+              <li className='InheritanceCard__Row InheritanceCard__Row--inherited'>
+                <span className='InheritanceCard__Dot' aria-hidden='true' />
+                <span>{t('new_character.inheritance_inherited_journal')}</span>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 className='InheritanceCard__ColLabel InheritanceCard__ColLabel--fresh'>
+              {t('new_character.inheritance_list_not_inherited_label')}
+            </h3>
+            <ul className='InheritanceCard__List'>
+              <li className='InheritanceCard__Row InheritanceCard__Row--fresh'>
+                <span className='InheritanceCard__Dot' aria-hidden='true' />
+                <span>
+                  {t('new_character.inheritance_not_soul_courage_stamina')}
+                </span>
+              </li>
+              <li className='InheritanceCard__Row InheritanceCard__Row--fresh'>
+                <span className='InheritanceCard__Dot' aria-hidden='true' />
+                <span>
+                  {t('new_character.inheritance_not_honor_inspiration')}
+                </span>
+              </li>
+              <li className='InheritanceCard__Row InheritanceCard__Row--fresh'>
+                <span className='InheritanceCard__Dot' aria-hidden='true' />
+                <span>{t('new_character.inheritance_not_gold')}</span>
+              </li>
+              <li className='InheritanceCard__Row InheritanceCard__Row--fresh'>
+                <span className='InheritanceCard__Dot' aria-hidden='true' />
+                <span>{t('new_character.inheritance_not_inventory')}</span>
+              </li>
+              <li className='InheritanceCard__Row InheritanceCard__Row--fresh'>
+                <span className='InheritanceCard__Dot' aria-hidden='true' />
+                <span>{t('new_character.inheritance_not_spellbook')}</span>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div>
-          <h3 className='InheritanceCard__ColLabel InheritanceCard__ColLabel--fresh'>
-            {t('new_character.inheritance_list_not_inherited_label')}
-          </h3>
-          <ul className='InheritanceCard__List'>
-            <li className='InheritanceCard__Row InheritanceCard__Row--fresh'>
-              <span className='InheritanceCard__Dot' aria-hidden='true' />
-              <span>
-                {t('new_character.inheritance_not_soul_courage_stamina')}
-              </span>
-            </li>
-            <li className='InheritanceCard__Row InheritanceCard__Row--fresh'>
-              <span className='InheritanceCard__Dot' aria-hidden='true' />
-              <span>
-                {t('new_character.inheritance_not_honor_inspiration')}
-              </span>
-            </li>
-            <li className='InheritanceCard__Row InheritanceCard__Row--fresh'>
-              <span className='InheritanceCard__Dot' aria-hidden='true' />
-              <span>{t('new_character.inheritance_not_gold')}</span>
-            </li>
-            <li className='InheritanceCard__Row InheritanceCard__Row--fresh'>
-              <span className='InheritanceCard__Dot' aria-hidden='true' />
-              <span>{t('new_character.inheritance_not_inventory')}</span>
-            </li>
-            <li className='InheritanceCard__Row InheritanceCard__Row--fresh'>
-              <span className='InheritanceCard__Dot' aria-hidden='true' />
-              <span>{t('new_character.inheritance_not_spellbook')}</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </Card>
+      </Card>
+    </>
   )
 }

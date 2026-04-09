@@ -34,7 +34,7 @@
  *    inherit this value.
  */
 .CardCover {
-  height: 20em; /* 1 */
+  height: var(--height, 20em); /* 1 */
 
   background-image: linear-gradient(to bottom, transparent 0%, rgb(0 0 0 / 0.5) 85%), var(--image); /* 2 */
   background-size: cover;
