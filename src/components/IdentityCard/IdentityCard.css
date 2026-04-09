@@ -3,13 +3,11 @@
   padding: 1em;
 }
 
-[data-theme="light"] .IdentityCard__Power {
-  background: #f5ece0;
-  color: #5a4a2e;
+[data-app-theme="light"] .IdentityCard__Power {
+  background: rgb(0 0 0 / 0.05);
 }
-[data-theme="dark"] .IdentityCard__Power {
-  background: #1f3a2a;
-  color: #f5ece0;
+[data-app-theme="dark"] .IdentityCard__Power {
+  background: rgb(255 255 255 / 0.05);
 }
 
 .IdentityCard__Power strong {

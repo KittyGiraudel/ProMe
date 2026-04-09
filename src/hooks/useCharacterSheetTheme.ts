@@ -1,7 +1,8 @@
 'use client'
 
-import { theme as antdTheme, FormInstance } from 'antd'
+import { FormInstance } from 'antd'
 import { useMemo } from 'react'
+import { useAntPalette } from '@/components/AppProviders/ThemeProvider'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import {
   clampClockSliceIndex,
@@ -22,29 +23,12 @@ export function useCharacterSheetTheme(form: FormInstance) {
     clockSegmentsPerHalf
   )
 
-  const algorithm =
-    settings.appearance.theme === 'dark'
-      ? antdTheme.darkAlgorithm
-      : antdTheme.defaultAlgorithm
+  const appTheme = adaptiveAppearanceTheme
+    ? isClockNight
+      ? 'dark'
+      : 'light'
+    : settings.appearance.theme
+  const antTheme = useAntPalette(appTheme)
 
-  return useMemo(
-    () => ({
-      appearance: adaptiveAppearanceTheme
-        ? ((isClockNight ? 'dark' : 'light') as 'light' | 'dark')
-        : settings.appearance.theme,
-      theme: {
-        algorithm: adaptiveAppearanceTheme
-          ? isClockNight
-            ? antdTheme.darkAlgorithm
-            : antdTheme.defaultAlgorithm
-          : algorithm,
-      },
-    }),
-    [
-      isClockNight,
-      settings.appearance.theme,
-      algorithm,
-      adaptiveAppearanceTheme,
-    ]
-  )
+  return useMemo(() => ({ appTheme, antTheme }), [appTheme, antTheme])
 }

@@ -2,7 +2,7 @@
 
 import { Layout as AntLayout, BreadcrumbProps, Menu, Typography } from 'antd'
 import { useTranslations } from 'next-intl'
-import { type ReactNode, useMemo } from 'react'
+import { type ReactNode, useContext, useMemo } from 'react'
 import { Banner } from '@/components/Banner/Banner'
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
 import { Footer } from '@/components/Footer/Footer'
@@ -12,6 +12,8 @@ import { usePathname } from '@/i18n/navigation'
 import type { PossibleBiomeId } from '@/lib/types'
 
 import './Layout.css'
+import { AppTheme } from '@/lib/settings/types'
+import { AppearanceContext } from '../AppProviders/ThemeProvider'
 import { Logo } from '../Logo/Logo'
 
 type LayoutProps = {
@@ -22,7 +24,7 @@ type LayoutProps = {
   breadcrumbs: BreadcrumbProps['items']
   children: ReactNode
   className?: string
-  appearance?: 'light' | 'dark'
+  appThemeOverride?: AppTheme
 }
 
 export const Layout = ({
@@ -32,8 +34,9 @@ export const Layout = ({
   headerActions,
   bannerBiome,
   className = '',
-  appearance,
+  appThemeOverride,
 }: LayoutProps) => {
+  const { appTheme } = useContext(AppearanceContext)
   const pathname = usePathname()
   const t = useTranslations()
   const items = useMemo(
@@ -102,7 +105,9 @@ export const Layout = ({
   )
 
   return (
-    <AntLayout className={`Layout ${className}`} data-appearance={appearance}>
+    <AntLayout
+      className={`Layout ${className}`}
+      data-app-theme={appThemeOverride ?? appTheme}>
       <AntLayout.Header className='Layout__header'>
         <Logo />
         <Menu

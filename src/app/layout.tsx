@@ -1,10 +1,10 @@
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { Geist, Geist_Mono } from 'next/font/google'
+import Head from 'next/head'
 import { getLocale } from 'next-intl/server'
 import { AppProviders } from '@/components/AppProviders/AppProviders'
+
 import './globals.css'
-import './app-theme.css'
-import Head from 'next/head'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -26,7 +26,6 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      data-theme='light'
       className={`${geistSans.variable} ${geistMono.variable}`}>
       <Head>
         <link

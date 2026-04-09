@@ -37,7 +37,7 @@ export function CharacterSheet({ characterId }: { characterId: string }) {
   const { form, character, hydratedFromStore, saveForm, validationErrors } =
     useCharacterSheetForm({ characterId })
   const onFieldsChange = useOnFieldsChanged(form)
-  const { theme, appearance } = useCharacterSheetTheme(form)
+  const { appTheme, antTheme } = useCharacterSheetTheme(form)
   const bannerBiome = useBiomeAtCurrentMapPosition(form)
   const getCharacterLink = useCharacterLink()
   const isDead = character ? isCharacterDead(character) : false
@@ -50,10 +50,10 @@ export function CharacterSheet({ characterId }: { characterId: string }) {
   }
 
   return (
-    <ConfigProvider theme={theme}>
+    <ConfigProvider theme={antTheme}>
       <App>
         <Layout
-          appearance={appearance}
+          appThemeOverride={appTheme}
           bannerBiome={bannerBiome}
           title={character.name || t('characters_list.unnamed')}
           breadcrumbs={[

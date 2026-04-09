@@ -1,3 +1,4 @@
+import QuestionCircleOutlined from '@ant-design/icons/lib/icons/QuestionCircleOutlined'
 import './CardCover.css'
 import { type ElementType, type HTMLAttributes, type ReactNode } from 'react'
 
@@ -25,7 +26,12 @@ export function CardCover({
       }>
       <div className='CardCover__overlay'></div>
       <div className='CardCover__content'>
-        <TitleAs className='CardCover__title'>{title}</TitleAs>
+        <TitleAs className='CardCover__title'>
+          {description ? (
+            <QuestionCircleOutlined className='CardCover__info' />
+          ) : null}
+          {title}
+        </TitleAs>
         {description ? (
           <p className='CardCover__description'>{description}</p>
         ) : null}

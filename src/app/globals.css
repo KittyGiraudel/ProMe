@@ -1,4 +1,4 @@
-html {
+[data-app-theme="light"] {
   --prome-bg: #faf8f3;
   --prome-surface: #fff9ee;
   --prome-text: #1f2d2a;
@@ -7,12 +7,12 @@ html {
   --prome-border-radius: 10px;
 }
 
-html[data-theme="dark"] {
-  --prome-bg: #1f2d2a;
-  --prome-surface: #2c3834;
-  --prome-text: #f5ece0;
-  --prome-muted: #a0a0a0;
-  --prome-border: #404040;
+[data-app-theme="dark"] {
+  --prome-bg: #1a2420;
+  --prome-surface: #243028;
+  --prome-text: #c8ddd0;
+  --prome-muted: #7a9e88;
+  --prome-border: #3a4e44;
   --prome-border-radius: 10px;
 }
 
@@ -98,8 +98,7 @@ a {
   --biome-light-contrast: var(--biome-unexplored-light-contrast);
 }
 
-[data-appearance="dark"] [data-biome="unexplored"],
-body:has([data-appearance="dark"]) [data-biome="unexplored"] {
+[data-app-theme="dark"] [data-biome="unexplored"] {
   --biome-light: #2c3834;
   --biome-dark: #1a2320;
   --biome-contrast: #b8c9c2;
@@ -321,4 +320,14 @@ html:has([role="dialog"]) {
 .u-cv-auto-row {
   content-visibility: auto;
   contain-intrinsic-size: 1px 160px;
+}
+
+[data-app-theme="light"] .ant-card .ant-card-head {
+  background: linear-gradient(135deg, #e2f0e8 0%, #f5f0e4 100%) !important;
+  border-bottom-color: #c4b49a !important;
+}
+
+[data-app-theme="dark"] .ant-card .ant-card-head {
+  background: linear-gradient(135deg, #2a3a30 0%, #243028 100%) !important;
+  border-bottom-color: #3a4e44 !important;
 }

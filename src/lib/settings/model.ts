@@ -1,4 +1,4 @@
-import { type AppSettings, SETTINGS_SCHEMA_VERSION } from './types'
+import { type AppSettings, AppTheme, SETTINGS_SCHEMA_VERSION } from './types'
 
 export const DEFAULT_SETTINGS: AppSettings = {
   schemaVersion: SETTINGS_SCHEMA_VERSION,
@@ -67,9 +67,9 @@ export function normalizeSettings(value: unknown): AppSettings {
     },
     appearance: {
       theme: (['light', 'dark'] as const).includes(
-        source?.appearance?.theme as 'light' | 'dark'
+        source?.appearance?.theme as AppTheme
       )
-        ? (source!.appearance!.theme as 'light' | 'dark')
+        ? (source!.appearance!.theme as AppTheme)
         : 'light',
     },
   }

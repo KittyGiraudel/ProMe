@@ -21,7 +21,7 @@
 .ArchetypeSelector__Card {
   display: block;
   background: var(--ant-color-bg-container);
-  border: 1.5px solid var(--ant-color-border);
+  border: 2px solid var(--ant-color-border);
   border-radius: 2em;
   corner-shape: squircle;
   overflow: hidden;
@@ -39,7 +39,7 @@
 }
 
 .ArchetypeSelector__Card:has(:checked) {
-  border: 2px solid #2d6a4f;
+  border-color: #2d6a4f;
   box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.12);
 }
 
@@ -70,7 +70,7 @@
 
 .ArchetypeSelector__Icon {
   font-size: 2.5em;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.4));
 }
 
 .ArchetypeSelector__Card:has(:checked) .ArchetypeSelector__Image::after {
@@ -97,18 +97,18 @@
 .ArchetypeSelector__Name {
   font-size: 1.25em;
   font-weight: 700;
-  color: #1f3a2a;
   margin-bottom: 8px;
+  color: var(--prome-muted);
 }
 
 .ArchetypeSelector__Card:has(:checked) .ArchetypeSelector__Name {
-  color: #2d6a4f;
+  color: var(--prome-text);
 }
 
 .ArchetypeSelector__Quote {
   font-size: 0.9em;
   font-style: italic;
-  color: #7a6447;
+  color: var(--prome-muted);
   line-height: 1.5;
   margin: 0 0 1em;
   padding-left: 0.75em;
@@ -116,7 +116,7 @@
 }
 
 .ArchetypeSelector__Card:has(:checked) .ArchetypeSelector__Quote {
-  border-left-color: #2d6a4f;
+  border-left-color: var(--prome-border);
 }
 
 .ArchetypeSelector__Stats {
@@ -131,15 +131,7 @@
   border: 1px solid var(--ant-color-border-secondary);
   border-radius: 0.5em;
   padding: 0.25em 0.5em;
-}
-
-[data-theme="light"] .ArchetypeSelector__StatPill {
-  background: #f5ece0;
-  color: #5a4a2e;
-}
-[data-theme="dark"] .ArchetypeSelector__StatPill {
-  background: #1f3a2a;
-  color: #f5ece0;
+  background: rgb(255 255 255 / 0.05);
 }
 
 .ArchetypeSelector__StatLabel {
@@ -175,16 +167,8 @@
   padding: 0.5em 0.75em;
   font-size: 0.9em;
   line-height: 1.45;
-}
-
-[data-theme="light"] .ArchetypeSelector__Power {
-  background: #f5ece0;
-  color: #5a4a2e;
-}
-
-[data-theme="dark"] .ArchetypeSelector__Power {
-  background: #1f3a2a;
-  color: #f5ece0;
+  background: rgb(255 255 255 / 0.05);
+  border: 1px solid var(--ant-color-border-secondary);
 }
 
 .ArchetypeSelector__PowerLabel {

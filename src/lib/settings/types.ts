@@ -38,6 +38,8 @@ export type AppSettings = {
   }
   appearance: {
     /** Controls the theme (light or dark mode). Defaults to 'light'. */
-    theme: 'light' | 'dark'
+    theme: AppTheme
   }
 }
+
+export type AppTheme = 'light' | 'dark'

@@ -15,12 +15,13 @@ import { Layout } from '@/components/Layout/Layout'
 import { usePathname, useRouter } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
 import { DEFAULT_SETTINGS } from '@/lib/settings/model'
+import { AppTheme } from '@/lib/settings/types'
 import { HelpButton } from '../HelpButton/HelpButton'
 import { Spacing } from '../Spacing/Spacing'
 import { useSettings } from './SettingsContext'
 
 type SettingsFormValues = {
-  appTheme: 'light' | 'dark'
+  appTheme: AppTheme
   adaptiveAppearanceTheme: boolean
   timelineReverseChronological: boolean
   journalCreateEntryOnMove: boolean
