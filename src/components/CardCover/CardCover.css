@@ -105,6 +105,12 @@
     --from: 50;
     --to: 100;
   }
+
+  &[data-biome="floodedPlains"] {
+    --position: center 100%;
+    --from: 100;
+    --to: 50;
+  }
 }
 
 /**
