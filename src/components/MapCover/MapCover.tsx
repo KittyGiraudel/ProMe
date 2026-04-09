@@ -22,8 +22,8 @@ export function MapCover({
       <CardCover
         data-biome='unexplored'
         url='/images/banner-core.avif'
-        title={t.rich('characters.map.location', {
-          biome: () => <strong>{t('common.biomes.core')}</strong>,
+        title={t.rich('characters.map.location_core', {
+          b: chunks => <strong>{chunks}</strong>,
         })}
         titleAs='h2'
       />
@@ -34,8 +34,8 @@ export function MapCover({
     <CardCover
       data-biome={biome}
       url={`/images/banner-${biome}.avif`}
-      title={t.rich('characters.map.location', {
-        biome: () => <strong>{t(`common.biomes.${biome}_with_prefix`)}</strong>,
+      title={t.rich(`characters.map.location_${biome}`, {
+        b: chunks => <strong>{chunks}</strong>,
       })}
       titleAs='h2'
       description={t(`common.biomes.${biome}_description` as TranslationKey)}
