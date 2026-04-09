@@ -93,7 +93,7 @@
 }
 
 .Map__NotificationIcon[data-biome] {
-  color: var(--biome-dark);
+  color: light-dark(var(--biome-dark), var(--biome-light));
 }
 
 .Map__EmojiModalBody {

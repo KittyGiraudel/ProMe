@@ -105,7 +105,8 @@ a {
 [data-app-theme="dark"] [data-biome="unexplored"] {
   --biome-light: #2c3834;
   --biome-dark: #1a2320;
-  --biome-contrast: #b8c9c2;
+  --biome-light-contrast: #b8c9c2;
+  --biome-dark-contrast: #b8c9c2;
 }
 
 [data-biome="shadowForest"] {

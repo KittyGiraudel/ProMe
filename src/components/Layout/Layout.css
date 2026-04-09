@@ -60,17 +60,12 @@
 
 .Layout__menu .ant-menu-item:has([data-current="true"]),
 .Layout__menu .ant-menu-item:has([data-current="true"]):hover {
-  background-color: var(--biome-dark);
-  color: var(--biome-dark-contrast) !important;
-}
-
-.Layout__menu[data-biome="unexplored"]
-  .ant-menu-item:has([data-current="true"]) {
-  _color: var(--ant-layout-header-bg);
+  background-color: light-dark(var(--biome-dark), var(--biome-light));
+  color: light-dark(var(--biome-dark-contrast), var(--biome-light-contrast)) !important;
 }
 
 .Layout__menu .ant-menu-item:has([data-current="true"]):hover {
-  background-color: var(--biome-dark) !important;
+  background-color: light-dark(var(--biome-dark), var(--biome-light)) !important;
 }
 
 .Layout__menu .ant-menu-item:hover [data-current]::before {
