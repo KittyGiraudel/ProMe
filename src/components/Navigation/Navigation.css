@@ -1,0 +1,15 @@
+.Navigation {
+  width: 100%;
+}
+
+.Navigation .ant-menu-item:has([data-current="true"]) {
+  background-color: rgb(255 255 255 / 0.15) !important;
+}
+
+.Navigation .ant-menu-item:not(:has([data-current="true"])):hover {
+  background-color: rgb(255 255 255 / 0.05) !important;
+}
+
+.Navigation .ant-menu-item:has([data-position="right"]) {
+  margin-left: auto;
+}

@@ -1,20 +1,17 @@
 'use client'
 
-import { Layout as AntLayout, BreadcrumbProps, Menu, Typography } from 'antd'
-import { useTranslations } from 'next-intl'
-import { type ReactNode, useContext, useEffect, useMemo } from 'react'
+import { Layout as AntLayout, BreadcrumbProps, Typography } from 'antd'
+import { type ReactNode, useContext, useEffect } from 'react'
+import { AppearanceContext } from '@/components/AppProviders/ThemeProvider'
 import { Banner } from '@/components/Banner/Banner'
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
 import { Footer } from '@/components/Footer/Footer'
-import { BlockedLink } from '@/components/Navigation/BlockedLink'
+import { Navigation } from '@/components/Navigation/Navigation'
 import { Spacing } from '@/components/Spacing/Spacing'
-import { usePathname } from '@/i18n/navigation'
+import { AppTheme } from '@/lib/settings/types'
 import type { PossibleBiomeId } from '@/lib/types'
 
 import './Layout.css'
-import { AppTheme } from '@/lib/settings/types'
-import { AppearanceContext } from '../AppProviders/ThemeProvider'
-import { Logo } from '../Logo/Logo'
 
 type LayoutProps = {
   title: string
@@ -37,72 +34,6 @@ export const Layout = ({
   appThemeOverride,
 }: LayoutProps) => {
   const { appTheme } = useContext(AppearanceContext)
-  const pathname = usePathname()
-  const t = useTranslations()
-  const items = useMemo(
-    () => [
-      {
-        key: '/',
-        label: (
-          <BlockedLink href='/' data-current={pathname === '/'}>
-            {t('nav.home')}
-          </BlockedLink>
-        ),
-      },
-      {
-        key: '/characters',
-        label: (
-          <BlockedLink
-            href='/characters'
-            data-current={pathname.startsWith('/characters')}>
-            {t('nav.characters')}
-          </BlockedLink>
-        ),
-      },
-      {
-        key: '/generators/npc',
-        label: (
-          <BlockedLink
-            href='/generators/npc'
-            data-current={pathname.startsWith('/generators/npc')}>
-            {t('nav.inhabitant_generator')}
-          </BlockedLink>
-        ),
-      },
-      {
-        key: '/generators/village',
-        label: (
-          <BlockedLink
-            href='/generators/village'
-            data-current={pathname.startsWith('/generators/village')}>
-            {t('nav.village_generator')}
-          </BlockedLink>
-        ),
-      },
-      {
-        key: '/faq',
-        label: (
-          <BlockedLink
-            href='/faq'
-            data-current={pathname.startsWith('/faq')}
-            data-position='right'>
-            {t('nav.faq')}
-          </BlockedLink>
-        ),
-      },
-      {
-        key: '/settings',
-        label: (
-          <BlockedLink
-            href='/settings'
-            data-current={pathname.startsWith('/settings')}>
-            {t('nav.settings')}
-          </BlockedLink>
-        ),
-      },
-    ],
-    [pathname, t]
-  )
 
   useEffect(() => {
     // The reason we do that with a `useEffect` instead of just placing the
@@ -115,16 +46,7 @@ export const Layout = ({
   return (
     <AntLayout className={`Layout ${className}`}>
       <AntLayout.Header className='Layout__header'>
-        <Logo />
-        <Menu
-          data-biome={bannerBiome}
-          className='Layout__menu'
-          theme='dark'
-          mode='horizontal'
-          defaultSelectedKeys={['2']}
-          items={items}
-          style={{ flex: 1, minWidth: 0 }}
-        />
+        <Navigation />
       </AntLayout.Header>
       <Banner biome={bannerBiome} />
       <AntLayout.Content className='Layout__wrapper'>

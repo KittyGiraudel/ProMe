@@ -10,6 +10,7 @@ import { GeneratorVisual } from './visuals/GeneratorVisual'
 import { JournalVisual } from './visuals/JournalVisual'
 import { MapVisual } from './visuals/MapVisual'
 import { MusicVisual } from './visuals/MusicVisual'
+
 import './LandingPage.css'
 
 export async function LandingPage() {

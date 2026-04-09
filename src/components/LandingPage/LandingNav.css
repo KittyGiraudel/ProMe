@@ -1,48 +1,11 @@
-.LandingNav.LandingNav {
-  display: flex;
-  align-items: center;
-  padding-inline: 50px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+.LandingNav {
   --ant-layout-header-height: 3em;
+  padding-inline: 50px;
   background: rgb(0 21 41);
 }
 
-.LandingNav__menu {
-  flex: 1;
-  min-width: 0;
-}
-
-.LandingNav__menu .ant-menu-item:has([data-current="true"]),
-.LandingNav__menu .ant-menu-item:has([data-current="true"]):hover {
-  background-color: rgb(255 255 255 / 0.15);
-}
-
-.LandingNav__menu .ant-menu-item:hover [data-current]::before {
-  background-color: rgb(255 255 255 / 0.1);
-  transition: background-color 200ms;
-}
-
-.LandingNav__cta {
-  flex-shrink: 0;
-  padding: 0 1em;
-  background-color: rgb(255 255 255 / 0.15);
-  color: white;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  font-variant: small-caps;
-  white-space: nowrap;
-  transition: background 200ms;
-}
-
-.LandingNav__cta.LandingNav__cta:hover {
-  background: rgb(255 255 255 / 0.25);
-  color: white;
-}
-
 @media (max-width: 767px) {
-  .LandingNav .Logo {
-    display: none;
+  .LandingNav {
+    padding-inline: 1em;
   }
 }
