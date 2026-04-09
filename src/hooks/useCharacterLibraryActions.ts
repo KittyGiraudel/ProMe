@@ -3,7 +3,6 @@
 import { App } from 'antd'
 import { useTranslations } from 'next-intl'
 import { type ChangeEvent, useCallback, useMemo } from 'react'
-import { useCharacterLink } from '@/hooks/useCharacterLink'
 import { useRouter } from '@/i18n/navigation'
 import { getCharacterStore } from '@/lib/character/store'
 
@@ -12,7 +11,6 @@ export function useCharacterLibraryActions() {
   const store = useMemo(() => getCharacterStore(), [])
   const { message } = App.useApp()
   const router = useRouter()
-  const getCharacterLink = useCharacterLink({ tabId: 'identity' })
 
   const handleImportFile = useCallback(
     async (event: ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +56,7 @@ export function useCharacterLibraryActions() {
           })
         )
         if (characterId) {
-          router.push(getCharacterLink({ characterId }))
+          router.push(`/characters/${characterId}`)
         }
       } catch {
         message.error(t('new_character.import_error'))
@@ -66,7 +64,7 @@ export function useCharacterLibraryActions() {
         event.target.value = ''
       }
     },
-    [message, store, t, router, getCharacterLink]
+    [message, store, t, router]
   )
 
   return {

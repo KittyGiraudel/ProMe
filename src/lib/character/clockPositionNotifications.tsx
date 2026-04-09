@@ -1,10 +1,8 @@
 'use client'
 
 import { App } from 'antd'
-import NextLink from 'next/link'
-import { useLocale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
-import { useCharacterLink } from '@/hooks/useCharacterLink'
 import { useWatchedClock } from '@/hooks/useCharacterSheetDerived'
 import { computeClockMoveFromRawTarget } from './clock'
 
@@ -19,9 +17,6 @@ export function useSetClockToRawTargetWithToast() {
   const { updateClock } = useWatchedClock()
   const { message, notification } = App.useApp()
   const t = useTranslations()
-  const locale = useLocale()
-  const getCharacterLink = useCharacterLink({ tabId: 'inventory' })
-  const inventoryLink = `/${locale}${getCharacterLink()}`
 
   return useCallback(
     ({
@@ -57,11 +52,11 @@ export function useSetClockToRawTargetWithToast() {
           placement: 'bottomRight',
           duration: 5,
           actions: (
-            <NextLink href={inventoryLink}>
+            <a href='#inventory'>
               {t('common.actions.go_to', {
                 destination: t('characters.inventory.title'),
               })}
-            </NextLink>
+            </a>
           ),
         })
       }
@@ -77,6 +72,6 @@ export function useSetClockToRawTargetWithToast() {
         2
       )
     },
-    [message, notification, t, updateClock, inventoryLink]
+    [message, notification, t, updateClock]
   )
 }

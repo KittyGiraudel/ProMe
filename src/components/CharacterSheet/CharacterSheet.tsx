@@ -21,13 +21,11 @@ import { MapCard } from '@/components/MapCard/MapCard'
 import { Spacing } from '@/components/Spacing/Spacing'
 import { SpellbookCard } from '@/components/SpellbookCard/SpellbookCard'
 import { useBiomeAtCurrentMapPosition } from '@/hooks/useBiomeAtCurrentMapPosition'
-import { useCharacterLink } from '@/hooks/useCharacterLink'
 import { useCharacterSheetDocumentTitle } from '@/hooks/useCharacterSheetDocumentTitle'
 import { useCharacterSheetForm } from '@/hooks/useCharacterSheetForm'
 import { useCharacterSheetTheme } from '@/hooks/useCharacterSheetTheme'
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
 import { useOnFieldsChanged } from '@/hooks/useOnFieldsChanged'
-import { Link } from '@/i18n/navigation'
 import { getProtectorSummary } from '@/lib/character/getProtectorSummary'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
 import { toFormValues } from '@/lib/character/toFormValues'
@@ -39,7 +37,6 @@ export function CharacterSheet({ characterId }: { characterId: string }) {
   const onFieldsChange = useOnFieldsChanged(form)
   const { appTheme, antTheme } = useCharacterSheetTheme(form)
   const bannerBiome = useBiomeAtCurrentMapPosition(form)
-  const getCharacterLink = useCharacterLink()
   const isDead = character ? isCharacterDead(character) : false
 
   useCharacterSheetDocumentTitle({ character })
@@ -105,11 +102,7 @@ export function CharacterSheet({ characterId }: { characterId: string }) {
                   title={t('characters.dead_readonly_title')}
                   description={t.rich('characters.dead_readonly_description', {
                     gender: character.gender ?? 'indeterminate',
-                    link: content => (
-                      <Link href={getCharacterLink({ tabId: 'actions' })}>
-                        {content}
-                      </Link>
-                    ),
+                    link: content => <a href='#actions'>{content}</a>,
                   })}
                 />
               ) : null}

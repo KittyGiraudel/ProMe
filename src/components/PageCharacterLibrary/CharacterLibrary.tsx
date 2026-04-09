@@ -5,12 +5,11 @@ import { useFormatter, useTranslations } from 'next-intl'
 import { useCallback, useRef } from 'react'
 import { Button } from '@/components/Button/Button'
 import { Layout } from '@/components/Layout/Layout'
-import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { Spacing } from '@/components/Spacing/Spacing'
 import { useCharacterLibraryActions } from '@/hooks/useCharacterLibraryActions'
-import { useCharacterLink } from '@/hooks/useCharacterLink'
 import { useCharacters } from '@/hooks/useCharacters'
 import { useHydration } from '@/hooks/useHydration'
+import { Link } from '@/i18n/navigation'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
 
 export function CharacterLibrary() {
@@ -22,7 +21,6 @@ export function CharacterLibrary() {
 
   const { handleImportFile } = useCharacterLibraryActions()
   const handleImportClick = useCallback(() => fileInputRef.current?.click(), [])
-  const getCharacterLink = useCharacterLink({ tabId: 'identity' })
 
   return (
     <Layout
@@ -88,10 +86,9 @@ export function CharacterLibrary() {
                   : undefined
               }
               extra={
-                <BlockedLink
-                  href={getCharacterLink({ characterId: character.id })}>
+                <Link href={`/characters/${character.id}`}>
                   {t('common.actions.open')}
-                </BlockedLink>
+                </Link>
               }>
               <Spacing size='small'>
                 <Typography.Text>

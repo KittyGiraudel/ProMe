@@ -3,7 +3,6 @@
 import { App } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCallback, useMemo } from 'react'
-import { useCharacterLink } from '@/hooks/useCharacterLink'
 import { useRouter } from '@/i18n/navigation'
 import { createCharacterFromIdentity } from '@/lib/character/createFromIdentity'
 import { getCharacterStore } from '@/lib/character/store'
@@ -22,9 +21,6 @@ export function useCharacterCreate() {
   const router = useRouter()
   const store = useMemo(() => getCharacterStore(), [])
   const t = useTranslations()
-  const getCharacterLink = useCharacterLink({
-    tabId: 'identity',
-  })
 
   return useCallback(
     (values: CharacterCreateValues) => {
@@ -42,8 +38,8 @@ export function useCharacterCreate() {
       )
       const saved = store.save(created)
       message.success(t('new_character.create_success'))
-      router.push(getCharacterLink({ characterId: saved.id }))
+      router.push(`/characters/${saved.id}`)
     },
-    [store, message, t, router, getCharacterLink]
+    [store, message, t, router]
   )
 }

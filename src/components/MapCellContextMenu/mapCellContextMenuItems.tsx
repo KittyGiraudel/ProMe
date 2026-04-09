@@ -1,12 +1,10 @@
 import type { MenuProps } from 'antd'
 import { Typography } from 'antd'
-import NextLink from 'next/link'
 import { useFormatter, useLocale, useTranslations } from 'next-intl'
 import type { Dispatch, ReactNode, SetStateAction } from 'react'
 import { useCallback, useMemo } from 'react'
 import { BiomeBubble } from '@/components/BiomeBubble/BiomeBubble'
 import { useMapState } from '@/components/MapDisplay/useMapState'
-import { useCharacterLink } from '@/hooks/useCharacterLink'
 import { useWatchedJournal } from '@/hooks/useCharacterSheetDerived'
 import { CellCoordinate } from '@/lib/character/types'
 import { BIOME_IDS } from '@/lib/constants/misc'
@@ -35,20 +33,14 @@ function JournalEntryMenuLabel({
 }: {
   link: JournalEntryLink
 }): ReactNode {
-  const locale = useLocale()
   const t = useTranslations()
   const snippet = journalContentFirstLine(link.content ?? '')
   const dateLabel = useFormattedDate(link.createdAt)
   const textValue = snippet || t('characters.journal.entry_empty')
-  const entryAnchor = `journal-${link.entryId}`
-  const getCharacterLink = useCharacterLink({
-    tabId: 'journal',
-    hash: entryAnchor,
-  })
 
   return (
-    <NextLink
-      href={`/${locale}${getCharacterLink()}`}
+    <a
+      href={`#journal-${link.entryId}`}
       style={{ display: 'flex', gap: 8, alignItems: 'baseline' }}>
       <Typography.Text
         style={{ flex: 1, minWidth: 0 }}
@@ -60,7 +52,7 @@ function JournalEntryMenuLabel({
           {dateLabel}
         </Typography.Text>
       ) : null}
-    </NextLink>
+    </a>
   )
 }
 
