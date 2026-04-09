@@ -1,5 +1,5 @@
 import LoadingOutlined from '@ant-design/icons/lib/icons/LoadingOutlined'
-import { App, Card, Result, Skeleton } from 'antd'
+import { App, Card, Skeleton } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useEffect, useRef } from 'react'
 import {
@@ -8,7 +8,6 @@ import {
 } from '@/hooks/useSoundtrackPreload'
 import { PossibleBiomeId } from '@/lib/types'
 import { AudioPlayer } from '../AudioPlayer/AudioPlayer'
-import { Button } from '../Button/Button'
 import { useSettings } from '../PageSettings/SettingsContext'
 
 const NOTIFICATION_KEY = 'audio-preload'
@@ -48,9 +47,6 @@ const useSoundtrackPreloadNotification = (
           </a>
         ),
       })
-    } else if (preloadStatus === 'error' && wasLoadingRef.current) {
-      wasLoadingRef.current = false
-      notification.destroy(NOTIFICATION_KEY)
     } else if (preloadStatus === 'idle' && wasLoadingRef.current) {
       wasLoadingRef.current = false
       notification.destroy(NOTIFICATION_KEY)
@@ -61,7 +57,7 @@ const useSoundtrackPreloadNotification = (
 export function AudioCard({ biome }: { biome: PossibleBiomeId }) {
   const t = useTranslations()
   const { settings } = useSettings()
-  const { status: preloadStatus, retryPreload } = useSoundtrackPreload({
+  const preloadStatus = useSoundtrackPreload({
     enabled: settings.sound.enabled,
     variant: settings.sound.variant,
   })
@@ -69,22 +65,6 @@ export function AudioCard({ biome }: { biome: PossibleBiomeId }) {
   useSoundtrackPreloadNotification(preloadStatus)
 
   if (!settings.sound.enabled) return null
-
-  if (preloadStatus === 'error') {
-    return (
-      <Card title={t('audio_player.title')} id='audio'>
-        <Result
-          status='error'
-          title={t('audio_player.error')}
-          extra={
-            <Button type='default' onClick={retryPreload}>
-              {t('audio_player.retry')}
-            </Button>
-          }
-        />
-      </Card>
-    )
-  }
 
   if (preloadStatus === 'loading') {
     return (
