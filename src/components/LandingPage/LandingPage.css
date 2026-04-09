@@ -10,6 +10,8 @@
 
 .LandingPage .Footer {
   padding: 1em 3em;
+  background: rgb(0 21 41);
+  color: white;
 }
 
 @media (max-width: 767px) {
