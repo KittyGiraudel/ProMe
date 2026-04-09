@@ -27,10 +27,10 @@ export function CardCover({
       <div className='CardCover__overlay'></div>
       <div className='CardCover__content'>
         <TitleAs className='CardCover__title'>
+          <span>{title}</span>
           {description ? (
             <QuestionCircleOutlined className='CardCover__info' />
           ) : null}
-          {title}
         </TitleAs>
         {description ? (
           <p className='CardCover__description'>{description}</p>
