@@ -2,16 +2,19 @@
 
 import { Alert, Card, Divider, Form, Select } from 'antd'
 import { useTranslations } from 'next-intl'
+import { CardCover } from '@/components/CardCover/CardCover'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import type { InheritanceCandidate } from '@/hooks/useInheritanceCandidates'
 import type { Archetype } from '@/lib/character/types'
+
 import './InheritanceCard.css'
-import { CardCover } from '../CardCover/CardCover'
 
 export function InheritanceCard({
   candidates,
 }: {
   candidates: InheritanceCandidate[]
 }) {
+  const { settings } = useSettings()
   const t = useTranslations()
   const form = Form.useFormInstance()
   const selectedId = Form.useWatch<string>('inheritFromCharacterId', {
@@ -40,15 +43,23 @@ export function InheritanceCard({
 
   return (
     <>
-      <CardCover
-        url='/images/inheritance-banner.avif'
-        title={t('new_character.inheritance_section')}
-        titleAs='h2'
-        data-biome='unexplored'
-        className='InheritanceCard__Cover'
-        height='10em'
-      />
-      <Card className='InheritanceCard'>
+      {settings.appearance.showImagery && (
+        <CardCover
+          url='/images/inheritance-banner.avif'
+          title={t('new_character.inheritance_section')}
+          titleAs='h2'
+          data-biome='unexplored'
+          className='InheritanceCard__Cover'
+          height='10em'
+        />
+      )}
+      <Card
+        className='InheritanceCard'
+        title={
+          settings.appearance.showImagery
+            ? undefined
+            : t('new_character.inheritance_section')
+        }>
         <Form.Item
           name='inheritFromCharacterId'
           label={t('new_character.inheritance_select_label')}>

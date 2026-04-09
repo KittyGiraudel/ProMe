@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl'
 import { CardCover } from '@/components/CardCover/CardCover'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { PossibleBiomeId, TranslationKey } from '@/lib/types'
 
 export function MapCover({
@@ -10,6 +11,11 @@ export function MapCover({
   isCore: boolean
 }) {
   const t = useTranslations()
+  const { settings } = useSettings()
+
+  if (!settings.appearance.showImagery) {
+    return null
+  }
 
   if (isCore) {
     return (

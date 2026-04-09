@@ -563,6 +563,8 @@
     "app_theme_dark": "Sombre",
     "app_theme_label": "Thème",
     "app_theme_light": "Clair",
+    "show_imagery_label": "Illustrations décoratives",
+    "show_imagery_help": "Affiche les illustrations et images décoratives dans l'application. Désactiver cette option évite de télécharger les images.",
     "adaptive_appearance_theme_help": "Remplace le thème de l’application pour la feuille de protecteur. Bascule automatiquement vers le mode sombre la nuit et vers le mode clair de jour, selon la valeur de l’horloge.",
     "adaptive_appearance_theme_label": "Thème adaptatif",
     "journal_timeline_reverse_chronological_help": "Par défault, le journal est chronologique ; décochez pour afficher les entrées du plus récent au plus ancien.",

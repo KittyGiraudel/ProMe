@@ -39,6 +39,8 @@ export type AppSettings = {
   appearance: {
     /** Controls the theme (light or dark mode). Defaults to 'light'. */
     theme: AppTheme
+    /** When true, imagery (illustrations, artwork) is displayed throughout the app. Defaults to true. */
+    showImagery: boolean
   }
 }
 

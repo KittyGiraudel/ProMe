@@ -89,4 +89,15 @@ describe('settings/model', () => {
       normalizeSettings({ appearance: { theme: 'midnight' } }).appearance.theme
     ).toBe('light')
   })
+
+  it('defaults appearance.showImagery to true', () => {
+    expect(normalizeSettings(undefined).appearance.showImagery).toBe(true)
+  })
+
+  it('keeps appearance.showImagery when false', () => {
+    expect(
+      normalizeSettings({ appearance: { showImagery: false } }).appearance
+        .showImagery
+    ).toBe(false)
+  })
 })

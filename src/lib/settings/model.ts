@@ -24,6 +24,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   },
   appearance: {
     theme: 'light',
+    showImagery: true,
   },
 }
 
@@ -71,6 +72,7 @@ export function normalizeSettings(value: unknown): AppSettings {
       )
         ? (source!.appearance!.theme as AppTheme)
         : 'light',
+      showImagery: source?.appearance?.showImagery !== false,
     },
   }
 }

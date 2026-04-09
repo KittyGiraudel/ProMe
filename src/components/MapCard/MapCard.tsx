@@ -1,6 +1,7 @@
 'use client'
 
 import { Card, Form } from 'antd'
+import { useTranslations } from 'next-intl'
 import { useEffect } from 'react'
 import { BrowserWarning } from '@/components/BrowserWarning/BrowserWarning'
 import { EncountersButton } from '@/components/EncountersList/EncountersButton'
@@ -14,6 +15,7 @@ import { useMapSheet } from '@/components/MapDisplay/useMapSheet'
 import { useMapState } from '@/components/MapDisplay/useMapState'
 import { MapSheetNavigation } from '@/components/MapSheetNavigation/MapSheetNavigation'
 import { useHash } from '@/components/Navigation/useHash'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { SettingsHint } from '@/components/SettingsHint/SettingsHint'
 import { Spacing } from '@/components/Spacing/Spacing'
 import {
@@ -22,6 +24,8 @@ import {
 } from '@/lib/map/coordinates'
 
 export function MapCard({ isDead }: { isDead: boolean }) {
+  const { settings } = useSettings()
+  const t = useTranslations()
   const { selectedCell, setSelectedCell, toggleSelectCell } = useCellSelection()
   const {
     mapState: { currentPosition },
@@ -46,6 +50,11 @@ export function MapCard({ isDead }: { isDead: boolean }) {
     <>
       <MapCover biome={currentBiome} isCore={isCore} />
       <Card
+        title={
+          settings.appearance.showImagery
+            ? undefined
+            : t('characters.map.title')
+        }
         actions={[
           <EncountersButton key='encounters' currentBiome={currentBiome} />,
           <GatheringButton key='gathering' currentBiome={currentBiome} />,

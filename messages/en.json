@@ -566,6 +566,8 @@
     "app_theme_dark": "Dark",
     "app_theme_label": "Theme",
     "app_theme_light": "Light",
+    "show_imagery_label": "Decorative imagery",
+    "show_imagery_help": "Displays illustrations and decorative images throughout the app. Disabling this option avoids downloading images.",
     "adaptive_appearance_theme_help": "Overrides the app theme for the character sheet. Automatically switches to dark mode at night and light mode during the day based on the clock value.",
     "adaptive_appearance_theme_label": "Adaptive theme",
     "journal_timeline_reverse_chronological_help": "By default, the journal is chronological; uncheck to display entries from newest to oldest.",

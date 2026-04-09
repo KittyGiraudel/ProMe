@@ -22,6 +22,7 @@ import { useSettings } from './SettingsContext'
 
 type SettingsFormValues = {
   appTheme: AppTheme
+  showImagery: boolean
   adaptiveAppearanceTheme: boolean
   timelineReverseChronological: boolean
   journalCreateEntryOnMove: boolean
@@ -50,6 +51,7 @@ export function Settings() {
 
   const initialValues: SettingsFormValues = {
     appTheme: settings.appearance.theme,
+    showImagery: settings.appearance.showImagery,
     adaptiveAppearanceTheme: settings.sheet.adaptiveAppearanceTheme,
     timelineReverseChronological: settings.journal.timelineReverseChronological,
     journalCreateEntryOnMove: settings.journal.createEntryOnMove,
@@ -67,6 +69,7 @@ export function Settings() {
     updateSettings(() => DEFAULT_SETTINGS)
     form.setFieldsValue({
       appTheme: DEFAULT_SETTINGS.appearance.theme,
+      showImagery: DEFAULT_SETTINGS.appearance.showImagery,
       adaptiveAppearanceTheme: DEFAULT_SETTINGS.sheet.adaptiveAppearanceTheme,
       timelineReverseChronological:
         DEFAULT_SETTINGS.journal.timelineReverseChronological,
@@ -88,6 +91,7 @@ export function Settings() {
       appearance: {
         ...prev.appearance,
         theme: allValues.appTheme ?? 'light',
+        showImagery: allValues.showImagery !== false,
       },
       sheet: {
         ...prev.sheet,
@@ -155,6 +159,13 @@ export function Settings() {
                       },
                     ]}
                   />
+                </Form.Item>
+                <Form.Item
+                  name='showImagery'
+                  valuePropName='checked'
+                  extra={t('settings.show_imagery_help')}
+                  style={{ marginBottom: 0, marginTop: '1em' }}>
+                  <Checkbox>{t('settings.show_imagery_label')}</Checkbox>
                 </Form.Item>
               </Card>
             </Col>
