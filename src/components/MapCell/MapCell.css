@@ -57,10 +57,15 @@
  * 2. Because the selected cell uses an *outer* ring, make sure it is on top of
  *    the other cells.
  */
-.MapCell[data-selected="true"] {
+.MapCell[data-selected="true"],
+.MapCell:focus-within {
   outline: 3px solid #722ed1; /* 1 */
   outline-offset: 3px; /* 1 */
   z-index: 2; /* 2 */
+
+  & .MapCell__Button {
+    outline: none;
+  }
 }
 
 /**
@@ -158,9 +163,6 @@
 } /* 1 */
 .MapCell__Button:not(:disabled):hover {
   transform: scale(1.15);
-} /* 1 */
-.MapCell__Button:not(:disabled):focus-visible {
-  outline: none;
 } /* 1 */
 
 .MapCell.Pattern[data-biome="fieldSea"] {
