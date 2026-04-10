@@ -12,6 +12,7 @@ import {
 } from 'antd'
 import { AppConfig, useLocale, useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
+import { useModifierKey } from '@/hooks/useModifierKey'
 import { usePathname, useRouter } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
 import { DEFAULT_SETTINGS } from '@/lib/settings/model'
@@ -39,6 +40,7 @@ type SettingsFormValues = {
 export function Settings() {
   const [form] = Form.useForm<SettingsFormValues>()
   const { settings, updateSettings } = useSettings()
+  const modifier = useModifierKey()
   const t = useTranslations()
   const locale = useLocale()
   const router = useRouter()
@@ -352,7 +354,7 @@ export function Settings() {
             <Form.Item
               name='shortcutsEnabled'
               valuePropName='checked'
-              extra={t('settings.shortcuts_enabled_help')}
+              extra={t('settings.shortcuts_enabled_help', { modifier })}
               style={{ marginBottom: 0 }}>
               <Checkbox>{t('settings.shortcuts_enabled_label')}</Checkbox>
             </Form.Item>

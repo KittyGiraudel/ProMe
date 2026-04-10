@@ -352,3 +352,23 @@ html:has([role="dialog"]) {
 .ant-alert-warning .ant-alert-icon {
   color: light-dark(#9a7020, #c0a040);
 }
+
+@supports (corner-shape: squircle) {
+  .ant-card,
+  .ant-collapse,
+  .ant-alert,
+  .CardCover {
+    --ant-border-radius-lg: 2em !important;
+  }
+
+  .ant-card,
+  .ant-collapse,
+  .ant-alert,
+  .CardCover {
+    corner-shape: squircle;
+  }
+
+  .ant-card > * {
+    corner-shape: inherit;
+  }
+}
