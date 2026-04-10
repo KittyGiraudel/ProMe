@@ -26,6 +26,9 @@ export const DEFAULT_SETTINGS: AppSettings = {
     theme: 'light',
     showImagery: true,
   },
+  shortcuts: {
+    enabled: true,
+  },
 }
 
 export function normalizeSettings(value: unknown): AppSettings {
@@ -73,6 +76,9 @@ export function normalizeSettings(value: unknown): AppSettings {
         ? (source!.appearance!.theme as AppTheme)
         : 'light',
       showImagery: source?.appearance?.showImagery !== false,
+    },
+    shortcuts: {
+      enabled: source?.shortcuts?.enabled !== false,
     },
   }
 }

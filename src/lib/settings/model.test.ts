@@ -100,4 +100,14 @@ describe('settings/model', () => {
         .showImagery
     ).toBe(false)
   })
+
+  it('defaults shortcuts.enabled to true', () => {
+    expect(normalizeSettings(undefined).shortcuts.enabled).toBe(true)
+  })
+
+  it('keeps shortcuts.enabled when false', () => {
+    expect(
+      normalizeSettings({ shortcuts: { enabled: false } }).shortcuts.enabled
+    ).toBe(false)
+  })
 })
