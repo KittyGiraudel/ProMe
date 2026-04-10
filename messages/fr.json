@@ -609,6 +609,9 @@
     "title": "Paramètres",
     "village_merge_duplicate_establishments_help": "Fusionne les établissements de village identiques en plus gros établissements (petit + petit → grande, etc.).",
     "village_merge_duplicate_establishments_label": "Regroupement des doublons d’établissements",
+    "section_shortcuts": "Raccourcis clavier",
+    "shortcuts_enabled_label": "Activer les raccourcis clavier",
+    "shortcuts_enabled_help": "Active les raccourcis clavier globaux : Cmd+S (sauvegarder), Cmd+R (lancer les dés), Cmd+D (tirer une carte), Cmd+M (activer/désactiver la musique), Cmd+C/V (copier/coller une cellule de carte).",
     "hints": {
       "map": "Vous pouvez personnaliser certaines fonctionalités de la carte dans les <link>Paramètres</link>.",
       "journal": "Vous pouvez personnaliser certaines fonctionalités du journal dans les <link>Paramètres</link>.",

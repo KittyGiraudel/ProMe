@@ -612,6 +612,9 @@
     "title": "Settings",
     "village_merge_duplicate_establishments_help": "Merges duplicate village establishments into larger ones (small + small → large, etc.).",
     "village_merge_duplicate_establishments_label": "Merge duplicate establishments",
+    "section_shortcuts": "Keyboard Shortcuts",
+    "shortcuts_enabled_label": "Enable keyboard shortcuts",
+    "shortcuts_enabled_help": "Enables global keyboard shortcuts: Cmd+S (save), Cmd+R (dice roll), Cmd+D (card draw), Cmd+M (toggle music), Cmd+C/V (copy/paste map cell).",
     "hints": {
       "map": "You can customize certain map features in <link>Settings</link>.",
       "journal": "You can customize certain journal features in <link>Settings</link>.",
