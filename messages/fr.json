@@ -445,14 +445,12 @@
     "answer_4": "Les rencontres ne sont pas vraiment implémentées. La table de rencontres est disponible près de la carte, mais il est nécessaire de se référer au livre de règles pour effectuer la majorité des rencontres.\nDe plus, le stock des boutiques n’est pas implémenté non plus. Cela signifie qu’à la création d’une village, il est nécessaire de définir les offres manuellement, puis de les noter dans le journal pour y revenir plus tard.",
     "answer_5": "Le module de cartographie utilise des fonctionnalités de styles (CSS) modernes qui ne sont pas encore bien supportées par les navigateurs. C’est pourquoi il est préférable d’utiliser le navigateur Chrome, car c’est celui que j’utilise pour le dévelopement. Quant à pourquoi je n’ai pas étendu le support à d’autres navigateurs : créer une grille d’hexagones est compliqué ; j’avais le choix entre utiliser des technologies modernes pour garder les choses simples, ou développer tout le système de carte avec HTML Canvas, ce que je ne voulais pas faire.",
     "answer_6": "Qu’on soit d’accord ou non, le jeu n’a pas de concept de genre donc tous les personnages — jouables ou non — sont sans genre. J’ai trouvé intéressant et plus immersif de pouvoir définir le genre des personnages. C’est complètement optionnel, et j’ai rendu les choses permissives avec plusieurs options.",
-    "answer_7": "Vous pouvez utiliser les raccourcis clavier suivants :\n- `Ctrl + S` : Sauvegarde la feuille de protecteur.\n- `Ctrl + R` : Lance un dé.\n- `Ctrl + D` : Tire une carte.\n- `Ctrl + M` : Active ou désactive le son.\n- `Ctrl + C` : Copie la case de la carte sélectionnée.\n- `Ctrl + V` : Colle la case de la carte sélectionnée.",
     "question_1": "Qu’est-ce que ce site ?",
     "question_2": "Comment utiliser le site ?",
     "question_3": "Est-ce utilisable sur mobile ?",
     "question_4": "Que manque-t-il dans le site ?",
     "question_5": "Pourquoi la carte est-elle cassée ?",
     "question_6": "Pourquoi y a-t-il un système de genre ?",
-    "question_7": "Quels sont les raccourcis clavier disponibles ?",
     "title": "Frequently Asked Questions"
   },
   "footer": {

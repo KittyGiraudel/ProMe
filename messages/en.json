@@ -447,14 +447,12 @@
     "answer_4": "Encounters are not really implemented. The encounters table is available near the map, but it is necessary to refer to the rulebook to perform most encounters.\nIn addition, the stock of shops is not implemented either. This means that when creating a village, it is necessary to define the offers manually, then note them in the journal to return to them later.",
     "answer_5": "The mapping module uses modern CSS features that are not yet well supported by all browsers. That’s why it’s best to use the Chrome browser, as it’s the one I use for development. As for why I didn’t extend support to other browsers: creating a hexagonal grid is complicated; I had to choose between using modern tech to keep things simple, or developing the entire map system with HTML Canvas, which I didn’t want to do.",
     "answer_6": "For better or for worse, the game doesn’t have any concept of gender, so all characters — playable or not — are genderless. I thought it would be interesting and more immersive to have the ability to define the gender of the characters. It’s completely optional, and it’s permissive on purpose with multiple options.",
-    "answer_7": "You can use the following keyboard shortcuts :\n- `Ctrl + S` : Save the protector sheet.\n- `Ctrl + R` : Roll a die.\n- `Ctrl + D` : Draw a card.\n- `Ctrl + M` : Enable or disable the sound.\n- `Ctrl + C` : Copy the selected map cell.\n- `Ctrl + V` : Paste the selected map cell.",
     "question_1": "What is this site?",
     "question_2": "How to use the site?",
     "question_3": "Is it usable on mobile?",
     "question_4": "What is missing from the site?",
     "question_5": "Why is the map broken?",
     "question_6": "What’s with the gender thing?",
-    "question_7": "What are the keyboard shortcuts available?",
     "title": "Frequently Asked Questions"
   },
   "footer": {
