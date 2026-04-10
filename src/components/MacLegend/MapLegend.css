@@ -12,7 +12,7 @@
 .MapLegend li:has([data-biome="fieldSea"]) {
   --pattern-size: 20px;
 }
-.MapLegend li:has([data-biome="giganticGardens"]) {
+.MapLegend li:has([data-biome="titanGardens"]) {
   --pattern-size: 15px;
 }
 .MapLegend li:has([data-biome="shadowForest"]) {

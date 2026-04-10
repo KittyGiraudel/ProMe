@@ -58,7 +58,7 @@
   opacity: 0.5;
 }
 
-.Banner[data-biome="giganticGardens"] .Banner__background {
+.Banner[data-biome="titanGardens"] .Banner__background {
   --pattern-size: 80px;
 }
 .Banner[data-biome="floodedPlains"] .Banner__background {

@@ -84,10 +84,10 @@ a {
   --biome-silentDesert-light-contrast: #262626;
   --biome-silentDesert-dark-contrast: #ffffff;
 
-  --biome-giganticGardens-light: #ffb3a7;
-  --biome-giganticGardens-dark: #a64b3c;
-  --biome-giganticGardens-light-contrast: #262626;
-  --biome-giganticGardens-dark-contrast: #ffffff;
+  --biome-titanGardens-light: #ffb3a7;
+  --biome-titanGardens-dark: #a64b3c;
+  --biome-titanGardens-light-contrast: #262626;
+  --biome-titanGardens-dark-contrast: #ffffff;
 }
 
 [data-biome="unexplored"] {
@@ -144,11 +144,11 @@ a {
   --biome-light-contrast: var(--biome-silentDesert-light-contrast);
 }
 
-[data-biome="giganticGardens"] {
-  --biome-light: var(--biome-giganticGardens-light);
-  --biome-dark: var(--biome-giganticGardens-dark);
-  --biome-dark-contrast: var(--biome-giganticGardens-dark-contrast);
-  --biome-light-contrast: var(--biome-giganticGardens-light-contrast);
+[data-biome="titanGardens"] {
+  --biome-light: var(--biome-titanGardens-light);
+  --biome-dark: var(--biome-titanGardens-dark);
+  --biome-dark-contrast: var(--biome-titanGardens-dark-contrast);
+  --biome-light-contrast: var(--biome-titanGardens-light-contrast);
 }
 
 .ant-form-item-explain-success {
@@ -181,8 +181,8 @@ html:has([role="dialog"]) {
     0 0 / var(--pattern-size) var(--pattern-size);
 }
 
-[data-biome="giganticGardens"] .Pattern,
-.Pattern[data-biome="giganticGardens"] {
+[data-biome="titanGardens"] .Pattern,
+.Pattern[data-biome="titanGardens"] {
   --c1: rgb(226 162 150);
   --c2: rgb(244 182 170);
 

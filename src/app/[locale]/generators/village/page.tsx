@@ -21,7 +21,7 @@ function VillageGeneratorFallback() {
   return (
     <Layout
       title={t('village.title')}
-      bannerBiome='giganticGardens'
+      bannerBiome='titanGardens'
       breadcrumbs={[
         { title: t('nav.home'), path: '/' },
         { title: t('nav.village_generator'), path: '/generators/village' },

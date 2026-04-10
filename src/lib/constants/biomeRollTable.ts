@@ -15,5 +15,5 @@ export const BIOME_ROLL_TABLE: readonly BiomeRollEntry[] = [
   { biome: 'mushroomJungle', tileCount: 2 },
   { biome: 'fieldSea', tileCount: 3 },
   { biome: 'silentDesert', tileCount: 2 },
-  { biome: 'giganticGardens', tileCount: 3 },
+  { biome: 'titanGardens', tileCount: 3 },
 ] as const

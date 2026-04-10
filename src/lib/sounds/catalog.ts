@@ -80,7 +80,7 @@ const CATALOG: Record<BiomeId, [TrackEntry, TrackEntry]> = {
       hasAmbiance: true,
     },
   ],
-  giganticGardens: [
+  titanGardens: [
     {
       file: '423_Magical_Flora',
       name: 'Magical Flora',

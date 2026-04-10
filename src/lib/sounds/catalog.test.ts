@@ -102,8 +102,8 @@ describe('getTracksForBiome', () => {
     expect(tracks[1].file).toBe('361_Ancient_Beacon')
   })
 
-  it('returns [TrackEntry, TrackEntry] for giganticGardens', () => {
-    const tracks = getTracksForBiome('giganticGardens')
+  it('returns [TrackEntry, TrackEntry] for titanGardens', () => {
+    const tracks = getTracksForBiome('titanGardens')
     expect(tracks).toHaveLength(2)
     expect(tracks[0].file).toBe('423_Magical_Flora')
     expect(tracks[1].file).toBe('275_Lorekeeper_Grove')
@@ -161,7 +161,7 @@ describe('pickRandomTrack', () => {
   })
 
   it('returns a TrackEntry with required fields', () => {
-    const picked = pickRandomTrack('giganticGardens')
+    const picked = pickRandomTrack('titanGardens')
     expect(picked).toHaveProperty('file')
     expect(picked).toHaveProperty('name')
     expect(picked).toHaveProperty('hasMusic')

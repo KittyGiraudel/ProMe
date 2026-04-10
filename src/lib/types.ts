@@ -6,7 +6,7 @@ export type BiomeId =
   | 'mushroomJungle'
   | 'fieldSea'
   | 'silentDesert'
-  | 'giganticGardens'
+  | 'titanGardens'
 
 export type PossibleBiomeId = BiomeId | 'unexplored'
 

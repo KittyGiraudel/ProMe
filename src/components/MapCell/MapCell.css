@@ -166,7 +166,7 @@
 .MapCell.Pattern[data-biome="fieldSea"] {
   --pattern-size: 30px;
 }
-.MapCell.Pattern[data-biome="giganticGardens"] {
+.MapCell.Pattern[data-biome="titanGardens"] {
   --pattern-size: 40px;
 }
 .MapCell.Pattern[data-biome="shadowForest"] {

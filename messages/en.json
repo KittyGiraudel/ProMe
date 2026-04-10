@@ -92,7 +92,7 @@
       "location_mushroomJungle": "You are currently trekking through a <b>mushroom jungle</b>.",
       "location_fieldSea": "You are currently traversing a <b>sea of fields</b>.",
       "location_silentDesert": "You are currently straying into a <b>silent desert</b>.",
-      "location_giganticGardens": "You are currently meandering through a <b>gigantic garden</b>."
+      "location_titanGardens": "You are currently meandering through a <b>Titan garden</b>."
     },
     "inventory": {
       "add_item": "Add item",
@@ -328,8 +328,8 @@
       "fieldSea_description": "The wind picks up and begins to blow harder. The soothing rustling of the grass mingles with the chirping of crickets in a calm melody. The sun, reflecting off the vast green field, makes you think for a moment of an endless golden carpet unfolding before you. The verdant trees, bent by the wind, and the numerous patches of wild vegetables reveal a fertile land like few others.",
       "silentDesert": "Silent Desert",
       "silentDesert_description": "The air begins to dry and crisp. The wind seems driven by the sun itself. The horizon distorts with the heat, while vast plateaus of reddish earth, dotted with small cylindrical cacti, populate the landscape before your eyes. You are enveloped in absolute silence and calm.",
-      "giganticGardens": "Gigantic Gardens",
-      "giganticGardens_description": "An avalanche of color envelops you. Petals float in the air, and the stems of giant plants line the road. A garden as vast as the horizon unfolds before you. Lilies, sunflowers, roses, daisies, and countless other dazzling blooms reach for the sky, gazing down upon every traveler who passes through their domain.",
+      "titanGardens": "Titan Gardens",
+      "titanGardens_description": "An avalanche of color envelops you. Petals float in the air, and the stems of giant plants line the road. A garden as vast as the horizon unfolds before you. Lilies, sunflowers, roses, daisies, and countless other dazzling blooms reach for the sky, gazing down upon every traveler who passes through their domain.",
       "core": "The Core"
     },
     "suits": {
@@ -382,7 +382,7 @@
         "3|4": "**You encounter a Kiore.** *To learn more, consult page 34. Go to page 57 if you want to define the Kiore's personality.\nIf you return here, the Kiore will no longer be there.*",
         "5|6": "**You encounter a Desert Scarab.** *To learn more, read page 37.* Draw a card to discover what type of Scarab you have encountered.\n- ♦ A **peaceful** Scarab.\n- ♥ An **aggressive** Scarab.\n- ♠♣ A **flipped** Scarab."
       },
-      "giganticGardens": {
+      "titanGardens": {
         "1": "**You face a swarm of giant bees.** They rush towards you to attack, and you must either fight or flee.\n*The next time you pass through this cell, this event repeats.*",
         "2|3": "**You discover a garden of normal-sized Lareons.** *To learn more, see page 41.* Draw a card to discover the type of flowers that grow in this garden.\n- ♥♦ **Red** Lareons.\n- ♠♣ **Yellow** Lareons.",
         "4": "**You discover a field of golden petals.** Draw a card from the deck to discover what type of flowers you have found.\n*In both cases, nothing will grow here again after your passage.*\n- ♥♦ Golden petals — can be harvested and sold for 100 coins.\n- ♠♣ Golden shoots — can be harvested as 1D6 food.",
@@ -428,15 +428,15 @@
         "6": "One of the above choices",
         "hint": "For collecting resources in the Silent Desert, you can use a Pickaxe. To use it, remove 1 durability point from it, then choose the item of your choice from the gathering table above. Otherwise, successfully pass a Courage Test to do without the necessary equipment."
       },
-      "giganticGardens": {
+      "titanGardens": {
         "1": "A Garden of Lareons",
         "2": "100 coins",
         "3": "1,000 coins",
         "4": "A Residence (page 57)",
         "5": "Ruins (page 63)",
         "6": "Any item",
-        "warn": "Gathering in the Gigantic Gardens requires finding and reaching the garden on the back of a luxurious whale (see page 40).",
-        "warning": "Gathering in the Gigantic Gardens requires finding and reaching the garden on the back of a luxurious whale (see page 40)."
+        "warn": "Gathering in the Titan Gardens requires finding and reaching the garden on the back of a luxurious whale (see page 40).",
+        "warning": "Gathering in the Titan Gardens requires finding and reaching the garden on the back of a luxurious whale (see page 40)."
       }
     }
   },

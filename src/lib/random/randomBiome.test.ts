@@ -10,7 +10,7 @@ describe('getRandomBiomeResult', () => {
     expect(fromValue(0.4).biome).toBe('mushroomJungle')
     expect(fromValue(0.6).biome).toBe('fieldSea')
     expect(fromValue(0.8).biome).toBe('silentDesert')
-    expect(fromValue(0.99).biome).toBe('giganticGardens')
+    expect(fromValue(0.99).biome).toBe('titanGardens')
   })
 
   it('returns the additional tile count guidance', () => {

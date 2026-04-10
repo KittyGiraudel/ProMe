@@ -49,7 +49,7 @@ export const GATHERING_SCHEMA: Record<BiomeId, BiomeGathering | null> = {
     '5': { type: 'collectible', regex: ITEM_REGEX },
     '6': { type: 'choice' },
   },
-  giganticGardens: {
+  titanGardens: {
     '1': { type: 'none' },
     '2': { type: 'money', regex: ITEM_REGEX },
     '3': { type: 'money', regex: ITEM_REGEX_WITH_COMMA },

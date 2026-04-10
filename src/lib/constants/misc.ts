@@ -53,7 +53,7 @@ export const BIOME_IDS: readonly BiomeId[] = [
   'mushroomJungle',
   'fieldSea',
   'silentDesert',
-  'giganticGardens',
+  'titanGardens',
 ] as const
 
 export const ARCHETYPES: readonly Archetype[] = [

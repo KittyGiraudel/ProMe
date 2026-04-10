@@ -92,7 +92,7 @@
       "location_mushroomJungle": "Vous arpentez actuellement une <b>jungle de champignons</b>.",
       "location_fieldSea": "Vous traversez actuellement une <b>mer champêtre</b>.",
       "location_silentDesert": "Vous errez actuellement dans le <b>désert silencieux</b>.",
-      "location_giganticGardens": "Vous flânez actuellement dans un <b>jardin titanesque</b>."
+      "location_titanGardens": "Vous flânez actuellement dans un <b>jardin titanesque</b>."
     },
     "inventory": {
       "add_item": "Ajouter un objet",
@@ -328,8 +328,8 @@
       "fieldSea_description": "Le vent se lève et se met à souffler plus fort. Le bruissement reposant de l'herbe se mêle au chant des grillons dans une calme mélodie. Le soleil qui se reflète dans l'immensité du champ vert vous fait penser l'espace d'un instant à un tapis d’or infini qui se déroule devant vous. Les arbres verdoyants, courbés par le vent et les nombreuses parcelles de légumes sauvages révèlent une terre fertile comme il en existe peu.",
       "silentDesert": "Désert silencieux",
       "silentDesert_description": "L’air commence à s’assécher et à devenir vif. Le vent semble poussé par le soleil lui-même. L’horizon se déforme avec la chaleur, tandis que de grands plateaux de terre rougeâtre, parsemés de petits cactus cylindriques, peuplent le paysage devant vos yeux. Vous êtes au coeur d’un silence et d’un calme absolu.",
-      "giganticGardens": "Jardins titanesques",
-      "giganticGardens_description": "Une avalanche de couleurs s’empare de vous. Des pétales flottent dans l’air et les tiges de plantes géantes longent la route. Un jardin aussi vaste que l’horizon se dresse devant vous. Lys, tournesols, roses, marguerites et autres innombrables fleurs éblouissantes montent jusqu’au ciel, contemplant chaque voyageur qui traverse leur domaine.",
+      "titanGardens": "Jardins titanesques",
+      "titanGardens_description": "Une avalanche de couleurs s’empare de vous. Des pétales flottent dans l’air et les tiges de plantes géantes longent la route. Un jardin aussi vaste que l’horizon se dresse devant vous. Lys, tournesols, roses, marguerites et autres innombrables fleurs éblouissantes montent jusqu’au ciel, contemplant chaque voyageur qui traverse leur domaine.",
       "core": "Le Noyau"
     },
     "suits": {
@@ -382,7 +382,7 @@
         "3|4": "**Vous rencontrez un Kiore.** *Pour en savoir plus, consultez la page 34.\nAllez à la page 57 si vous voulez [définir la personnalité](/fr/generators/npc) du Kiore.\nSi vous revenez ici, le Kiore ne sera plus là.*",
         "5|6": "**Vous rencontrez un Scarabée du désert.** *Pour en savoir plus, lisez la page 37.*\nTirez une carte pour découvrir quel type de Scarabée vous avez rencontré.\n- ♦ Un Scarabée **paisible**.\n- ♥ Un Scarabée **agressif**.\n- ♠♣ Un Scarabée **retourné**."
       },
-      "giganticGardens": {
+      "titanGardens": {
         "1": "**Vous faites face à un essaim d’abeilles géantes.** Elles foncent vers vous pour attaquer, et vous devez soit les combattre soit fuir.\n*La prochaine fois que vous passez dans cette case, cet événement se répète.*",
         "2|3": "**Vous découvrez un jardin de Laréons de taille normale.** *Pour en savoir plus, voir page 41.*\nPiochez une carte pour découvrir le type de fleurs qui pousse en ce jardin.\n- ♥♦ Des Laérons **rouges**.\n- ♠♣ Des Laérons **jaunes**.",
         "4": "**Vous découvrez un champ de pétales d’or.** Tirez une carte de la pioche pour découvrir quel type de fleurs vous avez trouvé. *Dans les deux cas, plus rien ne poussera ici après votre passage.*\n- ♥♦ Des pétales d’or — peuvent être récoltés et vendus pour 100 pièces.\n- ♠♣ Des pousses d’or — peuvent être récoltées comme 1D6 nourriture.",
@@ -427,7 +427,7 @@
         "6": "L’un des choix ci-dessus",
         "hint": "Pour collecter des ressources dans le Désert Silencieux, vous pouvez vous aider d’une Pioche. Pour l’utiliser, ôtez-lui 1 point de durabilité dans puis choisissez l’objet de votre choix dans la table de collecte ci-dessus. Sinon, effectuez un Test de Courage avec succès pour vous passer de l’équipement nécessaire."
       },
-      "giganticGardens": {
+      "titanGardens": {
         "1": "Un Jardin de Laréons (page 40)",
         "2": "100 pièces",
         "3": "1 000 pièces",
