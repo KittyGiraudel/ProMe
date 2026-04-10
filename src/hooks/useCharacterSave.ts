@@ -2,7 +2,7 @@
 
 import { App, FormInstance } from 'antd'
 import { useTranslations } from 'next-intl'
-import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { getCharacterStore } from '@/lib/character/store'
 import {
   SaveError,
@@ -30,7 +30,7 @@ export function useCharacterSave({
 }: {
   form: FormInstance
   character: Character | null
-  onSave: Dispatch<SetStateAction<Character | null>>
+  onSave: () => void
 }) {
   const t = useTranslations()
   const { message } = App.useApp()
@@ -51,7 +51,7 @@ export function useCharacterSave({
         const saved = store.save(character)
 
         // Fire the save callback to let the call site know
-        onSave(saved)
+        onSave()
 
         // Display a successful message
         message.success(t(successKey))

@@ -7,8 +7,7 @@ import { Button } from '@/components/Button/Button'
 import { Layout } from '@/components/Layout/Layout'
 import { Spacing } from '@/components/Spacing/Spacing'
 import { useCharacterLibraryActions } from '@/hooks/useCharacterLibraryActions'
-import { useCharacters } from '@/hooks/useCharacters'
-import { useHydration } from '@/hooks/useHydration'
+import { useCharactersQuery } from '@/hooks/useCharactersQuery'
 import { Link } from '@/i18n/navigation'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
 
@@ -16,8 +15,8 @@ export function CharacterLibrary() {
   const t = useTranslations()
   const format = useFormatter()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
-  const characters = useCharacters()
-  const hydrated = useHydration()
+  const { data, loading } = useCharactersQuery()
+  const characters = data ?? []
 
   const { handleImportFile } = useCharacterLibraryActions()
   const handleImportClick = useCallback(() => fileInputRef.current?.click(), [])
@@ -45,7 +44,7 @@ export function CharacterLibrary() {
         onChange={handleImportFile}
       />
 
-      {!hydrated ? (
+      {loading ? (
         <Card>
           <Skeleton active />
         </Card>

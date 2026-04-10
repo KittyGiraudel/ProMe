@@ -1,10 +1,9 @@
 'use client'
 
 import { Form } from 'antd'
-import { useEffect, useMemo, useState } from 'react'
-import { getCharacterStore } from '@/lib/character/store'
+import { useMemo } from 'react'
 import { SheetFormValues } from '@/lib/character/toFormValues'
-import type { Character } from '@/lib/character/types'
+import { useCharacterQuery } from './useCharacterQuery'
 import { useCharacterSave } from './useCharacterSave'
 import { useCharacterSaveGuard } from './useCharacterSaveGuard'
 
@@ -14,25 +13,16 @@ export function useCharacterSheetForm({
   characterId: string
 }) {
   const [form] = Form.useForm<SheetFormValues>()
-  const [character, setCharacter] = useState<Character | null>(null)
-  const [hydratedFromStore, setHydratedFromStore] = useState(false)
+  const {
+    data: character,
+    loading,
+    refetch,
+  } = useCharacterQuery({ id: characterId })
   const { saveForm, validationErrors } = useCharacterSave({
     character,
     form,
-    onSave: setCharacter,
+    onSave: refetch,
   })
-
-  useEffect(
-    function hydrateCharacterFromStorage() {
-      void Promise.resolve().then(() => {
-        setHydratedFromStore(false)
-        const saved = getCharacterStore().get(characterId)
-        setCharacter(saved ?? null)
-        setHydratedFromStore(true)
-      })
-    },
-    [characterId]
-  )
 
   useCharacterSaveGuard({ form, character })
 
@@ -40,10 +30,10 @@ export function useCharacterSheetForm({
     () => ({
       form,
       character,
-      hydratedFromStore,
+      hydratedFromStore: !loading,
       saveForm,
       validationErrors,
     }),
-    [form, character, hydratedFromStore, saveForm, validationErrors]
+    [form, character, loading, saveForm, validationErrors]
   )
 }
