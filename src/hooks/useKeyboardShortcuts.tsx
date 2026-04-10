@@ -11,13 +11,14 @@ export function useKeyboardShortcuts({
   form: FormInstance
   isDead: boolean
 }) {
-  const { updateSettings } = useSettings()
+  const { settings, updateSettings } = useSettings()
   const openDiceRollNotification = useDiceRollNotification()
   const openCardDrawNotification = useCardDrawNotification()
 
   useEffect(
     function bindDOMListeners() {
       const handleKeyDown = (e: KeyboardEvent) => {
+        if (!settings.shortcuts.enabled) return
         const isMeta = e.metaKey || e.ctrlKey
 
         if (isMeta && e.key === 's') {
@@ -53,6 +54,7 @@ export function useKeyboardShortcuts({
       openDiceRollNotification,
       openCardDrawNotification,
       updateSettings,
+      settings,
     ]
   )
 }
