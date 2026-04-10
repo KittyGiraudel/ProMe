@@ -19,7 +19,7 @@ export function CardCover({
   return (
     <div
       {...rest}
-      tabIndex={0}
+      tabIndex={description ? 0 : undefined}
       className={['CardCover', rest.className].filter(Boolean).join(' ')}
       style={
         { '--height': height, '--image': `url(${url})` } as React.CSSProperties
