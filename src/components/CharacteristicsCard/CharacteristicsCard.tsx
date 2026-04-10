@@ -148,6 +148,7 @@ export function CharacteristicsCard({
                     data-current={current}
                     data-max={max}
                     size='small'
+                    aria-label={`${label} ${current}/${max}`}
                     format={percent => `${percent?.toFixed(2) ?? 0}%`}
                     status={
                       current <= 1
