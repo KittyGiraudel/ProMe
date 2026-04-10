@@ -33,6 +33,7 @@ type SettingsFormValues = {
   mapStyle: 'flat' | 'tilted' | 'tilting-on-hover'
   soundEnabled: boolean
   soundVariant: 'mix' | 'music' | 'ambiance'
+  shortcutsEnabled: boolean
 }
 
 export function Settings() {
@@ -63,6 +64,7 @@ export function Settings() {
     mapStyle: settings.map.style,
     soundEnabled: settings.sound.enabled,
     soundVariant: settings.sound.variant,
+    shortcutsEnabled: settings.shortcuts.enabled,
   }
 
   const handleReset = () => {
@@ -82,6 +84,7 @@ export function Settings() {
       mapStyle: DEFAULT_SETTINGS.map.style,
       soundEnabled: DEFAULT_SETTINGS.sound.enabled,
       soundVariant: DEFAULT_SETTINGS.sound.variant,
+      shortcutsEnabled: DEFAULT_SETTINGS.shortcuts.enabled,
     })
   }
 
@@ -119,6 +122,10 @@ export function Settings() {
         ...prev.sound,
         enabled: allValues.soundEnabled === true,
         variant: allValues.soundVariant ?? 'mix',
+      },
+      shortcuts: {
+        ...prev.shortcuts,
+        enabled: allValues.shortcutsEnabled !== false,
       },
     }))
   }
@@ -339,6 +346,15 @@ export function Settings() {
               <Checkbox>
                 {t('settings.village_merge_duplicate_establishments_label')}
               </Checkbox>
+            </Form.Item>
+          </Card>
+          <Card title={t('settings.section_shortcuts')}>
+            <Form.Item
+              name='shortcutsEnabled'
+              valuePropName='checked'
+              extra={t('settings.shortcuts_enabled_help')}
+              style={{ marginBottom: 0 }}>
+              <Checkbox>{t('settings.shortcuts_enabled_label')}</Checkbox>
             </Form.Item>
           </Card>
         </Spacing>
