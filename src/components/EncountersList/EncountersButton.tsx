@@ -1,10 +1,15 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { Button } from '@/components/Button/Button'
 import type { PossibleBiomeId } from '@/lib/types'
-import { EncountersDialog } from './EncountersDialog'
+
+const EncountersDialog = dynamic(
+  () => import('@/components/EncountersList/EncountersDialog'),
+  { ssr: false, loading: () => null }
+)
 
 export function EncountersButton({
   currentBiome,

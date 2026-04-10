@@ -1,10 +1,15 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { Button } from '@/components/Button/Button'
 import type { PossibleBiomeId } from '@/lib/types'
-import { GatheringDialog } from './GatheringDialog'
+
+const GatheringDialog = dynamic(
+  () => import('@/components/GatheringList/GatheringDialog'),
+  { ssr: false, loading: () => null }
+)
 
 export function GatheringButton({
   currentBiome,

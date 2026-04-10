@@ -15,7 +15,11 @@ type Props = {
   currentBiome: PossibleBiomeId
 }
 
-export function GatheringDialog({ open, onClose, currentBiome }: Props) {
+export default function GatheringDialog({
+  open,
+  onClose,
+  currentBiome,
+}: Props) {
   const t = useTranslations()
   const defaultActiveKey =
     currentBiome === 'unexplored' ? BIOME_IDS[0] : currentBiome

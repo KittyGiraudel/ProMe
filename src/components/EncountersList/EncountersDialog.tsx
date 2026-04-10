@@ -1,11 +1,11 @@
 'use client'
 
-import { Modal, Tabs } from 'antd'
+import { App, Modal, Tabs } from 'antd'
 import { useTranslations } from 'next-intl'
 import { BiomeBubble } from '@/components/BiomeBubble/BiomeBubble'
 import { Button } from '@/components/Button/Button'
-import { useCardDrawNotification } from '@/components/CardDrawResult/CardDrawResult'
-import { useDiceRollNotification } from '@/components/DiceRollResult/DiceRollResult'
+import { CardDrawResult } from '@/components/CardDrawResult/CardDrawResult'
+import { DiceRollResult } from '@/components/DiceRollResult/DiceRollResult'
 import { Spacing } from '@/components/Spacing/Spacing'
 import { BIOME_IDS } from '@/lib/constants/misc'
 import type { PossibleBiomeId } from '@/lib/types'
@@ -17,12 +17,31 @@ type Props = {
   currentBiome: PossibleBiomeId
 }
 
-export function EncountersDialog({ open, onClose, currentBiome }: Props) {
+export default function EncountersDialog({
+  open,
+  onClose,
+  currentBiome,
+}: Props) {
   const t = useTranslations()
+  const { notification } = App.useApp()
   const defaultActiveKey =
     currentBiome === 'unexplored' ? BIOME_IDS[0] : currentBiome
-  const openDiceRollNotification = useDiceRollNotification()
-  const openCardDrawNotification = useCardDrawNotification()
+
+  function handleDrawCard() {
+    notification.open({
+      title: t('characters.tools.card_title'),
+      description: <CardDrawResult />,
+      placement: 'bottomLeft',
+    })
+  }
+
+  function handleRollDie() {
+    notification.open({
+      title: t('characters.tools.die_title'),
+      description: <DiceRollResult />,
+      placement: 'bottomLeft',
+    })
+  }
 
   return (
     <Modal
@@ -31,16 +50,10 @@ export function EncountersDialog({ open, onClose, currentBiome }: Props) {
       title={t('characters.map.encounters_dialog_title')}
       footer={
         <Spacing orientation='horizontal' size='small'>
-          <Button
-            htmlType='button'
-            type='link'
-            onClick={openCardDrawNotification}>
+          <Button htmlType='button' type='link' onClick={handleDrawCard}>
             {t('characters.tools.card_action')}
           </Button>
-          <Button
-            htmlType='button'
-            type='link'
-            onClick={openDiceRollNotification}>
+          <Button htmlType='button' type='link' onClick={handleRollDie}>
             {t('characters.tools.die_action')}
           </Button>
         </Spacing>
