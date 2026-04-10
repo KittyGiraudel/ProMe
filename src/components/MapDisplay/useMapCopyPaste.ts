@@ -3,6 +3,7 @@
 import { ConfigProvider } from 'antd'
 import { useEffect, useRef } from 'react'
 import { useMapActions } from '@/components/MapCellContextMenu/useMapActions'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import type { CellCoordinate } from '@/lib/character/types'
 import type { BiomeId } from '@/lib/types'
 import { useMapState } from './useMapState'
@@ -28,6 +29,7 @@ export function useMapCopyPaste({
   isDead: boolean
 }) {
   const { componentDisabled } = ConfigProvider.useConfig()
+  const { settings } = useSettings()
   const { getCellState } = useMapState()
   const { setBiomeAt, setIconAt } = useMapActions()
   const clipboard = useRef<CellClipboard | null>(null)
@@ -35,6 +37,7 @@ export function useMapCopyPaste({
   useEffect(
     function bindDOMEvents() {
       const handleKeyDown = (e: KeyboardEvent) => {
+        if (!settings.shortcuts.enabled) return
         if (!(e.metaKey || e.ctrlKey)) return
         if (e.key !== 'c' && e.key !== 'v') return
         if (isInTextField(e.target)) return
@@ -68,6 +71,7 @@ export function useMapCopyPaste({
       setBiomeAt,
       setIconAt,
       isDead,
+      settings,
     ]
   )
 }
