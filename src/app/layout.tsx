@@ -46,7 +46,7 @@ export default async function RootLayout({
       </Head>
       <body>
         <AntdRegistry>
-          <AppProviders>
+          <AppProviders locale={locale as 'fr' | 'en'}>
             <div className='app-shell'>{children}</div>
           </AppProviders>
         </AntdRegistry>
