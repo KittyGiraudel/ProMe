@@ -27,7 +27,7 @@ const useSoundtrackPreloadNotification = (
         title: t('audio_player.preloading'),
         icon: <LoadingOutlined />,
         duration: 0,
-        placement: 'bottomRight',
+        placement: 'topRight',
       })
     } else if (preloadStatus === 'ready' && wasLoadingRef.current) {
       wasLoadingRef.current = false
@@ -36,7 +36,7 @@ const useSoundtrackPreloadNotification = (
         title: t('audio_player.preload_complete'),
         description: t('audio_player.preload_complete_hint'),
         duration: 10,
-        placement: 'bottomRight',
+        placement: 'topRight',
         actions: (
           <a
             href='#audio'

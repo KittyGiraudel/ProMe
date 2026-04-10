@@ -26,6 +26,6 @@ export function showRandomBiomeDiscoveredNotification({
       additionalTilesToMark: rolled.additionalTilesToMark,
     }),
     duration: 10,
-    placement: 'bottomRight',
+    placement: 'topRight',
   })
 }

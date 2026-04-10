@@ -56,7 +56,7 @@ export const useWarnDeath = ({
         key: DEATH_SUGGESTION_KEY,
         title: t('characters.actions.death_suggestion_title'),
         description: t('characters.actions.death_suggestion_description'),
-        placement: 'bottomRight',
+        placement: 'topRight',
         duration: 0,
         actions: (
           <Button

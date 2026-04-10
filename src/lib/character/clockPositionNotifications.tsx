@@ -49,7 +49,7 @@ export function useSetClockToRawTargetWithToast() {
               position: wrapped + 1,
               total: totalSegments,
             }),
-          placement: 'bottomRight',
+          placement: 'topRight',
           duration: 5,
           actions: (
             <a href='#inventory'>

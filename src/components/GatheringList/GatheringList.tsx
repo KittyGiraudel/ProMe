@@ -43,7 +43,7 @@ export function GatheringList({ biome }: { biome: GatherableBiomeId }) {
     notification.open({
       title: t('characters.map.gathering_collected'),
       description: `${quantity} × ${label}`,
-      placement: 'bottomRight',
+      placement: 'topRight',
       duration: 5,
     })
   }
