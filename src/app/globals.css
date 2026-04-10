@@ -368,7 +368,8 @@ html:has([role="dialog"]) {
     corner-shape: squircle;
   }
 
-  .ant-card > * {
+  .ant-card > *,
+  .ant-collapse > * {
     corner-shape: inherit;
   }
 }

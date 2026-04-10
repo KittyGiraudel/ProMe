@@ -6,6 +6,6 @@
 
 @media (max-width: 767px) {
   .LandingNav {
-  --ant-layout-header-padding: 0 25px;
+    --ant-layout-header-padding: 0 25px;
   }
 }
