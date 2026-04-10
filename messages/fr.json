@@ -158,12 +158,12 @@
       "card_drawing": "Tirage en cours…",
       "card_empty": "Aucune carte",
       "card_title": "Carte",
-      "card_tooltip": "Vous pouvez tirer une carte à tout moment en appuyant sur cmd + D (Mac) ou ctrl + D (Windows).",
+      "card_tooltip": "Vous pouvez tirer une carte à tout moment via {modifier} + D.",
       "die_action": "Lancer 1D6",
       "die_empty": "Aucun lancer",
       "die_rolling": "Lancer en cours…",
       "die_title": "Dé",
-      "die_tooltip": "Vous pouvez déclencher un jet de dé à tout moment en appuyant sur cmd + R (Mac) ou ctrl + R (Windows).",
+      "die_tooltip": "Vous pouvez lancer un dé à tout moment via {modifier} + R.",
       "title": "Outils"
     },
     "actions": {
@@ -224,7 +224,8 @@
       "reroll_card": "Relancer cette carte",
       "reroll_dice": "Relancer ces dés",
       "reroll_die": "Relancer ce dé",
-      "save": "Sauvegarder"
+      "save": "Sauvegarder",
+      "save_with_shortcut": "<b>S</b>auvegarder"
     },
     "tip": "Astuce",
     "card": "{value} de {suit}",

@@ -18,6 +18,7 @@ import { InventoryCard } from '@/components/InventoryCard/InventoryCard'
 import { JournalCard } from '@/components/JournalCard/JournalCard'
 import { Layout } from '@/components/Layout/Layout'
 import { MapCard } from '@/components/MapCard/MapCard'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { Spacing } from '@/components/Spacing/Spacing'
 import { SpellbookCard } from '@/components/SpellbookCard/SpellbookCard'
 import { useBiomeAtCurrentMapPosition } from '@/hooks/useBiomeAtCurrentMapPosition'
@@ -32,6 +33,7 @@ import { toFormValues } from '@/lib/character/toFormValues'
 
 export function CharacterSheet({ characterId }: { characterId: string }) {
   const t = useTranslations()
+  const { settings } = useSettings()
   const { form, character, loading, saveForm, validationErrors } =
     useCharacterSheetForm({ characterId })
   const onFieldsChange = useOnFieldsChanged(form)
@@ -71,7 +73,15 @@ export function CharacterSheet({ characterId }: { characterId: string }) {
                     type='primary'
                     htmlType='submit'
                     form={character.id}>
-                    {t('common.actions.save')}
+                    {settings.shortcuts.enabled ? (
+                      <span>
+                        {t.rich('common.actions.save_with_shortcut', {
+                          b: c => <u style={{ fontWeight: 'bold' }}>{c}</u>,
+                        })}
+                      </span>
+                    ) : (
+                      t('common.actions.save')
+                    )}
                   </Button>,
                 ]
               : []),

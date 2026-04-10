@@ -1,16 +1,19 @@
 'use client'
 
-import { Card, Empty, Tooltip } from 'antd'
+import { Card, Empty } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { DiceFaces } from '@/components/DiceFaces/DiceFaces'
-import { HelpButton } from '@/components/HelpButton/HelpButton'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { useAnimatedValue } from '@/hooks/useAnimatedValue'
+import { useModifierKey } from '@/hooks/useModifierKey'
 import { rollD6 } from '@/lib/random/rng'
 
 import './DiceRoll.css'
 
 export function DiceRoll() {
+  const { settings } = useSettings()
+  const modifier = useModifierKey()
   const t = useTranslations()
   const {
     value: dieValue,
@@ -22,11 +25,6 @@ export function DiceRoll() {
     <Card
       className='DiceRoll__card'
       title={t('characters.tools.die_title')}
-      extra={
-        <Tooltip title={t('characters.tools.die_tooltip')}>
-          <HelpButton label={t('common.tip')} />
-        </Tooltip>
-      }
       actions={[
         <Button
           key='action'
@@ -47,7 +45,13 @@ export function DiceRoll() {
           .filter(Boolean)
           .join(' ')}>
         {dieValue === null ? (
-          <Empty description={t('characters.tools.die_empty')} />
+          <Empty
+            description={
+              settings.shortcuts.enabled
+                ? t('characters.tools.die_tooltip', { modifier })
+                : t('characters.tools.die_empty')
+            }
+          />
         ) : (
           <DiceFaces values={[dieValue]} className='DiceRoll__face' />
         )}

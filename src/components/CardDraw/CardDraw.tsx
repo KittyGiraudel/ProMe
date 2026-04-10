@@ -1,16 +1,19 @@
 'use client'
 
-import { Card, Empty, Tooltip } from 'antd'
+import { Card, Empty } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
-import { HelpButton } from '@/components/HelpButton/HelpButton'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { useAnimatedValue } from '@/hooks/useAnimatedValue'
+import { useModifierKey } from '@/hooks/useModifierKey'
 import { randomCard } from '@/lib/random/rng'
 
 import './CardDraw.css'
 
 export function CardDraw() {
+  const { settings } = useSettings()
+  const modifier = useModifierKey()
   const t = useTranslations()
   const {
     value: drawnCard,
@@ -22,11 +25,6 @@ export function CardDraw() {
     <Card
       className='CardDraw__card'
       title={t('characters.tools.card_title')}
-      extra={
-        <Tooltip title={t('characters.tools.card_tooltip')}>
-          <HelpButton label={t('common.tip')} />
-        </Tooltip>
-      }
       actions={[
         <Button
           key='action'
@@ -47,7 +45,13 @@ export function CardDraw() {
           .filter(Boolean)
           .join(' ')}>
         {drawnCard === null ? (
-          <Empty description={t('characters.tools.card_empty')} />
+          <Empty
+            description={
+              settings.shortcuts.enabled
+                ? t('characters.tools.card_tooltip', { modifier })
+                : t('characters.tools.card_empty')
+            }
+          />
         ) : (
           <PlayingCardLabel card={drawnCard} className='CardDraw__drawn-card' />
         )}
