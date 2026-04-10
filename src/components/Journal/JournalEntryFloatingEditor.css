@@ -6,7 +6,7 @@
 .JournalFloatingEditor.JournalFloatingEditor {
   position: fixed; /* 1 */
   bottom: 1em; /* 1 */
-  left: 1em; /* 1 */
+  right: 1em; /* 1 */
   width: min(480px, calc(100vw - 2em));
   z-index: 100; /* 2 */
   box-shadow: var(--ant-box-shadow-secondary); /* 3 */
