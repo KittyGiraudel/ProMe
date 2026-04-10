@@ -17,67 +17,72 @@ export function Navigation() {
       {
         key: '/',
         label: (
-          <Link href='/' data-current={pathname === '/'}>
+          <Link href='/'>
             <Logo />
           </Link>
         ),
       },
       {
         key: '/characters',
-        label: (
-          <Link
-            href='/characters'
-            data-current={pathname.startsWith('/characters')}>
-            {t('nav.characters')}
-          </Link>
-        ),
+        label: <Link href='/characters'>{t('nav.characters')}</Link>,
       },
       {
-        key: '/generators/npc',
-        label: (
-          <Link
-            href='/generators/npc'
-            data-current={pathname.startsWith('/generators/npc')}>
-            {t('nav.inhabitant_generator')}
-          </Link>
-        ),
-      },
-      {
-        key: '/generators/village',
-        label: (
-          <Link
-            href='/generators/village'
-            data-current={pathname.startsWith('/generators/village')}>
-            {t('nav.village_generator')}
-          </Link>
-        ),
+        key: 'generators',
+        label: <span>{t('home.generators_title')}</span>,
+        children: [
+          {
+            key: '/generators/npc',
+            label: (
+              <Link href='/generators/npc'>
+                {t('nav.inhabitant_generator')}
+              </Link>
+            ),
+          },
+          {
+            key: '/generators/village',
+            label: (
+              <Link href='/generators/village'>
+                {t('nav.village_generator')}
+              </Link>
+            ),
+          },
+        ],
       },
       {
         key: '/faq',
         label: (
-          <Link
-            href='/faq'
-            data-current={pathname.startsWith('/faq')}
-            data-position='right'>
+          <Link href='/faq' data-position='right'>
             {t('nav.faq')}
           </Link>
         ),
       },
       {
         key: '/settings',
-        label: (
-          <Link
-            href='/settings'
-            data-current={pathname.startsWith('/settings')}>
-            {t('nav.settings')}
-          </Link>
-        ),
+        label: <Link href='/settings'>{t('nav.settings')}</Link>,
       },
     ],
     [pathname, t]
   )
 
+  const selected = useMemo(() => {
+    if (pathname.startsWith('/generators/npc'))
+      return ['/generators', '/generators/npc']
+    if (pathname.startsWith('/generators/village'))
+      return ['/generators', '/generators/village']
+    if (pathname.startsWith('/faq')) return ['/faq']
+    if (pathname.startsWith('/settings')) return ['/settings']
+    if (pathname.startsWith('/characters')) return ['/characters']
+    if (pathname === '/') return ['/']
+    return []
+  }, [pathname])
+
   return (
-    <Menu className='Navigation' theme='dark' mode='horizontal' items={items} />
+    <Menu
+      className='Navigation'
+      theme='dark'
+      mode='horizontal'
+      items={items}
+      selectedKeys={selected}
+    />
   )
 }

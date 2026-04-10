@@ -1,11 +1,11 @@
 .LandingNav {
   --ant-layout-header-height: 3em;
-  padding-inline: 50px;
-  background: rgb(0 21 41);
+  --ant-layout-header-padding: 0 50px;
+  --ant-layout-header-bg: rgb(0 21 41);
 }
 
 @media (max-width: 767px) {
   .LandingNav {
-    padding-inline: 1em;
+  --ant-layout-header-padding: 0 25px;
   }
 }
