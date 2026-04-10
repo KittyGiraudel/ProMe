@@ -16,13 +16,34 @@ export async function generateMetadata({ params }: Props) {
   }
 
   const t = await getTranslations({ locale: locale as AppConfig['Locale'] })
+  const title = t('metadata.title')
+  const description = t('metadata.description')
+  const template = `%s — ${t('metadata.tab_brand')}`
 
   return {
+    applicationName: title,
     title: {
-      default: t('metadata.title'),
-      template: `%s — ${t('metadata.tab_brand')}`,
+      default: title,
+      template: template,
     },
-    description: t('metadata.description'),
+    description: description,
+    appleWebApp: {
+      capable: true,
+      statusBarStyle: 'default',
+      title: title,
+    },
+    formatDetection: { telephone: false },
+    openGraph: {
+      type: 'website',
+      siteName: title,
+      title: { default: title, template: template },
+      description: description,
+    },
+    twitter: {
+      card: 'summary',
+      title: { default: title, template: template },
+      description: description,
+    },
   }
 }
 

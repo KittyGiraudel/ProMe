@@ -1,12 +1,6 @@
-import withSerwistInit from '@serwist/next'
+import { withSerwist } from '@serwist/turbopack'
 import type { NextConfig } from 'next'
 import createNextIntlPlugin from 'next-intl/plugin'
-
-const withSerwist = withSerwistInit({
-  swSrc: 'src/sw.ts',
-  swDest: 'public/sw.js',
-  disable: process.env.NODE_ENV !== 'production',
-})
 
 const nextConfig: NextConfig = {
   reactStrictMode: false,

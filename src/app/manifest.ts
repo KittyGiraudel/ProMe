@@ -7,6 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
     description: 'A companion app for the Protector’s Memories solo TTRPG.',
     start_url: '/',
     display: 'standalone',
+    orientation: 'portrait',
     background_color: '#ffffff',
     theme_color: '#000000',
     icons: [

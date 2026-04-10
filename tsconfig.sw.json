@@ -7,6 +7,6 @@
     "module": "ES2015",
     "moduleResolution": "node"
   },
-  "include": ["src/sw.ts"],
+  "include": ["src/app/sw.ts"],
   "exclude": ["node_modules"]
 }
