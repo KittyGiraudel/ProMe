@@ -18,12 +18,12 @@ import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { useWarnDeath } from '@/hooks/useCharacterLifeStatusActions'
-import { SaveForm } from '@/hooks/useCharacterSave'
 import {
   useWatchedCourage,
   useWatchedHealth,
   useWatchedStamina,
 } from '@/hooks/useCharacterSheetDerived'
+import { SaveForm } from '@/hooks/useCharacterSheetForm'
 import { StatPool } from '@/lib/character/types'
 
 type PoolKey = 'health' | 'courage' | 'stamina'

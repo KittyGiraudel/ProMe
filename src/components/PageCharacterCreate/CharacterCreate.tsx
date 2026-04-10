@@ -1,14 +1,15 @@
 'use client'
 
-import { Card, Col, Form, Input, Row, Select } from 'antd'
+import { App, Card, Col, Form, Input, Row, Select } from 'antd'
 import { useTranslations } from 'next-intl'
 import { ArchetypeSelector } from '@/components/ArchetypeSelector/ArchetypeSelector'
 import { Button } from '@/components/Button/Button'
 import { InheritanceCard } from '@/components/InheritanceCard/InheritanceCard'
 import { Layout } from '@/components/Layout/Layout'
 import { Spacing } from '@/components/Spacing/Spacing'
-import { useCharacterCreate } from '@/hooks/useCharacterCreate'
 import { useInheritanceCandidates } from '@/hooks/useInheritanceCandidates'
+import { useCharacterCreate } from '@/hooks/useMutation'
+import { useRouter } from '@/i18n/navigation'
 import type { Archetype } from '@/lib/character/types'
 import { GENDERS } from '@/lib/constants/misc'
 import type { Gender } from '@/lib/types'
@@ -23,8 +24,16 @@ type CharacterCreateFormValues = {
 
 export function CharacterCreate() {
   const t = useTranslations()
+  const router = useRouter()
+  const { message } = App.useApp()
   const [form] = Form.useForm<CharacterCreateFormValues>()
-  const handleCreate = useCharacterCreate()
+  const [create] = useCharacterCreate({
+    onCompleted: character => {
+      message.success(t('new_character.create_success'))
+      router.push(`/characters/${character.id}`)
+    },
+    onError: () => message.error(t('common.generic_error')),
+  })
   const candidates = useInheritanceCandidates()
   const gender = Form.useWatch('gender', form)
 
@@ -47,7 +56,9 @@ export function CharacterCreate() {
           gender: undefined,
           inheritFromCharacterId: undefined,
         }}
-        onFinish={handleCreate}>
+        onFinish={values => {
+          void create(values)
+        }}>
         <Spacing size='large'>
           <Card title={t('characters.identity.identity_section')} id='identity'>
             <Row gutter={[16, 16]}>

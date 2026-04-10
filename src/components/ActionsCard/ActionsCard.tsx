@@ -9,8 +9,10 @@ import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
 import { Button } from '@/components/Button/Button'
-import { useCharacterDelete } from '@/hooks/useCharacterDelete'
 import { useCharacterLifeStatusActions } from '@/hooks/useCharacterLifeStatusActions'
+import { SaveForm } from '@/hooks/useCharacterSheetForm'
+import { useCharacterDelete } from '@/hooks/useMutation'
+import { useRouter } from '@/i18n/navigation'
 import { getCharacterStore } from '@/lib/character/store'
 import { stringifyCharacters } from '@/lib/character/store/migrations'
 import {
@@ -19,7 +21,6 @@ import {
 } from '@/lib/download/downloadJsonFile'
 
 import './ActionsCard.css'
-import { SaveForm } from '@/hooks/useCharacterSave'
 
 export function ActionsCard({
   isDead,
@@ -34,7 +35,14 @@ export function ActionsCard({
   const form = Form.useFormInstance()
   const params = useParams<{ id: string }>()
   const characterId = params?.id
-  const { delete: onDelete } = useCharacterDelete(characterId as string)
+  const router = useRouter()
+  const [deleteCharacter] = useCharacterDelete({
+    onCompleted: () => {
+      message.success(t('characters.actions.delete_success'))
+      router.push('/characters')
+    },
+    onError: () => message.error(t('common.generic_error')),
+  })
   const onExport = useCallback(() => {
     const saved = getCharacterStore().get(characterId as string)
     const character = { ...saved, ...form.getFieldsValue(true) }
@@ -134,7 +142,7 @@ export function ActionsCard({
           description={t('characters.actions.delete_confirm_description')}
           okText={t('common.actions.delete')}
           cancelText={t('common.actions.cancel')}
-          onConfirm={onDelete}
+          onConfirm={() => deleteCharacter({ id: characterId as string })}
           okButtonProps={{ disabled: false }}
           cancelButtonProps={{ disabled: false }}
           styles={{ container: { maxWidth: 300 } }}>

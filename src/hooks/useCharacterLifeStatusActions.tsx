@@ -3,8 +3,8 @@
 import { App, Button } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useMemo, useRef } from 'react'
-import { SaveForm } from './useCharacterSave'
 import { useWatchedHealth } from './useCharacterSheetDerived'
+import { SaveForm } from './useCharacterSheetForm'
 
 const DEATH_SUGGESTION_KEY = 'death-suggestion'
 
