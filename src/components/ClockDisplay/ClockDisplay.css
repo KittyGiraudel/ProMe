@@ -51,12 +51,18 @@
   --direction: -1;
 }
 
-.ClockDisplayLabel span {
-  offset-path: shape(
-    from 0.5ch 50%,
-    curve to calc(100% - 0.5ch) 50% with 30%
-      calc(50% - var(--direction) * var(--curve-intensity)) /
-    70% calc(50% - var(--direction) * var(--curve-intensity))
-  );
-  offset-distance: calc(99.9% * (sibling-index() - 1) / (sibling-count() - 1));
+@supports (width: calc(1px * sibling-index() / sibling-count())) {
+  .ClockDisplayLabel span {
+    offset-path: shape(
+      from 0.5ch 50%,
+      curve to calc(100% - 0.5ch) 50% with 30%
+        calc(50% - var(--direction) * var(--curve-intensity)) /
+      70% calc(50% - var(--direction) * var(--curve-intensity))
+    );
+    offset-distance: calc(
+      99.9% *
+      (sibling-index() - 1) /
+      (sibling-count() - 1)
+    );
+  }
 }
