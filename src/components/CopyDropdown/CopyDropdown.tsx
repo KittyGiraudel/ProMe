@@ -28,17 +28,14 @@ export function CopyDropdown({
   const searchParams = useSearchParams()
 
   const pageUrl = useMemo(() => {
-    // @ts-expect-error - window is not defined in the service worker context
     if (typeof window === 'undefined') return ''
     const q = searchParams?.toString() ?? ''
-    // @ts-expect-error - window is not defined in the service worker context
     return `${window.location.origin}${pathname}${q ? `?${q}` : ''}`
   }, [pathname, searchParams])
 
   const copyText = useCallback(
     async (text: string, successMessage: string) => {
       try {
-        // @ts-expect-error - navigator is not defined in the service worker context
         await navigator.clipboard.writeText(text)
         message.success(successMessage)
       } catch {
