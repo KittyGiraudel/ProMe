@@ -1,6 +1,6 @@
 import type { MenuProps } from 'antd'
 import { Typography } from 'antd'
-import { useFormatter, useLocale, useTranslations } from 'next-intl'
+import { useFormatter, useTranslations } from 'next-intl'
 import type { Dispatch, ReactNode, SetStateAction } from 'react'
 import { useCallback, useMemo } from 'react'
 import { BiomeBubble } from '@/components/BiomeBubble/BiomeBubble'

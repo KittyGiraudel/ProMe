@@ -32,7 +32,7 @@ import { toFormValues } from '@/lib/character/toFormValues'
 
 export function CharacterSheet({ characterId }: { characterId: string }) {
   const t = useTranslations()
-  const { form, character, hydratedFromStore, saveForm, validationErrors } =
+  const { form, character, loading, saveForm, validationErrors } =
     useCharacterSheetForm({ characterId })
   const onFieldsChange = useOnFieldsChanged(form)
   const { appTheme, antTheme } = useCharacterSheetTheme(form)
@@ -43,7 +43,7 @@ export function CharacterSheet({ characterId }: { characterId: string }) {
   useKeyboardShortcuts({ form, isDead })
 
   if (!character) {
-    return <CharacterSheetEmptyState loading={!hydratedFromStore} />
+    return <CharacterSheetEmptyState loading={loading} />
   }
 
   return (

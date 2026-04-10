@@ -48,7 +48,7 @@ export function useCharacterSave({
 
       try {
         // Persist the character in the store
-        const saved = store.save(character)
+        store.save(character)
 
         // Fire the save callback to let the call site know
         onSave()

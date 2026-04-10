@@ -10,6 +10,7 @@ import { createPortal } from 'react-dom'
 import { Button } from '@/components/Button/Button'
 
 import './JournalEntryFloatingEditor.css'
+import { useHydration } from '@/hooks/useHydration'
 
 type JournalEntryFloatingEditorProps = {
   open: boolean
@@ -28,11 +29,7 @@ export function JournalEntryFloatingEditor({
 }: JournalEntryFloatingEditorProps) {
   const t = useTranslations()
   const [isCollapsed, setIsCollapsed] = useState(false)
-  const [isMounted, setIsMounted] = useState(false)
-
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
+  const hydrated = useHydration()
 
   useEffect(() => {
     if (open) setIsCollapsed(false)
@@ -48,7 +45,7 @@ export function JournalEntryFloatingEditor({
     [onSave]
   )
 
-  if (!isMounted || !open) return null
+  if (!hydrated || !open) return null
 
   return createPortal(
     <Card

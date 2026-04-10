@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
-import { useCharactersQuery } from '@/hooks/useCharactersQuery'
+import { useCharactersQuery } from '@/hooks/useQuery'
 import type { Character } from '@/lib/character/types'
 
 export type InheritanceCandidate = {
@@ -11,16 +11,15 @@ export type InheritanceCandidate = {
 
 export function useInheritanceCandidates() {
   const { data } = useCharactersQuery()
-  const characters = data ?? []
   const t = useTranslations()
 
   return useMemo<InheritanceCandidate[]>(
     () =>
-      characters.map(character => ({
+      (data ?? []).map(character => ({
         id: character.id,
         character,
         label: character.name.trim() || t('characters_list.unnamed'),
       })),
-    [characters, t]
+    [data, t]
   )
 }

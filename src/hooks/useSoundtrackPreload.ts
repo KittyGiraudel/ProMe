@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { preloadSoundtracksForVariant } from '@/lib/sounds/cachePreload'
 import type { SoundVariant } from '@/lib/sounds/catalog'
 

@@ -3,9 +3,9 @@
 import { Form } from 'antd'
 import { useMemo } from 'react'
 import { SheetFormValues } from '@/lib/character/toFormValues'
-import { useCharacterQuery } from './useCharacterQuery'
 import { useCharacterSave } from './useCharacterSave'
 import { useCharacterSaveGuard } from './useCharacterSaveGuard'
+import { useCharacterQuery } from './useQuery'
 
 export function useCharacterSheetForm({
   characterId,
@@ -30,7 +30,7 @@ export function useCharacterSheetForm({
     () => ({
       form,
       character,
-      hydratedFromStore: !loading,
+      loading,
       saveForm,
       validationErrors,
     }),

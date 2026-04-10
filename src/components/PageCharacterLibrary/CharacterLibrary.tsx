@@ -2,12 +2,12 @@
 
 import { Card, Empty, Skeleton, Typography } from 'antd'
 import { useFormatter, useTranslations } from 'next-intl'
-import { useCallback, useRef } from 'react'
+import { useCallback, useMemo, useRef } from 'react'
 import { Button } from '@/components/Button/Button'
 import { Layout } from '@/components/Layout/Layout'
 import { Spacing } from '@/components/Spacing/Spacing'
 import { useCharacterLibraryActions } from '@/hooks/useCharacterLibraryActions'
-import { useCharactersQuery } from '@/hooks/useCharactersQuery'
+import { useCharactersQuery } from '@/hooks/useQuery'
 import { Link } from '@/i18n/navigation'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
 
@@ -16,7 +16,7 @@ export function CharacterLibrary() {
   const format = useFormatter()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const { data, loading } = useCharactersQuery()
-  const characters = data ?? []
+  const characters = useMemo(() => data ?? [], [data])
 
   const { handleImportFile } = useCharacterLibraryActions()
   const handleImportClick = useCallback(() => fileInputRef.current?.click(), [])

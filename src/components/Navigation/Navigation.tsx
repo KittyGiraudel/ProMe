@@ -1,6 +1,6 @@
 'use client'
 
-import { Layout, Menu } from 'antd'
+import { Menu } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
 import { Link, usePathname } from '@/i18n/navigation'
