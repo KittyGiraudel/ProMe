@@ -111,6 +111,12 @@
     --from: 100;
     --to: 50;
   }
+
+  &[data-biome="shadowForest"] {
+    --position: center 70%;
+    --from: 100;
+    --to: 0;
+  }
 }
 
 /**
