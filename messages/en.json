@@ -659,7 +659,7 @@
     "village_faction_label": "Faction"
   },
   "audio_player": {
-    "title": "Now Playing",
+    "title": "Ambient Music",
     "idle": "No track (move to a biome on the map)",
     "preloading": "Preloading soundtracks…",
     "preload_complete": "Music is ready to play.",

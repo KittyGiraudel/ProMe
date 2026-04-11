@@ -779,7 +779,7 @@
   "pwa": {
     "install_prompt": {
       "title": "Installer ProMe",
-      "description": "Ajoutez ProMe à votre écran d'accueil pour jouer hors ligne, profiter d'une expérience plein écran et le lancer en un geste.",
+      "description": "Ajoutez ProMe à votre écran d’accueil pour jouer hors ligne, profiter d’une expérience plein écran et le lancer en un geste.",
       "cta": "Installer"
     }
   }
