@@ -1,5 +1,7 @@
 # ProMe
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/729fa5ef-c1d4-42b8-a7ea-e2ee45b47d50/deploy-status)](https://app.netlify.com/projects/prome-game/deploys)
+
 This application is a companion app for the game “The Protector’s Memories” / “Les Souvenirs du Protecteur”, a solo TTRPG. It is meant to have open while playing the game, as a reference, a helper and a way to keep game progress.
 
 Here are the features:
