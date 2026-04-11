@@ -617,8 +617,7 @@
     "hints": {
       "map": "You can customize certain map features in <link>Settings</link>.",
       "journal": "You can customize certain journal features in <link>Settings</link>.",
-      "village": "You can customize certain village generator features in <link>Settings</link>.",
-      "sheet": "You can customize certain Protector Sheet features in <link>Settings</link>."
+      "village": "You can customize certain village generator features in <link>Settings</link>."
     }
   },
   "village": {

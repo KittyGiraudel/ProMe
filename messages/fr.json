@@ -614,8 +614,7 @@
     "hints": {
       "map": "Vous pouvez personnaliser certaines fonctionalités de la carte dans les <link>Paramètres</link>.",
       "journal": "Vous pouvez personnaliser certaines fonctionalités du journal dans les <link>Paramètres</link>.",
-      "village": "Vous pouvez personnaliser certaines fonctionalités du générateur de village dans les <link>Paramètres</link>.",
-      "sheet": "Vous pouvez personnaliser certaines fonctionalités de la feuille de Protecteur dans les <link>Paramètres</link>."
+      "village": "Vous pouvez personnaliser certaines fonctionalités du générateur de village dans les <link>Paramètres</link>."
     }
   },
   "village": {

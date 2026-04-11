@@ -7,7 +7,7 @@ import { useDismissed } from '@/hooks/useDismissed'
 
 import './SettingsHint.css'
 
-type SettingsHintId = 'map' | 'journal' | 'village' | 'sheet'
+type SettingsHintId = 'map' | 'journal' | 'village'
 
 export function SettingsHint({ hintId }: { hintId: SettingsHintId }) {
   const t = useTranslations()
