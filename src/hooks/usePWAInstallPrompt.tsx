@@ -76,7 +76,7 @@ export function usePWAInstallPrompt() {
 
       notification.info({
         key: 'pwa-install',
-        duration: 0,
+        duration: false,
         placement: 'bottomLeft',
         title: t('pwa.install_prompt.title'),
         description: t('pwa.install_prompt.description'),
@@ -89,9 +89,7 @@ export function usePWAInstallPrompt() {
               await deferredPrompt.current.prompt()
               const { outcome } = await deferredPrompt.current.userChoice
               deferredPrompt.current = null
-              if (outcome === 'accepted') {
-                notification.destroy('pwa-install')
-              }
+              notification.destroy('pwa-install')
             }}>
             {t('pwa.install_prompt.cta')}
           </Button>
