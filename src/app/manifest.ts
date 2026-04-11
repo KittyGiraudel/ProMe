@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: isDev ? 'ProMe (dev)' : 'ProMe',
     short_name: isDev ? 'ProMe (dev)' : 'ProMe',
-    description: "A companion app for the Protector's Memories solo TTRPG.",
+    description: 'A companion app for the Protector’s Memories solo TTRPG.',
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',

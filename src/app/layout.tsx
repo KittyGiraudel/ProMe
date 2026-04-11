@@ -5,7 +5,6 @@ import { getLocale } from 'next-intl/server'
 import { AppProviders } from '@/components/AppProviders/AppProviders'
 
 import './globals.css'
-import './DevBadge.css'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',

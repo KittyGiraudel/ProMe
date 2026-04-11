@@ -45,3 +45,4 @@ certificates
 .superpowers/
 
 public/sw.js
+public/swe-worker-*.js
