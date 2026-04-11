@@ -31,7 +31,10 @@ export function useCharacterSaveGuard({
 
   const isFormDirty = useCallback(() => {
     if (!character) return false
-    if (form.isFieldsTouched()) return true
+    // We don't short-circuit on form.isFieldsTouched() here: since we sync form
+    // values via setFieldsValue (rather than remounting the form), the touched
+    // state isn't cleared after saving and would produce false positives. The
+    // value comparison is the reliable source of truth.
     const values = form.getFieldsValue(true) as SheetFormValues
     return !sheetFormMatchesSavedCharacter(values, character)
   }, [character, form])

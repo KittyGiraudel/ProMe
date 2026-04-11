@@ -31,6 +31,7 @@ import { usePWAInstallPrompt } from '@/hooks/usePWAInstallPrompt'
 import { getProtectorSummary } from '@/lib/character/getProtectorSummary'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
 import { toFormValues } from '@/lib/character/toFormValues'
+import { DeathWarning } from '../DeathWarning/DeathWarning'
 
 export function CharacterSheet({ characterId }: { characterId: string }) {
   const t = useTranslations()
@@ -88,9 +89,13 @@ export function CharacterSheet({ characterId }: { characterId: string }) {
                 ]
               : []),
           ]}>
+          <DeathWarning isDead={isDead} gender={character.gender} />
+          <CharacterSheetValidationErrors errors={validationErrors} />
           <Form
+            // No `key` here: form values are kept in sync via setFieldsValue in
+            // useCharacterSheetForm, so we don't need to remount the form after
+            // each save to pick up fresh initialValues.
             id={character.id}
-            key={`${character.id}-${character.updatedAt}`}
             form={form}
             onFieldsChange={onFieldsChange}
             scrollToFirstError
@@ -106,18 +111,6 @@ export function CharacterSheet({ characterId }: { characterId: string }) {
             colon={false}
             preserve>
             <Spacing size='large'>
-              <CharacterSheetValidationErrors errors={validationErrors} />
-              {isDead ? (
-                <Alert
-                  showIcon
-                  type='warning'
-                  title={t('characters.dead_readonly_title')}
-                  description={t.rich('characters.dead_readonly_description', {
-                    gender: character.gender ?? 'indeterminate',
-                    link: content => <a href='#actions'>{content}</a>,
-                  })}
-                />
-              ) : null}
               <CharacterStats />
               <IdentityCard isArchetypeReadonly />
               <CharacteristicsCard isDead={isDead} saveForm={saveForm} />
@@ -126,18 +119,18 @@ export function CharacterSheet({ characterId }: { characterId: string }) {
               <JournalCard isDead={isDead} />
               <InventoryCard />
               <SpellbookCard />
-              <Row gutter={[16, 16]} id='tools'>
-                <Col xs={24} md={12}>
-                  <DiceRoll />
-                </Col>
-                <Col xs={24} md={12}>
-                  <CardDraw />
-                </Col>
-              </Row>
-              <ActionsCard isDead={isDead} saveForm={saveForm} />
-              <AudioCard biome={bannerBiome} />
             </Spacing>
           </Form>
+          <Row gutter={[16, 16]} id='tools'>
+            <Col xs={24} md={12}>
+              <DiceRoll />
+            </Col>
+            <Col xs={24} md={12}>
+              <CardDraw />
+            </Col>
+          </Row>
+          <ActionsCard isDead={isDead} saveForm={saveForm} form={form} />
+          <AudioCard biome={bannerBiome} />
         </Layout>
       </App>
     </ConfigProvider>

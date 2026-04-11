@@ -7,7 +7,7 @@ import {
   ValidationError,
   ValidationErrorCollection,
 } from '@/lib/character/store/localStorageStore'
-import { SheetFormValues } from '@/lib/character/toFormValues'
+import { SheetFormValues, toFormValues } from '@/lib/character/toFormValues'
 import type { Character } from '@/lib/character/types'
 import type { TranslationKey } from '@/lib/types'
 import { useCharacterSaveGuard } from './useCharacterSaveGuard'
@@ -43,7 +43,12 @@ export function useCharacterSheetForm({
   )
 
   const [save] = useCharacterSave({
-    onCompleted: () => {
+    onCompleted: saved => {
+      // Sync form fields immediately from the mutation result rather than
+      // waiting for refetch() to update `character` state and reacting to that.
+      form.setFieldsValue(toFormValues(saved))
+      // Still refetch so `character` state stays current for other consumers
+      // (document title, dead check, theme, etc.).
       refetch()
       message.success(t(successKeyRef.current))
     },

@@ -4,7 +4,7 @@ import DeleteOutlined from '@ant-design/icons/lib/icons/DeleteOutlined'
 import DownloadOutlined from '@ant-design/icons/lib/icons/DownloadOutlined'
 import FrownOutlined from '@ant-design/icons/lib/icons/FrownOutlined'
 import HeartOutlined from '@ant-design/icons/lib/icons/HeartOutlined'
-import { App, Avatar, Card, Form, List, Popconfirm } from 'antd'
+import { App, Avatar, Card, FormInstance, List, Popconfirm } from 'antd'
 import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
@@ -25,14 +25,15 @@ import './ActionsCard.css'
 export function ActionsCard({
   isDead,
   saveForm,
+  form,
 }: {
   isDead: boolean
   saveForm: SaveForm
+  form: FormInstance
 }) {
   const t = useTranslations()
   const { onKill, onRevive } = useCharacterLifeStatusActions({ saveForm })
   const { message } = App.useApp()
-  const form = Form.useFormInstance()
   const params = useParams<{ id: string }>()
   const characterId = params?.id
   const router = useRouter()
