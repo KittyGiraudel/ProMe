@@ -457,7 +457,7 @@
     "title": "Frequently Asked Questions"
   },
   "footer": {
-    "application": "Application by Kitty<version></version> – <link>Report an issue</link>",
+    "application": "Application by <link_author>Kitty</link_author><version></version> – <link_github>Report an issue</link_github>",
     "copyright": "© The Protector’s Memories, by Enzo Salviato"
   },
   "home": {

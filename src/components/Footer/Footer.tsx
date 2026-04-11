@@ -13,7 +13,15 @@ export function Footer() {
       <span className='Footer__copyright'>{t('footer.copyright')}</span>
       <p className='Footer__application'>
         {t.rich('footer.application', {
-          link: chunks => (
+          link_author: chunks => (
+            <Link
+              href='https://kittygiraudel.com'
+              target='_blank'
+              rel='noopener noreferrer'>
+              {chunks}
+            </Link>
+          ),
+          link_github: chunks => (
             <Link
               href='https://github.com/KittyGiraudel/ProMe'
               target='_blank'

@@ -454,7 +454,7 @@
     "title": "Frequently Asked Questions"
   },
   "footer": {
-    "application": "Application par Kitty<version></version> – <link>Signaler un problème</link>",
+    "application": "Application par <link_author>Kitty</link_author><version></version> – <link_github>Signaler un problème</link_github>",
     "copyright": "© Les Souvenirs du Protecteur, par Enzo Salviato"
   },
   "home": {
