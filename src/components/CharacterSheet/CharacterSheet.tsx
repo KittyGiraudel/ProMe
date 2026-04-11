@@ -27,6 +27,7 @@ import { useCharacterSheetForm } from '@/hooks/useCharacterSheetForm'
 import { useCharacterSheetTheme } from '@/hooks/useCharacterSheetTheme'
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
 import { useOnFieldsChanged } from '@/hooks/useOnFieldsChanged'
+import { usePWAInstallPrompt } from '@/hooks/usePWAInstallPrompt'
 import { getProtectorSummary } from '@/lib/character/getProtectorSummary'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
 import { toFormValues } from '@/lib/character/toFormValues'
@@ -43,6 +44,7 @@ export function CharacterSheet({ characterId }: { characterId: string }) {
 
   useCharacterSheetDocumentTitle({ character })
   useKeyboardShortcuts({ form, isDead })
+  usePWAInstallPrompt()
 
   if (!character) {
     return <CharacterSheetEmptyState loading={loading} />
