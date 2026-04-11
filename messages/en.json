@@ -783,5 +783,10 @@
       "cta": "Install",
       "description_ios": "Tap the “Share” button then “Add to Home Screen” to play offline and launch ProMe from your home screen."
     }
+  },
+  "auth": {
+    "sign_in_prompt": "You must be authenticated to access this feature. Sign in with your Google account to continue.",
+    "sign_in_with_google": "Continue with Google",
+    "sign_in_required": "Sign in required"
   }
 }

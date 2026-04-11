@@ -780,5 +780,10 @@
       "cta": "Installer",
       "description_ios": "Appuyez sur « Partager » puis « Ajouter sur l’écran d’accueil » pour jouer hors ligne et accéder à ProMe d’un geste."
     }
+  },
+  "auth": {
+    "sign_in_prompt": "Vous devez être authentifié·e pour accéder à cette fonctionnalité. Connectez-vous avec votre compte Google pour continuer.",
+    "sign_in_with_google": "Continuer avec Google",
+    "sign_in_required": "Connexion requise"
   }
 }
