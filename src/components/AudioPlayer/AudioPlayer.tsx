@@ -10,6 +10,7 @@ import { Button } from '../Button/Button'
 import { useSettings } from '../PageSettings/SettingsContext'
 
 import './AudioPlayer.css'
+import { getPWADisplayMode } from '@/lib/getPWADisplayMode'
 
 const FADE_DURATION_MS = 5_000
 
@@ -46,6 +47,7 @@ export function AudioPlayer({ biome }: { biome: PossibleBiomeId }) {
       html5: true,
       loop: true,
       volume: volumeRef.current,
+      autoplay: getPWADisplayMode() === 'standalone',
       onload: () => setDuration(sound.duration()),
       onplay: () => {
         setIsPlaying(true)

@@ -6,6 +6,7 @@ import {
   SoundtrackPreloadStatus,
   useSoundtrackPreload,
 } from '@/hooks/useSoundtrackPreload'
+import { getPWADisplayMode } from '@/lib/getPWADisplayMode'
 import { PossibleBiomeId } from '@/lib/types'
 import { AudioPlayer } from '../AudioPlayer/AudioPlayer'
 import { useSettings } from '../PageSettings/SettingsContext'
@@ -34,7 +35,10 @@ const useSoundtrackPreloadNotification = (
       notification.success({
         key: NOTIFICATION_KEY,
         title: t('audio_player.preload_complete'),
-        description: t('audio_player.preload_complete_hint'),
+        description:
+          getPWADisplayMode() === 'standalone'
+            ? undefined
+            : t('audio_player.preload_complete_hint'),
         duration: 10,
         placement: 'topRight',
         actions: (
