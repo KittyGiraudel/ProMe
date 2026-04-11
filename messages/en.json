@@ -778,5 +778,12 @@
       "sub": "Create your Protector and step into the world.",
       "cta": "Create your Protector"
     }
+  },
+  "pwa": {
+    "install_prompt": {
+      "title": "Install ProMe",
+      "description": "Add ProMe to your home screen to play offline, enjoy a full-screen experience, and launch it in one tap.",
+      "cta": "Install"
+    }
   }
 }
