@@ -43,10 +43,17 @@ export function isEligibleVisit(visitCount: number): boolean {
 }
 
 function isStandalone(): boolean {
-  return (
-    typeof window !== 'undefined' &&
-    window.matchMedia('(display-mode: standalone)').matches
-  )
+  if (typeof window === 'undefined') return false
+  if ('standalone' in window.navigator && !!window.navigator.standalone)
+    return true
+  return window.matchMedia('(display-mode: standalone)').matches
+}
+
+function isIOS(): boolean {
+  const ua = window.navigator.userAgent.toLowerCase()
+  const platform = /(iphone|ipad|ipod|macintosh)/.exec(ua)?.[1]
+  const isIpad = platform === 'macintosh' && window.navigator.maxTouchPoints > 1
+  return isIpad || (!!platform && platform !== 'macintosh')
 }
 
 export function usePWAInstallPrompt() {
@@ -59,6 +66,20 @@ export function usePWAInstallPrompt() {
 
     const visitCount = incrementVisitCount()
     if (!isEligibleVisit(visitCount)) return
+
+    if (isIOS()) {
+      const timeoutId = setTimeout(() => {
+        notification.info({
+          key: 'pwa-install',
+          duration: false,
+          placement: 'bottomLeft',
+          title: t('pwa.install_prompt.title'),
+          description: t('pwa.install_prompt.description_ios'),
+        })
+      }, DELAY_MS)
+
+      return () => clearTimeout(timeoutId)
+    }
 
     function handleBeforeInstallPrompt(event: Event) {
       event.preventDefault()
