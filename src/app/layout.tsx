@@ -1,5 +1,5 @@
 import { AntdRegistry } from '@ant-design/nextjs-registry'
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { getLocale } from 'next-intl/server'
 import { AppProviders } from '@/components/AppProviders/AppProviders'
@@ -18,12 +18,15 @@ const geistMono = Geist_Mono({
 
 const isDev = process.env.NODE_ENV === 'development'
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#faf8f3' },
+    { media: '(prefers-color-scheme: dark)', color: '#1a2420' },
+  ],
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    themeColor: [
-      { media: '(prefers-color-scheme: light)', color: '#faf8f3' },
-      { media: '(prefers-color-scheme: dark)', color: '#1a2420' },
-    ],
     icons: {
       icon: [
         {
