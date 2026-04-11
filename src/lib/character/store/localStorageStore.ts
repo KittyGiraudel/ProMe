@@ -8,7 +8,6 @@ import {
 import {
   parseCharacter,
   parseCharacters,
-  stringifyCharacter,
   stringifyCharacters,
 } from '@/lib/character/store/migrations'
 import type { CharacterStore } from '@/lib/character/store/types'

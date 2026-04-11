@@ -56,6 +56,6 @@ export function useKeyboardShortcuts({
       window.addEventListener('keydown', handleKeyDown)
       return () => window.removeEventListener('keydown', handleKeyDown)
     },
-    [form, isDead, updateSettings, settings]
+    [form, isDead, updateSettings, settings, notification, t]
   )
 }
