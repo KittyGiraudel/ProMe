@@ -20,6 +20,10 @@ const isDev = process.env.NODE_ENV === 'development'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
+    themeColor: [
+      { media: '(prefers-color-scheme: light)', color: '#faf8f3' },
+      { media: '(prefers-color-scheme: dark)', color: '#1a2420' },
+    ],
     icons: {
       icon: [
         {
