@@ -162,19 +162,19 @@ Auth (Netlify Identity) and database (Netlify DB) are coupled: the database rows
 
 ### New Files
 
-| File                                     | Purpose                                                     |
-| ---------------------------------------- | ----------------------------------------------------------- |
-| `src/lib/auth/types.ts`                  | `NetlifyUser` type (matches `@netlify/identity` user shape) |
-| `src/lib/auth/context.tsx`               | `AuthProvider` + `useAuth` hook                             |
-| `src/lib/auth/server.ts`                 | `getAuthenticatedUser(req)` — verifies JWT in API routes    |
-| `src/lib/db/client.ts`                   | Neon `sql` tagged-template connection                       |
-| `src/lib/db/schema.ts`                   | `initDatabase()` — creates the `characters` table           |
-| `src/lib/character/store/remoteStore.ts` | `createRemoteCharacterStore(token)`                         |
-| `src/app/api/characters/route.ts`        | `GET` (list), `POST` (create)                               |
-| `src/app/api/characters/[id]/route.ts`   | `GET`, `PUT`, `DELETE`                                      |
-| `src/app/api/characters/import/route.ts` | `POST` (bulk import)                                        |
-| `src/lib/auth/RequireAuth.tsx`           | Inline sign-in prompt for protected pages (no redirect)     |
-| `src/app/[locale]/login/page.tsx`        | Standalone login / sign-up page (for direct navigation)     |
+| File                                     | Purpose                                                                 |
+| ---------------------------------------- | ----------------------------------------------------------------------- |
+| `src/lib/auth/types.ts`                  | `NetlifyUser` type (matches `@netlify/identity` user shape)             |
+| `src/lib/auth/context.tsx`               | `AuthProvider` + `useAuth` hook                                         |
+| `src/lib/auth/server.ts`                 | `getAuthenticatedUser(req)` — verifies JWT in API routes                |
+| `src/lib/db/client.ts`                   | Neon `sql` tagged-template connection                                   |
+| `src/lib/db/schema.ts`                   | `initDatabase()` — creates the `characters` table                       |
+| `src/lib/character/store/remoteStore.ts` | `createRemoteCharacterStore(token)`                                     |
+| `src/app/api/characters/route.ts`        | `GET` (list), `POST` (create)                                           |
+| `src/app/api/characters/[id]/route.ts`   | `GET`, `PUT`, `DELETE`                                                  |
+| `src/app/api/characters/import/route.ts` | `POST` (single-character import — upserts without dead-freeze or touch) |
+| `src/lib/auth/RequireAuth.tsx`           | Inline sign-in prompt for protected pages (no redirect)                 |
+| `src/app/[locale]/login/page.tsx`        | Standalone login / sign-up page (for direct navigation)                 |
 
 ### Modified Files
 
@@ -211,8 +211,8 @@ Expected: Packages installed, no peer dependency errors.
 1. Go to the Netlify project dashboard
 2. Navigate to **Project configuration → Identity**
 3. Click **Enable Identity**
-4. Under **Registration**, choose **Open** (or **Invite only** for private access)
-5. Optionally enable external OAuth providers (GitHub, Google, etc.)
+4. Under **Registration**, choose **Invite only** (Google OAuth handles account creation — no need for open registration)
+5. Enable **Google** as an external OAuth provider (not GitHub)
 
 - [ ] **Step 3: Set the `NETLIFY_IDENTITY_URL` environment variable**
 
@@ -375,7 +375,7 @@ import type { NetlifyUser } from '@/lib/auth/types'
 type AuthContextValue = {
   user: NetlifyUser | null
   loading: boolean
-  oauthLogin: (provider: 'github' | 'google') => void
+  oauthLogin: () => void
   logout: () => Promise<void>
 }
 
@@ -412,9 +412,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     })
   }, [applyUser])
 
-  const handleOAuthLogin = useCallback((provider: 'github' | 'google') => {
-    // Redirects to the provider — no await. handleAuthCallback handles the return.
-    netlifyOAuthLogin(provider)
+  const handleOAuthLogin = useCallback(() => {
+    // Redirects to Google — no await. handleAuthCallback handles the return.
+    netlifyOAuthLogin('google')
   }, [])
 
   const handleLogout = useCallback(async () => {
@@ -735,7 +735,9 @@ git commit -m "feat: add character CRUD API routes (Netlify DB)"
 
 ---
 
-### Task 7: Create API route — bulk import
+### Task 7: Create API route — single-character import
+
+Import differs from `PUT /api/characters/[id]` in two ways: it accepts the character as a JSON **string** (the file content the user uploaded), and it skips the dead-freeze check and `touchCharacter` — a character imported from a backup should land exactly as exported.
 
 **Files:**
 
@@ -748,74 +750,50 @@ import {
   normalizeCharacter,
   validateCharacterForPersistence,
 } from '@/lib/character/model'
-import {
-  mergeImportedCharacters,
-  parseCharacters,
-  stringifyCharacters,
-} from '@/lib/character/store/migrations'
+import { parseCharacter } from '@/lib/character/store/migrations'
 import { getAuthenticatedUser, unauthorizedResponse } from '@/lib/auth/server'
 import { sql } from '@/lib/db/client'
-import type { Character, CharacterImportMode } from '@/lib/character/types'
 
 // POST /api/characters/import
+// Body: { json: string }  — the raw JSON string of a single exported character
 export async function POST(req: Request): Promise<Response> {
   const user = await getAuthenticatedUser(req)
   if (!user) return unauthorizedResponse()
 
-  let body: { json: string; mode?: CharacterImportMode }
+  let body: { json: string }
   try {
     body = await req.json()
   } catch {
     return Response.json({ error: 'Invalid JSON' }, { status: 400 })
   }
 
-  const imported = parseCharacters(body.json)
-  const mode: CharacterImportMode = body.mode ?? 'upsert'
+  const character = parseCharacter(body.json)
+  if (!character) {
+    return Response.json({ error: 'INVALID_PAYLOAD' }, { status: 422 })
+  }
 
-  // Fetch existing characters for this user
-  const existingRows = await sql`
-    SELECT data FROM characters WHERE user_id = ${user.id}
+  const validation = validateCharacterForPersistence(character)
+  if (!validation.ok) {
+    return Response.json(
+      { error: 'VALIDATION_ERROR', details: validation.errors },
+      { status: 422 }
+    )
+  }
+
+  await sql`
+    INSERT INTO characters (id, user_id, data, created_at, updated_at)
+    VALUES (
+      ${character.id},
+      ${user.id},
+      ${JSON.stringify(character)},
+      ${character.createdAt},
+      ${character.updatedAt}
+    )
+    ON CONFLICT (id) DO UPDATE
+      SET data = EXCLUDED.data, updated_at = EXCLUDED.updated_at
   `
-  const existing = existingRows
-    .map(row => normalizeCharacter(row.data as unknown))
-    .filter((c): c is Character => c !== null)
 
-  const validImported: typeof imported = []
-  let discarded = 0
-  for (const pc of imported) {
-    const validation = validateCharacterForPersistence(pc)
-    if (validation.ok) validImported.push(pc)
-    else discarded += 1
-  }
-
-  const merged = mergeImportedCharacters(existing, validImported, mode)
-  const result = {
-    ...merged.result,
-    discarded: merged.result.discarded + discarded,
-  }
-
-  if (mode === 'replace') {
-    // Delete all existing characters for the user first
-    await sql`DELETE FROM characters WHERE user_id = ${user.id}`
-  }
-
-  // Upsert all merged characters
-  for (const character of merged.characters) {
-    await sql`
-      INSERT INTO characters (id, user_id, data, created_at, updated_at)
-      VALUES (
-        ${character.id},
-        ${user.id},
-        ${JSON.stringify(character)},
-        ${character.createdAt},
-        ${character.updatedAt}
-      )
-      ON CONFLICT (id) DO UPDATE
-        SET data = EXCLUDED.data, updated_at = EXCLUDED.updated_at
-    `
-  }
-
-  return Response.json(result)
+  return Response.json(character)
 }
 ```
 
@@ -823,7 +801,7 @@ export async function POST(req: Request): Promise<Response> {
 
 ```bash
 git add src/app/api/characters/import/route.ts
-git commit -m "feat: add bulk character import API route"
+git commit -m "feat: add single-character import API route"
 ```
 
 ---
@@ -834,18 +812,14 @@ git commit -m "feat: add bulk character import API route"
 
 - Create: `src/lib/character/store/remoteStore.ts`
 
-The remote store calls the API routes created in Tasks 11–12. It passes the Netlify Identity JWT in every request.
+The remote store calls the API routes created in Tasks 5–7. It passes the Netlify Identity JWT in every request. `getAll` / `list` / `get` / `create` / `save` / `delete` map directly to the CRUD routes. `import` posts the raw character JSON string to the dedicated import route, which upserts without dead-freeze or touch.
 
 - [ ] **Step 1: Create src/lib/character/store/remoteStore.ts**
 
 ```typescript
-import {
-  parseCharacters,
-  stringifyCharacters,
-} from '@/lib/character/store/migrations'
 import type { CharacterStore } from '@/lib/character/store/types'
 import { SaveError } from '@/lib/character/store/localStorageStore'
-import type { Character, CharacterImportMode } from '@/lib/character/types'
+import type { Character } from '@/lib/character/types'
 
 async function apiFetch(
   path: string,
@@ -864,10 +838,17 @@ async function apiFetch(
 
 export function createRemoteCharacterStore(token: string): CharacterStore {
   return {
-    async list() {
+    async getAll() {
       const res = await apiFetch('/api/characters', token)
       if (!res.ok) throw new Error(`Failed to list characters: ${res.status}`)
       return res.json() as Promise<Character[]>
+    },
+
+    async list() {
+      const characters = await this.getAll()
+      return characters.toSorted((a, b) =>
+        b.updatedAt.localeCompare(a.updatedAt)
+      )
     },
 
     async get(id) {
@@ -908,18 +889,15 @@ export function createRemoteCharacterStore(token: string): CharacterStore {
       return true
     },
 
-    async exportAll() {
-      const characters = await this.list()
-      return stringifyCharacters(characters)
-    },
-
-    async importAll(json, mode: CharacterImportMode = 'upsert') {
+    async import(json) {
+      // json is the raw file content of a single exported character.
       const res = await apiFetch('/api/characters/import', token, {
         method: 'POST',
-        body: JSON.stringify({ json, mode }),
+        body: JSON.stringify({ json }),
       })
-      if (!res.ok) throw new Error(`Failed to import characters: ${res.status}`)
-      return res.json()
+      if (res.status === 422) throw new Error('INVALID_PAYLOAD')
+      if (!res.ok) throw new Error(`Failed to import character: ${res.status}`)
+      return res.json() as Promise<Character>
     },
   }
 }
@@ -974,10 +952,7 @@ export default function LoginPage() {
             style={{ display: 'block', textAlign: 'center', marginBottom: '1em' }}>
             {t('auth.sign_in_prompt')}
           </Typography.Text>
-          <Button block onClick={() => oauthLogin('github')}>
-            {t('auth.sign_in_with_github')}
-          </Button>
-          <Button block onClick={() => oauthLogin('google')}>
+          <Button block onClick={() => oauthLogin()}>
             {t('auth.sign_in_with_google')}
           </Button>
         </Space>
@@ -991,8 +966,7 @@ export default function LoginPage() {
 >
 > ```json
 > "auth": {
->   "sign_in_prompt": "Connectez-vous pour accéder à vos personnages",
->   "sign_in_with_github": "Continuer avec GitHub",
+>   "sign_in_prompt": "Vous devez être authentifié·e pour accéder à cette fonctionnalité. Connectez-vous avec votre compte Google pour continuer.",
 >   "sign_in_with_google": "Continuer avec Google"
 > }
 > ```
@@ -1110,10 +1084,7 @@ export function RequireAuth({ children }: { children: React.ReactNode }) {
             style={{ display: 'block', textAlign: 'center', marginBottom: '1em' }}>
             {t('auth.sign_in_prompt')}
           </Typography.Text>
-          <Button block onClick={() => oauthLogin('github')}>
-            {t('auth.sign_in_with_github')}
-          </Button>
-          <Button block onClick={() => oauthLogin('google')}>
+          <Button block onClick={() => oauthLogin()}>
             {t('auth.sign_in_with_google')}
           </Button>
         </Space>
@@ -1128,8 +1099,7 @@ export function RequireAuth({ children }: { children: React.ReactNode }) {
 > ```json
 > "auth": {
 >   "sign_in_required": "Connexion requise",
->   "sign_in_prompt": "Connectez-vous pour accéder à vos personnages",
->   "sign_in_with_github": "Continuer avec GitHub",
+>   "sign_in_prompt": "Vous devez être authentifié·e pour accéder à cette fonctionnalité. Connectez-vous avec votre compte Google pour continuer.",
 >   "sign_in_with_google": "Continuer avec Google"
 > }
 > ```
@@ -1250,7 +1220,7 @@ Run: `netlify dev` (not `npm run dev` — Netlify CLI is needed to inject `DATAB
 
 1. Open `http://localhost:8888` — home page loads without auth
 2. Navigate to `/characters` — should show the inline OAuth sign-in prompt
-3. Click "Continuer avec GitHub" (or Google) — redirects to the provider
+3. Click "Continuer avec Google" — redirects to the provider
 4. Complete OAuth — redirects back, character list appears in place
 5. Create a character — verify it's saved to the DB
 6. Refresh the page — verify the character is still there
