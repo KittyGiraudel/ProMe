@@ -24,6 +24,7 @@ export function useCharacterLibraryActions() {
         router.push(`/characters/${id}`)
       } catch {
         message.error(t('new_character.import_error'))
+      } finally {
         event.target.value = ''
       }
     },

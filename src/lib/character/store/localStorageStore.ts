@@ -17,105 +17,106 @@ import { TranslationKey, TranslationParams } from '@/lib/types'
 
 const STORAGE_KEY = 'prome:characters:v1'
 
-function safeReadStorage(): string {
-  if (typeof window === 'undefined') return '[]'
-  try {
-    return window.localStorage.getItem(STORAGE_KEY) ?? '[]'
-  } catch {
-    return '[]'
-  }
+function readStorage(): string {
+  if (typeof window === 'undefined') throw new Error('UNAVAILABLE_STORAGE')
+  return window.localStorage.getItem(STORAGE_KEY) ?? '[]'
 }
 
-function safeWriteStorage(characters: Character[]): void {
-  if (typeof window === 'undefined') return
-  try {
-    window.localStorage.setItem(STORAGE_KEY, stringifyCharacters(characters))
-  } catch {
-    // ignore write failures (private mode / quota)
-  }
+function writeStorage(characters: Character[]): void {
+  if (typeof window === 'undefined') throw new Error('UNAVAILABLE_STORAGE')
+  window.localStorage.setItem(STORAGE_KEY, stringifyCharacters(characters))
 }
 
 function readAll(): Character[] {
-  return parseCharacters(safeReadStorage())
+  return parseCharacters(readStorage())
 }
 
 function writeAll(characters: Character[]): Character[] {
   const normalized = characters
     .map(normalizeCharacter)
     .filter((item): item is Character => item !== null)
-  safeWriteStorage(normalized)
+  writeStorage(normalized)
   return normalized
 }
 
 export function createLocalStorageCharacterStore(): CharacterStore {
   return {
-    list() {
-      return Promise.resolve(
-        readAll().toSorted((a, b) => b.updatedAt.localeCompare(a.updatedAt))
+    getAll() {
+      return Promise.resolve(readAll())
+    },
+
+    async list() {
+      const characters = await this.getAll()
+      return characters.toSorted((a, b) =>
+        b.updatedAt.localeCompare(a.updatedAt)
       )
     },
-    get(id) {
-      return Promise.resolve(readAll().find(c => c.id === id) ?? null)
-    },
-    create(input) {
-      const next = createCharacter(input)
-      const all = readAll()
-      all.push(next)
-      writeAll(all)
-      return Promise.resolve(next)
-    },
-    save(character) {
-      const normalized = normalizeCharacter(character)
-      if (!normalized) return Promise.reject(new SaveError('INVALID_PAYLOAD'))
 
-      const all = readAll()
-      const existing = all.find(item => item.id === normalized.id) ?? null
+    async get(id) {
+      const characters = await this.getAll()
+      return characters.find(c => c.id === id) ?? null
+    },
+
+    async create(input) {
+      const character = createCharacter(input)
+      const characters = await this.getAll()
+      characters.push(character)
+      writeAll(characters)
+      return character
+    },
+
+    async save(character) {
+      const normalized = normalizeCharacter(character)
+      if (!normalized) throw new SaveError('INVALID_PAYLOAD')
+
+      const characters = await this.getAll()
+      const existing =
+        characters.find(character => character.id === normalized.id) ?? null
 
       if (!canPersistCharacterUpdate(existing, normalized)) {
-        return Promise.reject(new SaveError('DEAD_CHARACTER'))
+        throw new SaveError('DEAD_CHARACTER')
       }
 
       const validation = validateCharacterForPersistence(normalized)
       if (!validation.ok) {
-        return Promise.reject(new ValidationErrorCollection(validation.errors))
+        throw new ValidationErrorCollection(validation.errors)
       }
 
       const touched = touchCharacter(normalized)
-      const index = all.findIndex(item => item.id === touched.id)
+      const index = characters.findIndex(
+        character => character.id === touched.id
+      )
 
-      if (index >= 0) all[index] = touched
-      else all.push(touched)
+      if (index >= 0) characters[index] = touched
+      else characters.push(touched)
 
-      writeAll(all)
-      return Promise.resolve(touched)
+      writeAll(characters)
+      return touched
     },
-    delete(id) {
-      const all = readAll()
-      const next = all.filter(character => character.id !== id)
-      if (next.length === all.length) return Promise.resolve(false)
+
+    async delete(id) {
+      const characters = await this.getAll()
+      const next = characters.filter(character => character.id !== id)
+      if (next.length === characters.length) return false
       writeAll(next)
-      return Promise.resolve(true)
+      return true
     },
-    async export(id) {
-      const character = await this.get(id)
-      if (!character) return Promise.reject(new Error('NOT_FOUND'))
-      return stringifyCharacter(character)
-    },
-    import(json) {
+
+    async import(json) {
       const character = parseCharacter(json)
-      if (!character) return Promise.reject(new Error('INVALID_PAYLOAD'))
+      if (!character) throw new Error('INVALID_PAYLOAD')
 
       const validation = validateCharacterForPersistence(character)
       if (!validation.ok) {
-        return Promise.reject(new ValidationErrorCollection(validation.errors))
+        throw new ValidationErrorCollection(validation.errors)
       }
 
-      const all = readAll()
-      const index = all.findIndex(c => c.id === character.id)
-      if (index >= 0) all[index] = character
-      else all.push(character)
-      writeAll(all)
-      return Promise.resolve(character)
+      const characters = await this.getAll()
+      const index = characters.findIndex(c => c.id === character.id)
+      if (index >= 0) characters[index] = character
+      else characters.push(character)
+      writeAll(characters)
+      return character
     },
   }
 }
