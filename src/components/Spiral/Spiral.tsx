@@ -134,11 +134,7 @@ export function Spiral() {
   }, [])
 
   return (
-    <svg
-      ref={svgRef}
-      className='SpiralVisual'
-      viewBox='0 0 100 100'
-      aria-hidden='true'>
+    <svg ref={svgRef} className='SpiralVisual' viewBox='0 0 100 100' role='img'>
       <g ref={groupRef}>
         <path
           ref={pathRef}

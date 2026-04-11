@@ -38,10 +38,8 @@ export function PlayingCardLabel({
 
   return (
     <span className={rootClass} role='img' aria-label={label} title={label}>
-      <span className='PlayingCardLabel__rank' aria-hidden='true'>
-        {card.rank}
-      </span>
-      <span className={suitClass} aria-hidden='true'>
+      <span className='PlayingCardLabel__rank'>{card.rank}</span>
+      <span className={suitClass}>
         {'\u00a0'}
         {SUITS[card.suit]}
       </span>

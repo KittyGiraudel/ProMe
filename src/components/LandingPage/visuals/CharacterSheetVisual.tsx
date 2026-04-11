@@ -5,7 +5,7 @@ export function CharacterSheetVisual() {
   const t = useTranslations()
   const format = useFormatter()
   return (
-    <div className='CharacterSheetVisual' aria-hidden='true'>
+    <div className='CharacterSheetVisual'>
       <div className='CharacterSheetVisual__name'>
         {t('landing.features.character.demo.name')}
       </div>

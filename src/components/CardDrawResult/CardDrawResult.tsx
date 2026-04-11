@@ -45,7 +45,7 @@ export function CardDrawResult() {
         .filter(Boolean)
         .join(' ')}
       aria-label={`${card.rank} ${card.suit}`}>
-      <span className='CardDrawResult__card' aria-hidden='true'>
+      <span className='CardDrawResult__card'>
         <span className='CardDrawResult__rank'>{card.rank}</span>
         <span
           className={[

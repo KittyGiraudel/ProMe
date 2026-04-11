@@ -89,11 +89,11 @@ export function InheritanceCard({
             </h3>
             <ul className='InheritanceCard__List'>
               <li className='InheritanceCard__Row InheritanceCard__Row--inherited'>
-                <span className='InheritanceCard__Dot' aria-hidden='true' />
+                <span className='InheritanceCard__Dot' />
                 <span>{t('new_character.inheritance_inherited_map')}</span>
               </li>
               <li className='InheritanceCard__Row InheritanceCard__Row--inherited'>
-                <span className='InheritanceCard__Dot' aria-hidden='true' />
+                <span className='InheritanceCard__Dot' />
                 <span>{t('new_character.inheritance_inherited_journal')}</span>
               </li>
             </ul>
@@ -104,27 +104,27 @@ export function InheritanceCard({
             </h3>
             <ul className='InheritanceCard__List'>
               <li className='InheritanceCard__Row InheritanceCard__Row--fresh'>
-                <span className='InheritanceCard__Dot' aria-hidden='true' />
+                <span className='InheritanceCard__Dot' />
                 <span>
                   {t('new_character.inheritance_not_soul_courage_stamina')}
                 </span>
               </li>
               <li className='InheritanceCard__Row InheritanceCard__Row--fresh'>
-                <span className='InheritanceCard__Dot' aria-hidden='true' />
+                <span className='InheritanceCard__Dot' />
                 <span>
                   {t('new_character.inheritance_not_honor_inspiration')}
                 </span>
               </li>
               <li className='InheritanceCard__Row InheritanceCard__Row--fresh'>
-                <span className='InheritanceCard__Dot' aria-hidden='true' />
+                <span className='InheritanceCard__Dot' />
                 <span>{t('new_character.inheritance_not_gold')}</span>
               </li>
               <li className='InheritanceCard__Row InheritanceCard__Row--fresh'>
-                <span className='InheritanceCard__Dot' aria-hidden='true' />
+                <span className='InheritanceCard__Dot' />
                 <span>{t('new_character.inheritance_not_inventory')}</span>
               </li>
               <li className='InheritanceCard__Row InheritanceCard__Row--fresh'>
-                <span className='InheritanceCard__Dot' aria-hidden='true' />
+                <span className='InheritanceCard__Dot' />
                 <span>{t('new_character.inheritance_not_spellbook')}</span>
               </li>
             </ul>

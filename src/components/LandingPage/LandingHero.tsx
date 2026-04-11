@@ -18,7 +18,7 @@ export function LandingHero() {
           <RichText text={t('landing.hero.eyebrow')} />
         </div>
         <h1 className='LandingHero__title'>{t('landing.hero.title')}</h1>
-        <div className='LandingHero__divider' aria-hidden='true' />
+        <div className='LandingHero__divider' />
         <p className='LandingHero__tagline'>{t('landing.hero.tagline')}</p>
         <Link href='/characters/new' className='LandingHero__cta'>
           {t('landing.hero.cta')}

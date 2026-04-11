@@ -45,9 +45,7 @@ export function DiceRollResult() {
         .join(' ')}
       role='img'
       aria-label={String(dieValue)}>
-      <span className='DiceRollResult__face' aria-hidden='true'>
-        {DICE[dieValue - 1]}
-      </span>
+      <span className='DiceRollResult__face'>{DICE[dieValue - 1]}</span>
     </span>
   )
 }
