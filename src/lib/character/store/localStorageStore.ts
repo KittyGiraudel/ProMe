@@ -6,12 +6,13 @@ import {
   validateCharacterForPersistence,
 } from '@/lib/character/model'
 import {
-  mergeImportedCharacters,
+  parseCharacter,
   parseCharacters,
+  stringifyCharacter,
   stringifyCharacters,
 } from '@/lib/character/store/migrations'
 import type { CharacterStore } from '@/lib/character/store/types'
-import type { Character, CharacterImportMode } from '@/lib/character/types'
+import type { Character } from '@/lib/character/types'
 import { TranslationKey, TranslationParams } from '@/lib/types'
 
 const STORAGE_KEY = 'prome:characters:v1'
@@ -95,27 +96,26 @@ export function createLocalStorageCharacterStore(): CharacterStore {
       writeAll(next)
       return Promise.resolve(true)
     },
-    exportAll() {
-      return Promise.resolve(stringifyCharacters(readAll()))
+    async export(id) {
+      const character = await this.get(id)
+      if (!character) return Promise.reject(new Error('NOT_FOUND'))
+      return stringifyCharacter(character)
     },
-    importAll(json, mode: CharacterImportMode = 'upsert') {
-      const imported = parseCharacters(json)
-      const existing = readAll()
-      const validImported: typeof imported = []
-      let discarded = 0
-      for (const pc of imported) {
-        const validation = validateCharacterForPersistence(pc)
-        if (validation.ok) validImported.push(pc)
-        else discarded += 1
+    import(json) {
+      const character = parseCharacter(json)
+      if (!character) return Promise.reject(new Error('INVALID_PAYLOAD'))
+
+      const validation = validateCharacterForPersistence(character)
+      if (!validation.ok) {
+        return Promise.reject(new ValidationErrorCollection(validation.errors))
       }
 
-      const merged = mergeImportedCharacters(existing, validImported, mode)
-      const result = {
-        ...merged.result,
-        discarded: merged.result.discarded + discarded,
-      }
-      writeAll(merged.characters)
-      return Promise.resolve(result)
+      const all = readAll()
+      const index = all.findIndex(c => c.id === character.id)
+      if (index >= 0) all[index] = character
+      else all.push(character)
+      writeAll(all)
+      return Promise.resolve(character)
     },
   }
 }

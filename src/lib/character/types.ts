@@ -75,12 +75,3 @@ export type CharacterInput = Omit<
   Character,
   'id' | 'createdAt' | 'updatedAt' | 'schemaVersion'
 >
-
-export type CharacterImportMode = 'upsert' | 'replace'
-
-export type CharacterImportResult = {
-  totalRead: number
-  created: number
-  updated: number
-  discarded: number
-}

@@ -524,10 +524,8 @@
   "new_character": {
     "create_success": "Protecteur créé.",
     "create": "Créer un Protecteur",
-    "import_data_error": "Le Protecteur importé est invalide et ne peut pas être sauvegardé.",
-    "import_error": "Import impossible. Vérifiez le fichier JSON.",
-    "import_format_error": "Format invalide. Le fichier doit contenir exactement un Protecteur exporté.",
-    "import_success": "Import terminé ({total} lus, {created} créés, {updated} mis à jour).",
+    "import_error": "Le Protecteur importé est invalide et ne peut pas être sauvegardé.",
+    "import_success": "Protecteur importé avec succès.",
     "import": "Importer un Protecteur",
     "inheritance_card_title": "Héritage",
     "inheritance_empty": "Aucun Protecteur existant",

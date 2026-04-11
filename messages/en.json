@@ -527,10 +527,8 @@
   "new_character": {
     "create_success": "Protector created.",
     "create": "Create Protector",
-    "import_data_error": "The imported Protector is invalid and cannot be saved.",
-    "import_error": "Import failed. Check the JSON file.",
-    "import_format_error": "Invalid format. The file must contain exactly one exported Protector.",
-    "import_success": "Import complete ({total} read, {created} created, {updated} updated).",
+    "import_error": "The imported Protector is invalid and cannot be saved.",
+    "import_success": "Protector imported successfully.",
     "import": "Import Protector",
     "inheritance_card_title": "Inheritance",
     "inheritance_empty": "No existing Protectors",

@@ -19,48 +19,11 @@ export function useCharacterLibraryActions() {
 
       try {
         const raw = await file.text()
-        let parsed: { characters?: unknown } | null = null
-        try {
-          parsed = JSON.parse(raw) as { characters?: unknown }
-        } catch {
-          message.error(t('new_character.import_error'))
-          return
-        }
-
-        if (
-          !parsed ||
-          typeof parsed !== 'object' ||
-          !Array.isArray(parsed.characters) ||
-          parsed.characters.length !== 1
-        ) {
-          message.error(t('new_character.import_format_error'))
-          return
-        }
-
-        const result = await store.importAll(raw, 'upsert')
-        if (result.totalRead !== 1) {
-          message.error(t('new_character.import_format_error'))
-          return
-        }
-        if (result.discarded > 0) {
-          message.error(t('new_character.import_data_error'))
-          return
-        }
-
-        const characterId = (parsed.characters[0] as { id?: string }).id
-        message.success(
-          t('new_character.import_success', {
-            total: result.totalRead,
-            created: result.created,
-            updated: result.updated,
-          })
-        )
-        if (characterId) {
-          router.push(`/characters/${characterId}`)
-        }
+        const { id } = await store.import(raw)
+        message.success(t('new_character.import_success'))
+        router.push(`/characters/${id}`)
       } catch {
         message.error(t('new_character.import_error'))
-      } finally {
         event.target.value = ''
       }
     },

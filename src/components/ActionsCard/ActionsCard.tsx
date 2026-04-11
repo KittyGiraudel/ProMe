@@ -14,7 +14,7 @@ import { SaveForm } from '@/hooks/useCharacterSheetForm'
 import { useCharacterDelete } from '@/hooks/useMutation'
 import { useRouter } from '@/i18n/navigation'
 import { getCharacterStore } from '@/lib/character/store'
-import { stringifyCharacters } from '@/lib/character/store/migrations'
+import { stringifyCharacter } from '@/lib/character/store/migrations'
 import {
   buildCharacterExportFileName,
   downloadJsonFile,
@@ -47,7 +47,7 @@ export function ActionsCard({
   const onExport = useCallback(async () => {
     const saved = await getCharacterStore().get(characterId as string)
     const character = { ...saved, ...form.getFieldsValue(true) }
-    const content = stringifyCharacters([character])
+    const content = stringifyCharacter(character)
     try {
       downloadJsonFile(content, buildCharacterExportFileName(character))
       message.success(t('characters.actions.export_downloaded'))

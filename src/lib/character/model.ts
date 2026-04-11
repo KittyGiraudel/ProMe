@@ -9,7 +9,6 @@ import {
   CellCoordinate,
   CHARACTER_SCHEMA_VERSION,
   type Character,
-  type CharacterImportMode,
   type CharacterInput,
   type CharacterMapCell,
   type CharacterMapState,
@@ -534,8 +533,4 @@ export function validateCharacterForPersistence(
 
 export function computeInventoryCap(character: Character): number {
   return Math.max(0, character.stamina.current) * 6
-}
-
-export function normalizeImportMode(value: unknown): CharacterImportMode {
-  return value === 'replace' ? 'replace' : 'upsert'
 }

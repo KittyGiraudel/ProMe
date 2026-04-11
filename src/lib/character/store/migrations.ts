@@ -1,13 +1,14 @@
-import { normalizeCharacter, normalizeImportMode } from '@/lib/character/model'
-import type {
-  Character,
-  CharacterImportMode,
-  CharacterImportResult,
-} from '@/lib/character/types'
+import { normalizeCharacter } from '@/lib/character/model'
+import type { Character } from '@/lib/character/types'
 
 type PersistedEnvelope = {
   schemaVersion?: number
   characters?: unknown
+}
+
+type ExportEnvelope = {
+  schemaVersion?: number
+  character?: unknown
 }
 
 export function parseCharacters(json: string): Character[] {
@@ -28,53 +29,28 @@ export function stringifyCharacters(characters: Character[]): string {
   return JSON.stringify({ schemaVersion: 1, characters })
 }
 
+export function parseCharacter(json: string): Character | null {
+  let parsed: unknown
+  try {
+    parsed = JSON.parse(json)
+  } catch {
+    return null
+  }
+
+  if (!parsed || typeof parsed !== 'object') return null
+  const envelope = parsed as ExportEnvelope
+  const raw = envelope.character
+  return raw != null ? normalizeCharacter(raw) : null
+}
+
+export function stringifyCharacter(character: Character): string {
+  return JSON.stringify({ schemaVersion: 1, character })
+}
+
 function extractCharacterList(value: unknown): unknown[] {
   if (Array.isArray(value)) return value
   if (!value || typeof value !== 'object') return []
   const envelope = value as PersistedEnvelope
   if (Array.isArray(envelope.characters)) return envelope.characters
   return []
-}
-
-export function mergeImportedCharacters(
-  existing: Character[],
-  imported: Character[],
-  mode: CharacterImportMode
-): { characters: Character[]; result: CharacterImportResult } {
-  const normalizedMode = normalizeImportMode(mode)
-  const totalRead = imported.length
-
-  if (normalizedMode === 'replace') {
-    return {
-      characters: imported,
-      result: {
-        totalRead,
-        created: imported.length,
-        updated: 0,
-        discarded: 0,
-      },
-    }
-  }
-
-  const byId = new Map(existing.map(character => [character.id, character]))
-  let created = 0
-  let updated = 0
-  for (const character of imported) {
-    if (byId.has(character.id)) {
-      updated += 1
-    } else {
-      created += 1
-    }
-    byId.set(character.id, character)
-  }
-
-  return {
-    characters: Array.from(byId.values()),
-    result: {
-      totalRead,
-      created,
-      updated,
-      discarded: 0,
-    },
-  }
 }
