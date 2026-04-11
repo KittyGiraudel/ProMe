@@ -1,15 +1,17 @@
 import { decodeVillageFactionParam } from '@/lib/village/villageUrlCodec'
 
+export type ParsedNpcGeneratorLink = {
+  kind: 'npc'
+  encodedId: string
+}
+export type ParsedVillageGeneratorLink = {
+  kind: 'village'
+  encodedId: string
+  faction: ReturnType<typeof decodeVillageFactionParam>
+}
 export type ParsedGeneratorLink =
-  | {
-      kind: 'npc'
-      encodedId: string
-    }
-  | {
-      kind: 'village'
-      encodedId: string
-      faction: ReturnType<typeof decodeVillageFactionParam>
-    }
+  | ParsedNpcGeneratorLink
+  | ParsedVillageGeneratorLink
 
 /** Resolve absolute URL; relative paths use a dummy origin. */
 function normalizeUrl(rawUrl: string): URL | null {

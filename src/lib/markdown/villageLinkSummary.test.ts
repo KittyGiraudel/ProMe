@@ -1,19 +1,19 @@
 import { describe, expect, it } from 'vitest'
 import { testLocalize } from '@/lib/localization/testLocalize'
-import { parseGeneratorLink } from './generatorLink'
+import { ParsedVillageGeneratorLink, parseGeneratorLink } from './generatorLink'
 import { getVillageJournalSummary } from './villageLinkSummary'
 
 describe('markdown/villageLinkSummary', () => {
   it('returns village summary with faction when URL is valid', () => {
     const parsed = parseGeneratorLink(
       'https://example.com/generators/village/S2C3D4H5S6.X?f=bruja'
-    )
+    ) as ParsedVillageGeneratorLink
     expect(parsed?.kind).toBe('village')
     const summary = getVillageJournalSummary(
       parsed!.encodedId,
       testLocalize,
       undefined,
-      parsed!.faction
+      parsed.faction
     )
     expect(summary).toBe('Village (Bruja), 5 établissements')
   })
@@ -21,13 +21,13 @@ describe('markdown/villageLinkSummary', () => {
   it('returns village summary without faction when f is absent', () => {
     const parsed = parseGeneratorLink(
       'https://example.com/generators/village/S2C3D4H5S6.X'
-    )
+    ) as ParsedVillageGeneratorLink
     expect(parsed?.kind).toBe('village')
     const summary = getVillageJournalSummary(
       parsed!.encodedId,
       testLocalize,
       undefined,
-      parsed!.faction
+      parsed.faction
     )
     expect(summary).toBe('Village, 5 établissements')
   })
@@ -36,11 +36,11 @@ describe('markdown/villageLinkSummary', () => {
   it('uses merged establishment count when mergeDuplicateEstablishments is true', () => {
     const parsed = parseGeneratorLink(
       'https://example.com/generators/village/HADAC3S4H5.X'
-    )
+    ) as ParsedVillageGeneratorLink
     expect(parsed?.kind).toBe('village')
     const id = parsed!.encodedId
     expect(
-      getVillageJournalSummary(id, testLocalize, undefined, parsed!.faction)
+      getVillageJournalSummary(id, testLocalize, undefined, parsed.faction)
     ).toBe('Village, 5 établissements')
     expect(
       getVillageJournalSummary(id, testLocalize, {
@@ -52,8 +52,8 @@ describe('markdown/villageLinkSummary', () => {
   it('returns null for invalid village URLs', () => {
     const parsed = parseGeneratorLink(
       'https://example.com/generators/village/bad.X'
-    )
+    ) as ParsedVillageGeneratorLink
     expect(parsed?.kind).toBe('village')
-    expect(getVillageJournalSummary(parsed!.encodedId, testLocalize)).toBeNull()
+    expect(getVillageJournalSummary(parsed.encodedId, testLocalize)).toBeNull()
   })
 })
