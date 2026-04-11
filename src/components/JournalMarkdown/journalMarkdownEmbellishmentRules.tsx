@@ -1,12 +1,12 @@
 'use client'
 
-import type { _Translator } from 'next-intl'
+import { type _Translator, useTranslations } from 'next-intl'
 import type { CSSProperties, ReactNode } from 'react'
 import { BiomeTag } from '@/components/BiomeTag/BiomeTag'
 import { CoordChip } from '@/components/CoordChip/CoordChip'
 import { JournalReferencePreview } from '@/components/JournalReferencePreview/JournalReferencePreview'
 import { CharacterCellData } from '@/components/MapDisplay/useMapState'
-import { getCharacterStore } from '@/lib/character/store'
+import { useCharacterQuery } from '@/hooks/useQuery'
 import { BIOME_ROLL_TABLE } from '@/lib/constants/biomeRollTable'
 import { DICE, SUITS } from '@/lib/constants/misc'
 import {
@@ -35,6 +35,29 @@ export type JournalEmbellishmentBuildContext = {
   // When false, reference previews and coord chips do not navigate
   // (e.g. edit-modal preview).
   interactive?: boolean
+}
+
+function ProtectorJournalRef({
+  id,
+  interactive,
+}: {
+  id: string
+  interactive: boolean
+}) {
+  const t = useTranslations()
+  const { data: character } = useCharacterQuery({ id })
+  const label = character
+    ? getProtectorJournalSummary(character, t)
+    : t('characters_list.unknown')
+
+  return (
+    <JournalReferencePreview
+      kind='protector'
+      referenceId={id}
+      href={interactive ? `/characters/${id}/identity` : undefined}
+      label={label}
+    />
+  )
 }
 
 function accentSpan(
@@ -232,17 +255,11 @@ function staticJournalEmbellishmentRules(
       ({ slice, refId, reactKey }) => {
         const id = refId?.trim()
         if (!id) return slice
-        const ch = getCharacterStore().get(id)
-        const label = ch
-          ? getProtectorJournalSummary(ch, t)
-          : t('character_list.unknown')
         return (
-          <JournalReferencePreview
+          <ProtectorJournalRef
             key={reactKey}
-            kind='protector'
-            referenceId={id}
-            href={ctx.interactive ? `/characters/${id}/identity` : undefined}
-            label={label}
+            id={id}
+            interactive={ctx.interactive ?? false}
           />
         )
       }

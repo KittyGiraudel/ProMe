@@ -37,7 +37,7 @@ export function useCharacterLibraryActions() {
           return
         }
 
-        const result = store.importAll(raw, 'upsert')
+        const result = await store.importAll(raw, 'upsert')
         if (result.totalRead !== 1) {
           message.error(t('new_character.import_format_error'))
           return

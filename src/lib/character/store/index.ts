@@ -1,11 +1,12 @@
 import { createLocalStorageCharacterStore } from '@/lib/character/store/localStorageStore'
 import type { CharacterStore } from '@/lib/character/store/types'
 
-let cachedStore: CharacterStore | null = null
+let currentStore: CharacterStore = createLocalStorageCharacterStore()
 
 export function getCharacterStore(): CharacterStore {
-  if (!cachedStore) {
-    cachedStore = createLocalStorageCharacterStore()
-  }
-  return cachedStore
+  return currentStore
+}
+
+export function setCharacterStore(store: CharacterStore): void {
+  currentStore = store
 }

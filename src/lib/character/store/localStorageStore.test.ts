@@ -31,33 +31,30 @@ beforeEach(() => {
 })
 
 describe('character/store/localStorageStore dead freeze', () => {
-  it('rejects modifications to existing dead characters', () => {
+  it('rejects modifications to existing dead characters', async () => {
     const store = createLocalStorageCharacterStore()
-    const alive = store.create({ name: 'A' })
-    const dead = store.save({ ...alive, lifeStatus: 'dead' })
+    const alive = await store.create({ name: 'A' })
+    const dead = await store.save({ ...alive, lifeStatus: 'dead' })
 
-    expect(() =>
-      store.save({
-        ...dead,
-        name: 'Changed after death',
-      })
-    ).toThrow('DEAD_CHARACTER')
+    await expect(
+      store.save({ ...dead, name: 'Changed after death' })
+    ).rejects.toThrow('DEAD_CHARACTER')
   })
 
-  it('allows idempotent save payload for dead characters', () => {
+  it('allows idempotent save payload for dead characters', async () => {
     const store = createLocalStorageCharacterStore()
-    const alive = store.create({ name: 'B' })
-    const dead = store.save({ ...alive, lifeStatus: 'dead' })
-    const savedAgain = store.save(dead)
+    const alive = await store.create({ name: 'B' })
+    const dead = await store.save({ ...alive, lifeStatus: 'dead' })
+    const savedAgain = await store.save(dead)
     expect(savedAgain.lifeStatus).toBe('dead')
     expect(savedAgain.id).toBe(dead.id)
   })
 
-  it('allows revive without any other mutation', () => {
+  it('allows revive without any other mutation', async () => {
     const store = createLocalStorageCharacterStore()
-    const alive = store.create({ name: 'C' })
-    const dead = store.save({ ...alive, lifeStatus: 'dead' })
-    const revived = store.save({ ...dead, lifeStatus: 'alive' })
+    const alive = await store.create({ name: 'C' })
+    const dead = await store.save({ ...alive, lifeStatus: 'dead' })
+    const revived = await store.save({ ...dead, lifeStatus: 'alive' })
     expect(revived.lifeStatus).toBe('alive')
     expect(revived.name).toBe(alive.name)
   })

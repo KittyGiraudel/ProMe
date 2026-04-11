@@ -49,33 +49,35 @@ function writeAll(characters: Character[]): Character[] {
 export function createLocalStorageCharacterStore(): CharacterStore {
   return {
     list() {
-      return readAll().toSorted((a, b) =>
-        b.updatedAt.localeCompare(a.updatedAt)
+      return Promise.resolve(
+        readAll().toSorted((a, b) => b.updatedAt.localeCompare(a.updatedAt))
       )
     },
     get(id) {
-      return readAll().find(character => character.id === id) ?? null
+      return Promise.resolve(readAll().find(c => c.id === id) ?? null)
     },
     create(input) {
       const next = createCharacter(input)
       const all = readAll()
       all.push(next)
       writeAll(all)
-      return next
+      return Promise.resolve(next)
     },
     save(character) {
       const normalized = normalizeCharacter(character)
-      if (!normalized) throw new SaveError('INVALID_PAYLOAD')
+      if (!normalized) return Promise.reject(new SaveError('INVALID_PAYLOAD'))
 
       const all = readAll()
       const existing = all.find(item => item.id === normalized.id) ?? null
 
       if (!canPersistCharacterUpdate(existing, normalized)) {
-        throw new SaveError('DEAD_CHARACTER')
+        return Promise.reject(new SaveError('DEAD_CHARACTER'))
       }
 
       const validation = validateCharacterForPersistence(normalized)
-      if (!validation.ok) throw new ValidationErrorCollection(validation.errors)
+      if (!validation.ok) {
+        return Promise.reject(new ValidationErrorCollection(validation.errors))
+      }
 
       const touched = touchCharacter(normalized)
       const index = all.findIndex(item => item.id === touched.id)
@@ -84,17 +86,17 @@ export function createLocalStorageCharacterStore(): CharacterStore {
       else all.push(touched)
 
       writeAll(all)
-      return touched
+      return Promise.resolve(touched)
     },
     delete(id) {
       const all = readAll()
       const next = all.filter(character => character.id !== id)
-      if (next.length === all.length) return false
+      if (next.length === all.length) return Promise.resolve(false)
       writeAll(next)
-      return true
+      return Promise.resolve(true)
     },
     exportAll() {
-      return stringifyCharacters(readAll())
+      return Promise.resolve(stringifyCharacters(readAll()))
     },
     importAll(json, mode: CharacterImportMode = 'upsert') {
       const imported = parseCharacters(json)
@@ -113,7 +115,7 @@ export function createLocalStorageCharacterStore(): CharacterStore {
         discarded: merged.result.discarded + discarded,
       }
       writeAll(merged.characters)
-      return result
+      return Promise.resolve(result)
     },
   }
 }

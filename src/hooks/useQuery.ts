@@ -13,15 +13,23 @@ export type QueryResult<T> = {
   refetch: () => void
 }
 
-export function useQuery<T>(fetcher: () => Promise<T>): QueryResult<T> {
+type UseQueryOptions = {
+  skip?: boolean
+}
+
+export function useQuery<T>(
+  fetcher: () => Promise<T>,
+  { skip = false }: UseQueryOptions = {}
+): QueryResult<T> {
   const [data, setData] = useState<T | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(!skip)
   const [error, setError] = useState<Error | null>(null)
   const fetcherRef = useRef(fetcher)
   fetcherRef.current = fetcher
   const [tick, setTick] = useState(0)
 
   useEffect(() => {
+    if (skip) return
     let cancelled = false
     setLoading(true)
     fetcherRef
@@ -43,7 +51,7 @@ export function useQuery<T>(fetcher: () => Promise<T>): QueryResult<T> {
     return () => {
       cancelled = true
     }
-  }, [tick])
+  }, [tick, skip])
 
   const refetch = useCallback(() => setTick(t => t + 1), [])
 
@@ -56,12 +64,14 @@ export function useSettingsQuery(): QueryResult<AppSettings> {
 
 type UseCharacterQueryOptions = {
   id: string
+  skip?: boolean
 }
 
 export function useCharacterQuery({
   id,
+  skip,
 }: UseCharacterQueryOptions): QueryResult<Character | null> {
-  return useQuery(() => Promise.resolve(getCharacterStore().get(id)))
+  return useQuery(() => getCharacterStore().get(id), { skip })
 }
 
 type UseCharactersQueryOptions = {
@@ -72,6 +82,8 @@ export function useCharactersQuery({
   limit = Infinity,
 }: UseCharactersQueryOptions = {}): QueryResult<Character[]> {
   return useQuery(() =>
-    Promise.resolve(getCharacterStore().list().slice(0, limit))
+    getCharacterStore()
+      .list()
+      .then(chars => chars.slice(0, limit))
   )
 }

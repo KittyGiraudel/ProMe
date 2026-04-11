@@ -6,7 +6,7 @@ import { useMemo, useState } from 'react'
 import { Button } from '@/components/Button/Button'
 import { InhabitantSummary } from '@/components/InhabitantSummary/InhabitantSummary'
 import { VillageSummary } from '@/components/VillageSummary/VillageSummary'
-import { getCharacterStore } from '@/lib/character/store'
+import { useCharacterQuery } from '@/hooks/useQuery'
 import { decodeInhabitantRollParam } from '@/lib/inhabitant/inhabitantUrlCodec'
 import {
   decodeVillageIdParam,
@@ -50,6 +50,11 @@ export function JournalReferencePreview(props: JournalReferencePreviewProps) {
   const [open, setOpen] = useState(false)
   const referenceId = props.referenceId
 
+  const { data: protectorCharacter } = useCharacterQuery({
+    id: props.referenceId,
+    skip: props.kind !== 'protector',
+  })
+
   const decoded = useMemo(() => {
     if (props.kind === 'npc') {
       const roll = decodeInhabitantRollParam(referenceId, t)
@@ -64,9 +69,10 @@ export function JournalReferencePreview(props: JournalReferencePreviewProps) {
         ? { kind: 'village-roll-only' as const, roll: rollOnly }
         : null
     }
-    const character = getCharacterStore().get(referenceId)
-    return character ? { kind: 'protector' as const, character } : null
-  }, [props.kind, referenceId, t])
+    return protectorCharacter
+      ? { kind: 'protector' as const, character: protectorCharacter }
+      : null
+  }, [props.kind, referenceId, t, protectorCharacter])
 
   if (!props.href) {
     return (

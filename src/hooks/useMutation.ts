@@ -55,8 +55,7 @@ export function useMutation<TData, TVariables>(
 
 export function useCharacterSave(options?: MutationOptions<Character>) {
   return useMutation(
-    (character: Character) =>
-      Promise.resolve(getCharacterStore().save(character)),
+    (character: Character) => getCharacterStore().save(character),
     options
   )
 }
@@ -69,9 +68,9 @@ export type CharacterCreateValues = {
 }
 
 export function useCharacterCreate(options?: MutationOptions<Character>) {
-  return useMutation((values: CharacterCreateValues) => {
+  return useMutation(async (values: CharacterCreateValues) => {
     const source = values.inheritFromCharacterId
-      ? getCharacterStore().get(values.inheritFromCharacterId)
+      ? await getCharacterStore().get(values.inheritFromCharacterId)
       : null
     const created = createCharacterFromIdentity(
       {
@@ -81,13 +80,13 @@ export function useCharacterCreate(options?: MutationOptions<Character>) {
       },
       source ?? undefined
     )
-    return Promise.resolve(getCharacterStore().save(created))
+    return getCharacterStore().save(created)
   }, options)
 }
 
 export function useCharacterDelete(options?: MutationOptions<boolean>) {
   return useMutation(
-    ({ id }: { id: string }) => Promise.resolve(getCharacterStore().delete(id)),
+    ({ id }: { id: string }) => getCharacterStore().delete(id),
     options
   )
 }
