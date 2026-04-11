@@ -10,7 +10,7 @@
   },
   "characters": {
     "back_to_library": "Back to Library",
-    "dead_readonly_description": "{gender, select, man {This Protector has died.} woman {This Protector has died.} other {This Protector has died.}} As a result, this sheet is frozen and read-only. {gender, select, man {This Protector can be revived} woman {This Protector can be revived} other {This Protector can be revived}} in the \"<link>Actions</link>\" section of the character sheet.",
+    "dead_readonly_description": "{gender, select, man {This Protector has died.} woman {This Protector has died.} other {This Protector has died.}} As a result, this sheet is frozen and read-only. {gender, select, man {This Protector can be revived} woman {This Protector can be revived} other {This Protector can be revived}} in the “<link>Actions</link>” section of the character sheet.",
     "dead_readonly_title": "Deceased Protector",
     "main_characteristics": "Main Characteristics",
     "not_found_description": "This sheet no longer exists in this browser.",
@@ -115,7 +115,7 @@
         "embellishment_biome": "Color formatting for biome names (e.g., {example})",
         "embellishment_cards": "Highlight playing cards (♠, ♥, ♦, ♣)",
         "embellishment_cells": "Links to cells (e.g., <e13></e13>, <b07></b07>)",
-        "embellishment_checks": "Color formatting for \"{success}\" and \"{failure}\"",
+        "embellishment_checks": "Color formatting for “{success}” and “{failure}”",
         "embellishment_dice": "Highlight dice (⚀, ⚁, ⚂, ⚃, ⚄, ⚅)",
         "embellishment_stars": "Color formatting for celestial bodies (☼, ☾)",
         "embellishment_title": "Auto-formatting",
@@ -218,7 +218,7 @@
       "expand": "Expand",
       "finish": "Finish",
       "generate": "Generate",
-      "go_to": "Open \"{destination}\"",
+      "go_to": "Open “{destination}”",
       "open": "Open",
       "open_in_new_tab": "Open in new tab",
       "reset": "Reset",
@@ -322,7 +322,7 @@
       "shadowForest": "Shadow Forest",
       "shadowForest_description": "Colossal trees rise before you, like giant sentinels protecting the heart of the ancient forest. As you enter, you are embraced by deep shadows, yet their darkness inspires neither fear nor insecurity. The singing murmur of the wind among the trees seems to whisper tales of time immemorial. Sunlight, which sometimes filters through the branches and leaves, creates restful, golden clearings. The deeper you venture into the heart of the forest, the more you understand that the starkness of the great trunks surrounding you and the intensity of the enveloping darkness serve no other purpose than to protect the lives that dwell within.",
       "floodedPlains": "Flooded Plains",
-      "floodedPlains_description": "The horizon begins to approach strangely, closer than it should. The sky seems to consume the ground, as if you were reaching the edge of the world. Then you step into the void… and realize you are standing on a vast flooded plain. Except for small islands inhabited by immense trees with massive trunks, it doesn't seem that you'll find any dry land anytime soon. Yet the calm water, a cubit deep, caresses your ankles and soothes your muscles, weary from the journey.",
+      "floodedPlains_description": "The horizon begins to approach strangely, closer than it should. The sky seems to consume the ground, as if you were reaching the edge of the world. Then you step into the void… and realize you are standing on a vast flooded plain. Except for small islands inhabited by immense trees with massive trunks, it doesn’t seem that you’ll find any dry land anytime soon. Yet the calm water, a cubit deep, caresses your ankles and soothes your muscles, weary from the journey.",
       "mushroomJungle": "Mushroom Jungle",
       "mushroomJungle_description": "A pungent odor fills the air, and the air becomes humid. Dozens, hundreds, thousands of spores invade the air as you wander among enormous mushrooms. Breathing becomes difficult. This is an impossible place for unprepared travelers. Death may come here, but it will be a gentle death, for every death here is destined to nourish the beginnings of new life.",
       "fieldSea": "Sea of Fields",
@@ -380,7 +380,7 @@
       "silentDesert": {
         "1": "**A Ruin emerges from the sandy rocks.**\n*Go to page 63 if you want to explore it.*",
         "2": "**You discover an oasis.** *To learn more, refer to page 36.* Draw a card to find out what type of oasis you have found.\n- ♥♦ A **palm paradise**.\n- ♠♣ A **cactus sanctuary**.",
-        "3|4": "**You encounter a Kiore.** *To learn more, consult page 34. Go to page 57 if you want to define the Kiore's personality.\nIf you return here, the Kiore will no longer be there.*",
+        "3|4": "**You encounter a Kiore.** *To learn more, consult page 34. Go to page 57 if you want to define the Kiore’s personality.\nIf you return here, the Kiore will no longer be there.*",
         "5|6": "**You encounter a Desert Scarab.** *To learn more, read page 37.* Draw a card to discover what type of Scarab you have encountered.\n- ♦ A **peaceful** Scarab.\n- ♥ An **aggressive** Scarab.\n- ♠♣ A **flipped** Scarab."
       },
       "titanGardens": {
@@ -498,7 +498,7 @@
     "context_seven_map_localisation": "Location Map",
     "context_spoken_name_label": "Spoken name (2D6, page 60)",
     "context_spoken_name_meta": "2D6: <dice></dice>",
-    "empty_summary": "Click \"{button}\" to generate an inhabitant.",
+    "empty_summary": "Click “{button}” to generate an inhabitant.",
     "one_liner_rich": "{gender} <name></name>, {personality} {faction} {age}",
     "one_liner": "{gender} {name}, {personality} {faction} {age}",
     "page_description": "Generate an inhabitant for your village.",
@@ -559,7 +559,7 @@
     "inventory_footnote": "Rulebook — Other game values → Inventory: page 8.",
     "page_citation": "page {page}",
     "spellbook_footnote": "Rulebook — Magic: page 14.",
-    "village_footnote": "Rulebook — Villages: page 42. \"Establishment\" table: page 43."
+    "village_footnote": "Rulebook — Villages: page 42. “Establishment” table: page 43."
   },
   "settings": {
     "app_theme_dark": "Dark",
@@ -573,7 +573,7 @@
     "journal_timeline_reverse_chronological_label": "Reverse chronological journal",
     "journal_create_entry_on_map_move_help": "When you move to an adjacent map cell, a new journal entry is added with the next clock slice and a starter heading. Separate from automatically advancing the clock.",
     "journal_create_entry_on_map_move_label": "Create a journal entry when moving on the map",
-    "map_tick_clock_on_move_help": "When you move to an adjacent cell, the clock position advances as if you had used the \"Advance\" button.",
+    "map_tick_clock_on_move_help": "When you move to an adjacent cell, the clock position advances as if you had used the “Advance” button.",
     "map_tick_clock_on_move_label": "Auto-advancing clock",
     "map_show_biome_background_help": "Show patterned backgrounds inside each cell based on its biome. Useful for distinguishing biomes without relying on color alone.",
     "map_show_biome_background_label": "Biome backgrounds",
@@ -623,7 +623,7 @@
   },
   "village": {
     "co_owners_label": "Co-owners:",
-    "empty_summary": "Click \"{button}\" to generate a village.",
+    "empty_summary": "Click “{button}” to generate a village.",
     "establishments": {
       "2": "{size, select, 0 {Small Potion Shop} 1 {Large Potion Shop} 2 {Huge Potion Shop} other {Potion Shop}}",
       "3": "{size, select, 0 {Small Equipment Shop} 1 {Large Equipment Shop} 2 {Huge Equipment Shop} other {Equipment Shop}}",
@@ -758,7 +758,7 @@
         }
       },
       "generators": {
-        "number": "06 — The World's People",
+        "number": "06 — The World’s People",
         "title": "Village and inhabitant generators",
         "body": "Populate your world instantly — generate villages and their inhabitants without flipping through the rulebook. Save them to find them easily later.",
         "tags": {
