@@ -163,7 +163,7 @@
       "die_empty": "Aucun lancer",
       "die_rolling": "Lancer en cours…",
       "die_title": "Dé",
-      "die_tooltip": "Vous pouvez lancer un dé à tout moment via {modifier} + R.",
+      "die_tooltip": "Vous pouvez lancer un dé à tout moment via {modifier} + D.",
       "title": "Outils"
     },
     "actions": {
@@ -610,7 +610,7 @@
     "village_merge_duplicate_establishments_label": "Regroupement des doublons d’établissements",
     "section_shortcuts": "Raccourcis clavier",
     "shortcuts_enabled_label": "Activer les raccourcis clavier",
-    "shortcuts_enabled_help": "Active les raccourcis clavier : {modifier} + S (sauvegarder), {modifier} + R (lancer les dés), {modifier} + D (tirer une carte), {modifier} + M (activer/désactiver la musique), {modifier} + C/V (copier/coller une cellule de carte).",
+    "shortcuts_enabled_help": "Active les raccourcis clavier : {modifier} + S (sauvegarder), {modifier} + D (tirer une carte / lancer un dé), {modifier} + M (activer/désactiver la musique), {modifier} + C/V (copier/coller une cellule de carte).",
     "hints": {
       "map": "Vous pouvez personnaliser certaines fonctionalités de la carte dans les <link>Paramètres</link>.",
       "journal": "Vous pouvez personnaliser certaines fonctionalités du journal dans les <link>Paramètres</link>.",

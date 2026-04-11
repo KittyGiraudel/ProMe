@@ -1,7 +1,9 @@
+import { App } from 'antd'
 import type { FormInstance } from 'antd/es/form'
+import { useTranslations } from 'next-intl'
 import { useEffect } from 'react'
-import { useCardDrawNotification } from '@/components/CardDrawResult/CardDrawResult'
-import { useDiceRollNotification } from '@/components/DiceRollResult/DiceRollResult'
+import { CardDrawResult } from '@/components/CardDrawResult/CardDrawResult'
+import { DiceRollResult } from '@/components/DiceRollResult/DiceRollResult'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 
 export function useKeyboardShortcuts({
@@ -12,8 +14,8 @@ export function useKeyboardShortcuts({
   isDead: boolean
 }) {
   const { settings, updateSettings } = useSettings()
-  const openDiceRollNotification = useDiceRollNotification()
-  const openCardDrawNotification = useCardDrawNotification()
+  const { notification } = App.useApp()
+  const t = useTranslations()
 
   useEffect(
     function bindDOMListeners() {
@@ -26,14 +28,20 @@ export function useKeyboardShortcuts({
           if (!isDead) form.submit()
         }
 
-        if (isMeta && e.key === 'r') {
-          e.preventDefault()
-          openDiceRollNotification()
-        }
-
         if (isMeta && e.key === 'd') {
           e.preventDefault()
-          openCardDrawNotification()
+          notification.open({
+            key: 'dice-card',
+            title: t('characters.tools.title'),
+            description: (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <DiceRollResult /> <CardDrawResult />
+              </div>
+            ),
+            placement: 'bottom',
+            duration: 4,
+            style: { width: 150 },
+          })
         }
 
         if (isMeta && e.key === 'm') {
@@ -48,13 +56,6 @@ export function useKeyboardShortcuts({
       window.addEventListener('keydown', handleKeyDown)
       return () => window.removeEventListener('keydown', handleKeyDown)
     },
-    [
-      form,
-      isDead,
-      openDiceRollNotification,
-      openCardDrawNotification,
-      updateSettings,
-      settings,
-    ]
+    [form, isDead, updateSettings, settings]
   )
 }

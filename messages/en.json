@@ -163,7 +163,7 @@
       "die_empty": "No roll",
       "die_rolling": "Rolling…",
       "die_title": "Die",
-      "die_tooltip": "You can trigger a die roll at any time with {modifier} + R.",
+      "die_tooltip": "You can trigger a die roll at any time with {modifier} + D.",
       "title": "Tools"
     },
     "actions": {
@@ -613,7 +613,7 @@
     "village_merge_duplicate_establishments_label": "Merged duplicate establishments",
     "section_shortcuts": "Keyboard Shortcuts",
     "shortcuts_enabled_label": "Enable keyboard shortcuts",
-    "shortcuts_enabled_help": "Enables global keyboard shortcuts: {modifier}+S (save), {modifier}+R (dice roll), {modifier}+D (card draw), {modifier}+M (toggle music), {modifier}+C/V (copy/paste map cell).",
+    "shortcuts_enabled_help": "Enables global keyboard shortcuts: {modifier}+S (save), {modifier}+D (card draw & dice roll), {modifier}+M (toggle music), {modifier}+C/V (copy/paste map cell).",
     "hints": {
       "map": "You can customize certain map features in <link>Settings</link>.",
       "journal": "You can customize certain journal features in <link>Settings</link>.",
