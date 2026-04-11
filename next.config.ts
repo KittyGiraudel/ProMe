@@ -18,6 +18,9 @@ const withSerwist = withSerwistInit({
 
 const nextConfig: NextConfig = {
   reactStrictMode: false,
+  env: {
+    NEXT_PUBLIC_COMMIT_SHA: revision,
+  },
   async headers() {
     return [
       {
