@@ -1,6 +1,6 @@
 'use client'
 
-import { Alert, App, Col, ConfigProvider, Form, Row } from 'antd'
+import { App, Col, ConfigProvider, Form, Row } from 'antd'
 import { useTranslations } from 'next-intl'
 import { ActionsCard } from '@/components/ActionsCard/ActionsCard'
 import { AudioCard } from '@/components/AudioCard/AudioCard'

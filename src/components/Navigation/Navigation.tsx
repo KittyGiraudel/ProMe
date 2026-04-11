@@ -61,7 +61,7 @@ export function Navigation() {
         label: <Link href='/settings'>{t('nav.settings')}</Link>,
       },
     ],
-    [pathname, t]
+    [t]
   )
 
   const selected = useMemo(() => {
