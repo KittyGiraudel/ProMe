@@ -8,7 +8,8 @@ import { useEffect, useRef } from 'react'
 // Visit counting starts at 1 on first mount of CharacterSheet.
 export const FIRST_VISIT = 2 // first visit to show the prompt
 export const VISIT_WINDOW = 3 // number of visits to keep showing it
-const DELAY_MS = 30_000 // ms after mount before showing the notification
+const DELAY_MS = 5_000 // ms after mount before showing the notification
+const TEST_MODE = process.env.NODE_ENV === 'development' // bypass beforeinstallprompt requirement
 const STORAGE_KEY = 'prome:pwa-install:visits'
 
 // BeforeInstallPromptEvent is not in lib.dom.d.ts yet.
@@ -72,7 +73,7 @@ export function usePWAInstallPrompt() {
     window.addEventListener('appinstalled', handleAppInstalled)
 
     const timeoutId = setTimeout(() => {
-      if (!deferredPrompt.current) return
+      if (!TEST_MODE && !deferredPrompt.current) return
 
       notification.info({
         key: 'pwa-install',
@@ -82,13 +83,15 @@ export function usePWAInstallPrompt() {
         description: t('pwa.install_prompt.description'),
         actions: (
           <Button
-            size='small'
             type='primary'
+            disabled={!TEST_MODE && !deferredPrompt.current}
             onClick={async () => {
-              if (!deferredPrompt.current) return
-              await deferredPrompt.current.prompt()
-              const { outcome } = await deferredPrompt.current.userChoice
-              deferredPrompt.current = null
+              if (deferredPrompt.current) {
+                await deferredPrompt.current.prompt()
+                const { outcome } = await deferredPrompt.current.userChoice
+                console.log('outcome', outcome)
+                deferredPrompt.current = null
+              }
               notification.destroy('pwa-install')
             }}>
             {t('pwa.install_prompt.cta')}
