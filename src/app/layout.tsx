@@ -1,10 +1,11 @@
 import { AntdRegistry } from '@ant-design/nextjs-registry'
+import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
-import Head from 'next/head'
 import { getLocale } from 'next-intl/server'
 import { AppProviders } from '@/components/AppProviders/AppProviders'
 
 import './globals.css'
+import './DevBadge.css'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -15,6 +16,24 @@ const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
 })
+
+const isDev = process.env.NODE_ENV === 'development'
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    icons: {
+      icon: [
+        {
+          url: isDev ? '/favicon-96x96-dev.png' : '/favicon-96x96.png',
+          sizes: '96x96',
+          type: 'image/png',
+        },
+      ],
+      shortcut: isDev ? '/favicon-dev.ico' : '/favicon.ico',
+      apple: { url: '/apple-touch-icon.png', sizes: '180x180' },
+    },
+  }
+}
 
 export default async function RootLayout({
   children,
@@ -27,24 +46,8 @@ export default async function RootLayout({
     <html
       lang={locale}
       className={`${geistSans.variable} ${geistMono.variable}`}>
-      <Head>
-        <link
-          rel='icon'
-          type='image/png'
-          href='/favicon-96x96.png'
-          sizes='96x96'
-        />
-        <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
-        <link rel='shortcut icon' href='/favicon.ico' />
-        <link
-          rel='apple-touch-icon'
-          sizes='180x180'
-          href='/apple-touch-icon.png'
-        />
-        <meta name='apple-mobile-web-app-title' content='ProMe' />
-        <link rel='manifest' href='/manifest.webmanifest' />
-      </Head>
       <body>
+        {isDev && <div className='DevBadge'>DEV</div>}
         <AntdRegistry>
           <AppProviders locale={locale as 'fr' | 'en'}>
             <div className='app-shell'>{children}</div>
