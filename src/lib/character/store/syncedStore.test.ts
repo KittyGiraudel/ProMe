@@ -1,5 +1,8 @@
 import { describe, expect, it, vi } from 'vitest'
-import { sync } from '@/lib/character/store/syncedStore'
+import {
+  createSyncedCharacterStore,
+  sync,
+} from '@/lib/character/store/syncedStore'
 import type { CharacterStore } from '@/lib/character/store/types'
 import type { Character } from '@/lib/character/types'
 
@@ -118,5 +121,138 @@ describe('sync', () => {
     expect(local.import).toHaveBeenCalledWith(
       expect.stringContaining('"id":"g"')
     )
+  })
+})
+
+describe('createSyncedCharacterStore', () => {
+  describe('when not authenticated (default state)', () => {
+    it('reads from local only', async () => {
+      const localChar = makeChar('x', '2026-01-01T00:00:00.000Z')
+      const local = makeStore([localChar])
+      const remote = makeStore([])
+      const store = createSyncedCharacterStore(local, remote)
+      const result = await store.getAll()
+      expect(result).toContain(localChar)
+      expect(remote.getAll).not.toHaveBeenCalled()
+    })
+
+    it('writes to local only', async () => {
+      const local = makeStore([])
+      const remote = makeStore([])
+      const store = createSyncedCharacterStore(local, remote)
+      await store.save(makeChar('y', '2026-01-01T00:00:00.000Z'))
+      expect(local.save).toHaveBeenCalled()
+      expect(remote.save).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('after login()', () => {
+    it('runs the initial bidirectional sync on login', async () => {
+      const localChar = makeChar('a', '2026-01-03T00:00:00.000Z')
+      const remoteChar = makeChar('b', '2026-01-05T00:00:00.000Z')
+      const local = makeStore([localChar])
+      const remote = makeStore([remoteChar])
+      const store = createSyncedCharacterStore(local, remote)
+      await store.login()
+      expect(remote.save).toHaveBeenCalledWith(localChar)
+      expect(local.import).toHaveBeenCalledWith(
+        expect.stringContaining('"id":"b"')
+      )
+    })
+
+    it('reads from remote', async () => {
+      const remoteChar = makeChar('z', '2026-01-01T00:00:00.000Z')
+      const local = makeStore([])
+      const remote = makeStore([remoteChar])
+      const store = createSyncedCharacterStore(local, remote)
+      await store.login()
+      ;(remote.getAll as ReturnType<typeof vi.fn>).mockClear()
+      await store.getAll()
+      expect(remote.getAll).toHaveBeenCalled()
+    })
+
+    it('dual-writes on save: local first, then remote', async () => {
+      const local = makeStore([])
+      const remote = makeStore([])
+      const store = createSyncedCharacterStore(local, remote)
+      await store.login()
+      await store.save(makeChar('w', '2026-01-01T00:00:00.000Z'))
+      expect(local.save).toHaveBeenCalled()
+      expect(remote.save).toHaveBeenCalled()
+    })
+
+    it('succeeds on save even if the remote write fails', async () => {
+      const local = makeStore([])
+      const remote = makeStore([])
+      ;(remote.save as ReturnType<typeof vi.fn>).mockRejectedValue(
+        new Error('network error')
+      )
+      const store = createSyncedCharacterStore(local, remote)
+      await store.login()
+      await expect(
+        store.save(makeChar('v', '2026-01-01T00:00:00.000Z'))
+      ).resolves.toBeDefined()
+      expect(local.save).toHaveBeenCalled()
+    })
+
+    it('dual-writes on delete', async () => {
+      const char = makeChar('del', '2026-01-01T00:00:00.000Z')
+      const local = makeStore([char])
+      const remote = makeStore([char])
+      const store = createSyncedCharacterStore(local, remote)
+      await store.login()
+      await store.delete('del')
+      expect(local.delete).toHaveBeenCalledWith('del')
+      expect(remote.delete).toHaveBeenCalledWith('del')
+    })
+  })
+
+  describe('after logout()', () => {
+    it('reads from local again after logout', async () => {
+      const local = makeStore([makeChar('a', '2026-01-01T00:00:00.000Z')])
+      const remote = makeStore([])
+      const store = createSyncedCharacterStore(local, remote)
+      await store.login()
+      store.logout()
+      ;(local.getAll as ReturnType<typeof vi.fn>).mockClear()
+      ;(remote.getAll as ReturnType<typeof vi.fn>).mockClear()
+      await store.getAll()
+      expect(local.getAll).toHaveBeenCalled()
+      expect(remote.getAll).not.toHaveBeenCalled()
+    })
+
+    it('writes to local only after logout', async () => {
+      const local = makeStore([])
+      const remote = makeStore([])
+      const store = createSyncedCharacterStore(local, remote)
+      await store.login()
+      store.logout()
+      ;(remote.save as ReturnType<typeof vi.fn>).mockClear()
+      await store.save(makeChar('p', '2026-01-01T00:00:00.000Z'))
+      expect(remote.save).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('syncToRemote()', () => {
+    it('pushes locally-ahead characters to remote when authenticated', async () => {
+      const localChar = makeChar('q', '2026-01-10T00:00:00.000Z')
+      const remoteChar = makeChar('q', '2026-01-01T00:00:00.000Z')
+      const local = makeStore([localChar])
+      const remote = makeStore([remoteChar])
+      const store = createSyncedCharacterStore(local, remote)
+      await store.login()
+      ;(remote.save as ReturnType<typeof vi.fn>).mockClear()
+      await store.syncToRemote()
+      expect(remote.save).toHaveBeenCalledWith(localChar)
+    })
+
+    it('does nothing when not authenticated', async () => {
+      const local = makeStore([makeChar('r', '2026-01-01T00:00:00.000Z')])
+      const remote = makeStore([])
+      const store = createSyncedCharacterStore(local, remote)
+      await store.syncToRemote()
+      expect(remote.save).not.toHaveBeenCalled()
+      expect(remote.getAll).not.toHaveBeenCalled()
+    })
   })
 })

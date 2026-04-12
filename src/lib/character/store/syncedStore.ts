@@ -1,4 +1,9 @@
-import type { CharacterStore } from '@/lib/character/store/types'
+import { createLocalStorageCharacterStore } from '@/lib/character/store/localStorageStore'
+import { createRemoteCharacterStore } from '@/lib/character/store/remoteStore'
+import type {
+  CharacterStore,
+  SyncedCharacterStore,
+} from '@/lib/character/store/types'
 import type { Character } from '@/lib/character/types'
 
 /**
@@ -48,4 +53,85 @@ export async function sync(
     ...toLocal.map(c => local.import(JSON.stringify(c))),
     ...toRemote.map(c => remote.save(c)),
   ])
+}
+
+export function createSyncedCharacterStore(
+  localStore: CharacterStore = createLocalStorageCharacterStore(),
+  remoteStore: CharacterStore = createRemoteCharacterStore()
+): SyncedCharacterStore {
+  let isAuthenticated = false
+
+  async function attemptRemote(fn: () => Promise<unknown>): Promise<void> {
+    try {
+      await fn()
+    } catch {
+      // Remote failures are swallowed silently. The local write already
+      // succeeded, so data is safe. The next reconnect sync will retry.
+    }
+  }
+
+  return {
+    async getAll() {
+      return isAuthenticated ? remoteStore.getAll() : localStore.getAll()
+    },
+
+    async list() {
+      return isAuthenticated ? remoteStore.list() : localStore.list()
+    },
+
+    async get(id) {
+      return isAuthenticated ? remoteStore.get(id) : localStore.get(id)
+    },
+
+    async create(input) {
+      // Create locally first (generates id + timestamps), then push to remote.
+      // Requires PUT /api/characters/:id to support upsert (create-if-not-exists).
+      const character = await localStore.create(input)
+      if (isAuthenticated) {
+        await attemptRemote(() => remoteStore.save(character))
+      }
+      return character
+    },
+
+    async save(character) {
+      // Local write is authoritative (touchCharacter runs here, setting updatedAt).
+      // The touched version is then pushed to remote.
+      const saved = await localStore.save(character)
+      if (isAuthenticated) {
+        await attemptRemote(() => remoteStore.save(saved))
+      }
+      return saved
+    },
+
+    async delete(id) {
+      const result = await localStore.delete(id)
+      if (isAuthenticated) {
+        await attemptRemote(() => remoteStore.delete(id))
+      }
+      return result
+    },
+
+    async import(json) {
+      const character = await localStore.import(json)
+      if (isAuthenticated) {
+        await attemptRemote(() => remoteStore.save(character))
+      }
+      return character
+    },
+
+    async login() {
+      isAuthenticated = true
+      await sync(localStore, remoteStore)
+    },
+
+    logout() {
+      isAuthenticated = false
+    },
+
+    async syncToRemote() {
+      if (!isAuthenticated) return
+      const localChars = await localStore.getAll()
+      await Promise.all(localChars.map(c => remoteStore.save(c)))
+    },
+  }
 }
