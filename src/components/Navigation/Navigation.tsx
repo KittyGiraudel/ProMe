@@ -9,6 +9,7 @@ import { Link, usePathname } from '@/i18n/navigation'
 import { useAuth } from '@/lib/auth/context'
 
 import './Navigation.css'
+import { AuthButton } from '../AuthButton/AuthButton'
 
 export function Navigation() {
   const t = useTranslations()
@@ -64,14 +65,8 @@ export function Navigation() {
         label: <Link href='/settings'>{t('nav.settings')}</Link>,
       },
       {
-        key: user ? '/logout' : '/login',
-        label: user ? (
-          <Button onClick={logout} type='link'>
-            {t('nav.logout')}
-          </Button>
-        ) : (
-          <Link href='/login'>{t('nav.login')}</Link>
-        ),
+        key: '/authentication',
+        label: <AuthButton />,
       },
     ],
     [t]
@@ -85,7 +80,7 @@ export function Navigation() {
     if (pathname.startsWith('/faq')) return ['/faq']
     if (pathname.startsWith('/settings')) return ['/settings']
     if (pathname.startsWith('/characters')) return ['/characters']
-    if (pathname.startsWith('/login')) return ['/login']
+    if (pathname.startsWith('/login')) return ['/authentication']
     if (pathname === '/') return ['/']
     return []
   }, [pathname])
