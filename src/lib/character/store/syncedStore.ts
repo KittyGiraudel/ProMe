@@ -130,8 +130,7 @@ export function createSyncedCharacterStore(
 
     async syncToRemote() {
       if (!isAuthenticated) return
-      const localChars = await localStore.getAll()
-      await Promise.all(localChars.map(c => remoteStore.save(c)))
+      await sync(localStore, remoteStore)
     },
   }
 }

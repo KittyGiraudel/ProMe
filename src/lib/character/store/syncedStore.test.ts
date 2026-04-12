@@ -234,16 +234,39 @@ describe('createSyncedCharacterStore', () => {
   })
 
   describe('syncToRemote()', () => {
-    it('pushes locally-ahead characters to remote when authenticated', async () => {
-      const localChar = makeChar('q', '2026-01-10T00:00:00.000Z')
-      const remoteChar = makeChar('q', '2026-01-01T00:00:00.000Z')
-      const local = makeStore([localChar])
-      const remote = makeStore([remoteChar])
+    it('pushes a locally-added character to remote when authenticated', async () => {
+      // Start with both stores in agreement so login sync is a no-op.
+      const existing = makeChar('existing', '2026-01-01T00:00:00.000Z')
+      const local = makeStore([existing])
+      const remote = makeStore([existing])
       const store = createSyncedCharacterStore(local, remote)
       await store.login()
+
+      // Directly add a new character to the local mock (simulates a save while offline).
+      const newChar = makeChar('new', '2026-01-10T00:00:00.000Z')
+      await (local.save as ReturnType<typeof vi.fn>)(newChar)
       ;(remote.save as ReturnType<typeof vi.fn>).mockClear()
+
       await store.syncToRemote()
-      expect(remote.save).toHaveBeenCalledWith(localChar)
+      expect(remote.save).toHaveBeenCalledWith(newChar)
+    })
+
+    it('pulls a remote-only character to local when authenticated', async () => {
+      const local = makeStore([])
+      const remoteChar = makeChar('remote-only', '2026-01-05T00:00:00.000Z')
+      const remote = makeStore([remoteChar])
+      const store = createSyncedCharacterStore(local, remote)
+      await store.login() // pulls remoteChar to local as part of initial sync
+
+      // Add another remote-only char after login (simulates another device saving while we were offline)
+      const anotherChar = makeChar('another', '2026-01-08T00:00:00.000Z')
+      await (remote.save as ReturnType<typeof vi.fn>)(anotherChar)
+      ;(local.import as ReturnType<typeof vi.fn>).mockClear()
+
+      await store.syncToRemote()
+      expect(local.import).toHaveBeenCalledWith(
+        expect.stringContaining('"id":"another"')
+      )
     })
 
     it('does nothing when not authenticated', async () => {
