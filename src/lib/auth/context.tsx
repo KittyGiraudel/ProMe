@@ -15,9 +15,7 @@ import {
   useMemo,
   useState,
 } from 'react'
-import { setCharacterStore } from '@/lib/character/store'
-import { createLocalStorageCharacterStore } from '@/lib/character/store/localStorageStore'
-import { createRemoteCharacterStore } from '@/lib/character/store/remoteStore'
+import { characterStore } from '@/lib/character/store'
 
 type AuthContextValue = {
   user: NetlifyUser | null
@@ -35,11 +33,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Update the global character store whenever auth state changes.
   const applyUser = useCallback((nextUser: NetlifyUser | null) => {
     setUser(nextUser)
-    setCharacterStore(
-      nextUser
-        ? createRemoteCharacterStore()
-        : createLocalStorageCharacterStore()
-    )
+    if (nextUser) {
+      characterStore.login().catch(error => {
+        console.error('Login sync failed:', error)
+      })
+    } else {
+      characterStore.logout()
+    }
   }, [])
 
   useEffect(() => {
@@ -72,8 +72,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     applyUser(null)
     window.location.href = '/'
   }, [applyUser])
-
-  console.log({ user, loading })
 
   const context = useMemo(
     () => ({
