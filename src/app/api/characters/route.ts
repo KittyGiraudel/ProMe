@@ -26,6 +26,10 @@ export async function POST(req: Request): Promise<Response> {
   const user = await getUser()
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
+  if (!req.headers.get('content-type')?.includes('application/json')) {
+    return Response.json({ error: 'Unsupported Media Type' }, { status: 415 })
+  }
+
   let body: unknown
   try {
     body = await req.json()
@@ -47,6 +51,7 @@ export async function POST(req: Request): Promise<Response> {
     VALUES (${character.id}, ${user.id}, ${JSON.stringify(character)})
     ON CONFLICT (id) DO UPDATE
       SET data = EXCLUDED.data
+      WHERE characters.user_id = EXCLUDED.user_id
   `
 
   return Response.json(character, { status: 201 })

@@ -32,6 +32,10 @@ export async function PUT(req: Request, { params }: Params): Promise<Response> {
   const user = await getUser()
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
+  if (!req.headers.get('content-type')?.includes('application/json')) {
+    return Response.json({ error: 'Unsupported Media Type' }, { status: 415 })
+  }
+
   const { id } = await params
 
   let body: unknown
@@ -85,7 +89,7 @@ export async function PUT(req: Request, { params }: Params): Promise<Response> {
 
 // DELETE /api/characters/[id]
 export async function DELETE(
-  req: Request,
+  _: Request,
   { params }: Params
 ): Promise<Response> {
   const user = await getUser()

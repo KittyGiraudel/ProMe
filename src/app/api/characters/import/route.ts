@@ -9,6 +9,10 @@ export async function POST(req: Request): Promise<Response> {
   const user = await getUser()
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
+  if (!req.headers.get('content-type')?.includes('application/json')) {
+    return Response.json({ error: 'Unsupported Media Type' }, { status: 415 })
+  }
+
   let body: { json: string }
   try {
     body = await req.json()
@@ -31,16 +35,11 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   await sql`
-    INSERT INTO characters (id, user_id, data, created_at, updated_at)
-    VALUES (
-      ${character.id},
-      ${user.id},
-      ${JSON.stringify(character)},
-      ${character.createdAt},
-      ${character.updatedAt}
-    )
+    INSERT INTO characters (id, user_id, data)
+    VALUES (${character.id}, ${user.id}, ${JSON.stringify(character)})
     ON CONFLICT (id) DO UPDATE
-      SET data = EXCLUDED.data, updated_at = EXCLUDED.updated_at
+      SET data = EXCLUDED.data
+      WHERE characters.user_id = EXCLUDED.user_id
   `
 
   return Response.json(character)
