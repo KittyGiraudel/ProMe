@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation'
 import { AppConfig, hasLocale, NextIntlClientProvider } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { routing } from '@/i18n/routing'
-import { AuthProvider } from '@/lib/auth/context'
 
 type Props = {
   children: React.ReactNode
@@ -38,11 +37,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   // Enable static rendering
   setRequestLocale(locale)
 
-  return (
-    <NextIntlClientProvider>
-      <AuthProvider>{children}</AuthProvider>
-    </NextIntlClientProvider>
-  )
+  return <NextIntlClientProvider>{children}</NextIntlClientProvider>
 }
 
 export function generateStaticParams() {

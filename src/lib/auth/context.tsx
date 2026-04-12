@@ -34,20 +34,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Update the global character store whenever auth state changes.
   const applyUser = useCallback((nextUser: NetlifyUser | null) => {
-    console.log(nextUser)
     setUser(nextUser)
-    if (nextUser) {
-      setCharacterStore(createRemoteCharacterStore())
-    } else {
-      setCharacterStore(createLocalStorageCharacterStore())
-    }
+    setCharacterStore(
+      nextUser
+        ? createRemoteCharacterStore()
+        : createLocalStorageCharacterStore()
+    )
   }, [])
 
   useEffect(() => {
     // Handle OAuth redirect callbacks first.
     handleAuthCallback()
       .then(result => {
-        console.log(result)
         if (result) {
           applyUser(result.user)
           setLoading(false)
@@ -74,6 +72,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     applyUser(null)
     window.location.href = '/'
   }, [applyUser])
+
+  console.log({ user, loading })
 
   const context = useMemo(
     () => ({

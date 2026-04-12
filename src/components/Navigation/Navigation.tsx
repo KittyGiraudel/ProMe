@@ -66,7 +66,9 @@ export function Navigation() {
       {
         key: user ? '/logout' : '/login',
         label: user ? (
-          <Button onClick={logout}>{t('nav.logout')}</Button>
+          <Button onClick={logout} type='link'>
+            {t('nav.logout')}
+          </Button>
         ) : (
           <Link href='/login'>{t('nav.login')}</Link>
         ),
