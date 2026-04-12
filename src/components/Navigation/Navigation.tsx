@@ -13,7 +13,7 @@ import './Navigation.css'
 export function Navigation() {
   const t = useTranslations()
   const pathname = usePathname()
-  const { user, logout } = useAuth()
+  const { loading } = useAuth()
 
   const items = useMemo(
     () => [
@@ -79,10 +79,10 @@ export function Navigation() {
     if (pathname.startsWith('/faq')) return ['/faq']
     if (pathname.startsWith('/settings')) return ['/settings']
     if (pathname.startsWith('/characters')) return ['/characters']
-    if (pathname.startsWith('/login')) return ['/authentication']
+    if (!loading && pathname.startsWith('/login')) return ['/authentication']
     if (pathname === '/') return ['/']
     return []
-  }, [pathname])
+  }, [pathname, loading])
 
   return (
     <Menu

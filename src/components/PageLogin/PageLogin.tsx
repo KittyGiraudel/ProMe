@@ -4,6 +4,7 @@ import { Button, Card, Space, Typography } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
 import { useAuth } from '@/lib/auth/context'
+import { RichText } from '../RichText/RichText'
 
 export function PageLogin() {
   const { oauthLogin, loading, user, logout } = useAuth()
@@ -18,7 +19,7 @@ export function PageLogin() {
         { title: t('nav.login'), path: '/login' },
       ]}>
       <Card
-        title={t('auth.sign_in_with_google')}
+        title={t('auth.sign_in_title')}
         actions={
           user
             ? [
@@ -36,7 +37,7 @@ export function PageLogin() {
                 </Button>,
               ]
         }>
-        <Typography.Text>{t('auth.sign_in_prompt')}</Typography.Text>
+        <RichText text={t('auth.sign_in_prompt')} />
       </Card>
     </Layout>
   )

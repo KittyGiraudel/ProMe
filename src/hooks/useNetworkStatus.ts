@@ -17,11 +17,11 @@ export function useNetworkStatus(): void {
 
   useEffect(() => {
     function handleOffline() {
-      message.info(t('auth.offline_status'))
+      message.warning(t('auth.offline_status'))
     }
 
     async function handleOnline() {
-      message.info(t('auth.online_status'))
+      message.success(t('auth.online_status'))
       try {
         await characterStore.syncToRemote()
       } catch (error) {

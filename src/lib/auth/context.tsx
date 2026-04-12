@@ -7,6 +7,8 @@ import {
   type User as NetlifyUser,
   oauthLogin as netlifyOAuthLogin,
 } from '@netlify/identity'
+import { App } from 'antd'
+import { useTranslations } from 'next-intl'
 import {
   createContext,
   useCallback,
@@ -29,6 +31,8 @@ const AuthContext = createContext<AuthContextValue | null>(null)
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<NetlifyUser | null>(null)
   const [loading, setLoading] = useState(true)
+  const { message } = App.useApp()
+  const t = useTranslations()
 
   // Update the global character store whenever auth state changes.
   const applyUser = useCallback((nextUser: NetlifyUser | null) => {
@@ -43,13 +47,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   useEffect(() => {
+    setLoading(true)
+
     // Handle OAuth redirect callbacks first.
     handleAuthCallback()
       .then(result => {
         if (result) {
           applyUser(result.user)
           setLoading(false)
-          window.location.href = '/'
+          message.success(t('auth.sign_in_success'))
           return
         }
 
@@ -60,7 +66,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         console.error(error)
       })
       .finally(() => setLoading(false))
-  }, [applyUser])
+  }, [applyUser, message, t])
 
   const handleOAuthLogin = useCallback(() => {
     // Redirects to Google — no await. handleAuthCallback handles the return.
@@ -70,6 +76,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const handleLogout = useCallback(async () => {
     await logout()
     applyUser(null)
+    // Force a redirect to the home page with a browser navigation (instead of
+    // router) to avoid having to refetch data or whatnot.
     window.location.href = '/'
   }, [applyUser])
 
