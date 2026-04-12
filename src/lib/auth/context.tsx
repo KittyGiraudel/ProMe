@@ -51,6 +51,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (result) {
           applyUser(result.user)
           setLoading(false)
+          window.location.href = '/'
           return
         }
 
@@ -71,6 +72,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const handleLogout = useCallback(async () => {
     await logout()
     applyUser(null)
+    window.location.href = '/'
   }, [applyUser])
 
   const context = useMemo(
