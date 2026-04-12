@@ -62,7 +62,8 @@ export function createSyncedCharacterStore(
   async function attemptRemote(fn: () => Promise<unknown>): Promise<void> {
     try {
       await fn()
-    } catch {
+    } catch (error) {
+      console.error(error)
       // Remote failures are swallowed silently. The local write already
       // succeeded, so data is safe. The next reconnect sync will retry.
     }

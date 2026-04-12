@@ -29,7 +29,8 @@ export async function POST(req: Request): Promise<Response> {
   let body: unknown
   try {
     body = await req.json()
-  } catch {
+  } catch (error) {
+    console.error(error)
     return Response.json({ error: 'Invalid JSON' }, { status: 400 })
   }
 
