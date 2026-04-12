@@ -3,13 +3,12 @@
 import { Menu } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
-import { Button } from '@/components/Button/Button'
 import { Logo } from '@/components/Logo/Logo'
 import { Link, usePathname } from '@/i18n/navigation'
 import { useAuth } from '@/lib/auth/context'
+import { AuthButton } from '../AuthButton/AuthButton'
 
 import './Navigation.css'
-import { AuthButton } from '../AuthButton/AuthButton'
 
 export function Navigation() {
   const t = useTranslations()

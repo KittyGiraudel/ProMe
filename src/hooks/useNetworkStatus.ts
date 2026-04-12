@@ -1,4 +1,5 @@
 import { App } from 'antd'
+import { useTranslations } from 'next-intl'
 import { useEffect } from 'react'
 import { characterStore } from '@/lib/character/store'
 
@@ -12,14 +13,15 @@ import { characterStore } from '@/lib/character/store'
  */
 export function useNetworkStatus(): void {
   const { message } = App.useApp()
+  const t = useTranslations()
 
   useEffect(() => {
     function handleOffline() {
-      message.info('Now offline — saving locally')
+      message.info(t('auth.offline_status'))
     }
 
     async function handleOnline() {
-      message.info('Back online — syncing to cloud')
+      message.info(t('auth.online_status'))
       try {
         await characterStore.syncToRemote()
       } catch (error) {
@@ -34,5 +36,5 @@ export function useNetworkStatus(): void {
       window.removeEventListener('offline', handleOffline)
       window.removeEventListener('online', handleOnline)
     }
-  }, [message])
+  }, [message, t])
 }

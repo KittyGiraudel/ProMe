@@ -70,7 +70,8 @@ export type CharacterCreateValues = {
 export function useCharacterCreate(options?: MutationOptions<Character>) {
   return useMutation(async (values: CharacterCreateValues) => {
     const source = values.inheritFromCharacterId
-      ? await getCharacterStore().get(values.inheritFromCharacterId)
+      ? // @TODO: replace with a lazy query
+        await getCharacterStore().get(values.inheritFromCharacterId)
       : null
     const created = createCharacterFromIdentity(
       {

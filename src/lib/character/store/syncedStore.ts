@@ -121,7 +121,7 @@ export function createSyncedCharacterStore(
 
     async login() {
       isAuthenticated = true
-      await sync(localStore, remoteStore)
+      await this.syncToRemote()
     },
 
     logout() {

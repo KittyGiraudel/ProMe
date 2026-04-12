@@ -35,7 +35,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(nextUser)
     if (nextUser) {
       characterStore.login().catch(error => {
-        console.error('Login sync failed:', error)
+        console.error('Login sync failed', error)
       })
     } else {
       characterStore.logout()

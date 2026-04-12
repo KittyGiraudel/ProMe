@@ -45,6 +45,7 @@ export function ActionsCard({
     onError: () => message.error(t('common.generic_error')),
   })
   const onExport = useCallback(async () => {
+    // @TODO: replace this with a lazy query
     const saved = await getCharacterStore().get(characterId as string)
     const character = { ...saved, ...form.getFieldsValue(true) }
     const content = stringifyCharacter(character)
