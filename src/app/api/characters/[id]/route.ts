@@ -2,7 +2,6 @@ import { getUser } from '@netlify/identity'
 import { canPersistCharacterUpdate } from '@/lib/character/lifeStatus'
 import {
   normalizeCharacter,
-  touchCharacter,
   validateCharacterForPersistence,
 } from '@/lib/character/model'
 import { sql } from '@/lib/db/client'
@@ -73,22 +72,20 @@ export async function PUT(req: Request, { params }: Params): Promise<Response> {
     )
   }
 
-  const touched = touchCharacter(normalized)
-
   await sql`
     INSERT INTO characters (id, user_id, data, created_at, updated_at)
     VALUES (
-      ${touched.id},
+      ${normalized.id},
       ${user.id},
-      ${JSON.stringify(touched)},
-      ${touched.createdAt},
-      ${touched.updatedAt}
+      ${JSON.stringify(normalized)},
+      ${normalized.createdAt},
+      ${normalized.updatedAt}
     )
     ON CONFLICT (id) DO UPDATE
       SET data = EXCLUDED.data, updated_at = EXCLUDED.updated_at
   `
 
-  return Response.json(touched)
+  return Response.json(normalized)
 }
 
 // DELETE /api/characters/[id]
