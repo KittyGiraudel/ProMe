@@ -517,6 +517,8 @@
     "faq": "FAQ",
     "home": "Accueil",
     "inhabitant_generator": "Générateur d’habitant",
+    "login": "Connexion",
+    "logout": "Déconnexion",
     "new_character": "Nouveau Protecteur",
     "settings": "Paramètres",
     "village_generator": "Générateur de village"
@@ -782,6 +784,7 @@
     }
   },
   "auth": {
+    "title": "Connexion",
     "sign_in_prompt": "Vous devez être authentifié·e pour accéder à cette fonctionnalité. Connectez-vous avec votre compte Google pour continuer.",
     "sign_in_with_google": "Continuer avec Google",
     "sign_in_required": "Connexion requise"

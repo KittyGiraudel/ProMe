@@ -520,6 +520,8 @@
     "faq": "FAQ",
     "home": "Home",
     "inhabitant_generator": "Inhabitant Generator",
+    "login": "Login",
+    "logout": "Logout",
     "new_character": "New Protector",
     "settings": "Settings",
     "village_generator": "Village Generator"
