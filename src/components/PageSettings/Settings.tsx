@@ -1,6 +1,7 @@
 'use client'
 
 import {
+  Alert,
   Button,
   Card,
   Checkbox,
@@ -12,9 +13,11 @@ import {
 } from 'antd'
 import { AppConfig, useLocale, useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
+import { useDismissed } from '@/hooks/useDismissed'
 import { useModifierKey } from '@/hooks/useModifierKey'
 import { usePathname, useRouter } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
+import { useAuth } from '@/lib/auth/context'
 import { DEFAULT_SETTINGS } from '@/lib/settings/model'
 import { AppTheme } from '@/lib/settings/types'
 import { HelpButton } from '../HelpButton/HelpButton'
@@ -40,11 +43,13 @@ type SettingsFormValues = {
 export function Settings() {
   const [form] = Form.useForm<SettingsFormValues>()
   const { settings, updateSettings } = useSettings()
+  const { user } = useAuth()
   const modifier = useModifierKey()
   const t = useTranslations()
   const locale = useLocale()
   const router = useRouter()
   const pathname = usePathname()
+  const { dismissed, dismiss } = useDismissed('settings-auth-disclaimer')
 
   const handleLocaleChange = (locale: string) =>
     router.replace(pathname, {
@@ -149,6 +154,13 @@ export function Settings() {
         initialValues={initialValues}
         onValuesChange={handleValuesChange}>
         <Spacing size='large'>
+          {user && !dismissed && (
+            <Alert
+              description={t('settings.auth_disclaimer')}
+              type='warning'
+              closable={{ closeIcon: true, onClose: dismiss }}
+            />
+          )}
           <Row gutter={[16, 16]}>
             <Col xs={24} md={12}>
               <Card title={t('settings.section_appearance')}>
