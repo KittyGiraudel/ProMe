@@ -19,7 +19,6 @@ export function createRemoteCharacterStore(): CharacterStore {
   return {
     async getAll() {
       const res = await apiFetch('/api/characters')
-      // @TODO: localize all of these errors
       if (!res.ok) throw new NetworkError('GET_ALL', res)
       return res.json() as Promise<Character[]>
     },
