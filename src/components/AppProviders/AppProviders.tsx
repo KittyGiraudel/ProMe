@@ -5,7 +5,6 @@ import localeEn from 'antd/locale/en_US'
 import localeFr from 'antd/locale/fr_FR'
 import type { ReactNode } from 'react'
 import { NavigationBlockerProvider } from '@/components/AppProviders/NavigationBlockerContext'
-import { NetworkStatusMonitor } from '@/components/AppProviders/NetworkStatusMonitor'
 import { ThemeProvider } from '@/components/AppProviders/ThemeProvider'
 import { SettingsProvider } from '@/components/PageSettings/SettingsContext'
 
@@ -21,10 +20,7 @@ export function AppProviders({
       <SettingsProvider>
         <ThemeProvider>
           <NavigationBlockerProvider>
-            <App>
-              <NetworkStatusMonitor />
-              {children}
-            </App>
+            <App>{children}</App>
           </NavigationBlockerProvider>
         </ThemeProvider>
       </SettingsProvider>

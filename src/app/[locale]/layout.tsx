@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { AppConfig, hasLocale, NextIntlClientProvider } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { NetworkStatusMonitor } from '@/components/AppProviders/NetworkStatusMonitor'
 import { routing } from '@/i18n/routing'
 import { AuthProvider } from '@/lib/auth/context'
 
@@ -40,6 +41,7 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <NextIntlClientProvider>
+      <NetworkStatusMonitor />
       <AuthProvider>{children}</AuthProvider>
     </NextIntlClientProvider>
   )
