@@ -4,6 +4,7 @@ import {
   getUser,
   handleAuthCallback,
   logout,
+  type User as NetlifyUser,
   oauthLogin as netlifyOAuthLogin,
 } from '@netlify/identity'
 import {
@@ -14,7 +15,6 @@ import {
   useMemo,
   useState,
 } from 'react'
-import type { NetlifyUser } from '@/lib/auth/types'
 import { setCharacterStore } from '@/lib/character/store'
 import { createLocalStorageCharacterStore } from '@/lib/character/store/localStorageStore'
 import { createRemoteCharacterStore } from '@/lib/character/store/remoteStore'
@@ -34,8 +34,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Update the global character store whenever auth state changes.
   const applyUser = useCallback((nextUser: NetlifyUser | null) => {
+    console.log(nextUser)
     setUser(nextUser)
     if (nextUser) {
+      // @ts-expect-error
       setCharacterStore(createRemoteCharacterStore(nextUser.token.access_token))
     } else {
       setCharacterStore(createLocalStorageCharacterStore())
@@ -44,17 +46,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Handle OAuth redirect callbacks first.
-    handleAuthCallback().then(result => {
-      if (result) {
-        applyUser(result.user as NetlifyUser)
-        setLoading(false)
-        return
-      }
-      // Otherwise, check for an existing session.
-      getUser()
-        .then(currentUser => applyUser(currentUser as NetlifyUser | null))
-        .finally(() => setLoading(false))
-    })
+    handleAuthCallback()
+      .then(result => {
+        console.log(result)
+        if (result) {
+          applyUser(result.user)
+          setLoading(false)
+          return
+        }
+
+        // Otherwise, check for an existing session.
+        return getUser().then(currentUser => applyUser(currentUser))
+      })
+      .catch(error => {
+        console.error(error)
+      })
+      .finally(() => setLoading(false))
   }, [applyUser])
 
   const handleOAuthLogin = useCallback(() => {
