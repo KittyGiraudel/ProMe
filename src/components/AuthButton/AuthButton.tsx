@@ -10,7 +10,7 @@ export function AuthButton() {
   if (loading) return null
 
   return user ? (
-    <Button onClick={logout} type='link'>
+    <Button onClick={logout} type='text' style={{ color: 'inherit' }}>
       {t('nav.logout')}
     </Button>
   ) : (
