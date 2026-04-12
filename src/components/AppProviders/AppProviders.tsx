@@ -7,7 +7,13 @@ import type { ReactNode } from 'react'
 import { NavigationBlockerProvider } from '@/components/AppProviders/NavigationBlockerContext'
 import { ThemeProvider } from '@/components/AppProviders/ThemeProvider'
 import { SettingsProvider } from '@/components/PageSettings/SettingsContext'
+import { useNetworkStatus } from '@/hooks/useNetworkStatus'
 import { AuthProvider } from '@/lib/auth/context'
+
+function NetworkStatusMonitor() {
+  useNetworkStatus()
+  return null
+}
 
 export function AppProviders({
   children,
@@ -22,7 +28,10 @@ export function AppProviders({
         <AuthProvider>
           <ThemeProvider>
             <NavigationBlockerProvider>
-              <App>{children}</App>
+              <App>
+                <NetworkStatusMonitor />
+                {children}
+              </App>
             </NavigationBlockerProvider>
           </ThemeProvider>
         </AuthProvider>
