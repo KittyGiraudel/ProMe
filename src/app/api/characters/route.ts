@@ -1,12 +1,12 @@
-import { getAuthenticatedUser, unauthorizedResponse } from '@/lib/auth/server'
+import { getUser } from '@netlify/identity'
 import { normalizeCharacter } from '@/lib/character/model'
 import type { Character } from '@/lib/character/types'
 import { sql } from '@/lib/db/client'
 
 // GET /api/characters — list all characters for the authenticated user
 export async function GET(req: Request): Promise<Response> {
-  const user = await getAuthenticatedUser(req)
-  if (!user) return unauthorizedResponse()
+  const user = await getUser()
+  if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
   const rows = await sql`
     SELECT data FROM characters
@@ -23,8 +23,8 @@ export async function GET(req: Request): Promise<Response> {
 
 // POST /api/characters — create a new character
 export async function POST(req: Request): Promise<Response> {
-  const user = await getAuthenticatedUser(req)
-  if (!user) return unauthorizedResponse()
+  const user = await getUser()
+  if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
   let body: unknown
   try {

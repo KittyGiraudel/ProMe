@@ -1,9 +1,9 @@
-import { getAuthenticatedUser, unauthorizedResponse } from '@/lib/auth/server'
+import { getUser } from '@netlify/identity'
 import { initDatabase } from '@/lib/db/schema'
 
 export async function POST(req: Request): Promise<Response> {
-  const user = await getAuthenticatedUser(req)
-  if (!user) return unauthorizedResponse()
+  const user = await getUser()
+  if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
   await initDatabase()
   return Response.json({ ok: true })

@@ -4,23 +4,21 @@ import type { Character } from '@/lib/character/types'
 
 async function apiFetch(
   path: string,
-  token: string,
   options: RequestInit = {}
 ): Promise<Response> {
   return fetch(path, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
       ...(options.headers ?? {}),
     },
   })
 }
 
-export function createRemoteCharacterStore(token: string): CharacterStore {
+export function createRemoteCharacterStore(): CharacterStore {
   return {
     async getAll() {
-      const res = await apiFetch('/api/characters', token)
+      const res = await apiFetch('/api/characters')
       // @TODO: localize all of these errors
       if (!res.ok) throw new Error(`Failed to list characters: ${res.status}`)
       return res.json() as Promise<Character[]>
@@ -34,7 +32,7 @@ export function createRemoteCharacterStore(token: string): CharacterStore {
     },
 
     async get(id) {
-      const res = await apiFetch(`/api/characters/${id}`, token)
+      const res = await apiFetch(`/api/characters/${id}`)
       if (res.status === 404) return null
       if (!res.ok) throw new Error(`Failed to get character: ${res.status}`)
       return res.json() as Promise<Character>
@@ -45,7 +43,7 @@ export function createRemoteCharacterStore(token: string): CharacterStore {
       // @TODO: document why the dynamic import here
       const { createCharacter } = await import('@/lib/character/model')
       const character = createCharacter(input)
-      const res = await apiFetch('/api/characters', token, {
+      const res = await apiFetch('/api/characters', {
         method: 'POST',
         body: JSON.stringify(character),
       })
@@ -54,7 +52,7 @@ export function createRemoteCharacterStore(token: string): CharacterStore {
     },
 
     async save(character) {
-      const res = await apiFetch(`/api/characters/${character.id}`, token, {
+      const res = await apiFetch(`/api/characters/${character.id}`, {
         method: 'PUT',
         body: JSON.stringify(character),
       })
@@ -64,7 +62,7 @@ export function createRemoteCharacterStore(token: string): CharacterStore {
     },
 
     async delete(id) {
-      const res = await apiFetch(`/api/characters/${id}`, token, {
+      const res = await apiFetch(`/api/characters/${id}`, {
         method: 'DELETE',
       })
       if (res.status === 404) return false
@@ -74,7 +72,7 @@ export function createRemoteCharacterStore(token: string): CharacterStore {
 
     async import(json) {
       // json is the raw file content of a single exported character.
-      const res = await apiFetch('/api/characters/import', token, {
+      const res = await apiFetch('/api/characters/import', {
         method: 'POST',
         body: JSON.stringify({ json }),
       })

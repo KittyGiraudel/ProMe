@@ -37,8 +37,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     console.log(nextUser)
     setUser(nextUser)
     if (nextUser) {
-      // @ts-expect-error
-      setCharacterStore(createRemoteCharacterStore(nextUser.token.access_token))
+      setCharacterStore(createRemoteCharacterStore())
     } else {
       setCharacterStore(createLocalStorageCharacterStore())
     }

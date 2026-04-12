@@ -1,19 +1,18 @@
-import { getAuthenticatedUser, unauthorizedResponse } from '@/lib/auth/server'
+import { getUser } from '@netlify/identity'
 import { canPersistCharacterUpdate } from '@/lib/character/lifeStatus'
 import {
   normalizeCharacter,
   touchCharacter,
   validateCharacterForPersistence,
 } from '@/lib/character/model'
-import type { Character } from '@/lib/character/types'
 import { sql } from '@/lib/db/client'
 
 type Params = { params: Promise<{ id: string }> }
 
 // GET /api/characters/[id]
 export async function GET(req: Request, { params }: Params): Promise<Response> {
-  const user = await getAuthenticatedUser(req)
-  if (!user) return unauthorizedResponse()
+  const user = await getUser()
+  if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
   const { id } = await params
   const rows = await sql`
@@ -31,8 +30,8 @@ export async function GET(req: Request, { params }: Params): Promise<Response> {
 
 // PUT /api/characters/[id] — save / update a character
 export async function PUT(req: Request, { params }: Params): Promise<Response> {
-  const user = await getAuthenticatedUser(req)
-  if (!user) return unauthorizedResponse()
+  const user = await getUser()
+  if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
   const { id } = await params
 
@@ -97,8 +96,8 @@ export async function DELETE(
   req: Request,
   { params }: Params
 ): Promise<Response> {
-  const user = await getAuthenticatedUser(req)
-  if (!user) return unauthorizedResponse()
+  const user = await getUser()
+  if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
   const { id } = await params
   const result = await sql`

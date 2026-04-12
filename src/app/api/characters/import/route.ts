@@ -1,16 +1,13 @@
-import { getAuthenticatedUser, unauthorizedResponse } from '@/lib/auth/server'
-import {
-  normalizeCharacter,
-  validateCharacterForPersistence,
-} from '@/lib/character/model'
+import { getUser } from '@netlify/identity'
+import { validateCharacterForPersistence } from '@/lib/character/model'
 import { parseCharacter } from '@/lib/character/store/migrations'
 import { sql } from '@/lib/db/client'
 
 // POST /api/characters/import
 // Body: { json: string }  — the raw JSON string of a single exported character
 export async function POST(req: Request): Promise<Response> {
-  const user = await getAuthenticatedUser(req)
-  if (!user) return unauthorizedResponse()
+  const user = await getUser()
+  if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
   let body: { json: string }
   try {
