@@ -71,13 +71,11 @@ export function createRemoteCharacterStore(): CharacterStore {
     },
 
     async import(json) {
-      console.log('Attempting to import in remote store', json)
       // json is the raw file content of a single exported character.
       const res = await apiFetch('/api/characters/import', {
         method: 'POST',
         body: JSON.stringify({ json }),
       })
-      console.log('Response', res)
       if (res.status === 422) throw new Error('INVALID_PAYLOAD')
       if (!res.ok) throw new Error(`Failed to import character: ${res.status}`)
       return res.json() as Promise<Character>

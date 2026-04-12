@@ -65,9 +65,7 @@ export function createLocalStorageCharacterStore(): CharacterStore {
     },
 
     async save(character) {
-      console.log('Attempting to save in local store', character)
       const normalized = normalizeCharacter(character)
-      console.log('Normalized as', normalized)
       if (!normalized) throw new SaveError('INVALID_PAYLOAD')
 
       const characters = await this.getAll()
@@ -104,9 +102,7 @@ export function createLocalStorageCharacterStore(): CharacterStore {
     },
 
     async import(json) {
-      console.log('Attempting to import in local store', json)
       const character = parseCharacter(json)
-      console.log('Parsed as', character)
       if (!character) throw new Error('INVALID_PAYLOAD')
 
       const validation = validateCharacterForPersistence(character)
