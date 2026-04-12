@@ -4,7 +4,7 @@ import type { Character } from '@/lib/character/types'
 import { sql } from '@/lib/db/client'
 
 // GET /api/characters — list all characters for the authenticated user
-export async function GET(req: Request): Promise<Response> {
+export async function GET(_: Request): Promise<Response> {
   const user = await getUser()
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 

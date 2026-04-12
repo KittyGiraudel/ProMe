@@ -109,7 +109,6 @@ export function usePWAInstallPrompt() {
             onClick={async () => {
               if (deferredPrompt.current) {
                 await deferredPrompt.current.prompt()
-                const { outcome } = await deferredPrompt.current.userChoice
                 deferredPrompt.current = null
               }
               notification.destroy('pwa-install')

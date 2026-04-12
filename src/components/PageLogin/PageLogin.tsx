@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Card, Space, Typography } from 'antd'
+import { Button, Card } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
 import { useAuth } from '@/lib/auth/context'
