@@ -45,78 +45,71 @@ export function CharacterLibrary() {
         onChange={handleImportFile}
       />
 
-      <RequireAuth>
-        {loading ? (
-          <Card>
-            <Skeleton active />
-          </Card>
-        ) : characters.length === 0 ? (
-          <Card>
-            <Empty description={t('characters_list.empty')} />
-          </Card>
-        ) : (
-          characters.map(character => {
-            const dead = isCharacterDead(character)
-            const name = character.name || t('characters_list.unnamed')
+      {loading ? (
+        <Card>
+          <Skeleton active />
+        </Card>
+      ) : characters.length === 0 ? (
+        <Card>
+          <Empty description={t('characters_list.empty')} />
+        </Card>
+      ) : (
+        characters.map(character => {
+          const dead = isCharacterDead(character)
+          const name = character.name || t('characters_list.unnamed')
 
-            return (
-              <Card
-                key={character.id}
-                className='u-contain-layout u-cv-auto-card'
-                title={
-                  dead
-                    ? t.rich('characters_list.dead_character_name', {
-                        name,
-                        separator: parts => (
-                          <Typography.Text type='secondary'>
-                            {parts}
-                          </Typography.Text>
-                        ),
-                        status: parts => (
-                          <Typography.Text type='danger'>
-                            {parts}
-                          </Typography.Text>
-                        ),
-                      })
-                    : name
-                }
-                styles={
-                  dead
-                    ? {
-                        header: { opacity: 0.75 },
-                        body: { opacity: 0.75 },
-                      }
-                    : undefined
-                }
-                extra={
-                  <Link href={`/characters/${character.id}`}>
-                    {t('common.actions.open')}
-                  </Link>
-                }>
-                <Spacing size='small'>
-                  <Typography.Text>
-                    {t('characters_list.archetype_line', {
-                      value: t(
-                        `common.archetypes.name.${character.archetype}`,
-                        {
-                          gender: character.gender ?? 'indeterminate',
-                        }
+          return (
+            <Card
+              key={character.id}
+              className='u-contain-layout u-cv-auto-card'
+              title={
+                dead
+                  ? t.rich('characters_list.dead_character_name', {
+                      name,
+                      separator: parts => (
+                        <Typography.Text type='secondary'>
+                          {parts}
+                        </Typography.Text>
                       ),
-                    })}
-                  </Typography.Text>
-                  <Typography.Text type='secondary'>
-                    {t('characters_list.updated_line', {
-                      value: format.dateTime(new Date(character.updatedAt), {
-                        dateStyle: 'medium',
-                      }),
-                    })}
-                  </Typography.Text>
-                </Spacing>
-              </Card>
-            )
-          })
-        )}
-      </RequireAuth>
+                      status: parts => (
+                        <Typography.Text type='danger'>{parts}</Typography.Text>
+                      ),
+                    })
+                  : name
+              }
+              styles={
+                dead
+                  ? {
+                      header: { opacity: 0.75 },
+                      body: { opacity: 0.75 },
+                    }
+                  : undefined
+              }
+              extra={
+                <Link href={`/characters/${character.id}`}>
+                  {t('common.actions.open')}
+                </Link>
+              }>
+              <Spacing size='small'>
+                <Typography.Text>
+                  {t('characters_list.archetype_line', {
+                    value: t(`common.archetypes.name.${character.archetype}`, {
+                      gender: character.gender ?? 'indeterminate',
+                    }),
+                  })}
+                </Typography.Text>
+                <Typography.Text type='secondary'>
+                  {t('characters_list.updated_line', {
+                    value: format.dateTime(new Date(character.updatedAt), {
+                      dateStyle: 'medium',
+                    }),
+                  })}
+                </Typography.Text>
+              </Spacing>
+            </Card>
+          )
+        })
+      )}
     </Layout>
   )
 }

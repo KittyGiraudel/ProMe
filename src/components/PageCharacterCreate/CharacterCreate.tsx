@@ -47,73 +47,69 @@ export function CharacterCreate() {
         { title: t('nav.characters'), path: '/characters' },
         { title: t('nav.new_character'), path: '/characters/new' },
       ]}>
-      <RequireAuth>
-        <Form<CharacterCreateFormValues>
-          form={form}
-          layout='vertical'
-          colon={false}
-          initialValues={{
-            name: '',
-            archetype: 'warrior',
-            gender: undefined,
-            inheritFromCharacterId: undefined,
-          }}
-          onFinish={values => {
-            void create(values)
-          }}>
-          <Spacing size='large'>
-            <Card
-              title={t('characters.identity.identity_section')}
-              id='identity'>
-              <Row gutter={[16, 16]}>
-                <Col xs={24} md={16}>
-                  <Form.Item
-                    rules={[{ required: true }]}
-                    name='name'
-                    label={t('characters.identity.name_label')}
-                    className='CharacterCreate__FormItem'>
-                    <Input />
-                  </Form.Item>
-                </Col>
-                <Col xs={24} md={8}>
-                  <Form.Item
-                    name='gender'
-                    label={t('characters.identity.gender_label')}
-                    className='CharacterCreate__FormItem'>
-                    <Select
-                      allowClear
-                      className='CharacterCreate__GenderSelect'
-                      options={GENDERS.map(gender => ({
-                        value: gender,
-                        label: t(`common.genders.${gender}`),
-                      }))}
-                    />
-                  </Form.Item>
-                </Col>
-              </Row>
-            </Card>
+      <Form<CharacterCreateFormValues>
+        form={form}
+        layout='vertical'
+        colon={false}
+        initialValues={{
+          name: '',
+          archetype: 'warrior',
+          gender: undefined,
+          inheritFromCharacterId: undefined,
+        }}
+        onFinish={values => {
+          void create(values)
+        }}>
+        <Spacing size='large'>
+          <Card title={t('characters.identity.identity_section')} id='identity'>
+            <Row gutter={[16, 16]}>
+              <Col xs={24} md={16}>
+                <Form.Item
+                  rules={[{ required: true }]}
+                  name='name'
+                  label={t('characters.identity.name_label')}
+                  className='CharacterCreate__FormItem'>
+                  <Input />
+                </Form.Item>
+              </Col>
+              <Col xs={24} md={8}>
+                <Form.Item
+                  name='gender'
+                  label={t('characters.identity.gender_label')}
+                  className='CharacterCreate__FormItem'>
+                  <Select
+                    allowClear
+                    className='CharacterCreate__GenderSelect'
+                    options={GENDERS.map(gender => ({
+                      value: gender,
+                      label: t(`common.genders.${gender}`),
+                    }))}
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
+          </Card>
 
-            <Form.Item
-              rules={[{ required: true }]}
-              name='archetype'
-              label={t('characters.identity.archetype_label')}
-              noStyle>
-              <ArchetypeSelector gender={gender} />
-            </Form.Item>
+          <Form.Item
+            rules={[{ required: true }]}
+            name='archetype'
+            label={t('characters.identity.archetype_label')}
+            noStyle>
+            <ArchetypeSelector gender={gender} />
+          </Form.Item>
 
-            <InheritanceCard candidates={candidates} />
+          <InheritanceCard candidates={candidates} />
 
-            <Spacing orientation='horizontal' wrap>
-              <Button type='primary' htmlType='submit'>
-                {t('new_character.create')}
-              </Button>
-              <Button htmlType='button' type='link' href='/characters'>
-                {t('common.actions.cancel')}
-              </Button>
-            </Spacing>
+          <Spacing orientation='horizontal' wrap>
+            <Button type='primary' htmlType='submit'>
+              {t('new_character.create')}
+            </Button>
+            <Button htmlType='button' type='link' href='/characters'>
+              {t('common.actions.cancel')}
+            </Button>
           </Spacing>
-        </Form>
-      </RequireAuth>
+        </Spacing>
+      </Form>
     </Layout>
   )
 }

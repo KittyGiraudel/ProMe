@@ -90,50 +90,48 @@ export function CharacterSheet({ characterId }: { characterId: string }) {
                 ]
               : []),
           ]}>
-          <RequireAuth>
-            <DeathWarning isDead={isDead} gender={character.gender} />
-            <CharacterSheetValidationErrors errors={validationErrors} />
-            <Form
-              // No `key` here: form values are kept in sync via setFieldsValue in
-              // useCharacterSheetForm, so we don't need to remount the form after
-              // each save to pick up fresh initialValues.
-              id={character.id}
-              form={form}
-              onFieldsChange={onFieldsChange}
-              scrollToFirstError
-              initialValues={toFormValues(character)}
-              onFinish={() => {
-                // Do NOT pass the received values to saveForm: journal entries
-                // are not registered when the edit modal is closed, and saveForm
-                // calls getCharacterFromForm() internally for correct values.
-                saveForm()
-              }}
-              disabled={isDead}
-              layout='vertical'
-              colon={false}
-              preserve>
-              <Spacing size='large'>
-                <CharacterStats />
-                <IdentityCard isArchetypeReadonly />
-                <CharacteristicsCard isDead={isDead} saveForm={saveForm} />
-                <MapCard isDead={isDead} />
-                <ClockCard />
-                <JournalCard isDead={isDead} />
-                <InventoryCard />
-                <SpellbookCard />
-              </Spacing>
-            </Form>
-            <Row gutter={[16, 16]} id='tools'>
-              <Col xs={24} md={12}>
-                <DiceRoll />
-              </Col>
-              <Col xs={24} md={12}>
-                <CardDraw />
-              </Col>
-            </Row>
-            <ActionsCard isDead={isDead} saveForm={saveForm} form={form} />
-            <AudioCard biome={bannerBiome} />
-          </RequireAuth>
+          <DeathWarning isDead={isDead} gender={character.gender} />
+          <CharacterSheetValidationErrors errors={validationErrors} />
+          <Form
+            // No `key` here: form values are kept in sync via setFieldsValue in
+            // useCharacterSheetForm, so we don't need to remount the form after
+            // each save to pick up fresh initialValues.
+            id={character.id}
+            form={form}
+            onFieldsChange={onFieldsChange}
+            scrollToFirstError
+            initialValues={toFormValues(character)}
+            onFinish={() => {
+              // Do NOT pass the received values to saveForm: journal entries
+              // are not registered when the edit modal is closed, and saveForm
+              // calls getCharacterFromForm() internally for correct values.
+              saveForm()
+            }}
+            disabled={isDead}
+            layout='vertical'
+            colon={false}
+            preserve>
+            <Spacing size='large'>
+              <CharacterStats />
+              <IdentityCard isArchetypeReadonly />
+              <CharacteristicsCard isDead={isDead} saveForm={saveForm} />
+              <MapCard isDead={isDead} />
+              <ClockCard />
+              <JournalCard isDead={isDead} />
+              <InventoryCard />
+              <SpellbookCard />
+            </Spacing>
+          </Form>
+          <Row gutter={[16, 16]} id='tools'>
+            <Col xs={24} md={12}>
+              <DiceRoll />
+            </Col>
+            <Col xs={24} md={12}>
+              <CardDraw />
+            </Col>
+          </Row>
+          <ActionsCard isDead={isDead} saveForm={saveForm} form={form} />
+          <AudioCard biome={bannerBiome} />
         </Layout>
       </App>
     </ConfigProvider>
