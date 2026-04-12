@@ -5,6 +5,7 @@ import type {
   SyncedCharacterStore,
 } from '@/lib/character/store/types'
 import type { Character } from '@/lib/character/types'
+import { stringifyCharacter } from './migrations'
 
 /**
  * Merges two character stores bidirectionally.
@@ -47,7 +48,7 @@ export async function sync(local: CharacterStore, remote: CharacterStore) {
   }
 
   await Promise.allSettled([
-    ...toLocal.map(c => local.import(JSON.stringify(c))),
+    ...toLocal.map(c => local.import(stringifyCharacter(c))),
     ...toRemote.map(c => remote.save(c)),
   ])
 }
