@@ -15,7 +15,7 @@ import { useCharacterDelete } from '@/hooks/useMutation'
 import { useRouter } from '@/i18n/navigation'
 import { getCharacterStore } from '@/lib/character/store'
 import { stringifyCharacter } from '@/lib/character/store/migrations'
-import { NetworkError } from '@/lib/character/store/remoteStore'
+import { ServerError } from '@/lib/character/store/remoteStore'
 import {
   buildCharacterExportFileName,
   downloadJsonFile,
@@ -56,7 +56,7 @@ export function ActionsCard({
       message.success(t('characters.actions.export_downloaded'))
     } catch (error) {
       console.error(error)
-      if (error instanceof NetworkError) {
+      if (error instanceof ServerError) {
         message.error(t('errors.get_character'))
       } else {
         message.error(t('errors.export_download'))

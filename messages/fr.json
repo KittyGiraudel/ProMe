@@ -789,6 +789,7 @@
   },
   "errors": {
     "audio": "Impossible de charger l’audio.",
+    "bad_request": "Les données sont invalides et ne peuvent pas être sauvegardées.",
     "clipboard_copy": "Impossible de copier (veuillez autoriser le presse-papiers).",
     "create": "Une erreur est survenue lors de la création du personnage.",
     "delete_character": "Une erreur est survenue lors de la suppression du personnage.",
@@ -799,6 +800,8 @@
     "import": "Le Protecteur importé est invalide et ne peut pas être sauvegardé.",
     "save": "Une erreur est survenue lors de la sauvegarde du personnage.",
     "save_dead": "Impossible de sauvegarder un Protecteur mort.",
-    "save_validation": "Il y a des erreurs qui empêchent la sauvegarde de la fiche de personnage."
+    "save_validation": "Il y a des erreurs qui empêchent la sauvegarde de la fiche de personnage.",
+    "server": "Une erreur serveur est survenue (statut HTTP {status}).",
+    "unauthorized": "Vous n’êtes pas autorisé·e à accéder à cette ressource."
   }
 }

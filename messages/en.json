@@ -792,6 +792,7 @@
   },
   "errors": {
     "audio": "Failed to load audio.",
+    "bad_request": "The data is invalid and cannot be persisted.",
     "clipboard_copy": "Failed to copy (please allow the clipboard).",
     "create": "An error occurred while creating the character.",
     "delete_character": "An error occurred while deleting the character.",
@@ -802,6 +803,8 @@
     "import": "The imported character is invalid and cannot be saved.",
     "save": "An error occurred while saving the character.",
     "save_dead": "Cannot save a deceased character.",
-    "save_validation": "There are errors that prevent the character from being saved."
+    "save_validation": "There are errors that prevent the character from being saved.",
+    "server": "A server error occurred (HTTP status {status}).",
+    "unauthorized": "You are not authorized to access this resource."
   }
 }

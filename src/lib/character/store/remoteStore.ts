@@ -19,7 +19,9 @@ export function createRemoteCharacterStore(): CharacterStore {
   return {
     async getAll() {
       const res = await apiFetch('/api/characters')
-      if (!res.ok) throw new NetworkError('GET_ALL', res)
+      if (res.status === 401) throw new UnauthorizedError()
+      if (res.status >= 400 && res.status < 500) throw new BadRequestError(res)
+      if (!res.ok) throw new ServerError(res)
       return res.json() as Promise<Character[]>
     },
 
@@ -33,7 +35,9 @@ export function createRemoteCharacterStore(): CharacterStore {
     async get(id) {
       const res = await apiFetch(`/api/characters/${id}`)
       if (res.status === 404) return null
-      if (!res.ok) throw new NetworkError('GET', res)
+      if (res.status === 401) throw new UnauthorizedError()
+      if (res.status >= 400 && res.status < 500) throw new BadRequestError(res)
+      if (!res.ok) throw new ServerError(res)
       return res.json() as Promise<Character>
     },
 
@@ -46,7 +50,9 @@ export function createRemoteCharacterStore(): CharacterStore {
         method: 'POST',
         body: JSON.stringify(character),
       })
-      if (!res.ok) throw new NetworkError('CREATE', res)
+      if (res.status === 401) throw new UnauthorizedError()
+      if (res.status >= 400 && res.status < 500) throw new BadRequestError(res)
+      if (!res.ok) throw new ServerError(res)
       return res.json() as Promise<Character>
     },
 
@@ -55,8 +61,10 @@ export function createRemoteCharacterStore(): CharacterStore {
         method: 'PUT',
         body: JSON.stringify(character),
       })
+      if (res.status === 401) throw new UnauthorizedError()
       if (res.status === 409) throw new SaveError('DEAD_CHARACTER')
-      if (!res.ok) throw new NetworkError('SAVE', res)
+      if (res.status >= 400 && res.status < 500) throw new BadRequestError(res)
+      if (!res.ok) throw new ServerError(res)
       return res.json() as Promise<Character>
     },
 
@@ -65,7 +73,9 @@ export function createRemoteCharacterStore(): CharacterStore {
         method: 'DELETE',
       })
       if (res.status === 404) return false
-      if (!res.ok) throw new NetworkError('DELETE', res)
+      if (res.status === 401) throw new UnauthorizedError()
+      if (res.status >= 400 && res.status < 500) throw new BadRequestError(res)
+      if (!res.ok) throw new ServerError(res)
       return true
     },
 
@@ -75,18 +85,35 @@ export function createRemoteCharacterStore(): CharacterStore {
         method: 'POST',
         body: JSON.stringify({ json }),
       })
-      if (res.status === 422) throw new Error('INVALID_PAYLOAD')
-      if (!res.ok) throw new NetworkError('IMPORT', res)
+      if (res.status === 401) throw new UnauthorizedError()
+      if (res.status >= 400 && res.status < 500) throw new BadRequestError(res)
+      if (!res.ok) throw new ServerError(res)
       return res.json() as Promise<Character>
     },
   }
 }
 
-export class NetworkError extends Error {
+export class ServerError extends Error {
   status: number | undefined
-  constructor(message: string, response: Response) {
-    super(message)
-    this.name = 'NetworkError'
+  constructor(response: Response) {
+    super('SERVER_ERROR')
+    this.name = 'ServerError'
+    this.status = response.status
+  }
+}
+
+export class UnauthorizedError extends Error {
+  constructor() {
+    super('UNAUTHORIZED')
+    this.name = 'UnauthorizedError'
+  }
+}
+
+export class BadRequestError extends Error {
+  status: number
+  constructor(response: Response) {
+    super('BAD_REQUEST')
+    this.name = 'BadRequestError'
     this.status = response.status
   }
 }

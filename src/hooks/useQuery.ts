@@ -1,7 +1,13 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { getCharacterStore } from '@/lib/character/store'
+import {
+  BadRequestError,
+  ServerError,
+  UnauthorizedError,
+} from '@/lib/character/store/remoteStore'
 import type { Character } from '@/lib/character/types'
 import { loadSettings } from '@/lib/settings/storage'
 import type { AppSettings } from '@/lib/settings/types'
@@ -21,6 +27,7 @@ export function useQuery<T>(
   fetcher: () => Promise<T>,
   { skip = false }: UseQueryOptions = {}
 ): QueryResult<T> {
+  const t = useTranslations()
   const [data, setData] = useState<T | null>(null)
   const [loading, setLoading] = useState(!skip)
   const [error, setError] = useState<Error | null>(null)
@@ -42,7 +49,17 @@ export function useQuery<T>(
       })
       .catch(err => {
         if (!cancelled) {
-          setError(err instanceof Error ? err : new Error(String(err)))
+          if (err instanceof UnauthorizedError) {
+            setError(new Error(t('errors.unauthorized')))
+          } else if (err instanceof BadRequestError) {
+            setError(new Error(t('errors.bad_request')))
+          } else if (err instanceof ServerError) {
+            setError(
+              new Error(t('errors.server', { status: String(err.status) }))
+            )
+          } else {
+            setError(err instanceof Error ? err : new Error(String(err)))
+          }
         }
       })
       .finally(() => {
@@ -51,9 +68,9 @@ export function useQuery<T>(
     return () => {
       cancelled = true
     }
-  }, [tick, skip])
+  }, [tick, skip, t])
 
-  const refetch = useCallback(() => setTick(t => t + 1), [])
+  const refetch = useCallback(() => setTick(tick => tick + 1), [])
 
   return { data, loading, error, refetch }
 }
