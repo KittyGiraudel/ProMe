@@ -30,9 +30,7 @@ export function useCharacterSheetForm({
     data: character,
     loading,
     refetch,
-  } = useCharacterQuery({
-    id: characterId,
-  })
+  } = useCharacterQuery({ id: characterId })
   const { message } = App.useApp()
   const t = useTranslations()
   const [validationErrors, setValidationErrors] = useState<ValidationError[]>(
@@ -55,11 +53,11 @@ export function useCharacterSheetForm({
     onError: err => {
       if (err instanceof ValidationErrorCollection) {
         setValidationErrors(err.errors)
-        message.warning(t('characters.actions.save.validation_error'))
+        message.warning(t('errors.save_validation'))
       } else if (err.message === 'DEAD_CHARACTER') {
-        message.error(t('characters.actions.save.dead_error'))
+        message.error(t('errors.save_dead'))
       } else {
-        message.error(t('common.generic_error'))
+        message.error(t('errors.save'))
       }
     },
   })

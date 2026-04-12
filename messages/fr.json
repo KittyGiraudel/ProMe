@@ -173,7 +173,6 @@
       "delete_confirm_description": "La fiche de Protecteur sera définitivement supprimée et cette action est irréversible.",
       "delete_confirm_title": "Supprimer ce Protecteur ?",
       "delete_success": "Protecteur supprimé.",
-      "export_download_error": "Impossible de télécharger l’export JSON.",
       "export_downloaded": "Export JSON téléchargé.",
       "export_help": "Télécharge un export JSON de la fiche.",
       "export": "Exporter JSON",
@@ -187,8 +186,6 @@
       "revive_success": "Protecteur réanimé.",
       "save": {
         "success": "Protecteur enregistré.",
-        "validation_error": "Il y a des erreurs qui empêchent la sauvegarde de la fiche de personnage.",
-        "dead_error": "Impossible de sauvegarder un Protecteur mort.",
         "invalid_money": "Les pièces doivent être à zéro ou plus ({current}).",
         "invalid_inventory": "L’inventaire doit contenir entre 0 et {max} objets ({current}).",
         "invalid_spellbook": "Le grimoire doit contenir entre 0 et {max} objets ({current}).",
@@ -238,7 +235,6 @@
     "display_1D6": "1D6 : <dice></dice>",
     "display_2D6": "2D6 : <dice></dice>",
     "display_card": "Carte : <card></card>",
-    "generic_error": "Une erreur s’est produite.",
     "gold": "{amount, number} pièces",
     "loading": "Chargement…",
     "max_label": "Max.",
@@ -340,7 +336,6 @@
     },
     "copy": {
       "description": "Copier la description",
-      "error": "Impossible de copier (autorisez le presse-papiers).",
       "journal": "Copier le code journal",
       "success_description": "Description copiée dans le presse-papiers.",
       "success_journal": "Code journal copié dans le presse-papiers.",
@@ -517,6 +512,8 @@
     "faq": "FAQ",
     "home": "Accueil",
     "inhabitant_generator": "Générateur d’habitant",
+    "login": "Connexion",
+    "logout": "Déconnexion",
     "new_character": "Nouveau Protecteur",
     "settings": "Paramètres",
     "village_generator": "Générateur de village"
@@ -524,7 +521,6 @@
   "new_character": {
     "create_success": "Protecteur créé.",
     "create": "Créer un Protecteur",
-    "import_error": "Le Protecteur importé est invalide et ne peut pas être sauvegardé.",
     "import_success": "Protecteur importé avec succès.",
     "import": "Importer un Protecteur",
     "inheritance_card_title": "Héritage",
@@ -560,6 +556,7 @@
     "app_theme_dark": "Sombre",
     "app_theme_label": "Thème",
     "app_theme_light": "Clair",
+    "auth_disclaimer": "Les paramètres de l’application sont enregistrés uniquement localement dans ce navigateur, et ne sont pas synchronisés avec votre compte utilisateur.",
     "show_imagery_label": "Illustrations décoratives",
     "show_imagery_help": "Affiche les illustrations et images décoratives dans l’application. Désactiver cette option évite de télécharger les images.",
     "adaptive_appearance_theme_help": "Remplace le thème de l’application pour la feuille de protecteur. Bascule automatiquement vers le mode sombre la nuit et vers le mode clair de jour, selon la valeur de l’horloge.",
@@ -664,7 +661,6 @@
     "progress_label": "Position de lecture",
     "restart_track": "Revenir au début",
     "new_track": "Autre piste aléatoire pour ce biome",
-    "error": "Impossible de charger l’audio.",
     "retry": "Réessayer"
   },
   "landing": {
@@ -780,5 +776,32 @@
       "cta": "Installer",
       "description_ios": "Appuyez sur « Partager » puis « Ajouter sur l’écran d’accueil » pour jouer hors ligne et accéder à ProMe d’un geste."
     }
+  },
+  "auth": {
+    "title": "Connexion",
+    "sign_in_title": "Sauvegarde des données",
+    "sign_in_prompt": "Vous pouvez vous connecter à ProMe avec votre compte Google pour sauvegarder vos données en ligne. Cela vous permettra de retrouver vos personnages même si vous changez de navigateur ou d’appareil. C’est entièrement facultatif, et le site fonctionne entièrement sans connexion. Cliquer le bouton ci-dessous vous redigirera vers Google pour vous connecter, puis vous serez redirigé·e vers la page d’accueil.",
+    "sign_in_with_google": "Continuer avec Google",
+    "sign_in_required": "Connexion requise",
+    "sign_in_success": "Connexion réussie : synchronisation avec le cloud.",
+    "online_status": "En ligne : synchronisation avec le cloud.",
+    "offline_status": "Hors ligne : sauvegarde locale uniquement."
+  },
+  "errors": {
+    "audio": "Impossible de charger l’audio.",
+    "bad_request": "Les données sont invalides et ne peuvent pas être sauvegardées.",
+    "clipboard_copy": "Impossible de copier (veuillez autoriser le presse-papiers).",
+    "create": "Une erreur est survenue lors de la création du personnage.",
+    "delete_character": "Une erreur est survenue lors de la suppression du personnage.",
+    "export_download": "Une erreur est survenue lors de l’export du personnage.",
+    "generic": "Une erreur s’est produite.",
+    "get_character": "Une erreur est survenue lors du chargement du personnage.",
+    "get_characters": "Une erreur est survenue lors du chargement des personnages.",
+    "import": "Le Protecteur importé est invalide et ne peut pas être sauvegardé.",
+    "save": "Une erreur est survenue lors de la sauvegarde du personnage.",
+    "save_dead": "Impossible de sauvegarder un Protecteur mort.",
+    "save_validation": "Il y a des erreurs qui empêchent la sauvegarde de la fiche de personnage.",
+    "server": "Une erreur serveur est survenue (statut HTTP {status}).",
+    "unauthorized": "Vous n’êtes pas autorisé·e à accéder à cette ressource."
   }
 }

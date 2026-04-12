@@ -38,8 +38,9 @@ export function CopyDropdown({
       try {
         await navigator.clipboard.writeText(text)
         message.success(successMessage)
-      } catch {
-        message.error(t('common.copy.error'))
+      } catch (error) {
+        console.error(error)
+        message.error(t('errors.clipboard_copy'))
       }
     },
     [message, t]

@@ -17,7 +17,8 @@ export function saveDraft(draft: Character): void {
       getDraftKey(draft.id),
       JSON.stringify(touched)
     )
-  } catch {
+  } catch (error) {
+    console.error(error)
     // ignore (private mode / quota)
   }
 }
@@ -29,7 +30,8 @@ export function loadDraft(draftId: string): Character | null {
     if (!raw) return null
     const parsed = JSON.parse(raw) as unknown
     return normalizeCharacter(parsed)
-  } catch {
+  } catch (error) {
+    console.error(error)
     return null
   }
 }

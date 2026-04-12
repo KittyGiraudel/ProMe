@@ -173,7 +173,6 @@
       "delete_confirm_description": "The Protector sheet will be permanently deleted and this action is irreversible.",
       "delete_confirm_title": "Delete this Protector?",
       "delete_success": "Protector deleted.",
-      "export_download_error": "Failed to download JSON export.",
       "export_downloaded": "JSON export downloaded.",
       "export_help": "Download a JSON export of the sheet.",
       "export": "Export JSON",
@@ -188,8 +187,6 @@
       "save_success": "Protector saved.",
       "save": {
         "success": "Protector saved.",
-        "validation_error": "There are errors that prevent the protector from being saved.",
-        "dead_error": "Cannot save a deceased Protector.",
         "invalid_money": "Money must be 0 or more ({current}).",
         "invalid_inventory": "The inventory must contain between 0 and {max} items ({current}).",
         "invalid_spellbook": "The spellbook must contain between 0 and {max} items ({current}).",
@@ -239,7 +236,6 @@
     "display_1D6": "1D6: <dice></dice>",
     "display_2D6": "2D6: <dice></dice>",
     "display_card": "Card: <card></card>",
-    "generic_error": "An error occurred.",
     "gold": "{amount, number} coins",
     "loading": "Loading…",
     "max_label": "Max.",
@@ -341,7 +337,6 @@
     },
     "copy": {
       "description": "Copy description",
-      "error": "Could not copy (allow clipboard access).",
       "journal": "Copy journal code",
       "success_description": "Description copied to clipboard.",
       "success_journal": "Journal code copied to clipboard.",
@@ -520,6 +515,8 @@
     "faq": "FAQ",
     "home": "Home",
     "inhabitant_generator": "Inhabitant Generator",
+    "login": "Login",
+    "logout": "Logout",
     "new_character": "New Protector",
     "settings": "Settings",
     "village_generator": "Village Generator"
@@ -527,7 +524,6 @@
   "new_character": {
     "create_success": "Protector created.",
     "create": "Create Protector",
-    "import_error": "The imported Protector is invalid and cannot be saved.",
     "import_success": "Protector imported successfully.",
     "import": "Import Protector",
     "inheritance_card_title": "Inheritance",
@@ -563,6 +559,7 @@
     "app_theme_dark": "Dark",
     "app_theme_label": "Theme",
     "app_theme_light": "Light",
+    "auth_disclaimer": "App settings are only saved locally in this browser and are not synced with your user account. If you use a different browser, the settings will not be shared.",
     "show_imagery_label": "Decorative imagery",
     "show_imagery_help": "Displays illustrations and decorative images throughout the app. Disabling this option avoids downloading images.",
     "adaptive_appearance_theme_help": "Overrides the app theme for the character sheet. Automatically switches to dark mode at night and light mode during the day based on the clock value.",
@@ -667,7 +664,6 @@
     "progress_label": "Playback position",
     "restart_track": "Back to start",
     "new_track": "Another random track for this biome",
-    "error": "Failed to load audio.",
     "retry": "Retry"
   },
   "landing": {
@@ -783,5 +779,32 @@
       "cta": "Install",
       "description_ios": "Tap the “Share” button then “Add to Home Screen” to play offline and launch ProMe from your home screen."
     }
+  },
+  "auth": {
+    "title": "Sign in",
+    "sign_in_title": "Data backup",
+    "sign_in_prompt": "You can sign in to ProMe with your Google account to back up your data online. This will allow you to retrieve your characters even if you change browsers or devices. It is completely optional, and the site works entirely without a connection. Clicking the button below will redirect you to Google to sign in, then you will be redirected to the home page.",
+    "sign_in_with_google": "Continue with Google",
+    "sign_in_required": "Sign in required",
+    "sign_in_success": "Sign in successful: syncing to cloud.",
+    "online_status": "Back online: syncing to cloud.",
+    "offline_status": "Now offline: saving locally only."
+  },
+  "errors": {
+    "audio": "Failed to load audio.",
+    "bad_request": "The data is invalid and cannot be persisted.",
+    "clipboard_copy": "Failed to copy (please allow the clipboard).",
+    "create": "An error occurred while creating the character.",
+    "delete_character": "An error occurred while deleting the character.",
+    "export_download": "An error occurred while exporting the character.",
+    "generic": "An error occurred.",
+    "get_character": "An error occurred while loading the character.",
+    "get_characters": "An error occurred while loading the characters.",
+    "import": "The imported character is invalid and cannot be saved.",
+    "save": "An error occurred while saving the character.",
+    "save_dead": "Cannot save a deceased character.",
+    "save_validation": "There are errors that prevent the character from being saved.",
+    "server": "A server error occurred (HTTP status {status}).",
+    "unauthorized": "You are not authorized to access this resource."
   }
 }

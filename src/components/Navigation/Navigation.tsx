@@ -3,14 +3,17 @@
 import { Menu } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
+import { Logo } from '@/components/Logo/Logo'
 import { Link, usePathname } from '@/i18n/navigation'
-import { Logo } from '../Logo/Logo'
+import { useAuth } from '@/lib/auth/context'
+import { AuthButton } from '../AuthButton/AuthButton'
 
 import './Navigation.css'
 
 export function Navigation() {
   const t = useTranslations()
   const pathname = usePathname()
+  const { loading } = useAuth()
 
   const items = useMemo(
     () => [
@@ -60,6 +63,10 @@ export function Navigation() {
         key: '/settings',
         label: <Link href='/settings'>{t('nav.settings')}</Link>,
       },
+      {
+        key: '/authentication',
+        label: <AuthButton />,
+      },
     ],
     [t]
   )
@@ -72,9 +79,10 @@ export function Navigation() {
     if (pathname.startsWith('/faq')) return ['/faq']
     if (pathname.startsWith('/settings')) return ['/settings']
     if (pathname.startsWith('/characters')) return ['/characters']
+    if (!loading && pathname.startsWith('/login')) return ['/authentication']
     if (pathname === '/') return ['/']
     return []
-  }, [pathname])
+  }, [pathname, loading])
 
   return (
     <Menu

@@ -9,3 +9,12 @@ export type CharacterStore = {
   delete(id: string): Promise<boolean>
   import(json: string): Promise<Character>
 }
+
+export type SyncedCharacterStore = CharacterStore & {
+  /** Sets authenticated state and runs the initial bidirectional merge sync. */
+  login(): Promise<void>
+  /** Sets authenticated state to false. Local is already current; no sync needed. */
+  logout(): void
+  /** Syncs local and remote stores. Called on reconnect by useNetworkStatus. */
+  syncToRemote(): Promise<void>
+}
