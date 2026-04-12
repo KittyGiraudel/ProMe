@@ -9,7 +9,6 @@ import { Spacing } from '@/components/Spacing/Spacing'
 import { useCharacterLibraryActions } from '@/hooks/useCharacterLibraryActions'
 import { useCharactersQuery } from '@/hooks/useQuery'
 import { Link } from '@/i18n/navigation'
-import { RequireAuth } from '@/lib/auth/RequireAuth'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
 
 export function CharacterLibrary() {

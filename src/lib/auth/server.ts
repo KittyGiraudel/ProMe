@@ -5,7 +5,6 @@ import * as jose from 'jose'
 const identityUrl =
   process.env.NETLIFY_IDENTITY_URL ??
   (process.env.URL ? `${process.env.URL}/.netlify/identity` : null)
-console.log(identityUrl)
 
 if (!identityUrl) {
   throw new Error(

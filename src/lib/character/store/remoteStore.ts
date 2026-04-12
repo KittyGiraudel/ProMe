@@ -21,6 +21,7 @@ export function createRemoteCharacterStore(token: string): CharacterStore {
   return {
     async getAll() {
       const res = await apiFetch('/api/characters', token)
+      // @TODO: localize all of these errors
       if (!res.ok) throw new Error(`Failed to list characters: ${res.status}`)
       return res.json() as Promise<Character[]>
     },
@@ -41,6 +42,7 @@ export function createRemoteCharacterStore(token: string): CharacterStore {
 
     async create(input) {
       // Build a partial character locally then POST it — the server normalizes it.
+      // @TODO: document why the dynamic import here
       const { createCharacter } = await import('@/lib/character/model')
       const character = createCharacter(input)
       const res = await apiFetch('/api/characters', token, {

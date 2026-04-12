@@ -5,6 +5,7 @@ import { sql } from '@/lib/db/client'
  * Call this once at application startup (e.g., in the DB init API route).
  */
 export async function initDatabase(): Promise<void> {
+  // @TODO: clarify why not relying on the native timestamps from Postgres
   await sql`
     CREATE TABLE IF NOT EXISTS characters (
       id         TEXT        PRIMARY KEY,

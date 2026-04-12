@@ -1,10 +1,9 @@
 'use client'
 
-import { oauthLogin } from '@netlify/identity'
 import { Button, Card, Space, Typography } from 'antd'
 import { useTranslations } from 'next-intl'
+import { Layout } from '@/components/Layout/Layout'
 import { useAuth } from '@/lib/auth/context'
-import { Layout } from '../Layout/Layout'
 
 export function PageLogin() {
   const { oauthLogin, loading } = useAuth()
@@ -25,9 +24,7 @@ export function PageLogin() {
             {t('auth.sign_in_with_google')}
           </Button>,
         ]}>
-        <Space orientation='vertical' style={{ width: '100%' }}>
-          <Typography.Text>{t('auth.sign_in_prompt')}</Typography.Text>
-        </Space>
+        <Typography.Text>{t('auth.sign_in_prompt')}</Typography.Text>
       </Card>
     </Layout>
   )

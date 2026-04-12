@@ -11,6 +11,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from 'react'
 import type { NetlifyUser } from '@/lib/auth/types'
@@ -66,17 +67,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     applyUser(null)
   }, [applyUser])
 
-  return (
-    <AuthContext.Provider
-      value={{
-        user,
-        loading,
-        oauthLogin: handleOAuthLogin,
-        logout: handleLogout,
-      }}>
-      {children}
-    </AuthContext.Provider>
+  const context = useMemo(
+    () => ({
+      user,
+      loading,
+      oauthLogin: handleOAuthLogin,
+      logout: handleLogout,
+    }),
+    [user, loading, handleOAuthLogin, handleLogout]
   )
+
+  return <AuthContext.Provider value={context}>{children}</AuthContext.Provider>
 }
 
 export function useAuth(): AuthContextValue {

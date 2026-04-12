@@ -13,8 +13,8 @@ import { useRouter } from '@/i18n/navigation'
 import type { Archetype } from '@/lib/character/types'
 import { GENDERS } from '@/lib/constants/misc'
 import type { Gender } from '@/lib/types'
+
 import './CharacterCreate.css'
-import { RequireAuth } from '@/lib/auth/RequireAuth'
 
 type CharacterCreateFormValues = {
   name: string
