@@ -7,10 +7,13 @@ import { Link, usePathname } from '@/i18n/navigation'
 import { Logo } from '../Logo/Logo'
 
 import './Navigation.css'
+import { useAuth } from '@/lib/auth/context'
+import { Button } from '../Button/Button'
 
 export function Navigation() {
   const t = useTranslations()
   const pathname = usePathname()
+  const { user, logout } = useAuth()
 
   const items = useMemo(
     () => [
@@ -60,6 +63,14 @@ export function Navigation() {
         key: '/settings',
         label: <Link href='/settings'>{t('nav.settings')}</Link>,
       },
+      {
+        key: user ? '/logout' : '/login',
+        label: user ? (
+          <Button onClick={logout}>{t('nav.logout')}</Button>
+        ) : (
+          <Link href='/login'>{t('nav.login')}</Link>
+        ),
+      },
     ],
     [t]
   )
@@ -72,6 +83,7 @@ export function Navigation() {
     if (pathname.startsWith('/faq')) return ['/faq']
     if (pathname.startsWith('/settings')) return ['/settings']
     if (pathname.startsWith('/characters')) return ['/characters']
+    if (pathname.startsWith('/login')) return ['/login']
     if (pathname === '/') return ['/']
     return []
   }, [pathname])
