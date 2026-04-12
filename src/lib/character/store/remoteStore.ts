@@ -20,7 +20,7 @@ export function createRemoteCharacterStore(): CharacterStore {
     async getAll() {
       const res = await apiFetch('/api/characters')
       // @TODO: localize all of these errors
-      if (!res.ok) throw new Error(`Failed to list characters: ${res.status}`)
+      if (!res.ok) throw new NetworkError('GET_ALL', res)
       return res.json() as Promise<Character[]>
     },
 
@@ -34,7 +34,7 @@ export function createRemoteCharacterStore(): CharacterStore {
     async get(id) {
       const res = await apiFetch(`/api/characters/${id}`)
       if (res.status === 404) return null
-      if (!res.ok) throw new Error(`Failed to get character: ${res.status}`)
+      if (!res.ok) throw new NetworkError('GET', res)
       return res.json() as Promise<Character>
     },
 
@@ -47,7 +47,7 @@ export function createRemoteCharacterStore(): CharacterStore {
         method: 'POST',
         body: JSON.stringify(character),
       })
-      if (!res.ok) throw new Error(`Failed to create character: ${res.status}`)
+      if (!res.ok) throw new NetworkError('CREATE', res)
       return res.json() as Promise<Character>
     },
 
@@ -57,7 +57,7 @@ export function createRemoteCharacterStore(): CharacterStore {
         body: JSON.stringify(character),
       })
       if (res.status === 409) throw new SaveError('DEAD_CHARACTER')
-      if (!res.ok) throw new Error(`Failed to save character: ${res.status}`)
+      if (!res.ok) throw new NetworkError('SAVE', res)
       return res.json() as Promise<Character>
     },
 
@@ -66,7 +66,7 @@ export function createRemoteCharacterStore(): CharacterStore {
         method: 'DELETE',
       })
       if (res.status === 404) return false
-      if (!res.ok) throw new Error(`Failed to delete character: ${res.status}`)
+      if (!res.ok) throw new NetworkError('DELETE', res)
       return true
     },
 
@@ -77,8 +77,17 @@ export function createRemoteCharacterStore(): CharacterStore {
         body: JSON.stringify({ json }),
       })
       if (res.status === 422) throw new Error('INVALID_PAYLOAD')
-      if (!res.ok) throw new Error(`Failed to import character: ${res.status}`)
+      if (!res.ok) throw new NetworkError('IMPORT', res)
       return res.json() as Promise<Character>
     },
+  }
+}
+
+export class NetworkError extends Error {
+  status: number | undefined
+  constructor(message: string, response: Response) {
+    super(message)
+    this.name = 'NetworkError'
+    this.status = response.status
   }
 }

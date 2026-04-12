@@ -92,6 +92,13 @@ export function useCharacterDelete(options?: MutationOptions<boolean>) {
   )
 }
 
+export function useCharacterImport(options?: MutationOptions<Character>) {
+  return useMutation(
+    (payload: string) => getCharacterStore().import(payload),
+    options
+  )
+}
+
 export function useSettingsSave(options?: MutationOptions<void>) {
   return useMutation((settings: AppSettings) => {
     saveSettings(settings)

@@ -15,7 +15,7 @@ export function CharacterLibrary() {
   const t = useTranslations()
   const format = useFormatter()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
-  const { data, loading } = useCharactersQuery()
+  const { data, loading, error } = useCharactersQuery()
   const characters = useMemo(() => data ?? [], [data])
 
   const { handleImportFile } = useCharacterLibraryActions()
@@ -44,7 +44,11 @@ export function CharacterLibrary() {
         onChange={handleImportFile}
       />
 
-      {loading ? (
+      {error ? (
+        <Card>
+          <Empty description={error.message} />
+        </Card>
+      ) : loading ? (
         <Card>
           <Skeleton active />
         </Card>

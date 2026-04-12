@@ -39,7 +39,7 @@ export function CopyDropdown({
         await navigator.clipboard.writeText(text)
         message.success(successMessage)
       } catch {
-        message.error(t('common.copy.error'))
+        message.error(t('errors.clipboard_copy'))
       }
     },
     [message, t]

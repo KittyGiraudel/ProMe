@@ -7,7 +7,6 @@ import { Button } from '@/components/Button/Button'
 import { InheritanceCard } from '@/components/InheritanceCard/InheritanceCard'
 import { Layout } from '@/components/Layout/Layout'
 import { Spacing } from '@/components/Spacing/Spacing'
-import { useInheritanceCandidates } from '@/hooks/useInheritanceCandidates'
 import { useCharacterCreate } from '@/hooks/useMutation'
 import { useRouter } from '@/i18n/navigation'
 import type { Archetype } from '@/lib/character/types'
@@ -33,9 +32,8 @@ export function CharacterCreate() {
       message.success(t('new_character.create_success'))
       router.push(`/characters/${character.id}`)
     },
-    onError: () => message.error(t('common.generic_error')),
+    onError: () => message.error(t('errors.create')),
   })
-  const candidates = useInheritanceCandidates()
   const gender = Form.useWatch('gender', form)
 
   return (
@@ -98,7 +96,7 @@ export function CharacterCreate() {
             <ArchetypeSelector gender={gender} />
           </Form.Item>
 
-          <InheritanceCard candidates={candidates} />
+          <InheritanceCard />
 
           <Spacing orientation='horizontal' wrap>
             <Button type='primary' htmlType='submit'>

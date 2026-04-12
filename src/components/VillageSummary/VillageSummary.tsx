@@ -101,7 +101,7 @@ export function VillageSummary({
             onRerollOwner={onRerollOwner}
           />
         ) : (
-          <Empty description={t('common.generic_error')} />
+          <Empty description={t('errors.generic')} />
         )}
       </Card>
 

@@ -173,7 +173,6 @@
       "delete_confirm_description": "La fiche de Protecteur sera définitivement supprimée et cette action est irréversible.",
       "delete_confirm_title": "Supprimer ce Protecteur ?",
       "delete_success": "Protecteur supprimé.",
-      "export_download_error": "Impossible de télécharger l’export JSON.",
       "export_downloaded": "Export JSON téléchargé.",
       "export_help": "Télécharge un export JSON de la fiche.",
       "export": "Exporter JSON",
@@ -187,8 +186,6 @@
       "revive_success": "Protecteur réanimé.",
       "save": {
         "success": "Protecteur enregistré.",
-        "validation_error": "Il y a des erreurs qui empêchent la sauvegarde de la fiche de personnage.",
-        "dead_error": "Impossible de sauvegarder un Protecteur mort.",
         "invalid_money": "Les pièces doivent être à zéro ou plus ({current}).",
         "invalid_inventory": "L’inventaire doit contenir entre 0 et {max} objets ({current}).",
         "invalid_spellbook": "Le grimoire doit contenir entre 0 et {max} objets ({current}).",
@@ -238,7 +235,6 @@
     "display_1D6": "1D6 : <dice></dice>",
     "display_2D6": "2D6 : <dice></dice>",
     "display_card": "Carte : <card></card>",
-    "generic_error": "Une erreur s’est produite.",
     "gold": "{amount, number} pièces",
     "loading": "Chargement…",
     "max_label": "Max.",
@@ -340,7 +336,6 @@
     },
     "copy": {
       "description": "Copier la description",
-      "error": "Impossible de copier (autorisez le presse-papiers).",
       "journal": "Copier le code journal",
       "success_description": "Description copiée dans le presse-papiers.",
       "success_journal": "Code journal copié dans le presse-papiers.",
@@ -526,7 +521,6 @@
   "new_character": {
     "create_success": "Protecteur créé.",
     "create": "Créer un Protecteur",
-    "import_error": "Le Protecteur importé est invalide et ne peut pas être sauvegardé.",
     "import_success": "Protecteur importé avec succès.",
     "import": "Importer un Protecteur",
     "inheritance_card_title": "Héritage",
@@ -666,7 +660,6 @@
     "progress_label": "Position de lecture",
     "restart_track": "Revenir au début",
     "new_track": "Autre piste aléatoire pour ce biome",
-    "error": "Impossible de charger l’audio.",
     "retry": "Réessayer"
   },
   "landing": {
@@ -792,5 +785,19 @@
     "sign_in_success": "Connexion réussie : synchronisation avec le cloud.",
     "online_status": "En ligne : synchronisation avec le cloud.",
     "offline_status": "Hors ligne : sauvegarde locale uniquement."
+  },
+  "errors": {
+    "audio": "Impossible de charger l’audio.",
+    "clipboard_copy": "Impossible de copier (veuillez autoriser le presse-papiers).",
+    "create": "Une erreur est survenue lors de la création du personnage.",
+    "delete_character": "Une erreur est survenue lors de la suppression du personnage.",
+    "export_download": "Une erreur est survenue lors de l’export du personnage.",
+    "generic": "Une erreur s’est produite.",
+    "get_character": "Une erreur est survenue lors du chargement du personnage.",
+    "get_characters": "Une erreur est survenue lors du chargement des personnages.",
+    "import": "Le Protecteur importé est invalide et ne peut pas être sauvegardé.",
+    "save": "Une erreur est survenue lors de la sauvegarde du personnage.",
+    "save_dead": "Impossible de sauvegarder un Protecteur mort.",
+    "save_validation": "Il y a des erreurs qui empêchent la sauvegarde de la fiche de personnage."
   }
 }

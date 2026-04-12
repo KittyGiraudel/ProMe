@@ -15,6 +15,7 @@ import { useCharacterDelete } from '@/hooks/useMutation'
 import { useRouter } from '@/i18n/navigation'
 import { getCharacterStore } from '@/lib/character/store'
 import { stringifyCharacter } from '@/lib/character/store/migrations'
+import { NetworkError } from '@/lib/character/store/remoteStore'
 import {
   buildCharacterExportFileName,
   downloadJsonFile,
@@ -42,19 +43,24 @@ export function ActionsCard({
       message.success(t('characters.actions.delete_success'))
       router.push('/characters')
     },
-    onError: () => message.error(t('common.generic_error')),
+    onError: () => message.error(t('errors.delete_character')),
   })
   const onExport = useCallback(async () => {
     // @TODO: replace this with a lazy query
-    const saved = await getCharacterStore().get(characterId as string)
-    const character = { ...saved, ...form.getFieldsValue(true) }
-    const content = stringifyCharacter(character)
     try {
+      const saved = await getCharacterStore().get(characterId as string)
+      const character = { ...saved, ...form.getFieldsValue(true) }
+      const content = stringifyCharacter(character)
+
       downloadJsonFile(content, buildCharacterExportFileName(character))
       message.success(t('characters.actions.export_downloaded'))
     } catch (error) {
       console.error(error)
-      message.error(t('characters.actions.export_download_error'))
+      if (error instanceof NetworkError) {
+        message.error(t('errors.get_character'))
+      } else {
+        message.error(t('errors.export_download'))
+      }
     }
   }, [characterId, message, t, form])
 
