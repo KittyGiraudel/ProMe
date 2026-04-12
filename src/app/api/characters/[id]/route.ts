@@ -73,16 +73,10 @@ export async function PUT(req: Request, { params }: Params): Promise<Response> {
   }
 
   await sql`
-    INSERT INTO characters (id, user_id, data, created_at, updated_at)
-    VALUES (
-      ${normalized.id},
-      ${user.id},
-      ${JSON.stringify(normalized)},
-      ${normalized.createdAt},
-      ${normalized.updatedAt}
-    )
+    INSERT INTO characters (id, user_id, data)
+    VALUES (${normalized.id}, ${user.id}, ${JSON.stringify(normalized)})
     ON CONFLICT (id) DO UPDATE
-      SET data = EXCLUDED.data, updated_at = EXCLUDED.updated_at
+      SET data = EXCLUDED.data
   `
 
   return Response.json(normalized)

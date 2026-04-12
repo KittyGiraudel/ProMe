@@ -11,7 +11,7 @@ export async function GET(_: Request): Promise<Response> {
   const rows = await sql`
     SELECT data FROM characters
     WHERE user_id = ${user.id}
-    ORDER BY updated_at DESC
+    ORDER BY data->>'updatedAt' DESC
   `
 
   const characters = rows
@@ -42,16 +42,10 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   await sql`
-    INSERT INTO characters (id, user_id, data, created_at, updated_at)
-    VALUES (
-      ${character.id},
-      ${user.id},
-      ${JSON.stringify(character)},
-      ${character.createdAt},
-      ${character.updatedAt}
-    )
+    INSERT INTO characters (id, user_id, data)
+    VALUES (${character.id}, ${user.id}, ${JSON.stringify(character)})
     ON CONFLICT (id) DO UPDATE
-      SET data = EXCLUDED.data, updated_at = EXCLUDED.updated_at
+      SET data = EXCLUDED.data
   `
 
   return Response.json(character, { status: 201 })
