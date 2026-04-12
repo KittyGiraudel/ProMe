@@ -17,10 +17,7 @@ import type { Character } from '@/lib/character/types'
  *
  * All writes are fired in parallel. Safe to re-run (idempotent).
  */
-export async function sync(
-  local: CharacterStore,
-  remote: CharacterStore
-): Promise<void> {
+export async function sync(local: CharacterStore, remote: CharacterStore) {
   const [localChars, remoteChars] = await Promise.all([
     local.getAll(),
     remote.getAll(),
@@ -49,7 +46,7 @@ export async function sync(
     // Equal timestamps: no-op
   }
 
-  await Promise.all([
+  await Promise.allSettled([
     ...toLocal.map(c => local.import(JSON.stringify(c))),
     ...toRemote.map(c => remote.save(c)),
   ])
@@ -128,9 +125,9 @@ export function createSyncedCharacterStore(
       isAuthenticated = false
     },
 
-    async syncToRemote() {
-      if (!isAuthenticated) return
-      await sync(localStore, remoteStore)
+    syncToRemote() {
+      if (isAuthenticated) return sync(localStore, remoteStore)
+      else return Promise.resolve()
     },
   }
 }
