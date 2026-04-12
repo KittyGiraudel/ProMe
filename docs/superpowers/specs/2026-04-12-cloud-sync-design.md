@@ -10,20 +10,22 @@ ProMe stores all character data in `localStorage`. PR #46 introduces Netlify Ide
 
 The goal is seamless, silent synchronization: users who authenticate get cloud storage transparently, users who stay logged out keep the local-only experience unchanged, and going offline mid-session is handled gracefully without data loss.
 
+**Fully local usage is the default and a permanently supported mode.** A user who never logs in sees no change from the current behaviour: all reads and writes go to `localStorage`, no network requests are made, and the app works fully offline. Cloud sync is an opt-in layer activated solely by logging in.
+
 ---
 
 ## Behavioral Contract
 
-| Situation | Behavior |
-|---|---|
-| Not logged in | Reads and writes go to `localStorage` only |
-| Login | Merge local and remote (most recent `updatedAt` wins per character); missing characters are copied to whichever side doesn't have them |
-| Logged in + online | Every write goes to local first, then remote |
-| Logged in + offline | Every write goes to local only; user is notified |
-| Back online | Characters saved while offline are synced to remote; user is notified |
-| Logout | No-op — local is already a live mirror of the remote |
-| Deletion while logged in | Removes from both stores |
-| Deletion while offline / logged out | Not propagated on next sync; character reappears if it exists in the other store |
+| Situation                           | Behavior                                                                                                                               |
+| ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| Not logged in                       | Reads and writes go to `localStorage` only                                                                                             |
+| Login                               | Merge local and remote (most recent `updatedAt` wins per character); missing characters are copied to whichever side doesn't have them |
+| Logged in + online                  | Every write goes to local first, then remote                                                                                           |
+| Logged in + offline                 | Every write goes to local only; user is notified                                                                                       |
+| Back online                         | Characters saved while offline are synced to remote; user is notified                                                                  |
+| Logout                              | No-op — local is already a live mirror of the remote                                                                                   |
+| Deletion while logged in            | Removes from both stores                                                                                                               |
+| Deletion while offline / logged out | Not propagated on next sync; character reappears if it exists in the other store                                                       |
 
 ### Notes
 
@@ -38,6 +40,8 @@ The goal is seamless, silent synchronization: users who authenticate get cloud s
 ### Single unified store: `SyncedCharacterStore`
 
 A single `SyncedCharacterStore` replaces the current store-swapping approach. It wraps both `localStorageStore` and `remoteStore`, implements the existing `CharacterStore` interface, and changes its internal behavior based on authentication state.
+
+When `isAuthenticated` is `false` (the default), `SyncedCharacterStore` is a transparent passthrough to `localStorageStore`. The `remoteStore` is never touched. This means a user who never logs in is completely unaffected: behaviour is identical to the current local-only implementation.
 
 The rest of the app — hooks, components, pages — continues to call `getCharacterStore()` and is entirely unaware of sync logic.
 
@@ -69,6 +73,7 @@ And one method called by the connectivity hook:
 ### AuthProvider responsibilities
 
 `AuthProvider` calls:
+
 - `store.login()` when Netlify Identity signals a successful authentication
 - `store.logout()` when the user logs out
 
@@ -107,6 +112,7 @@ Fire all writes in parallel (Promise.all).
 ```
 
 **Properties:**
+
 - **Idempotent** — running the algorithm twice in a row is a no-op (after the first pass, both sides agree on every character)
 - **Safe to partially fail** — each write is independent; a failed remote write leaves local intact and will be retried on the next reconnect sync
 - **Schema-safe** — characters are always at the current schema version by the time they reach the algorithm, because `localStorageStore` runs migrations on read and the remote API normalizes on write
@@ -115,11 +121,11 @@ Fire all writes in parallel (Promise.all).
 
 ## Error Handling
 
-| Failure | Handling |
-|---|---|
-| Remote write fails during normal save | Swallowed silently; local write already succeeded; next reconnect sync will push the local version |
-| Remote write fails during login sync or reconnect sync | Same — partial sync is safe to retry; no error surfaced |
-| Local write fails (e.g. storage quota) | Hard error, surfaced to the user — same as current behavior |
+| Failure                                                | Handling                                                                                           |
+| ------------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
+| Remote write fails during normal save                  | Swallowed silently; local write already succeeded; next reconnect sync will push the local version |
+| Remote write fails during login sync or reconnect sync | Same — partial sync is safe to retry; no error surfaced                                            |
+| Local write fails (e.g. storage quota)                 | Hard error, surfaced to the user — same as current behavior                                        |
 
 No errors are shown to the user for remote failures. The connectivity notification ("saving locally") is the only signal that something is being deferred.
 
