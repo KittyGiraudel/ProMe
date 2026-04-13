@@ -1,8 +1,9 @@
 'use client'
 
-import { App, Button } from 'antd'
+import { Button } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useEffect, useRef } from 'react'
+import { useNotify } from './useNotify'
 
 // Adjust these to change the prompt behaviour.
 // Visit counting starts at 1 on first mount of CharacterSheet.
@@ -57,7 +58,7 @@ function isIOS(): boolean {
 }
 
 export function usePWAInstallPrompt() {
-  const { notification } = App.useApp()
+  const notification = useNotify()
   const t = useTranslations()
   const deferredPrompt = useRef<BeforeInstallPromptEvent | null>(null)
 

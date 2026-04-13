@@ -1,13 +1,14 @@
 'use client'
 
 import PlusOutlined from '@ant-design/icons/lib/icons/PlusOutlined'
-import { App, Button, Tooltip } from 'antd'
+import { Button, Tooltip } from 'antd'
 import { useTranslations } from 'next-intl'
 import { DICE } from '@/constants/misc'
 import {
   useWatchedInventory,
   useWatchedMoney,
 } from '@/hooks/useCharacterSheetDerived'
+import { useNotify } from '@/hooks/useNotify'
 import { parseGatheringItem } from '@/lib/gathering/parseGatheringItem'
 import type { GatherableBiomeId } from '@/lib/gathering/schema'
 import { GATHERING_SCHEMA } from '@/lib/gathering/schema'
@@ -18,7 +19,7 @@ const ROLLS = ['1', '2', '3', '4', '5', '6'] as const
 
 export function GatheringList({ biome }: { biome: GatherableBiomeId }) {
   const t = useTranslations()
-  const { notification } = App.useApp()
+  const notification = useNotify()
   const { incrementMoney } = useWatchedMoney()
   const {
     inventory: currentInventory,

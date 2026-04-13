@@ -1,10 +1,11 @@
 'use client'
 
-import { App, Button } from 'antd'
+import { Button } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { useWatchedHealth } from './useCharacterSheetDerived'
 import { SaveForm } from './useCharacterSheetForm'
+import { useNotify } from './useNotify'
 
 const DEATH_SUGGESTION_KEY = 'death-suggestion'
 
@@ -13,7 +14,7 @@ export function useCharacterLifeStatusActions({
 }: {
   saveForm: SaveForm
 }) {
-  const { notification } = App.useApp()
+  const notification = useNotify()
 
   const onKill = useCallback(() => {
     notification.destroy(DEATH_SUGGESTION_KEY)
@@ -45,7 +46,7 @@ export const useWarnDeath = ({
   saveForm: SaveForm
 }) => {
   const t = useTranslations()
-  const { notification } = App.useApp()
+  const notification = useNotify()
   const { health } = useWatchedHealth()
   const prevHealthCurrentRef = useRef<number | null>(null)
   const { onKill } = useCharacterLifeStatusActions({ saveForm })

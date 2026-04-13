@@ -1,10 +1,10 @@
-import { App } from 'antd'
 import type { FormInstance } from 'antd/es/form'
 import { useTranslations } from 'next-intl'
 import { useEffect } from 'react'
 import { CardDrawResult } from '@/components/CardDrawResult/CardDrawResult'
 import { DiceRollResult } from '@/components/DiceRollResult/DiceRollResult'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
+import { useNotify } from './useNotify'
 
 export function useKeyboardShortcuts({
   form,
@@ -14,7 +14,7 @@ export function useKeyboardShortcuts({
   isDead: boolean
 }) {
   const { settings, updateSettings } = useSettings()
-  const { notification } = App.useApp()
+  const notification = useNotify()
   const t = useTranslations()
 
   useEffect(

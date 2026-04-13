@@ -1,6 +1,6 @@
 'use client'
 
-import { App, Modal, Tabs } from 'antd'
+import { Modal, Tabs } from 'antd'
 import { useTranslations } from 'next-intl'
 import { BiomeBubble } from '@/components/BiomeBubble/BiomeBubble'
 import { Button } from '@/components/Button/Button'
@@ -8,6 +8,7 @@ import { CardDrawResult } from '@/components/CardDrawResult/CardDrawResult'
 import { DiceRollResult } from '@/components/DiceRollResult/DiceRollResult'
 import { Spacing } from '@/components/Spacing/Spacing'
 import { BIOME_IDS } from '@/constants/misc'
+import { useNotify } from '@/hooks/useNotify'
 import type { PossibleBiomeId } from '@/lib/types'
 import { EncountersList } from './EncountersList'
 
@@ -23,7 +24,7 @@ export default function EncountersDialog({
   currentBiome,
 }: Props) {
   const t = useTranslations()
-  const { notification } = App.useApp()
+  const notification = useNotify()
   const defaultActiveKey =
     currentBiome === 'unexplored' ? BIOME_IDS[0] : currentBiome
 

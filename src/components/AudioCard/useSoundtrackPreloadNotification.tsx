@@ -1,7 +1,7 @@
 import { LoadingOutlined } from '@ant-design/icons'
-import { App } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useEffect, useRef } from 'react'
+import { useNotify } from '@/hooks/useNotify'
 import { SoundtrackPreloadStatus } from '@/hooks/useSoundtrackPreload'
 import { getPWADisplayMode } from '@/lib/getPWADisplayMode'
 
@@ -10,7 +10,7 @@ const NOTIFICATION_KEY = 'audio-preload'
 export const useSoundtrackPreloadNotification = (
   preloadStatus: SoundtrackPreloadStatus
 ) => {
-  const { notification } = App.useApp()
+  const notification = useNotify()
   const t = useTranslations()
   const wasLoadingRef = useRef(false)
 

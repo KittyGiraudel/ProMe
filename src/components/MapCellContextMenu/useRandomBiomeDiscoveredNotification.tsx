@@ -1,12 +1,12 @@
 import InfoCircleFilled from '@ant-design/icons/lib/icons/InfoCircleFilled'
-import { App } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
+import { useNotify } from '@/hooks/useNotify'
 import type { RandomBiomeResult } from '@/lib/random/randomBiome'
 
 export function useRandomBiomeDiscoveredNotification() {
   const t = useTranslations()
-  const { notification } = App.useApp()
+  const notification = useNotify()
 
   return useCallback(
     (rolled: RandomBiomeResult) => {

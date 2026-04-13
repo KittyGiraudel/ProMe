@@ -5,17 +5,19 @@ import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
 import { useWatchedClock } from '@/hooks/useCharacterSheetDerived'
 import { computeClockMoveFromRawTarget } from '@/lib/clock/clock'
+import { useNotify } from './useNotify'
 
 /**
  * Hook for character-sheet clock changes: updates the stored slice and surfaces feedback.
- * Same-phase ticks use a short `message` toast; day/night boundary crossings use `notification.warning`.
+ * Same-phase ticks use a short `message` toast; day/night boundary crossings use notify.
  *
  * @returns Callback — call with stamina, current clamped slice, and **unwrapped** next index
  * (e.g. `position + 1` / `position - 1`). Wrapping and phase detection use {@link computeClockMoveFromRawTarget}.
  */
 export function useSetClockToRawTargetWithToast() {
   const { updateClock } = useWatchedClock()
-  const { message, notification } = App.useApp()
+  const { message } = App.useApp()
+  const notification = useNotify()
   const t = useTranslations()
 
   return useCallback(
