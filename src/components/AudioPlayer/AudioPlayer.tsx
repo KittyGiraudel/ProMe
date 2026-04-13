@@ -8,6 +8,7 @@ import { Button } from '@/components/Button/Button'
 import { getPWADisplayMode } from '@/lib/getPWADisplayMode'
 import { PossibleBiomeId } from '@/lib/types'
 import { useBiomeTrack } from './useBiomeTrack'
+import { useMediaSession } from './useMediaSession'
 
 import './AudioPlayer.css'
 
@@ -123,6 +124,17 @@ export function AudioPlayer({ biome }: { biome: PossibleBiomeId }) {
     howl.current?.seek(time)
     setCurrentTime(time)
   }, [])
+
+  useMediaSession({
+    biome,
+    trackName: name,
+    isPlaying,
+    currentTime,
+    duration,
+    onPlay: togglePlay,
+    onPause: togglePlay,
+    onSeekTo: seekTo,
+  })
 
   const changeVolume = useCallback((value: number) => {
     volumeRef.current = value
