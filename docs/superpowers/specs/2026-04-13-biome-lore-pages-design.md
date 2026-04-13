@@ -46,11 +46,11 @@ Each biome's content section derives a small palette of CSS custom properties fr
 
 **WCAG 2.2:** `--lore-text` at 0.72 opacity on `--lore-bg` must achieve at least 4.5:1 contrast (AA for normal text). Verify each biome's palette at implementation time — adjust opacity or lightness if any fail. `--lore-text-muted` is used only for decorative / non-essential text (teaser, hints) and is exempt from the body-text threshold, but should still clear 3:1 for large text (AA Large).
 
-Each section is separated by a labelled rule (`font-size: 9px`, `letter-spacing: .22em`, uppercase, `--lore-accent` colour).
+Each section is separated by a labelled rule (`font-size: 12px`, `letter-spacing: .2em`, uppercase, `--lore-accent` colour).
 
 ### Description
 
-Full prose from the book, split into paragraphs. Rendered in italic Georgia/serif at ~14.5px with generous line-height (1.9). Max-width ~660px. Source: `common.biomes.{biomeId}_description` translation key.
+Full prose from the book, split into paragraphs. Rendered in italic Georgia/serif at ~19px with generous line-height (1.9). Max-width ~720px. Source: `common.biomes.{biomeId}_description` translation key.
 
 ### Audio
 
