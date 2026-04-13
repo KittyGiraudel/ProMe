@@ -29,7 +29,7 @@ Font selection is left to the author — the implementation just needs to suppor
 
 ## Content Section (below the fold)
 
-Background: `#0e0b14` (near-black with a slight biome tint). Each section is separated by a labelled rule (`font-size: 9px`, `letter-spacing: .22em`, uppercase, muted biome colour).
+Background: a very dark tint derived from the biome's `--biome-{id}-dark` token (e.g. deep purple for Shadow Forest, deep blue for Flooded Plains, deep green for Field Sea). The existing CSS palette tokens drive the colour — no per-biome hardcoding in components. Each section is separated by a labelled rule (`font-size: 9px`, `letter-spacing: .22em`, uppercase, muted biome colour).
 
 ### Description
 
