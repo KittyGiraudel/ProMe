@@ -1,6 +1,9 @@
 import { getAllTrackPaths, type SoundVariant } from './catalog'
 
-export const SOUNDTRACK_CACHE_NAME = 'prome-sounds-v1'
+// Must match the cache name used by Serwist's defaultCache audio strategy so
+// that the service worker's CacheFirst handler finds preloaded files instead of
+// re-fetching them from the network on first play.
+export const SOUNDTRACK_CACHE_NAME = 'static-audio-assets'
 
 /**
  * Ensures every track for `variant` is stored in the Cache API (fetch + put if missing).
