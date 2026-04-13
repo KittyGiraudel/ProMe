@@ -29,7 +29,24 @@ Font selection is left to the author — the implementation just needs to suppor
 
 ## Content Section (below the fold)
 
-Background: a very dark tint derived from the biome's `--biome-{id}-dark` token (e.g. deep purple for Shadow Forest, deep blue for Flooded Plains, deep green for Field Sea). The existing CSS palette tokens drive the colour — no per-biome hardcoding in components. Each section is separated by a labelled rule (`font-size: 9px`, `letter-spacing: .22em`, uppercase, muted biome colour).
+### Colour palette
+
+The content section is always dark and immersive — it does **not** follow the app's light/dark theme toggle. The `LorePage` component sets `data-app-theme="dark"` on mount (via the existing `appThemeOverride` mechanism on `Layout`, or directly on the element) so Ant Design tokens don't interfere. All lore-specific colours are scoped under a `.LorePage` class and hardcoded independently of `--ant-*` tokens.
+
+Each biome's content section derives a small palette of CSS custom properties from its `--biome-{id}-dark` token. These are defined in `src/components/PageLore/LorePage.css` under `[data-biome="…"]` selectors, following the existing pattern in `globals.css`:
+
+| Token | Role | Example (shadowForest `#57446f`) |
+|---|---|---|
+| `--lore-bg` | Page background | `#130e1a` (dark token darkened ~60%) |
+| `--lore-surface` | Cards, audio player, gather items | `#1e1528` (dark token darkened ~50%) |
+| `--lore-border` | Subtle borders | `rgba(biome-light, 0.18)` |
+| `--lore-accent` | Section labels, die numbers, border-left | `rgba(biome-light, 0.55)` |
+| `--lore-text` | Body text | `rgba(255 255 255 / 0.72)` |
+| `--lore-text-muted` | Teaser, hints, secondary | `rgba(255 255 255 / 0.45)` |
+
+**WCAG 2.2:** `--lore-text` at 0.72 opacity on `--lore-bg` must achieve at least 4.5:1 contrast (AA for normal text). Verify each biome's palette at implementation time — adjust opacity or lightness if any fail. `--lore-text-muted` is used only for decorative / non-essential text (teaser, hints) and is exempt from the body-text threshold, but should still clear 3:1 for large text (AA Large).
+
+Each section is separated by a labelled rule (`font-size: 9px`, `letter-spacing: .22em`, uppercase, `--lore-accent` colour).
 
 ### Description
 
