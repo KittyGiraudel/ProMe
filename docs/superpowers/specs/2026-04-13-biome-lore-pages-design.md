@@ -11,7 +11,7 @@ Six biomes: `shadowForest`, `floodedPlains`, `mushroomJungle`, `fieldSea`, `sile
 
 ## Routing
 
-Pages live at `/[locale]/lore/[biomeId]`, e.g. `/fr/lore/shadowForest`. The slug is the `BiomeId` value as-is (camelCase, English) — consistent with the rest of the app's routing convention where paths are always English regardless of locale.
+Pages live at `/[locale]/lore/[biomeId]`, e.g. `/fr/lore/shadow-forest`. The slug is the `BiomeId` value converted to kebab-case (e.g. `mushroomJungle` → `mushroom-jungle`) — English, consistent with the rest of the app's routing convention.
 
 ## Hero Section (full viewport height)
 
