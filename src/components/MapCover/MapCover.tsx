@@ -3,6 +3,8 @@ import { CardCover } from '@/components/CardCover/CardCover'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { PossibleBiomeId, TranslationKey } from '@/lib/types'
 
+import './MapCover.css'
+
 export function MapCover({
   biome,
   isCore,
@@ -20,6 +22,7 @@ export function MapCover({
   if (isCore) {
     return (
       <CardCover
+        className='MapCover'
         data-biome='unexplored'
         url='/images/banner-core.avif'
         title={t.rich('characters.map.location_core', {
@@ -32,6 +35,7 @@ export function MapCover({
 
   return (
     <CardCover
+      className='MapCover'
       data-biome={biome}
       url={`/images/banner-${biome}.avif`}
       title={t.rich(`characters.map.location_${biome}`, {

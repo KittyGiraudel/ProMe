@@ -6,6 +6,7 @@ const BIOMES_WITH_BANNER: PossibleBiomeId[] = [
   'floodedPlains',
   'fieldSea',
   'silentDesert',
+  'mushroomJungle',
 ]
 
 function getArtwork(biome: PossibleBiomeId): MediaImage[] {

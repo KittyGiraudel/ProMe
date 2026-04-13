@@ -93,30 +93,6 @@
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-direction: alternate;
-
-  &[data-biome="fieldSea"] {
-    --position: center 68%;
-    --from: 0;
-    --to: 100;
-  }
-
-  &[data-biome="silentDesert"] {
-    --position: center 100%;
-    --from: 50;
-    --to: 100;
-  }
-
-  &[data-biome="floodedPlains"] {
-    --position: center 100%;
-    --from: 100;
-    --to: 50;
-  }
-
-  &[data-biome="shadowForest"] {
-    --position: center 70%;
-    --from: 100;
-    --to: 0;
-  }
 }
 
 /**
