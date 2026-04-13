@@ -8,7 +8,7 @@ import {
   clampClockSliceIndex,
   countHalfClockSegments,
   isClockNightPhase,
-} from '@/lib/character/clock'
+} from '@/lib/clock/clock'
 import { useWatchedClock, useWatchedStamina } from './useCharacterSheetDerived'
 
 export function useCharacterSheetTheme(form: FormInstance) {

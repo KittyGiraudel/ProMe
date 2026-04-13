@@ -12,8 +12,8 @@ import {
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { HelpButton } from '@/components/HelpButton/HelpButton'
+import { Spacing } from '@/components/Spacing/Spacing'
 import { randomId } from '@/lib/character/model'
-import { Spacing } from '../Spacing/Spacing'
 
 import './SpellbookCard.css'
 

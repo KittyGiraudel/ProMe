@@ -7,7 +7,7 @@ import { Button } from '@/components/Button/Button'
 import { CardDrawResult } from '@/components/CardDrawResult/CardDrawResult'
 import { DiceRollResult } from '@/components/DiceRollResult/DiceRollResult'
 import { Spacing } from '@/components/Spacing/Spacing'
-import { BIOME_IDS } from '@/lib/constants/misc'
+import { BIOME_IDS } from '@/constants/misc'
 import type { PossibleBiomeId } from '@/lib/types'
 import { EncountersList } from './EncountersList'
 

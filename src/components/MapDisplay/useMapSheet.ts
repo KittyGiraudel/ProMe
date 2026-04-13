@@ -29,10 +29,13 @@ export function useMapSheet({ currentPosition }: UseMapSheetArgs) {
     )
   }, [currentPosition, visibleSheet.sheetQ, visibleSheet.sheetR])
 
-  return {
-    visibleSheet,
-    setVisibleSheet,
-    cardRef,
-    isViewingCurrentSheet,
-  }
+  return useMemo(
+    () => ({
+      visibleSheet,
+      setVisibleSheet,
+      cardRef,
+      isViewingCurrentSheet,
+    }),
+    [visibleSheet, setVisibleSheet, cardRef, isViewingCurrentSheet]
+  )
 }

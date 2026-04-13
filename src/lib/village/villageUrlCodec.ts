@@ -1,6 +1,6 @@
 import { _Translator } from 'next-intl'
+import { FACTIONS } from '@/constants/misc'
 import { decodePlayingCardString, encodePlayingCard } from '@/lib/codec/cards'
-import { FACTIONS } from '@/lib/constants/misc'
 import type { InhabitantRoll } from '@/lib/inhabitant/generate'
 import {
   decodeInhabitantRollParam,

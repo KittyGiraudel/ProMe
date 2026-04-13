@@ -12,7 +12,9 @@ import {
   Segmented,
 } from 'antd'
 import { AppConfig, useLocale, useTranslations } from 'next-intl'
+import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { Layout } from '@/components/Layout/Layout'
+import { Spacing } from '@/components/Spacing/Spacing'
 import { useDismissed } from '@/hooks/useDismissed'
 import { useModifierKey } from '@/hooks/useModifierKey'
 import { usePathname, useRouter } from '@/i18n/navigation'
@@ -20,8 +22,6 @@ import { routing } from '@/i18n/routing'
 import { useAuth } from '@/lib/auth/context'
 import { DEFAULT_SETTINGS } from '@/lib/settings/model'
 import { AppTheme } from '@/lib/settings/types'
-import { HelpButton } from '../HelpButton/HelpButton'
-import { Spacing } from '../Spacing/Spacing'
 import { useSettings } from './SettingsContext'
 
 type SettingsFormValues = {

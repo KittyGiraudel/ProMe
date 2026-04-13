@@ -1,7 +1,7 @@
-import { BIOME_IDS } from '../constants/misc'
-import { formatDisplayedCellReference } from '../map/coordinates'
-import { type BiomeId } from '../types'
-import { countClockSegments, normalizeClock } from './clock'
+import { BIOME_IDS } from '@/constants/misc'
+import { countClockSegments, normalizeClock } from '@/lib/clock/clock'
+import { formatDisplayedCellReference } from '@/lib/map/coordinates'
+import { type BiomeId } from '@/lib/types'
 import { normalizeLifeStatus } from './lifeStatus'
 import { ValidationError } from './store/localStorageStore'
 import {

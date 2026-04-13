@@ -7,19 +7,12 @@ import HeartOutlined from '@ant-design/icons/lib/icons/HeartOutlined'
 import { App, Avatar, Card, FormInstance, List, Popconfirm } from 'antd'
 import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { useCallback } from 'react'
 import { Button } from '@/components/Button/Button'
 import { useCharacterLifeStatusActions } from '@/hooks/useCharacterLifeStatusActions'
 import { SaveForm } from '@/hooks/useCharacterSheetForm'
 import { useCharacterDelete } from '@/hooks/useMutation'
 import { useRouter } from '@/i18n/navigation'
-import { getCharacterStore } from '@/lib/character/store'
-import { stringifyCharacter } from '@/lib/character/store/migrations'
-import { ServerError } from '@/lib/character/store/remoteStore'
-import {
-  buildCharacterExportFileName,
-  downloadJsonFile,
-} from '@/lib/download/downloadJsonFile'
+import { useCharacterExport } from './useCharacterExport'
 
 import './ActionsCard.css'
 
@@ -33,11 +26,13 @@ export function ActionsCard({
   form: FormInstance
 }) {
   const t = useTranslations()
-  const { onKill, onRevive } = useCharacterLifeStatusActions({ saveForm })
   const { message } = App.useApp()
-  const params = useParams<{ id: string }>()
-  const characterId = params?.id
+  const { id: characterId } = useParams<{ id: string }>()
   const router = useRouter()
+
+  const { onKill: killCharacter, onRevive: reviveCharacter } =
+    useCharacterLifeStatusActions({ saveForm })
+  const exportCharacter = useCharacterExport(characterId, form)
   const [deleteCharacter] = useCharacterDelete({
     onCompleted: () => {
       message.success(t('characters.actions.delete_success'))
@@ -45,24 +40,6 @@ export function ActionsCard({
     },
     onError: () => message.error(t('errors.delete_character')),
   })
-  const onExport = useCallback(async () => {
-    // @TODO: replace this with a lazy query
-    try {
-      const saved = await getCharacterStore().get(characterId as string)
-      const character = { ...saved, ...form.getFieldsValue(true) }
-      const content = stringifyCharacter(character)
-
-      downloadJsonFile(content, buildCharacterExportFileName(character))
-      message.success(t('characters.actions.export_downloaded'))
-    } catch (error) {
-      console.error(error)
-      if (error instanceof ServerError) {
-        message.error(t('errors.get_character'))
-      } else {
-        message.error(t('errors.export_download'))
-      }
-    }
-  }, [characterId, message, t, form])
 
   const items = [
     {
@@ -74,7 +51,7 @@ export function ActionsCard({
       title: t('characters.actions.export'),
       description: t('characters.actions.export_help'),
       action: (
-        <Button htmlType='button' onClick={onExport} disabled={false}>
+        <Button htmlType='button' onClick={exportCharacter} disabled={false}>
           {t('characters.actions.export')}
         </Button>
       ),
@@ -97,7 +74,7 @@ export function ActionsCard({
                 cancelText={t('common.actions.cancel')}
                 okButtonProps={{ disabled: false }}
                 cancelButtonProps={{ disabled: false }}
-                onConfirm={onRevive}
+                onConfirm={reviveCharacter}
                 styles={{ container: { maxWidth: 300 } }}>
                 <Button type='primary' htmlType='button' disabled={false}>
                   {t('characters.actions.revive_action')}
@@ -123,7 +100,7 @@ export function ActionsCard({
                 )}
                 okText={t('characters.actions.mark_dead_action')}
                 cancelText={t('common.actions.cancel')}
-                onConfirm={onKill}
+                onConfirm={killCharacter}
                 styles={{ container: { maxWidth: 300 } }}>
                 <Button
                   danger

@@ -2,7 +2,7 @@
 
 import type { CharacterMapState } from '@/lib/character/types'
 
-type Props = {
+type MapFormValueAnchorProps = {
   value?: CharacterMapState
   onChange?: (value: CharacterMapState) => void
 }
@@ -12,6 +12,7 @@ type Props = {
  * `MapCard` updates the value via `setFieldValue`; with a registered field,
  * `setFields({ touched: true })` and touch/dirty tracking work for unsaved guards.
  */
-export function MapFormValueAnchor(_props: Props) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function MapFormValueAnchor(_: MapFormValueAnchorProps) {
   return null
 }

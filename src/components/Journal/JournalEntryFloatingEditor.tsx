@@ -31,9 +31,12 @@ export function JournalEntryFloatingEditor({
   const [isCollapsed, setIsCollapsed] = useState(false)
   const hydrated = useHydration()
 
-  useEffect(() => {
-    if (open) setIsCollapsed(false)
-  }, [open])
+  useEffect(
+    function handleOpenChange() {
+      if (open) setIsCollapsed(false)
+    },
+    [open]
+  )
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {

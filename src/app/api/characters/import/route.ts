@@ -5,17 +5,17 @@ import { sql } from '@/lib/db/client'
 
 // POST /api/characters/import
 // Body: { json: string }  — the raw JSON string of a single exported character
-export async function POST(req: Request): Promise<Response> {
+export async function POST(request: Request): Promise<Response> {
   const user = await getUser()
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
-  if (!req.headers.get('content-type')?.includes('application/json')) {
+  if (!request.headers.get('content-type')?.includes('application/json')) {
     return Response.json({ error: 'Unsupported Media Type' }, { status: 415 })
   }
 
   let body: { json: string }
   try {
-    body = await req.json()
+    body = await request.json()
   } catch (error) {
     console.error(error)
     return Response.json({ error: 'Invalid JSON' }, { status: 400 })

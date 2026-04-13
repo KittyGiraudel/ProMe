@@ -61,71 +61,74 @@ export function usePWAInstallPrompt() {
   const t = useTranslations()
   const deferredPrompt = useRef<BeforeInstallPromptEvent | null>(null)
 
-  useEffect(() => {
-    if (isStandalone()) return
+  useEffect(
+    function showInstallPrompt() {
+      if (isStandalone()) return
 
-    const visitCount = incrementVisitCount()
-    if (!isEligibleVisit(visitCount)) return
+      const visitCount = incrementVisitCount()
+      if (!isEligibleVisit(visitCount)) return
 
-    if (isIOS()) {
+      if (isIOS()) {
+        const timeoutId = setTimeout(() => {
+          notification.info({
+            key: 'pwa-install',
+            duration: false,
+            placement: 'bottomLeft',
+            title: t('pwa.install_prompt.title'),
+            description: t('pwa.install_prompt.description_ios'),
+          })
+        }, DELAY_MS)
+
+        return () => clearTimeout(timeoutId)
+      }
+
+      function handleBeforeInstallPrompt(event: Event) {
+        event.preventDefault()
+        deferredPrompt.current = event as BeforeInstallPromptEvent
+      }
+
+      function handleAppInstalled() {
+        notification.destroy('pwa-install')
+      }
+
+      window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+      window.addEventListener('appinstalled', handleAppInstalled)
+
       const timeoutId = setTimeout(() => {
+        if (!TEST_MODE && !deferredPrompt.current) return
+
         notification.info({
           key: 'pwa-install',
           duration: false,
           placement: 'bottomLeft',
           title: t('pwa.install_prompt.title'),
-          description: t('pwa.install_prompt.description_ios'),
+          description: t('pwa.install_prompt.description'),
+          actions: (
+            <Button
+              type='primary'
+              disabled={!TEST_MODE && !deferredPrompt.current}
+              onClick={async () => {
+                if (deferredPrompt.current) {
+                  await deferredPrompt.current.prompt()
+                  deferredPrompt.current = null
+                }
+                notification.destroy('pwa-install')
+              }}>
+              {t('pwa.install_prompt.cta')}
+            </Button>
+          ),
         })
       }, DELAY_MS)
 
-      return () => clearTimeout(timeoutId)
-    }
-
-    function handleBeforeInstallPrompt(event: Event) {
-      event.preventDefault()
-      deferredPrompt.current = event as BeforeInstallPromptEvent
-    }
-
-    function handleAppInstalled() {
-      notification.destroy('pwa-install')
-    }
-
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
-    window.addEventListener('appinstalled', handleAppInstalled)
-
-    const timeoutId = setTimeout(() => {
-      if (!TEST_MODE && !deferredPrompt.current) return
-
-      notification.info({
-        key: 'pwa-install',
-        duration: false,
-        placement: 'bottomLeft',
-        title: t('pwa.install_prompt.title'),
-        description: t('pwa.install_prompt.description'),
-        actions: (
-          <Button
-            type='primary'
-            disabled={!TEST_MODE && !deferredPrompt.current}
-            onClick={async () => {
-              if (deferredPrompt.current) {
-                await deferredPrompt.current.prompt()
-                deferredPrompt.current = null
-              }
-              notification.destroy('pwa-install')
-            }}>
-            {t('pwa.install_prompt.cta')}
-          </Button>
-        ),
-      })
-    }, DELAY_MS)
-
-    return () => {
-      clearTimeout(timeoutId)
-      window.removeEventListener(
-        'beforeinstallprompt',
-        handleBeforeInstallPrompt
-      )
-      window.removeEventListener('appinstalled', handleAppInstalled)
-    }
-  }, [notification, t])
+      return () => {
+        clearTimeout(timeoutId)
+        window.removeEventListener(
+          'beforeinstallprompt',
+          handleBeforeInstallPrompt
+        )
+        window.removeEventListener('appinstalled', handleAppInstalled)
+      }
+    },
+    [notification, t]
+  )
 }

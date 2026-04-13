@@ -1,4 +1,4 @@
-import { BIOME_ROLL_TABLE } from '@/lib/constants/biomeRollTable'
+import { BIOME_ROLL_TABLE } from '@/constants/biomeRollTable'
 import { defaultRng, pickRandom } from '@/lib/random/rng'
 import type { BiomeId } from '@/lib/types'
 

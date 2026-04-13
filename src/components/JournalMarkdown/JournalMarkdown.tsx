@@ -76,30 +76,38 @@ export function JournalMarkdown({
   }
 
   const markdownComponents: Components = {
-    p: ({ children, node: _node, ...props }) => (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    p: ({ children, node: _, ...props }) => (
       <p {...props}>{renderWithHighlights(children, highlighter)}</p>
     ),
-    li: ({ children, node: _node, ...props }) => (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    li: ({ children, node: _, ...props }) => (
       <li {...props}>{renderWithHighlights(children, highlighter)}</li>
     ),
-    blockquote: ({ children, node: _node, ...props }) => (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    blockquote: ({ children, node: _, ...props }) => (
       <blockquote {...props}>
         {renderWithHighlights(children, highlighter)}
       </blockquote>
     ),
-    h1: ({ children, node: _node, ...props }) => (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    h1: ({ children, node: _, ...props }) => (
       <h1 {...props}>{renderWithHighlights(children, highlighter)}</h1>
     ),
-    h2: ({ children, node: _node, ...props }) => (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    h2: ({ children, node: _, ...props }) => (
       <h2 {...props}>{renderWithHighlights(children, highlighter)}</h2>
     ),
-    h3: ({ children, node: _node, ...props }) => (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    h3: ({ children, node: _, ...props }) => (
       <h3 {...props}>{renderWithHighlights(children, highlighter)}</h3>
     ),
-    h4: ({ children, node: _node, ...props }) => (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    h4: ({ children, node: _, ...props }) => (
       <h4 {...props}>{renderWithHighlights(children, highlighter)}</h4>
     ),
-    a: ({ children, node: _node, href, ...props }) => (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    a: ({ children, node: _, href, ...props }) => (
       <a {...props} href={interactive ? href : undefined}>
         {renderWithHighlights(children, highlighter)}
       </a>

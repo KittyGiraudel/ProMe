@@ -3,7 +3,7 @@
 import { Empty, Skeleton } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
-import { BlockedLink } from '@/components/Navigation/BlockedLink'
+import { Link } from '@/i18n/navigation'
 
 export function CharacterSheetEmptyState({
   loading = false,
@@ -30,9 +30,7 @@ export function CharacterSheetEmptyState({
               <br /> {t('characters.not_found_description')}
             </>
           }>
-          <BlockedLink href='/characters'>
-            {t('characters.back_to_library')}
-          </BlockedLink>
+          <Link href='/characters'>{t('characters.back_to_library')}</Link>
         </Empty>
       )}
     </Layout>

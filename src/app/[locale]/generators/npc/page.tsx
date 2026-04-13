@@ -1,8 +1,7 @@
-import { Skeleton } from 'antd'
-import { AppConfig, useTranslations } from 'next-intl'
+import { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { Suspense } from 'react'
-import { Layout } from '@/components/Layout/Layout'
+import { NpcGeneratorFallback } from '@/components/PageGeneratorNpc/Fallback'
 import { NpcGenerator } from '@/components/PageGeneratorNpc/NpcGenerator'
 
 type Props = { params: Promise<{ locale: string }> }
@@ -14,21 +13,6 @@ export async function generateMetadata({ params }: Props) {
   return {
     title: t('inhabitant.title'),
   }
-}
-
-function NpcGeneratorFallback() {
-  const t = useTranslations()
-  return (
-    <Layout
-      title={t('inhabitant.title')}
-      bannerBiome='shadowForest'
-      breadcrumbs={[
-        { title: t('nav.home'), path: '/' },
-        { title: t('nav.inhabitant_generator'), path: '/generators/npc' },
-      ]}>
-      <Skeleton active />
-    </Layout>
-  )
 }
 
 export default function NpcGeneratorPage() {

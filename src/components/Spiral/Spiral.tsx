@@ -47,7 +47,7 @@ export function Spiral() {
   const circlesRef = useRef<(SVGCircleElement | null)[]>([])
   const rafRef = useRef<number>(0)
 
-  useEffect(() => {
+  useEffect(function animateSpiral() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const svgEl = svgRef.current

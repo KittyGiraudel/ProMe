@@ -7,10 +7,10 @@ import { Button } from '@/components/Button/Button'
 import { InheritanceCard } from '@/components/InheritanceCard/InheritanceCard'
 import { Layout } from '@/components/Layout/Layout'
 import { Spacing } from '@/components/Spacing/Spacing'
+import { GENDERS } from '@/constants/misc'
 import { useCharacterCreate } from '@/hooks/useMutation'
 import { useRouter } from '@/i18n/navigation'
 import type { Archetype } from '@/lib/character/types'
-import { GENDERS } from '@/lib/constants/misc'
 import type { Gender } from '@/lib/types'
 
 import './CharacterCreate.css'
@@ -20,6 +20,13 @@ type CharacterCreateFormValues = {
   archetype: Archetype
   gender?: Gender
   inheritFromCharacterId?: string
+}
+
+const DEFAULT_VALUES: CharacterCreateFormValues = {
+  name: '',
+  archetype: 'warrior',
+  gender: undefined,
+  inheritFromCharacterId: undefined,
 }
 
 export function CharacterCreate() {
@@ -49,12 +56,7 @@ export function CharacterCreate() {
         form={form}
         layout='vertical'
         colon={false}
-        initialValues={{
-          name: '',
-          archetype: 'warrior',
-          gender: undefined,
-          inheritFromCharacterId: undefined,
-        }}
+        initialValues={DEFAULT_VALUES}
         onFinish={values => {
           void create(values)
         }}>

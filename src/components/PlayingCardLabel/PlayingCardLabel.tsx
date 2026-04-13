@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl'
-import { SUITS } from '@/lib/constants/misc'
+import { SUITS } from '@/constants/misc'
 import { suitIsRed } from '@/lib/random/suitGlyphs'
 import type { PlayingCard } from '@/lib/types'
 

@@ -12,6 +12,7 @@ import { CharacterSheetValidationErrors } from '@/components/CharacterSheetValid
 import { CharacterStats } from '@/components/CharacterStats/CharacterStats'
 import { ClockCard } from '@/components/ClockCard/ClockCard'
 import { CopyDropdown } from '@/components/CopyDropdown/CopyDropdown'
+import { DeathWarning } from '@/components/DeathWarning/DeathWarning'
 import { DiceRoll } from '@/components/DiceRoll/DiceRoll'
 import { IdentityCard } from '@/components/IdentityCard/IdentityCard'
 import { InventoryCard } from '@/components/InventoryCard/InventoryCard'
@@ -31,7 +32,6 @@ import { usePWAInstallPrompt } from '@/hooks/usePWAInstallPrompt'
 import { getProtectorSummary } from '@/lib/character/getProtectorSummary'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
 import { toFormValues } from '@/lib/character/toFormValues'
-import { DeathWarning } from '../DeathWarning/DeathWarning'
 
 export function CharacterSheet({ characterId }: { characterId: string }) {
   const t = useTranslations()

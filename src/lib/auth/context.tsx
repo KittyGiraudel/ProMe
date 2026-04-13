@@ -46,27 +46,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
-  useEffect(() => {
-    setLoading(true)
+  useEffect(
+    function hydrateAuth() {
+      setLoading(true)
 
-    // Handle OAuth redirect callbacks first.
-    handleAuthCallback()
-      .then(result => {
-        if (result) {
-          applyUser(result.user)
-          setLoading(false)
-          message.success(t('auth.sign_in_success'))
-          return
-        }
+      // Handle OAuth redirect callbacks first.
+      handleAuthCallback()
+        .then(result => {
+          if (result) {
+            applyUser(result.user)
+            setLoading(false)
+            message.success(t('auth.sign_in_success'))
+            return
+          }
 
-        // Otherwise, check for an existing session.
-        return getUser().then(currentUser => applyUser(currentUser))
-      })
-      .catch(error => {
-        console.error(error)
-      })
-      .finally(() => setLoading(false))
-  }, [applyUser, message, t])
+          // Otherwise, check for an existing session.
+          return getUser().then(currentUser => applyUser(currentUser))
+        })
+        .catch(error => {
+          console.error(error)
+        })
+        .finally(() => setLoading(false))
+    },
+    [applyUser, message, t]
+  )
 
   const handleOAuthLogin = useCallback(() => {
     // Redirects to Google — no await. handleAuthCallback handles the return.

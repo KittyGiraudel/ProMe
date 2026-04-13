@@ -35,13 +35,16 @@ export const Layout = ({
 }: LayoutProps) => {
   const { appTheme } = useContext(AppearanceContext)
 
-  useEffect(() => {
-    // The reason we do that with a `useEffect` instead of just placing the
-    // `data-app-theme` attribute on `AntLayout` is because there are components
-    // that get rendered outside of `AntLayout` (e.g. notifications, floating
-    // editor, etc.).
-    document.documentElement.dataset.appTheme = appThemeOverride ?? appTheme
-  }, [appThemeOverride, appTheme])
+  useEffect(
+    function applyAppTheme() {
+      // The reason we do that with a `useEffect` instead of just placing the
+      // `data-app-theme` attribute on `AntLayout` is because there are components
+      // that get rendered outside of `AntLayout` (e.g. notifications, floating
+      // editor, etc.).
+      document.documentElement.dataset.appTheme = appThemeOverride ?? appTheme
+    },
+    [appThemeOverride, appTheme]
+  )
 
   return (
     <AntLayout className={`Layout ${className}`}>

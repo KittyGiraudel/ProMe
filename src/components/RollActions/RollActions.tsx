@@ -4,15 +4,13 @@ import { Button } from '@/components/Button/Button'
 import { CopyDropdown } from '@/components/CopyDropdown/CopyDropdown'
 import { Spacing } from '@/components/Spacing/Spacing'
 
-export type SheetCopyPayload = {
-  description: string
-  journalBrace: string
-}
-
 type RollActionsProps = {
   onRoll: () => void
   label: string
-  copy?: SheetCopyPayload | null
+  copy?: {
+    description: string
+    journalBrace: string
+  } | null
 }
 
 export function RollActions({ onRoll, label, copy }: RollActionsProps) {

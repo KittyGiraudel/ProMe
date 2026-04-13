@@ -20,10 +20,15 @@ export function useSoundtrackPreload({
   const loadKey = `${variant}`
   const [resolvedKey, setResolvedKey] = useState<string | null>(null)
 
-  useEffect(() => {
-    if (!enabled || typeof caches === 'undefined') return
-    preloadSoundtracksForVariant(variant).finally(() => setResolvedKey(loadKey))
-  }, [enabled, variant, loadKey])
+  useEffect(
+    function preloadRelevantVariant() {
+      if (!enabled || typeof caches === 'undefined') return
+      preloadSoundtracksForVariant(variant).finally(() =>
+        setResolvedKey(loadKey)
+      )
+    },
+    [enabled, variant, loadKey]
+  )
 
   if (!enabled) return 'idle'
   if (typeof caches === 'undefined') return 'ready'

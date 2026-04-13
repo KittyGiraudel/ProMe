@@ -40,11 +40,14 @@ export function MapCard({ isDead }: { isDead: boolean }) {
 
   useMapCopyPaste({ selectedCell, isDead })
 
-  useEffect(() => {
-    if (!hash) return
-    const coord = resolveDisplayedCellReference(hash)
-    if (coord) setSelectedCell(coord)
-  }, [setSelectedCell, hash])
+  useEffect(
+    function handleHashChange() {
+      if (!hash) return
+      const coord = resolveDisplayedCellReference(hash)
+      if (coord) setSelectedCell(coord)
+    },
+    [setSelectedCell, hash]
+  )
 
   return (
     <>

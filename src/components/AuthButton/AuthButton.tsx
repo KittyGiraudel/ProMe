@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
-import { Link } from '@/i18n/navigation'
+import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { useAuth } from '@/lib/auth/context'
 
 export function AuthButton() {
@@ -17,6 +17,6 @@ export function AuthButton() {
       {t('nav.logout')}
     </Button>
   ) : (
-    <Link href='/login'>{t('nav.login')}</Link>
+    <BlockedLink href='/login'>{t('nav.login')}</BlockedLink>
   )
 }

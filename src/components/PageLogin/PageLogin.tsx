@@ -3,8 +3,8 @@
 import { Button, Card } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
+import { RichText } from '@/components/RichText/RichText'
 import { useAuth } from '@/lib/auth/context'
-import { RichText } from '../RichText/RichText'
 
 export function PageLogin() {
   const { oauthLogin, loading, user, logout } = useAuth()

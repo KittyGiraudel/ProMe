@@ -4,35 +4,36 @@ import type { Character } from '@/lib/character/types'
 import { sql } from '@/lib/db/client'
 
 // GET /api/characters — list all characters for the authenticated user
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function GET(_: Request): Promise<Response> {
   const user = await getUser()
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const rows = await sql`
+  const rows = (await sql`
     SELECT data FROM characters
     WHERE user_id = ${user.id}
     ORDER BY data->>'updatedAt' DESC
-  `
+  `) as Array<{ data: Character }>
 
   const characters = rows
-    .map(row => normalizeCharacter(row.data as unknown))
+    .map(row => normalizeCharacter(row.data))
     .filter((c): c is Character => c !== null)
 
   return Response.json(characters)
 }
 
 // POST /api/characters — create a new character
-export async function POST(req: Request): Promise<Response> {
+export async function POST(request: Request): Promise<Response> {
   const user = await getUser()
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
-  if (!req.headers.get('content-type')?.includes('application/json')) {
+  if (!request.headers.get('content-type')?.includes('application/json')) {
     return Response.json({ error: 'Unsupported Media Type' }, { status: 415 })
   }
 
   let body: unknown
   try {
-    body = await req.json()
+    body = await request.json()
   } catch (error) {
     console.error(error)
     return Response.json({ error: 'Invalid JSON' }, { status: 400 })

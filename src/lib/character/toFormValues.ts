@@ -1,4 +1,4 @@
-import { Gender } from '../types'
+import { Gender } from '@/lib/types'
 import {
   Archetype,
   Character,

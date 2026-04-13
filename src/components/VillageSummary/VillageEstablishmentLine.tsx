@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
-import { establishmentDetailRulebookPage } from '@/lib/constants/rulebookPages'
+import { establishmentDetailRulebookPage } from '@/constants/rulebookPages'
 import type { PlayingCard } from '@/lib/types'
 import { formatRulebookReference } from '@/lib/village/formatRulebookReference'
 import {

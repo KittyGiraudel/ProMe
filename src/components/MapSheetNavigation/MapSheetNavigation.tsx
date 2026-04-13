@@ -5,6 +5,8 @@ import ArrowUpOutlined from '@ant-design/icons/lib/icons/ArrowUpOutlined'
 import { Button, Popover, Tag } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Dispatch, SetStateAction } from 'react'
+import { HelpButton } from '@/components/HelpButton/HelpButton'
+import { MapLegend } from '@/components/MacLegend/MapLegend'
 import { Spacing } from '@/components/Spacing/Spacing'
 import { CellCoordinate } from '@/lib/character/types'
 import {
@@ -12,8 +14,6 @@ import {
   getSheetCoordinate,
   SheetCoordinate,
 } from '@/lib/map/coordinates'
-import { HelpButton } from '../HelpButton/HelpButton'
-import { MapLegend } from '../MacLegend/MapLegend'
 
 export function MapSheetNavigation({
   visibleSheet,

@@ -1,8 +1,9 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { BlockedLink } from '@/components/Navigation/BlockedLink'
-import { useFadeIn } from '../../hooks/useFadeIn'
+import { useFadeIn } from '@/hooks/useFadeIn'
+import { Link } from '@/i18n/navigation'
+
 import './LandingFinalCta.css'
 
 export function LandingFinalCta() {
@@ -16,9 +17,9 @@ export function LandingFinalCta() {
           {t('landing.final_cta.title')}
         </h2>
         <p className='LandingFinalCta__sub'>{t('landing.final_cta.sub')}</p>
-        <BlockedLink href='/characters/new' className='LandingFinalCta__cta'>
+        <Link href='/characters/new' className='LandingFinalCta__cta'>
           {t('landing.final_cta.cta')}
-        </BlockedLink>
+        </Link>
       </div>
     </section>
   )

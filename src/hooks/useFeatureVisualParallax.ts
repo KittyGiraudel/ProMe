@@ -71,28 +71,31 @@ function unbindGlobalListeners() {
 export function useFeatureVisualParallax({ reversed }: Options) {
   const visualRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    const visualEl = visualRef.current
-    if (!visualEl) return
+  useEffect(
+    function handleParallax() {
+      const visualEl = visualRef.current
+      if (!visualEl) return
 
-    const subscriber: Subscriber = { el: visualEl, reversed }
-    subscribers.add(subscriber)
-    bindGlobalListeners()
-    requestParallaxUpdate()
+      const subscriber: Subscriber = { el: visualEl, reversed }
+      subscribers.add(subscriber)
+      bindGlobalListeners()
+      requestParallaxUpdate()
 
-    return () => {
-      subscribers.delete(subscriber)
-      clearParallaxStyles(visualEl)
+      return () => {
+        subscribers.delete(subscriber)
+        clearParallaxStyles(visualEl)
 
-      if (subscribers.size === 0) {
-        if (rafId !== null) {
-          window.cancelAnimationFrame(rafId)
-          rafId = null
+        if (subscribers.size === 0) {
+          if (rafId !== null) {
+            window.cancelAnimationFrame(rafId)
+            rafId = null
+          }
+          unbindGlobalListeners()
         }
-        unbindGlobalListeners()
       }
-    }
-  }, [reversed])
+    },
+    [reversed]
+  )
 
   return visualRef
 }

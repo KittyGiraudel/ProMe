@@ -10,12 +10,12 @@ import {
   useWatchedClock,
   useWatchedStamina,
 } from '@/hooks/useCharacterSheetDerived'
+import { useSetClockToRawTargetWithToast } from '@/hooks/useSetClockToRawTargetWithToast'
 import {
   clampClockSliceIndex,
   countHalfClockSegments,
   isClockDayPhase,
-} from '@/lib/character/clock'
-import { useSetClockToRawTargetWithToast } from '@/lib/character/clockPositionNotifications'
+} from '@/lib/clock/clock'
 
 export function ClockCard() {
   const t = useTranslations()

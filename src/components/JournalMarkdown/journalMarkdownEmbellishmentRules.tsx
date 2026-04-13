@@ -6,9 +6,9 @@ import { BiomeTag } from '@/components/BiomeTag/BiomeTag'
 import { CoordChip } from '@/components/CoordChip/CoordChip'
 import { JournalReferencePreview } from '@/components/JournalReferencePreview/JournalReferencePreview'
 import { CharacterCellData } from '@/components/MapDisplay/useMapState'
+import { BIOME_ROLL_TABLE } from '@/constants/biomeRollTable'
+import { DICE, SUITS } from '@/constants/misc'
 import { useCharacterQuery } from '@/hooks/useQuery'
-import { BIOME_ROLL_TABLE } from '@/lib/constants/biomeRollTable'
-import { DICE, SUITS } from '@/lib/constants/misc'
 import {
   extractDisplayedCellReferences,
   SheetCoordinateWithLabel,

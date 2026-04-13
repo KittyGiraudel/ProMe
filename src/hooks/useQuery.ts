@@ -32,43 +32,46 @@ export function useQuery<T>(
   const [loading, setLoading] = useState(!skip)
   const [error, setError] = useState<Error | null>(null)
   const fetcherRef = useRef(fetcher)
-  fetcherRef.current = fetcher
+  if (fetcherRef.current === null) fetcherRef.current = fetcher
   const [tick, setTick] = useState(0)
 
-  useEffect(() => {
-    if (skip) return
-    let cancelled = false
-    setLoading(true)
-    fetcherRef
-      .current()
-      .then(result => {
-        if (!cancelled) {
-          setData(result)
-          setError(null)
-        }
-      })
-      .catch(err => {
-        if (!cancelled) {
-          if (err instanceof UnauthorizedError) {
-            setError(new Error(t('errors.unauthorized')))
-          } else if (err instanceof BadRequestError) {
-            setError(new Error(t('errors.bad_request')))
-          } else if (err instanceof ServerError) {
-            setError(
-              new Error(t('errors.server', { status: String(err.status) }))
-            )
-          } else {
-            setError(err instanceof Error ? err : new Error(String(err)))
+  useEffect(
+    function performQuery() {
+      if (skip) return
+      let cancelled = false
+      setLoading(true)
+      fetcherRef
+        .current()
+        .then(result => {
+          if (!cancelled) {
+            setData(result)
+            setError(null)
           }
-        }
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false)
-      })
-    return () => {
-      cancelled = true
-    }
-  }, [tick, skip, t])
+        })
+        .catch(err => {
+          if (!cancelled) {
+            if (err instanceof UnauthorizedError) {
+              setError(new Error(t('errors.unauthorized')))
+            } else if (err instanceof BadRequestError) {
+              setError(new Error(t('errors.bad_request')))
+            } else if (err instanceof ServerError) {
+              setError(
+                new Error(t('errors.server', { status: String(err.status) }))
+              )
+            } else {
+              setError(err instanceof Error ? err : new Error(String(err)))
+            }
+          }
+        })
+        .finally(() => {
+          if (!cancelled) setLoading(false)
+        })
+      return () => {
+        cancelled = true
+      }
+    },
+    [tick, skip, t]
+  )
 
   const refetch = useCallback(() => setTick(tick => tick + 1), [])
 

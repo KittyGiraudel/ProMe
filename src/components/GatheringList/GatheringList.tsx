@@ -3,11 +3,11 @@
 import PlusOutlined from '@ant-design/icons/lib/icons/PlusOutlined'
 import { App, Button, Tooltip } from 'antd'
 import { useTranslations } from 'next-intl'
+import { DICE } from '@/constants/misc'
 import {
   useWatchedInventory,
   useWatchedMoney,
 } from '@/hooks/useCharacterSheetDerived'
-import { DICE } from '@/lib/constants/misc'
 import { parseGatheringItem } from '@/lib/gathering/parseGatheringItem'
 import type { GatherableBiomeId } from '@/lib/gathering/schema'
 import { GATHERING_SCHEMA } from '@/lib/gathering/schema'

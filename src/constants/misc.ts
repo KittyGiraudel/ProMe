@@ -1,5 +1,5 @@
-import { Archetype } from '../character/types'
-import { AgeBand, BiomeId, Faction, Gender, Rank } from '../types'
+import { Archetype } from '../lib/character/types'
+import { AgeBand, BiomeId, Faction, Gender, Rank } from '../lib/types'
 
 export const SUITS = {
   spades: '♠',

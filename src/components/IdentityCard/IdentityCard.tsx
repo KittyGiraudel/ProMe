@@ -2,8 +2,8 @@
 
 import { Card, Col, Form, Input, Row, Select } from 'antd'
 import { useTranslations } from 'next-intl'
+import { GENDERS } from '@/constants/misc'
 import { useWatchedIdentity } from '@/hooks/useCharacterSheetDerived'
-import { GENDERS } from '@/lib/constants/misc'
 
 import './IdentityCard.css'
 

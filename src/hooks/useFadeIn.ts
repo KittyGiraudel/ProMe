@@ -9,7 +9,7 @@ import { useEffect, useRef } from 'react'
 export function useFadeIn<T extends HTMLElement = HTMLDivElement>() {
   const ref = useRef<T>(null)
 
-  useEffect(() => {
+  useEffect(function fadeIn() {
     const el = ref.current
     if (!el) return
 

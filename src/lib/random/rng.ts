@@ -1,5 +1,5 @@
-import { RANKS, SUITS } from '../constants/misc'
-import type { PlayingCard, Rank, Suit } from '../types'
+import { RANKS, SUITS } from '@/constants/misc'
+import type { PlayingCard, Rank, Suit } from '@/lib/types'
 import { isFaceRank } from './suitGlyphs'
 
 export function randomInt(rng: () => number, min: number, max: number): number {

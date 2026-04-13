@@ -1,6 +1,7 @@
 import QuestionCircleOutlined from '@ant-design/icons/lib/icons/QuestionCircleOutlined'
-import './CardCover.css'
 import { type ElementType, type HTMLAttributes, type ReactNode } from 'react'
+
+import './CardCover.css'
 
 export function CardCover({
   url,

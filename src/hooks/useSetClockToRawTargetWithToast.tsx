@@ -4,7 +4,7 @@ import { App } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
 import { useWatchedClock } from '@/hooks/useCharacterSheetDerived'
-import { computeClockMoveFromRawTarget } from './clock'
+import { computeClockMoveFromRawTarget } from '@/lib/clock/clock'
 
 /**
  * Hook for character-sheet clock changes: updates the stored slice and surfaces feedback.

@@ -1,45 +1,20 @@
 'use client'
 
+import { resolveHref } from 'next/dist/client/resolve-href'
+import { type LinkProps } from 'next/link'
+import Router from 'next/router'
 import type { ComponentProps } from 'react'
-import { useCallback } from 'react'
-import type { UrlObject } from 'url'
 import { useNavigationBlocker } from '@/components/AppProviders/NavigationBlockerContext'
 import { Link as NextLink, useRouter } from '@/i18n/navigation'
 
-type Href = string | UrlObject
-
-function hrefToString(href: Href): string {
-  if (typeof href === 'string') return href
-
-  // Minimal conversion: this project mostly uses string hrefs.
-  const pathname = href.pathname ?? '/'
-  const query = href.query
-  if (!query || typeof query !== 'object') return pathname.toString()
-
-  const params = new URLSearchParams()
-  for (const [key, value] of Object.entries(query)) {
-    if (value == null) continue
-    if (Array.isArray(value)) {
-      for (const v of value) params.append(key, String(v))
-    } else {
-      params.set(key, String(value))
-    }
-  }
-  const qs = params.toString()
-  return qs ? `${pathname.toString()}?${qs}` : pathname.toString()
-}
-
 type Props = Omit<ComponentProps<typeof NextLink>, 'href'> & {
-  href: Href
+  href: LinkProps['href']
 }
 
 export function BlockedLink({ href, onNavigate, ...props }: Props) {
   const router = useRouter()
   const { handler } = useNavigationBlocker()
-
-  const navigate = useCallback(() => {
-    void router.push(hrefToString(href))
-  }, [href, router])
+  const url = resolveHref(Router, href)
 
   return (
     <NextLink
@@ -50,7 +25,7 @@ export function BlockedLink({ href, onNavigate, ...props }: Props) {
         if (!handler) return
         // Cancel Next navigation, then run our handler.
         e.preventDefault()
-        handler(navigate)
+        handler(() => router.push(url))
       }}
     />
   )

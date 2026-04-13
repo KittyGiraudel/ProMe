@@ -3,10 +3,11 @@
 import { Menu } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
+import { AuthButton } from '@/components/AuthButton/AuthButton'
 import { Logo } from '@/components/Logo/Logo'
-import { Link, usePathname } from '@/i18n/navigation'
+import { usePathname } from '@/i18n/navigation'
 import { useAuth } from '@/lib/auth/context'
-import { AuthButton } from '../AuthButton/AuthButton'
+import { BlockedLink } from './BlockedLink'
 
 import './Navigation.css'
 
@@ -20,14 +21,16 @@ export function Navigation() {
       {
         key: '/',
         label: (
-          <Link href='/'>
+          <BlockedLink href='/'>
             <Logo />
-          </Link>
+          </BlockedLink>
         ),
       },
       {
         key: '/characters',
-        label: <Link href='/characters'>{t('nav.characters')}</Link>,
+        label: (
+          <BlockedLink href='/characters'>{t('nav.characters')}</BlockedLink>
+        ),
       },
       {
         key: 'generators',
@@ -36,17 +39,17 @@ export function Navigation() {
           {
             key: '/generators/npc',
             label: (
-              <Link href='/generators/npc'>
+              <BlockedLink href='/generators/npc'>
                 {t('nav.inhabitant_generator')}
-              </Link>
+              </BlockedLink>
             ),
           },
           {
             key: '/generators/village',
             label: (
-              <Link href='/generators/village'>
+              <BlockedLink href='/generators/village'>
                 {t('nav.village_generator')}
-              </Link>
+              </BlockedLink>
             ),
           },
         ],
@@ -54,14 +57,14 @@ export function Navigation() {
       {
         key: '/faq',
         label: (
-          <Link href='/faq' data-position='right'>
+          <BlockedLink href='/faq' data-position='right'>
             {t('nav.faq')}
-          </Link>
+          </BlockedLink>
         ),
       },
       {
         key: '/settings',
-        label: <Link href='/settings'>{t('nav.settings')}</Link>,
+        label: <BlockedLink href='/settings'>{t('nav.settings')}</BlockedLink>,
       },
       {
         key: '/authentication',

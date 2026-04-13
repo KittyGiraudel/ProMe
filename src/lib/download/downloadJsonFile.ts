@@ -1,4 +1,4 @@
-import { Character } from '../character/types'
+import { Character } from '@/lib/character/types'
 
 export function downloadJsonFile(content: string, fileName: string): void {
   const blob = new Blob([content], { type: 'application/json' })

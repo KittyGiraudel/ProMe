@@ -15,26 +15,29 @@ export function useNetworkStatus(): void {
   const { message } = App.useApp()
   const t = useTranslations()
 
-  useEffect(() => {
-    function handleOffline() {
-      message.warning(t('auth.offline_status'))
-    }
-
-    async function handleOnline() {
-      message.success(t('auth.online_status'))
-      try {
-        await characterStore.syncToRemote()
-      } catch (error) {
-        console.error('Reconnect sync failed:', error)
+  useEffect(
+    function handleConnectivityChanges() {
+      function handleOffline() {
+        message.warning(t('auth.offline_status'))
       }
-    }
 
-    window.addEventListener('offline', handleOffline)
-    window.addEventListener('online', handleOnline)
+      async function handleOnline() {
+        message.success(t('auth.online_status'))
+        try {
+          await characterStore.syncToRemote()
+        } catch (error) {
+          console.error('Reconnect sync failed:', error)
+        }
+      }
 
-    return () => {
-      window.removeEventListener('offline', handleOffline)
-      window.removeEventListener('online', handleOnline)
-    }
-  }, [message, t])
+      window.addEventListener('offline', handleOffline)
+      window.addEventListener('online', handleOnline)
+
+      return () => {
+        window.removeEventListener('offline', handleOffline)
+        window.removeEventListener('online', handleOnline)
+      }
+    },
+    [message, t]
+  )
 }

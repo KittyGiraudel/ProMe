@@ -1,5 +1,5 @@
 import { _Translator, useTranslations } from 'next-intl'
-import { DICE } from '@/lib/constants/misc'
+import { DICE } from '@/constants/misc'
 
 import './DiceFaces.css'
 

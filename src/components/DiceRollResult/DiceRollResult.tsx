@@ -1,28 +1,11 @@
 'use client'
 
-import { App } from 'antd'
-import { useTranslations } from 'next-intl'
 import { useEffect, useRef } from 'react'
+import { DICE } from '@/constants/misc'
 import { useAnimatedValue } from '@/hooks/useAnimatedValue'
-import { DICE } from '@/lib/constants/misc'
 import { rollD6 } from '@/lib/random/rng'
 
 import './DiceRollResult.css'
-
-export function useDiceRollNotification() {
-  const { notification } = App.useApp()
-  const t = useTranslations()
-
-  return () =>
-    notification.open({
-      key: 'dice-roll',
-      title: t('characters.tools.die_title'),
-      description: <DiceRollResult />,
-      placement: 'bottom',
-      duration: 4,
-      style: { width: 150 },
-    })
-}
 
 export function DiceRollResult() {
   const {

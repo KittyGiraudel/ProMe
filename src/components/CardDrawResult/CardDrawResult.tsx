@@ -1,29 +1,12 @@
 'use client'
 
-import { App } from 'antd'
-import { useTranslations } from 'next-intl'
 import { useEffect, useRef } from 'react'
+import { SUITS } from '@/constants/misc'
 import { useAnimatedValue } from '@/hooks/useAnimatedValue'
-import { SUITS } from '@/lib/constants/misc'
 import { randomCard } from '@/lib/random/rng'
 import { suitIsRed } from '@/lib/random/suitGlyphs'
 
 import './CardDrawResult.css'
-
-export function useCardDrawNotification() {
-  const { notification } = App.useApp()
-  const t = useTranslations()
-
-  return () =>
-    notification.open({
-      key: 'card-draw',
-      title: t('characters.tools.card_title'),
-      description: <CardDrawResult />,
-      placement: 'bottom',
-      duration: 4,
-      style: { width: 150 },
-    })
-}
 
 export function CardDrawResult() {
   const {

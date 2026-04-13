@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { RANKS } from '@/lib/constants/misc'
+import { RANKS } from '@/constants/misc'
 import {
   ageBandFromSuit,
   canonicalFactionDie,

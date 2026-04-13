@@ -4,7 +4,7 @@ import type { CSSProperties, ReactNode } from 'react'
 import { cloneElement, isValidElement } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { SUITS } from '@/lib/constants/misc'
+import { SUITS } from '@/constants/misc'
 import {
   journalLiteralRule,
   tokenizeJournalEmbellishUiRules,
@@ -71,13 +71,16 @@ export function RichText({ text }: { text: string }) {
       remarkPlugins={[remarkGfm]}
       skipHtml
       components={{
-        p: ({ children, node: _node, ...props }) => (
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        p: ({ children, node: _, ...props }) => (
           <p {...props}>{renderWithHighlights(children, highlighter)}</p>
         ),
-        li: ({ children, node: _node, ...props }) => (
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        li: ({ children, node: _, ...props }) => (
           <li {...props}>{renderWithHighlights(children, highlighter)}</li>
         ),
-        a: ({ children, node: _node, ...props }) => (
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        a: ({ children, node: _, ...props }) => (
           <a {...props} target='_blank' rel='noreferrer'>
             {renderWithHighlights(children, highlighter)}
           </a>

@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl'
-import { BIOME_IDS } from '@/lib/constants/misc'
-import { BiomeBubble } from '../BiomeBubble/BiomeBubble'
-import { useSettings } from '../PageSettings/SettingsContext'
+import { BiomeBubble } from '@/components/BiomeBubble/BiomeBubble'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
+import { BIOME_IDS } from '@/constants/misc'
 
 import './MapLegend.css'
 

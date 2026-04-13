@@ -1,4 +1,4 @@
-import { establishmentDetailRulebookPage } from '@/lib/constants/rulebookPages'
+import { establishmentDetailRulebookPage } from '@/constants/rulebookPages'
 import { InhabitantRoll } from '@/lib/inhabitant/generate'
 import { groupEstablishments } from '@/lib/village/groupEstablishments'
 import { VillageEstablishmentRow } from '@/lib/village/resolveVillageDisplay'

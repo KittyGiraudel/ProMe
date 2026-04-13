@@ -18,7 +18,10 @@ export function BrowserWarning() {
       type='warning'
       title={t.rich('characters.map.browser_warning', {
         link: content => (
-          <Link href='https://caniuse.com/wf-corner-shape' target='_blank'>
+          <Link
+            href='https://caniuse.com/wf-corner-shape'
+            target='_blank'
+            rel='noopener noreferrer'>
             {content}
           </Link>
         ),

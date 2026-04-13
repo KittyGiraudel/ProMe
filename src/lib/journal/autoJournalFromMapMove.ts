@@ -1,10 +1,10 @@
+import type { JournalEntryPhase } from '@/lib/character/types'
 import {
   clampClockSliceIndex,
   computeClockMoveFromRawTarget,
   countHalfClockSegments,
   isClockDayPhase,
-} from '@/lib/character/clock'
-import type { JournalEntryPhase } from '@/lib/character/types'
+} from '@/lib/clock/clock'
 
 export type AutoJournalClockAnchor = {
   phase: JournalEntryPhase

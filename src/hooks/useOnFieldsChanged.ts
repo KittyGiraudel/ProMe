@@ -1,7 +1,7 @@
 import { FormProps } from 'antd'
 import { FormInstance } from 'antd/es/form'
 import { useCallback } from 'react'
-import { normalizeClock } from '@/lib/character/clock'
+import { normalizeClock } from '@/lib/clock/clock'
 import { useWatchedClock } from './useCharacterSheetDerived'
 
 type FieldData = Parameters<Required<FormProps>['onFieldsChange']>[0][number]

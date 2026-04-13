@@ -5,28 +5,14 @@ import type { Dispatch, ReactNode, SetStateAction } from 'react'
 import { useCallback, useMemo } from 'react'
 import { BiomeBubble } from '@/components/BiomeBubble/BiomeBubble'
 import { useMapState } from '@/components/MapDisplay/useMapState'
+import { BIOME_IDS } from '@/constants/misc'
 import { useWatchedJournal } from '@/hooks/useCharacterSheetDerived'
 import { CellCoordinate } from '@/lib/character/types'
-import { BIOME_IDS } from '@/lib/constants/misc'
 import type { JournalEntryLink } from '@/lib/journal/cellReferenceIndex'
 import type { BiomeId, TranslationKey } from '@/lib/types'
 import { useMapActions } from './useMapActions'
 
 const MAX_JOURNAL_LINKS_IN_MENU = 5
-
-export function journalContentFirstLine(content: string): string {
-  const normalized = content.replaceAll('\r\n', '\n').replaceAll('\r', '\n')
-  const lines = normalized.split('\n').filter(line => line.trim())
-  return (lines[0] ?? '').replace(/^#+/, '')
-}
-
-function useFormattedDate(date: string | undefined): string | null {
-  const format = useFormatter()
-  if (!date) return null
-  const dateObj = new Date(date)
-  if (Number.isNaN(dateObj.getTime())) return null
-  return format.dateTime(dateObj, { dateStyle: 'medium' })
-}
 
 function JournalEntryMenuLabel({
   link,
@@ -276,4 +262,18 @@ export function useMapCellContextMenuItems({
     coord,
     moveToCell,
   ])
+}
+
+function journalContentFirstLine(content: string): string {
+  const normalized = content.replaceAll('\r\n', '\n').replaceAll('\r', '\n')
+  const lines = normalized.split('\n').filter(line => line.trim())
+  return (lines[0] ?? '').replace(/^#+/, '')
+}
+
+function useFormattedDate(date: string | undefined): string | null {
+  const format = useFormatter()
+  if (!date) return null
+  const dateObj = new Date(date)
+  if (Number.isNaN(dateObj.getTime())) return null
+  return format.dateTime(dateObj, { dateStyle: 'medium' })
 }

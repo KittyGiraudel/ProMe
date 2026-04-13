@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 import { useId } from 'react'
-import { isClockDayPhase } from '@/lib/character/clock'
+import { isClockDayPhase } from '@/lib/clock/clock'
 
 import './ClockDisplay.css'
 

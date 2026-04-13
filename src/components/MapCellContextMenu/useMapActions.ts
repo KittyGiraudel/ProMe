@@ -1,13 +1,12 @@
 'use client'
 
-import { App, Form } from 'antd'
+import { Form } from 'antd'
 import { useTranslations } from 'next-intl'
-import { useCallback } from 'react'
-import { showRandomBiomeDiscoveredNotification } from '@/components/MapCellContextMenu/mapRandomBiomeNotification'
+import { useCallback, useMemo } from 'react'
+import { useRandomBiomeDiscoveredNotification } from '@/components/MapCellContextMenu/useRandomBiomeDiscoveredNotification'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { useWatchedMap } from '@/hooks/useCharacterSheetDerived'
-import { clampClockSliceIndex } from '@/lib/character/clock'
-import { useSetClockToRawTargetWithToast } from '@/lib/character/clockPositionNotifications'
+import { useSetClockToRawTargetWithToast } from '@/hooks/useSetClockToRawTargetWithToast'
 import {
   removeCharacterMapCellAt,
   updateCharacterMapCellAt,
@@ -18,6 +17,7 @@ import {
   type JournalEntry,
   type StatPool,
 } from '@/lib/character/types'
+import { clampClockSliceIndex } from '@/lib/clock/clock'
 import { computeAutoJournalClockAnchor } from '@/lib/journal/autoJournalFromMapMove'
 import { formatDisplayedCellReference, isSameCell } from '@/lib/map/coordinates'
 import { moveWithAutoBiome } from '@/lib/map/movement'
@@ -26,10 +26,10 @@ import { type BiomeId } from '@/lib/types'
 
 export function useMapActions() {
   const t = useTranslations()
-  const { notification } = App.useApp()
   const { settings } = useSettings()
   const form = Form.useFormInstance()
   const setClockToRawTargetWithToast = useSetClockToRawTargetWithToast()
+  const showNotification = useRandomBiomeDiscoveredNotification()
   const { updateMap } = useWatchedMap()
 
   const setBiomeAt = useCallback(
@@ -50,9 +50,9 @@ export function useMapActions() {
     (target: CellCoordinate) => {
       const rolled = getRandomBiomeResult()
       setBiomeAt(target, rolled.biome)
-      showRandomBiomeDiscoveredNotification({ notification, t, rolled })
+      showNotification(rolled)
     },
-    [notification, setBiomeAt, t]
+    [setBiomeAt, showNotification]
   )
 
   const setIconAt = useCallback(
@@ -130,34 +130,38 @@ export function useMapActions() {
           form.setFieldValue('journalEntries', [...journalEntries, newEntry])
         }
 
-        if (result.discoveredBiome) {
-          showRandomBiomeDiscoveredNotification({
-            notification,
-            t,
-            rolled: result.discoveredBiome,
-          })
-        }
+        if (result.discoveredBiome) showNotification(result.discoveredBiome)
 
         return result.next
       })
     },
     [
       form,
-      notification,
       setClockToRawTargetWithToast,
       settings.journal.createEntryOnMove,
       settings.map.tickClockOnMove,
       t,
       updateMap,
+      showNotification,
     ]
   )
 
-  return {
-    updateMap,
-    setBiomeAt,
-    setRandomBiomeAt,
-    moveToCell,
-    setIconAt,
-    clearCellAt,
-  }
+  return useMemo(
+    () => ({
+      updateMap,
+      setBiomeAt,
+      setRandomBiomeAt,
+      moveToCell,
+      setIconAt,
+      clearCellAt,
+    }),
+    [
+      updateMap,
+      setBiomeAt,
+      setRandomBiomeAt,
+      moveToCell,
+      setIconAt,
+      clearCellAt,
+    ]
+  )
 }

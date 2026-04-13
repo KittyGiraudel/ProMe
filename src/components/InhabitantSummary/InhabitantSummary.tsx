@@ -11,7 +11,7 @@ import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { RichText } from '@/components/RichText/RichText'
 import { Spacing } from '@/components/Spacing/Spacing'
-import { AGE_BANDS, FACTIONS, GENDERS, RANKS } from '@/lib/constants/misc'
+import { AGE_BANDS, FACTIONS, GENDERS, RANKS } from '@/constants/misc'
 import { lookupName } from '@/lib/inhabitant/data/namesByFaction'
 import {
   getAgeBand,

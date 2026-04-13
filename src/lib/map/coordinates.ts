@@ -1,5 +1,5 @@
+import { DEFAULT_MAP_POSITION } from '@/lib/character/model'
 import type { CellCoordinate } from '@/lib/character/types'
-import { DEFAULT_MAP_POSITION } from '../character/model'
 
 export const MAP_ROWS = 9
 export const MAP_COLS = 12

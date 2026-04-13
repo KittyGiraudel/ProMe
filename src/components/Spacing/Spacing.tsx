@@ -1,5 +1,14 @@
 import { Space, SpaceProps } from 'antd'
 
+type SpacingProps = {
+  children: React.ReactNode
+  orientation?: SpaceProps['orientation']
+  size?: SpaceProps['size']
+  className?: string
+  fullWidth?: boolean
+  wrap?: SpaceProps['wrap']
+}
+
 export function Spacing({
   children,
   orientation = 'vertical',
@@ -7,14 +16,7 @@ export function Spacing({
   className,
   fullWidth = orientation === 'vertical',
   wrap,
-}: {
-  children: React.ReactNode
-  orientation?: SpaceProps['orientation']
-  size?: SpaceProps['size']
-  className?: string
-  fullWidth?: boolean
-  wrap?: SpaceProps['wrap']
-}) {
+}: SpacingProps) {
   return (
     <Space
       orientation={orientation}

@@ -32,17 +32,6 @@ type MapCellContextMenuProps = {
   selectCell: (coord: CellCoordinate) => void
 }
 
-function firstGrapheme(value: string): string {
-  if (typeof Intl !== 'undefined' && 'Segmenter' in Intl) {
-    const segmenter = new Intl.Segmenter(undefined, {
-      granularity: 'grapheme',
-    })
-    const [first] = Array.from(segmenter.segment(value), part => part.segment)
-    return first ?? ''
-  }
-  return Array.from(value).slice(0, 1).join('')
-}
-
 export function MapCellContextMenu({
   coord,
   coordLabel,
@@ -129,4 +118,15 @@ export function MapCellContextMenu({
       </Modal>
     </>
   )
+}
+
+function firstGrapheme(value: string): string {
+  if (typeof Intl !== 'undefined' && 'Segmenter' in Intl) {
+    const segmenter = new Intl.Segmenter(undefined, {
+      granularity: 'grapheme',
+    })
+    const [first] = Array.from(segmenter.segment(value), part => part.segment)
+    return first ?? ''
+  }
+  return Array.from(value).slice(0, 1).join('')
 }
