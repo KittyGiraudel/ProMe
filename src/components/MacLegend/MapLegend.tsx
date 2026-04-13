@@ -20,7 +20,7 @@ export function MapLegend() {
             } as React.CSSProperties
           }
         />
-        {t('common.biomes.unexplored')}
+        {t('biomes.unexplored.name')}
       </li>
       {BIOME_IDS.map(biome => (
         <li key={biome}>
@@ -29,7 +29,7 @@ export function MapLegend() {
             style={{ fontSize: '1.8em' } as React.CSSProperties}
             withPattern={settings.map.showBiomeBackground}
           />
-          {t(`common.biomes.${biome}`)}
+          {t(`biomes.${biome}.name`)}
         </li>
       ))}
     </ul>

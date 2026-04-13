@@ -42,7 +42,9 @@ export function MapCover({
         b: chunks => <strong>{chunks}</strong>,
       })}
       titleAs='h2'
-      description={t(`common.biomes.${biome}_description` as TranslationKey)}
+      description={
+        biome !== 'unexplored' ? t(`biomes.${biome}.description`) : undefined
+      }
     />
   )
 }

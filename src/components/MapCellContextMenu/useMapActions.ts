@@ -108,7 +108,7 @@ export function useMapActions() {
           const newPos = formatDisplayedCellReference(target)
           const content = result.discoveredBiome
             ? t('characters.journal.auto_map_move_content_discovered', {
-                biomeName: t(`common.biomes.${result.discoveredBiome.biome}`),
+                biomeName: t(`biomes.${result.discoveredBiome.biome}.name`),
                 curr: prevPos,
                 next: newPos,
               })

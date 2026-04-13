@@ -20,6 +20,7 @@
 }
 
 .AudioPlayer__trackName {
+  color: inherit !important;
 }
 
 .AudioPlayer__progressRow {
@@ -32,6 +33,14 @@
   flex: 1;
 }
 
+.AudioPlayer__progress .ant-slider-rail {
+  border: 1px solid var(--lore-border);
+}
+
 .AudioPlayer__volumeSlider {
   min-width: 100px;
+}
+
+.AudioPlayer__volumeSlider .ant-slider-rail {
+  border: 1px solid var(--lore-border);
 }

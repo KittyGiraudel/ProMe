@@ -10,7 +10,7 @@ export function useRandomBiomeDiscoveredNotification() {
 
   return useCallback(
     (rolled: RandomBiomeResult) => {
-      const biomeName = t(`common.biomes.${rolled.biome}`)
+      const biomeName = t(`biomes.${rolled.biome}.name`)
       notification.open({
         icon: (
           <span className='Map__NotificationIcon' data-biome={rolled.biome}>

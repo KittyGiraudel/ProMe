@@ -5,8 +5,10 @@ import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
 import { AuthButton } from '@/components/AuthButton/AuthButton'
 import { Logo } from '@/components/Logo/Logo'
+import { BIOME_IDS } from '@/constants/misc'
 import { usePathname } from '@/i18n/navigation'
 import { useAuth } from '@/lib/auth/context'
+import { biomeIdToSlug } from '@/lib/lore/biomeSlug'
 import { BlockedLink } from './BlockedLink'
 
 import './Navigation.css'
@@ -55,6 +57,18 @@ export function Navigation() {
         ],
       },
       {
+        key: '/lore',
+        label: <span>{t('nav.lore')}</span>,
+        children: BIOME_IDS.map(biome => ({
+          key: `/lore/${biome}`,
+          label: (
+            <BlockedLink href={`/lore/${biomeIdToSlug(biome)}`}>
+              {t(`biomes.${biome}.name`)}
+            </BlockedLink>
+          ),
+        })),
+      },
+      {
         key: '/faq',
         label: (
           <BlockedLink href='/faq' data-position='right'>
@@ -82,6 +96,10 @@ export function Navigation() {
     if (pathname.startsWith('/faq')) return ['/faq']
     if (pathname.startsWith('/settings')) return ['/settings']
     if (pathname.startsWith('/characters')) return ['/characters']
+    for (const biome of BIOME_IDS) {
+      if (pathname.startsWith(`/lore/${biomeIdToSlug(biome)}`))
+        return [`/lore`, `/lore/${biomeIdToSlug(biome)}`]
+    }
     if (!loading && pathname.startsWith('/login')) return ['/authentication']
     if (pathname === '/') return ['/']
     return []

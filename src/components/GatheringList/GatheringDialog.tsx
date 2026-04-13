@@ -46,7 +46,7 @@ export default function GatheringDialog({
             key: biome,
             label: (
               <>
-                <BiomeBubble biome={biome} /> {t(`common.biomes.${biome}`)}
+                <BiomeBubble biome={biome} /> {t(`biomes.${biome}.name`)}
               </>
             ),
             children: GATHERING_SCHEMA[biome] ? (

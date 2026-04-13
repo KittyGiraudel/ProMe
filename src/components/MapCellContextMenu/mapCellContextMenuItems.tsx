@@ -54,7 +54,7 @@ function useBiomeSubmenuChildren(
       label: (
         <span className='Map__BiomeMenuItem'>
           <BiomeBubble biome={id} />
-          <span>{t(`common.biomes.${id}` as TranslationKey)}</span>
+          <span>{t(`biomes.${id}.name`)}</span>
         </span>
       ),
       onClick: () => setBiomeAt(coord, id),

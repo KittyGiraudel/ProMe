@@ -1,4 +1,43 @@
 {
+  "biomes": {
+    "shadowForest": {
+      "name": "Forêt des ombres",
+      "title": "La Forêt des Ombres",
+      "description": "Des arbres colossaux se dressent devant vous, telles des sentinelles géantes protégeant l’intérieur de l’ancienne forêt.\nQuand vous entrez, vous êtes étreint par des ombres profondes, mais dont l’obscurité ne suscite ni la peur ni l’insécurité. Le murmure chantant du vent entre les arbres semble vouloir raconter des histoires des temps immémoriaux.\nLa lumière du soleil, qui parfois se faufile entre les branches et les feuilles, créé des clairières reposantes et dorées.  Plus on s’enfonce au cœur de la forêt, plus on comprend que l’austérité des grands troncs qui vous entourent et l’intensité de l’obscurité qui vous enveloppe n’ont d’autre but que de protéger les vies qui s’y trouvent."
+    },
+    "floodedPlains": {
+      "name": "Plaines inondées",
+      "title": "Les Plaines Inondées",
+      "description": "L’horizon commence à se rapprocher étrangement, plus qu’il ne le devrait. Le ciel semble consumer le sol, comme si vous arriviez au bord du monde. Puis vous posez le pied dans le vide… et réalisez que vous vous trouvez sur une immense plaine inondée. À l’exception de petits îlots occupés par d’immenses arbres aux troncs massifs, il ne semble pas que l’on puisse trouver de terre ferme de sitôt. Pourtant, l’eau calme, profonde d’une coudée, caresse vos chevilles et repose vos muscles fatigués du voyage."
+    },
+    "mushroomJungle": {
+      "name": "Jungle de champignons",
+      "title": "La Jungle de Champignons",
+      "description": "Une odeur âcre se fait sentir et l’air devient humide. Des dizaines, des centaines, des milliers de spores envahissent l’air tandis que vous déambulez entre d’énormes champignons. Il devient difficile de respirer. C’est un endroit impossible à parcourir pour les voyageurs non préparés. On peut y trouver la mort, mais ce sera une mort douce, car chaque mort ici est destinée à nourrir le début de nouvelles vies."
+    },
+    "fieldSea": {
+      "name": "Mer champêtre",
+      "title": "La Mer Champêtre",
+      "description": "Le vent se lève et se met à souffler plus fort. Le bruissement reposant de l’herbe se mêle au chant des grillons dans une calme mélodie. Le soleil qui se reflète dans l’immensité du champ vert vous fait penser l’espace d’un instant à un tapis d’or infini qui se déroule devant vous. Les arbres verdoyants, courbés par le vent et les nombreuses parcelles de légumes sauvages révèlent une terre fertile comme il en existe peu."
+    },
+    "silentDesert": {
+      "name": "Désert silencieux",
+      "title": "Le Désert Silencieux",
+      "description": "L’air commence à s’assécher et à devenir vif. Le vent semble poussé par le soleil lui-même. L’horizon se déforme avec la chaleur, tandis que de grands plateaux de terre rougeâtre, parsemés de petits cactus cylindriques, peuplent le paysage devant vos yeux. Vous êtes au coeur d’un silence et d’un calme absolu."
+    },
+    "titanGardens": {
+      "name": "Jardins titanesques",
+      "title": "Les Jardins Titanesques",
+      "description": "Une avalanche de couleurs s’empare de vous. Des pétales flottent dans l’air et les tiges de plantes géantes longent la route. Un jardin aussi vaste que l’horizon se dresse devant vous. Lys, tournesols, roses, marguerites et autres innombrables fleurs éblouissantes montent jusqu’au ciel, contemplant chaque voyageur qui traverse leur domaine."
+    },
+    "core": {
+      "name": "Le Noyau",
+      "title": "Le Noyau"
+    },
+    "unexplored": {
+      "name": "Inexploré"
+    }
+  },
   "characters_list": {
     "archetype_line": "Archétype : {value}",
     "dead_character_name": "✝ {name} <separator>—</separator> <status>Mort·e</status>",
@@ -212,6 +251,7 @@
       "delete": "Supprimer",
       "edit": "Éditer",
       "expand": "Agrandir",
+      "explore": "Explorer",
       "finish": "Terminer",
       "generate": "Générer",
       "go_to": "Aller à « {destination} »",
@@ -231,6 +271,7 @@
     "conjunction": "et",
     "could_not_parse_link": "Impossible d’afficher ce lien dans une fenêtre : ouvrez-le dans le générateur.",
     "current_label": "Actuel",
+    "description": "Description",
     "die": "Dé {value}",
     "display_1D6": "1D6 : <dice></dice>",
     "display_2D6": "2D6 : <dice></dice>",
@@ -311,22 +352,6 @@
       "Q": "Dame",
       "K": "Roi",
       "A": "As"
-    },
-    "biomes": {
-      "unexplored": "Inexploré",
-      "shadowForest": "Forêt des ombres",
-      "shadowForest_description": "Des arbres colossaux se dressent devant vous, telles des sentinelles géantes protégeant l’intérieur de l’ancienne forêt. Quand vous entrez, vous êtes étreint par des ombres profondes, mais dont l’obscurité ne suscite ni la peur ni l’insécurité. Le murmure chantant du vent entre les arbres semble vouloir raconter des histoires des temps immémoriaux. La lumière du soleil, qui parfois se faufile entre les branches et les feuilles, créé des clairières reposantes et dorées.  Plus on s’enfonce au cœur de la forêt, plus on comprend que l’austérité des grands troncs qui vous entourent et l’intensité de l’obscurité qui vous enveloppe n’ont d’autre but que de protéger les vies qui s’y trouvent.",
-      "floodedPlains": "Plaines inondées",
-      "floodedPlains_description": "L’horizon commence à se rapprocher étrangement, plus qu’il ne le devrait. Le ciel semble consumer le sol, comme si vous arriviez au bord du monde. Puis vous posez le pied dans le vide… et réalisez que vous vous trouvez sur une immense plaine inondée. À l’exception de petits îlots occupés par d’immenses arbres aux troncs massifs, il ne semble pas que l’on puisse trouver de terre ferme de sitôt. Pourtant, l’eau calme, profonde d’une coudée, caresse vos chevilles et repose vos muscles fatigués du voyage.",
-      "mushroomJungle": "Jungle de champignons",
-      "mushroomJungle_description": "Une odeur âcre se fait sentir et l’air devient humide. Des dizaines, des centaines, des milliers de spores envahissent l’air tandis que vous déambulez entre d’énormes champignons. Il devient difficile de respirer. C’est un endroit impossible à parcourir pour les voyageurs non préparés. On peut y trouver la mort, mais ce sera une mort douce, car chaque mort ici est destinée à nourrir le début de nouvelles vies.",
-      "fieldSea": "Mer champêtre",
-      "fieldSea_description": "Le vent se lève et se met à souffler plus fort. Le bruissement reposant de l’herbe se mêle au chant des grillons dans une calme mélodie. Le soleil qui se reflète dans l’immensité du champ vert vous fait penser l’espace d’un instant à un tapis d’or infini qui se déroule devant vous. Les arbres verdoyants, courbés par le vent et les nombreuses parcelles de légumes sauvages révèlent une terre fertile comme il en existe peu.",
-      "silentDesert": "Désert silencieux",
-      "silentDesert_description": "L’air commence à s’assécher et à devenir vif. Le vent semble poussé par le soleil lui-même. L’horizon se déforme avec la chaleur, tandis que de grands plateaux de terre rougeâtre, parsemés de petits cactus cylindriques, peuplent le paysage devant vos yeux. Vous êtes au coeur d’un silence et d’un calme absolu.",
-      "titanGardens": "Jardins titanesques",
-      "titanGardens_description": "Une avalanche de couleurs s’empare de vous. Des pétales flottent dans l’air et les tiges de plantes géantes longent la route. Un jardin aussi vaste que l’horizon se dresse devant vous. Lys, tournesols, roses, marguerites et autres innombrables fleurs éblouissantes montent jusqu’au ciel, contemplant chaque voyageur qui traverse leur domaine.",
-      "core": "Le Noyau"
     },
     "suits": {
       "spades": "Pique",
@@ -514,6 +539,7 @@
     "inhabitant_generator": "Générateur d’habitant",
     "login": "Connexion",
     "logout": "Déconnexion",
+    "lore": "Monde",
     "new_character": "Nouveau Protecteur",
     "settings": "Paramètres",
     "village_generator": "Générateur de village"
