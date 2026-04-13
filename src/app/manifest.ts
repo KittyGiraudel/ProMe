@@ -20,6 +20,7 @@ export default async function manifest(): Promise<
     },
     start_url: '/',
     display: 'standalone',
+    orientation: 'portrait',
     background_color: '#ffffff',
     theme_color: '#000000',
     icons: [
