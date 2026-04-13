@@ -1,12 +1,23 @@
 import type { MetadataRoute } from 'next'
+import { getTranslations } from 'next-intl/server'
 
 const isDev = process.env.NODE_ENV === 'development'
 
-export default function manifest(): MetadataRoute.Manifest {
+export default async function manifest(): Promise<
+  Omit<MetadataRoute.Manifest, 'description'> & {
+    description: Record<string, { value: string }>
+  }
+> {
+  const en = await getTranslations({ locale: 'en' })
+  const fr = await getTranslations({ locale: 'fr' })
+
   return {
     name: isDev ? 'ProMe (dev)' : 'ProMe',
     short_name: isDev ? 'ProMe (dev)' : 'ProMe',
-    description: 'A companion app for the Protector’s Memories solo TTRPG.',
+    description: {
+      en: { value: en('metadata.description') },
+      fr: { value: fr('metadata.description') },
+    },
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',
