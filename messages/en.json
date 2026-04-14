@@ -3,36 +3,42 @@
     "shadowForest": {
       "name": "Shadow Forest",
       "title": "The Shadow Forest",
+      "teaser": "Step into a forest where towering sentinels guard forgotten tales—shadows whisper, golden glades beckon, and the darkness cradles life like a sanctuary.",
       "description": "Colossal trees rise before you, like giant sentinels protecting the heart of the ancient forest. As you enter, you are embraced by deep shadows, yet their darkness inspires neither fear nor insecurity. The singing murmur of the wind among the trees seems to whisper tales of time immemorial. Sunlight, which sometimes filters through the branches and leaves, creates restful, golden clearings. The deeper you venture into the heart of the forest, the more you understand that the starkness of the great trunks surrounding you and the intensity of the enveloping darkness serve no other purpose than to protect the lives that dwell within.",
       "magic": "How do you live your friendship with the night? How can darkness shelter other feelings than fear?"
     },
     "floodedPlains": {
       "name": "Flooded Plains",
       "title": "The Flooded Plains",
+      "teaser": "The horizon swallows the earth, then your steps sink into a vast flooded plain—calm waters soothe your weary feet between islands of ancient, towering trees.",
       "description": "The horizon begins to approach strangely, closer than it should. The sky seems to consume the ground, as if you were reaching the edge of the world. Then you step into the void… and realize you are standing on a vast flooded plain. Except for small islands inhabited by immense trees with massive trunks, it doesn’t seem that you’ll find any dry land anytime soon. Yet the calm water, a cubit deep, caresses your ankles and soothes your muscles, weary from the journey.",
       "magic": "How do you tame the force of the cascades and learn to be fluid like rivers?"
     },
     "mushroomJungle": {
       "name": "Mushroom Jungle",
       "title": "The Mushroom Jungle",
+      "teaser": "The air thickens with choking spores among giant mushrooms. Here, even death is gentle, promising rebirth in the cycle of life.",
       "description": "A pungent odor fills the air, and the air becomes humid. Dozens, hundreds, thousands of spores invade the air as you wander among enormous mushrooms. Breathing becomes difficult. This is an impossible place for unprepared travelers. Death may come here, but it will be a gentle death, for every death here is destined to nourish the beginnings of new life.",
       "magic": "How can something that feeds on death give strength to something that is alive?"
     },
     "fieldSea": {
       "name": "Sea of Fields",
       "title": "The Sea of Fields",
+      "teaser": "The wind stirs a lullaby of grass and crickets, while an endless golden carpet unfolds beneath the sun—a land of boundless fertility.",
       "description": "The wind picks up and begins to blow harder. The soothing rustling of the grass mingles with the chirping of crickets in a calm melody. The sun, reflecting off the vast green field, makes you think for a moment of an endless golden carpet unfolding before you. The verdant trees, bent by the wind, and the numerous patches of wild vegetables reveal a fertile land like few others.",
       "magic": "How can you make the wind blow in your favor? How can the greenery help you?"
     },
     "silentDesert": {
       "name": "Silent Desert",
       "title": "The Silent Desert",
+      "teaser": "Scorching winds warp the horizon, carving red plateaus where cacti stand sentinel in absolute, sun-drenched silence.",
       "description": "The air begins to dry and crisp. The wind seems driven by the sun itself. The horizon distorts with the heat, while vast plateaus of reddish earth, dotted with small cylindrical cacti, populate the landscape before your eyes. You are enveloped in absolute silence and calm.",
       "magic": "How can silence support you and noise protect you?"
     },
     "titanGardens": {
       "name": "Titan Gardens",
       "title": "The Titan Gardens",
+      "teaser": "A blizzard of petals fills the air as colossal blooms line the path—a horizon-wide garden of lilies, sunflowers, and roses, watching over every traveler.",
       "description": "An avalanche of color envelops you. Petals float in the air, and the stems of giant plants line the road. A garden as vast as the horizon unfolds before you. Lilies, sunflowers, roses, daisies, and countless other dazzling blooms reach for the sky, gazing down upon every traveler who passes through their domain.",
       "magic": "How can fragility be strong and colors powerful?"
     },
