@@ -93,7 +93,7 @@
 
 @media (min-width: 900px) {
   .BiomeHero__scrollHint {
-    right: 7em;
+    right: 3em;
     bottom: 3em;
     left: auto;
     transform: none;
