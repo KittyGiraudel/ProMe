@@ -1,7 +1,6 @@
 'use client'
 
 import { Layout } from 'antd'
-import { useTranslations } from 'next-intl'
 import { useEffect } from 'react'
 import { Footer } from '@/components/Footer/Footer'
 import { BIOME_IDS } from '@/constants/misc'
@@ -39,7 +38,7 @@ export function BiomePage({ biome }: Props) {
       document.documentElement.dataset.appTheme = prev ?? ''
       document.body.dataset.biome = ''
     }
-  }, [])
+  }, [biome])
 
   return (
     <Layout className='BiomePage' data-biome={biome}>

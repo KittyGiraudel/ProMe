@@ -9,7 +9,7 @@ import { BIOME_IDS } from '@/constants/misc'
 import { useWatchedJournal } from '@/hooks/useCharacterSheetDerived'
 import { CellCoordinate } from '@/lib/character/types'
 import type { JournalEntryLink } from '@/lib/journal/cellReferenceIndex'
-import type { BiomeId, TranslationKey } from '@/lib/types'
+import type { BiomeId } from '@/lib/types'
 import { useMapActions } from './useMapActions'
 
 const MAX_JOURNAL_LINKS_IN_MENU = 5

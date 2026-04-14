@@ -8,7 +8,6 @@ import {
   formatDisplayedCellReference,
   getGlobalFromSheetCell,
 } from '@/lib/map/coordinates'
-import { TranslationKey } from '@/lib/types'
 import { useCellState } from './useCellState'
 
 import './MapCell.css'

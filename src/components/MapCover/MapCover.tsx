@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl'
 import { CardCover } from '@/components/CardCover/CardCover'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
-import { PossibleBiomeId, TranslationKey } from '@/lib/types'
+import { PossibleBiomeId } from '@/lib/types'
 
 import './MapCover.css'
 

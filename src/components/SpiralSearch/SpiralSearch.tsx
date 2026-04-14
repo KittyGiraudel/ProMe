@@ -106,7 +106,8 @@ export function SpiralSearch() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         isInView = entry.isIntersecting
-        isInView ? start() : stop()
+        if (isInView) start()
+        else stop()
       },
       { threshold: 0.01 }
     )

@@ -14,10 +14,9 @@ export function AudioCard({ biome }: { biome: PossibleBiomeId }) {
     enabled: settings.sound.enabled,
     variant: settings.sound.variant,
   })
+  const { name, url } = useBiomeTrack(biome, 'random')
 
   useSoundtrackPreloadNotification(preloadStatus)
-
-  const { name, url } = useBiomeTrack(biome, 'random')
 
   if (!settings.sound.enabled) return null
 
