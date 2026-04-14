@@ -1,5 +1,8 @@
 'use client'
 
+import MoonFilled from '@ant-design/icons/lib/icons/MoonFilled'
+import SunFilled from '@ant-design/icons/lib/icons/SunFilled'
+import { useTranslations } from 'next-intl'
 import './BiomeThemeToggle.css'
 
 type Props = {
@@ -8,8 +11,11 @@ type Props = {
 }
 
 export function BiomeThemeToggle({ biomeTheme, onToggle }: Props) {
+  const t = useTranslations()
   const label =
-    biomeTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+    biomeTheme === 'dark'
+      ? t('biomes.theme.switchToLight')
+      : t('biomes.theme.switchToDark')
 
   return (
     <button
@@ -17,7 +23,7 @@ export function BiomeThemeToggle({ biomeTheme, onToggle }: Props) {
       onClick={onToggle}
       aria-label={label}
       title={label}>
-      {biomeTheme === 'dark' ? '☀' : '☾'}
+      {biomeTheme === 'dark' ? <SunFilled /> : <MoonFilled />}
     </button>
   )
 }

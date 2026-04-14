@@ -48,6 +48,10 @@
     },
     "unexplored": {
       "name": "Unexplored"
+    },
+    "theme": {
+      "switchToLight": "Switch to light mode",
+      "switchToDark": "Switch to dark mode"
     }
   },
   "characters_list": {
