@@ -398,7 +398,7 @@
         "2": "**Une Ruine apparaît au milieu de la masse de champignons qui s’étend de tous côtés.**\n*Consultez la p. 63 si vous voulez y entrer.*",
         "5": "**Vous découvrez un Bolet Titan**, un immense champignon. Tirez une carte pour déterminer à quel type il appartient.\n*Pour en savoir plus sur les Bolets Titans, reportez-vous à la page 26.*\n- ♦ Un Bolet Titan **stationnaire**.\n- ♥ Un Bolet Titan **ambulant**.\n- ♣ Un Bolet Titan **stationnaire et vénéreux**.\n- ♠ Un Bolet Titan **ambulant et vénéreux**.",
         "6": "**Vous découvrez un Bolet Titan étendu au sol.** Il a péri ou oublié de se réveiller, donnant ainsi vie à des milliers d’autres champignons.\n*Rendez-vous à la page 26 and choisissez un objet dans la table de collecte même si vous n’avez pas d’équipement d’escalade.*",
-        "3|4": "**Vous découvrez un groupe de Mousserons.** Pour déterminer leur nombre, lancez 1D6.\n*Pour en savoir plus sur les Mousserons, reportez-vous page 27.*"
+        "3|4": "**Vous découvrez un groupe de Mousserons.**\nPour déterminer leur nombre, lancez 1D6.\n*Pour en savoir plus sur les Mousserons, reportez-vous page 27.*"
       },
       "fieldSea": {
         "1": "**De forts vents contraires rendent votre voyage laborieux.** Mangez ou réussissez un test de Courage pour leur résister. Si vous échouez, perdez 1 point d’Endurance ou l’objet de votre choix.\n*La prochaine fois que vous passerez à cet endroit, ces vents violents auront cessé.*",
@@ -410,7 +410,7 @@
       "shadowForest": {
         "1": "**Des ombres denses et ancestrales vous étreignent étroitement.** En raison de l’obscurité, tout ce que vous avez trouvé dans ces trois cases de la Forêt des Ombres est effacé de votre journal et de votre carte.\n*Si vous repassez par cette case, tirez d’autres rencontres.*",
         "4": "**Vous trouvez un Essaim de lucioles.** Une fois par jour, si vous passez par cet endroit, vous pouvez récupérer 1 point de n’importe quel Attribut.",
-        "2|3": "**Vous arrivez dans un [village Bruja](/fr/generators/village?f=bruja).** Pour en savoir plus sur les Brujas, voir page 18. Lorsque vous trouvez un village Bruja, allez à la page 43 et **tirez 5 cartes** pour définir le lieu.",
+        "2|3": "**Vous arrivez dans un [village Bruja](/fr/generators/village?f=bruja).**\nPour en savoir plus sur les Brujas, voir page 18. Lorsque vous trouvez un village Bruja, allez à la page 43 et **tirez 5 cartes** pour définir le lieu.",
         "5|6": "**Vous rencontrez une créature.** Tirez une carte pour savoir laquelle :\n- ♦ Un groupe de **Yabas** (voir page 19).\n- ♥ Un **Yaba** perdu (voir page 19).\n- ♣ Un **Arbre Guerrier**, ce qui déclenche un combat (voir page 19). \n- ♠ Un **Pizi** (voir page 62)."
       },
       "silentDesert": {

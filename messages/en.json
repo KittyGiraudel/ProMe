@@ -399,7 +399,7 @@
         "2": "**A Ruin appears in the middle of the mass of mushrooms that stretches in all directions.** *Consult page 63 if you want to enter.*",
         "5": "**You discover a Titan Boletus,** a giant mushroom. Draw a card to determine what type it is.\n*To learn more about Titan Boletus, refer to page 26.*\n- ♦ A **stationary** Titan Boletus.\n- ♥ An **ambulant** Titan Boletus.\n- ♣ A **stationary and venomous** Titan Boletus.\n- ♠ An **ambulant and venomous** Titan Boletus.",
         "6": "**You discover a Titan Boletus lying on the ground.** It has perished or forgotten to wake up, thus giving life to thousands of other mushrooms. *Go to page 26 and choose an item from the collection table even if you don’t have climbing equipment.*",
-        "3|4": "**You discover a group of Mousserons.** To determine their number, roll 1D6. *To learn more about Mousserons, refer to page 27.*"
+        "3|4": "**You discover a group of Mousserons.**\nTo determine their number, roll 1D6.\n*To learn more about Mousserons, refer to page 27.*"
       },
       "fieldSea": {
         "1": "**Strong headwinds make your journey laborious.** Eat or succeed in a Courage test to resist them. If you fail, lose 1 point of Endurance or an item of your choice.\n*The next time you pass through this place, these violent winds will have ceased.*",
@@ -410,14 +410,14 @@
       },
       "shadowForest": {
         "1": "**Dense and ancestral shadows tightly embrace you.** Due to the darkness, everything you have found in these three cells of the Shadow Forest is erased from your journal and map.\n*If you pass through this cell again, draw other encounters.*",
-        "4": "**You find a Swarm of fireflies.** Once a day, if you pass through this place, you can recover 1 point in any Attribute.",
-        "2|3": "**You arrive in a [Bruja village](/en/generators/village?f=bruja).** To learn more about Brujas, see page 18. When you find a Bruja village, go to page 43 and **draw 5 cards** to define the place.",
+        "4": "**You find a Swarm of fireflies.**\nOnce a day, if you pass through this place, you can recover 1 point in any Attribute.",
+        "2|3": "**You arrive in a [Bruja village](/en/generators/village?f=bruja).**\nTo learn more about Brujas, see page 18.\nWhen you find a Bruja village, go to page 43 and **draw 5 cards** to define the place.",
         "5|6": "**You encounter a creature.** Draw a card to find out which one:\n- ♦ A group of **Yabas** (see page 19).\n- ♥ A **lost Yaba** (see page 19).\n- ♣ A **Warrior Tree**, which triggers a combat (see page 19).\n- ♠ A **Pizi** (see page 62)."
       },
       "silentDesert": {
         "1": "**A Ruin emerges from the sandy rocks.**\n*Go to page 63 if you want to explore it.*",
         "2": "**You discover an oasis.** *To learn more, refer to page 36.* Draw a card to find out what type of oasis you have found.\n- ♥♦ A **palm paradise**.\n- ♠♣ A **cactus sanctuary**.",
-        "3|4": "**You encounter a Kiore.** *To learn more, consult page 34. Go to page 57 if you want to define the Kiore’s personality.\nIf you return here, the Kiore will no longer be there.*",
+        "3|4": "**You encounter a Kiore.**\n*To learn more, consult page 34. Go to page 57 if you want to define the Kiore’s personality.\nIf you return here, the Kiore will no longer be there.*",
         "5|6": "**You encounter a Desert Scarab.** *To learn more, read page 37.* Draw a card to discover what type of Scarab you have encountered.\n- ♦ A **peaceful** Scarab.\n- ♥ An **aggressive** Scarab.\n- ♠♣ A **flipped** Scarab."
       },
       "titanGardens": {

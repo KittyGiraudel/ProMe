@@ -1,0 +1,15 @@
+.BiomeEncounters .EncountersList {
+  padding-left: 3em;
+}
+
+.BiomeEncounters .EncountersList__item {
+  margin-bottom: 1em;
+}
+
+.BiomeEncounters .EncountersList__item::before {
+  font-size: 3em;
+  color: var(--biome-dark);
+  line-height: 0.7;
+  top: -0.05em;
+  margin-right: 0.6ch;
+}
