@@ -14,8 +14,8 @@
 }
 
 .ant-menu-submenu .ant-menu-item-selected {
-  --ant-menu-item-selected-bg: var(--biome-light); /* 1 */
-  --ant-menu-dark-item-selected-bg: var(--biome-dark); /* 1 */
+  --ant-menu-item-selected-bg: var(--biome-light, var(--prome-surface)); /* 1 */
+  --ant-menu-dark-item-selected-bg: var(--biome-dark, var(--prome-surface)); /* 1 */
 }
 
 @media (max-width: 767px) {
