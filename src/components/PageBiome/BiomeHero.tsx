@@ -25,7 +25,7 @@ export function BiomeHero({ biome, bannerSrc, index }: Props) {
       <div className='BiomeHero__overlay' />
       <div className='BiomeHero__content'>
         <p className='BiomeHero__eyebrow'>
-          Biome {String(index + 1).padStart(2, '0')}
+          Biome {String(index + 1).padStart(2, '0')} —
         </p>
         <h1 className='BiomeHero__title'>{t(`biomes.${biome}.title`)}</h1>
         <p className='BiomeHero__teaser'>{t(`biomes.${biome}.teaser`)}</p>
