@@ -44,7 +44,7 @@
 .BiomeGathering__hint {
   margin-top: 1.1em;
   padding: 1em 1.4em;
-  background: rgb(255 255 255 / 0.03);
+  background: var(--biome-hint-bg);
   border-left: 2px solid var(--biome-accent);
   font-family: Georgia, serif;
   font-size: 0.95em;
