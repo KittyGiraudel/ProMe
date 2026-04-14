@@ -15,14 +15,9 @@
     var(--biome-light-contrast),
     var(--biome-dark-contrast)
   );
-  --ant-layout-header-padding: 0 2.5em;
+  --ant-layout-header-padding: 0em;
   display: flex;
-}
-
-@media (max-width: 767px) {
-  .BiomeHeader {
-    --ant-layout-header-padding: 0 0.5em;
-  }
+  opacity: 0.85;
 }
 
 /**
@@ -30,7 +25,7 @@
  *    the focus on the hero and its full-bleed image.
  */
 .BiomeHeader[data-scrolled="false"]:not(:is(:hover, :focus-within)) {
-  opacity: 0.3; /* 1 */
+  opacity: 0.5;
 }
 
 /**
@@ -38,7 +33,7 @@
  */
 body:has(.ant-menu-submenu-popup:not(.ant-menu-submenu-hidden))
 .BiomeHeader[data-scrolled="false"] {
-  opacity: 1; /* 1 */
+  opacity: 0.85; /* 1 */
 }
 
 .BiomeHeader[data-scrolled="true"] {
@@ -48,4 +43,8 @@ body:has(.ant-menu-submenu-popup:not(.ant-menu-submenu-hidden))
   );
   backdrop-filter: blur(8px);
   box-shadow: 0 1px 0 rgb(255 255 255 / 0.06);
+}
+
+.BiomeHeader.BiomeHeader > .Navigation {
+  background-color: transparent;
 }

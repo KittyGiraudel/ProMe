@@ -5,12 +5,18 @@
   cursor: pointer;
   transition: 0.3s;
   line-height: 1;
-  margin: 0 1em;
+  margin: 0 3.5em 0 1em;
   display: flex;
   justify-content: center;
   align-items: stretch;
   height: 100%;
   border-bottom: 2px solid transparent;
+}
+
+@media (max-width: 767px) {
+  .ThemeToggleButton {
+    margin: 0 2em 0 1em;
+  }
 }
 
 .ThemeToggleButton:not(:disabled):hover,

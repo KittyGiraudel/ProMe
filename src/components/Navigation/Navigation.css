@@ -7,9 +7,17 @@
   width: 100%;
   background-color: inherit;
   color: inherit;
+  padding-left: 2.5em;
+  border-bottom: none;
   --ant-menu-dark-item-selected-bg: transparent; /* 1 */
   --ant-menu-horizontal-item-selected-color: var(--ant-menu-item-color); /* 2 */
   --ant-menu-sub-menu-item-selected-color: var(--ant-menu-item-color); /* 2 */
+}
+
+@media (max-width: 767px) {
+  .Navigation.ant-menu.ant-menu {
+    padding-left: 0.5em;
+  }
 }
 
 .ant-menu-submenu .ant-menu-item-selected {

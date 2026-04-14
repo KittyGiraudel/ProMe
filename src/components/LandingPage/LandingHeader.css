@@ -2,12 +2,6 @@
   display: flex;
   align-items: center;
   --ant-layout-header-bg: var(--prome-bg);
-  --ant-layout-header-padding: 0 2.5em;
+  --ant-layout-header-padding: 0em;
   --ant-layout-header-height: 3em !important;
-}
-
-@media (max-width: 767px) {
-  .LandingHeader {
-    --ant-layout-header-padding: 0 0.5em;
-  }
 }
