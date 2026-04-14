@@ -78,7 +78,7 @@ export const BIOME_FONTS: Partial<
   // Example — replace with final choices:
   shadowForest: { family: 'Caesar Dressing', googleFamily: 'Caesar+Dressing' },
   mushroomJungle: { family: 'Shizuru', googleFamily: 'Shizuru' },
-  floodedPlains: { family: 'Rubik Puddles', googleFamily: 'Rubik+Puddles' },
+  floodedPlains: { family: 'Rubik Marker Hatch', googleFamily: 'Rubik+Marker+Hatch' },
   titanGardens: {
     family: 'Mountains of Christmas',
     googleFamily: 'Mountains+of+Christmas',
