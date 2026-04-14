@@ -41,13 +41,13 @@ export function BiomePage({ biome }: Props) {
     <Layout className='BiomePage' data-biome={biome}>
       <BiomeHeader />
       <BiomeHero biome={biome} bannerSrc={BANNER_SRCS[biome] ?? null} />
-      <main className='BiomePage__content'>
+      <Layout.Content className='BiomePage__content'>
         <BiomeDescription biome={biome} />
         <BiomeAudio biome={biome} />
         <BiomeEncounters biome={biome} />
         <BiomeGathering biome={biome} />
         <BiomeMap biome={biome} />
-      </main>
+      </Layout.Content>
       <Layout.Footer className='BiomePage__footer'>
         <Footer />
       </Layout.Footer>

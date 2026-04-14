@@ -1,3 +1,7 @@
+.BiomeSection {
+  margin: 3em auto;
+}
+
 .BiomeSection__head {
   display: flex;
   align-items: center;
@@ -6,7 +10,8 @@
 }
 
 .BiomeSection__title {
-  font-size: 0.75em;
+  font-size: 0.8em;
+  font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--biome-accent);

@@ -5,6 +5,9 @@
   font-size: 16px; /* em base for all children */
   display: flex;
   flex-direction: column;
+  background-color: var(--biome-bg);
+  color: var(--biome-text);
+  --ant-layout-body-bg: var(--biome-bg) !important;
 }
 
 /* ── Per-biome palette tokens ───────────────────────────────── */
@@ -86,13 +89,10 @@
 /* ── Content ──────────────────────────────────────────────────── */
 
 .BiomePage__content {
-  background: var(--biome-bg);
-  color: var(--biome-text);
-  padding: 4em 3em;
-  display: flex;
-  flex-direction: column;
-  gap: 4em;
-  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2em;
+  color: inherit;
 }
 
 /* ── Footer ──────────────────────────────────────────────────── */
