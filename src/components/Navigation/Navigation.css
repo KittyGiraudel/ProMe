@@ -7,7 +7,11 @@
   margin-left: auto;
 }
 
-.BiomePage .ant-menu-dark.ant-menu-horizontal > .ant-menu-submenu-selected,
+.BiomePage .ant-menu-dark.ant-menu-horizontal > .ant-menu-submenu-selected {
+  --ant-menu-dark-item-selected-bg: rgb(0 0 0 / 0.3);
+  --ant-menu-dark-item-selected-color: var(--biome-dark-contrast);
+}
+
 body:has(.BiomePage) .ant-menu-submenu .ant-menu-item-selected {
   --ant-menu-dark-item-selected-bg: var(--biome-dark);
   --ant-menu-dark-item-selected-color: var(--biome-dark-contrast);
