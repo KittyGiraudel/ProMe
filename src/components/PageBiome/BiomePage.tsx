@@ -5,16 +5,15 @@ import { useTranslations } from 'next-intl'
 import { useEffect } from 'react'
 import { Footer } from '@/components/Footer/Footer'
 import type { BiomeId } from '@/lib/types'
-import { LoreDescription } from './LoreDescription'
-import { LoreEncounters } from './LoreEncounters'
-import { LoreGathering } from './LoreGathering'
-import { LoreHeader } from './LoreHeader'
-import { LoreHero } from './LoreHero'
+import { BiomeAudio } from './BiomeAudio'
+import { BiomeDescription } from './BiomeDescription'
+import { BiomeEncounters } from './BiomeEncounters'
+import { BiomeGathering } from './BiomeGathering'
+import { BiomeHeader } from './BiomeHeader'
+import { BiomeHero } from './BiomeHero'
+import { BiomeMap } from './BiomeMap'
 
-import './LorePage.css'
-import { MapCover } from '../MapCover/MapCover'
-import { LoreAudio } from './LoreAudio'
-import { LoreMap } from './LoreMap'
+import './BiomePage.css'
 
 const BANNER_SRCS: Partial<Record<BiomeId, string>> = {
   shadowForest: '/images/banner-shadowForest.avif',
@@ -27,7 +26,7 @@ const BANNER_SRCS: Partial<Record<BiomeId, string>> = {
 
 type Props = { biome: BiomeId }
 
-export function LorePage({ biome }: Props) {
+export function BiomePage({ biome }: Props) {
   const t = useTranslations()
 
   useEffect(() => {
@@ -39,17 +38,17 @@ export function LorePage({ biome }: Props) {
   }, [])
 
   return (
-    <Layout className='LorePage' data-biome={biome}>
-      <LoreHeader />
-      <LoreHero biome={biome} bannerSrc={BANNER_SRCS[biome] ?? null} />
-      <main className='LoreContent'>
-        <LoreDescription biome={biome} />
-        <LoreAudio biome={biome} />
-        <LoreEncounters biome={biome} />
-        <LoreGathering biome={biome} />
-        <LoreMap biome={biome} />
+    <Layout className='BiomePage' data-biome={biome}>
+      <BiomeHeader />
+      <BiomeHero biome={biome} bannerSrc={BANNER_SRCS[biome] ?? null} />
+      <main className='BiomeContent'>
+        <BiomeDescription biome={biome} />
+        <BiomeAudio biome={biome} />
+        <BiomeEncounters biome={biome} />
+        <BiomeGathering biome={biome} />
+        <BiomeMap biome={biome} />
       </main>
-      <Layout.Footer className='LorePage__footer'>
+      <Layout.Footer className='BiomePage__footer'>
         <Footer />
       </Layout.Footer>
     </Layout>

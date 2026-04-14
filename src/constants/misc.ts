@@ -63,7 +63,7 @@ export const ARCHETYPES: readonly Archetype[] = [
 ] as const
 
 /** Add one entry per biome once fonts are chosen.
- *  Biomes with no entry fall back to the serif stack in LorePage.css. */
+ *  Biomes with no entry fall back to the serif stack in BiomePage.css. */
 export const BIOME_FONTS: Partial<
   Record<
     BiomeId,

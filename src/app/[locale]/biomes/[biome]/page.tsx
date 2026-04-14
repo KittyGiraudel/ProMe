@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation'
 import { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-import { LorePage } from '@/components/PageLore/LorePage'
+import { BiomePage as Page } from '@/components/PageBiome/BiomePage'
 import { BIOME_FONTS, BIOME_IDS } from '@/constants/misc'
-import { slugToBiomeId } from '@/lib/lore/biomeSlug'
+import { slugToBiomeId } from '@/lib/biomes/biomeSlug'
 
 type Props = { params: Promise<{ locale: string; biome: string }> }
 
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props) {
   return { title: t(`biomes.${biomeId}.title`) }
 }
 
-export default async function LoreBiomePage({ params }: Props) {
+export default async function BiomePage({ params }: Props) {
   const { locale, biome: slug } = await params
   const biomeId = slugToBiomeId(slug)
   if (!biomeId) notFound()
@@ -47,15 +47,15 @@ export default async function LoreBiomePage({ params }: Props) {
             href={`https://fonts.googleapis.com/css2?family=${fontConfig.googleFamily}&text=${encodeURIComponent(biomeName)}&display=swap`}
           />
           <style>{`
-            .LorePage[data-biome='${biomeId}'] .LoreHero__title {
-              --lore-title-font: '${fontConfig.family}';
+            .BiomePage[data-biome='${biomeId}'] .BiomeHero__title {
+              --biome-title-font: '${fontConfig.family}';
               font-family: '${fontConfig.family}', sans-serif;
               ${biomeId === 'mushroomJungle' ? 'word-spacing: -40px;' : ''}
             }
           `}</style>
         </>
       )}
-      <LorePage biome={biomeId} />
+      <Page biome={biomeId} />
     </>
   )
 }

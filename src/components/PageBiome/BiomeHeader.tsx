@@ -4,7 +4,7 @@ import { Layout } from 'antd'
 import { useEffect, useState } from 'react'
 import { Navigation } from '@/components/Navigation/Navigation'
 
-export function LoreHeader() {
+export function BiomeHeader() {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -15,7 +15,7 @@ export function LoreHeader() {
 
   return (
     <Layout.Header
-      className={`LoreHeader${scrolled ? ' LoreHeader--scrolled' : ''}`}>
+      className={`BiomeHeader${scrolled ? ' BiomeHeader--scrolled' : ''}`}>
       <Navigation />
     </Layout.Header>
   )

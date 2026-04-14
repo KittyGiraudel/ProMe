@@ -8,7 +8,7 @@ type Props = { biome: BiomeId }
 
 const GATHER_KEYS = ['1', '2', '3', '4', '5', '6'] as const
 
-export function LoreGathering({ biome }: Props) {
+export function BiomeGathering({ biome }: Props) {
   const t = useTranslations()
 
   if (GATHERING_SCHEMA[biome] === null) return null
@@ -23,23 +23,23 @@ export function LoreGathering({ biome }: Props) {
 
   return (
     <section>
-      <div className='LoreContent__sectionHead'>
-        <h2 className='LoreContent__sectionLabel'>
+      <div className='BiomeContent__sectionHead'>
+        <h2 className='BiomeContent__sectionLabel'>
           {t('characters.map.gathering_dialog_title')}
         </h2>
-        <div className='LoreContent__sectionRule' />
+        <div className='BiomeContent__sectionRule' />
       </div>
-      <div className='LoreGathering__grid'>
+      <div className='BiomeGathering__grid'>
         {GATHER_KEYS.map(key => (
-          <div key={key} className='LoreGathering__item'>
-            <span className='LoreGathering__die'>{key}</span>
-            <span className='LoreGathering__value'>
+          <div key={key} className='BiomeGathering__item'>
+            <span className='BiomeGathering__die'>{key}</span>
+            <span className='BiomeGathering__value'>
               {t(`common.gathering.${biome}.${key}` as TranslationKey)}
             </span>
           </div>
         ))}
       </div>
-      {hint && <p className='LoreGathering__hint'>{hint}</p>}
+      {hint && <p className='BiomeGathering__hint'>{hint}</p>}
     </section>
   )
 }

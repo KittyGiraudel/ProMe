@@ -6,18 +6,18 @@ import { EncountersList } from '../EncountersList/EncountersList'
 
 type Props = { biome: BiomeId }
 
-export function LoreEncounters({ biome }: Props) {
+export function BiomeEncounters({ biome }: Props) {
   const t = useTranslations()
 
   return (
     <section>
-      <div className='LoreContent__sectionHead'>
-        <h2 className='LoreContent__sectionLabel'>
+      <div className='BiomeContent__sectionHead'>
+        <h2 className='BiomeContent__sectionLabel'>
           {t('characters.map.encounters_dialog_title')}
         </h2>
-        <div className='LoreContent__sectionRule' />
+        <div className='BiomeContent__sectionRule' />
       </div>
-      <div className='LoreEncounters__table'>
+      <div className='BiomeEncounters__table'>
         <EncountersList biome={biome} />
       </div>
     </section>

@@ -2,18 +2,18 @@ import { useTranslations } from 'next-intl'
 import { BiomeId } from '@/lib/types'
 import { MapCover } from '../MapCover/MapCover'
 
-export function LoreMap({ biome }: { biome: BiomeId }) {
+export function BiomeMap({ biome }: { biome: BiomeId }) {
   const t = useTranslations()
 
   return (
     <section>
-      <div className='LoreContent__sectionHead'>
-        <h2 className='LoreContent__sectionLabel'>
+      <div className='BiomeContent__sectionHead'>
+        <h2 className='BiomeContent__sectionLabel'>
           {t('characters.map.title')}
         </h2>
-        <div className='LoreContent__sectionRule' />
+        <div className='BiomeContent__sectionRule' />
       </div>
-      <div className='LoreMapCover'>
+      <div className='BiomeMapCover'>
         <MapCover biome={biome} isCore={false} />
       </div>
     </section>

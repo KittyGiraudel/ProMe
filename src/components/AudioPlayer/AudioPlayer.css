@@ -34,7 +34,7 @@
 }
 
 .AudioPlayer__progress .ant-slider-rail {
-  border: 1px solid var(--lore-border);
+  border: 1px solid var(--biome-border);
 }
 
 .AudioPlayer__volumeSlider {
@@ -42,5 +42,5 @@
 }
 
 .AudioPlayer__volumeSlider .ant-slider-rail {
-  border: 1px solid var(--lore-border);
+  border: 1px solid var(--biome-border);
 }

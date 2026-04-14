@@ -6,16 +6,18 @@ import { RichText } from '../RichText/RichText'
 
 type Props = { biome: BiomeId }
 
-export function LoreDescription({ biome }: Props) {
+export function BiomeDescription({ biome }: Props) {
   const t = useTranslations()
 
   return (
     <section>
-      <div className='LoreContent__sectionHead'>
-        <h2 className='LoreContent__sectionLabel'>{t('common.description')}</h2>
-        <div className='LoreContent__sectionRule' />
+      <div className='BiomeContent__sectionHead'>
+        <h2 className='BiomeContent__sectionLabel'>
+          {t('common.description')}
+        </h2>
+        <div className='BiomeContent__sectionRule' />
       </div>
-      <div className='LoreDescription__text'>
+      <div className='BiomeDescription__text'>
         <RichText
           text={t(`biomes.${biome}.description`).replace(/\n/g, '  \n\n')}
         />
