@@ -16,6 +16,7 @@ import { BiomeMagic } from './BiomeMagic'
 import { BiomeMap } from './BiomeMap'
 
 import './BiomePage.css'
+import { useEffect } from 'react'
 
 type Props = { biome: BiomeId }
 
@@ -24,6 +25,9 @@ export function BiomePage({ biome }: Props) {
   const { settings } = useSettings()
 
   useApplyAppTheme(settings.appearance.theme)
+  useEffect(() => {
+    document.documentElement.dataset.biome = biome
+  }, [biome])
 
   return (
     <Layout className='BiomePage' data-biome={biome}>

@@ -16,6 +16,7 @@
     var(--biome-dark-contrast)
   );
   --ant-layout-header-padding: 0 2.5em;
+  display: flex;
 }
 
 @media (max-width: 767px) {
