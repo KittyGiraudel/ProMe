@@ -1,16 +1,8 @@
 import { useEffect } from 'react'
 import { PossibleBiomeId } from '@/lib/types'
 
-const BIOMES_WITH_BANNER: PossibleBiomeId[] = [
-  'shadowForest',
-  'floodedPlains',
-  'fieldSea',
-  'silentDesert',
-  'mushroomJungle',
-]
-
 function getArtwork(biome: PossibleBiomeId): MediaImage[] {
-  if (!BIOMES_WITH_BANNER.includes(biome)) return []
+  if (biome === 'unexplored') return []
   return [{ src: `/images/banner-${biome}.avif`, type: 'image/avif' }]
 }
 

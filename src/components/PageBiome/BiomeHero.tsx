@@ -2,25 +2,25 @@
 
 import ArrowDownOutlined from '@ant-design/icons/lib/icons/ArrowDownOutlined'
 import { useTranslations } from 'next-intl'
-import { ViewTransition } from 'react'
 import type { BiomeId } from '@/lib/types'
 
 import './BiomeHero.css'
 
 type Props = {
   biome: BiomeId
-  bannerSrc: string | null
   index: number
 }
 
-export function BiomeHero({ biome, bannerSrc, index }: Props) {
+export function BiomeHero({ biome, index }: Props) {
   const t = useTranslations()
 
   return (
     <div
       className='BiomeHero'
       style={
-        { '--biome-hero-image': `url(${bannerSrc})` } as React.CSSProperties
+        {
+          '--biome-hero-image': `url(/images/banner-${biome}.avif)`,
+        } as React.CSSProperties
       }>
       <div className='BiomeHero__overlay' />
       <div className='BiomeHero__content'>

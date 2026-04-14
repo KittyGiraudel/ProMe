@@ -19,15 +19,6 @@ import { BiomeThemeToggle } from './BiomeThemeToggle'
 
 import './BiomePage.css'
 
-const BANNER_SRCS: Partial<Record<BiomeId, string>> = {
-  shadowForest: '/images/banner-shadowForest.avif',
-  floodedPlains: '/images/banner-floodedPlains.avif',
-  mushroomJungle: '/images/banner-mushroomJungle.avif',
-  fieldSea: '/images/banner-fieldSea.avif',
-  silentDesert: '/images/banner-silentDesert.avif',
-  // titanGardens: no banner yet — hero uses CSS gradient fallback
-}
-
 type Props = { biome: BiomeId }
 
 export function BiomePage({ biome }: Props) {
@@ -65,11 +56,7 @@ export function BiomePage({ biome }: Props) {
         data-biome={biome}
         data-biome-theme={biomeTheme}>
         <BiomeHeader biomeTheme={biomeTheme} />
-        <BiomeHero
-          biome={biome}
-          bannerSrc={BANNER_SRCS[biome] ?? null}
-          index={index}
-        />
+        <BiomeHero biome={biome} index={index} />
         <Layout.Content className='BiomePage__content'>
           <BiomeDescription biome={biome} />
           <BiomeMagic biome={biome} />
