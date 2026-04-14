@@ -2,7 +2,6 @@
 /* ── Shell ──────────────────────────────────────────────────── */
 .BiomePage {
   min-height: 100vh;
-  font-size: 16px; /* em base for all children */
   display: flex;
   flex-direction: column;
   background-color: var(--biome-bg);
@@ -89,10 +88,10 @@
 /* ── Content ──────────────────────────────────────────────────── */
 
 .BiomePage__content {
-  max-width: 1200px;
+  max-width: 100ch;
   margin: 0 auto;
   padding: 2em;
-  color: inherit;
+  color: inherit !important;
 }
 
 /* ── Footer ──────────────────────────────────────────────────── */

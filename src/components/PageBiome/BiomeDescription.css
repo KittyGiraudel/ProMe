@@ -1,10 +1,9 @@
 .BiomeDescription__text {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 1.2em;
-  line-height: 1.9;
+  line-height: 1.8;
   font-style: italic;
   color: var(--biome-text);
-  max-width: 70ch;
   display: flex;
   flex-direction: column;
   gap: 0.5em;

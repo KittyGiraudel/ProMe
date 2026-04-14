@@ -14,6 +14,7 @@ import { BiomeHero } from './BiomeHero'
 import { BiomeMap } from './BiomeMap'
 
 import './BiomePage.css'
+import { BIOME_IDS } from '@/constants/misc'
 
 const BANNER_SRCS: Partial<Record<BiomeId, string>> = {
   shadowForest: '/images/banner-shadowForest.avif',
@@ -27,7 +28,7 @@ const BANNER_SRCS: Partial<Record<BiomeId, string>> = {
 type Props = { biome: BiomeId }
 
 export function BiomePage({ biome }: Props) {
-  const t = useTranslations()
+  const index = BIOME_IDS.indexOf(biome)
 
   useEffect(() => {
     const prev = document.documentElement.dataset.appTheme
@@ -40,7 +41,11 @@ export function BiomePage({ biome }: Props) {
   return (
     <Layout className='BiomePage' data-biome={biome}>
       <BiomeHeader />
-      <BiomeHero biome={biome} bannerSrc={BANNER_SRCS[biome] ?? null} />
+      <BiomeHero
+        biome={biome}
+        bannerSrc={BANNER_SRCS[biome] ?? null}
+        index={index}
+      />
       <Layout.Content className='BiomePage__content'>
         <BiomeDescription biome={biome} />
         <BiomeAudio biome={biome} />

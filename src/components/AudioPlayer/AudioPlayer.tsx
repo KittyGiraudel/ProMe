@@ -7,15 +7,21 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/Button/Button'
 import { getPWADisplayMode } from '@/lib/getPWADisplayMode'
 import { PossibleBiomeId } from '@/lib/types'
-import { useBiomeTrack } from './useBiomeTrack'
 import { useMediaSession } from './useMediaSession'
 
 import './AudioPlayer.css'
 
 const FADE_DURATION_MS = 5_000
 
-export function AudioPlayer({ biome }: { biome: PossibleBiomeId }) {
-  const { name, url } = useBiomeTrack(biome)
+export function AudioPlayer({
+  biome,
+  name,
+  url,
+}: {
+  biome: PossibleBiomeId
+  name?: string
+  url: string
+}) {
   const howl = useRef<Howl | null>(null)
   const volumeRef = useRef(0.8)
   const wasPlayingRef = useRef(false)

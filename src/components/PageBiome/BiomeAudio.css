@@ -1,8 +1,21 @@
+
+.BiomeAudio__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+@media (min-width: 900px) {
+  .BiomeAudio__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .BiomeAudio__wrapper {
   background: var(--biome-surface);
   color: var(--biome-text);
   border: 1px solid var(--biome-border);
   border-radius: 0.6em;
   padding: 1em 1.2em;
-  max-width: 30em;
 }
