@@ -49,7 +49,7 @@ export function MapCard({ isDead }: { isDead: boolean }) {
 
   return (
     <>
-      <MapCover biome={currentBiome} isCore={isCore} withViewTransition />
+      <MapCover biome={currentBiome} isCore={isCore} />
       <Card
         actions={[
           <EncountersButton key='encounters' currentBiome={currentBiome} />,

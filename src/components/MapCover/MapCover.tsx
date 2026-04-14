@@ -11,11 +11,9 @@ import './MapCover.css'
 export function MapCover({
   biome,
   isCore,
-  withViewTransition = false,
 }: {
   biome: PossibleBiomeId
   isCore: boolean
-  withViewTransition?: boolean
 }) {
   const t = useTranslations()
 
@@ -33,46 +31,38 @@ export function MapCover({
     )
   }
 
-  const content = (
-    <CardCover
-      className='MapCover'
-      data-biome={biome}
-      url={`/images/banner-${biome}.avif`}
-      title={t.rich(`characters.map.location_${biome}`, {
-        b: chunks =>
+  return (
+    <ViewTransition name={`biome-banner-${biome}`}>
+      <CardCover
+        className='MapCover'
+        data-biome={biome}
+        url={`/images/banner-${biome}.avif`}
+        title={t.rich(`characters.map.location_${biome}`, {
+          b: chunks =>
+            biome !== 'unexplored' ? (
+              <BlockedLink
+                className='MapCover__link'
+                href={`/biomes/${biomeIdToSlug(biome)}#biome-map`}>
+                {chunks}
+              </BlockedLink>
+            ) : (
+              <strong>{chunks}</strong>
+            ),
+        })}
+        titleAs='h2'
+        description={
           biome !== 'unexplored' ? (
-            <BlockedLink
-              className='MapCover__link'
-              href={`/biomes/${biomeIdToSlug(biome)}#biome-map`}>
-              {chunks}
-            </BlockedLink>
-          ) : (
-            <strong>{chunks}</strong>
-          ),
-      })}
-      titleAs='h2'
-      description={
-        biome !== 'unexplored' ? (
-          <>
-            {t(`biomes.${biome}.teaser`)} ·{' '}
-            <BlockedLink
-              className='MapCover__link MapCover__link--in-text'
-              href={`/biomes/${biomeIdToSlug(biome)}#biome-map`}>
-              {t('common.actions.explore')} <ArrowRightOutlined />
-            </BlockedLink>
-          </>
-        ) : undefined
-      }
-    />
+            <>
+              {t(`biomes.${biome}.teaser`)} ·{' '}
+              <BlockedLink
+                className='MapCover__link MapCover__link--in-text'
+                href={`/biomes/${biomeIdToSlug(biome)}#biome-map`}>
+                {t('common.actions.explore')} <ArrowRightOutlined />
+              </BlockedLink>
+            </>
+          ) : undefined
+        }
+      />
+    </ViewTransition>
   )
-
-  if (withViewTransition) {
-    return (
-      <ViewTransition name={`biome-banner-${biome}`} share='morph'>
-        {content}
-      </ViewTransition>
-    )
-  }
-
-  return content
 }
