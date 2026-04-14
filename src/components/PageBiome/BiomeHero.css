@@ -17,7 +17,7 @@
   background: linear-gradient(
     180deg,
     transparent 30%,
-    rgb(0 0 0 / 0.7) 75%,
+    var(--biome-hero-scrim) 75%,
     var(--biome-bg) 97%
   );
   z-index: 2;
@@ -52,7 +52,7 @@
   font-size: 4.5em;
   font-weight: 400;
   line-height: 1;
-  color: rgb(255 255 255 / 0.8);
+  color: var(--biome-hero-text);
   text-shadow: 0 4px 32px rgb(0 0 0 / 0.6);
   margin-bottom: 1em;
 }
@@ -88,7 +88,7 @@
   font-size: 0.75em;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgb(255 255 255 / 0.3);
+  color: var(--biome-text-muted);
 }
 
 @media (min-width: 900px) {
