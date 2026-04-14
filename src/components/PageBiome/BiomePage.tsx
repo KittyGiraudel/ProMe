@@ -3,8 +3,8 @@
 import { Layout } from 'antd'
 import { useEffect, useState } from 'react'
 import { Footer } from '@/components/Footer/Footer'
-import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { BIOME_IDS } from '@/constants/misc'
+import { loadSettings } from '@/lib/settings/storage'
 import type { BiomeId } from '@/lib/types'
 import { BiomeAudio } from './BiomeAudio'
 import { BiomeDescription } from './BiomeDescription'
@@ -31,9 +31,8 @@ type Props = { biome: BiomeId }
 
 export function BiomePage({ biome }: Props) {
   const index = BIOME_IDS.indexOf(biome)
-  const { settings } = useSettings()
   const [biomeTheme, setBiomeTheme] = useState<'light' | 'dark'>(
-    settings.appearance.theme
+    () => loadSettings().appearance.theme
   )
 
   useEffect(() => {
