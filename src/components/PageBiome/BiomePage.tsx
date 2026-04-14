@@ -1,7 +1,7 @@
 'use client'
 
 import { ConfigProvider, Layout } from 'antd'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect } from 'react'
 import { useAntPalette } from '@/components/AppProviders/ThemeProvider'
 import { Footer } from '@/components/Footer/Footer'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
@@ -15,7 +15,6 @@ import { BiomeHeader } from './BiomeHeader'
 import { BiomeHero } from './BiomeHero'
 import { BiomeMagic } from './BiomeMagic'
 import { BiomeMap } from './BiomeMap'
-import { BiomeThemeToggle } from './BiomeThemeToggle'
 
 import './BiomePage.css'
 
@@ -24,38 +23,24 @@ type Props = { biome: BiomeId }
 export function BiomePage({ biome }: Props) {
   const index = BIOME_IDS.indexOf(biome)
   const { settings } = useSettings()
-  const [biomeTheme, setBiomeTheme] = useState<'light' | 'dark'>(
-    settings.appearance.theme
-  )
-  const overridden = useRef(false)
-
-  // When SettingsContext hydrates from localStorage (DEFAULT_SETTINGS → real
-  // value), propagate the real theme — unless the user already toggled manually.
-  useEffect(() => {
-    if (!overridden.current) {
-      setBiomeTheme(settings.appearance.theme)
-    }
-  }, [settings.appearance.theme])
+  const theme = settings.appearance.theme
 
   useEffect(() => {
     const prev = document.documentElement.dataset.appTheme
-    document.documentElement.dataset.appTheme = biomeTheme
+    document.documentElement.dataset.appTheme = theme
     document.body.dataset.biome = biome
     return () => {
       document.documentElement.dataset.appTheme = prev ?? ''
       document.body.dataset.biome = ''
     }
-  }, [biome, biomeTheme])
+  }, [biome, theme])
 
-  const antTheme = useAntPalette(biomeTheme)
+  const antTheme = useAntPalette(theme)
 
   return (
     <ConfigProvider theme={antTheme}>
-      <Layout
-        className='BiomePage'
-        data-biome={biome}
-        data-biome-theme={biomeTheme}>
-        <BiomeHeader biomeTheme={biomeTheme} />
+      <Layout className='BiomePage' data-biome={biome} data-biome-theme={theme}>
+        <BiomeHeader />
         <BiomeHero biome={biome} index={index} />
         <Layout.Content className='BiomePage__content'>
           <BiomeDescription biome={biome} />
@@ -68,13 +53,6 @@ export function BiomePage({ biome }: Props) {
         <Layout.Footer className='BiomePage__footer'>
           <Footer />
         </Layout.Footer>
-        <BiomeThemeToggle
-          biomeTheme={biomeTheme}
-          onToggle={() => {
-            overridden.current = true
-            setBiomeTheme(t => (t === 'dark' ? 'light' : 'dark'))
-          }}
-        />
       </Layout>
     </ConfigProvider>
   )
