@@ -11,6 +11,7 @@ import { usePathname } from '@/i18n/navigation'
 import { useAuth } from '@/lib/auth/context'
 import { biomeIdToSlug } from '@/lib/biomes/biomeSlug'
 import { BlockedLink } from './BlockedLink'
+import { ThemeToggleButton } from './ThemeToggleButton'
 
 import './Navigation.css'
 
@@ -22,7 +23,7 @@ export function Navigation({
   const t = useTranslations()
   const pathname = usePathname()
   const { loading } = useAuth()
-  const { settings } = useSettings()
+  const { settings, updateSettings } = useSettings()
   const theme = themeOverride ?? settings.appearance.theme ?? 'dark'
 
   const items = useMemo(
@@ -92,11 +93,28 @@ export function Navigation({
         label: <BlockedLink href='/settings'>{t('nav.settings')}</BlockedLink>,
       },
       {
+        key: '/theme-toggle',
+        label: (
+          <ThemeToggleButton
+            theme={settings.appearance.theme}
+            onToggle={() =>
+              updateSettings(prev => ({
+                ...prev,
+                appearance: {
+                  ...prev.appearance,
+                  theme: prev.appearance.theme === 'dark' ? 'light' : 'dark',
+                },
+              }))
+            }
+          />
+        ),
+      },
+      {
         key: '/authentication',
         label: <AuthButton />,
       },
     ],
-    [t]
+    [t, settings.appearance.theme, updateSettings]
   )
 
   const selected = useMemo(() => {
