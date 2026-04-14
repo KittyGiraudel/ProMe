@@ -9,7 +9,7 @@
 
 @media (max-width: 767px) {
   .Layout__header {
-    --ant-layout-header-padding: 1em;
+    --ant-layout-header-padding: 0em;
   }
 }
 

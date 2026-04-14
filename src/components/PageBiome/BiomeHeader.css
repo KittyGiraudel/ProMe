@@ -13,6 +13,13 @@
   --ant-layout-header-height: 3em !important;
 }
 
+
+@media (max-width: 767px) {
+  .BiomeHeader {
+    --ant-layout-header-padding: 0em;
+  }
+}
+
 .BiomeHeader[data-scrolled="true"] {
   background-color: color-mix(var(--biome-surface), transparent 50%);
   backdrop-filter: blur(8px);
