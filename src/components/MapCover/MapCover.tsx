@@ -1,19 +1,22 @@
+import ArrowRightOutlined from '@ant-design/icons/lib/icons/ArrowRightOutlined'
 import { useTranslations } from 'next-intl'
+import { ViewTransition } from 'react'
 import { CardCover } from '@/components/CardCover/CardCover'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
+import { biomeIdToSlug } from '@/lib/biomes/biomeSlug'
 import { PossibleBiomeId } from '@/lib/types'
+import { BlockedLink } from '../Navigation/BlockedLink'
 
 import './MapCover.css'
-import ArrowRightOutlined from '@ant-design/icons/lib/icons/ArrowRightOutlined'
-import { biomeIdToSlug } from '@/lib/biomes/biomeSlug'
-import { BlockedLink } from '../Navigation/BlockedLink'
 
 export function MapCover({
   biome,
   isCore,
+  withViewTransition = false,
 }: {
   biome: PossibleBiomeId
   isCore: boolean
+  withViewTransition?: boolean
 }) {
   const t = useTranslations()
   const { settings } = useSettings()
@@ -36,7 +39,7 @@ export function MapCover({
     )
   }
 
-  return (
+  const content = (
     <CardCover
       className='MapCover'
       data-biome={biome}
@@ -46,7 +49,7 @@ export function MapCover({
           biome !== 'unexplored' ? (
             <BlockedLink
               className='MapCover__link'
-              href={`/biomes/${biomeIdToSlug(biome)}`}>
+              href={`/biomes/${biomeIdToSlug(biome)}#biome-map`}>
               {chunks}
             </BlockedLink>
           ) : (
@@ -60,7 +63,7 @@ export function MapCover({
             {t(`biomes.${biome}.teaser`)} ·{' '}
             <BlockedLink
               className='MapCover__link MapCover__link--in-text'
-              href={`/biomes/${biomeIdToSlug(biome)}`}>
+              href={`/biomes/${biomeIdToSlug(biome)}#biome-map`}>
               {t('common.actions.explore')} <ArrowRightOutlined />
             </BlockedLink>
           </>
@@ -68,4 +71,14 @@ export function MapCover({
       }
     />
   )
+
+  if (withViewTransition) {
+    return (
+      <ViewTransition name={`biome-banner-${biome}`} share='morph'>
+        {content}
+      </ViewTransition>
+    )
+  }
+
+  return content
 }

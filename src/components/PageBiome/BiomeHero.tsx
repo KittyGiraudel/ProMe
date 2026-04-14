@@ -1,10 +1,11 @@
 'use client'
 
+import ArrowDownOutlined from '@ant-design/icons/lib/icons/ArrowDownOutlined'
 import { useTranslations } from 'next-intl'
+import { ViewTransition } from 'react'
 import type { BiomeId } from '@/lib/types'
 
 import './BiomeHero.css'
-import ArrowDownOutlined from '@ant-design/icons/lib/icons/ArrowDownOutlined'
 
 type Props = {
   biome: BiomeId

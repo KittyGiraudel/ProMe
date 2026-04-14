@@ -17,6 +17,9 @@ const withSerwist = withSerwistInit({
 })
 
 const nextConfig: NextConfig = {
+  experimental: {
+    viewTransition: true,
+  },
   reactStrictMode: false,
   env: {
     NEXT_PUBLIC_COMMIT_SHA: revision,

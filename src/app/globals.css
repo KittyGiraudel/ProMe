@@ -390,3 +390,15 @@ html:has([role="dialog"]) {
   user-select: none;
   letter-spacing: 0.05em;
 }
+
+::view-transition-group(.morph) {
+  animation-duration: 400ms;
+}
+::view-transition-image-pair(.morph) {
+  animation-name: via-blur;
+}
+@keyframes via-blur {
+  30% {
+    filter: blur(3px);
+  }
+}

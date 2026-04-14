@@ -13,7 +13,6 @@
   --ant-layout-header-height: 3em !important;
 }
 
-
 @media (max-width: 767px) {
   .BiomeHeader {
     --ant-layout-header-padding: 0em;

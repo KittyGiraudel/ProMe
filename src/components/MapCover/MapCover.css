@@ -37,7 +37,8 @@
   transition: 0.3s ease;
 }
 
-.MapCover__link:hover, .MapCover__link:focus {
+.MapCover__link:hover,
+.MapCover__link:focus {
   color: inherit;
   border-bottom-color: var(--biome-light);
 }
