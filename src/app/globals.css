@@ -30,7 +30,7 @@ body {
   display: flex;
   flex-direction: column;
   color: var(--prome-text);
-  background: var(--prome-bg);
+  background-color: var(--prome-bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -8,6 +8,13 @@
   padding-top: 1em;
 }
 
+@media (max-width: 767px) {
+  .Footer {
+    text-align: center;
+    justify-content: center;
+  }
+}
+
 .Footer__copyright {
   flex: 1 1 auto;
   min-width: 0;
