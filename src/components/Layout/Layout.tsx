@@ -10,6 +10,7 @@ import { Navigation } from '@/components/Navigation/Navigation'
 import { Spacing } from '@/components/Spacing/Spacing'
 import { AppTheme } from '@/lib/settings/types'
 import type { PossibleBiomeId } from '@/lib/types'
+import { useApplyAppTheme } from '@/hooks/useApplyAppTheme'
 
 import './Layout.css'
 
@@ -33,18 +34,7 @@ export const Layout = ({
   className = '',
   appThemeOverride,
 }: LayoutProps) => {
-  const { appTheme } = useContext(AppearanceContext)
-
-  useEffect(
-    function applyAppTheme() {
-      // The reason we do that with a `useEffect` instead of just placing the
-      // `data-app-theme` attribute on `AntLayout` is because there are components
-      // that get rendered outside of `AntLayout` (e.g. notifications, floating
-      // editor, etc.).
-      document.documentElement.dataset.appTheme = appThemeOverride ?? appTheme
-    },
-    [appThemeOverride, appTheme]
-  )
+  useApplyAppTheme(appThemeOverride)
 
   return (
     <AntLayout className={`Layout ${className}`}>

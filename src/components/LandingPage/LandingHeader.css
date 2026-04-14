@@ -1,4 +1,4 @@
-.LandingNav {
+.LandingHeader {
   display: flex;
   align-items: center;
   --ant-layout-header-bg: var(--prome-bg);

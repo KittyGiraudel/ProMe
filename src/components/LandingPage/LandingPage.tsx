@@ -3,7 +3,7 @@ import { Footer } from '@/components/Footer/Footer'
 import { LandingFeature } from './LandingFeature'
 import { LandingFinalCta } from './LandingFinalCta'
 import { LandingHero } from './LandingHero'
-import { LandingNav } from './LandingNav'
+import { LandingHeader } from './LandingHeader'
 import { CharacterSheetVisual } from './visuals/CharacterSheetVisual'
 import { DiceVisual } from './visuals/DiceVisual'
 import { GeneratorVisual } from './visuals/GeneratorVisual'
@@ -18,7 +18,7 @@ export async function LandingPage() {
 
   return (
     <div className='LandingPage'>
-      <LandingNav />
+      <LandingHeader />
       <LandingHero />
       <main className='LandingPage__main'>
         <LandingFeature
