@@ -56,10 +56,11 @@
     var(--ant-motion-ease-in-out) !important;
 }
 
-.ant-menu-dark.ant-menu-submenu-popup > .ant-menu.ant-menu {
+.ant-menu.ant-menu-submenu-popup > .ant-menu.ant-menu {
   background-color: color-mix(
-    var(--ant-menu-dark-popup-bg),
+    light-dark(var(--ant-menu-popup-bg), var(--ant-menu-dark-popup-bg)),
     light-dark(rgb(255 255 255 / 0.1), rgb(0 0 0 / 0.1)) 70%
   );
   backdrop-filter: blur(8px);
 }
+
