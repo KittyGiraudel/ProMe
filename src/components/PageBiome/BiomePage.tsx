@@ -1,10 +1,10 @@
 'use client'
 
 import { Layout } from 'antd'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Footer } from '@/components/Footer/Footer'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { BIOME_IDS } from '@/constants/misc'
-import { loadSettings } from '@/lib/settings/storage'
 import type { BiomeId } from '@/lib/types'
 import { BiomeAudio } from './BiomeAudio'
 import { BiomeDescription } from './BiomeDescription'
@@ -31,9 +31,19 @@ type Props = { biome: BiomeId }
 
 export function BiomePage({ biome }: Props) {
   const index = BIOME_IDS.indexOf(biome)
+  const { settings } = useSettings()
   const [biomeTheme, setBiomeTheme] = useState<'light' | 'dark'>(
-    () => loadSettings().appearance.theme
+    settings.appearance.theme
   )
+  const overridden = useRef(false)
+
+  // When SettingsContext hydrates from localStorage (DEFAULT_SETTINGS → real
+  // value), propagate the real theme — unless the user already toggled manually.
+  useEffect(() => {
+    if (!overridden.current) {
+      setBiomeTheme(settings.appearance.theme)
+    }
+  }, [settings.appearance.theme])
 
   useEffect(() => {
     const prev = document.documentElement.dataset.appTheme
@@ -69,7 +79,10 @@ export function BiomePage({ biome }: Props) {
       </Layout.Footer>
       <BiomeThemeToggle
         biomeTheme={biomeTheme}
-        onToggle={() => setBiomeTheme(t => (t === 'dark' ? 'light' : 'dark'))}
+        onToggle={() => {
+          overridden.current = true
+          setBiomeTheme(t => (t === 'dark' ? 'light' : 'dark'))
+        }}
       />
     </Layout>
   )
