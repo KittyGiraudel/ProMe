@@ -1,12 +1,22 @@
-.BiomeMagic__text {
+.BiomeMagic__quote {
+  display: flex;
+  align-items: center;
+  gap: 1em;
   margin-top: 0.5em;
+}
+
+.BiomeMagic__text {
+  flex: 1;
   padding: 1em 1.4em;
   background: rgb(255 255 255 / 0.03);
-  border-left: 2px solid var(--biome-accent);
   font-family: Georgia, serif;
   font-style: italic;
   line-height: 1.75;
   color: var(--biome-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  border-radius: 100em;
 }
 
 .BiomeMagic__text q {
@@ -14,5 +24,5 @@
 }
 
 q:lang(fr) {
-  quotes: '« ' ' »';
+  quotes: "« " " »";
 }

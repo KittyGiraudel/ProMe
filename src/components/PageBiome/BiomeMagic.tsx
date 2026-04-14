@@ -1,6 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { SpiralSearch } from '@/components/SpiralSearch/SpiralSearch'
 import type { BiomeId } from '@/lib/types'
 import { BiomeSection } from './BiomeSection'
 
@@ -18,9 +19,12 @@ export function BiomeMagic({ biome }: Props) {
       id='biome-magic'>
       <div>
         <p>La Magie de ce biome doit répondre à la question suivante :</p>
-        <blockquote className='BiomeMagic__text'>
-          <q>{t(`biomes.${biome}.magic`)}</q>
-        </blockquote>
+        <div className='BiomeMagic__quote'>
+          <blockquote className='BiomeMagic__text'>
+            <SpiralSearch />
+            <q>{t(`biomes.${biome}.magic`)}</q>
+          </blockquote>
+        </div>
       </div>
     </BiomeSection>
   )

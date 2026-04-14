@@ -28,7 +28,7 @@
 }
 
 .BiomeGathering__die {
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   font-size: 0.95em;
   font-weight: 700;
   color: var(--biome-accent);

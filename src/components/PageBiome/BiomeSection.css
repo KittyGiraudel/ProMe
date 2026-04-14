@@ -16,6 +16,7 @@
   text-transform: uppercase;
   color: var(--biome-accent);
   white-space: nowrap;
+  font-family: sans-serif;
 }
 
 .BiomeSection__rule {

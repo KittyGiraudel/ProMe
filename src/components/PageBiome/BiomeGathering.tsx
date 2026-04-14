@@ -18,9 +18,9 @@ export function BiomeGathering({ biome }: Props) {
 
   // t.raw() returns the raw messages object for the namespace,
   // letting us check for optional hint/warning keys without throwing.
-  const gatherMessages = t.raw(
-    `common.gathering.${biome}` as TranslationKey
-  ) as Record<string, string> | undefined
+  const gatherMessages = t.raw(`common.gathering.${biome}` as TranslationKey) as
+    | Record<string, string>
+    | undefined
   const hint: string | undefined =
     gatherMessages?.hint ?? gatherMessages?.warning
 
