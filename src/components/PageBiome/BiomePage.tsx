@@ -1,8 +1,9 @@
 'use client'
 
 import { Layout } from 'antd'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Footer } from '@/components/Footer/Footer'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { BIOME_IDS } from '@/constants/misc'
 import type { BiomeId } from '@/lib/types'
 import { BiomeAudio } from './BiomeAudio'
@@ -13,6 +14,7 @@ import { BiomeHeader } from './BiomeHeader'
 import { BiomeHero } from './BiomeHero'
 import { BiomeMagic } from './BiomeMagic'
 import { BiomeMap } from './BiomeMap'
+import { BiomeThemeToggle } from './BiomeThemeToggle'
 
 import './BiomePage.css'
 
@@ -29,19 +31,26 @@ type Props = { biome: BiomeId }
 
 export function BiomePage({ biome }: Props) {
   const index = BIOME_IDS.indexOf(biome)
+  const { settings } = useSettings()
+  const [biomeTheme, setBiomeTheme] = useState<'light' | 'dark'>(
+    settings.appearance.theme
+  )
 
   useEffect(() => {
     const prev = document.documentElement.dataset.appTheme
-    document.documentElement.dataset.appTheme = 'dark'
+    document.documentElement.dataset.appTheme = biomeTheme
     document.body.dataset.biome = biome
     return () => {
       document.documentElement.dataset.appTheme = prev ?? ''
       document.body.dataset.biome = ''
     }
-  }, [biome])
+  }, [biome, biomeTheme])
 
   return (
-    <Layout className='BiomePage' data-biome={biome}>
+    <Layout
+      className='BiomePage'
+      data-biome={biome}
+      data-biome-theme={biomeTheme}>
       <BiomeHeader />
       <BiomeHero
         biome={biome}
@@ -59,6 +68,10 @@ export function BiomePage({ biome }: Props) {
       <Layout.Footer className='BiomePage__footer'>
         <Footer />
       </Layout.Footer>
+      <BiomeThemeToggle
+        biomeTheme={biomeTheme}
+        onToggle={() => setBiomeTheme(t => (t === 'dark' ? 'light' : 'dark'))}
+      />
     </Layout>
   )
 }

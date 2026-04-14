@@ -9,7 +9,7 @@
   right: 0;
   z-index: 100;
   transition: 1s ease;
-  --ant-layout-header-height: 3em!important;
+  --ant-layout-header-height: 3em !important;
   --ant-layout-header-bg: var(--biome-dark);
 }
 
@@ -31,7 +31,8 @@
   opacity: 0.5;
 }
 
-body:has(.ant-menu-submenu-popup:not(.ant-menu-submenu-hidden)) .BiomeHeader:not([data-scrolled="true"]) {
+body:has(.ant-menu-submenu-popup:not(.ant-menu-submenu-hidden))
+  .BiomeHeader:not([data-scrolled="true"]) {
   background-color: var(--ant-layout-header-bg);
   opacity: 1;
 }
