@@ -20,6 +20,7 @@
 }
 
 .AudioPlayer__trackName {
+  color: inherit !important;
 }
 
 .AudioPlayer__progressRow {
@@ -34,4 +35,9 @@
 
 .AudioPlayer__volumeSlider {
   min-width: 100px;
+}
+
+.AudioPlayer__progress .ant-slider-rail,
+.AudioPlayer__volumeSlider .ant-slider-rail {
+  border: 1px solid light-dark(rgb(0 0 0 / 0.1), rgb(255 255 255 / 0.1));
 }

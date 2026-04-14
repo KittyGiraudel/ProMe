@@ -2,6 +2,7 @@
   padding-left: 2em;
   margin: 0;
   list-style: none;
+  color: inherit;
 }
 
 .EncountersList__item + .EncountersList__item {

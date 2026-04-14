@@ -1,0 +1,38 @@
+.BiomeMagic__quote {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin-top: 0.5em;
+}
+
+.BiomeMagic__text {
+  flex: 1;
+  padding: 1em 1.4em;
+  background: rgb(255 255 255 / 0.03);
+  font-family: Georgia, serif;
+  font-style: italic;
+  line-height: 1.75;
+  color: var(--biome-text-muted);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 1em;
+  text-align: center;
+  gap: 1em;
+}
+
+@media (min-width: 600px) {
+  .BiomeMagic__text {
+    flex-direction: row;
+    border-radius: 100em;
+    text-align: start;
+  }
+}
+
+.BiomeMagic__text q {
+  font-size: 1.25em;
+}
+
+q:lang(fr) {
+  quotes: "« " " »";
+}

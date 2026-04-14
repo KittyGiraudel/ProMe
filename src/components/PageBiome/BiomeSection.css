@@ -1,0 +1,26 @@
+.BiomeSection {
+  margin: 4em auto;
+}
+
+.BiomeSection__head {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  margin-bottom: 1.5em;
+}
+
+.BiomeSection__title {
+  font-size: 0.8em;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--biome-accent);
+  white-space: nowrap;
+  font-family: sans-serif;
+}
+
+.BiomeSection__rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--biome-border) 0%, transparent 100%);
+}

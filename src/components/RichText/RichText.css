@@ -1,4 +1,5 @@
 .RichText__Accent {
   color: var(--color, currentColor);
   font-weight: 700;
+  -webkit-text-stroke: 1px white;
 }

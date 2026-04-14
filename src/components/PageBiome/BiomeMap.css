@@ -1,0 +1,55 @@
+.BiomeMap__cover {
+  position: relative;
+
+  .MapCover {
+    border: 1px solid var(--biome-surface);
+    border-radius: var(--ant-border-radius-lg);
+  }
+}
+
+@media (min-width: 1142px) {
+  .BiomeMap__cover {
+    width: 1142px;
+    margin-left: calc(50% - 571px);
+  }
+}
+
+.BiomeMap__hex {
+  display: none;
+  position: absolute;
+  width: 100px;
+  aspect-ratio: cos(30deg);
+  border-radius: 50% / 25%;
+  corner-shape: bevel;
+  border: 0.75em solid var(--biome-bg);
+  right: -50px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+@media (min-width: 900px) {
+  .BiomeMap__hex {
+    display: block;
+  }
+}
+
+.BiomeMap__hex.Pattern[data-biome="fieldSea"] {
+  --pattern-size: 35px;
+}
+.BiomeMap__hex.Pattern[data-biome="titanGardens"] {
+  --pattern-size: 45px;
+}
+.BiomeMap__hex.Pattern[data-biome="shadowForest"] {
+  --pattern-size: 30px;
+}
+.BiomeMap__hex.Pattern[data-biome="floodedPlains"] {
+  --pattern-size: 25px;
+}
+.BiomeMap__hex.Pattern[data-biome="silentDesert"] {
+  --pattern-size: 25px;
+}
+.BiomeMap__hex.Pattern[data-biome="mushroomJungle"] {
+  --pattern-size: 18px;
+}

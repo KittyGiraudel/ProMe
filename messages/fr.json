@@ -1,4 +1,55 @@
 {
+  "biomes": {
+    "shadowForest": {
+      "name": "Forêt des ombres",
+      "title": "La Forêt des Ombres",
+      "teaser": "Entre les géants veilleurs, l’ombre murmure des légendes et la lumière dessine des clairières : bienvenue dans la forêt qui protège ses secrets comme un sanctuaire.",
+      "description": "Des arbres colossaux se dressent devant vous, telles des sentinelles géantes protégeant l’intérieur de l’ancienne forêt.\nQuand vous entrez, vous êtes étreint par des ombres profondes, mais dont l’obscurité ne suscite ni la peur ni l’insécurité. Le murmure chantant du vent entre les arbres semble vouloir raconter des histoires des temps immémoriaux.\nLa lumière du soleil, qui parfois se faufile entre les branches et les feuilles, créé des clairières reposantes et dorées. Plus on s’enfonce au cœur de la forêt, plus on comprend que l’austérité des grands troncs qui vous entourent et l’intensité de l’obscurité qui vous enveloppe n’ont d’autre but que de protéger les vies qui s’y trouvent.",
+      "magic": "Comment vivez-vous votre amitié avec la nuit ? Comment l’obscurité peut abriter d’autres sentiments que la peur ?"
+    },
+    "floodedPlains": {
+      "name": "Plaines inondées",
+      "title": "Les Plaines Inondées",
+      "teaser": "L’horizon avale le sol, puis vos pas s’enfoncent dans une plaine inondée, où l’eau apaisante berce vos chevilles entre des îlots d’arbres géants.",
+      "description": "L’horizon commence à se rapprocher étrangement, plus qu’il ne le devrait. Le ciel semble consumer le sol, comme si vous arriviez au bord du monde. Puis vous posez le pied dans le vide… et réalisez que vous vous trouvez sur une immense plaine inondée.\nÀ l’exception de petits îlots occupés par d’immenses arbres aux troncs massifs, il ne semble pas que l’on puisse trouver de terre ferme de sitôt. Pourtant, l’eau calme, profonde d’une coudée, caresse vos chevilles et repose vos muscles fatigués du voyage.",
+      "magic": "Comment dompter la force des cascades et apprendre à être fluide comme les rivières ?"
+    },
+    "mushroomJungle": {
+      "name": "Jungle de champignons",
+      "title": "La Jungle de Champignons",
+      "teaser": "L’air s’alourdit de spores étouffantes entre des champignons géants. Ici, même la mort se fait douce, promettant renaissance.",
+      "description": "Une odeur âcre se fait sentir et l’air devient humide. Des dizaines, des centaines, des milliers de spores envahissent l’air tandis que vous déambulez entre d’énormes champignons. Il devient difficile de respirer.\nC’est un endroit impossible à parcourir pour les voyageurs non préparés. On peut y trouver la mort, mais ce sera une mort douce, car chaque mort ici est destinée à nourrir le début de nouvelles vies.",
+      "magic": "Comment ce qui se nourrit de la mort peut-il donner de la force à ce qui est vivant ?"
+    },
+    "fieldSea": {
+      "name": "Mer champêtre",
+      "title": "La Mer Champêtre",
+      "teaser": "Le vent soulève une mélodie d’herbe et de grillons, tandis qu’un tapis d’or infini ondule sous le soleil, révélant une terre d’abondance.",
+      "description": "Le vent se lève et se met à souffler plus fort. Le bruissement reposant de l’herbe se mêle au chant des grillons dans une calme mélodie. Le soleil qui se reflète dans l’immensité du champ vert vous fait penser l’espace d’un instant à un tapis d’or infini qui se déroule devant vous. Les arbres verdoyants, courbés par le vent et les nombreuses parcelles de légumes sauvages révèlent une terre fertile comme il en existe peu.",
+      "magic": "Comment pouvez-vous faire une sorte que le vent souffle en votre faveur ? Comment la verdure peut-elle vous aider ?"
+    },
+    "silentDesert": {
+      "name": "Désert silencieux",
+      "title": "Le Désert Silencieux",
+      "teaser": "Le vent brûlant déforme l’horizon, sculptant des plateaux rouges où les cactus se dressent, gardiens d’un silence absolu.",
+      "description": "L’air commence à s’assécher et à devenir vif. Le vent semble poussé par le soleil lui-même. L’horizon se déforme avec la chaleur, tandis que de grands plateaux de terre rougeâtre, parsemés de petits cactus cylindriques, peuplent le paysage devant vos yeux. Vous êtes au coeur d’un silence et d’un calme absolu.",
+      "magic": "Comment le silence peut-il vous soutenir et le bruit vous protéger ?"
+    },
+    "titanGardens": {
+      "name": "Jardins titanesques",
+      "title": "Les Jardins Titanesques",
+      "teaser": "Une avalanche de pétales enveloppe la route : un jardin infini de lys, tournesols et roses s’élève vers le ciel, veillant sur chaque pas.",
+      "description": "Une avalanche de couleurs s’empare de vous. Des pétales flottent dans l’air et les tiges de plantes géantes longent la route. Un jardin aussi vaste que l’horizon se dresse devant vous. Lys, tournesols, roses, marguerites et autres innombrables fleurs éblouissantes montent jusqu’au ciel, contemplant chaque voyageur qui traverse leur domaine.",
+      "magic": "Comment la fragilité peut-elle être forte et les couleurs puissantes ?"
+    },
+    "core": {
+      "name": "Le Noyau",
+      "title": "Le Noyau"
+    },
+    "unexplored": {
+      "name": "Inexploré"
+    }
+  },
   "characters_list": {
     "archetype_line": "Archétype : {value}",
     "dead_character_name": "✝ {name} <separator>—</separator> <status>Mort·e</status>",
@@ -129,7 +180,7 @@
         "shortcuts_village": "Lien vers un village"
       },
       "delete_confirm_description": "Cette entrée contient du contenu. Cette suppression est irréversible.",
-      "delete_confirm_title": "Supprimer cette entrée ?",
+      "delete_confirm_title": "Supprimer cette entrée ?",
       "done_editing": "Écrire",
       "empty": "Aucune entrée pour le moment.",
       "search_empty": "Aucune entrée ne correspond à votre recherche.",
@@ -171,18 +222,18 @@
       "death_suggestion_description": "Les points d’âme sont désormais à zéro : le Protecteur est sur le point de mourir.",
       "death_suggestion_title": "Mort imminente",
       "delete_confirm_description": "La fiche de Protecteur sera définitivement supprimée et cette action est irréversible.",
-      "delete_confirm_title": "Supprimer ce Protecteur ?",
+      "delete_confirm_title": "Supprimer ce Protecteur ?",
       "delete_success": "Protecteur supprimé.",
       "export_downloaded": "Export JSON téléchargé.",
       "export_help": "Télécharge un export JSON de la fiche.",
       "export": "Exporter JSON",
       "mark_dead_action": "Marquer comme mort·e",
       "mark_dead_confirm_description": "Cette action fige définitivement la fiche en lecture seule.",
-      "mark_dead_confirm_title": "Marquer ce Protecteur comme mort ?",
+      "mark_dead_confirm_title": "Marquer ce Protecteur comme mort ?",
       "mark_dead_success": "Protecteur marqué comme mort·e.",
       "revive_action": "Réanimer",
       "revive_confirm_description": "Le Protecteur deviendra jouable et sa fiche sera modifiable à nouveau.",
-      "revive_confirm_title": "Réanimer ce Protecteur ?",
+      "revive_confirm_title": "Réanimer ce Protecteur ?",
       "revive_success": "Protecteur réanimé.",
       "save": {
         "success": "Protecteur enregistré.",
@@ -212,6 +263,7 @@
       "delete": "Supprimer",
       "edit": "Éditer",
       "expand": "Agrandir",
+      "explore": "Explorer",
       "finish": "Terminer",
       "generate": "Générer",
       "go_to": "Aller à « {destination} »",
@@ -231,6 +283,7 @@
     "conjunction": "et",
     "could_not_parse_link": "Impossible d’afficher ce lien dans une fenêtre : ouvrez-le dans le générateur.",
     "current_label": "Actuel",
+    "description": "Description",
     "die": "Dé {value}",
     "display_1D6": "1D6 : <dice></dice>",
     "display_2D6": "2D6 : <dice></dice>",
@@ -238,6 +291,7 @@
     "gold": "{amount, number} pièces",
     "loading": "Chargement…",
     "max_label": "Max.",
+    "magic": "Magie",
     "unsaved_changes_warning": {
       "title": "Modifications non enregistrées",
       "description": "Vous avez des modifications non enregistrées. Si vous quittez cette page, ces modifications seront perdues.",
@@ -311,22 +365,6 @@
       "Q": "Dame",
       "K": "Roi",
       "A": "As"
-    },
-    "biomes": {
-      "unexplored": "Inexploré",
-      "shadowForest": "Forêt des ombres",
-      "shadowForest_description": "Des arbres colossaux se dressent devant vous, telles des sentinelles géantes protégeant l’intérieur de l’ancienne forêt. Quand vous entrez, vous êtes étreint par des ombres profondes, mais dont l’obscurité ne suscite ni la peur ni l’insécurité. Le murmure chantant du vent entre les arbres semble vouloir raconter des histoires des temps immémoriaux. La lumière du soleil, qui parfois se faufile entre les branches et les feuilles, créé des clairières reposantes et dorées.  Plus on s’enfonce au cœur de la forêt, plus on comprend que l’austérité des grands troncs qui vous entourent et l’intensité de l’obscurité qui vous enveloppe n’ont d’autre but que de protéger les vies qui s’y trouvent.",
-      "floodedPlains": "Plaines inondées",
-      "floodedPlains_description": "L’horizon commence à se rapprocher étrangement, plus qu’il ne le devrait. Le ciel semble consumer le sol, comme si vous arriviez au bord du monde. Puis vous posez le pied dans le vide… et réalisez que vous vous trouvez sur une immense plaine inondée. À l’exception de petits îlots occupés par d’immenses arbres aux troncs massifs, il ne semble pas que l’on puisse trouver de terre ferme de sitôt. Pourtant, l’eau calme, profonde d’une coudée, caresse vos chevilles et repose vos muscles fatigués du voyage.",
-      "mushroomJungle": "Jungle de champignons",
-      "mushroomJungle_description": "Une odeur âcre se fait sentir et l’air devient humide. Des dizaines, des centaines, des milliers de spores envahissent l’air tandis que vous déambulez entre d’énormes champignons. Il devient difficile de respirer. C’est un endroit impossible à parcourir pour les voyageurs non préparés. On peut y trouver la mort, mais ce sera une mort douce, car chaque mort ici est destinée à nourrir le début de nouvelles vies.",
-      "fieldSea": "Mer champêtre",
-      "fieldSea_description": "Le vent se lève et se met à souffler plus fort. Le bruissement reposant de l’herbe se mêle au chant des grillons dans une calme mélodie. Le soleil qui se reflète dans l’immensité du champ vert vous fait penser l’espace d’un instant à un tapis d’or infini qui se déroule devant vous. Les arbres verdoyants, courbés par le vent et les nombreuses parcelles de légumes sauvages révèlent une terre fertile comme il en existe peu.",
-      "silentDesert": "Désert silencieux",
-      "silentDesert_description": "L’air commence à s’assécher et à devenir vif. Le vent semble poussé par le soleil lui-même. L’horizon se déforme avec la chaleur, tandis que de grands plateaux de terre rougeâtre, parsemés de petits cactus cylindriques, peuplent le paysage devant vos yeux. Vous êtes au coeur d’un silence et d’un calme absolu.",
-      "titanGardens": "Jardins titanesques",
-      "titanGardens_description": "Une avalanche de couleurs s’empare de vous. Des pétales flottent dans l’air et les tiges de plantes géantes longent la route. Un jardin aussi vaste que l’horizon se dresse devant vous. Lys, tournesols, roses, marguerites et autres innombrables fleurs éblouissantes montent jusqu’au ciel, contemplant chaque voyageur qui traverse leur domaine.",
-      "core": "Le Noyau"
     },
     "suits": {
       "spades": "Pique",
@@ -436,16 +474,16 @@
   "faq": {
     "answer_1": "ProMe, pour « **Pro**tecteur » et « **Mé**moires » est un compagnon de jeu pour « [Les Souvenirs du Protecteur](https://www.cultura.com/p-les-souvenirs-du-protecteur-les-fondations-de-l-imaginaire-12158384.html) », un jeu de rôle solo par Enzo Salviato. Il est suggéré d’avoir l’application ouverte à l’écran en jouant au jeu, comme référence et pour pouvoir marquer sa progression. C’est principalement pour pouvoir jouer au jeu de manière numérique et hors-ligne (pas tout à fait cependant, car utiliser le manuel officiel est requis).\n\nLe jeu est exceptionnel, mais demande de prendre des notes sur papier ; chose qui m’est personnellement fastidieuse. C’est pourquoi j’ai développé cette version numérique, afin de basculer la prise de note et annotation de la carte sur ordinateur (ou mobile).",
     "answer_2": "Plus ou moins de la même manière que la version papier du jeu. À chaque « tour » :\n1. Déplacez-vous sur la carte. Selon vos paramètres, l’Horloge avance automatiquement, et une nouvelle entrée est ajoutée au journal ; sinon, faites cela manuellement.\n2. Tirez un dé et référez-vous à la table des rencontres pour savoir quel événement se produit ; il vous faut le livre de règles pour cette étape.\n3. Si vous pouvez et voulez collecter ou miner des ressources, référez-vous à la table de collecte et lancez un dé pour déterminer ce que vous pouvez trouver.\n4. Renseignez votre aventure du jour dans le journal pour rendre votre voyage canonique.",
-    "answer_3": "Utilisable ? Oui. Agréable ? Je ne suis pas certaine. De la même manière que le jeu papier donne une carte et fiche de personnage au format A4, le site est fait pour être utilisé sur un écran d’ordinateur qui offre de la place et visibilité. Le site est techniquement responsive, mais je ne sais pas si l’expérience de jeu sera très agréable sur mobile.",
+    "answer_3": "Utilisable ? Oui. Agréable ? Je ne suis pas certaine. De la même manière que le jeu papier donne une carte et fiche de personnage au format A4, le site est fait pour être utilisé sur un écran d’ordinateur qui offre de la place et visibilité. Le site est techniquement responsive, mais je ne sais pas si l’expérience de jeu sera très agréable sur mobile.",
     "answer_4": "Les rencontres ne sont pas vraiment implémentées. La table de rencontres est disponible près de la carte, mais il est nécessaire de se référer au livre de règles pour effectuer la majorité des rencontres.\nDe plus, le stock des boutiques n’est pas implémenté non plus. Cela signifie qu’à la création d’une village, il est nécessaire de définir les offres manuellement, puis de les noter dans le journal pour y revenir plus tard.",
     "answer_5": "Le module de cartographie utilise des fonctionnalités de styles (CSS) modernes qui ne sont pas encore bien supportées par les navigateurs. C’est pourquoi il est préférable d’utiliser le navigateur Chrome, car c’est celui que j’utilise pour le dévelopement. Quant à pourquoi je n’ai pas étendu le support à d’autres navigateurs : créer une grille d’hexagones est compliqué ; j’avais le choix entre utiliser des technologies modernes pour garder les choses simples, ou développer tout le système de carte avec HTML Canvas, ce que je ne voulais pas faire.",
     "answer_6": "Qu’on soit d’accord ou non, le jeu n’a pas de concept de genre donc tous les personnages — jouables ou non — sont sans genre. J’ai trouvé intéressant et plus immersif de pouvoir définir le genre des personnages. C’est complètement optionnel, et j’ai rendu les choses permissives avec plusieurs options.",
-    "question_1": "Qu’est-ce que ce site ?",
-    "question_2": "Comment utiliser le site ?",
-    "question_3": "Est-ce utilisable sur mobile ?",
-    "question_4": "Que manque-t-il dans le site ?",
-    "question_5": "Pourquoi la carte est-elle cassée ?",
-    "question_6": "Pourquoi y a-t-il un système de genre ?",
+    "question_1": "Qu’est-ce que ce site ?",
+    "question_2": "Comment utiliser le site ?",
+    "question_3": "Est-ce utilisable sur mobile ?",
+    "question_4": "Que manque-t-il dans le site ?",
+    "question_5": "Pourquoi la carte est-elle cassée ?",
+    "question_6": "Pourquoi y a-t-il un système de genre ?",
     "title": "Frequently Asked Questions"
   },
   "footer": {
@@ -470,18 +508,18 @@
   },
   "inhabitant": {
     "context_by_rank": {
-      "2": "**{name} est à la recherche de quelque chose.** Peut-être quelque chose qui n’est pas vendu dans ce village, ou quelque chose que l’on ne peut trouver que loin d’ici ? Mais au-delà de ça, {gender, select, man {il} woman {elle} other {iel}} semble avoir peur de l’inconnu. Il y a peut-être une histoire derrière tout ça.",
+      "2": "**{name} est à la recherche de quelque chose.** Peut-être quelque chose qui n’est pas vendu dans ce village, ou quelque chose que l’on ne peut trouver que loin d’ici ? Mais au-delà de ça, {gender, select, man {il} woman {elle} other {iel}} semble avoir peur de l’inconnu. Il y a peut-être une histoire derrière tout ça.",
       "3": "**{name} rêve de voyager dans un autre village.** Peut-être pourriez-vous l’accompagner et en savoir plus sur ses motivations et ses envies !",
-      "4": "**{name} est très malade et n’a plus que peu de temps à vivre.** {gender, select, man {Il} woman {Elle} other {Iel}} est {gender, select, man {seul} woman {seule} other {seul·e}} et personne pour l’épauler dans ces instants difficiles. Peut-être qu’une conversation lui donnerait un peu de baume au cœur ? *Si vous l’avez {gender, select, man {rencontré} woman {rencontrée} other {recontré·e}} dans un village, la prochaine fois que vous visiterez cet endroit, vous devrez réussir un test de Courage pour {gender, select, man {le} woman {la} other {le·a}} retrouver.*",
-      "5": "**{name} cherche l’amitié — ou peut-être l’amour ?** Vous n’en êtes pas sûr·e, mais {gender, select, man {il} woman {elle} other {iel}} semble se sentir {gender, select, man {seul} woman {seule} other {seul·e}}. Vous pouvez l’aider à trouver quelqu’un qui cherche quelque chose de similaire.",
-      "6": "**{name} se languit d’un être cher.** Peut-être est-ce quelqu’un qui vit ailleurs ou qui vient juste de partir. Mais {gender, select, man {il} woman {elle} other {iel}} est aussi à la recherche d’un objet très spécial qui lui rappelle cette personne. Quel est cet objet ?",
+      "4": "**{name} est très malade et n’a plus que peu de temps à vivre.** {gender, select, man {Il} woman {Elle} other {Iel}} est {gender, select, man {seul} woman {seule} other {seul·e}} et personne pour l’épauler dans ces instants difficiles. Peut-être qu’une conversation lui donnerait un peu de baume au cœur ? *Si vous l’avez {gender, select, man {rencontré} woman {rencontrée} other {recontré·e}} dans un village, la prochaine fois que vous visiterez cet endroit, vous devrez réussir un test de Courage pour {gender, select, man {le} woman {la} other {le·a}} retrouver.*",
+      "5": "**{name} cherche l’amitié — ou peut-être l’amour ?** Vous n’en êtes pas sûr·e, mais {gender, select, man {il} woman {elle} other {iel}} semble se sentir {gender, select, man {seul} woman {seule} other {seul·e}}. Vous pouvez l’aider à trouver quelqu’un qui cherche quelque chose de similaire.",
+      "6": "**{name} se languit d’un être cher.** Peut-être est-ce quelqu’un qui vit ailleurs ou qui vient juste de partir. Mais {gender, select, man {il} woman {elle} other {iel}} est aussi à la recherche d’un objet très spécial qui lui rappelle cette personne. Quel est cet objet ?",
       "7": "{name} est **cartographe**. Vous {gender, select, man {le} woman {la} other {le·a}} croisez alors qu’{gender, select, man {il} woman {elle} other {iel}} va quitter le village et reconnaît en vous un voyageur. {gender, select, man {Il} woman {Elle} other {Iel}} vous offre une de ses cartes. Lancez un D6 : *Carte de localisation (1-3)* ou *Carte de biome (4-6)* (voir page 49).",
       "8": "{name} est **en train de peindre un tableau**. Se rendant compte que vous êtes un voyageur, {gender, select, man {il} woman {elle} other {iel}} vous demande si vous avez un croquis représentant un endroit qui lui est inconnu, ou si vous pouvez décrire un panorama que vous avez vu au cours de votre voyage ! {gender, select, man {Il} woman {Elle} other {Iel}} ne s’est jamais {gender, select, man {aventuré} woman {aventurée} other {aventuré·e}} dans des endroits éloignés de son village et recherche l’inspiration !",
       "9": "Il existe des rumeurs sur de mystérieuses Ruines parsemées à travers le monde et **{name} est {gender, select, man {curieux} woman {curieuse} other {curieux·se}} d’en savoir plus sur le sujet**. Voyant que vous êtes un·e voyageur·se, {gender, select, man {il} woman {elle} other {iel}} s’approche de vous pour voir si vous avez des informations à partager !",
-      "10": "**{name} prononce un nom en errant dans le village.** De qui s’agit-il ? Pourquoi prononce-t-{gender, select, man {il} woman {elle} other {iel}} ce nom ? Que s’est-il passé ? *Si vous devez créer un nom, consultez la table page 60.*",
-      "A": "**{name} pleure une perte récente.** {gender, select, man {Il} woman {Elle} other {Iel}} a peut-être perdu un animal de compagnie ou un·e ami·e proche. Peut-être qu’une discussion serait la bienvenue ? À moins qu’{gender, select, man {il} woman {elle} other {iel}} ait besoin d’écoute pour se sentir mieux ?",
+      "10": "**{name} prononce un nom en errant dans le village.** De qui s’agit-il ? Pourquoi prononce-t-{gender, select, man {il} woman {elle} other {iel}} ce nom ? Que s’est-il passé ? *Si vous devez créer un nom, consultez la table page 60.*",
+      "A": "**{name} pleure une perte récente.** {gender, select, man {Il} woman {Elle} other {Iel}} a peut-être perdu un animal de compagnie ou un·e ami·e proche. Peut-être qu’une discussion serait la bienvenue ? À moins qu’{gender, select, man {il} woman {elle} other {iel}} ait besoin d’écoute pour se sentir mieux ?",
       "J": "**{name} achète des objets provenant d’autres endroits du monde et offre 100 pièces pour chaque objet digne de son intérêt.** Parlez-lui ! Peut-être que vous avez sur vous un objet qu’{gender, select, man {il} woman {elle} other {iel}} pourrait acquérir.",
-      "Q": "**{name} ressemble à quelqu’un que vous avez déjà rencontré.** S’agit-il d’une impression ? Vous pouvez toujours lui demander pour en avoir le cœur net. {gender, select, man {Il} woman {Elle} other {Iel}} a peut-être déjà croisé votre chemin, à moins que ce ne soit {gender, select, man {un inconnu} woman {une inconnue} other {un·e inconnu·e}} avec de nouvelles histoires à raconter !",
+      "Q": "**{name} ressemble à quelqu’un que vous avez déjà rencontré.** S’agit-il d’une impression ? Vous pouvez toujours lui demander pour en avoir le cœur net. {gender, select, man {Il} woman {Elle} other {Iel}} a peut-être déjà croisé votre chemin, à moins que ce ne soit {gender, select, man {un inconnu} woman {une inconnue} other {un·e inconnu·e}} avec de nouvelles histoires à raconter !",
       "K": "**{name} est {gender, select, man {un bâtisseur} woman {une bâtisseuse} other {un·e bâtisseur·euse}}.** {gender, select, man {Il} woman {Elle} other {Iel}} vous dit qu’avec 3 bois et 3 fers ou avec 1 000 pièces, {gender, select, man {il} woman {elle} other {iel}} peut construire l’établissement de votre choix dans le village."
     },
     "context_card_note": "Seule la hauteur de la carte compte pour le contexte ; la couleur est ignorée.",
@@ -514,6 +552,7 @@
     "inhabitant_generator": "Générateur d’habitant",
     "login": "Connexion",
     "logout": "Déconnexion",
+    "biomes": "Biomes",
     "new_character": "Nouveau Protecteur",
     "settings": "Paramètres",
     "village_generator": "Générateur de village"
@@ -764,7 +803,7 @@
       }
     },
     "final_cta": {
-      "title": "Prêt·e à commencer votre voyage ?",
+      "title": "Prêt·e à commencer votre voyage ?",
       "sub": "Créez votre Protecteur et entrez dans le monde.",
       "cta": "Créez votre Protecteur"
     }

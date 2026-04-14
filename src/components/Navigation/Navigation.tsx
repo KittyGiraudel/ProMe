@@ -5,8 +5,10 @@ import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
 import { AuthButton } from '@/components/AuthButton/AuthButton'
 import { Logo } from '@/components/Logo/Logo'
+import { BIOME_IDS } from '@/constants/misc'
 import { usePathname } from '@/i18n/navigation'
 import { useAuth } from '@/lib/auth/context'
+import { biomeIdToSlug } from '@/lib/biomes/biomeSlug'
 import { BlockedLink } from './BlockedLink'
 
 import './Navigation.css'
@@ -35,6 +37,8 @@ export function Navigation() {
       {
         key: 'generators',
         label: <span>{t('home.generators_title')}</span>,
+        popupOffset: [-16, 0],
+        mode: 'inline',
         children: [
           {
             key: '/generators/npc',
@@ -53,6 +57,20 @@ export function Navigation() {
             ),
           },
         ],
+      },
+      {
+        key: '/biomes',
+        label: <span>{t('nav.biomes')}</span>,
+        popupOffset: [-16, 0],
+        mode: 'inline',
+        children: BIOME_IDS.map(biome => ({
+          key: `/biomes/${biomeIdToSlug(biome)}`,
+          label: (
+            <BlockedLink href={`/biomes/${biomeIdToSlug(biome)}`}>
+              {t(`biomes.${biome}.name`)}
+            </BlockedLink>
+          ),
+        })),
       },
       {
         key: '/faq',
@@ -82,6 +100,10 @@ export function Navigation() {
     if (pathname.startsWith('/faq')) return ['/faq']
     if (pathname.startsWith('/settings')) return ['/settings']
     if (pathname.startsWith('/characters')) return ['/characters']
+    for (const biome of BIOME_IDS) {
+      if (pathname.startsWith(`/biomes/${biomeIdToSlug(biome)}`))
+        return [`/biomes`, `/biomes/${biomeIdToSlug(biome)}`]
+    }
     if (!loading && pathname.startsWith('/login')) return ['/authentication']
     if (pathname === '/') return ['/']
     return []
@@ -94,6 +116,7 @@ export function Navigation() {
       mode='horizontal'
       items={items}
       selectedKeys={selected}
+      multiple
     />
   )
 }

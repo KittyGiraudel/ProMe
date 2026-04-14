@@ -9,7 +9,7 @@ import { BIOME_IDS } from '@/constants/misc'
 import { useWatchedJournal } from '@/hooks/useCharacterSheetDerived'
 import { CellCoordinate } from '@/lib/character/types'
 import type { JournalEntryLink } from '@/lib/journal/cellReferenceIndex'
-import type { BiomeId, TranslationKey } from '@/lib/types'
+import type { BiomeId } from '@/lib/types'
 import { useMapActions } from './useMapActions'
 
 const MAX_JOURNAL_LINKS_IN_MENU = 5
@@ -54,7 +54,7 @@ function useBiomeSubmenuChildren(
       label: (
         <span className='Map__BiomeMenuItem'>
           <BiomeBubble biome={id} />
-          <span>{t(`common.biomes.${id}` as TranslationKey)}</span>
+          <span>{t(`biomes.${id}.name`)}</span>
         </span>
       ),
       onClick: () => setBiomeAt(coord, id),

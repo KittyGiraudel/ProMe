@@ -67,7 +67,7 @@ export default function EncountersDialog({
           key: biome,
           label: (
             <>
-              <BiomeBubble biome={biome} /> {t(`common.biomes.${biome}`)}
+              <BiomeBubble biome={biome} /> {t(`biomes.${biome}.name`)}
             </>
           ),
           children: <EncountersList biome={biome} />,

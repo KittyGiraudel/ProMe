@@ -1,0 +1,9 @@
+.BiomeDescription__text {
+  font-size: 1.2em;
+  line-height: 1.8;
+  font-style: italic;
+  color: var(--biome-text);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}

@@ -1,0 +1,13 @@
+.SpiralSearchVisual {
+  width: 4.5em;
+  height: 4.5em;
+  color: var(--biome-accent);
+  opacity: 0.65;
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .SpiralSearchVisual {
+    display: none;
+  }
+}

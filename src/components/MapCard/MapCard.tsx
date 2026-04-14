@@ -51,7 +51,7 @@ export function MapCard({ isDead }: { isDead: boolean }) {
 
   return (
     <>
-      <MapCover biome={currentBiome} isCore={isCore} />
+      <MapCover biome={currentBiome} isCore={isCore} withViewTransition />
       <Card
         title={
           settings.appearance.showImagery

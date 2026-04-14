@@ -19,9 +19,9 @@ export function BiomeBubble({
     <span
       className={withPattern ? 'BiomeBubble Pattern' : 'BiomeBubble'}
       data-biome={biome}
-      title={t(`common.biomes.${biome}`)}
+      title={t(`biomes.${biome}.name`)}
       style={style}>
-      <VisuallyHidden>{t(`common.biomes.${biome}`)}</VisuallyHidden>
+      <VisuallyHidden>{t(`biomes.${biome}.name`)}</VisuallyHidden>
     </span>
   )
 }

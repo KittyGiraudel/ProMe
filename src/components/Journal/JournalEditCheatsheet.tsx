@@ -35,7 +35,7 @@ export function JournalEditCheatsheet() {
       <ul className='Journal__cheatsheetList'>
         <li>
           {t('characters.journal.cheatsheet.embellishment_biome', {
-            example: t('common.biomes.fieldSea'),
+            example: t('biomes.fieldSea.name'),
           })}
         </li>
         <li>

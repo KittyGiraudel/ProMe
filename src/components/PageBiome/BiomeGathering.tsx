@@ -1,0 +1,45 @@
+'use client'
+
+import { useTranslations } from 'next-intl'
+import { GATHERING_SCHEMA } from '@/lib/gathering/schema'
+import type { BiomeId, TranslationKey } from '@/lib/types'
+import { BiomeSection } from './BiomeSection'
+
+import './BiomeGathering.css'
+
+type Props = { biome: BiomeId }
+
+const GATHER_KEYS = ['1', '2', '3', '4', '5', '6'] as const
+
+export function BiomeGathering({ biome }: Props) {
+  const t = useTranslations()
+
+  if (GATHERING_SCHEMA[biome] === null) return null
+
+  // t.raw() returns the raw messages object for the namespace,
+  // letting us check for optional hint/warning keys without throwing.
+  const gatherMessages = t.raw(`common.gathering.${biome}` as TranslationKey) as
+    | Record<string, string>
+    | undefined
+  const hint: string | undefined =
+    gatherMessages?.hint ?? gatherMessages?.warning
+
+  return (
+    <BiomeSection
+      title={t('characters.map.gathering_dialog_title')}
+      className='BiomeGathering'
+      id='biome-gathering'>
+      <div className='BiomeGathering__grid'>
+        {GATHER_KEYS.map(key => (
+          <div key={key} className='BiomeGathering__item'>
+            <span className='BiomeGathering__die'>{key}</span>
+            <span className='BiomeGathering__value'>
+              {t(`common.gathering.${biome}.${key}` as TranslationKey)}
+            </span>
+          </div>
+        ))}
+      </div>
+      {hint && <p className='BiomeGathering__hint'>{hint}</p>}
+    </BiomeSection>
+  )
+}

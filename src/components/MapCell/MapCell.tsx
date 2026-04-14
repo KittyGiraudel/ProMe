@@ -8,7 +8,6 @@ import {
   formatDisplayedCellReference,
   getGlobalFromSheetCell,
 } from '@/lib/map/coordinates'
-import { TranslationKey } from '@/lib/types'
 import { useCellState } from './useCellState'
 
 import './MapCell.css'
@@ -66,8 +65,8 @@ export function MapCell({
         label={t('characters.map.cell', {
           coord: label,
           biome: isCore
-            ? t('common.biomes.core')
-            : t(`common.biomes.${biome ?? 'unexplored'}` as TranslationKey),
+            ? t('biomes.core.name')
+            : t(`biomes.${biome ?? 'unexplored'}.name`),
           status,
         })}
         coordLabel={label}

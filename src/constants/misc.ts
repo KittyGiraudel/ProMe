@@ -61,3 +61,31 @@ export const ARCHETYPES: readonly Archetype[] = [
   'pilgrim',
   'bard',
 ] as const
+
+/** Add one entry per biome once fonts are chosen.
+ *  Biomes with no entry fall back to the serif stack in BiomePage.css. */
+export const BIOME_FONTS: Partial<
+  Record<
+    BiomeId,
+    {
+      /** CSS font-family value, used in the title's font-family declaration. */
+      family: string
+      /** Exact Google Fonts family name for the URL, e.g. "Caesar+Dressing". */
+      googleFamily: string
+    }
+  >
+> = {
+  // Example — replace with final choices:
+  shadowForest: { family: 'Caesar Dressing', googleFamily: 'Caesar+Dressing' },
+  mushroomJungle: { family: 'Shizuru', googleFamily: 'Shizuru' },
+  floodedPlains: { family: 'Rubik Puddles', googleFamily: 'Rubik+Puddles' },
+  titanGardens: {
+    family: 'Mountains of Christmas',
+    googleFamily: 'Mountains+of+Christmas',
+  },
+  fieldSea: { family: 'Mystery Quest', googleFamily: 'Mystery+Quest' },
+  silentDesert: {
+    family: 'Fredericka the Great',
+    googleFamily: 'Fredericka+the+Great',
+  },
+}

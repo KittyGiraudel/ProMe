@@ -126,7 +126,7 @@ function staticJournalEmbellishmentRules(
   const biomeRules: JournalEmbellishUiRule[] = BIOME_ROLL_TABLE.map(row =>
     journalLiteralRule(
       `biome:${row.biome}`,
-      t(`common.biomes.${row.biome}`),
+      t(`biomes.${row.biome}.name`),
       true,
       ({ reactKey }) => <BiomeTag key={reactKey} biome={row.biome} />
     )
