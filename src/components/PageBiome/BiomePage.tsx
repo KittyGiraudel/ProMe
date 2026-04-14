@@ -1,7 +1,8 @@
 'use client'
 
-import { Layout } from 'antd'
+import { ConfigProvider, Layout } from 'antd'
 import { useEffect, useRef, useState } from 'react'
+import { useAntPalette } from '@/components/AppProviders/ThemeProvider'
 import { Footer } from '@/components/Footer/Footer'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { BIOME_IDS } from '@/constants/misc'
@@ -55,35 +56,39 @@ export function BiomePage({ biome }: Props) {
     }
   }, [biome, biomeTheme])
 
+  const antTheme = useAntPalette(biomeTheme)
+
   return (
-    <Layout
-      className='BiomePage'
-      data-biome={biome}
-      data-biome-theme={biomeTheme}>
-      <BiomeHeader biomeTheme={biomeTheme} />
-      <BiomeHero
-        biome={biome}
-        bannerSrc={BANNER_SRCS[biome] ?? null}
-        index={index}
-      />
-      <Layout.Content className='BiomePage__content'>
-        <BiomeDescription biome={biome} />
-        <BiomeMagic biome={biome} />
-        <BiomeAudio biome={biome} />
-        <BiomeEncounters biome={biome} />
-        <BiomeGathering biome={biome} />
-        <BiomeMap biome={biome} />
-      </Layout.Content>
-      <Layout.Footer className='BiomePage__footer'>
-        <Footer />
-      </Layout.Footer>
-      <BiomeThemeToggle
-        biomeTheme={biomeTheme}
-        onToggle={() => {
-          overridden.current = true
-          setBiomeTheme(t => (t === 'dark' ? 'light' : 'dark'))
-        }}
-      />
-    </Layout>
+    <ConfigProvider theme={antTheme}>
+      <Layout
+        className='BiomePage'
+        data-biome={biome}
+        data-biome-theme={biomeTheme}>
+        <BiomeHeader biomeTheme={biomeTheme} />
+        <BiomeHero
+          biome={biome}
+          bannerSrc={BANNER_SRCS[biome] ?? null}
+          index={index}
+        />
+        <Layout.Content className='BiomePage__content'>
+          <BiomeDescription biome={biome} />
+          <BiomeMagic biome={biome} />
+          <BiomeAudio biome={biome} />
+          <BiomeEncounters biome={biome} />
+          <BiomeGathering biome={biome} />
+          <BiomeMap biome={biome} />
+        </Layout.Content>
+        <Layout.Footer className='BiomePage__footer'>
+          <Footer />
+        </Layout.Footer>
+        <BiomeThemeToggle
+          biomeTheme={biomeTheme}
+          onToggle={() => {
+            overridden.current = true
+            setBiomeTheme(t => (t === 'dark' ? 'light' : 'dark'))
+          }}
+        />
+      </Layout>
+    </ConfigProvider>
   )
 }
