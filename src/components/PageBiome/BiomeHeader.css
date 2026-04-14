@@ -29,3 +29,9 @@
 body:has(.ant-menu-submenu-popup:not(.ant-menu-submenu-hidden)) .BiomeHeader[data-scrolled="false"] {
   opacity: 1; /* 1 */
 }
+
+.BiomeHeader[data-scrolled="true"] {
+  background-color: color-mix(var(--biome-surface), light-dark( rgb(255 255 255 / 0.1), rgb(0 0 0 / 0.1)) 70%);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.06);
+}
