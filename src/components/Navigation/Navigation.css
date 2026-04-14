@@ -15,6 +15,7 @@
 
 .ant-menu-submenu .ant-menu-item-selected {
   --ant-menu-item-selected-bg: var(--biome-light, var(--prome-surface)); /* 1 */
+  --ant-menu-item-selected-color: var(--ant-menu-item-color); /* 2 */
   --ant-menu-dark-item-selected-bg: var(
     --biome-dark,
     var(--prome-surface)
