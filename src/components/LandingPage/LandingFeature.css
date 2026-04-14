@@ -56,6 +56,11 @@
 }
 
 @media (max-width: 1024px) {
+  .LandingFeature__visual {
+    transform: perspective(600px) rotateX(5deg);
+    filter: drop-shadow(0 24px 32px rgb(0 0 0 / 0.2));
+  }
+
   .LandingFeature__inner {
     padding: 3.5em 3em;
     gap: 2.5em;

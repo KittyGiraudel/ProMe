@@ -90,9 +90,3 @@
   color: rgb(255 255 255 / 0.65);
   letter-spacing: 0.06em;
 }
-
-@media (max-width: 767px) {
-  .LandingHero {
-    min-height: 85svh;
-  }
-}
