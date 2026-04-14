@@ -297,6 +297,7 @@
     "loading": "Loading…",
     "max_label": "Max.",
     "magic": "Magic",
+    "magic_label": "The magic of this biome must answer the following question:",
     "unsaved_changes_warning": {
       "title": "Unsaved Changes",
       "description": "You have unsaved changes. If you leave this page, these changes will be lost.",

@@ -18,7 +18,7 @@ export function BiomeMagic({ biome }: Props) {
       className='BiomeMagic'
       id='biome-magic'>
       <div>
-        <p>La Magie de ce biome doit répondre à la question suivante :</p>
+        <p>{t('common.magic_label')}</p>
         <div className='BiomeMagic__quote'>
           <blockquote className='BiomeMagic__text'>
             <SpiralSearch />

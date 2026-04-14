@@ -296,6 +296,7 @@
     "loading": "Chargement…",
     "max_label": "Max.",
     "magic": "Magie",
+    "magic_label": "La magie de ce biome doit répondre à la question suivante :",
     "unsaved_changes_warning": {
       "title": "Modifications non enregistrées",
       "description": "Vous avez des modifications non enregistrées. Si vous quittez cette page, ces modifications seront perdues.",
