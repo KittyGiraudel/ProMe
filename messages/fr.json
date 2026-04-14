@@ -3,32 +3,38 @@
     "shadowForest": {
       "name": "Forêt des ombres",
       "title": "La Forêt des Ombres",
-      "description": "Des arbres colossaux se dressent devant vous, telles des sentinelles géantes protégeant l’intérieur de l’ancienne forêt.\nQuand vous entrez, vous êtes étreint par des ombres profondes, mais dont l’obscurité ne suscite ni la peur ni l’insécurité. Le murmure chantant du vent entre les arbres semble vouloir raconter des histoires des temps immémoriaux.\nLa lumière du soleil, qui parfois se faufile entre les branches et les feuilles, créé des clairières reposantes et dorées.  Plus on s’enfonce au cœur de la forêt, plus on comprend que l’austérité des grands troncs qui vous entourent et l’intensité de l’obscurité qui vous enveloppe n’ont d’autre but que de protéger les vies qui s’y trouvent."
+      "description": "Des arbres colossaux se dressent devant vous, telles des sentinelles géantes protégeant l’intérieur de l’ancienne forêt.\nQuand vous entrez, vous êtes étreint par des ombres profondes, mais dont l’obscurité ne suscite ni la peur ni l’insécurité. Le murmure chantant du vent entre les arbres semble vouloir raconter des histoires des temps immémoriaux.\nLa lumière du soleil, qui parfois se faufile entre les branches et les feuilles, créé des clairières reposantes et dorées.  Plus on s’enfonce au cœur de la forêt, plus on comprend que l’austérité des grands troncs qui vous entourent et l’intensité de l’obscurité qui vous enveloppe n’ont d’autre but que de protéger les vies qui s’y trouvent.",
+      "magic": "Comment vivez-vous votre amitié avec la nuit ? Comment l’obscurité peut abriter d’autres sentiments que la peur ?"
     },
     "floodedPlains": {
       "name": "Plaines inondées",
       "title": "Les Plaines Inondées",
-      "description": "L’horizon commence à se rapprocher étrangement, plus qu’il ne le devrait. Le ciel semble consumer le sol, comme si vous arriviez au bord du monde. Puis vous posez le pied dans le vide… et réalisez que vous vous trouvez sur une immense plaine inondée. À l’exception de petits îlots occupés par d’immenses arbres aux troncs massifs, il ne semble pas que l’on puisse trouver de terre ferme de sitôt. Pourtant, l’eau calme, profonde d’une coudée, caresse vos chevilles et repose vos muscles fatigués du voyage."
+      "description": "L’horizon commence à se rapprocher étrangement, plus qu’il ne le devrait. Le ciel semble consumer le sol, comme si vous arriviez au bord du monde. Puis vous posez le pied dans le vide… et réalisez que vous vous trouvez sur une immense plaine inondée.\nÀ l’exception de petits îlots occupés par d’immenses arbres aux troncs massifs, il ne semble pas que l’on puisse trouver de terre ferme de sitôt. Pourtant, l’eau calme, profonde d’une coudée, caresse vos chevilles et repose vos muscles fatigués du voyage.",
+      "magic": "Comment dompter la force des cascades et apprendre à être fluide comme les rivières ?"
     },
     "mushroomJungle": {
       "name": "Jungle de champignons",
       "title": "La Jungle de Champignons",
-      "description": "Une odeur âcre se fait sentir et l’air devient humide. Des dizaines, des centaines, des milliers de spores envahissent l’air tandis que vous déambulez entre d’énormes champignons. Il devient difficile de respirer. C’est un endroit impossible à parcourir pour les voyageurs non préparés. On peut y trouver la mort, mais ce sera une mort douce, car chaque mort ici est destinée à nourrir le début de nouvelles vies."
+      "description": "Une odeur âcre se fait sentir et l’air devient humide. Des dizaines, des centaines, des milliers de spores envahissent l’air tandis que vous déambulez entre d’énormes champignons. Il devient difficile de respirer.\nC’est un endroit impossible à parcourir pour les voyageurs non préparés. On peut y trouver la mort, mais ce sera une mort douce, car chaque mort ici est destinée à nourrir le début de nouvelles vies.",
+      "magic": "Comment ce qui se nourrit de la mort peut-il donner de la force à ce qui est vivant ?"
     },
     "fieldSea": {
       "name": "Mer champêtre",
       "title": "La Mer Champêtre",
-      "description": "Le vent se lève et se met à souffler plus fort. Le bruissement reposant de l’herbe se mêle au chant des grillons dans une calme mélodie. Le soleil qui se reflète dans l’immensité du champ vert vous fait penser l’espace d’un instant à un tapis d’or infini qui se déroule devant vous. Les arbres verdoyants, courbés par le vent et les nombreuses parcelles de légumes sauvages révèlent une terre fertile comme il en existe peu."
+      "description": "Le vent se lève et se met à souffler plus fort. Le bruissement reposant de l’herbe se mêle au chant des grillons dans une calme mélodie. Le soleil qui se reflète dans l’immensité du champ vert vous fait penser l’espace d’un instant à un tapis d’or infini qui se déroule devant vous. Les arbres verdoyants, courbés par le vent et les nombreuses parcelles de légumes sauvages révèlent une terre fertile comme il en existe peu.",
+      "magic": "Comment pouvez-vous faire une sorte que le vent souffle en votre faveur ? Comment la verdure peut-elle vous aider ?"
     },
     "silentDesert": {
       "name": "Désert silencieux",
       "title": "Le Désert Silencieux",
-      "description": "L’air commence à s’assécher et à devenir vif. Le vent semble poussé par le soleil lui-même. L’horizon se déforme avec la chaleur, tandis que de grands plateaux de terre rougeâtre, parsemés de petits cactus cylindriques, peuplent le paysage devant vos yeux. Vous êtes au coeur d’un silence et d’un calme absolu."
+      "description": "L’air commence à s’assécher et à devenir vif. Le vent semble poussé par le soleil lui-même. L’horizon se déforme avec la chaleur, tandis que de grands plateaux de terre rougeâtre, parsemés de petits cactus cylindriques, peuplent le paysage devant vos yeux. Vous êtes au coeur d’un silence et d’un calme absolu.",
+      "magic": "Comment le silence peut-il vous soutenir et le bruit vous protéger ?"
     },
     "titanGardens": {
       "name": "Jardins titanesques",
       "title": "Les Jardins Titanesques",
-      "description": "Une avalanche de couleurs s’empare de vous. Des pétales flottent dans l’air et les tiges de plantes géantes longent la route. Un jardin aussi vaste que l’horizon se dresse devant vous. Lys, tournesols, roses, marguerites et autres innombrables fleurs éblouissantes montent jusqu’au ciel, contemplant chaque voyageur qui traverse leur domaine."
+      "description": "Une avalanche de couleurs s’empare de vous. Des pétales flottent dans l’air et les tiges de plantes géantes longent la route. Un jardin aussi vaste que l’horizon se dresse devant vous. Lys, tournesols, roses, marguerites et autres innombrables fleurs éblouissantes montent jusqu’au ciel, contemplant chaque voyageur qui traverse leur domaine.",
+      "magic": "Comment la fragilité peut-elle être forte et les couleurs puissantes ?"
     },
     "core": {
       "name": "Le Noyau",
@@ -279,6 +285,7 @@
     "gold": "{amount, number} pièces",
     "loading": "Chargement…",
     "max_label": "Max.",
+    "magic": "Magie",
     "unsaved_changes_warning": {
       "title": "Modifications non enregistrées",
       "description": "Vous avez des modifications non enregistrées. Si vous quittez cette page, ces modifications seront perdues.",

@@ -1,0 +1,18 @@
+.BiomeMagic__text {
+  margin-top: 0.5em;
+  padding: 1em 1.4em;
+  background: rgb(255 255 255 / 0.03);
+  border-left: 2px solid var(--biome-accent);
+  font-family: Georgia, serif;
+  font-style: italic;
+  line-height: 1.75;
+  color: var(--biome-text-muted);
+}
+
+.BiomeMagic__text q {
+  font-size: 1.25em;
+}
+
+q:lang(fr) {
+  quotes: '« ' ' »';
+}

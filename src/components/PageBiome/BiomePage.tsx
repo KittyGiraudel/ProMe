@@ -4,6 +4,7 @@ import { Layout } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useEffect } from 'react'
 import { Footer } from '@/components/Footer/Footer'
+import { BIOME_IDS } from '@/constants/misc'
 import type { BiomeId } from '@/lib/types'
 import { BiomeAudio } from './BiomeAudio'
 import { BiomeDescription } from './BiomeDescription'
@@ -11,10 +12,10 @@ import { BiomeEncounters } from './BiomeEncounters'
 import { BiomeGathering } from './BiomeGathering'
 import { BiomeHeader } from './BiomeHeader'
 import { BiomeHero } from './BiomeHero'
+import { BiomeMagic } from './BiomeMagic'
 import { BiomeMap } from './BiomeMap'
 
 import './BiomePage.css'
-import { BIOME_IDS } from '@/constants/misc'
 
 const BANNER_SRCS: Partial<Record<BiomeId, string>> = {
   shadowForest: '/images/banner-shadowForest.avif',
@@ -48,6 +49,7 @@ export function BiomePage({ biome }: Props) {
       />
       <Layout.Content className='BiomePage__content'>
         <BiomeDescription biome={biome} />
+        <BiomeMagic biome={biome} />
         <BiomeAudio biome={biome} />
         <BiomeEncounters biome={biome} />
         <BiomeGathering biome={biome} />
