@@ -1,8 +1,7 @@
 'use client'
 
 import { Layout as AntLayout, BreadcrumbProps, Typography } from 'antd'
-import { type ReactNode, useContext, useEffect } from 'react'
-import { AppearanceContext } from '@/components/AppProviders/ThemeProvider'
+import { type ReactNode } from 'react'
 import { Banner } from '@/components/Banner/Banner'
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
 import { Footer } from '@/components/Footer/Footer'

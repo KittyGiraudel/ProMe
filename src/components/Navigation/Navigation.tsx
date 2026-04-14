@@ -93,6 +93,10 @@ export function Navigation({
         label: <BlockedLink href='/settings'>{t('nav.settings')}</BlockedLink>,
       },
       {
+        key: '/authentication',
+        label: <AuthButton />,
+      },
+      {
         key: '/theme-toggle',
         label: (
           <ThemeToggleButton
@@ -108,10 +112,6 @@ export function Navigation({
             }
           />
         ),
-      },
-      {
-        key: '/authentication',
-        label: <AuthButton />,
       },
     ],
     [t, settings.appearance.theme, updateSettings]

@@ -64,3 +64,9 @@
   );
   backdrop-filter: blur(8px);
 }
+
+.ant-menu-item:has(.ThemeToggleButton) .ant-menu-title-content {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}

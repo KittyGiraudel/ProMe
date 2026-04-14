@@ -8,7 +8,7 @@
   --biome-text-muted  Decorative text only (teaser, hints) — 3:1 target
 */
 
-body:has(.BiomePage[data-biome-theme="dark"][data-biome="shadowForest"]) {
+[data-app-theme="dark"]:has(.BiomePage[data-biome="shadowForest"]) {
   --biome-bg: rgb(14 9 25);
   --biome-surface: rgb(26 16 40);
   --biome-border: rgb(167 147 195 / 0.18);
@@ -24,7 +24,7 @@ body:has(.BiomePage[data-biome-theme="dark"][data-biome="shadowForest"]) {
   );
 }
 
-body:has(.BiomePage[data-biome-theme="dark"][data-biome="floodedPlains"]) {
+[data-app-theme="dark"]:has(.BiomePage[data-biome="floodedPlains"]) {
   --biome-bg: rgb(6 14 20);
   --biome-surface: rgb(12 26 38);
   --biome-border: rgb(94 196 232 / 0.18);
@@ -40,7 +40,7 @@ body:has(.BiomePage[data-biome-theme="dark"][data-biome="floodedPlains"]) {
   );
 }
 
-body:has(.BiomePage[data-biome-theme="dark"][data-biome="mushroomJungle"]) {
+[data-app-theme="dark"]:has(.BiomePage[data-biome="mushroomJungle"]) {
   --biome-bg: rgb(17 11 8);
   --biome-surface: rgb(30 19 14);
   --biome-border: rgb(174 145 120 / 0.18);
@@ -56,7 +56,7 @@ body:has(.BiomePage[data-biome-theme="dark"][data-biome="mushroomJungle"]) {
   );
 }
 
-body:has(.BiomePage[data-biome-theme="dark"][data-biome="fieldSea"]) {
+[data-app-theme="dark"]:has(.BiomePage[data-biome="fieldSea"]) {
   --biome-bg: rgb(9 20 14);
   --biome-surface: rgb(16 32 23);
   --biome-border: rgb(125 200 160 / 0.18);
@@ -72,7 +72,7 @@ body:has(.BiomePage[data-biome-theme="dark"][data-biome="fieldSea"]) {
   );
 }
 
-body:has(.BiomePage[data-biome-theme="dark"][data-biome="silentDesert"]) {
+[data-app-theme="dark"]:has(.BiomePage[data-biome="silentDesert"]) {
   --biome-bg: rgb(23 18 7);
   --biome-surface: rgb(36 28 12);
   --biome-border: rgb(243 213 142 / 0.18);
@@ -88,7 +88,7 @@ body:has(.BiomePage[data-biome-theme="dark"][data-biome="silentDesert"]) {
   );
 }
 
-body:has(.BiomePage[data-biome-theme="dark"][data-biome="titanGardens"]) {
+[data-app-theme="dark"]:has(.BiomePage[data-biome="titanGardens"]) {
   --biome-bg: rgb(22 8 6);
   --biome-surface: rgb(34 16 13);
   --biome-border: rgb(255 179 167 / 0.18);
@@ -106,13 +106,13 @@ body:has(.BiomePage[data-biome-theme="dark"][data-biome="titanGardens"]) {
 
 /* ── Shared theme-level tokens ───────────────────────────────── */
 
-body:has(.BiomePage[data-biome-theme="dark"]) {
+[data-app-theme="dark"]:has(.BiomePage) {
   --biome-hero-text: rgb(255 255 255 / 0.8);
   --biome-hero-scrim: rgb(0 0 0 / 0.7);
   --biome-hint-bg: rgb(255 255 255 / 0.03);
 }
 
-body:has(.BiomePage[data-biome-theme="light"]) {
+[data-app-theme="light"]:has(.BiomePage) {
   --biome-hero-text: var(--biome-text);
   --biome-hero-scrim: rgb(255 255 255 / 0.6);
   --biome-hint-bg: rgb(0 0 0 / 0.04);
@@ -120,7 +120,7 @@ body:has(.BiomePage[data-biome-theme="light"]) {
 
 /* ── Per-biome light palette tokens ─────────────────────────── */
 
-body:has(.BiomePage[data-biome-theme="light"][data-biome="shadowForest"]) {
+[data-app-theme="light"]:has(.BiomePage[data-biome="shadowForest"]) {
   --biome-bg: #ede8f5;
   --biome-surface: #ddd4f0;
   --biome-border: rgb(106 78 155 / 0.22);
@@ -136,7 +136,7 @@ body:has(.BiomePage[data-biome-theme="light"][data-biome="shadowForest"]) {
   );
 }
 
-body:has(.BiomePage[data-biome-theme="light"][data-biome="floodedPlains"]) {
+[data-app-theme="light"]:has(.BiomePage[data-biome="floodedPlains"]) {
   --biome-bg: #e4f3fb;
   --biome-surface: #d0e8f8;
   --biome-border: rgb(20 120 170 / 0.2);
@@ -152,7 +152,7 @@ body:has(.BiomePage[data-biome-theme="light"][data-biome="floodedPlains"]) {
   );
 }
 
-body:has(.BiomePage[data-biome-theme="light"][data-biome="mushroomJungle"]) {
+[data-app-theme="light"]:has(.BiomePage[data-biome="mushroomJungle"]) {
   --biome-bg: #f0e8de;
   --biome-surface: #e2d4c4;
   --biome-border: rgb(130 95 65 / 0.2);
@@ -168,7 +168,7 @@ body:has(.BiomePage[data-biome-theme="light"][data-biome="mushroomJungle"]) {
   );
 }
 
-body:has(.BiomePage[data-biome-theme="light"][data-biome="fieldSea"]) {
+[data-app-theme="light"]:has(.BiomePage[data-biome="fieldSea"]) {
   --biome-bg: #e4f5ec;
   --biome-surface: #cce8d8;
   --biome-border: rgb(30 110 65 / 0.2);
@@ -184,7 +184,7 @@ body:has(.BiomePage[data-biome-theme="light"][data-biome="fieldSea"]) {
   );
 }
 
-body:has(.BiomePage[data-biome-theme="light"][data-biome="silentDesert"]) {
+[data-app-theme="light"]:has(.BiomePage[data-biome="silentDesert"]) {
   --biome-bg: #f5e8c8;
   --biome-surface: #ead4a0;
   --biome-border: rgb(160 120 20 / 0.2);
@@ -200,7 +200,7 @@ body:has(.BiomePage[data-biome-theme="light"][data-biome="silentDesert"]) {
   );
 }
 
-body:has(.BiomePage[data-biome-theme="light"][data-biome="titanGardens"]) {
+[data-app-theme="light"]:has(.BiomePage[data-biome="titanGardens"]) {
   --biome-bg: #f5e0dc;
   --biome-surface: #e8cac4;
   --biome-border: rgb(160 50 36 / 0.2);
