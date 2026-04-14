@@ -1,13 +1,3 @@
-/* ── Shell ──────────────────────────────────────────────────── */
-.BiomePage {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--biome-bg);
-  color: var(--biome-text);
-  --ant-layout-body-bg: var(--biome-bg) !important;
-}
-
 /* ── Per-biome palette tokens ───────────────────────────────── */
 /*
   --biome-bg        Page/content background
@@ -18,7 +8,7 @@
   --biome-text-muted  Decorative text only (teaser, hints) — 3:1 target
 */
 
-.BiomePage[data-biome="shadowForest"] {
+body:has(.BiomePage[data-biome="shadowForest"]) {
   --biome-bg: rgb(14 9 25);
   --biome-surface: rgb(26 16 40);
   --biome-border: rgb(167 147 195 / 0.18);
@@ -34,7 +24,7 @@
   );
 }
 
-.BiomePage[data-biome="floodedPlains"] {
+body:has(.BiomePage[data-biome="floodedPlains"]) {
   --biome-bg: rgb(6 14 20);
   --biome-surface: rgb(12 26 38);
   --biome-border: rgb(94 196 232 / 0.18);
@@ -50,7 +40,7 @@
   );
 }
 
-.BiomePage[data-biome="mushroomJungle"] {
+body:has(.BiomePage[data-biome="mushroomJungle"]) {
   --biome-bg: rgb(17 11 8);
   --biome-surface: rgb(30 19 14);
   --biome-border: rgb(174 145 120 / 0.18);
@@ -66,7 +56,7 @@
   );
 }
 
-.BiomePage[data-biome="fieldSea"] {
+body:has(.BiomePage[data-biome="fieldSea"]) {
   --biome-bg: rgb(9 20 14);
   --biome-surface: rgb(16 32 23);
   --biome-border: rgb(125 200 160 / 0.18);
@@ -82,7 +72,7 @@
   );
 }
 
-.BiomePage[data-biome="silentDesert"] {
+body:has(.BiomePage[data-biome="silentDesert"]) {
   --biome-bg: rgb(23 18 7);
   --biome-surface: rgb(36 28 12);
   --biome-border: rgb(243 213 142 / 0.18);
@@ -98,7 +88,7 @@
   );
 }
 
-.BiomePage[data-biome="titanGardens"] {
+body:has(.BiomePage[data-biome="titanGardens"]) {
   --biome-bg: rgb(22 8 6);
   --biome-surface: rgb(34 16 13);
   --biome-border: rgb(255 179 167 / 0.18);
@@ -112,6 +102,21 @@
     rgb(90 35 28) 65%,
     rgb(140 60 48) 100%
   );
+}
+
+body:has(.BiomePage) {
+  background-color: var(--biome-bg);
+}
+
+/* ── Shell ──────────────────────────────────────────────────── */
+
+.BiomePage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--biome-bg);
+  color: var(--biome-text);
+  --ant-layout-body-bg: var(--biome-bg) !important;
 }
 
 /* ── Content ──────────────────────────────────────────────────── */

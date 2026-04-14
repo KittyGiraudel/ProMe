@@ -90,6 +90,10 @@ a {
   --biome-titanGardens-dark-contrast: #ffffff;
 }
 
+[data-biome] {
+  accent-color: var(--biome-light);
+}
+
 [data-biome="unexplored"] {
   --biome-light: var(--biome-unexplored-light);
   --biome-dark: var(--biome-unexplored-dark);
