@@ -5,7 +5,6 @@
  */
 .Navigation.ant-menu.ant-menu {
   width: 100%;
-  padding-inline: 2.5em;
   background-color: inherit;
   color: inherit;
   --ant-menu-dark-item-selected-bg: transparent; /* 1 */
@@ -20,12 +19,6 @@
     --biome-dark,
     var(--prome-surface)
   ); /* 1 */
-}
-
-@media (max-width: 767px) {
-  .Navigation.ant-menu.ant-menu {
-    padding-inline: 0em;
-  }
 }
 
 /**

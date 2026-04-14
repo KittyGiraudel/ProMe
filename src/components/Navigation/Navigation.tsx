@@ -96,23 +96,6 @@ export function Navigation({
         key: '/authentication',
         label: <AuthButton />,
       },
-      {
-        key: '/theme-toggle',
-        label: (
-          <ThemeToggleButton
-            theme={settings.appearance.theme}
-            onToggle={() =>
-              updateSettings(prev => ({
-                ...prev,
-                appearance: {
-                  ...prev.appearance,
-                  theme: prev.appearance.theme === 'dark' ? 'light' : 'dark',
-                },
-              }))
-            }
-          />
-        ),
-      },
     ],
     [t, settings.appearance.theme, updateSettings]
   )
@@ -135,13 +118,28 @@ export function Navigation({
   }, [pathname, loading])
 
   return (
-    <Menu
-      className='Navigation'
-      theme={theme}
-      mode='horizontal'
-      items={items}
-      selectedKeys={selected}
-      multiple
-    />
+    <>
+      <Menu
+        className='Navigation'
+        theme={theme}
+        mode='horizontal'
+        items={items}
+        selectedKeys={selected}
+        multiple
+      />
+      <ThemeToggleButton
+        theme={settings.appearance.theme}
+        disabled={themeOverride !== undefined}
+        onToggle={() =>
+          updateSettings(prev => ({
+            ...prev,
+            appearance: {
+              ...prev.appearance,
+              theme: prev.appearance.theme === 'dark' ? 'light' : 'dark',
+            },
+          }))
+        }
+      />
+    </>
   )
 }

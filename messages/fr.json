@@ -547,7 +547,8 @@
     "village_generator": "Générateur de village",
     "theme": {
       "switchToLight": "Passer en mode clair",
-      "switchToDark": "Passer en mode sombre"
+      "switchToDark": "Passer en mode sombre",
+      "switchDisabled": "Le thème adaptatif est activé"
     }
   },
   "new_character": {

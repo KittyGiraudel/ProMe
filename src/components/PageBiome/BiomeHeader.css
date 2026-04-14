@@ -15,7 +15,13 @@
     var(--biome-light-contrast),
     var(--biome-dark-contrast)
   );
-  --ant-layout-header-padding: 0em;
+  --ant-layout-header-padding: 0 2.5em;
+}
+
+@media (max-width: 767px) {
+  .BiomeHeader {
+    --ant-layout-header-padding: 0 0.5em;
+  }
 }
 
 /**

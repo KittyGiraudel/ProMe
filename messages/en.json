@@ -550,7 +550,8 @@
     "village_generator": "Village Generator",
     "theme": {
       "switchToLight": "Switch to light mode",
-      "switchToDark": "Switch to dark mode"
+      "switchToDark": "Switch to dark mode",
+      "switchDisabled": "Character sheet adaptive theme is enabled"
     }
   },
   "new_character": {

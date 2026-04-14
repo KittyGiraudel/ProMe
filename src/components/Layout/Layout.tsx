@@ -38,7 +38,7 @@ export const Layout = ({
   return (
     <AntLayout className={`Layout ${className}`}>
       <AntLayout.Header className='Layout__header'>
-        <Navigation />
+        <Navigation themeOverride={appThemeOverride} />
       </AntLayout.Header>
       <Banner biome={bannerBiome} />
       <AntLayout.Content className='Layout__wrapper'>
