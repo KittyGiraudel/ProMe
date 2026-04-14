@@ -15,7 +15,10 @@
 
 .ant-menu-submenu .ant-menu-item-selected {
   --ant-menu-item-selected-bg: var(--biome-light, var(--prome-surface)); /* 1 */
-  --ant-menu-dark-item-selected-bg: var(--biome-dark, var(--prome-surface)); /* 1 */
+  --ant-menu-dark-item-selected-bg: var(
+    --biome-dark,
+    var(--prome-surface)
+  ); /* 1 */
 }
 
 @media (max-width: 767px) {
@@ -28,8 +31,8 @@
  * 1. Align the styles of the dark theme of the <Menu> component with its light
  *    theme,  which uses a small bottom border instead of a background color.
  */
-.Navigation.ant-menu-dark.ant-menu-horizontal >.ant-menu-item-selected::after,
-.Navigation.ant-menu-dark.ant-menu-horizontal >.ant-menu-item:hover::after {
+.Navigation.ant-menu-dark.ant-menu-horizontal > .ant-menu-item-selected::after,
+.Navigation.ant-menu-dark.ant-menu-horizontal > .ant-menu-item:hover::after {
   border-bottom-width: 2px; /* 1 */
 }
 
@@ -49,5 +52,6 @@
 }
 
 .ant-menu-title-content > * {
-  transition: color var(--ant-motion-duration-slow) var(--ant-motion-ease-in-out) !important;
+  transition: color var(--ant-motion-duration-slow)
+    var(--ant-motion-ease-in-out) !important;
 }

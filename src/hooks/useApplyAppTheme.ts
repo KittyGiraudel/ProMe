@@ -1,5 +1,5 @@
-import { AppearanceContext } from '@/components/AppProviders/ThemeProvider'
 import { useContext, useEffect } from 'react'
+import { AppearanceContext } from '@/components/AppProviders/ThemeProvider'
 
 export function useApplyAppTheme(appThemeOverride?: 'light' | 'dark') {
   const { appTheme } = useContext(AppearanceContext)

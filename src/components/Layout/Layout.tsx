@@ -8,9 +8,9 @@ import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
 import { Footer } from '@/components/Footer/Footer'
 import { Navigation } from '@/components/Navigation/Navigation'
 import { Spacing } from '@/components/Spacing/Spacing'
+import { useApplyAppTheme } from '@/hooks/useApplyAppTheme'
 import { AppTheme } from '@/lib/settings/types'
 import type { PossibleBiomeId } from '@/lib/types'
-import { useApplyAppTheme } from '@/hooks/useApplyAppTheme'
 
 import './Layout.css'
 
