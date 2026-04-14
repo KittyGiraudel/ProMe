@@ -100,6 +100,21 @@ export function AudioPlayer({
     [url, buildHowl]
   )
 
+  // Stop playback when the component unmounts (e.g. user navigates away from the
+  // biome page). This covers the lazy-init path where togglePlay created the
+  // Howl — that path returns no cleanup from handleBiomeChange, so without this
+  // effect the audio would keep playing after navigation.
+  useEffect(function cleanup() {
+    return () => {
+      if (howl.current) {
+        howl.current.fade(volumeRef.current, 0, FADE_DURATION_MS)
+        const sound = howl.current
+        setTimeout(() => sound.unload(), FADE_DURATION_MS)
+        howl.current = null
+      }
+    }
+  }, [])
+
   // Poll current playback position while playing
   useEffect(
     function pollCurrentTime() {
