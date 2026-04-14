@@ -1,21 +1,21 @@
 import { useTranslations } from 'next-intl'
+import { MapCover } from '@/components/MapCover/MapCover'
 import { BiomeId } from '@/lib/types'
-import { MapCover } from '../MapCover/MapCover'
+import { BiomeSection } from './BiomeSection'
+
+import './BiomeMap.css'
 
 export function BiomeMap({ biome }: { biome: BiomeId }) {
   const t = useTranslations()
 
   return (
-    <section>
-      <div className='BiomeContent__sectionHead'>
-        <h2 className='BiomeContent__sectionLabel'>
-          {t('characters.map.title')}
-        </h2>
-        <div className='BiomeContent__sectionRule' />
-      </div>
-      <div className='BiomeMapCover'>
+    <BiomeSection
+      title={t('characters.map.title')}
+      className='BiomeMap'
+      id='biome-map'>
+      <div className='BiomeMap__cover'>
         <MapCover biome={biome} isCore={false} />
       </div>
-    </section>
+    </BiomeSection>
   )
 }

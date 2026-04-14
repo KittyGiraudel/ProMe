@@ -1,0 +1,8 @@
+.BiomeAudio__wrapper {
+  background: var(--biome-surface);
+  color: var(--biome-text);
+  border: 1px solid var(--biome-border);
+  border-radius: 0.6em;
+  padding: 1em 1.2em;
+  max-width: 30em;
+}

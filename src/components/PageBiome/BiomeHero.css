@@ -1,0 +1,80 @@
+.BiomeHero {
+  position: relative;
+  height: 100vh;
+  min-height: 500px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  background-color: var(--biome-hero-gradient);
+  background-image: var(--biome-hero-image);
+  background-size: cover;
+  background-position: center;
+}
+
+.BiomeHero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgb(0 0 0 / 0) 30%,
+    rgb(0 0 0 / 0.7) 75%,
+    var(--biome-bg) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+.BiomeHero__content {
+  position: relative;
+  z-index: 2;
+  padding: 0 3em 3.5em;
+}
+
+@media (min-width: 900px) {
+  .BiomeHero__content {
+    max-width: 50vw;
+  }
+}
+
+.BiomeHero__eyebrow {
+  font-size: 1em;
+  letter-spacing: 0.22em;
+  text-indent: 0.25em;
+  text-transform: uppercase;
+  color: var(--biome-text-muted);
+  margin-bottom: 0.9em;
+}
+
+.BiomeHero__title {
+  /* Custom per-biome font loaded by page.tsx — falls back to serif */
+  font-family: var(--biome-title-font, serif);
+  font-size: 6em;
+  font-weight: 400;
+  line-height: 1;
+  color: rgb(255 255 255 / 0.8);
+  text-shadow: 0 4px 32px rgb(0 0 0 / 0.6);
+  margin-bottom: 1em;
+}
+
+.BiomeHero__teaser {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.2em;
+  line-height: 1.65;
+  font-style: italic;
+  color: var(--biome-text-muted);
+  max-width: 32em;
+}
+
+.BiomeHero__scrollHint {
+  position: absolute;
+  bottom: 3em;
+  right: 3em;
+  z-index: 2;
+  font-size: 0.75em;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.3);
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+}

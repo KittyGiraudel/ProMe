@@ -1,0 +1,9 @@
+.BiomeMap__cover {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .MapCover {
+    border: 1px solid var(--biome-surface);
+    border-radius: var(--ant-border-radius-lg);
+  }
+}

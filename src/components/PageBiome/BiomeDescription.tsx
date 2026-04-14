@@ -1,8 +1,11 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { RichText } from '@/components/RichText/RichText'
 import type { BiomeId } from '@/lib/types'
-import { RichText } from '../RichText/RichText'
+import { BiomeSection } from './BiomeSection'
+
+import './BiomeDescription.css'
 
 type Props = { biome: BiomeId }
 
@@ -10,18 +13,15 @@ export function BiomeDescription({ biome }: Props) {
   const t = useTranslations()
 
   return (
-    <section>
-      <div className='BiomeContent__sectionHead'>
-        <h2 className='BiomeContent__sectionLabel'>
-          {t('common.description')}
-        </h2>
-        <div className='BiomeContent__sectionRule' />
-      </div>
+    <BiomeSection
+      title={t('common.description')}
+      className='BiomeDescription'
+      id='biome-description'>
       <div className='BiomeDescription__text'>
         <RichText
           text={t(`biomes.${biome}.description`).replace(/\n/g, '  \n\n')}
         />
       </div>
-    </section>
+    </BiomeSection>
   )
 }

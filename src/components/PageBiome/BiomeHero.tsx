@@ -3,6 +3,8 @@
 import { useTranslations } from 'next-intl'
 import type { BiomeId } from '@/lib/types'
 
+import './BiomeHero.css'
+
 type Props = {
   biome: BiomeId
   bannerSrc: string | null

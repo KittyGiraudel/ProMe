@@ -1,21 +1,21 @@
 import { useTranslations } from 'next-intl'
+import { AudioPlayer } from '@/components/AudioPlayer/AudioPlayer'
 import { BiomeId } from '@/lib/types'
-import { AudioPlayer } from '../AudioPlayer/AudioPlayer'
+import { BiomeSection } from './BiomeSection'
+
+import './BiomeAudio.css'
 
 export function BiomeAudio({ biome }: { biome: BiomeId }) {
   const t = useTranslations()
 
   return (
-    <section>
-      <div className='BiomeContent__sectionHead'>
-        <h2 className='BiomeContent__sectionLabel'>
-          {t('audio_player.title')}
-        </h2>
-        <div className='BiomeContent__sectionRule' />
-      </div>
-      <div className='BiomeAudio'>
+    <BiomeSection
+      title={t('audio_player.title')}
+      className='BiomeAudio'
+      id='biome-audio'>
+      <div className='BiomeAudio__wrapper'>
         <AudioPlayer biome={biome} />
       </div>
-    </section>
+    </BiomeSection>
   )
 }

@@ -3,6 +3,9 @@
 import { useTranslations } from 'next-intl'
 import { GATHERING_SCHEMA } from '@/lib/gathering/schema'
 import type { BiomeId, TranslationKey } from '@/lib/types'
+import { BiomeSection } from './BiomeSection'
+
+import './BiomeGathering.css'
 
 type Props = { biome: BiomeId }
 
@@ -22,13 +25,10 @@ export function BiomeGathering({ biome }: Props) {
     gatherMessages?.hint ?? gatherMessages?.warning
 
   return (
-    <section>
-      <div className='BiomeContent__sectionHead'>
-        <h2 className='BiomeContent__sectionLabel'>
-          {t('characters.map.gathering_dialog_title')}
-        </h2>
-        <div className='BiomeContent__sectionRule' />
-      </div>
+    <BiomeSection
+      title={t('characters.map.gathering_dialog_title')}
+      className='BiomeGathering'
+      id='biome-gathering'>
       <div className='BiomeGathering__grid'>
         {GATHER_KEYS.map(key => (
           <div key={key} className='BiomeGathering__item'>
@@ -40,6 +40,6 @@ export function BiomeGathering({ biome }: Props) {
         ))}
       </div>
       {hint && <p className='BiomeGathering__hint'>{hint}</p>}
-    </section>
+    </BiomeSection>
   )
 }
