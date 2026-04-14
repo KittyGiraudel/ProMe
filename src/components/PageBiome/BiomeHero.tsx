@@ -14,9 +14,6 @@ type Props = {
 
 export function BiomeHero({ biome, bannerSrc, index }: Props) {
   const t = useTranslations()
-  const description = t(`biomes.${biome}.description`)
-  // Use only the first sentence as the teaser.
-  const teaser = description.split(/[.!?]\s/)[0] + '.'
 
   return (
     <div
@@ -30,7 +27,7 @@ export function BiomeHero({ biome, bannerSrc, index }: Props) {
           Biome {String(index + 1).padStart(2, '0')}
         </p>
         <h1 className='BiomeHero__title'>{t(`biomes.${biome}.title`)}</h1>
-        <p className='BiomeHero__teaser'>{teaser}</p>
+        <p className='BiomeHero__teaser'>{t(`biomes.${biome}.teaser`)}</p>
       </div>
       <p className='BiomeHero__scrollHint'>
         {t('common.actions.explore')} <ArrowDownOutlined />
