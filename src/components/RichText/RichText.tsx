@@ -3,6 +3,7 @@
 import type { CSSProperties, ReactNode } from 'react'
 import { cloneElement, isValidElement } from 'react'
 import ReactMarkdown from 'react-markdown'
+import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
 import { SUITS } from '@/constants/misc'
 import {
@@ -65,10 +66,17 @@ export function renderWithHighlights(
   )
 }
 
-export function RichText({ text }: { text: string }) {
+export function RichText({
+  text,
+  headingIds,
+}: {
+  text: string
+  headingIds?: boolean
+}) {
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
+      rehypePlugins={headingIds ? [rehypeSlug] : []}
       skipHtml
       components={{
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -80,11 +88,17 @@ export function RichText({ text }: { text: string }) {
           <li {...props}>{renderWithHighlights(children, highlighter)}</li>
         ),
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        a: ({ children, node: _, ...props }) => (
-          <a {...props} target='_blank' rel='noreferrer'>
-            {renderWithHighlights(children, highlighter)}
-          </a>
-        ),
+        a: ({ children, node: _, ...props }) => {
+          const newTab = props.href?.startsWith('http')
+          return (
+            <a
+              {...props}
+              target={newTab ? '_blank' : undefined}
+              rel={newTab ? 'noreferrer' : undefined}>
+              {renderWithHighlights(children, highlighter)}
+            </a>
+          )
+        },
       }}>
       {text}
     </ReactMarkdown>

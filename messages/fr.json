@@ -476,22 +476,10 @@
     }
   },
   "faq": {
-    "answer_1": "ProMe, pour « **Pro**tecteur » et « **Mé**moires » est un compagnon de jeu pour « [Les Souvenirs du Protecteur](https://www.cultura.com/p-les-souvenirs-du-protecteur-les-fondations-de-l-imaginaire-12158384.html) », un jeu de rôle solo par Enzo Salviato. Il est suggéré d’avoir l’application ouverte à l’écran en jouant au jeu, comme référence et pour pouvoir marquer sa progression. C’est principalement pour pouvoir jouer au jeu de manière numérique et hors-ligne (pas tout à fait cependant, car utiliser le manuel officiel est requis).\n\nLe jeu est exceptionnel, mais demande de prendre des notes sur papier ; chose qui m’est personnellement fastidieuse. C’est pourquoi j’ai développé cette version numérique, afin de basculer la prise de note et annotation de la carte sur ordinateur (ou mobile).",
-    "answer_2": "Plus ou moins de la même manière que la version papier du jeu. À chaque « tour » :\n1. Déplacez-vous sur la carte. Selon vos paramètres, l’Horloge avance automatiquement, et une nouvelle entrée est ajoutée au journal ; sinon, faites cela manuellement.\n2. Tirez un dé et référez-vous à la table des rencontres pour savoir quel événement se produit ; il vous faut le livre de règles pour cette étape.\n3. Si vous pouvez et voulez collecter ou miner des ressources, référez-vous à la table de collecte et lancez un dé pour déterminer ce que vous pouvez trouver.\n4. Renseignez votre aventure du jour dans le journal pour rendre votre voyage canonique.",
-    "answer_3": "Utilisable ? Oui. Agréable ? Je ne suis pas certaine. De la même manière que le jeu papier donne une carte et fiche de personnage au format A4, le site est fait pour être utilisé sur un écran d’ordinateur qui offre de la place et visibilité. Le site est techniquement responsive, mais je ne sais pas si l’expérience de jeu sera très agréable sur mobile.",
-    "answer_4": "Les rencontres ne sont pas vraiment implémentées. La table de rencontres est disponible près de la carte, mais il est nécessaire de se référer au livre de règles pour effectuer la majorité des rencontres.\nDe plus, le stock des boutiques n’est pas implémenté non plus. Cela signifie qu’à la création d’une village, il est nécessaire de définir les offres manuellement, puis de les noter dans le journal pour y revenir plus tard.",
-    "answer_5": "Le module de cartographie utilise des fonctionnalités de styles (CSS) modernes qui ne sont pas encore bien supportées par les navigateurs. C’est pourquoi il est préférable d’utiliser le navigateur Chrome, car c’est celui que j’utilise pour le dévelopement. Quant à pourquoi je n’ai pas étendu le support à d’autres navigateurs : créer une grille d’hexagones est compliqué ; j’avais le choix entre utiliser des technologies modernes pour garder les choses simples, ou développer tout le système de carte avec HTML Canvas, ce que je ne voulais pas faire.",
-    "answer_6": "Qu’on soit d’accord ou non, le jeu n’a pas de concept de genre donc tous les personnages — jouables ou non — sont sans genre. J’ai trouvé intéressant et plus immersif de pouvoir définir le genre des personnages. C’est complètement optionnel, et j’ai rendu les choses permissives avec plusieurs options.",
-    "question_1": "Qu’est-ce que ce site ?",
-    "question_2": "Comment utiliser le site ?",
-    "question_3": "Est-ce utilisable sur mobile ?",
-    "question_4": "Que manque-t-il dans le site ?",
-    "question_5": "Pourquoi la carte est-elle cassée ?",
-    "question_6": "Pourquoi y a-t-il un système de genre ?",
-    "title": "Frequently Asked Questions"
+    "title": "Foire Aux Questions"
   },
   "footer": {
-    "application": "Application par <link_author>Kitty</link_author><version></version> – <link_github>Signaler un problème</link_github>",
+    "application": "ProMe par <link_author>Kitty</link_author><version></version> – <link_github>Signaler un problème</link_github>",
     "copyright": "© Les Souvenirs du Protecteur, par Enzo Salviato"
   },
   "home": {
@@ -711,9 +699,9 @@
     "hero": {
       "eyebrow": "Une aide de jeu pour « *Les Souvenirs du Protecteur* »",
       "title": "ProMe",
-      "tagline": "Votre journal, carte et boîte à outils pour explorer un monde oublié.",
+      "tagline": "Votre journal, carte et codex pour explorer un monde oublié.",
       "cta": "Commencez votre voyage",
-      "sub": "Gratuit · Sans compte · Fonctionne dans votre navigateur"
+      "sub": "Gratuit · Compte optionnel · Fonctionne hors-ligne"
     },
     "features": {
       "character": {

@@ -1,17 +1,12 @@
 'use client'
 
-import { Typography } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
 import { RichText } from '@/components/RichText/RichText'
-import { Spacing } from '@/components/Spacing/Spacing'
-import type { TranslationKey } from '@/lib/types'
 
 import './FAQ.css'
 
-const ENTRY_COUNT = 6
-
-export function FAQ() {
+export function FAQ({ content }: { content: string }) {
   const t = useTranslations()
 
   return (
@@ -23,31 +18,7 @@ export function FAQ() {
         { title: t('nav.faq'), path: '/faq' },
       ]}
       className='FAQ'>
-      {Array.from({ length: ENTRY_COUNT }, (_, i) => (
-        <Entry index={i + 1} key={i + 1} />
-      ))}
+      <RichText text={content} headingIds />
     </Layout>
-  )
-}
-
-function Entry({ index }: { index: number }) {
-  const t = useTranslations()
-  return (
-    <>
-      <Typography.Title level={2}>
-        {t(`faq.question_${index}` as TranslationKey)}
-      </Typography.Title>
-      <Paragraphs translation={t(`faq.answer_${index}` as TranslationKey)} />
-    </>
-  )
-}
-
-function Paragraphs({ translation }: { translation: string }) {
-  return (
-    <Spacing size='small'>
-      {translation.split(/\n/g).map((paragraph, index) => (
-        <RichText key={index} text={paragraph} />
-      ))}
-    </Spacing>
   )
 }
