@@ -48,10 +48,6 @@
     },
     "unexplored": {
       "name": "Inexploré"
-    },
-    "theme": {
-      "switchToLight": "Passer en mode clair",
-      "switchToDark": "Passer en mode sombre"
     }
   },
   "characters_list": {
@@ -548,7 +544,11 @@
     "biomes": "Biomes",
     "new_character": "Nouveau Protecteur",
     "settings": "Paramètres",
-    "village_generator": "Générateur de village"
+    "village_generator": "Générateur de village",
+    "theme": {
+      "switchToLight": "Passer en mode clair",
+      "switchToDark": "Passer en mode sombre"
+    }
   },
   "new_character": {
     "create_success": "Protecteur créé.",

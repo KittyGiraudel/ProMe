@@ -14,8 +14,8 @@ export function BiomeThemeToggle({ biomeTheme, onToggle }: Props) {
   const t = useTranslations()
   const label =
     biomeTheme === 'dark'
-      ? t('biomes.theme.switchToLight')
-      : t('biomes.theme.switchToDark')
+      ? t('nav.theme.switchToLight')
+      : t('nav.theme.switchToDark')
 
   return (
     <button

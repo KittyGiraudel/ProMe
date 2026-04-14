@@ -48,10 +48,6 @@
     },
     "unexplored": {
       "name": "Unexplored"
-    },
-    "theme": {
-      "switchToLight": "Switch to light mode",
-      "switchToDark": "Switch to dark mode"
     }
   },
   "characters_list": {
@@ -551,7 +547,11 @@
     "biomes": "Biomes",
     "new_character": "New Protector",
     "settings": "Settings",
-    "village_generator": "Village Generator"
+    "village_generator": "Village Generator",
+    "theme": {
+      "switchToLight": "Switch to light mode",
+      "switchToDark": "Switch to dark mode"
+    }
   },
   "new_character": {
     "create_success": "Protector created.",
