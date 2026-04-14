@@ -2,7 +2,6 @@ import ArrowRightOutlined from '@ant-design/icons/lib/icons/ArrowRightOutlined'
 import { useTranslations } from 'next-intl'
 import { ViewTransition } from 'react'
 import { CardCover } from '@/components/CardCover/CardCover'
-import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { biomeIdToSlug } from '@/lib/biomes/biomeSlug'
 import { PossibleBiomeId } from '@/lib/types'
 import { BlockedLink } from '../Navigation/BlockedLink'
@@ -19,11 +18,6 @@ export function MapCover({
   withViewTransition?: boolean
 }) {
   const t = useTranslations()
-  const { settings } = useSettings()
-
-  if (!settings.appearance.showImagery) {
-    return null
-  }
 
   if (isCore) {
     return (

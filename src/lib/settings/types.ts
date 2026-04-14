@@ -39,8 +39,6 @@ export type AppSettings = {
   appearance: {
     /** Controls the theme (light or dark mode). Defaults to 'light'. */
     theme: AppTheme
-    /** When true, imagery (illustrations, artwork) is displayed throughout the app. Defaults to true. */
-    showImagery: boolean
   }
   shortcuts: {
     /** When false, all global keyboard shortcuts are disabled. Defaults to true. */

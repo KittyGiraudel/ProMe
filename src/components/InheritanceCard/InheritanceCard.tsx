@@ -4,7 +4,6 @@ import { Alert, Card, Divider, Empty, Form, Select, Skeleton } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
 import { CardCover } from '@/components/CardCover/CardCover'
-import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { useCharactersQuery } from '@/hooks/useQuery'
 import type { Archetype } from '@/lib/character/types'
 
@@ -13,7 +12,6 @@ import './InheritanceCard.css'
 export function InheritanceCard() {
   const { data: characters, loading, error } = useCharactersQuery()
   const candidates = useMemo(() => characters ?? [], [characters])
-  const { settings } = useSettings()
   const t = useTranslations()
   const form = Form.useFormInstance()
   const selectedId = Form.useWatch<string>('inheritFromCharacterId', {
@@ -40,32 +38,26 @@ export function InheritanceCard() {
         })
     : null
 
-  const title = settings.appearance.showImagery
-    ? undefined
-    : t('new_character.inheritance_section')
-
   return (
     <>
-      {settings.appearance.showImagery && (
-        <CardCover
-          url='/images/banner-core.avif'
-          title={t('new_character.inheritance_section')}
-          titleAs='h2'
-          data-biome='unexplored'
-          className='InheritanceCard__Cover'
-          height='10em'
-        />
-      )}
+      <CardCover
+        url='/images/banner-core.avif'
+        title={t('new_character.inheritance_section')}
+        titleAs='h2'
+        data-biome='unexplored'
+        className='InheritanceCard__Cover'
+        height='10em'
+      />
       {error ? (
-        <Card title={title}>
+        <Card>
           <Empty description={error.message} />
         </Card>
       ) : loading ? (
-        <Card title={title}>
+        <Card>
           <Skeleton active />
         </Card>
       ) : (
-        <Card className='InheritanceCard' title={title}>
+        <Card className='InheritanceCard'>
           <Form.Item
             name='inheritFromCharacterId'
             label={t('new_character.inheritance_select_label')}>
