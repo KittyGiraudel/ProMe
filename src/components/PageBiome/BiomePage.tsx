@@ -51,7 +51,7 @@ export function BiomePage({ biome }: Props) {
       className='BiomePage'
       data-biome={biome}
       data-biome-theme={biomeTheme}>
-      <BiomeHeader />
+      <BiomeHeader biomeTheme={biomeTheme} />
       <BiomeHero
         biome={biome}
         bannerSrc={BANNER_SRCS[biome] ?? null}

@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
 import { AuthButton } from '@/components/AuthButton/AuthButton'
 import { Logo } from '@/components/Logo/Logo'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { BIOME_IDS } from '@/constants/misc'
 import { usePathname } from '@/i18n/navigation'
 import { useAuth } from '@/lib/auth/context'
@@ -13,10 +14,16 @@ import { BlockedLink } from './BlockedLink'
 
 import './Navigation.css'
 
-export function Navigation() {
+export function Navigation({
+  themeOverride,
+}: {
+  themeOverride?: 'light' | 'dark'
+}) {
   const t = useTranslations()
   const pathname = usePathname()
   const { loading } = useAuth()
+  const { settings } = useSettings()
+  const theme = themeOverride ?? settings.appearance.theme ?? 'dark'
 
   const items = useMemo(
     () => [
@@ -112,7 +119,7 @@ export function Navigation() {
   return (
     <Menu
       className='Navigation'
-      theme='dark'
+      theme={theme}
       mode='horizontal'
       items={items}
       selectedKeys={selected}

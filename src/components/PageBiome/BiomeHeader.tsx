@@ -6,7 +6,7 @@ import { Navigation } from '@/components/Navigation/Navigation'
 
 import './BiomeHeader.css'
 
-export function BiomeHeader() {
+export function BiomeHeader({ biomeTheme }: { biomeTheme: 'light' | 'dark' }) {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export function BiomeHeader() {
 
   return (
     <Layout.Header className='BiomeHeader' data-scrolled={scrolled}>
-      <Navigation />
+      <Navigation themeOverride={biomeTheme} />
     </Layout.Header>
   )
 }

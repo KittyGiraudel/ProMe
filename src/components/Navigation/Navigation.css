@@ -1,18 +1,53 @@
-.Navigation {
+/**
+ * 1. Align the styles of the dark theme of the <Menu> component with its light
+ *    theme,  which uses a small bottom border instead of a background color.
+ * 2. Apply the same background color as the header which contains this.
+ */
+.Navigation.ant-menu.ant-menu {
   width: 100%;
-  transition: inherit;
+  padding-inline: 2.5em;
+  background-color: inherit;
+  color: inherit;
+  --ant-menu-dark-item-selected-bg: transparent; /* 1 */
+  --ant-menu-horizontal-item-selected-color: var(--ant-menu-item-color); /* 2 */
+  --ant-menu-sub-menu-item-selected-color: var(--ant-menu-item-color); /* 2 */
 }
 
+.ant-menu-submenu .ant-menu-item-selected {
+  --ant-menu-item-selected-bg: var(--biome-light); /* 1 */
+  --ant-menu-dark-item-selected-bg: var(--biome-dark); /* 1 */
+}
+
+@media (max-width: 767px) {
+  .Navigation.ant-menu.ant-menu {
+    padding-inline: 0em;
+  }
+}
+
+/**
+ * 1. Align the styles of the dark theme of the <Menu> component with its light
+ *    theme,  which uses a small bottom border instead of a background color.
+ */
+.Navigation.ant-menu-dark.ant-menu-horizontal >.ant-menu-item-selected::after,
+.Navigation.ant-menu-dark.ant-menu-horizontal >.ant-menu-item:hover::after {
+  border-bottom-width: 2px; /* 1 */
+}
+
+/**
+ * 1. Shift some items to the far right.
+ */
 .Navigation .ant-menu-item:has([data-position="right"]) {
-  margin-left: auto;
+  margin-left: auto; /* 1 */
 }
 
-.BiomePage .ant-menu-dark.ant-menu-horizontal > .ant-menu-submenu-selected {
-  --ant-menu-dark-item-selected-bg: rgb(0 0 0 / 0.3);
-  --ant-menu-dark-item-selected-color: var(--biome-dark-contrast);
+/**
+ * 1. Remove the transition set by Ant Design to be able to control it ourselves
+ *    and make sure that it is aligned whether or not the item has a submenu.
+ */
+.ant-menu .ant-menu-title-content {
+  transition: unset !important; /* 1 */
 }
 
-body:has(.BiomePage) .ant-menu-submenu .ant-menu-item-selected {
-  --ant-menu-dark-item-selected-bg: var(--biome-dark);
-  --ant-menu-dark-item-selected-color: var(--biome-dark-contrast);
+.ant-menu-title-content > * {
+  transition: color var(--ant-motion-duration-slow) var(--ant-motion-ease-in-out) !important;
 }
