@@ -4,6 +4,9 @@ import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { PossibleBiomeId } from '@/lib/types'
 
 import './MapCover.css'
+import ArrowRightOutlined from '@ant-design/icons/lib/icons/ArrowRightOutlined'
+import { biomeIdToSlug } from '@/lib/biomes/biomeSlug'
+import { BlockedLink } from '../Navigation/BlockedLink'
 
 export function MapCover({
   biome,
@@ -39,11 +42,29 @@ export function MapCover({
       data-biome={biome}
       url={`/images/banner-${biome}.avif`}
       title={t.rich(`characters.map.location_${biome}`, {
-        b: chunks => <strong>{chunks}</strong>,
+        b: chunks =>
+          biome !== 'unexplored' ? (
+            <BlockedLink
+              className='MapCover__link'
+              href={`/biomes/${biomeIdToSlug(biome)}`}>
+              {chunks}
+            </BlockedLink>
+          ) : (
+            <strong>{chunks}</strong>
+          ),
       })}
       titleAs='h2'
       description={
-        biome !== 'unexplored' ? t(`biomes.${biome}.description`) : undefined
+        biome !== 'unexplored' ? (
+          <>
+            {t(`biomes.${biome}.teaser`)} ·{' '}
+            <BlockedLink
+              className='MapCover__link MapCover__link--in-text'
+              href={`/biomes/${biomeIdToSlug(biome)}`}>
+              {t('common.actions.explore')} <ArrowRightOutlined />
+            </BlockedLink>
+          </>
+        ) : undefined
       }
     />
   )

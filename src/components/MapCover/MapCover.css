@@ -29,3 +29,20 @@
     --to: 45;
   }
 }
+
+.MapCover__link {
+  font-weight: bold;
+  color: inherit;
+  border-bottom: 2px solid transparent;
+  transition: 0.3s ease;
+}
+
+.MapCover__link:hover, .MapCover__link:focus {
+  color: inherit;
+  border-bottom-color: var(--biome-light);
+}
+
+.MapCover__link--in-text {
+  color: var(--prome-muted);
+  font-style: normal;
+}
