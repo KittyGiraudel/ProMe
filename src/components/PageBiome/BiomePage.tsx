@@ -34,8 +34,10 @@ export function BiomePage({ biome }: Props) {
   useEffect(() => {
     const prev = document.documentElement.dataset.appTheme
     document.documentElement.dataset.appTheme = 'dark'
+    document.body.dataset.biome = biome
     return () => {
       document.documentElement.dataset.appTheme = prev ?? ''
+      document.body.dataset.biome = ''
     }
   }, [])
 

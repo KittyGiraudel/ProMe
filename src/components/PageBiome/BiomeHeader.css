@@ -1,26 +1,30 @@
+/**
+ * 1. Use fixed instead of stick because the header is transparent, so it needs
+ *    to be on top of the banner.
+ */
 .BiomeHeader {
-  position: fixed;
+  position: fixed; /* 1 */
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
-  transition:
-    background 0.3s ease,
-    box-shadow 0.3s ease;
-  background: transparent;
+  transition: 0.5s ease;
+  background-color: transparent;
+  --ant-layout-header-height: 3em !important;
 }
 
 .BiomeHeader[data-scrolled="true"] {
-  background: color-mix(var(--biome-surface), transparent 50%);
+  background-color: color-mix(var(--biome-surface), transparent 50%);
   backdrop-filter: blur(8px);
   box-shadow: 0 1px 0 rgb(255 255 255 / 0.06);
 }
 
 /* Ant Design Menu inside the header — always dark, transparent bg by default */
-.BiomeHeader:not([data-scrolled="true"]) {
+.BiomeHeader:not([data-scrolled="true"]):not(:hover):not(:focus-within) {
   background-color: transparent !important; /* parent handles the bg */
+  opacity: 0.5;
 }
 
-.BiomeHeader .Navigation {
+.BiomeHeader:not(:hover):not(:focus-within) .Navigation {
   background-color: transparent !important;
 }

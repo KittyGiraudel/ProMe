@@ -37,6 +37,7 @@ export function Navigation() {
       {
         key: 'generators',
         label: <span>{t('home.generators_title')}</span>,
+        popupOffset: [-16, 0],
         children: [
           {
             key: '/generators/npc',
@@ -59,6 +60,7 @@ export function Navigation() {
       {
         key: '/biomes',
         label: <span>{t('nav.biomes')}</span>,
+        popupOffset: [-16, 0],
         children: BIOME_IDS.map(biome => ({
           key: `/biomes/${biomeIdToSlug(biome)}`,
           label: (
@@ -112,6 +114,7 @@ export function Navigation() {
       mode='horizontal'
       items={items}
       selectedKeys={selected}
+      multiple
     />
   )
 }
