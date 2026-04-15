@@ -1,21 +1,61 @@
-[data-variant="neutral"] .ant-avatar {
-  background-color: #1677ff;
-}
-[data-variant="warning"] .ant-avatar {
-  background-color: #faad14;
-}
-[data-variant="success"] .ant-avatar {
-  background-color: #52c41a;
-}
-[data-variant="danger"] .ant-avatar {
-  background-color: #f5222d;
+.ActionsCard__list {
+  list-style: none;
+  padding: 0;
+  margin: -1em 0;
 }
 
-@media (max-width: 767px) {
-  .ActionsCard__list .ant-list-item {
-    flex-direction: column;
+.ActionsCard__item {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1em;
+  border-bottom: 1px solid var(--ant-color-border);
+  padding: 1em 0;
+}
+
+.ActionsCard__item-icon > span {
+  font-size: 1.5em;
+  background-color: var(--prome-surface);
+  border: 2px solid rgb(0 0 0 / 0.1);
+  border-radius: 50%;
+  padding: 0.5em;
+
+  @media (max-width: 767px) {
   }
-  .ActionsCard__list .ant-list-item > * {
+}
+
+[data-variant="neutral"] .ActionsCard__item-icon > span {
+  background-color: color-mix(in srgb, #1677ff, transparent 80%);
+}
+[data-variant="warning"] .ActionsCard__item-icon > span {
+  background-color: color-mix(in srgb, #faad14, transparent 80%);
+}
+[data-variant="success"] .ActionsCard__item-icon > span {
+  background-color: color-mix(in srgb, #52c41a, transparent 80%);
+}
+[data-variant="danger"] .ActionsCard__item-icon > span {
+  background-color: color-mix(in srgb, #f5222d, transparent 80%);
+}
+
+.ActionsCard__item-content {
+  flex: 1;
+}
+
+.ActionsCard__item-title {
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
+.ActionsCard__item-description {
+  margin: 0;
+  color: var(--prome-muted);
+}
+
+.ActionsCard__item-action {
+  & > * {
     width: 100%;
+  }
+  @media (max-width: 767px) {
+    flex: 1 0 100%;
   }
 }

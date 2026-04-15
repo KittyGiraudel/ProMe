@@ -141,20 +141,23 @@ export function ActionsCard({
 
   return (
     <Card title={t('characters.actions.title')} id='actions'>
-      <List
-        className='ActionsCard__list'
-        itemLayout='horizontal'
-        dataSource={items}
-        renderItem={item => (
-          <List.Item data-variant={item.variant} actions={[item.action]}>
-            <List.Item.Meta
-              avatar={<Avatar icon={item.icon} />}
-              title={item.title}
-              description={item.description}
-            />
-          </List.Item>
-        )}
-      />
+      <ul className='ActionsCard__list'>
+        {items.map(item => (
+          <li
+            key={item.key}
+            data-variant={item.variant}
+            className='ActionsCard__item'>
+            <div className='ActionsCard__item-icon'>{item.icon}</div>
+            <div className='ActionsCard__item-content'>
+              <p className='ActionsCard__item-title'>{item.title}</p>
+              <p className='ActionsCard__item-description'>
+                {item.description}
+              </p>
+            </div>
+            <div className='ActionsCard__item-action'>{item.action}</div>
+          </li>
+        ))}
+      </ul>
     </Card>
   )
 }
