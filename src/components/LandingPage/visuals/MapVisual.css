@@ -87,3 +87,9 @@
 .MapVisual__cell > span {
   font-size: 2.5rem;
 }
+
+@media (max-width: 767px) {
+  .MapVisual__cell:nth-last-child(-n+4) {
+    display: none;
+  }
+}
