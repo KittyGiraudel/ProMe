@@ -13,7 +13,7 @@
       rgb(0 0 0 / 0.02) 40%,
       rgb(0 0 0 / 0.38) 100%
     ),
-    url("/images/home-cover.avif");
+    url("/images/banner-home.avif");
 
   background-size: cover;
   background-position: center;
