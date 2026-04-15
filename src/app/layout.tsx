@@ -53,7 +53,6 @@ export default async function RootLayout({
       lang={locale}
       className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        {isDev && <div className='DevBadge'>DEV</div>}
         <AntdRegistry>
           <AppProviders locale={locale as 'fr' | 'en'}>
             <div className='app-shell'>{children}</div>
