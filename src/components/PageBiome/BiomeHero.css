@@ -47,8 +47,7 @@
 }
 
 .BiomeHero__title {
-  /* Custom per-biome font loaded by page.tsx — falls back to serif */
-  font-family: var(--biome-title-font, serif);
+  font-family: serif;
   font-size: 4.5em;
   font-weight: 400;
   line-height: 1;
