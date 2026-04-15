@@ -167,7 +167,7 @@
   font-size: 0.6rem;
   font-weight: 700;
   color: #c22;
-  font-family: Georgia, serif;
+  font-family: var(--serif-font);
   line-height: 1.2;
   text-align: center;
 }

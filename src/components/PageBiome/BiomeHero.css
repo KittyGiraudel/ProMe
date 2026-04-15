@@ -64,7 +64,7 @@
 }
 
 .BiomeHero__teaser {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--serif-font);
   font-size: 1.3em;
   line-height: 1.65;
   font-style: italic;

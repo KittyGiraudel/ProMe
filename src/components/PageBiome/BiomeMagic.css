@@ -9,7 +9,6 @@
   flex: 1;
   padding: 1em 1.4em;
   background: var(--biome-hint-bg);
-  font-family: Georgia, serif;
   font-style: italic;
   line-height: 1.75;
   color: var(--biome-text-muted);

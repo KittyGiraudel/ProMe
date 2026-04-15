@@ -42,7 +42,7 @@
 }
 
 .LandingFinalCta__title {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--serif-font);
   font-size: clamp(1.8rem, 4vw, 2.6rem);
   color: white;
   text-shadow: 0 2px 12px rgb(0 0 0 / 0.2);

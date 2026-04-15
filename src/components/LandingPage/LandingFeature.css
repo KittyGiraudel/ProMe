@@ -91,7 +91,7 @@
 }
 
 .LandingFeature__title {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--serif-font);
   font-size: clamp(1.4em, 2.5vw, 1.9em);
   font-weight: 700;
   line-height: 1.25;

@@ -1,7 +1,7 @@
 .Logo {
   color: inherit;
   letter-spacing: 0.05em;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--serif-font);
   font-weight: 700;
   flex-shrink: 0;
 }

@@ -5,7 +5,7 @@
 }
 
 .CharacterSheetVisual__name {
-  font-family: Georgia, serif;
+  font-family: var(--serif-font);
   font-size: 1em;
   font-weight: 700;
   color: #2d5e28;
@@ -31,7 +31,7 @@
 
 .CharacterSheetVisual__stat-value {
   display: block;
-  font-family: Georgia, serif;
+  font-family: var(--serif-font);
   font-size: 1.2em;
   font-weight: 700;
   color: #2d5e28;

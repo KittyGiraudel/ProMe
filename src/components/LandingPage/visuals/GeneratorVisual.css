@@ -5,7 +5,7 @@
 }
 
 .GeneratorVisual__name {
-  font-family: Georgia, serif;
+  font-family: var(--serif-font);
   font-size: 1em;
   font-weight: 700;
   color: #f4e0b0;

@@ -5,6 +5,7 @@
   --prome-text: light-dark(#1f2d2a, #c8ddd0);
   --prome-muted: light-dark(#5c726b, #7a9e88);
   --prome-border: light-dark(#c4b49a, #3a4e44);
+  --serif-font: Georgia, "Times New Roman", serif;
 }
 
 [data-app-theme="light"] {

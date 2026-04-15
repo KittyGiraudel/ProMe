@@ -36,7 +36,7 @@
 }
 
 .LandingHero__title {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--serif-font);
   font-size: clamp(3.5rem, 8vw, 6rem);
   font-weight: 700;
   color: white;
