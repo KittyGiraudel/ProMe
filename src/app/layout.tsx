@@ -1,20 +1,9 @@
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
 import { getLocale } from 'next-intl/server'
 import { AppProviders } from '@/components/AppProviders/AppProviders'
 
 import './globals.css'
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-})
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-})
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -49,9 +38,7 @@ export default async function RootLayout({
   const locale = await getLocale()
 
   return (
-    <html
-      lang={locale}
-      className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang={locale}>
       <body>
         <AntdRegistry>
           <AppProviders locale={locale as 'fr' | 'en'}>
