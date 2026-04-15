@@ -406,3 +406,9 @@ html:has([role="dialog"]) {
     filter: blur(3px);
   }
 }
+
+@media (max-width: 767px) {
+  .ant-card-body {
+    --ant-card-body-padding: 1em;
+  }
+}
