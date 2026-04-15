@@ -49,11 +49,11 @@
   font-weight: 400;
 }
 
-/* ── Per-biome title font assignments ───────────────────────── */
+/* ── Per-biome font tokens ───────────────────────────────────── */
 
-.BiomePage[data-biome='shadowForest'] .BiomeHero__title { font-family: 'Caesar Dressing', serif; }
-.BiomePage[data-biome='mushroomJungle'] .BiomeHero__title { font-family: 'Shizuru', serif; word-spacing: -40px; }
-.BiomePage[data-biome='floodedPlains'] .BiomeHero__title { font-family: 'Rubik Marker Hatch', serif; }
-.BiomePage[data-biome='titanGardens'] .BiomeHero__title { font-family: 'Mountains of Christmas', serif; }
-.BiomePage[data-biome='fieldSea'] .BiomeHero__title { font-family: 'Mystery Quest', serif; }
-.BiomePage[data-biome='silentDesert'] .BiomeHero__title { font-family: 'Fredericka the Great', serif; }
+.BiomePage[data-biome='shadowForest'] { --biome-font: 'Caesar Dressing'; }
+.BiomePage[data-biome='mushroomJungle'] { --biome-font: 'Shizuru'; --biome-title-word-spacing: -40px; }
+.BiomePage[data-biome='floodedPlains'] { --biome-font: 'Rubik Marker Hatch'; }
+.BiomePage[data-biome='titanGardens'] { --biome-font: 'Mountains of Christmas'; }
+.BiomePage[data-biome='fieldSea'] { --biome-font: 'Mystery Quest'; }
+.BiomePage[data-biome='silentDesert'] { --biome-font: 'Fredericka the Great'; }
