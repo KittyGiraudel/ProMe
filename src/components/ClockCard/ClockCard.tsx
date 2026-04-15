@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { ClockDisplay } from '@/components/ClockDisplay/ClockDisplay'
 import { HelpButton } from '@/components/HelpButton/HelpButton'
-import { Spacing } from '@/components/Spacing/Spacing'
 import {
   useWatchedClock,
   useWatchedStamina,
@@ -16,6 +15,8 @@ import {
   countHalfClockSegments,
   isClockDayPhase,
 } from '@/lib/clock/clock'
+
+import './ClockCard.css'
 
 export function ClockCard() {
   const t = useTranslations()
@@ -85,10 +86,12 @@ export function ClockCard() {
           onClick={() => setPosition(position - 1)}>
           {t('characters.map.clock_back')}
         </Button>,
-        <Spacing orientation='horizontal' wrap size='small' key='clock-label'>
-          <Tag color={isDay ? 'gold' : 'blue'}>{phaseLabel}</Tag>
+        <span className='ClockCard__Label'>
+          <Tag color={isDay ? 'gold' : 'blue'} variant='outlined'>
+            {phaseLabel}
+          </Tag>
           <Typography.Text>{clockLabel}</Typography.Text>
-        </Spacing>,
+        </span>,
         <Button
           key='forward'
           type='primary'
