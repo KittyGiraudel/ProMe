@@ -73,7 +73,7 @@ export function ClockCard() {
           }
           trigger='click'
           placement='top'
-          styles={{ root: { maxWidth: 360 } }}>
+          styles={{ root: { maxWidth: 'min(360px, 90vw)' } }}>
           <HelpButton label={t('rulebook.information')} />
         </Popover>
       }

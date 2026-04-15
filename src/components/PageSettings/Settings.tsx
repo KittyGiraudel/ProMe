@@ -184,7 +184,7 @@ export function Settings() {
                 title={t('settings.section_language')}
                 extra={
                   <Popover
-                    styles={{ root: { maxWidth: 360 } }}
+                    styles={{ root: { maxWidth: 'min(360px, 90vw)' } }}
                     content={t('settings.language_warning')}>
                     <HelpButton label={t('common.tip')} />
                   </Popover>
