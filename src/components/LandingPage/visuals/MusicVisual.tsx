@@ -1,4 +1,9 @@
+import FastBackwardOutlined from '@ant-design/icons/lib/icons/FastBackwardOutlined'
+import FastForwardOutlined from '@ant-design/icons/lib/icons/FastForwardOutlined'
+import PauseOutlined from '@ant-design/icons/lib/icons/PauseOutlined'
+import PlayCircleOutlined from '@ant-design/icons/lib/icons/PlayCircleOutlined'
 import { useTranslations } from 'next-intl'
+
 import './MusicVisual.css'
 
 export function MusicVisual() {
@@ -18,9 +23,15 @@ export function MusicVisual() {
       </div>
       <div className='MusicVisual__bar' />
       <div className='MusicVisual__controls'>
-        <span>⏮</span>
-        <span className='MusicVisual__controls--play'>⏸</span>
-        <span>⏭</span>
+        <span>
+          <FastBackwardOutlined />
+        </span>
+        <span className='MusicVisual__controls--play'>
+          <PauseOutlined />
+        </span>
+        <span>
+          <FastForwardOutlined />
+        </span>
       </div>
       <div className='MusicVisual__playlist'>
         {PLAYLIST.map(({ name, active }) => (
@@ -33,7 +44,11 @@ export function MusicVisual() {
               .filter(Boolean)
               .join(' ')}>
             <span>{name}</span>
-            {active && <span>▶</span>}
+            {active && (
+              <span>
+                <PlayCircleOutlined />
+              </span>
+            )}
           </div>
         ))}
       </div>
