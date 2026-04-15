@@ -42,26 +42,26 @@
   box-shadow: inset 0 0 0.75em var(--biome-dark);
 }
 
-.MapVisual__cell--unexplored {
+.MapVisual__cell[data-biome="unexplored"] {
   border-color: rgb(255 255 255 / 0.1);
   box-shadow: none;
 }
-.MapVisual__cell--shadowForest {
+.MapVisual__cell[data-biome="shadowForest"] {
   --pattern-size: 25px;
 }
-.MapVisual__cell--fieldSea {
+.MapVisual__cell[data-biome="fieldSea"] {
   --pattern-size: 30px;
 }
-.MapVisual__cell--floodedPlains {
+.MapVisual__cell[data-biome="floodedPlains"] {
   --pattern-size: 40px;
 }
-.MapVisual__cell--silentDesert {
+.MapVisual__cell[data-biome="silentDesert"] {
   --pattern-size: 25px;
 }
-.MapVisual__cell--titanGardens {
+.MapVisual__cell[data-biome="titanGardens"] {
   --pattern-size: 50px;
 }
-.MapVisual__cell--mushroomJungle {
+.MapVisual__cell[data-biome="mushroomJungle"] {
   --pattern-size: 30px;
 }
 
