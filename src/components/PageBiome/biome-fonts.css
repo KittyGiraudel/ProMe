@@ -51,9 +51,9 @@
 
 /* ── Per-biome font tokens ───────────────────────────────────── */
 
-.BiomePage[data-biome='shadowForest'] { --biome-font: 'Caesar Dressing'; }
-.BiomePage[data-biome='mushroomJungle'] { --biome-font: 'Shizuru'; --biome-title-word-spacing: -40px; }
-.BiomePage[data-biome='floodedPlains'] { --biome-font: 'Rubik Marker Hatch'; }
-.BiomePage[data-biome='titanGardens'] { --biome-font: 'Mountains of Christmas'; }
-.BiomePage[data-biome='fieldSea'] { --biome-font: 'Mystery Quest'; }
-.BiomePage[data-biome='silentDesert'] { --biome-font: 'Fredericka the Great'; }
+[data-biome='shadowForest'] { --biome-font: 'Caesar Dressing'; }
+[data-biome='mushroomJungle'] { --biome-font: 'Shizuru'; --biome-title-word-spacing: -0.5em; }
+[data-biome='floodedPlains'] { --biome-font: 'Rubik Marker Hatch'; }
+[data-biome='titanGardens'] { --biome-font: 'Mountains of Christmas'; }
+[data-biome='fieldSea'] { --biome-font: 'Mystery Quest'; }
+[data-biome='silentDesert'] { --biome-font: 'Fredericka the Great'; }

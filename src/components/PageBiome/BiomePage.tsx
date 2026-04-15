@@ -1,6 +1,7 @@
 'use client'
 
 import { Layout } from 'antd'
+import { useEffect } from 'react'
 import { Footer } from '@/components/Footer/Footer'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { BIOME_IDS } from '@/constants/misc'
@@ -17,7 +18,6 @@ import { BiomeMap } from './BiomeMap'
 
 import './BiomePage.css'
 import './biome-fonts.css'
-import { useEffect } from 'react'
 
 type Props = { biome: BiomeId }
 
