@@ -74,8 +74,10 @@ async function fetchGoogleFontsCSS(family, text) {
 }
 
 function extractWoff2Url(css, family) {
+  // The Google Fonts API returns URLs with query params (no .woff2 extension),
+  // followed by format('woff2'). Match the url() before that format hint.
   const match = css.match(
-    /url\((https:\/\/fonts\.gstatic\.com\/[^)]+\.woff2)\)/
+    /url\((https:\/\/fonts\.gstatic\.com\/[^)]+)\)\s+format\('woff2'\)/
   )
   if (!match)
     throw new Error(`No WOFF2 URL found in CSS response for ${family}`)
