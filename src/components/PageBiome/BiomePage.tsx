@@ -27,6 +27,9 @@ export function BiomePage({ biome }: Props) {
   useApplyAppTheme(settings.appearance.theme)
   useEffect(() => {
     document.documentElement.dataset.biome = biome
+    return () => {
+      document.documentElement.dataset.biome = ''
+    }
   }, [biome])
 
   return (
