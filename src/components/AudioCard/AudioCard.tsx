@@ -1,7 +1,7 @@
 import { Card, Skeleton } from 'antd'
 import { useTranslations } from 'next-intl'
 import { AudioPlayer } from '@/components/AudioPlayer/AudioPlayer'
-import { useBiomeTrack } from '@/components/AudioPlayer/useBiomeTrack'
+import { useTrackSelector } from '@/components/AudioPlayer/useTrackSelector'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { useSoundtrackPreload } from '@/hooks/useSoundtrackPreload'
 import { PossibleBiomeId } from '@/lib/types'
@@ -14,7 +14,7 @@ export function AudioCard({ biome }: { biome: PossibleBiomeId }) {
     enabled: settings.sound.enabled,
     variant: settings.sound.variant,
   })
-  const { name, url } = useBiomeTrack(biome, 'random')
+  const { url, name, goToPrev, goToNext } = useTrackSelector(biome)
 
   useSoundtrackPreloadNotification(preloadStatus)
 
@@ -32,7 +32,13 @@ export function AudioCard({ biome }: { biome: PossibleBiomeId }) {
 
   return (
     <Card title={t('audio_player.title')} id='audio'>
-      <AudioPlayer biome={biome} name={name} url={url} />
+      <AudioPlayer
+        biome={biome}
+        name={name}
+        url={url}
+        onPrev={goToPrev}
+        onNext={goToNext}
+      />
     </Card>
   )
 }
