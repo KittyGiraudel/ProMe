@@ -1,12 +1,46 @@
-.AudioPlayer__native {
-  width: 100%;
-}
-
 .AudioPlayer {
   display: flex;
   flex-direction: column;
+  gap: 0.4em;
+}
+
+/* ── Title row: rule · name · rule ───────────────────────────── */
+
+.AudioPlayer__titleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+}
+
+.AudioPlayer__rule {
+  flex: 1;
+  height: 1px;
+  background: var(--biome-accent, var(--ant-color-primary));
+  opacity: 0.35;
+}
+
+.AudioPlayer__trackName {
+  color: inherit !important;
+  font-size: 0.85em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60%;
+}
+
+/* ── Progress row ─────────────────────────────────────────────── */
+
+.AudioPlayer__progressRow {
+  display: flex;
+  align-items: center;
   gap: 0.5em;
 }
+
+.AudioPlayer__progress {
+  flex: 1;
+}
+
+/* ── Controls row ─────────────────────────────────────────────── */
 
 .AudioPlayer__controls {
   display: flex;
@@ -19,23 +53,12 @@
   gap: 0.5em;
 }
 
-.AudioPlayer__trackName {
-  color: inherit !important;
-}
-
-.AudioPlayer__progressRow {
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
-}
-
-.AudioPlayer__progress {
-  flex: 1;
-}
-
 .AudioPlayer__volumeSlider {
-  min-width: 100px;
+  min-width: 64px;
+  max-width: 64px;
 }
+
+/* ── Slider rail tint ─────────────────────────────────────────── */
 
 .AudioPlayer__progress .ant-slider-rail,
 .AudioPlayer__volumeSlider .ant-slider-rail {
