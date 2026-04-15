@@ -101,10 +101,18 @@
 }
 
 @media (max-width: 767px) {
-  [data-biome="shadowForest"] .BiomeHero { background-position: 20% 0% }
-  [data-biome="floodedPlains"] .BiomeHero { background-position: 77% 0% }
-  [data-biome="fieldSea"] .BiomeHero { background-position: 22% 0% }
-  [data-biome="titanGardens"] .BiomeHero { background-position: 60% 0% }
+  [data-biome="shadowForest"] .BiomeHero {
+    background-position: 20% 0%;
+  }
+  [data-biome="floodedPlains"] .BiomeHero {
+    background-position: 77% 0%;
+  }
+  [data-biome="fieldSea"] .BiomeHero {
+    background-position: 22% 0%;
+  }
+  [data-biome="titanGardens"] .BiomeHero {
+    background-position: 60% 0%;
+  }
   /* [data-biome="silentDesert"] .BiomeHero { background-position: 77% 0% } */
   /* [data-biome="mushroomJungle"] .BiomeHero { background-position: 77% 0% } */
 }
