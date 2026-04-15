@@ -179,6 +179,7 @@ export function Settings() {
                   label={t('settings.app_theme_label')}
                   noStyle>
                   <Segmented
+                    block
                     options={[
                       {
                         value: 'light',
@@ -205,6 +206,7 @@ export function Settings() {
                 }>
                 <Form.Item label={t(`settings.language_label`)} noStyle>
                   <Segmented
+                    block
                     value={locale}
                     onChange={handleLocaleChange}
                     options={routing.locales.map(l => ({
@@ -242,6 +244,7 @@ export function Settings() {
                   label={t('settings.map_coordinates_display_label')}
                   extra={t('settings.map_coordinates_display_help')}>
                   <Segmented
+                    block
                     options={[
                       {
                         value: 'both',
@@ -274,6 +277,7 @@ export function Settings() {
                   extra={t('settings.map_style_help')}
                   style={{ marginBottom: 0 }}>
                   <Segmented
+                    block
                     options={[
                       {
                         value: 'flat',
@@ -336,6 +340,7 @@ export function Settings() {
                   extra={t('settings.sound_variant_help')}
                   style={{ marginBottom: 0 }}>
                   <Segmented
+                    block
                     options={[
                       {
                         value: 'mix',
