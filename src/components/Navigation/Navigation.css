@@ -9,9 +9,14 @@
   );
   color: var(--biome-text, var(--prome-text)); /* 1 */
 
-  width: 100%;
   padding: 0 0.5em;
   position: relative;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
 
 /**
