@@ -6,6 +6,7 @@ import { Banner } from '@/components/Banner/Banner'
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
 import { Footer } from '@/components/Footer/Footer'
 import { Navigation } from '@/components/Navigation/Navigation'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { Spacing } from '@/components/Spacing/Spacing'
 import { useApplyAppTheme } from '@/hooks/useApplyAppTheme'
 import { AppTheme } from '@/lib/settings/types'
@@ -33,11 +34,19 @@ export const Layout = ({
   className = '',
   appThemeOverride,
 }: LayoutProps) => {
+  const { settings } = useSettings()
+
+  // The only instance where we need to disable the theme picker is if we are
+  // overriding the theme. We cannot just rely on the presence of the
+  // `appThemeOverride` prop however, because it is *always* passed in the char-
+  // acter sheet, even when the theme is not overridden.
+  const disableThemeToggle = appThemeOverride !== settings.appearance.theme
+
   useApplyAppTheme(appThemeOverride)
 
   return (
     <AntLayout className={`Layout ${className}`}>
-      <Navigation />
+      <Navigation disableThemeToggle={disableThemeToggle} />
       <Banner biome={bannerBiome} />
       <AntLayout.Content className='Layout__wrapper'>
         <Breadcrumbs breadcrumbs={breadcrumbs} />

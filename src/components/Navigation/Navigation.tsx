@@ -13,18 +13,22 @@ import { ThemeToggleButton } from './ThemeToggleButton'
 
 import './Navigation.css'
 
-export function Navigation() {
+export function Navigation({
+  disableThemeToggle,
+}: {
+  disableThemeToggle?: boolean
+}) {
   const t = useTranslations()
   const { settings, updateSettings } = useSettings()
   const pathname = usePathname()
   const { xs } = Grid.useBreakpoint()
   const [open, setOpen] = useState(false)
   const handleThemeToggle = () =>
-    updateSettings(prev => ({
-      ...prev,
+    updateSettings(curr => ({
+      ...curr,
       appearance: {
-        ...prev.appearance,
-        theme: prev.appearance.theme === 'dark' ? 'light' : 'dark',
+        ...curr.appearance,
+        theme: curr.appearance.theme === 'dark' ? 'light' : 'dark',
       },
     }))
 
@@ -208,6 +212,7 @@ export function Navigation() {
             theme={settings.appearance.theme}
             className='Nav__link'
             onToggle={handleThemeToggle}
+            disabled={disableThemeToggle}
           />
         </li>
       </ul>
