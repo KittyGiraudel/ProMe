@@ -48,3 +48,12 @@
   font-style: normal;
   font-weight: 400;
 }
+
+/* ── Per-biome title font assignments ───────────────────────── */
+
+.BiomePage[data-biome='shadowForest'] .BiomeHero__title { font-family: 'Caesar Dressing', serif; }
+.BiomePage[data-biome='mushroomJungle'] .BiomeHero__title { font-family: 'Shizuru', serif; word-spacing: -40px; }
+.BiomePage[data-biome='floodedPlains'] .BiomeHero__title { font-family: 'Rubik Marker Hatch', serif; }
+.BiomePage[data-biome='titanGardens'] .BiomeHero__title { font-family: 'Mountains of Christmas', serif; }
+.BiomePage[data-biome='fieldSea'] .BiomeHero__title { font-family: 'Mystery Quest', serif; }
+.BiomePage[data-biome='silentDesert'] .BiomeHero__title { font-family: 'Fredericka the Great', serif; }
