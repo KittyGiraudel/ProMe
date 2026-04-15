@@ -641,6 +641,10 @@
     "section_shortcuts": "Keyboard Shortcuts",
     "shortcuts_enabled_label": "Enable keyboard shortcuts",
     "shortcuts_enabled_help": "Enables global keyboard shortcuts: {modifier}+S (save), {modifier}+D (card draw & dice roll), {modifier}+M (toggle music), {modifier}+C/V (copy/paste map cell).",
+    "section_advanced": "Advanced",
+    "clear_cache_label": "Clear app cache",
+    "clear_cache_help": "Removes all cached assets without impacting your saved data. Useful when the app is stuck on an outdated version.",
+    "clear_cache_success": "Cache cleared — reloading…",
     "hints": {
       "map": "You can customize certain map features in <link>Settings</link>.",
       "journal": "You can customize certain journal features in <link>Settings</link>.",

@@ -638,6 +638,10 @@
     "section_shortcuts": "Raccourcis clavier",
     "shortcuts_enabled_label": "Activer les raccourcis clavier",
     "shortcuts_enabled_help": "Active les raccourcis clavier : {modifier} + S (sauvegarder), {modifier} + D (tirer une carte / lancer un dé), {modifier} + M (activer/désactiver la musique), {modifier} + C/V (copier/coller une cellule de carte).",
+    "section_advanced": "Avancé",
+    "clear_cache_label": "Vider le cache",
+    "clear_cache_help": "Vide le cache local de l’application, sans impacter vos données sauvegardées. Utile pour être sur la dernière version de l’application.",
+    "clear_cache_success": "Cache vidé — rechargement…",
     "hints": {
       "map": "Vous pouvez personnaliser certaines fonctionalités de la carte dans les <link>Paramètres</link>.",
       "journal": "Vous pouvez personnaliser certaines fonctionalités du journal dans les <link>Paramètres</link>.",

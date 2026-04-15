@@ -2,6 +2,7 @@
 
 import {
   Alert,
+  App,
   Button,
   Card,
   Checkbox,
@@ -22,6 +23,7 @@ import { routing } from '@/i18n/routing'
 import { useAuth } from '@/lib/auth/context'
 import { DEFAULT_SETTINGS } from '@/lib/settings/model'
 import { AppTheme } from '@/lib/settings/types'
+import { SOUNDTRACK_CACHE_NAME } from '@/lib/sounds/cachePreload'
 import { useSettings } from './SettingsContext'
 
 type SettingsFormValues = {
@@ -44,6 +46,7 @@ export function Settings() {
   const { settings, updateSettings } = useSettings()
   const { user } = useAuth()
   const modifier = useModifierKey()
+  const { message } = App.useApp()
   const t = useTranslations()
   const locale = useLocale()
   const router = useRouter()
@@ -70,6 +73,17 @@ export function Settings() {
     soundEnabled: settings.sound.enabled,
     soundVariant: settings.sound.variant,
     shortcutsEnabled: settings.shortcuts.enabled,
+  }
+
+  const handleClearCache = async () => {
+    const keys = await caches.keys()
+    await Promise.all(
+      keys
+        .filter(key => key !== SOUNDTRACK_CACHE_NAME)
+        .map(key => caches.delete(key))
+    )
+    message.success(t('settings.clear_cache_success'))
+    setTimeout(() => window.location.reload(), 1_000)
   }
 
   const handleReset = () => {
@@ -351,14 +365,30 @@ export function Settings() {
               </Checkbox>
             </Form.Item>
           </Card>
-          <Card title={t('settings.section_shortcuts')}>
-            <Form.Item
-              name='shortcutsEnabled'
-              valuePropName='checked'
-              extra={t('settings.shortcuts_enabled_help', { modifier })}
-              style={{ marginBottom: 0 }}>
-              <Checkbox>{t('settings.shortcuts_enabled_label')}</Checkbox>
-            </Form.Item>
+          <Card title={t('settings.section_advanced')}>
+            <Row gutter={[64, 16]}>
+              <Col xs={24} md={12}>
+                <Form.Item
+                  name='shortcutsEnabled'
+                  valuePropName='checked'
+                  extra={t('settings.shortcuts_enabled_help', { modifier })}
+                  style={{ marginBottom: 0 }}>
+                  <Checkbox>{t('settings.shortcuts_enabled_label')}</Checkbox>
+                </Form.Item>
+              </Col>
+              <Col xs={24} md={12}>
+                <Form.Item
+                  extra={t('settings.clear_cache_help')}
+                  style={{ marginBottom: 0 }}>
+                  <Button
+                    danger
+                    onClick={handleClearCache}
+                    style={{ marginBottom: 8 }}>
+                    {t('settings.clear_cache_label')}
+                  </Button>
+                </Form.Item>
+              </Col>
+            </Row>
           </Card>
         </Spacing>
       </Form>
