@@ -172,11 +172,9 @@ export function AudioPlayer({
   return (
     <div className='AudioPlayer'>
       <div className='AudioPlayer__titleRow'>
-        <span className='AudioPlayer__rule' />
         <Typography.Text className='AudioPlayer__trackName'>
           {name}
         </Typography.Text>
-        <span className='AudioPlayer__rule' />
       </div>
       <div className='AudioPlayer__progressRow'>
         <span>{formatTime(currentTime)}</span>

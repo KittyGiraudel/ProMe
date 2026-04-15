@@ -12,20 +12,42 @@
   gap: 0.6em;
 }
 
-.AudioPlayer__rule {
-  flex: 1;
-  height: 1px;
-  background: var(--biome-accent, var(--ant-color-primary));
-  opacity: 0.35;
-}
-
 .AudioPlayer__trackName {
   color: inherit !important;
   font-size: 0.85em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 60%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  justify-content: space-between;
+}
+
+.AudioPlayer__trackName::before,
+.AudioPlayer__trackName::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  opacity: 0.35;
+  border-radius: 1px;
+}
+
+.AudioPlayer__trackName::before {
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--biome-accent, var(--ant-color-primary))
+  );
+}
+
+.AudioPlayer__trackName::after {
+  background: linear-gradient(
+    to left,
+    transparent,
+    var(--biome-accent, var(--ant-color-primary))
+  );
 }
 
 /* ── Progress row ─────────────────────────────────────────────── */
@@ -34,6 +56,10 @@
   display: flex;
   align-items: center;
   gap: 0.5em;
+}
+
+.AudioPlayer__progressRow span {
+  font-variant-numeric: tabular-nums;
 }
 
 .AudioPlayer__progress {

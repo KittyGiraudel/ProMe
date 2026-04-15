@@ -91,7 +91,7 @@
 
 .Nav__link {
   color: inherit;
-  padding: 0.6em 1em;
+  padding: 0.8em 1em;
   display: inline-block;
   width: 100%;
   cursor: pointer;
@@ -156,6 +156,7 @@ button.Nav__link {
 
 [data-orientation="vertical"] {
   flex-direction: column;
+  font-size: 1.15em;
 
   & .Nav__item--break {
     margin-left: 0;
@@ -170,6 +171,7 @@ button.Nav__link {
 
   & .Nav__link {
     border-radius: 0.5em;
+    text-align: left;
   }
 
   & .Nav__link,
