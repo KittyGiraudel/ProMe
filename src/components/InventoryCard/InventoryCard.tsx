@@ -18,6 +18,7 @@ import { useWatchedInventory } from '@/hooks/useCharacterSheetDerived'
 import { randomId } from '@/lib/character/model'
 
 import './InventoryCard.css'
+import DeleteOutlined from '@ant-design/icons/lib/icons/DeleteOutlined'
 
 export function InventoryCard() {
   const t = useTranslations()
@@ -99,10 +100,15 @@ export function InventoryCard() {
                   </Form.Item>
 
                   <Button
+                    className='InventoryCard__DeleteButton'
                     danger
                     onClick={() => remove(field.name)}
-                    htmlType='button'>
-                    {t('common.actions.delete')}
+                    htmlType='button'
+                    aria-label={t('common.actions.delete')}
+                    icon={<DeleteOutlined />}>
+                    <span className='InventoryCard__DeleteButton-label'>
+                      {t('common.actions.delete')}
+                    </span>
                   </Button>
                 </Spacing>
               ))}

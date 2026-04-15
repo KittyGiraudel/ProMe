@@ -2,3 +2,13 @@
 .SpellbookCard__Row > :nth-child(2) {
   flex: 1;
 }
+
+@media (max-width: 767px) {
+  .SpellbookCard__DeleteButton-label {
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    position: absolute;
+    width: 1px;
+    white-space: nowrap;
+  }
+}

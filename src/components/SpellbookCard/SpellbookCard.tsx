@@ -16,6 +16,7 @@ import { Spacing } from '@/components/Spacing/Spacing'
 import { randomId } from '@/lib/character/model'
 
 import './SpellbookCard.css'
+import DeleteOutlined from '@ant-design/icons/lib/icons/DeleteOutlined'
 
 const SPELLBOOK_MAX = 6
 
@@ -85,10 +86,15 @@ export function SpellbookCard() {
                   </Form.Item>
 
                   <Button
+                    className='SpellbookCard__DeleteButton'
                     danger
                     onClick={() => remove(field.name)}
-                    htmlType='button'>
-                    {t('common.actions.delete')}
+                    htmlType='button'
+                    aria-label={t('common.actions.delete')}
+                    icon={<DeleteOutlined />}>
+                    <span className='SpellbookCard__DeleteButton-label'>
+                      {t('common.actions.delete')}
+                    </span>
                   </Button>
                 </Spacing>
               ))}
