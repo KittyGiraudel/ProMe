@@ -1,145 +1,228 @@
-'use client'
-
-import { Menu } from 'antd'
+import { MenuFoldOutlined } from '@ant-design/icons'
+import { Drawer, Grid } from 'antd'
 import { useTranslations } from 'next-intl'
-import { useMemo } from 'react'
-import { AuthButton } from '@/components/AuthButton/AuthButton'
-import { Logo } from '@/components/Logo/Logo'
-import { useSettings } from '@/components/PageSettings/SettingsContext'
+import { useState } from 'react'
 import { BIOME_IDS } from '@/constants/misc'
 import { usePathname } from '@/i18n/navigation'
-import { useAuth } from '@/lib/auth/context'
 import { biomeIdToSlug } from '@/lib/biomes/biomeSlug'
+import { AuthButton } from '../AuthButton/AuthButton'
+import { Logo } from '../Logo/Logo'
+import { useSettings } from '../PageSettings/SettingsContext'
 import { BlockedLink } from './BlockedLink'
 import { ThemeToggleButton } from './ThemeToggleButton'
 
 import './Navigation.css'
 
-export function Navigation({
-  themeOverride,
-}: {
-  themeOverride?: 'light' | 'dark'
-}) {
+export function Navigation() {
   const t = useTranslations()
-  const pathname = usePathname()
-  const { loading } = useAuth()
   const { settings, updateSettings } = useSettings()
-  const theme = themeOverride ?? settings.appearance.theme ?? 'dark'
+  const pathname = usePathname()
+  const { xs } = Grid.useBreakpoint()
+  const [open, setOpen] = useState(false)
+  const handleThemeToggle = () =>
+    updateSettings(prev => ({
+      ...prev,
+      appearance: {
+        ...prev.appearance,
+        theme: prev.appearance.theme === 'dark' ? 'light' : 'dark',
+      },
+    }))
 
-  const items = useMemo(
-    () => [
-      {
-        key: '/',
-        label: (
-          <BlockedLink href='/'>
-            <Logo />
-          </BlockedLink>
-        ),
-      },
-      {
-        key: '/characters',
-        label: (
-          <BlockedLink href='/characters'>{t('nav.characters')}</BlockedLink>
-        ),
-      },
-      {
-        key: 'generators',
-        label: <span>{t('home.generators_title')}</span>,
-        popupOffset: [-16, 0],
-        mode: 'inline',
-        children: [
-          {
-            key: '/generators/npc',
-            label: (
-              <BlockedLink href='/generators/npc'>
-                {t('nav.inhabitant_generator')}
+  if (xs) {
+    return (
+      <>
+        <nav className='Navigation'>
+          <ul className='Navigation__list'>
+            <li className='Navigation__item' data-active={pathname === '/'}>
+              <BlockedLink href='/' className='Navigation__link'>
+                <Logo />
               </BlockedLink>
-            ),
-          },
-          {
-            key: '/generators/village',
-            label: (
-              <BlockedLink href='/generators/village'>
-                {t('nav.village_generator')}
+            </li>
+            <li className='Navigation__item Navigation__item--break'>
+              <button
+                type='button'
+                className='Navigation__link'
+                onClick={() => setOpen(true)}>
+                <MenuFoldOutlined /> {t('nav.menu')}
+              </button>
+            </li>
+            <li className='Navigation__item'>
+              <ThemeToggleButton
+                theme={settings.appearance.theme}
+                className='Navigation__link'
+                onToggle={handleThemeToggle}
+              />
+            </li>
+          </ul>
+        </nav>
+        <Drawer
+          open={open}
+          onClose={() => setOpen(false)}
+          placement='right'
+          closable={{ placement: 'end' }}
+          title={t('nav.menu')}
+          mask={false}>
+          <ul className='Navigation__list' data-orientation='vertical'>
+            <li
+              className='Navigation__item'
+              data-active={pathname.startsWith('/characters')}>
+              <BlockedLink href='/characters' className='Navigation__link'>
+                {t('nav.characters')}
               </BlockedLink>
-            ),
-          },
-        ],
-      },
-      {
-        key: '/biomes',
-        label: <span>{t('nav.biomes')}</span>,
-        popupOffset: [-16, 0],
-        mode: 'inline',
-        children: BIOME_IDS.map(biome => ({
-          key: `/biomes/${biomeIdToSlug(biome)}`,
-          label: (
-            <BlockedLink href={`/biomes/${biomeIdToSlug(biome)}`}>
-              {t(`biomes.${biome}.name`)}
-            </BlockedLink>
-          ),
-        })),
-      },
-      {
-        key: '/faq',
-        label: (
-          <BlockedLink href='/faq' data-position='right'>
-            {t('nav.faq')}
-          </BlockedLink>
-        ),
-      },
-      {
-        key: '/settings',
-        label: <BlockedLink href='/settings'>{t('nav.settings')}</BlockedLink>,
-      },
-      {
-        key: '/authentication',
-        label: <AuthButton />,
-      },
-    ],
-    [t, settings.appearance.theme, updateSettings]
-  )
-
-  const selected = useMemo(() => {
-    if (pathname.startsWith('/generators/npc'))
-      return ['/generators', '/generators/npc']
-    if (pathname.startsWith('/generators/village'))
-      return ['/generators', '/generators/village']
-    if (pathname.startsWith('/faq')) return ['/faq']
-    if (pathname.startsWith('/settings')) return ['/settings']
-    if (pathname.startsWith('/characters')) return ['/characters']
-    for (const biome of BIOME_IDS) {
-      if (pathname.startsWith(`/biomes/${biomeIdToSlug(biome)}`))
-        return [`/biomes`, `/biomes/${biomeIdToSlug(biome)}`]
-    }
-    if (!loading && pathname.startsWith('/login')) return ['/authentication']
-    if (pathname === '/') return ['/']
-    return []
-  }, [pathname, loading])
+            </li>
+            <li className='Navigation__item'>
+              <span className='Navigation__link'>
+                {t('home.generators_title')}
+              </span>
+              <ul className='Navigation__submenu'>
+                <li
+                  className='Navigation__item'
+                  data-active={pathname.startsWith('/generators/npc')}>
+                  <BlockedLink
+                    href='/generators/npc'
+                    className='Navigation__link'>
+                    {t('nav.inhabitant_generator')}
+                  </BlockedLink>
+                </li>
+                <li
+                  className='Navigation__item'
+                  data-active={pathname.startsWith('/generators/village')}>
+                  <BlockedLink
+                    href='/generators/village'
+                    className='Navigation__link'>
+                    {t('nav.village_generator')}
+                  </BlockedLink>
+                </li>
+              </ul>
+            </li>
+            <li className='Navigation__item'>
+              <span className='Navigation__link'>{t('nav.biomes')}</span>
+              <ul className='Navigation__submenu'>
+                {BIOME_IDS.map(biome => {
+                  const slug = biomeIdToSlug(biome)
+                  return (
+                    <li
+                      className='Navigation__item'
+                      key={biome}
+                      data-active={pathname.startsWith(`/biomes/${slug}`)}>
+                      <BlockedLink
+                        href={`/biomes/${slug}`}
+                        className='Navigation__link'>
+                        {t(`biomes.${biome}.name`)}
+                      </BlockedLink>
+                    </li>
+                  )
+                })}
+              </ul>
+            </li>
+            <li
+              className='Navigation__item Navigation__item--break'
+              data-active={pathname.startsWith('/faq')}>
+              <BlockedLink href='/faq' className='Navigation__link'>
+                {t('nav.faq')}
+              </BlockedLink>
+            </li>
+            <li
+              className='Navigation__item'
+              data-active={pathname.startsWith('/settings')}>
+              <BlockedLink href='/settings' className='Navigation__link'>
+                {t('nav.settings')}
+              </BlockedLink>
+            </li>
+            <li
+              className='Navigation__item'
+              data-active={pathname.startsWith('/login')}>
+              <AuthButton className='Navigation__link' />
+            </li>
+          </ul>
+        </Drawer>
+      </>
+    )
+  }
 
   return (
-    <>
-      <Menu
-        className='Navigation'
-        theme={theme}
-        mode='horizontal'
-        items={items}
-        selectedKeys={selected}
-        multiple
-      />
-      <ThemeToggleButton
-        theme={settings.appearance.theme}
-        disabled={themeOverride !== undefined}
-        onToggle={() =>
-          updateSettings(prev => ({
-            ...prev,
-            appearance: {
-              ...prev.appearance,
-              theme: prev.appearance.theme === 'dark' ? 'light' : 'dark',
-            },
-          }))
-        }
-      />
-    </>
+    <nav className='Navigation'>
+      <ul className='Navigation__list'>
+        <li className='Navigation__item' data-active={pathname === '/'}>
+          <BlockedLink href='/' className='Navigation__link'>
+            <Logo />
+          </BlockedLink>
+        </li>
+        <li
+          className='Navigation__item'
+          data-active={pathname.startsWith('/characters')}>
+          <BlockedLink href='/characters' className='Navigation__link'>
+            {t('nav.characters')}
+          </BlockedLink>
+        </li>
+        <li className='Navigation__item'>
+          <span className='Navigation__link'>{t('home.generators_title')}</span>
+          <ul className='Navigation__submenu'>
+            <li
+              className='Navigation__item'
+              data-active={pathname.startsWith('/generators/npc')}>
+              <BlockedLink href='/generators/npc' className='Navigation__link'>
+                {t('nav.inhabitant_generator')}
+              </BlockedLink>
+            </li>
+            <li
+              className='Navigation__item'
+              data-active={pathname.startsWith('/generators/village')}>
+              <BlockedLink
+                href='/generators/village'
+                className='Navigation__link'>
+                {t('nav.village_generator')}
+              </BlockedLink>
+            </li>
+          </ul>
+        </li>
+        <li className='Navigation__item'>
+          <span className='Navigation__link'>{t('nav.biomes')}</span>
+          <ul className='Navigation__submenu'>
+            {BIOME_IDS.map(biome => {
+              const slug = biomeIdToSlug(biome)
+              return (
+                <li
+                  className='Navigation__item'
+                  key={biome}
+                  data-active={pathname.startsWith(`/biomes/${slug}`)}>
+                  <BlockedLink
+                    href={`/biomes/${slug}`}
+                    className='Navigation__link'>
+                    {t(`biomes.${biome}.name`)}
+                  </BlockedLink>
+                </li>
+              )
+            })}
+          </ul>
+        </li>
+        <li
+          className='Navigation__item Navigation__item--break'
+          data-active={pathname.startsWith('/faq')}>
+          <BlockedLink href='/faq' className='Navigation__link'>
+            {t('nav.faq')}
+          </BlockedLink>
+        </li>
+        <li
+          className='Navigation__item'
+          data-active={pathname.startsWith('/settings')}>
+          <BlockedLink href='/settings' className='Navigation__link'>
+            {t('nav.settings')}
+          </BlockedLink>
+        </li>
+        <li
+          className='Navigation__item'
+          data-active={pathname.startsWith('/login')}>
+          <AuthButton className='Navigation__link' />
+        </li>
+        <li className='Navigation__item'>
+          <ThemeToggleButton
+            theme={settings.appearance.theme}
+            className='Navigation__link'
+            onToggle={handleThemeToggle}
+          />
+        </li>
+      </ul>
+    </nav>
   )
 }

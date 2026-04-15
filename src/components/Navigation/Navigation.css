@@ -1,73 +1,172 @@
 /**
- * 1. Align the styles of the dark theme of the <Menu> component with its light
- *    theme,  which uses a small bottom border instead of a background color.
- * 2. Apply the same background color as the header which contains this.
+ * 1. Allow for a biome-override of the background and its color.
  */
-.Navigation.ant-menu.ant-menu {
-  width: 100%;
-  background-color: inherit;
-  color: inherit;
-  padding-left: 2.5em;
-  border-bottom: none;
-  --ant-menu-dark-item-selected-bg: transparent; /* 1 */
-  --ant-menu-horizontal-item-selected-color: var(--ant-menu-item-color); /* 2 */
-  --ant-menu-sub-menu-item-selected-color: var(--ant-menu-item-color); /* 2 */
-}
-
-@media (max-width: 767px) {
-  .Navigation.ant-menu.ant-menu {
-    padding-left: 0.5em;
-  }
-}
-
-.ant-menu-submenu .ant-menu-item-selected {
-  --ant-menu-item-selected-bg: var(--biome-light, var(--prome-surface)); /* 1 */
-  --ant-menu-item-selected-color: var(--ant-menu-item-color); /* 2 */
-  --ant-menu-dark-item-selected-bg: var(
-    --biome-dark,
-    var(--prome-surface)
-  ); /* 1 */
-}
-
-/**
- * 1. Align the styles of the dark theme of the <Menu> component with its light
- *    theme,  which uses a small bottom border instead of a background color.
- */
-.Navigation.ant-menu-dark.ant-menu-horizontal > .ant-menu-item-selected::after,
-.Navigation.ant-menu-dark.ant-menu-horizontal > .ant-menu-item:hover::after {
-  border-bottom-width: 2px; /* 1 */
-}
-
-/**
- * 1. Shift some items to the far right.
- */
-.Navigation .ant-menu-item:has([data-position="right"]) {
-  margin-left: auto; /* 1 */
-}
-
-/**
- * 1. Remove the transition set by Ant Design to be able to control it ourselves
- *    and make sure that it is aligned whether or not the item has a submenu.
- */
-.ant-menu .ant-menu-title-content {
-  transition: unset !important; /* 1 */
-}
-
-.ant-menu-title-content > * {
-  transition: color var(--ant-motion-duration-slow)
-    var(--ant-motion-ease-in-out) !important;
-}
-
-.ant-menu.ant-menu-submenu-popup > .ant-menu.ant-menu {
-  background-color: color-mix(
-    light-dark(var(--ant-menu-popup-bg), var(--ant-menu-dark-popup-bg)),
-    light-dark(rgb(255 255 255 / 0.1), rgb(0 0 0 / 0.1)) 70%
+.Navigation {
+  --background-color: color-mix(
+    in srgb,
+    var(--biome-surface, var(--prome-bg)) /* 1 */,
+    transparent 40%
   );
+  color: var(--biome-text, var(--prome-text)); /* 1 */
+
+  width: 100%;
+  padding: 0 0.5em;
+  position: relative;
+}
+
+/**
+ * 1. Apply the blurred background with a pseudo-element in order to circumvent
+ *    an issue with nested backdrop filters on Chrome. This makes it possible to
+ *    also have the blurred background on the dropdown menus.
+ */
+.Navigation::before {
+  content: ""; /* 1 */
+  position: absolute;
+  inset: 0;
+  background-color: var(--background-color);
   backdrop-filter: blur(8px);
 }
 
-.ant-menu-item:has(.ThemeToggleButton) .ant-menu-title-content {
+/**
+ * 1. Just in case for intermediary screens, so it can be scrolled and used.
+ */
+.Navigation__list {
+  list-style: none;
   display: flex;
-  align-items: center;
-  height: 100%;
+  align-items: stretch;
+  -webkit-overflow-scrolling: touch; /* 1 */
+}
+
+/**
+ * 1. Allow for the submenu to be positioned absolutely.
+ */
+.Navigation__item {
+  position: relative; /* 1 */
+}
+
+/**
+ * 1. Item breakpoint that gets pushed to the far right.
+ */
+.Navigation__item--break {
+  margin-left: auto; /* 1 */
+}
+
+.Navigation__list:not([data-orientation="vertical"])
+  > .Navigation__item[data-active="true"],
+.Navigation__list:not([data-orientation="vertical"])
+  > .Navigation__item:has(.Navigation__submenu [data-active="true"]) {
+  box-shadow: inset 0 -2px 0 0 var(--ant-color-link);
+}
+
+.Navigation__list
+  > .Navigation__item:has([data-active="true"])
+  > .Navigation__link,
+.Navigation__list > .Navigation__item[data-active="true"] > .Navigation__link {
+  color: var(--ant-color-link);
+}
+
+/**
+ * 1.  Allow for a biome-override of the active background and its color.
+ */
+[data-orientation="vertical"] [data-active="true"] .Navigation__link,
+.Navigation__submenu [data-active="true"] .Navigation__link {
+  background-color: light-dark(
+    var(--biome-light, var(--prome-surface)) /* 1 */,
+    var(--biome-dark, var(--prome-surface)) /* 1 */
+  );
+  color: var(--biome-text, var(--prome-text)); /* 1 */
+}
+
+.Navigation__submenu .Navigation__item:first-child {
+  border-top-left-radius: calc(var(--border-radius) - var(--spacing));
+  border-top-right-radius: calc(var(--border-radius) - var(--spacing));
+}
+
+.Navigation__submenu .Navigation__item:last-child {
+  border-bottom-left-radius: calc(var(--border-radius) - var(--spacing));
+  border-bottom-right-radius: calc(var(--border-radius) - var(--spacing));
+}
+
+.Navigation__link {
+  color: inherit;
+  padding: 0.5em 1em;
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  border-radius: inherit;
+  transition: 250ms ease-in-out;
+}
+
+button.Navigation__link {
+  appearance: none;
+  border: 0;
+  background: none;
+  font: inherit;
+}
+
+.Navigation__submenu {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing);
+
+  --spacing: 0.25em;
+  --submenu-offset: 0.5em;
+  --border-radius: 0.5em;
+
+  position: absolute;
+  top: calc(100% + var(--submenu-offset));
+  left: 0;
+  z-index: 100;
+  width: max-content;
+  border-radius: var(--border-radius);
+
+  opacity: 0;
+  pointer-events: none;
+  background-color: var(--background-color);
+  backdrop-filter: blur(8px);
+}
+
+.Navigation__submenu::before {
+  content: "";
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: var(--submenu-offset);
+  position: absolute;
+}
+
+.Navigation__item:is(:hover, :focus-within) .Navigation__submenu,
+.Navigation__link:is(:active, :focus) + .Navigation__submenu {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.Navigation__link:is(:hover, :focus) {
+  background-color: light-dark(rgb(0 0 0 / 0.15), rgb(255 255 255 / 0.2));
+  color: inherit;
+}
+
+[data-orientation="vertical"] {
+  flex-direction: column;
+
+  & .Navigation__item--break {
+    margin-left: 0;
+  }
+
+  & .Navigation__submenu {
+    opacity: 1;
+    pointer-events: auto;
+    position: static;
+    padding-left: 1em;
+  }
+
+  & .Navigation__link {
+    border-radius: 0.5em;
+  }
+
+  & .Navigation__link,
+  & .Navigation__submenu {
+    width: 100%;
+  }
 }

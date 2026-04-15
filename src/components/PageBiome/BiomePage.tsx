@@ -3,6 +3,7 @@
 import { Layout } from 'antd'
 import { useEffect } from 'react'
 import { Footer } from '@/components/Footer/Footer'
+import { Navigation } from '@/components/Navigation/Navigation'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { BIOME_IDS } from '@/constants/misc'
 import { useApplyAppTheme } from '@/hooks/useApplyAppTheme'
@@ -17,7 +18,6 @@ import { BiomeMap } from './BiomeMap'
 
 import './BiomePage.css'
 import './biome-fonts.css'
-import { NewNavigation } from '../Navigation/NewNavigation'
 
 type Props = { biome: BiomeId }
 
@@ -35,7 +35,7 @@ export function BiomePage({ biome }: Props) {
 
   return (
     <Layout className='BiomePage' data-biome={biome}>
-      <NewNavigation />
+      <Navigation />
       <BiomeHero biome={biome} index={index} />
       <Layout.Content className='BiomePage__content'>
         <BiomeDescription biome={biome} />

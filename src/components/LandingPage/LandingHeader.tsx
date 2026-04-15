@@ -1,9 +1,9 @@
 'use client'
 
-import { NewNavigation } from '@/components/Navigation/NewNavigation'
+import { Navigation } from '@/components/Navigation/Navigation'
 import { useApplyAppTheme } from '@/hooks/useApplyAppTheme'
 
 export function LandingHeader() {
   useApplyAppTheme()
-  return <NewNavigation />
+  return <Navigation />
 }
