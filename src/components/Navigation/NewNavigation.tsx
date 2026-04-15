@@ -17,9 +17,16 @@ export function NewNavigation() {
   const t = useTranslations()
   const { settings, updateSettings } = useSettings()
   const pathname = usePathname()
-  const { md, xs, ...rest } = Grid.useBreakpoint()
+  const { xs } = Grid.useBreakpoint()
   const [open, setOpen] = useState(false)
-  console.log(md, rest)
+  const handleThemeToggle = () =>
+    updateSettings(prev => ({
+      ...prev,
+      appearance: {
+        ...prev.appearance,
+        theme: prev.appearance.theme === 'dark' ? 'light' : 'dark',
+      },
+    }))
 
   if (xs) {
     return (
@@ -31,9 +38,7 @@ export function NewNavigation() {
                 <Logo />
               </BlockedLink>
             </li>
-            <li
-              className='NewNavigation__item NewNavigation__item--break'
-              data-active={pathname === '/'}>
+            <li className='NewNavigation__item NewNavigation__item--break'>
               <button
                 type='button'
                 className='NewNavigation__link'
@@ -45,16 +50,7 @@ export function NewNavigation() {
               <ThemeToggleButton
                 theme={settings.appearance.theme}
                 className='NewNavigation__link'
-                onToggle={() =>
-                  updateSettings(prev => ({
-                    ...prev,
-                    appearance: {
-                      ...prev.appearance,
-                      theme:
-                        prev.appearance.theme === 'dark' ? 'light' : 'dark',
-                    },
-                  }))
-                }
+                onToggle={handleThemeToggle}
               />
             </li>
           </ul>
@@ -75,9 +71,9 @@ export function NewNavigation() {
               </BlockedLink>
             </li>
             <li className='NewNavigation__item'>
-              <a className='NewNavigation__link'>
+              <span className='NewNavigation__link'>
                 {t('home.generators_title')}
-              </a>
+              </span>
               <ul className='NewNavigation__submenu'>
                 <li
                   className='NewNavigation__item'
@@ -100,22 +96,23 @@ export function NewNavigation() {
               </ul>
             </li>
             <li className='NewNavigation__item'>
-              <a className='NewNavigation__link'>{t('nav.biomes')}</a>
+              <span className='NewNavigation__link'>{t('nav.biomes')}</span>
               <ul className='NewNavigation__submenu'>
-                {BIOME_IDS.map(biome => (
-                  <li
-                    className='NewNavigation__item'
-                    key={biome}
-                    data-active={pathname.startsWith(
-                      `/biomes/${biomeIdToSlug(biome)}`
-                    )}>
-                    <BlockedLink
-                      href={`/biomes/${biomeIdToSlug(biome)}`}
-                      className='NewNavigation__link'>
-                      {t(`biomes.${biome}.name`)}
-                    </BlockedLink>
-                  </li>
-                ))}
+                {BIOME_IDS.map(biome => {
+                  const slug = biomeIdToSlug(biome)
+                  return (
+                    <li
+                      className='NewNavigation__item'
+                      key={biome}
+                      data-active={pathname.startsWith(`/biomes/${slug}`)}>
+                      <BlockedLink
+                        href={`/biomes/${slug}`}
+                        className='NewNavigation__link'>
+                        {t(`biomes.${biome}.name`)}
+                      </BlockedLink>
+                    </li>
+                  )
+                })}
               </ul>
             </li>
             <li
@@ -159,7 +156,9 @@ export function NewNavigation() {
           </BlockedLink>
         </li>
         <li className='NewNavigation__item'>
-          <a className='NewNavigation__link'>{t('home.generators_title')}</a>
+          <span className='NewNavigation__link'>
+            {t('home.generators_title')}
+          </span>
           <ul className='NewNavigation__submenu'>
             <li
               className='NewNavigation__item'
@@ -182,22 +181,23 @@ export function NewNavigation() {
           </ul>
         </li>
         <li className='NewNavigation__item'>
-          <a className='NewNavigation__link'>{t('nav.biomes')}</a>
+          <span className='NewNavigation__link'>{t('nav.biomes')}</span>
           <ul className='NewNavigation__submenu'>
-            {BIOME_IDS.map(biome => (
-              <li
-                className='NewNavigation__item'
-                key={biome}
-                data-active={pathname.startsWith(
-                  `/biomes/${biomeIdToSlug(biome)}`
-                )}>
-                <BlockedLink
-                  href={`/biomes/${biomeIdToSlug(biome)}`}
-                  className='NewNavigation__link'>
-                  {t(`biomes.${biome}.name`)}
-                </BlockedLink>
-              </li>
-            ))}
+            {BIOME_IDS.map(biome => {
+              const slug = biomeIdToSlug(biome)
+              return (
+                <li
+                  className='NewNavigation__item'
+                  key={biome}
+                  data-active={pathname.startsWith(`/biomes/${slug}`)}>
+                  <BlockedLink
+                    href={`/biomes/${slug}`}
+                    className='NewNavigation__link'>
+                    {t(`biomes.${biome}.name`)}
+                  </BlockedLink>
+                </li>
+              )
+            })}
           </ul>
         </li>
         <li
@@ -223,15 +223,7 @@ export function NewNavigation() {
           <ThemeToggleButton
             theme={settings.appearance.theme}
             className='NewNavigation__link'
-            onToggle={() =>
-              updateSettings(prev => ({
-                ...prev,
-                appearance: {
-                  ...prev.appearance,
-                  theme: prev.appearance.theme === 'dark' ? 'light' : 'dark',
-                },
-              }))
-            }
+            onToggle={handleThemeToggle}
           />
         </li>
       </ul>

@@ -29,11 +29,10 @@ export function ThemeToggleButton({
   return (
     <Tooltip title={disabled ? t('nav.theme.switchDisabled') : label}>
       <button
-        className={`ThemeToggleButton ${className ?? ''}`}
+        className={['ThemeToggleButton', className].filter(Boolean).join(' ')}
         onClick={onToggle}
         disabled={disabled}
-        aria-label={label}
-        title={label}>
+        aria-label={label}>
         {theme === 'dark' ? <SunFilled /> : <MoonFilled />}
       </button>
     </Tooltip>
