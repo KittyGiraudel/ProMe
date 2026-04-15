@@ -1,6 +1,7 @@
 import PauseOutlined from '@ant-design/icons/lib/icons/PauseOutlined'
 import PlayCircleOutlined from '@ant-design/icons/lib/icons/PlayCircleOutlined'
 import StepBackwardOutlined from '@ant-design/icons/lib/icons/StepBackwardOutlined'
+import StepForwardOutlined from '@ant-design/icons/lib/icons/StepForwardOutlined'
 import { Slider, Tooltip, Typography } from 'antd'
 import { Howl } from 'howler'
 import { useCallback, useEffect, useRef, useState } from 'react'
@@ -17,10 +18,14 @@ export function AudioPlayer({
   biome,
   name,
   url,
+  onPrev,
+  onNext,
 }: {
   biome: PossibleBiomeId
   name?: string
   url: string
+  onPrev?: () => void
+  onNext?: () => void
 }) {
   const howl = useRef<Howl | null>(null)
   const volumeRef = useRef(0.8)
@@ -78,8 +83,8 @@ export function AudioPlayer({
         return
       }
 
-      // If nothing was playing, don’t construct a Howl yet — wait for the user to
-      // click play. This avoids the “HTML5 Audio pool exhausted” warning firing
+      // If nothing was playing, don't construct a Howl yet — wait for the user to
+      // click play. This avoids the "HTML5 Audio pool exhausted" warning firing
       // when Howler tries to obtain an audio node before any user gesture.
       if (!wasPlaying) {
         howl.current = null
@@ -155,6 +160,7 @@ export function AudioPlayer({
     onPlay: togglePlay,
     onPause: togglePlay,
     onSeekTo: seekTo,
+    onPrevTrack: onPrev,
   })
 
   const changeVolume = useCallback((value: number) => {
@@ -165,40 +171,12 @@ export function AudioPlayer({
 
   return (
     <div className='AudioPlayer'>
-      <div className='AudioPlayer__controls'>
-        <div className='AudioPlayer__controlsLeft'>
-          <Tooltip title={isPlaying ? 'Pause' : 'Play'}>
-            <Button
-              onClick={togglePlay}
-              htmlType='button'
-              size='small'
-              disabled={!url}>
-              {isPlaying ? <PauseOutlined /> : <PlayCircleOutlined />}
-            </Button>
-          </Tooltip>
-          <Tooltip title='Restart'>
-            <Button
-              onClick={() => seekTo(0)}
-              htmlType='button'
-              size='small'
-              disabled={!url}>
-              <StepBackwardOutlined />
-            </Button>
-          </Tooltip>
-        </div>
-        <Typography.Text type='secondary' className='AudioPlayer__trackName'>
+      <div className='AudioPlayer__titleRow'>
+        <span className='AudioPlayer__rule' />
+        <Typography.Text className='AudioPlayer__trackName'>
           {name}
         </Typography.Text>
-        <div className='AudioPlayer__controlsRight'>
-          <Slider
-            min={0}
-            max={1}
-            step={0.05}
-            value={volume}
-            onChange={changeVolume}
-            className='AudioPlayer__volumeSlider'
-          />
-        </div>
+        <span className='AudioPlayer__rule' />
       </div>
       <div className='AudioPlayer__progressRow'>
         <span>{formatTime(currentTime)}</span>
@@ -212,6 +190,43 @@ export function AudioPlayer({
           className='AudioPlayer__progress'
         />
         <span>{formatTime(duration)}</span>
+      </div>
+      <div className='AudioPlayer__controls'>
+        <div className='AudioPlayer__controlsLeft'>
+          {onPrev && (
+            <Tooltip title='Previous track'>
+              <Button onClick={onPrev} htmlType='button' size='small'>
+                <StepBackwardOutlined />
+              </Button>
+            </Tooltip>
+          )}
+          <Tooltip title={isPlaying ? 'Pause' : 'Play'}>
+            <Button
+              onClick={togglePlay}
+              htmlType='button'
+              size='small'
+              disabled={!url}>
+              {isPlaying ? <PauseOutlined /> : <PlayCircleOutlined />}
+            </Button>
+          </Tooltip>
+          {onNext && (
+            <Tooltip title='Next track'>
+              <Button onClick={onNext} htmlType='button' size='small'>
+                <StepForwardOutlined />
+              </Button>
+            </Tooltip>
+          )}
+        </div>
+        <div className='AudioPlayer__controlsRight'>
+          <Slider
+            min={0}
+            max={1}
+            step={0.05}
+            value={volume}
+            onChange={changeVolume}
+            className='AudioPlayer__volumeSlider'
+          />
+        </div>
       </div>
     </div>
   )

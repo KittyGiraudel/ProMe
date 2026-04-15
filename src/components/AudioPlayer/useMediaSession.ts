@@ -15,6 +15,7 @@ type Props = {
   onPlay: () => void
   onPause: () => void
   onSeekTo: (time: number) => void
+  onPrevTrack?: () => void
 }
 
 export function useMediaSession({
@@ -26,6 +27,7 @@ export function useMediaSession({
   onPlay,
   onPause,
   onSeekTo,
+  onPrevTrack,
 }: Props) {
   useEffect(
     function setMetadata() {
@@ -55,11 +57,12 @@ export function useMediaSession({
       navigator.mediaSession.setActionHandler('seekforward', details => {
         onSeekTo(Math.min(duration, currentTime + (details.seekOffset ?? 10)))
       })
-      navigator.mediaSession.setActionHandler('previoustrack', () =>
-        onSeekTo(0)
+      navigator.mediaSession.setActionHandler(
+        'previoustrack',
+        onPrevTrack ?? null
       )
     },
-    [onPlay, onPause, onSeekTo, currentTime, duration]
+    [onPlay, onPause, onSeekTo, onPrevTrack, currentTime, duration]
   )
 
   useEffect(
