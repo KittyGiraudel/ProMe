@@ -535,13 +535,14 @@
     "title": "ProMe — Companion de jeu"
   },
   "nav": {
+    "biomes": "Biomes",
     "characters": "Protecteurs",
     "faq": "FAQ",
     "home": "Accueil",
     "inhabitant_generator": "Générateur d’habitant",
     "login": "Connexion",
     "logout": "Déconnexion",
-    "biomes": "Biomes",
+    "menu": "Menu",
     "new_character": "Nouveau Protecteur",
     "settings": "Paramètres",
     "village_generator": "Générateur de village",

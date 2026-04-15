@@ -5,11 +5,11 @@ import { type ReactNode } from 'react'
 import { Banner } from '@/components/Banner/Banner'
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
 import { Footer } from '@/components/Footer/Footer'
-import { Navigation } from '@/components/Navigation/Navigation'
 import { Spacing } from '@/components/Spacing/Spacing'
 import { useApplyAppTheme } from '@/hooks/useApplyAppTheme'
 import { AppTheme } from '@/lib/settings/types'
 import type { PossibleBiomeId } from '@/lib/types'
+import { NewNavigation } from '../Navigation/NewNavigation'
 
 import './Layout.css'
 
@@ -37,9 +37,7 @@ export const Layout = ({
 
   return (
     <AntLayout className={`Layout ${className}`}>
-      <AntLayout.Header className='Layout__header'>
-        <Navigation themeOverride={appThemeOverride} />
-      </AntLayout.Header>
+      <NewNavigation />
       <Banner biome={bannerBiome} />
       <AntLayout.Content className='Layout__wrapper'>
         <Breadcrumbs breadcrumbs={breadcrumbs} />

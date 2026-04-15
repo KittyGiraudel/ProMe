@@ -1,7 +1,0 @@
-.LandingHeader {
-  display: flex;
-  align-items: center;
-  --ant-layout-header-bg: var(--prome-bg);
-  --ant-layout-header-padding: 0em;
-  --ant-layout-header-height: 3em !important;
-}

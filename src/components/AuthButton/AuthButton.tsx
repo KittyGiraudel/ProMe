@@ -3,20 +3,19 @@ import { Button } from '@/components/Button/Button'
 import { BlockedLink } from '@/components/Navigation/BlockedLink'
 import { useAuth } from '@/lib/auth/context'
 
-export function AuthButton() {
+export function AuthButton({ className }: { className?: string }) {
   const { user, logout, loading } = useAuth()
   const t = useTranslations()
 
   if (loading) return null
 
   return user ? (
-    <Button
-      onClick={logout}
-      type='text'
-      style={{ color: 'inherit', padding: 0 }}>
+    <Button onClick={logout} type='text' className={className}>
       {t('nav.logout')}
     </Button>
   ) : (
-    <BlockedLink href='/login'>{t('nav.login')}</BlockedLink>
+    <BlockedLink href='/login' className={className}>
+      {t('nav.login')}
+    </BlockedLink>
   )
 }

@@ -1,11 +1,3 @@
-.Layout__header {
-  display: flex;
-  align-items: center;
-  --ant-layout-header-bg: var(--prome-bg);
-  --ant-layout-header-padding: 0;
-  --ant-layout-header-height: 3em !important;
-}
-
 .Layout__wrapper {
   padding: 1em 3em;
 }

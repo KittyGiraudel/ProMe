@@ -11,9 +11,15 @@ type Props = {
   theme: 'light' | 'dark'
   onToggle: () => void
   disabled?: boolean
+  className?: string
 }
 
-export function ThemeToggleButton({ theme, onToggle, disabled }: Props) {
+export function ThemeToggleButton({
+  theme,
+  onToggle,
+  disabled,
+  className,
+}: Props) {
   const t = useTranslations()
   const label =
     theme === 'dark'
@@ -23,7 +29,7 @@ export function ThemeToggleButton({ theme, onToggle, disabled }: Props) {
   return (
     <Tooltip title={disabled ? t('nav.theme.switchDisabled') : label}>
       <button
-        className='ThemeToggleButton'
+        className={`ThemeToggleButton ${className ?? ''}`}
         onClick={onToggle}
         disabled={disabled}
         aria-label={label}

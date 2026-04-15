@@ -11,13 +11,13 @@ import { BiomeAudio } from './BiomeAudio'
 import { BiomeDescription } from './BiomeDescription'
 import { BiomeEncounters } from './BiomeEncounters'
 import { BiomeGathering } from './BiomeGathering'
-import { BiomeHeader } from './BiomeHeader'
 import { BiomeHero } from './BiomeHero'
 import { BiomeMagic } from './BiomeMagic'
 import { BiomeMap } from './BiomeMap'
 
 import './BiomePage.css'
 import './biome-fonts.css'
+import { NewNavigation } from '../Navigation/NewNavigation'
 
 type Props = { biome: BiomeId }
 
@@ -35,7 +35,7 @@ export function BiomePage({ biome }: Props) {
 
   return (
     <Layout className='BiomePage' data-biome={biome}>
-      <BiomeHeader />
+      <NewNavigation />
       <BiomeHero biome={biome} index={index} />
       <Layout.Content className='BiomePage__content'>
         <BiomeDescription biome={biome} />
