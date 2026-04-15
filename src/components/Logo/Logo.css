@@ -5,3 +5,10 @@
   font-weight: 700;
   flex-shrink: 0;
 }
+
+.Logo__hex {
+  display: inline-block;
+  transform: scale(1.4) translate(-1px, -1px);
+  position: relative;
+  line-height: 1;
+}
