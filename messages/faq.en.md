@@ -73,7 +73,7 @@ Like it or not, the official game has no concept of gender, so all characters �
 
 ## Where do the images come from?
 
-The images used on the site were generated with MidJourney by my dear sister, who followed her creative instincts and the contents of the rulebook to bring the game’s environments to life.
+The images used on the site were generated using MidJourney by my dear sister, who followed her creative instincts, along with original illustrations by Enzo Salviato and Natalia Mancio, and content from the rulebook to bring the game’s environments to life.
 
 ## Where does the music come from?
 

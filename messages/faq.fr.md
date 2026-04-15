@@ -73,7 +73,7 @@ Que l’on soit d’accord ou non, le jeu officiel n’a pas de concept de genre
 
 ## D’où viennent les images ?
 
-Les images utilisées sur le site sont générées avec MidJourney par ma chère sœur qui a suivi son instinct créatif et les contenus du livre de règles pour donner vie aux environnements du jeu.
+Les images utilisées sur le site sont générées avec MidJourney par ma chère sœur qui a suivi son instinct créatif, les illustrations originales de Enzo Salviato et Natalia Mancio, et les contenus du livre de règles pour donner vie aux environnements du jeu.
 
 ## D’où viennent les musiques ?
 
