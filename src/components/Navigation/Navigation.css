@@ -1,7 +1,7 @@
 /**
  * 1. Allow for a biome-override of the background and its color.
  */
-.Navigation {
+.Nav {
   --background-color: color-mix(
     in srgb,
     var(--biome-surface, var(--prome-bg)) /* 1 */,
@@ -19,7 +19,7 @@
  *    an issue with nested backdrop filters on Chrome. This makes it possible to
  *    also have the blurred background on the dropdown menus.
  */
-.Navigation::before {
+.Nav::before {
   content: ""; /* 1 */
   position: absolute;
   inset: 0;
@@ -30,7 +30,7 @@
 /**
  * 1. Just in case for intermediary screens, so it can be scrolled and used.
  */
-.Navigation__list {
+.Nav__list {
   list-style: none;
   display: flex;
   align-items: stretch;
@@ -40,36 +40,33 @@
 /**
  * 1. Allow for the submenu to be positioned absolutely.
  */
-.Navigation__item {
+.Nav__item {
   position: relative; /* 1 */
 }
 
 /**
  * 1. Item breakpoint that gets pushed to the far right.
  */
-.Navigation__item--break {
+.Nav__item--break {
   margin-left: auto; /* 1 */
 }
 
-.Navigation__list:not([data-orientation="vertical"])
-  > .Navigation__item[data-active="true"],
-.Navigation__list:not([data-orientation="vertical"])
-  > .Navigation__item:has(.Navigation__submenu [data-active="true"]) {
+.Nav__list[data-orientation="horizontal"] > .Nav__item[data-active="true"],
+.Nav__list[data-orientation="horizontal"]
+  > .Nav__item:has(.Nav__submenu [data-active="true"]) {
   box-shadow: inset 0 -2px 0 0 var(--ant-color-link);
 }
 
-.Navigation__list
-  > .Navigation__item:has([data-active="true"])
-  > .Navigation__link,
-.Navigation__list > .Navigation__item[data-active="true"] > .Navigation__link {
+.Nav__item:has([data-active="true"]) > .Nav__link,
+.Nav__list > .Nav__item[data-active="true"] > .Nav__link {
   color: var(--ant-color-link);
 }
 
 /**
  * 1.  Allow for a biome-override of the active background and its color.
  */
-[data-orientation="vertical"] [data-active="true"] .Navigation__link,
-.Navigation__submenu [data-active="true"] .Navigation__link {
+[data-orientation="vertical"] [data-active="true"] .Nav__link,
+.Nav__submenu [data-active="true"] .Nav__link {
   background-color: light-dark(
     var(--biome-light, var(--prome-surface)) /* 1 */,
     var(--biome-dark, var(--prome-surface)) /* 1 */
@@ -77,19 +74,19 @@
   color: var(--biome-text, var(--prome-text)); /* 1 */
 }
 
-.Navigation__submenu .Navigation__item:first-child {
+.Nav__submenu .Nav__item:first-child {
   border-top-left-radius: calc(var(--border-radius) - var(--spacing));
   border-top-right-radius: calc(var(--border-radius) - var(--spacing));
 }
 
-.Navigation__submenu .Navigation__item:last-child {
+.Nav__submenu .Nav__item:last-child {
   border-bottom-left-radius: calc(var(--border-radius) - var(--spacing));
   border-bottom-right-radius: calc(var(--border-radius) - var(--spacing));
 }
 
-.Navigation__link {
+.Nav__link {
   color: inherit;
-  padding: 0.5em 1em;
+  padding: 0.6em 1em;
   display: inline-block;
   width: 100%;
   cursor: pointer;
@@ -97,38 +94,43 @@
   transition: 250ms ease-in-out;
 }
 
-button.Navigation__link {
+button.Nav__link {
   appearance: none;
   border: 0;
   background: none;
   font: inherit;
 }
 
-.Navigation__submenu {
+.Nav__submenu {
+  --spacing: 0.25em;
+  --submenu-offset: 0.5em;
+  --border-radius: 0.5em;
+
   list-style: none;
   display: flex;
   flex-direction: column;
   padding: var(--spacing);
-
-  --spacing: 0.25em;
-  --submenu-offset: 0.5em;
-  --border-radius: 0.5em;
 
   position: absolute;
   top: calc(100% + var(--submenu-offset));
   left: 0;
   z-index: 100;
   width: max-content;
-  border-radius: var(--border-radius);
 
   opacity: 0;
   pointer-events: none;
+
+  border-radius: var(--border-radius);
   background-color: var(--background-color);
   backdrop-filter: blur(8px);
 }
 
-.Navigation__submenu::before {
-  content: "";
+/**
+ * 1. Bridge the gap between the parent link and the submenu to allow hover to
+ *    pass through.
+ */
+.Nav__submenu::before {
+  content: ""; /* 1 */
   left: 0;
   right: 0;
   bottom: 100%;
@@ -136,13 +138,13 @@ button.Navigation__link {
   position: absolute;
 }
 
-.Navigation__item:is(:hover, :focus-within) .Navigation__submenu,
-.Navigation__link:is(:active, :focus) + .Navigation__submenu {
+.Nav__item:is(:hover, :focus-within) .Nav__submenu,
+.Nav__link:is(:active, :focus) + .Nav__submenu {
   opacity: 1;
   pointer-events: auto;
 }
 
-.Navigation__link:is(:hover, :focus) {
+.Nav__link:is(:hover, :focus) {
   background-color: light-dark(rgb(0 0 0 / 0.15), rgb(255 255 255 / 0.2));
   color: inherit;
 }
@@ -150,23 +152,23 @@ button.Navigation__link {
 [data-orientation="vertical"] {
   flex-direction: column;
 
-  & .Navigation__item--break {
+  & .Nav__item--break {
     margin-left: 0;
   }
 
-  & .Navigation__submenu {
+  & .Nav__submenu {
     opacity: 1;
     pointer-events: auto;
     position: static;
     padding-left: 1em;
   }
 
-  & .Navigation__link {
+  & .Nav__link {
     border-radius: 0.5em;
   }
 
-  & .Navigation__link,
-  & .Navigation__submenu {
+  & .Nav__link,
+  & .Nav__submenu {
     width: 100%;
   }
 }

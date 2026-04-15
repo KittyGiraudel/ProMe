@@ -31,25 +31,25 @@ export function Navigation() {
   if (xs) {
     return (
       <>
-        <nav className='Navigation'>
-          <ul className='Navigation__list'>
-            <li className='Navigation__item' data-active={pathname === '/'}>
-              <BlockedLink href='/' className='Navigation__link'>
+        <nav className='Nav'>
+          <ul className='Nav__list' data-orientation='horizontal'>
+            <li className='Nav__item' data-active={pathname === '/'}>
+              <BlockedLink href='/' className='Nav__link'>
                 <Logo />
               </BlockedLink>
             </li>
-            <li className='Navigation__item Navigation__item--break'>
+            <li className='Nav__item Nav__item--break'>
               <button
                 type='button'
-                className='Navigation__link'
+                className='Nav__link'
                 onClick={() => setOpen(true)}>
                 <MenuFoldOutlined /> {t('nav.menu')}
               </button>
             </li>
-            <li className='Navigation__item'>
+            <li className='Nav__item'>
               <ThemeToggleButton
                 theme={settings.appearance.theme}
-                className='Navigation__link'
+                className='Nav__link'
                 onToggle={handleThemeToggle}
               />
             </li>
@@ -62,52 +62,46 @@ export function Navigation() {
           closable={{ placement: 'end' }}
           title={t('nav.menu')}
           mask={false}>
-          <ul className='Navigation__list' data-orientation='vertical'>
+          <ul className='Nav__list' data-orientation='vertical'>
             <li
-              className='Navigation__item'
+              className='Nav__item'
               data-active={pathname.startsWith('/characters')}>
-              <BlockedLink href='/characters' className='Navigation__link'>
+              <BlockedLink href='/characters' className='Nav__link'>
                 {t('nav.characters')}
               </BlockedLink>
             </li>
-            <li className='Navigation__item'>
-              <span className='Navigation__link'>
-                {t('home.generators_title')}
-              </span>
-              <ul className='Navigation__submenu'>
+            <li className='Nav__item'>
+              <span className='Nav__link'>{t('home.generators_title')}</span>
+              <ul className='Nav__submenu'>
                 <li
-                  className='Navigation__item'
+                  className='Nav__item'
                   data-active={pathname.startsWith('/generators/npc')}>
-                  <BlockedLink
-                    href='/generators/npc'
-                    className='Navigation__link'>
+                  <BlockedLink href='/generators/npc' className='Nav__link'>
                     {t('nav.inhabitant_generator')}
                   </BlockedLink>
                 </li>
                 <li
-                  className='Navigation__item'
+                  className='Nav__item'
                   data-active={pathname.startsWith('/generators/village')}>
-                  <BlockedLink
-                    href='/generators/village'
-                    className='Navigation__link'>
+                  <BlockedLink href='/generators/village' className='Nav__link'>
                     {t('nav.village_generator')}
                   </BlockedLink>
                 </li>
               </ul>
             </li>
-            <li className='Navigation__item'>
-              <span className='Navigation__link'>{t('nav.biomes')}</span>
-              <ul className='Navigation__submenu'>
+            <li className='Nav__item'>
+              <span className='Nav__link'>{t('nav.biomes')}</span>
+              <ul className='Nav__submenu'>
                 {BIOME_IDS.map(biome => {
                   const slug = biomeIdToSlug(biome)
                   return (
                     <li
-                      className='Navigation__item'
+                      className='Nav__item'
                       key={biome}
                       data-active={pathname.startsWith(`/biomes/${slug}`)}>
                       <BlockedLink
                         href={`/biomes/${slug}`}
-                        className='Navigation__link'>
+                        className='Nav__link'>
                         {t(`biomes.${biome}.name`)}
                       </BlockedLink>
                     </li>
@@ -116,23 +110,23 @@ export function Navigation() {
               </ul>
             </li>
             <li
-              className='Navigation__item Navigation__item--break'
+              className='Nav__item Nav__item--break'
               data-active={pathname.startsWith('/faq')}>
-              <BlockedLink href='/faq' className='Navigation__link'>
+              <BlockedLink href='/faq' className='Nav__link'>
                 {t('nav.faq')}
               </BlockedLink>
             </li>
             <li
-              className='Navigation__item'
+              className='Nav__item'
               data-active={pathname.startsWith('/settings')}>
-              <BlockedLink href='/settings' className='Navigation__link'>
+              <BlockedLink href='/settings' className='Nav__link'>
                 {t('nav.settings')}
               </BlockedLink>
             </li>
             <li
-              className='Navigation__item'
+              className='Nav__item'
               data-active={pathname.startsWith('/login')}>
-              <AuthButton className='Navigation__link' />
+              <AuthButton className='Nav__link' />
             </li>
           </ul>
         </Drawer>
@@ -141,54 +135,50 @@ export function Navigation() {
   }
 
   return (
-    <nav className='Navigation'>
-      <ul className='Navigation__list'>
-        <li className='Navigation__item' data-active={pathname === '/'}>
-          <BlockedLink href='/' className='Navigation__link'>
+    <nav className='Nav'>
+      <ul className='Nav__list' data-orientation='horizontal'>
+        <li className='Nav__item' data-active={pathname === '/'}>
+          <BlockedLink href='/' className='Nav__link'>
             <Logo />
           </BlockedLink>
         </li>
         <li
-          className='Navigation__item'
+          className='Nav__item'
           data-active={pathname.startsWith('/characters')}>
-          <BlockedLink href='/characters' className='Navigation__link'>
+          <BlockedLink href='/characters' className='Nav__link'>
             {t('nav.characters')}
           </BlockedLink>
         </li>
-        <li className='Navigation__item'>
-          <span className='Navigation__link'>{t('home.generators_title')}</span>
-          <ul className='Navigation__submenu'>
+        <li className='Nav__item'>
+          <span className='Nav__link'>{t('home.generators_title')}</span>
+          <ul className='Nav__submenu'>
             <li
-              className='Navigation__item'
+              className='Nav__item'
               data-active={pathname.startsWith('/generators/npc')}>
-              <BlockedLink href='/generators/npc' className='Navigation__link'>
+              <BlockedLink href='/generators/npc' className='Nav__link'>
                 {t('nav.inhabitant_generator')}
               </BlockedLink>
             </li>
             <li
-              className='Navigation__item'
+              className='Nav__item'
               data-active={pathname.startsWith('/generators/village')}>
-              <BlockedLink
-                href='/generators/village'
-                className='Navigation__link'>
+              <BlockedLink href='/generators/village' className='Nav__link'>
                 {t('nav.village_generator')}
               </BlockedLink>
             </li>
           </ul>
         </li>
-        <li className='Navigation__item'>
-          <span className='Navigation__link'>{t('nav.biomes')}</span>
-          <ul className='Navigation__submenu'>
+        <li className='Nav__item'>
+          <span className='Nav__link'>{t('nav.biomes')}</span>
+          <ul className='Nav__submenu'>
             {BIOME_IDS.map(biome => {
               const slug = biomeIdToSlug(biome)
               return (
                 <li
-                  className='Navigation__item'
+                  className='Nav__item'
                   key={biome}
                   data-active={pathname.startsWith(`/biomes/${slug}`)}>
-                  <BlockedLink
-                    href={`/biomes/${slug}`}
-                    className='Navigation__link'>
+                  <BlockedLink href={`/biomes/${slug}`} className='Nav__link'>
                     {t(`biomes.${biome}.name`)}
                   </BlockedLink>
                 </li>
@@ -197,28 +187,26 @@ export function Navigation() {
           </ul>
         </li>
         <li
-          className='Navigation__item Navigation__item--break'
+          className='Nav__item Nav__item--break'
           data-active={pathname.startsWith('/faq')}>
-          <BlockedLink href='/faq' className='Navigation__link'>
+          <BlockedLink href='/faq' className='Nav__link'>
             {t('nav.faq')}
           </BlockedLink>
         </li>
         <li
-          className='Navigation__item'
+          className='Nav__item'
           data-active={pathname.startsWith('/settings')}>
-          <BlockedLink href='/settings' className='Navigation__link'>
+          <BlockedLink href='/settings' className='Nav__link'>
             {t('nav.settings')}
           </BlockedLink>
         </li>
-        <li
-          className='Navigation__item'
-          data-active={pathname.startsWith('/login')}>
-          <AuthButton className='Navigation__link' />
+        <li className='Nav__item' data-active={pathname.startsWith('/login')}>
+          <AuthButton className='Nav__link' />
         </li>
-        <li className='Navigation__item'>
+        <li className='Nav__item'>
           <ThemeToggleButton
             theme={settings.appearance.theme}
-            className='Navigation__link'
+            className='Nav__link'
             onToggle={handleThemeToggle}
           />
         </li>
