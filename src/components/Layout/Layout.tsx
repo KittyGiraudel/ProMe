@@ -48,7 +48,7 @@ export const Layout = ({
     <AntLayout className={`Layout ${className}`}>
       <Navigation disableThemeToggle={disableThemeToggle} />
       <Banner biome={bannerBiome} />
-      <AntLayout.Content className='Layout__wrapper'>
+      <AntLayout.Content className='Layout__wrapper' id='main'>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
 
         <div className='Layout__content'>

@@ -20,7 +20,7 @@ export async function LandingPage() {
     <div className='LandingPage'>
       <LandingHeader />
       <LandingHero />
-      <main className='LandingPage__main'>
+      <main className='LandingPage__main' id='main'>
         <LandingFeature
           number={t('landing.features.character.number')}
           title={t('landing.features.character.title')}

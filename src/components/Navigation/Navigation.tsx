@@ -9,6 +9,7 @@ import { AuthButton } from '../AuthButton/AuthButton'
 import { Logo } from '../Logo/Logo'
 import { useSettings } from '../PageSettings/SettingsContext'
 import { BlockedLink } from './BlockedLink'
+import { SkipLink } from './SkipLink'
 import { ThemeToggleButton } from './ThemeToggleButton'
 
 import './Navigation.css'
@@ -140,6 +141,7 @@ export function Navigation({
 
   return (
     <nav className='Nav'>
+      <SkipLink />
       <ul className='Nav__list' data-orientation='horizontal'>
         <li className='Nav__item' data-active={pathname === '/'}>
           <BlockedLink href='/' className='Nav__link'>

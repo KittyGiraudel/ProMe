@@ -37,7 +37,7 @@ export function BiomePage({ biome }: Props) {
     <Layout className='BiomePage' data-biome={biome}>
       <Navigation />
       <BiomeHero biome={biome} index={index} />
-      <Layout.Content className='BiomePage__content'>
+      <Layout.Content className='BiomePage__content' id='main'>
         <BiomeDescription biome={biome} />
         <BiomeMagic biome={biome} />
         <BiomeAudio biome={biome} />
