@@ -64,31 +64,37 @@ a {
   --biome-fieldSea-dark: #4a9f72;
   --biome-fieldSea-light-contrast: #ffffff;
   --biome-fieldSea-dark-contrast: #ffffff;
+  --biome-fieldSea-image: url("/images/banner-fieldSea.avif");
 
   --biome-shadowForest-light: #a793c3;
   --biome-shadowForest-dark: #57446f;
   --biome-shadowForest-light-contrast: #ffffff;
   --biome-shadowForest-dark-contrast: #ffffff;
+  --biome-shadowForest-image: url("/images/banner-shadowForest.avif");
 
   --biome-mushroomJungle-light: #ae9178;
   --biome-mushroomJungle-dark: #624838;
   --biome-mushroomJungle-light-contrast: #ffffff;
   --biome-mushroomJungle-dark-contrast: #ffffff;
+  --biome-mushroomJungle-image: url("/images/banner-mushroomJungle.avif");
 
   --biome-floodedPlains-light: #5ec4e8;
   --biome-floodedPlains-dark: #1a6f94;
   --biome-floodedPlains-light-contrast: #262626;
   --biome-floodedPlains-dark-contrast: #ffffff;
+  --biome-floodedPlains-image: url("/images/banner-floodedPlains.avif");
 
   --biome-silentDesert-light: #f3d58e;
   --biome-silentDesert-dark: #af8c43;
   --biome-silentDesert-light-contrast: #262626;
   --biome-silentDesert-dark-contrast: #ffffff;
+  --biome-silentDesert-image: url("/images/banner-silentDesert.avif");
 
   --biome-titanGardens-light: #ffb3a7;
   --biome-titanGardens-dark: #a64b3c;
   --biome-titanGardens-light-contrast: #262626;
   --biome-titanGardens-dark-contrast: #ffffff;
+  --biome-titanGardens-image: url("/images/banner-titanGardens.avif");
 }
 
 [data-biome] {
@@ -100,6 +106,7 @@ a {
   --biome-dark: var(--biome-unexplored-dark);
   --biome-dark-contrast: var(--biome-unexplored-dark-contrast);
   --biome-light-contrast: var(--biome-unexplored-light-contrast);
+  --biome-image: var(--biome-unexplored-image);
 }
 
 /**
@@ -119,6 +126,7 @@ a {
   --biome-dark: var(--biome-shadowForest-dark);
   --biome-dark-contrast: var(--biome-shadowForest-dark-contrast);
   --biome-light-contrast: var(--biome-shadowForest-light-contrast);
+  --biome-image: var(--biome-shadowForest-image);
 }
 
 [data-biome="floodedPlains"] {
@@ -126,6 +134,7 @@ a {
   --biome-dark: var(--biome-floodedPlains-dark);
   --biome-dark-contrast: var(--biome-floodedPlains-dark-contrast);
   --biome-light-contrast: var(--biome-floodedPlains-light-contrast);
+  --biome-image: var(--biome-floodedPlains-image);
 }
 
 [data-biome="mushroomJungle"] {
@@ -133,6 +142,7 @@ a {
   --biome-dark: var(--biome-mushroomJungle-dark);
   --biome-dark-contrast: var(--biome-mushroomJungle-dark-contrast);
   --biome-light-contrast: var(--biome-mushroomJungle-light-contrast);
+  --biome-image: var(--biome-mushroomJungle-image);
 }
 
 [data-biome="fieldSea"] {
@@ -140,6 +150,7 @@ a {
   --biome-dark: var(--biome-fieldSea-dark);
   --biome-dark-contrast: var(--biome-fieldSea-dark-contrast);
   --biome-light-contrast: var(--biome-fieldSea-light-contrast);
+  --biome-image: var(--biome-fieldSea-image);
 }
 
 [data-biome="silentDesert"] {
@@ -147,6 +158,7 @@ a {
   --biome-dark: var(--biome-silentDesert-dark);
   --biome-dark-contrast: var(--biome-silentDesert-dark-contrast);
   --biome-light-contrast: var(--biome-silentDesert-light-contrast);
+  --biome-image: var(--biome-silentDesert-image);
 }
 
 [data-biome="titanGardens"] {
@@ -154,6 +166,7 @@ a {
   --biome-dark: var(--biome-titanGardens-dark);
   --biome-dark-contrast: var(--biome-titanGardens-dark-contrast);
   --biome-light-contrast: var(--biome-titanGardens-light-contrast);
+  --biome-image: var(--biome-titanGardens-image);
 }
 
 .ant-form-item-explain-success {
