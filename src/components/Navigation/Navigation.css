@@ -1,24 +1,29 @@
+/** Navigation -------------------------------------------------------------- */
+
 /**
- * 1. Allow for a biome-override of the background and its color.
+ * 1. Use fixed instead of sticky to allow the image through the nav.
+ * 2. Give some breathing room on each side.
+ * 3. Allow for a biome-override of the background and its color.
+ * 4. Cast a subtle shadow to bring some depth to the nav.
  */
 .Nav {
+  position: fixed; /* 1 */
+  top: 0; /* 1 */
+  left: 0; /* 1 */
+  right: 0; /* 1 */
+  z-index: 100; /* 1 */
+
+  padding: 0 0.5em; /* 2 */
+
+  --blur: 8px;
   --background-color: color-mix(
     in srgb,
-    var(--biome-surface, var(--prome-bg)) /* 1 */,
+    var(--biome-surface, var(--prome-bg)) /* 3 */,
     transparent 40%
   );
-  color: var(--biome-text, var(--prome-text)); /* 1 */
+  color: var(--biome-text, var(--prome-text)); /* 3 */
 
-  padding: 0 0.5em;
-  position: relative;
-
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-
-  box-shadow: 0 0 10px 0 rgb(0 0 0 / 0.1);
+  box-shadow: 0 0 10px 0 rgb(0 0 0 / 0.1); /* 4 */
 }
 
 /**
@@ -31,19 +36,24 @@
   position: absolute;
   inset: 0;
   background-color: var(--background-color);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(var(--blur));
 }
+
+/** List -------------------------------------------------------------------- */
 
 /**
  * 1. Just in case for intermediary screens, so it can be scrolled and used.
+ * 2. The list is faded out when the skip link is focused/active.
  */
 .Nav__list {
   list-style: none;
   display: flex;
   align-items: stretch;
   -webkit-overflow-scrolling: touch; /* 1 */
-  transition: opacity 250ms ease-in-out;
+  transition: opacity 250ms ease-in-out; /* 2 */
 }
+
+/** Item -------------------------------------------------------------------- */
 
 /**
  * 1. Allow for the submenu to be positioned absolutely.
@@ -53,14 +63,21 @@
 }
 
 @media (max-width: 768px) {
+  /**
+   * 1. Hide most of the menu on narrow screens (since it also exists in a
+   *    drawer that can open from the side).
+   */
   .Nav__item[data-presence="wide-only"] {
-    display: none;
+    display: none; /* 1 */
   }
 }
 
 @media (min-width: 768px) {
+  /**
+   * 1. Hide the drawer toggle on wide screens.
+   */
   .Nav__item[data-presence="narrow-only"] {
-    display: none;
+    display: none; /* 1 */
   }
 }
 
@@ -71,38 +88,7 @@
   margin-left: auto; /* 1 */
 }
 
-.Nav__list[data-orientation="horizontal"] > .Nav__item[data-active="true"],
-.Nav__list[data-orientation="horizontal"]
-  > .Nav__item:has(.Nav__submenu [data-active="true"]) {
-  box-shadow: inset 0 -2px 0 0 var(--ant-color-link);
-}
-
-.Nav__item:has([data-active="true"]) > .Nav__link,
-.Nav__list > .Nav__item[data-active="true"] > .Nav__link {
-  color: var(--ant-color-link);
-}
-
-/**
- * 1.  Allow for a biome-override of the active background and its color.
- */
-[data-orientation="vertical"] [data-active="true"] .Nav__link,
-.Nav__submenu [data-active="true"] .Nav__link {
-  background-color: light-dark(
-    var(--biome-light, var(--prome-surface)) /* 1 */,
-    var(--biome-dark, var(--prome-surface)) /* 1 */
-  );
-  color: var(--biome-text, var(--prome-text)); /* 1 */
-}
-
-.Nav__submenu .Nav__item:first-child {
-  border-top-left-radius: calc(var(--border-radius) - var(--spacing));
-  border-top-right-radius: calc(var(--border-radius) - var(--spacing));
-}
-
-.Nav__submenu .Nav__item:last-child {
-  border-bottom-left-radius: calc(var(--border-radius) - var(--spacing));
-  border-bottom-right-radius: calc(var(--border-radius) - var(--spacing));
-}
+/** Link -------------------------------------------------------------------- */
 
 .Nav__link {
   color: inherit;
@@ -121,14 +107,53 @@ button.Nav__link {
   font: inherit;
 }
 
+/** Active state ------------------------------------------------------------ */
+
+/**
+ * 1. Use an inset box-shadow instead of a border to indicate the active link to
+ *    avoid modifying the box model. This style is *only* applied to the top-
+ *    level links (direct descendants of the .Nav__list): either if they are
+ *    active themselves, or if they have an active child link.
+ */
+.Nav__list[data-orientation="horizontal"]
+> .Nav__item:where([data-active="true"], :has([data-active="true"])) {
+  box-shadow: inset 0 -2px 0 0 var(--ant-color-link); /* 1 */
+}
+
+/**
+ * 1. Update the link color when the item is active, or when it contains an
+ *    active child link. This style is *only* applied to the top-level links
+ *    (direct descendants of the .Nav__list), because submenu links have a
+ *    different active style.
+ */
+.Nav__item:has([data-active="true"]) > .Nav__link,
+.Nav__list > .Nav__item[data-active="true"] > .Nav__link {
+  color: var(--ant-color-link); /* 1 */
+}
+
+/**
+ * 1.  Allow for a biome-override of the active background and its color.
+ */
+[data-orientation="vertical"] [data-active="true"] .Nav__link,
+.Nav__submenu [data-active="true"] .Nav__link {
+  background-color: light-dark(
+    var(--biome-light, var(--prome-surface)) /* 1 */,
+    var(--biome-dark, var(--prome-surface)) /* 1 */
+  );
+  color: var(--biome-text, var(--prome-text)); /* 1 */
+}
+
+/** Submenu ----------------------------------------------------------------- */
+
 .Nav__submenu {
-  --spacing: 0.25em;
+  --spacing: 0.5em;
   --submenu-offset: 0.5em;
-  --border-radius: 0.5em;
+  --border-radius: 0.75em;
 
   list-style: none;
   display: flex;
   flex-direction: column;
+  gap: 0.25em;
   padding: var(--spacing);
 
   position: absolute;
@@ -141,7 +166,7 @@ button.Nav__link {
 
   border-radius: var(--border-radius);
   background-color: var(--background-color);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(var(--blur));
 }
 
 /**
@@ -157,15 +182,28 @@ button.Nav__link {
   position: absolute;
 }
 
+.Nav__submenu .Nav__item {
+  border-radius: calc(var(--border-radius) - var(--spacing));
+}
+
+/**
+ * 1. Make the links within submenus a bit tighter vertically.
+ */
+.Nav__submenu .Nav__link {
+  padding-block: 0.5em; /* 1 */
+}
+
 .Nav__item:is(:hover, :focus-within) .Nav__submenu,
 .Nav__link:is(:active, :focus) + .Nav__submenu {
-  display: block;
+  display: flex;
 }
 
 .Nav__link:is(:hover, :focus) {
   background-color: light-dark(rgb(0 0 0 / 0.15), rgb(255 255 255 / 0.2));
   color: inherit;
 }
+
+/** Mobile layout ----------------------------------------------------------- */
 
 [data-orientation="vertical"] {
   flex-direction: column;
