@@ -142,6 +142,7 @@
       "random_biome": "Random biome (1D6)",
       "selected_cell": "Selected cell: {cell}",
       "sheet": "Sheet: ({sheetQ}, {sheetR})",
+      "skip_map": "Skip map",
       "title": "Cartography",
       "unexplored": "Unexplored"
     },

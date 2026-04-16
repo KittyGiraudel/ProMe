@@ -89,9 +89,10 @@ export function CharacteristicsCard({
       <Card
         title={t('characters.identity.characteristics_section')}
         extra={
-          <Tooltip title={t('rulebook.characteristics_footnote')}>
-            <HelpButton label={t('rulebook.information')} />
-          </Tooltip>
+          <HelpButton
+            label={t('rulebook.information')}
+            tooltip={t('rulebook.characteristics_footnote')}
+          />
         }
         id='characteristics'>
         <Row gutter={[16, 16]}>
@@ -193,7 +194,9 @@ function CourageRollButton() {
   }
 
   return (
-    <Tooltip title={t('characters.identity.courage_roll_tooltip')}>
+    <Tooltip
+      title={t('characters.identity.courage_roll_tooltip')}
+      trigger={['hover', 'focus']}>
       <Button
         type='text'
         size='small'

@@ -1,0 +1,32 @@
+.MapControls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.MapControls__skip {
+  clip: rect(1px, 1px, 1px, 1px);
+  overflow: hidden;
+  height: 1px;
+  width: 1px;
+  outline: none;
+  color: inherit;
+  display: inline-block;
+}
+
+.MapControls__skip:focus,
+.MapControls__skip:active {
+  clip: auto;
+  height: auto;
+  width: auto;
+  overflow: visible;
+  padding: 0.25em 0.5em;
+  border-radius: 5em;
+}
+
+.MapControls__right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}

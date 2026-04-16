@@ -42,7 +42,8 @@ export const Layout = ({
   // overriding the theme. We cannot just rely on the presence of the
   // `appThemeOverride` prop however, because it is *always* passed in the char-
   // acter sheet, even when the theme is not overridden.
-  const disableThemeToggle = appThemeOverride !== settings.appearance.theme
+  const disableThemeToggle =
+    appThemeOverride && appThemeOverride !== settings.appearance.theme
 
   useApplyAppTheme(appThemeOverride)
 

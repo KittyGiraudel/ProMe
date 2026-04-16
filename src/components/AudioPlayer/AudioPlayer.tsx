@@ -192,13 +192,15 @@ export function AudioPlayer({
       <div className='AudioPlayer__controls'>
         <div className='AudioPlayer__controlsLeft'>
           {onPrev && (
-            <Tooltip title='Previous track'>
+            <Tooltip title='Previous track' trigger={['hover', 'focus']}>
               <Button onClick={onPrev} htmlType='button' size='small'>
                 <StepBackwardOutlined />
               </Button>
             </Tooltip>
           )}
-          <Tooltip title={isPlaying ? 'Pause' : 'Play'}>
+          <Tooltip
+            title={isPlaying ? 'Pause' : 'Play'}
+            trigger={['hover', 'focus']}>
             <Button
               onClick={togglePlay}
               htmlType='button'
@@ -208,7 +210,7 @@ export function AudioPlayer({
             </Button>
           </Tooltip>
           {onNext && (
-            <Tooltip title='Next track'>
+            <Tooltip title='Next track' trigger={['hover', 'focus']}>
               <Button onClick={onNext} htmlType='button' size='small'>
                 <StepForwardOutlined />
               </Button>

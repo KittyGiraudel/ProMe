@@ -2,11 +2,9 @@ import ArrowDownOutlined from '@ant-design/icons/lib/icons/ArrowDownOutlined'
 import ArrowLeftOutlined from '@ant-design/icons/lib/icons/ArrowLeftOutlined'
 import ArrowRightOutlined from '@ant-design/icons/lib/icons/ArrowRightOutlined'
 import ArrowUpOutlined from '@ant-design/icons/lib/icons/ArrowUpOutlined'
-import { Button, Popover, Tag } from 'antd'
+import { Button, Tag } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Dispatch, SetStateAction } from 'react'
-import { HelpButton } from '@/components/HelpButton/HelpButton'
-import { MapLegend } from '@/components/MacLegend/MapLegend'
 import { Spacing } from '@/components/Spacing/Spacing'
 import { CellCoordinate } from '@/lib/character/types'
 import {
@@ -29,83 +27,76 @@ export function MapSheetNavigation({
   const t = useTranslations()
 
   return (
-    <div style={{ display: 'flex' }}>
-      <Spacing orientation='horizontal' wrap size='medium'>
-        <Spacing orientation='horizontal' wrap size='small'>
-          <Tag>
-            {t('characters.map.sheet', {
-              sheetQ: visibleSheet.sheetQ,
-              sheetR: visibleSheet.sheetR,
-            })}
-          </Tag>
-          <Tag>
-            {t('characters.map.character_position', {
-              position: getDisplayedCellLabel(currentPosition),
-            })}
-          </Tag>
-        </Spacing>
-        <Spacing orientation='horizontal' wrap size='small'>
-          <Button
-            htmlType='button'
-            disabled={false}
-            onClick={() =>
-              setVisibleSheet(sheet => ({
-                ...sheet,
-                sheetR: sheet.sheetR - 1,
-              }))
-            }>
-            <ArrowUpOutlined />
-          </Button>
-          <Button
-            htmlType='button'
-            disabled={false}
-            onClick={() =>
-              setVisibleSheet(sheet => ({
-                ...sheet,
-                sheetR: sheet.sheetR + 1,
-              }))
-            }>
-            <ArrowDownOutlined />
-          </Button>
-          <Button
-            htmlType='button'
-            disabled={false}
-            onClick={() =>
-              setVisibleSheet(sheet => ({
-                ...sheet,
-                sheetQ: sheet.sheetQ - 1,
-              }))
-            }>
-            <ArrowLeftOutlined />
-          </Button>
-          <Button
-            htmlType='button'
-            disabled={false}
-            onClick={() =>
-              setVisibleSheet(sheet => ({
-                ...sheet,
-                sheetQ: sheet.sheetQ + 1,
-              }))
-            }>
-            <ArrowRightOutlined />
-          </Button>
-          {!isViewingCurrentSheet ? (
-            <Button
-              htmlType='button'
-              disabled={false}
-              onClick={() =>
-                setVisibleSheet(getSheetCoordinate(currentPosition))
-              }>
-              {t('characters.map.center_on_current')}
-            </Button>
-          ) : null}
-        </Spacing>
+    <Spacing orientation='horizontal' wrap size='medium'>
+      <Spacing orientation='horizontal' wrap size='small'>
+        <Tag>
+          {t('characters.map.sheet', {
+            sheetQ: visibleSheet.sheetQ,
+            sheetR: visibleSheet.sheetR,
+          })}
+        </Tag>
+        <Tag>
+          {t('characters.map.character_position', {
+            position: getDisplayedCellLabel(currentPosition),
+          })}
+        </Tag>
       </Spacing>
-      <div style={{ marginLeft: 'auto' }}>
-        <Popover title={t('characters.map.legend')} content={<MapLegend />}>
-          <HelpButton label={t('common.tip')} />
-        </Popover>
-      </div>
-    </div>
+      <Spacing orientation='horizontal' wrap size='small'>
+        <Button
+          htmlType='button'
+          disabled={false}
+          onClick={() =>
+            setVisibleSheet(sheet => ({
+              ...sheet,
+              sheetR: sheet.sheetR - 1,
+            }))
+          }>
+          <ArrowUpOutlined />
+        </Button>
+        <Button
+          htmlType='button'
+          disabled={false}
+          onClick={() =>
+            setVisibleSheet(sheet => ({
+              ...sheet,
+              sheetR: sheet.sheetR + 1,
+            }))
+          }>
+          <ArrowDownOutlined />
+        </Button>
+        <Button
+          htmlType='button'
+          disabled={false}
+          onClick={() =>
+            setVisibleSheet(sheet => ({
+              ...sheet,
+              sheetQ: sheet.sheetQ - 1,
+            }))
+          }>
+          <ArrowLeftOutlined />
+        </Button>
+        <Button
+          htmlType='button'
+          disabled={false}
+          onClick={() =>
+            setVisibleSheet(sheet => ({
+              ...sheet,
+              sheetQ: sheet.sheetQ + 1,
+            }))
+          }>
+          <ArrowRightOutlined />
+        </Button>
+        {!isViewingCurrentSheet ? (
+          <Button
+            htmlType='button'
+            disabled={false}
+            onClick={() =>
+              setVisibleSheet(getSheetCoordinate(currentPosition))
+            }>
+            {t('characters.map.center_on_current')}
+          </Button>
+        ) : null}
+      </Spacing>
+    </Spacing>
   )
 }

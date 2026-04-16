@@ -1,11 +1,13 @@
 'use client'
 
-import { Card, Form } from 'antd'
+import { Card, Form, Popover } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useEffect } from 'react'
 import { BrowserWarning } from '@/components/BrowserWarning/BrowserWarning'
 import { EncountersButton } from '@/components/EncountersList/EncountersButton'
 import { GatheringButton } from '@/components/GatheringList/GatheringButton'
+import { HelpButton } from '@/components/HelpButton/HelpButton'
+import { MapLegend } from '@/components/MacLegend/MapLegend'
 import { MapCover } from '@/components/MapCover/MapCover'
 import { MapDisplay } from '@/components/MapDisplay/MapDisplay'
 import { MapFormValueAnchor } from '@/components/MapDisplay/MapFormValueAnchor'
@@ -21,6 +23,8 @@ import {
   isCoreCell,
   resolveDisplayedCellReference,
 } from '@/lib/map/coordinates'
+
+import './MapCard.css'
 
 export function MapCard({ isDead }: { isDead: boolean }) {
   const t = useTranslations()
@@ -60,12 +64,25 @@ export function MapCard({ isDead }: { isDead: boolean }) {
           <BrowserWarning />
 
           <Spacing>
-            <MapSheetNavigation
-              currentPosition={currentPosition}
-              setVisibleSheet={setVisibleSheet}
-              visibleSheet={visibleSheet}
-              isViewingCurrentSheet={isViewingCurrentSheet}
-            />
+            <div className='MapControls'>
+              <MapSheetNavigation
+                currentPosition={currentPosition}
+                setVisibleSheet={setVisibleSheet}
+                visibleSheet={visibleSheet}
+                isViewingCurrentSheet={isViewingCurrentSheet}
+              />
+
+              <div className='MapControls__right'>
+                <a href='#clock' className='MapControls__skip'>
+                  {t('characters.map.skip_map')}
+                </a>
+                <Popover
+                  title={t('characters.map.legend')}
+                  content={<MapLegend />}>
+                  <HelpButton label={t('common.tip')} />
+                </Popover>
+              </div>
+            </div>
 
             <MapDisplay
               sheet={visibleSheet}

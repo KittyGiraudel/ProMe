@@ -17,6 +17,8 @@ const LIGHT_TOKENS = {
     colorLinkHover: '#3d8a64',
     colorLinkActive: '#1f4f38',
     borderRadius: 10,
+    lineWidthFocus: 2,
+    colorPrimaryBorder: '#3d8a64',
   },
   components: {
     Button: {
@@ -47,6 +49,8 @@ const DARK_TOKENS = {
     colorLinkHover: '#8abfa8',
     colorLinkActive: '#4d9070',
     borderRadius: 10,
+    lineWidthFocus: 2,
+    colorPrimaryBorder: '#8abfa8',
   },
   components: {
     Button: {

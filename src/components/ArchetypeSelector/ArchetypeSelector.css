@@ -44,8 +44,8 @@
 }
 
 .ArchetypeSelector__Card:has(:focus-visible) {
-  outline: 2px solid #2d6a4f;
-  outline-offset: 2px;
+  outline: var(--ant-line-width-focus) solid var(--ant-color-primary-border);
+  outline-offset: 1px;
 }
 
 .ArchetypeSelector__Image {

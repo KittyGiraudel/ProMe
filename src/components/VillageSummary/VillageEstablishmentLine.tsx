@@ -49,13 +49,13 @@ export function VillageEstablishmentLine({
       <div className='VillageSummary__container'>
         <Typography.Text>
           {title}
-          <Tooltip title={pagesLabel}>
-            <HelpButton label={t('rulebook.information')} />
-          </Tooltip>
+          <HelpButton label={t('rulebook.information')} tooltip={pagesLabel} />
         </Typography.Text>
 
         <PlayingCardLabel card={card} compact />
-        <Tooltip title={t('common.actions.reroll_card')}>
+        <Tooltip
+          title={t('common.actions.reroll_card')}
+          trigger={['hover', 'focus']}>
           <Button
             type='text'
             size='small'

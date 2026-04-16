@@ -1,14 +1,6 @@
 'use client'
 
-import {
-  Card,
-  ConfigProvider,
-  Empty,
-  Form,
-  Input,
-  Tooltip,
-  Typography,
-} from 'antd'
+import { Card, ConfigProvider, Empty, Form, Input, Typography } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/Button/Button'
 import { HelpButton } from '@/components/HelpButton/HelpButton'
@@ -35,9 +27,10 @@ export function SpellbookCard() {
             count: fields.length,
           })}
           extra={
-            <Tooltip title={t('rulebook.spellbook_footnote')}>
-              <HelpButton label={t('rulebook.information')} />
-            </Tooltip>
+            <HelpButton
+              label={t('rulebook.information')}
+              tooltip={t('rulebook.spellbook_footnote')}
+            />
           }
           actions={
             !componentDisabled

@@ -7,7 +7,6 @@ import {
   Form,
   Input,
   InputNumber,
-  Tooltip,
   Typography,
 } from 'antd'
 import { useTranslations } from 'next-intl'
@@ -37,9 +36,10 @@ export function InventoryCard() {
             count: fields.length,
           })}
           extra={
-            <Tooltip title={t('rulebook.inventory_footnote')}>
-              <HelpButton label={t('rulebook.information')} />
-            </Tooltip>
+            <HelpButton
+              label={t('rulebook.information')}
+              tooltip={t('rulebook.inventory_footnote')}
+            />
           }
           actions={
             !componentDisabled

@@ -64,9 +64,10 @@ export function InhabitantSummary({
       className='InhabitantSummary'
       title={roll.name}
       extra={
-        <Tooltip title={t('rulebook.inhabitant_footnote')}>
-          <HelpButton label={t('rulebook.information')} />
-        </Tooltip>
+        <HelpButton
+          label={t('rulebook.information')}
+          tooltip={t('rulebook.inhabitant_footnote')}
+        />
       }>
       <Descriptions
         column={1}
@@ -170,7 +171,7 @@ function MetaWithReroll({
   return (
     <span className='InhabitantSummary__meta'>
       <span>{children}</span>
-      <Tooltip title={rerollLabel}>
+      <Tooltip title={rerollLabel} trigger={['hover', 'focus']}>
         <Button
           type='text'
           size='small'
@@ -448,7 +449,10 @@ function ContextRow({
         onReroll={onRerollPart && (() => onRerollPart('contextCard'))}>
         {t.rich('common.display_card', {
           card: () => (
-            <Tooltip key='tooltip' title={t('inhabitant.context_card_note')}>
+            <Tooltip
+              key='tooltip'
+              title={t('inhabitant.context_card_note')}
+              trigger={['hover', 'focus']}>
               <span
                 className='InhabitantSummary__context-card-hit'
                 tabIndex={0}>

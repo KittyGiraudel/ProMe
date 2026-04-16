@@ -51,7 +51,7 @@ export function VillageEstablishmentOwners({
             gender,
           }).toLowerCase(),
         })}{' '}
-        <Tooltip title={t('village.reroll_owner')}>
+        <Tooltip title={t('village.reroll_owner')} trigger={['hover', 'focus']}>
           <Button
             type='text'
             size='small'

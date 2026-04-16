@@ -1,5 +1,4 @@
 import { useTranslations } from 'next-intl'
-import { ViewTransition } from 'react'
 import { MapCover } from '@/components/MapCover/MapCover'
 import { BiomeId } from '@/lib/types'
 import { BiomeSection } from './BiomeSection'

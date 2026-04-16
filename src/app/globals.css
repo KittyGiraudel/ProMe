@@ -438,3 +438,28 @@ a {
 .ant-notification-topRight .ant-notification-notice-wrapper {
   top: calc(-24px + 50px + 12px) !important; /* 1 */
 }
+
+/**
+ * 1. Apply the focus outline to buttons, which is surprisingly not done by
+ *    Ant Design, as well as the close button from the Alert component.
+ *    See: https://github.com/ant-design/ant-design/pull/57695
+ */
+button:focus-visible,
+.ant-alert-close-icon:focus-visible {
+  outline: var(--ant-line-width-focus) solid var(--ant-color-primary-border) !important; /* 1 */
+}
+
+/**
+ * 1. Make the close button from the Alert component a circle, which looks a bit
+ *    nicer when focused.
+ */
+.ant-alert .ant-alert-close-icon {
+  border-radius: 50%; /* 1 */
+}
+
+/**
+ * 1. Fix the weird border-radius applied to the Collapse component.
+ */
+.ant-collapse-header {
+  border-radius: 12px !important; /* 1 */
+}

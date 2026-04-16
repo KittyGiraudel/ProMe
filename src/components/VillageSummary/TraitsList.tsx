@@ -25,7 +25,9 @@ export function TraitsList({
             {row.instances.map(inst => (
               <span key={inst.primarySlot}>
                 <PlayingCardLabel card={inst.card} compact />
-                <Tooltip title={t('common.actions.reroll_card')}>
+                <Tooltip
+                  title={t('common.actions.reroll_card')}
+                  trigger={['hover', 'focus']}>
                   <Button
                     key={inst.primarySlot}
                     type='text'

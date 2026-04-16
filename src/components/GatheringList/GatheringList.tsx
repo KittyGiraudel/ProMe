@@ -70,6 +70,7 @@ export function GatheringList({ biome }: { biome: GatherableBiomeId }) {
             {text}
             {(entry.type === 'collectible' || entry.type === 'money') && (
               <Tooltip
+                trigger={['hover', 'focus']}
                 title={
                   isDisabled
                     ? t('characters.inventory.inventory_full')

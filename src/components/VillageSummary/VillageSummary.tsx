@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, Empty, Tooltip } from 'antd'
+import { Card, Empty } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
 import { HelpButton } from '@/components/HelpButton/HelpButton'
@@ -77,9 +77,10 @@ export function VillageSummary({
       <Card
         title={t('village.section_establishments')}
         extra={
-          <Tooltip title={t('rulebook.village_footnote')}>
-            <HelpButton label={t('rulebook.information')} />
-          </Tooltip>
+          <HelpButton
+            label={t('rulebook.information')}
+            tooltip={t('rulebook.village_footnote')}
+          />
         }>
         {!grouped ? (
           <UngroupedEstablishmentsList
@@ -109,9 +110,10 @@ export function VillageSummary({
         <Card
           title={t('village.section_traits')}
           extra={
-            <Tooltip title={t('rulebook.village_footnote')}>
-              <HelpButton label={t('rulebook.information')} />
-            </Tooltip>
+            <HelpButton
+              label={t('rulebook.information')}
+              tooltip={t('rulebook.village_footnote')}
+            />
           }>
           <TraitsList
             traits={display.traits}

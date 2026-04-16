@@ -59,6 +59,7 @@ export function JournalEntryFloatingEditor({
       aria-label={t('characters.journal.floating_editor_title')}
       extra={[
         <Tooltip
+          trigger={['hover', 'focus']}
           title={t('characters.journal.floating_editor_expand')}
           key='expand'>
           <Button
@@ -79,6 +80,7 @@ export function JournalEntryFloatingEditor({
               ? t('common.actions.expand')
               : t('common.actions.collapse')
           }
+          trigger={['hover', 'focus']}
           key='collapse'>
           <Button
             type='text'

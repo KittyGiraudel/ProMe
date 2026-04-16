@@ -27,7 +27,9 @@ export function ThemeToggleButton({
       : t('nav.theme.switchToDark')
 
   return (
-    <Tooltip title={disabled ? t('nav.theme.switchDisabled') : label}>
+    <Tooltip
+      title={disabled ? t('nav.theme.switchDisabled') : label}
+      trigger={['hover', 'focus']}>
       <button
         className={['ThemeToggleButton', className].filter(Boolean).join(' ')}
         onClick={onToggle}
