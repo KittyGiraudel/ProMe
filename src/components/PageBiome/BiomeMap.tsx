@@ -16,7 +16,10 @@ export function BiomeMap({ biome }: { biome: BiomeId }) {
       id='biome-map'>
       <div className='BiomeMap__cover'>
         <MapCover biome={biome} isCore={false} />
-        <div className='BiomeMap__hex Pattern' data-biome={biome}></div>
+        <div
+          className='BiomeMap__hex'
+          data-pattern='true'
+          data-biome={biome}></div>
       </div>
     </BiomeSection>
   )

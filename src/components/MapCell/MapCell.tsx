@@ -50,7 +50,8 @@ export function MapCell({
   return (
     <div
       id={id}
-      className={`MapCell ${settings.map.showBiomeBackground ? ' Pattern' : ''}`}
+      className='MapCell'
+      data-pattern={settings.map.showBiomeBackground}
       data-q={global.q}
       data-r={global.r}
       data-coord={label}

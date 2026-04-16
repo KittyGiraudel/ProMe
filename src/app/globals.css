@@ -161,8 +161,8 @@ a {
   font-size: 85%;
 }
 
-[data-biome="fieldSea"] .Pattern,
-.Pattern[data-biome="fieldSea"] {
+[data-biome="fieldSea"] [data-pattern="true"],
+[data-pattern="true"][data-biome="fieldSea"] {
   --c1: #7dc892;
   --c2: #63b66e;
 
@@ -177,8 +177,8 @@ a {
     0 0 / var(--pattern-size) var(--pattern-size);
 }
 
-[data-biome="titanGardens"] .Pattern,
-.Pattern[data-biome="titanGardens"] {
+[data-biome="titanGardens"] [data-pattern="true"],
+[data-pattern="true"][data-biome="titanGardens"] {
   --c1: rgb(226 162 150);
   --c2: rgb(244 182 170);
 
@@ -207,8 +207,8 @@ a {
   background-size: var(--pattern-size) var(--pattern-size);
 }
 
-[data-biome="shadowForest"] .Pattern,
-.Pattern[data-biome="shadowForest"] {
+[data-biome="shadowForest"] [data-pattern="true"],
+[data-pattern="true"][data-biome="shadowForest"] {
   --c1: rgb(177 162 203);
   --c2: rgb(159 144 186);
   --_g:
@@ -224,8 +224,8 @@ a {
   background-size: var(--pattern-size) var(--pattern-size);
 }
 
-[data-biome="floodedPlains"] .Pattern,
-.Pattern[data-biome="floodedPlains"] {
+[data-biome="floodedPlains"] [data-pattern="true"],
+[data-pattern="true"][data-biome="floodedPlains"] {
   --c1: rgb(155 204 227);
   --c2: rgb(160 191 211);
 
@@ -253,8 +253,8 @@ a {
   background-size: var(--pattern-size) var(--pattern-size);
 }
 
-[data-biome="silentDesert"] .Pattern,
-.Pattern[data-biome="silentDesert"] {
+[data-biome="silentDesert"] [data-pattern="true"],
+[data-pattern="true"][data-biome="silentDesert"] {
   --c1: rgb(238 214 151);
   --c2: rgb(233 209 145);
   --c3: rgb(228 203 140);
@@ -285,8 +285,8 @@ a {
   background-size: var(--pattern-size) var(--pattern-size);
 }
 
-[data-biome="mushroomJungle"] .Pattern,
-.Pattern[data-biome="mushroomJungle"] {
+[data-biome="mushroomJungle"] [data-pattern="true"],
+[data-pattern="true"][data-biome="mushroomJungle"] {
   --c1: rgb(170 146 123);
   --c2: rgb(159 135 113);
 

@@ -12,7 +12,7 @@ type BannerProps = {
 export function Banner({ biome }: BannerProps) {
   return (
     <div className='Banner' role='presentation' data-biome={biome}>
-      <span className='Banner__background Pattern'></span>
+      <span className='Banner__background' data-pattern='true' />
       <BannerArt />
     </div>
   )

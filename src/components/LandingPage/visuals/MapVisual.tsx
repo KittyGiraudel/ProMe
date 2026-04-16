@@ -35,8 +35,9 @@ export function MapVisual() {
         {GRID.map(([type, icon], i) => (
           <div
             key={i}
+            className={`MapVisual__cell MapVisual__cell--${type}`}
             data-biome={type}
-            className={`MapVisual__cell MapVisual__cell--${type} Pattern`}>
+            data-pattern='true'>
             <span>{icon}</span>
           </div>
         ))}
