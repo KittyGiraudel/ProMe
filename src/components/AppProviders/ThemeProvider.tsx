@@ -84,7 +84,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const theme = useAntPalette(settings.appearance.theme)
 
   return (
-    <ConfigProvider theme={theme}>
+    <ConfigProvider theme={{ zeroRuntime: true, ...theme }}>
       <AppearanceContext.Provider
         value={{ appTheme: isDark ? 'dark' : 'light' }}>
         {children}

@@ -16,7 +16,9 @@ export function AppProviders({
   locale: 'fr' | 'en'
 }) {
   return (
-    <ConfigProvider locale={locale === 'fr' ? localeFr : localeEn}>
+    <ConfigProvider
+      locale={locale === 'fr' ? localeFr : localeEn}
+      theme={{ zeroRuntime: true }}>
       <SettingsProvider>
         <ThemeProvider>
           <NavigationBlockerProvider>

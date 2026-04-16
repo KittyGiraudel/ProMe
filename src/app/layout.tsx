@@ -3,6 +3,8 @@ import type { Metadata, Viewport } from 'next'
 import { getLocale } from 'next-intl/server'
 import { AppProviders } from '@/components/AppProviders/AppProviders'
 
+import 'antd/dist/reset.css'
+import 'antd/dist/antd.css'
 import './globals.css'
 
 const isDev = process.env.NODE_ENV === 'development'

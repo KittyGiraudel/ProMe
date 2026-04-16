@@ -52,7 +52,7 @@ export function CharacterSheet({ characterId }: { characterId: string }) {
   }
 
   return (
-    <ConfigProvider theme={antTheme}>
+    <ConfigProvider theme={{ zeroRuntime: true, ...antTheme }}>
       <App>
         <Layout
           appThemeOverride={appTheme}
