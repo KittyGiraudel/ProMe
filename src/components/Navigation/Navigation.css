@@ -49,6 +49,7 @@
   list-style: none;
   display: flex;
   align-items: stretch;
+  margin: 0;
   -webkit-overflow-scrolling: touch; /* 1 */
   transition: opacity 250ms ease-in-out; /* 2 */
 }
