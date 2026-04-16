@@ -52,6 +52,18 @@
   position: relative; /* 1 */
 }
 
+@media (max-width: 768px) {
+  .Nav__item[data-presence="wide-only"] {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .Nav__item[data-presence="narrow-only"] {
+    display: none;
+  }
+}
+
 /**
  * 1. Item breakpoint that gets pushed to the far right.
  */
