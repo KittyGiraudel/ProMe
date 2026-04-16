@@ -22,7 +22,10 @@ export function Navigation({
   const t = useTranslations()
   const { settings, updateSettings } = useSettings()
   const pathname = usePathname()
-  const [open, setOpen] = useState(false)
+  const [isNavDrawerOpen, setNavDrawerOpen] = useState(false)
+  const [isGeneratorsSubmenuExpanded, setIsGeneratorsSubmenuExpanded] =
+    useState(false)
+  const [isBiomesSubmenuExpanded, setIsBiomesSubmenuExpanded] = useState(false)
   const handleThemeToggle = () =>
     updateSettings(curr => ({
       ...curr,
@@ -54,8 +57,18 @@ export function Navigation({
             </BlockedLink>
           </li>
           <li className='Nav__item' data-presence='wide-only'>
-            <span className='Nav__link'>{t('home.generators_title')}</span>
-            <ul className='Nav__submenu'>
+            <button
+              className='Nav__link'
+              onClick={() => setIsGeneratorsSubmenuExpanded(prev => !prev)}
+              onMouseEnter={() => setIsGeneratorsSubmenuExpanded(true)}
+              onMouseLeave={() => setIsGeneratorsSubmenuExpanded(false)}>
+              {t('home.generators_title')}
+            </button>
+            <ul
+              className='Nav__submenu'
+              aria-expanded={isGeneratorsSubmenuExpanded}
+              onMouseEnter={() => setIsGeneratorsSubmenuExpanded(true)}
+              onMouseLeave={() => setIsGeneratorsSubmenuExpanded(false)}>
               <li
                 className='Nav__item'
                 data-active={pathname.startsWith('/generators/npc')}>
@@ -73,8 +86,19 @@ export function Navigation({
             </ul>
           </li>
           <li className='Nav__item' data-presence='wide-only'>
-            <span className='Nav__link'>{t('nav.biomes')}</span>
-            <ul className='Nav__submenu'>
+            <button
+              type='button'
+              className='Nav__link'
+              onClick={() => setIsBiomesSubmenuExpanded(prev => !prev)}
+              onMouseEnter={() => setIsBiomesSubmenuExpanded(true)}
+              onMouseLeave={() => setIsBiomesSubmenuExpanded(false)}>
+              {t('nav.biomes')}
+            </button>
+            <ul
+              className='Nav__submenu'
+              aria-expanded={isBiomesSubmenuExpanded}
+              onMouseEnter={() => setIsBiomesSubmenuExpanded(true)}
+              onMouseLeave={() => setIsBiomesSubmenuExpanded(false)}>
               {BIOME_IDS.map(biome => {
                 const slug = biomeIdToSlug(biome)
                 return (
@@ -118,7 +142,7 @@ export function Navigation({
             <button
               type='button'
               className='Nav__link'
-              onClick={() => setOpen(true)}>
+              onClick={() => setNavDrawerOpen(true)}>
               <MenuFoldOutlined /> {t('nav.menu')}
             </button>
           </li>
@@ -133,8 +157,8 @@ export function Navigation({
         </ul>
       </nav>
       <Drawer
-        open={open}
-        onClose={() => setOpen(false)}
+        open={isNavDrawerOpen}
+        onClose={() => setNavDrawerOpen(false)}
         placement='right'
         closable={{ placement: 'end' }}
         title={t('nav.menu')}

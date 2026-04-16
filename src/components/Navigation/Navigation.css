@@ -106,7 +106,7 @@
 
 .Nav__link {
   color: inherit;
-  padding: 0.8em 1em;
+  padding: 1em;
   display: inline-block;
   width: 100%;
   cursor: pointer;
@@ -137,8 +137,7 @@ button.Nav__link {
   z-index: 100;
   width: max-content;
 
-  opacity: 0;
-  pointer-events: none;
+  display: none;
 
   border-radius: var(--border-radius);
   background-color: var(--background-color);
@@ -160,8 +159,7 @@ button.Nav__link {
 
 .Nav__item:is(:hover, :focus-within) .Nav__submenu,
 .Nav__link:is(:active, :focus) + .Nav__submenu {
-  opacity: 1;
-  pointer-events: auto;
+  display: block;
 }
 
 .Nav__link:is(:hover, :focus) {
@@ -178,8 +176,7 @@ button.Nav__link {
   }
 
   & .Nav__submenu {
-    opacity: 1;
-    pointer-events: auto;
+    display: block;
     position: static;
     padding-left: 1em;
   }
