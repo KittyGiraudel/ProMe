@@ -428,3 +428,13 @@ a {
     --ant-card-body-padding: 1em;
   }
 }
+
+/**
+ * 1. Move the notification down to avoid them overlapping the navigation:
+ *    -24px is the default offset from Ant Design.
+ *    +50px is the height of the navigation.
+ *    +12px is the gap we want between the nav and the notification.
+ */
+.ant-notification-topRight .ant-notification-notice-wrapper {
+  top: calc(-24px + 50px + 12px) !important; /* 1 */
+}
