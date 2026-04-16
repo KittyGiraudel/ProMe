@@ -3,6 +3,7 @@ import { Drawer } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { BIOME_IDS } from '@/constants/misc'
+import { useCharactersQuery } from '@/hooks/useQuery'
 import { usePathname } from '@/i18n/navigation'
 import { biomeIdToSlug } from '@/lib/biomes/biomeSlug'
 import { AuthButton } from '../AuthButton/AuthButton'
@@ -22,6 +23,7 @@ export function Navigation({
   const t = useTranslations()
   const { settings, updateSettings } = useSettings()
   const pathname = usePathname()
+  const { data: characters } = useCharactersQuery()
   const [isNavDrawerOpen, setNavDrawerOpen] = useState(false)
   const [isGeneratorsSubmenuExpanded, setIsGeneratorsSubmenuExpanded] =
     useState(false)
@@ -52,9 +54,28 @@ export function Navigation({
             className='Nav__item'
             data-active={pathname.startsWith('/characters')}
             data-presence='wide-only'>
-            <BlockedLink href='/characters' className='Nav__link'>
-              {t('nav.characters')}
-            </BlockedLink>
+            {characters?.length ? (
+              <>
+                <button type='button' className='Nav__link'>
+                  {t('nav.characters')}
+                </button>
+                <ul className='Nav__submenu'>
+                  {characters.slice(0, 5).map(character => (
+                    <li key={character.id} className='Nav__item'>
+                      <BlockedLink
+                        href={`/characters/${character.id}`}
+                        className='Nav__link'>
+                        {character.name}
+                      </BlockedLink>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <BlockedLink href='/characters' className='Nav__link'>
+                {t('nav.characters')}
+              </BlockedLink>
+            )}
           </li>
           <li className='Nav__item' data-presence='wide-only'>
             <button
