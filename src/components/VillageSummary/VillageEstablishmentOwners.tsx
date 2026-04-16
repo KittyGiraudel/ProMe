@@ -69,7 +69,7 @@ export function VillageEstablishmentOwners({
   const second = entries[1]
 
   return (
-    <Typography.Paragraph>
+    <p>
       <Typography.Text type='secondary'>
         {t(multi ? 'village.co_owners_label' : 'village.owner_label')}
       </Typography.Text>{' '}
@@ -82,6 +82,6 @@ export function VillageEstablishmentOwners({
       ) : (
         ''
       )}
-    </Typography.Paragraph>
+    </p>
   )
 }

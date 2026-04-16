@@ -16,7 +16,7 @@ export function JournalEditCheatsheet() {
       <Typography.Title level={5} className='Journal__cheatsheetTitle'>
         {t('characters.journal.cheatsheet.markdown_title')}
       </Typography.Title>
-      <Typography.Paragraph className='Journal__cheatsheetBlock'>
+      <p className='Journal__cheatsheetBlock'>
         {t.rich('characters.journal.cheatsheet.markdown_intro', {
           guide: chunks => (
             <Typography.Link
@@ -27,7 +27,7 @@ export function JournalEditCheatsheet() {
             </Typography.Link>
           ),
         })}
-      </Typography.Paragraph>
+      </p>
 
       <Typography.Title level={5} className='Journal__cheatsheetTitle'>
         {t('characters.journal.cheatsheet.embellishment_title')}
