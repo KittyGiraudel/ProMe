@@ -23,7 +23,7 @@ export function MapCover({
         className='MapCover'
         data-biome='unexplored'
         url='/images/banner-core.avif'
-        title={t.rich('characters.map.location_core', {
+        title={t.rich(`biomes.${biome}.location`, {
           b: chunks => <strong>{chunks}</strong>,
         })}
         titleAs='h2'
@@ -37,7 +37,7 @@ export function MapCover({
         className='MapCover'
         data-biome={biome}
         url={`/images/banner-${biome}.avif`}
-        title={t.rich(`characters.map.location_${biome}`, {
+        title={t.rich(`biomes.${biome}.location`, {
           b: chunks =>
             biome !== 'unexplored' ? (
               <BlockedLink
