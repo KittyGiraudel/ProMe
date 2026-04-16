@@ -29,6 +29,7 @@ export type SheetCellAddress = SheetCoordinate & {
   global: CellCoordinate
 }
 
+// See: https://www.redblobgames.com/grids/hexagons/#neighbors-axial
 export const AXIAL_DIRECTIONS: readonly CellCoordinate[] = [
   { q: 1, r: 0 },
   { q: 1, r: -1 },
