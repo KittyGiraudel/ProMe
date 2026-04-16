@@ -15,13 +15,7 @@ export function BiomeHero({ biome, index }: Props) {
   const t = useTranslations()
 
   return (
-    <div
-      className='BiomeHero'
-      style={
-        {
-          '--biome-hero-image': `url(/images/banner-${biome}.avif)`,
-        } as React.CSSProperties
-      }>
+    <div className='BiomeHero'>
       <div className='BiomeHero__overlay' />
       <div className='BiomeHero__content'>
         <p className='BiomeHero__eyebrow'>

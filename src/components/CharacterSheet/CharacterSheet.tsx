@@ -57,6 +57,7 @@ export function CharacterSheet({ characterId }: { characterId: string }) {
         <Layout
           appThemeOverride={appTheme}
           bannerBiome={bannerBiome}
+          withBannerImage
           title={character.name || t('characters_list.unnamed')}
           breadcrumbs={[
             { title: t('nav.home'), path: '/' },

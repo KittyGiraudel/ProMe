@@ -41,7 +41,7 @@ export function InheritanceCard() {
   return (
     <>
       <CardCover
-        url='/images/banner-core.avif'
+        image='url("/images/banner-core.avif")'
         title={t('new_character.inheritance_section')}
         titleAs='h2'
         data-biome='unexplored'

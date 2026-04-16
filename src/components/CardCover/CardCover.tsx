@@ -4,14 +4,14 @@ import { type ElementType, type HTMLAttributes, type ReactNode } from 'react'
 import './CardCover.css'
 
 export function CardCover({
-  url,
+  image,
   title,
   titleAs: TitleAs = 'p',
   description,
   height,
   ...rest
 }: Omit<HTMLAttributes<HTMLDivElement>, 'title'> & {
-  url: string
+  image: string
   title: ReactNode
   titleAs?: ElementType
   description?: ReactNode
@@ -22,9 +22,7 @@ export function CardCover({
       {...rest}
       tabIndex={description ? 0 : undefined}
       className={['CardCover', rest.className].filter(Boolean).join(' ')}
-      style={
-        { '--height': height, '--image': `url(${url})` } as React.CSSProperties
-      }>
+      style={{ '--height': height, '--image': image } as React.CSSProperties}>
       <div className='CardCover__overlay'></div>
       <div className='CardCover__content'>
         <TitleAs className='CardCover__title'>

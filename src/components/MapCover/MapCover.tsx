@@ -22,7 +22,7 @@ export function MapCover({
       <CardCover
         className='MapCover'
         data-biome='unexplored'
-        url='/images/banner-core.avif'
+        image='url("/images/banner-core.avif")'
         title={t.rich(`biomes.${biome}.location`, {
           b: chunks => <strong>{chunks}</strong>,
         })}
@@ -36,7 +36,7 @@ export function MapCover({
       <CardCover
         className='MapCover'
         data-biome={biome}
-        url={`/images/banner-${biome}.avif`}
+        image='var(--biome-image)'
         title={t.rich(`biomes.${biome}.location`, {
           b: chunks =>
             biome !== 'unexplored' ? (

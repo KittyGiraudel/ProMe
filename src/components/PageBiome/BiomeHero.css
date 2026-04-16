@@ -6,7 +6,7 @@
   display: flex;
   align-items: flex-end;
   background-color: var(--biome-hero-gradient);
-  background-image: var(--biome-hero-image);
+  background-image: var(--biome-image);
   background-size: cover;
   background-position: center;
 }

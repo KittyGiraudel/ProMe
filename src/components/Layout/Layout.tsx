@@ -19,6 +19,7 @@ type LayoutProps = {
   headerActions?: ReactNode
   /** Tints the page cover from map palette (character sheet). */
   bannerBiome?: PossibleBiomeId
+  withBannerImage?: boolean
   breadcrumbs: BreadcrumbProps['items']
   children: ReactNode
   className?: string
@@ -31,6 +32,7 @@ export const Layout = ({
   children,
   headerActions,
   bannerBiome,
+  withBannerImage = false,
   className = '',
   appThemeOverride,
 }: LayoutProps) => {
@@ -47,7 +49,7 @@ export const Layout = ({
   return (
     <AntLayout className={`Layout ${className}`}>
       <Navigation disableThemeToggle={disableThemeToggle} />
-      <Banner biome={bannerBiome} />
+      <Banner biome={bannerBiome} withBannerImage={withBannerImage} />
       <AntLayout.Content className='Layout__wrapper' id='main'>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
 
