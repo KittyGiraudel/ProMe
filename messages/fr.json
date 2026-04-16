@@ -695,6 +695,8 @@
     "preload_complete_hint": "À cause de restrictions du navigateur, vous devez lancer la musique manuellement pour la première fois.",
     "play": "Lire",
     "pause": "Pause",
+    "previous_track": "Piste précédente",
+    "next_track": "Piste suivante",
     "volume": "Volume",
     "progress_label": "Position de lecture",
     "restart_track": "Revenir au début",

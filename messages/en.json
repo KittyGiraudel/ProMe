@@ -698,6 +698,8 @@
     "preload_complete_hint": "Due to browser restrictions, you must manually play the music for the first time.",
     "play": "Play",
     "pause": "Pause",
+    "previous_track": "Previous track",
+    "next_track": "Next track",
     "volume": "Volume",
     "progress_label": "Playback position",
     "restart_track": "Back to start",

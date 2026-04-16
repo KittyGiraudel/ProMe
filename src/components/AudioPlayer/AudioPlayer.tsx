@@ -4,6 +4,7 @@ import StepBackwardOutlined from '@ant-design/icons/lib/icons/StepBackwardOutlin
 import StepForwardOutlined from '@ant-design/icons/lib/icons/StepForwardOutlined'
 import { Slider, Tooltip, Typography } from 'antd'
 import { Howl } from 'howler'
+import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/Button/Button'
 import { getPWADisplayMode } from '@/lib/getPWADisplayMode'
@@ -27,6 +28,7 @@ export function AudioPlayer({
   onPrev?: () => void
   onNext?: () => void
 }) {
+  const t = useTranslations()
   const howl = useRef<Howl | null>(null)
   const volumeRef = useRef(0.8)
   const wasPlayingRef = useRef(false)
@@ -192,14 +194,16 @@ export function AudioPlayer({
       <div className='AudioPlayer__controls'>
         <div className='AudioPlayer__controlsLeft'>
           {onPrev && (
-            <Tooltip title='Previous track' trigger={['hover', 'focus']}>
+            <Tooltip
+              title={t('audio_player.previous_track')}
+              trigger={['hover', 'focus']}>
               <Button onClick={onPrev} htmlType='button' size='small'>
                 <StepBackwardOutlined />
               </Button>
             </Tooltip>
           )}
           <Tooltip
-            title={isPlaying ? 'Pause' : 'Play'}
+            title={isPlaying ? t('audio_player.pause') : t('audio_player.play')}
             trigger={['hover', 'focus']}>
             <Button
               onClick={togglePlay}
@@ -210,7 +214,9 @@ export function AudioPlayer({
             </Button>
           </Tooltip>
           {onNext && (
-            <Tooltip title='Next track' trigger={['hover', 'focus']}>
+            <Tooltip
+              title={t('audio_player.next_track')}
+              trigger={['hover', 'focus']}>
               <Button onClick={onNext} htmlType='button' size='small'>
                 <StepForwardOutlined />
               </Button>
