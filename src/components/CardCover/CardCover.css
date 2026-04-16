@@ -49,50 +49,14 @@
   position: relative; /* 3 */
   overflow: hidden; /* 4 */
   transition: 0.5s ease-in-out; /* 5 */
-
-  /**
-   * 1. Hacky fix for cells with an unexplored biome (i.e. the Core), because
-   *    the “dark” background is actually a light color, which means the text
-   *    ends up dark on dark.
-   */
-  &[data-biome="unexplored"] {
-    color: var(--biome-unexplored-light); /* 1 */
-  }
-}
-
-@keyframes background-animation {
-  from {
-    background-position: center calc(var(--from, 0%) * 1%);
-  }
-  to {
-    background-position: center calc(var(--to, 100%) * 1%);
-  }
 }
 
 /**
- * Most backgrounds are quite a bit taller than the cover itself, which means
- * they’re not fully visible. To still enjoy them fully and to make the cover a
- * little dynamic, we animation the background position up and down.
- *
- * However, the animation needs to be tailored per biome, since not all of them
- * will need the same variation. Each biome defines a `--from` and `--to` custom
- * properties, determining the background-position Y animation range. 0 to 100%
- * means animating the whole height of the background.
- *
- * The animation duration is then calculated based on the difference between the
- * `--from` and `--to` custom properties. This makes sure that all backgrounds
- * animate at the same speed, regardless of the animation aperture.
- *
- * 1. Adjust the initial background position for each biome, defaulting to
+ * 1. Adjust the initial background position for the image, defaulting to
  *    `center` if not provided.
  */
 .CardCover {
   background-position: var(--position, center); /* 1 */
-  animation-name: background-animation;
-  animation-duration: calc((abs(var(--to) - var(--from))) * 0.5s);
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
 }
 
 /**
@@ -110,7 +74,7 @@
   background-image: linear-gradient(
     to bottom,
     transparent 50%,
-    color-mix(in srgb, var(--biome-dark) 25%, black) 100%
+    color-mix(in srgb, var(--biome-dark, transparent) 25%, black) 100%
   ); /* 1 */
   transition: inherit;
   opacity: 0;

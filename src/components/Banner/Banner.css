@@ -59,7 +59,7 @@
 .Banner__background[data-image="true"] {
   background-image: var(--biome-image);
   background-size: cover;
-  background-position: center;
+  background-position: var(--biome-image-position-banner, center);
   background-repeat: no-repeat;
 }
 

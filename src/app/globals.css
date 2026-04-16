@@ -127,6 +127,11 @@ a {
   --biome-dark-contrast: var(--biome-shadowForest-dark-contrast);
   --biome-light-contrast: var(--biome-shadowForest-light-contrast);
   --biome-image: var(--biome-shadowForest-image);
+  --biome-image-position-banner: 0 10%;
+  --biome-image-position-cover-mobile: 20% 0%;
+  --biome-image-position-cover-desktop: center 70%;
+  --biome-image-position-cover-desktop-from: 100;
+  --biome-image-position-cover-desktop-to: 0;
 }
 
 [data-biome="floodedPlains"] {
@@ -135,6 +140,11 @@ a {
   --biome-dark-contrast: var(--biome-floodedPlains-dark-contrast);
   --biome-light-contrast: var(--biome-floodedPlains-light-contrast);
   --biome-image: var(--biome-floodedPlains-image);
+  --biome-image-position-banner: 0 70%;
+  --biome-image-position-cover-mobile: 77% 0%;
+  --biome-image-position-cover-desktop: center 100%;
+  --biome-image-position-cover-desktop-from: 100;
+  --biome-image-position-cover-desktop-to: 50;
 }
 
 [data-biome="mushroomJungle"] {
@@ -143,6 +153,10 @@ a {
   --biome-dark-contrast: var(--biome-mushroomJungle-dark-contrast);
   --biome-light-contrast: var(--biome-mushroomJungle-light-contrast);
   --biome-image: var(--biome-mushroomJungle-image);
+  --biome-image-position-banner: 0 90%;
+  --biome-image-position-cover-desktop: center 95%;
+  --biome-image-position-cover-desktop-from: 95;
+  --biome-image-position-cover-desktop-to: 45;
 }
 
 [data-biome="fieldSea"] {
@@ -151,6 +165,11 @@ a {
   --biome-dark-contrast: var(--biome-fieldSea-dark-contrast);
   --biome-light-contrast: var(--biome-fieldSea-light-contrast);
   --biome-image: var(--biome-fieldSea-image);
+  --biome-image-position-banner: 0 55%;
+  --biome-image-position-cover-mobile: 22% 0%;
+  --biome-image-position-cover-desktop: center 68%;
+  --biome-image-position-cover-desktop-from: 0;
+  --biome-image-position-cover-desktop-to: 100;
 }
 
 [data-biome="silentDesert"] {
@@ -159,6 +178,10 @@ a {
   --biome-dark-contrast: var(--biome-silentDesert-dark-contrast);
   --biome-light-contrast: var(--biome-silentDesert-light-contrast);
   --biome-image: var(--biome-silentDesert-image);
+  --biome-image-position-banner: 0 65%;
+  --biome-image-position-cover-desktop: center 100%;
+  --biome-image-position-cover-desktop-from: 50;
+  --biome-image-position-cover-desktop-to: 100;
 }
 
 [data-biome="titanGardens"] {
@@ -167,6 +190,11 @@ a {
   --biome-dark-contrast: var(--biome-titanGardens-dark-contrast);
   --biome-light-contrast: var(--biome-titanGardens-light-contrast);
   --biome-image: var(--biome-titanGardens-image);
+  --biome-image-position-banner: 0 60%;
+  --biome-image-position-cover-mobile: 60% 0%;
+  --biome-image-position-cover-desktop: center 100%;
+  --biome-image-position-cover-desktop-from: 100;
+  --biome-image-position-cover-desktop-to: 50;
 }
 
 .ant-form-item-explain-success {
