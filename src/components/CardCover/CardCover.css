@@ -155,7 +155,11 @@
 /**
  * When the cover gets interacted with:
  */
-.CardCover:has(.CardCover__description):is(:hover, :focus-visible) {
+.CardCover:has(.CardCover__description):is(
+    :hover,
+    :focus-visible,
+    :focus-within
+  ) {
   /**
    * 1. Slide the content up to reveal it.
    */
