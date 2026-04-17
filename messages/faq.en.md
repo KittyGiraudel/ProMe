@@ -5,6 +5,7 @@
 - [How do I play offline?](#how-do-i-play-offline)
 - [What are the biome pages for?](#what-are-the-biome-pages-for)
 - [What’s missing from the site?](#whats-missing-from-the-site)
+- [What’s the “inheritance” thing?](#whats-the-inheritance-thing)
 - [Why isn’t the map hexagonal?](#why-isnt-the-map-hexagonal)
 - [Why is there a gender system?](#why-is-there-a-gender-system)
 - [Where do the images come from?](#where-do-the-images-come-from)
@@ -60,6 +61,10 @@ Mostly for exposition. They’re not necessary for gameplay and are there to gat
 Encounters are not fully implemented. Each biome’s encounter table is available near the map and on the biome pages, but you’ll need to refer to the rulebook for most encounters. This likely won’t change, as I’m not authorized (and do not want) to make the game fully playable without owning the rulebook.
 
 Additionally, shop inventories are not implemented. This means that when creating a village, you need to manually define the offers and then note them in the journal to revisit later.
+
+## What’s the “inheritance” thing?
+
+Inheritance is just the name I gave to the process of creating a new character after a Protector dies. It enables inheriting from the map and journal of the former Protector. It is implemented according to the official rules.
 
 ## Why isn’t the map hexagonal?
 

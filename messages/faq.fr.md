@@ -5,6 +5,7 @@
 - [Comment jouer hors-ligne ?](#comment-jouer-hors-ligne-)
 - [À quoi servent les pages de biomes ?](#à-quoi-servent-les-pages-de-biomes-)
 - [Que manque-t-il dans le site ?](#que-manque-t-il-dans-le-site)
+- [Qu’est-ce que « l’héritage » ?](#quest-ce-que-lhéritage--)
 - [Pourquoi la carte n’est-elle pas hexagonale ?](#pourquoi-la-carte-nest-elle-pas-hexagonale)
 - [Pourquoi y a-t-il un système de genre ?](#pourquoi-y-a-t-il-un-système-de-genre)
 - [D’où viennent les images ?](#doù-viennent-les-images-)
@@ -60,6 +61,10 @@ Si vous êtes connecté·e au site avec votre compte Google, la synchronisation 
 Les rencontres ne sont pas vraiment implémentées. La table de rencontres de chaque biome est disponible près de la carte ainsi que dans les pages de biomes, mais il est nécessaire de se référer au livre de règles pour effectuer la majorité des rencontres. Ceci ne changera probablement par car je ne suis pas autorisée et ne souhaite pas rendre le jeu intégralement jouable sans posséder le livre de règles.
 
 De plus, le stock des boutiques n’est pas implémenté non plus. Cela signifie qu’à la création d’un village, il est nécessaire de définir les offres manuellement, puis de les noter dans le journal pour y revenir plus tard.
+
+## Qu’est-ce que « l’héritage » ?
+
+L’héritage est simplement le nom que j’ai donné au concept de création d’un personnage après la mort d’un Protecteur. Cela permet d’hériter de la carte ainsi que du journal du Protecteur précédent. L’héritage est implémenté selon les règles officielles du jeu.
 
 ## Pourquoi la carte n’est-elle pas hexagonale ?
 
