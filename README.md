@@ -30,7 +30,7 @@ npm run dev # http://localhost:3000
 
 ## Requirements
 
-This application should largely work on any browser, including on mobile, but the map module is limited to Chrome. It makes use of modern CSS features that are currently not available outside of Chrome.
+This application should largely work on any browser, including on mobile, but some parts, including the map module just look better on Chrome. It makes use of modern CSS features that are currently not available outside of Chrome.
 
 ## Data storage
 
