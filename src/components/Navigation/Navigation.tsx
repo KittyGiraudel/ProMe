@@ -85,7 +85,7 @@ export function Navigation({
               onClick={() => setIsGeneratorsSubmenuExpanded(prev => !prev)}
               onMouseEnter={() => setIsGeneratorsSubmenuExpanded(true)}
               onMouseLeave={() => setIsGeneratorsSubmenuExpanded(false)}>
-              {t('home.generators_title')}
+              {t('nav.generators')}
             </button>
             <ul
               className='Nav__submenu'
@@ -216,7 +216,7 @@ export function Navigation({
             </ul>
           </li>
           <li className='Nav__item'>
-            <span className='Nav__link'>{t('home.generators_title')}</span>
+            <span className='Nav__link'>{t('nav.generators')}</span>
             <ul className='Nav__submenu'>
               <li
                 className='Nav__item'
