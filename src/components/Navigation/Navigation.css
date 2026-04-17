@@ -21,9 +21,10 @@
     var(--biome-surface, var(--prome-bg)) /* 3 */,
     transparent 40%
   );
+  --box-shadow: 0 0 1em 0 rgb(0 0 0 / 0.15);
   color: var(--biome-text, var(--prome-text)); /* 3 */
 
-  box-shadow: 0 0 10px 0 rgb(0 0 0 / 0.1); /* 4 */
+  box-shadow: var(--box-shadow); /* 4 */
 }
 
 /**
@@ -168,6 +169,7 @@ button.Nav__link {
   border-radius: var(--border-radius);
   background-color: var(--background-color);
   backdrop-filter: blur(var(--blur));
+  box-shadow: var(--box-shadow);
 }
 
 /**
