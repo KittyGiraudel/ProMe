@@ -246,6 +246,13 @@ body:has(.BiomePage) {
 .BiomePage__footer.BiomePage__footer {
   background: var(--biome-bg);
   color: var(--biome-text);
+  --ant-layout-footer-padding: 2.5em;
+}
+
+@media (max-width: 767px) {
+  .BiomePage__footer.BiomePage__footer {
+    padding: 2em;
+  }
 }
 
 .BiomePage__footer .Footer {
