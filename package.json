@@ -13,7 +13,11 @@
     "format:check": "biome format .",
     "lint": "eslint",
     "test": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "i18n:check:parity": "node scripts/i18n/check-locale-parity.mjs",
+    "i18n:check:unused": "node scripts/i18n/check-unused-keys.mjs",
+    "i18n:check:glossary": "node scripts/i18n/check-glossary-consistency.mjs",
+    "i18n:check": "node scripts/i18n/check-localization.mjs"
   },
   "dependencies": {
     "@ant-design/icons": "^6.1.0",

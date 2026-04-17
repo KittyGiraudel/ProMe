@@ -231,6 +231,7 @@ export function AudioPlayer({
             value={volume}
             onChange={changeVolume}
             className='AudioPlayer__volumeSlider'
+            aria-label={t('audio_player.volume')}
           />
         </div>
       </div>

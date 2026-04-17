@@ -1,0 +1,252 @@
+{
+  "protector": {
+    "fr": {
+      "preferred": ["Protecteur"],
+      "disallowed": []
+    },
+    "en": {
+      "preferred": ["Protector"],
+      "disallowed": ["Guardian"]
+    }
+  },
+  "protectorsPlural": {
+    "fr": {
+      "preferred": ["Protecteurs"],
+      "disallowed": []
+    },
+    "en": {
+      "preferred": ["Protectors"],
+      "disallowed": ["Guardians"]
+    }
+  },
+  "stamina": {
+    "fr": {
+      "preferred": ["Endurance"],
+      "disallowed": []
+    },
+    "en": {
+      "preferred": ["Stamina"],
+      "disallowed": []
+    }
+  },
+  "journal": {
+    "fr": {
+      "preferred": ["Journal"],
+      "disallowed": []
+    },
+    "en": {
+      "preferred": ["Journal"],
+      "disallowed": []
+    }
+  },
+  "map": {
+    "fr": {
+      "preferred": ["Carte"],
+      "disallowed": []
+    },
+    "en": {
+      "preferred": ["Map"],
+      "disallowed": []
+    }
+  },
+  "village": {
+    "fr": {
+      "preferred": ["Village"],
+      "disallowed": []
+    },
+    "en": {
+      "preferred": ["Village"],
+      "disallowed": ["Hamlet"]
+    }
+  },
+  "biome": {
+    "fr": {
+      "preferred": ["Biome"],
+      "disallowed": []
+    },
+    "en": {
+      "preferred": ["Biome"],
+      "disallowed": []
+    }
+  },
+  "inhabitant": {
+    "fr": {
+      "preferred": ["Habitant"],
+      "disallowed": []
+    },
+    "en": {
+      "preferred": ["Inhabitant"],
+      "disallowed": []
+    }
+  },
+  "archetype": {
+    "fr": {
+      "preferred": ["Archétype"],
+      "disallowed": ["Classe"]
+    },
+    "en": {
+      "preferred": ["Archetype"],
+      "disallowed": ["Class"]
+    }
+  },
+  "faction": {
+    "fr": {
+      "preferred": ["Faction"],
+      "disallowed": ["Race"]
+    },
+    "en": {
+      "preferred": ["Faction"],
+      "disallowed": ["Race"]
+    }
+  },
+  "inventory": {
+    "fr": {
+      "preferred": ["Inventaire"],
+      "disallowed": []
+    },
+    "en": {
+      "preferred": ["Inventory"],
+      "disallowed": []
+    }
+  },
+  "spellbook": {
+    "fr": {
+      "preferred": ["Grimoire"],
+      "disallowed": []
+    },
+    "en": {
+      "preferred": ["Spellbook"],
+      "disallowed": []
+    }
+  },
+  "health": {
+    "fr": {
+      "preferred": ["Santé"],
+      "disallowed": []
+    },
+    "en": {
+      "preferred": ["Health"],
+      "disallowed": []
+    }
+  },
+  "courage": {
+    "fr": {
+      "preferred": ["Courage"],
+      "disallowed": []
+    },
+    "en": {
+      "preferred": ["Courage"],
+      "disallowed": []
+    }
+  },
+  "clock": {
+    "fr": {
+      "preferred": ["Horloge"],
+      "disallowed": ["Montre"]
+    },
+    "en": {
+      "preferred": ["Clock"],
+      "disallowed": ["Watch"]
+    }
+  },
+  "encounter": {
+    "fr": {
+      "preferred": ["Rencontre"],
+      "disallowed": []
+    },
+    "en": {
+      "preferred": ["Encounter"],
+      "disallowed": []
+    }
+  },
+  "gathering": {
+    "fr": {
+      "preferred": ["Collecte"],
+      "disallowed": ["Cueillette"]
+    },
+    "en": {
+      "preferred": ["Gathering"],
+      "disallowed": []
+    }
+  },
+  "traits": {
+    "fr": {
+      "preferred": ["Traits"],
+      "disallowed": []
+    },
+    "en": {
+      "preferred": ["Traits"],
+      "disallowed": []
+    }
+  },
+  "establishments": {
+    "fr": {
+      "preferred": ["Établissements"],
+      "disallowed": []
+    },
+    "en": {
+      "preferred": ["Establishments"],
+      "disallowed": []
+    }
+  },
+  "identity": {
+    "fr": {
+      "preferred": ["Identité"],
+      "disallowed": []
+    },
+    "en": {
+      "preferred": ["Identity"],
+      "disallowed": []
+    }
+  },
+  "settings": {
+    "fr": {
+      "preferred": ["Paramètres"],
+      "disallowed": []
+    },
+    "en": {
+      "preferred": ["Settings"],
+      "disallowed": []
+    }
+  },
+  "save": {
+    "fr": {
+      "preferred": ["Enregistrer"],
+      "disallowed": []
+    },
+    "en": {
+      "preferred": ["Save"],
+      "disallowed": []
+    }
+  },
+  "delete": {
+    "fr": {
+      "preferred": ["Supprimer"],
+      "disallowed": []
+    },
+    "en": {
+      "preferred": ["Delete"],
+      "disallowed": []
+    }
+  },
+  "revive": {
+    "fr": {
+      "preferred": ["Réanimer"],
+      "disallowed": []
+    },
+    "en": {
+      "preferred": ["Revive"],
+      "disallowed": []
+    }
+  },
+  "dead": {
+    "fr": {
+      "preferred": ["Mort"],
+      "disallowed": []
+    },
+    "en": {
+      "preferred": ["Dead"],
+      "disallowed": []
+    }
+  }
+}

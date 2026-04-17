@@ -50,4 +50,4 @@ public/swe-worker-*.js
 # Local Netlify folder
 .netlify
 
-docs
+docs/superpowers

@@ -46,6 +46,12 @@ Adding a new language should be trivial:
 - Add all the keys and their translations, using the `fr.json` file as a template.
 - Add the new locale to `src/i18n/routing.ts`.
 
+## Localization checks
+
+Run localization checks locally with `npm run i18n:check`. This command validates JSON parsing, source/target key parity, and reports potentially unused keys.
+
+If checks fail, fix parsing errors or missing keys before opening a PR. Detailed rules and troubleshooting are documented in `docs/localization-workflow.md`.
+
 ## Acknowledgements
 
 The game itself was created and designed by Enzo Salviato — all credits go to him. This application is nothing more than a gaming companion, mostly to allow playing the game digitally (although not in full — owning and using the rulebook remains required).

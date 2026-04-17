@@ -112,7 +112,7 @@ export function JournalCardInner({
   return (
     <>
       <Card
-        title={t('characters.journal.notes_section')}
+        title={t('characters.journal.title')}
         extra={canAddEntry && buttonInHeader ? addEntryButton : undefined}
         actions={canAddEntry && buttonInFooter ? [addEntryButton] : undefined}
         id='journal'>

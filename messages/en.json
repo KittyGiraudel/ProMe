@@ -77,7 +77,6 @@
     "title": "Protector Sheet",
     "identity": {
       "archetype_label": "Archetype",
-      "archetype_power_label": "Archetype Power",
       "characteristics_section": "Characteristics",
       "courage_label": "Courage",
       "courage_label_short": "Courage",
@@ -131,7 +130,6 @@
       "gathering_dialog_title": "Gathering",
       "gathering_collected": "Added to inventory",
       "gathering_empty": "No gathering available in this biome.",
-      "map_section": "Map",
       "menu_actions_group": "Actions",
       "menu_marking_group": "Scouting",
       "move_here": "Move here",
@@ -140,7 +138,6 @@
       "random_biome_discovered_description": "You discover {biomeName}. Mark {additionalTilesToMark, plural, =1 {one adjacent cell} other {# adjacent cells}} of the same biome ({biomeName}).",
       "random_biome_discovered_title": "New biome discovered",
       "random_biome": "Random biome (1D6)",
-      "selected_cell": "Selected cell: {cell}",
       "sheet": "Sheet: ({sheetQ}, {sheetR})",
       "skip_map": "Skip map",
       "title": "Cartography",
@@ -182,7 +179,6 @@
       },
       "delete_confirm_description": "This entry contains content. This deletion is irreversible.",
       "delete_confirm_title": "Delete this entry?",
-      "done_editing": "Write",
       "empty": "No entries yet.",
       "search_empty": "No entries match your search.",
       "search_placeholder": "Search journal…",
@@ -194,7 +190,6 @@
       "floating_editor_dock": "Floating editor",
       "metadata": "Created on {createdAt} · Updated on {updatedAt}",
       "modal_title": "Edit journal entry",
-      "notes_section": "Journal",
       "phase_day": "Day",
       "phase_label": "Phase",
       "phase_night": "Night",
@@ -236,7 +231,6 @@
       "revive_confirm_description": "The Protector will become playable and the sheet will be editable again.",
       "revive_confirm_title": "Revive this Protector?",
       "revive_success": "Protector revived.",
-      "save_success": "Protector saved.",
       "save": {
         "success": "Protector saved.",
         "invalid_money": "Money must be 0 or more ({current}).",
@@ -290,8 +284,6 @@
     "display_1D6": "1D6: <dice></dice>",
     "display_2D6": "2D6: <dice></dice>",
     "display_card": "Card: <card></card>",
-    "gold": "{amount, number} coins",
-    "loading": "Loading…",
     "max_label": "Max.",
     "magic": "Magic",
     "magic_label": "The magic of this biome must answer the following question:",
@@ -443,7 +435,6 @@
         "4": "1 × Courage mushroom",
         "5": "1 × Stamina mushroom",
         "6": "One of the above choices",
-        "warn": "Gathering in the Mushroom Jungle requires finding and reaching the top of a Titan Boletus (see page 26).",
         "warning": "Gathering in the Mushroom Jungle requires finding and reaching the top of a Titan Boletus (see page 26)."
       },
       "fieldSea": {
@@ -471,7 +462,6 @@
         "4": "A Residence (page 57)",
         "5": "Ruins (page 63)",
         "6": "Any item",
-        "warn": "Gathering in the Titan Gardens requires finding and reaching the garden on the back of a luxurious whale (see page 40).",
         "warning": "Gathering in the Titan Gardens requires finding and reaching the garden on the back of a luxurious whale (see page 40)."
       }
     }
@@ -482,22 +472,6 @@
   "footer": {
     "application": "ProMe by <link_author>Kitty</link_author><version></version> – <link_github>Report an issue</link_github>",
     "copyright": "© The Protector’s Memories, by Enzo Salviato"
-  },
-  "home": {
-    "character_card_description": "Persistent playable sheets including resources, inventory, spells, and arbitrary notes.",
-    "character_card_title": "Protector Manager",
-    "faq_description": "Answers to common questions about the app and the game.",
-    "faq_title": "FAQ",
-    "generators_title": "Generators",
-    "inhabitant_card_description": "Name, faction, age, personality, context, gender.",
-    "inhabitant_card_title": "Inhabitant Generator",
-    "managers_title": "Managers",
-    "settings_description": "Local app preferences, independent of Protector sheets.",
-    "settings_title": "Settings",
-    "title": "Home",
-    "updated_line": "Last updated: {value}",
-    "village_card_description": "Establishments and village traits.",
-    "village_card_title": "Village Generator"
   },
   "inhabitant": {
     "context_by_rank": {
@@ -517,14 +491,10 @@
     },
     "context_card_note": "Only the card’s rank matters for context; the suit is ignored.",
     "context_seven_followup": "Map offered (page 49): {value, select, 1 {Location Map} 2 {Location Map} 3 {Location Map} 4 {Biome Map} 5 {Biome Map} 6 {Biome Map} other {Map offered}}",
-    "context_seven_map_biome": "Biome Map",
-    "context_seven_map_localisation": "Location Map",
     "context_spoken_name_label": "Spoken name (2D6, page 60)",
-    "context_spoken_name_meta": "2D6: <dice></dice>",
     "empty_summary": "Click “{button}” to generate an inhabitant.",
     "one_liner_rich": "{gender} <name></name>, {personality} {faction} {age}",
     "one_liner": "{gender} {name}, {personality} {faction} {age}",
-    "page_description": "Generate an inhabitant for your village.",
     "section_age": "Age",
     "section_context": "Context",
     "section_faction": "Faction",
@@ -543,6 +513,7 @@
     "characters": "Protectors",
     "faq": "FAQ",
     "home": "Home",
+    "generators": "Generators",
     "inhabitant_generator": "Inhabitant Generator",
     "login": "Login",
     "logout": "Logout",
@@ -563,10 +534,8 @@
     "create": "Create Protector",
     "import_success": "Protector imported successfully.",
     "import": "Import Protector",
-    "inheritance_card_title": "Inheritance",
     "inheritance_empty": "No existing Protectors",
     "inheritance_section": "Inheritance",
-    "inheritance_select_help": "If you choose an existing Protector, this new Protector will inherit their memories (i.e., their map and journal).",
     "inheritance_select_label": "Inherit memories from…",
     "inheritance_select_placeholder": "Choose an existing Protector",
     "inheritance_list_inherited_label": "Inherited",
@@ -617,7 +586,6 @@
     "map_style_flat": "Flat",
     "map_style_tilted": "Tilted",
     "map_style_tilting_on_hover": "Tilting on hover",
-    "page_description": "Set global app preferences. They are saved locally in this browser.",
     "language_en": "English",
     "language_fr": "Français",
     "language_warning": "Please note that only the French language is canonical, as it is the language in which my game version is written. The English version is automatically translated without support from an English rulebook.",
@@ -636,12 +604,9 @@
     "sound_variant_mix": "Full soundtrack",
     "sound_variant_music": "Music only",
     "sound_variant_ambiance": "Ambiance only",
-    "reset_label": "Reset",
-    "save_success": "Settings saved.",
     "title": "Settings",
     "village_merge_duplicate_establishments_help": "Merges duplicate village establishments into larger ones (small + small → large, etc.).",
     "village_merge_duplicate_establishments_label": "Merged duplicate establishments",
-    "section_shortcuts": "Keyboard Shortcuts",
     "shortcuts_enabled_label": "Enable keyboard shortcuts",
     "shortcuts_enabled_help": "Enables global keyboard shortcuts: {modifier}+S (save), {modifier}+D (card draw & dice roll), {modifier}+M (toggle music), {modifier}+C/V (copy/paste map cell).",
     "section_advanced": "Advanced",
@@ -693,7 +658,6 @@
   },
   "audio_player": {
     "title": "Ambient Music",
-    "idle": "No track (move to a biome on the map)",
     "preloading": "Preloading soundtracks…",
     "preload_complete": "Music is ready to play.",
     "preload_complete_hint": "Due to browser restrictions, you must manually play the music for the first time.",
@@ -701,16 +665,9 @@
     "pause": "Pause",
     "previous_track": "Previous track",
     "next_track": "Next track",
-    "volume": "Volume",
-    "progress_label": "Playback position",
-    "restart_track": "Back to start",
-    "new_track": "Another random track for this biome",
-    "retry": "Retry"
+    "volume": "Volume"
   },
   "landing": {
-    "nav": {
-      "cta": "Get started"
-    },
     "hero": {
       "eyebrow": "A game companion for “The Protector’s Memories”",
       "title": "ProMe",
@@ -826,13 +783,11 @@
     "sign_in_title": "Data backup",
     "sign_in_prompt": "You can sign in to ProMe with your Google account to back up your data online. This will allow you to retrieve your characters even if you change browsers or devices. It is completely optional, and the site works entirely without a connection. Clicking the button below will redirect you to Google to sign in, then you will be redirected to the home page.",
     "sign_in_with_google": "Continue with Google",
-    "sign_in_required": "Sign in required",
     "sign_in_success": "Sign in successful: syncing to cloud.",
     "online_status": "Back online: syncing to cloud.",
     "offline_status": "Now offline: saving locally only."
   },
   "errors": {
-    "audio": "Failed to load audio.",
     "bad_request": "The data is invalid and cannot be persisted.",
     "clipboard_copy": "Failed to copy (please allow the clipboard).",
     "create": "An error occurred while creating the character.",
@@ -840,7 +795,6 @@
     "export_download": "An error occurred while exporting the character.",
     "generic": "An error occurred.",
     "get_character": "An error occurred while loading the character.",
-    "get_characters": "An error occurred while loading the characters.",
     "import": "The imported character is invalid and cannot be saved.",
     "save": "An error occurred while saving the character.",
     "save_dead": "Cannot save a deceased character.",
