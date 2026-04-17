@@ -102,6 +102,16 @@
   transition: 250ms ease-in-out;
 }
 
+@media (max-width: 767px) {
+  /**
+   * 1. Make the links a bit taller on narrow screens to match the height of the
+   *    header from the <Drawer> component.
+   */
+  .Nav__link {
+    padding: 1.22em 1em; /* 1 */
+  }
+}
+
 button.Nav__link {
   appearance: none;
   border: 0;
@@ -119,7 +129,7 @@ button.Nav__link {
  */
 .Nav__list[data-orientation="horizontal"]
 > .Nav__item:where([data-active="true"], :has([data-active="true"])) {
-  box-shadow: inset 0 -2px 0 0 var(--ant-color-link); /* 1 */
+  box-shadow: inset 0 -2px 0 0 var(--ant-color-link-hover); /* 1 */
 }
 
 /**
@@ -130,7 +140,7 @@ button.Nav__link {
  */
 .Nav__item:has([data-active="true"]) > .Nav__link,
 .Nav__list > .Nav__item[data-active="true"] > .Nav__link {
-  color: var(--ant-color-link); /* 1 */
+  color: var(--ant-color-link-hover); /* 1 */
 }
 
 /**
