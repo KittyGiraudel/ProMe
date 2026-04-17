@@ -33,6 +33,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   margin-bottom: 1em;
+  gap: 0.5em;
 }
 
 .Layout__header-actions {
