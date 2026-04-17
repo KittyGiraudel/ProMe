@@ -463,3 +463,10 @@ button:focus-visible,
 .ant-collapse-header {
   border-radius: 12px !important; /* 1 */
 }
+
+/**
+ * 1. Remove the shadow from the Button component.
+ */
+.ant-btn {
+  --ant-btn-shadow: none !important; /* 1 */
+}

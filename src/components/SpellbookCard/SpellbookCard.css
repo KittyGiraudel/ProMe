@@ -3,10 +3,6 @@
   flex: 1;
 }
 
-.SpellbookCard__DeleteButton.SpellbookCard__DeleteButton.SpellbookCard__DeleteButton {
-  box-shadow: none;
-}
-
 @media (max-width: 767px) {
   .SpellbookCard__DeleteButton-label {
     clip: rect(1px, 1px, 1px, 1px);

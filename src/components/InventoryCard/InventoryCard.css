@@ -3,10 +3,6 @@
   flex: 1;
 }
 
-.InventoryCard__DeleteButton.InventoryCard__DeleteButton.InventoryCard__DeleteButton {
-  box-shadow: none;
-}
-
 @media (max-width: 767px) {
   .InventoryCard__DeleteButton-label {
     clip: rect(1px, 1px, 1px, 1px);
