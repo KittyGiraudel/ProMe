@@ -22,8 +22,8 @@ export function Navigation({
 }) {
   const t = useTranslations()
   const { settings, updateSettings } = useSettings()
-  const pathname = usePathname()
   const { data: characters } = useCharactersQuery()
+  const pathname = usePathname()
   const [isNavDrawerOpen, setNavDrawerOpen] = useState(false)
   const [isGeneratorsSubmenuExpanded, setIsGeneratorsSubmenuExpanded] =
     useState(false)
@@ -54,28 +54,30 @@ export function Navigation({
             className='Nav__item'
             data-active={pathname.startsWith('/characters')}
             data-presence='wide-only'>
-            {characters?.length ? (
-              <>
-                <button type='button' className='Nav__link'>
-                  {t('nav.characters')}
-                </button>
-                <ul className='Nav__submenu'>
-                  {characters.slice(0, 5).map(character => (
-                    <li key={character.id} className='Nav__item'>
-                      <BlockedLink
-                        href={`/characters/${character.id}`}
-                        className='Nav__link'>
-                        {character.name}
-                      </BlockedLink>
-                    </li>
-                  ))}
-                </ul>
-              </>
-            ) : (
-              <BlockedLink href='/characters' className='Nav__link'>
-                {t('nav.characters')}
-              </BlockedLink>
-            )}
+            <button type='button' className='Nav__link'>
+              {t('nav.characters')}
+            </button>
+            <ul className='Nav__submenu'>
+              {characters?.slice(0, 3).map(character => (
+                <li key={character.id} className='Nav__item'>
+                  <BlockedLink
+                    href={`/characters/${character.id}`}
+                    className='Nav__link'>
+                    {character.name}
+                  </BlockedLink>
+                </li>
+              ))}
+              <li className='Nav__item'>
+                <BlockedLink href='/characters' className='Nav__link'>
+                  {t('nav.all_characters')}
+                </BlockedLink>
+              </li>
+              <li className='Nav__item'>
+                <BlockedLink href='/characters/new' className='Nav__link'>
+                  {t('nav.new_character')}
+                </BlockedLink>
+              </li>
+            </ul>
           </li>
           <li className='Nav__item' data-presence='wide-only'>
             <button
@@ -188,9 +190,30 @@ export function Navigation({
           <li
             className='Nav__item'
             data-active={pathname.startsWith('/characters')}>
-            <BlockedLink href='/characters' className='Nav__link'>
+            <button type='button' className='Nav__link'>
               {t('nav.characters')}
-            </BlockedLink>
+            </button>
+            <ul className='Nav__submenu'>
+              {characters?.slice(0, 3).map(character => (
+                <li key={character.id} className='Nav__item'>
+                  <BlockedLink
+                    href={`/characters/${character.id}`}
+                    className='Nav__link'>
+                    {character.name}
+                  </BlockedLink>
+                </li>
+              ))}
+              <li className='Nav__item'>
+                <BlockedLink href='/characters' className='Nav__link'>
+                  {t('nav.all_characters')}
+                </BlockedLink>
+              </li>
+              <li className='Nav__item'>
+                <BlockedLink href='/characters/new' className='Nav__link'>
+                  {t('nav.new_character')}
+                </BlockedLink>
+              </li>
+            </ul>
           </li>
           <li className='Nav__item'>
             <span className='Nav__link'>{t('home.generators_title')}</span>
