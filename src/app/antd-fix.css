@@ -1,0 +1,94 @@
+.ant-card .ant-card-head {
+  background-image: linear-gradient(
+    135deg,
+    light-dark(#e2f0e8, #2a3a30) 0%,
+    light-dark(#f5f0e4, #243028) 100%
+  ) !important;
+}
+
+/* Alert: info → sage green (matches forest palette) */
+.ant-alert-info {
+  --ant-color-info-bg: light-dark(#eef5f1, #1c2c24) !important;
+  --ant-color-info-border: light-dark(#a8cdb8, #2e5040) !important;
+}
+.ant-alert-info .ant-alert-icon {
+  color: light-dark(#2d6a4f, #6aaa88);
+}
+
+/* Alert: warning → warm ochre (matches parchment palette) */
+.ant-alert-warning {
+  --ant-color-warning-bg: light-dark(#fdf6e4, #28220e) !important;
+  --ant-color-warning-border: light-dark(#d4b870, #4a3e18) !important;
+}
+.ant-alert-warning .ant-alert-icon {
+  color: light-dark(#9a7020, #c0a040);
+}
+
+@supports (corner-shape: squircle) {
+  .ant-card,
+  .ant-collapse,
+  .ant-alert,
+  .CardCover {
+    --ant-border-radius-lg: 2em !important;
+  }
+
+  .ant-card,
+  .ant-collapse,
+  .ant-alert,
+  .CardCover {
+    corner-shape: squircle;
+  }
+
+  .ant-card > *,
+  .ant-collapse > * {
+    corner-shape: inherit;
+  }
+}
+
+@media (max-width: 767px) {
+  .ant-card-body {
+    --ant-card-body-padding: 1em;
+  }
+}
+
+/**
+ * 1. Move the notification down to avoid them overlapping the navigation:
+ *    -24px is the default offset from Ant Design.
+ *    +50px is the height of the navigation.
+ *    +12px is the gap we want between the nav and the notification.
+ */
+.ant-notification-topRight .ant-notification-notice-wrapper {
+  top: calc(-24px + 50px + 12px) !important; /* 1 */
+}
+
+/**
+ * 1. Apply the focus outline to buttons, which is surprisingly not done by
+ *    Ant Design, as well as the close button from the Alert component.
+ *    See: https://github.com/ant-design/ant-design/pull/57695
+ */
+button:focus-visible,
+.ant-alert-close-icon:focus-visible {
+  outline: var(--ant-line-width-focus) solid var(--ant-color-primary-border) !important; /* 1 */
+}
+
+/**
+ * 1. Make the close button from the Alert component a circle, which looks a bit
+ *    nicer when focused.
+ */
+.ant-alert .ant-alert-close-icon {
+  border-radius: 50%; /* 1 */
+}
+
+/**
+ * 1. Fix the weird border-radius applied to the Collapse component.
+ */
+.ant-collapse-header {
+  border-radius: 12px !important; /* 1 */
+}
+
+/**
+ * 1. Remove the shadow from the Button component.
+ */
+.ant-btn {
+  --ant-btn-shadow: none !important; /* 1 */
+}

@@ -6,6 +6,7 @@ import { AppProviders } from '@/components/AppProviders/AppProviders'
 import 'antd/dist/reset.css'
 import 'antd/dist/antd.css'
 import './globals.css'
+import './antd-fix.css'
 
 const isDev = process.env.NODE_ENV === 'development'
 
