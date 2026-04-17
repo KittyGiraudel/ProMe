@@ -218,6 +218,7 @@ button.Nav__link {
     display: block;
     position: static;
     padding-left: 1em;
+    margin-top: -1em;
   }
 
   & .Nav__link {
