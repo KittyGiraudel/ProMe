@@ -41,6 +41,7 @@
   font: bold 3em monospace;
   transition: --direction 0.3s;
   user-select: none;
+  margin: 0;
 }
 
 .ClockDisplayLabel:first-child {
