@@ -12,3 +12,9 @@
   font-size: 1em;
   margin-top: 1em;
 }
+
+.BiomeDescription__text h3::before {
+  content: "❦";
+  margin-right: 1ch;
+  color: var(--biome-accent);
+}
