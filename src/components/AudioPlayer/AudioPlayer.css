@@ -90,3 +90,12 @@
 .AudioPlayer__volumeSlider .ant-slider-rail {
   border: 1px solid light-dark(rgb(0 0 0 / 0.1), rgb(255 255 255 / 0.1));
 }
+
+.ant-slider .ant-slider-handle::after {
+  box-shadow: 0 0 0 var(--ant-slider-handle-line-width)
+    var(--biome-accent, --ant-slider-handle-color);
+}
+
+.ant-slider .ant-slider-track {
+  background-color: var(--biome-accent, var(--ant-slider-track-bg));
+}
