@@ -19,6 +19,12 @@
   background-position: center;
 }
 
+@media (max-width: 767px) {
+  .LandingHero {
+    background-position: 28.5% 50%;
+  }
+}
+
 .LandingHero__content {
   position: relative;
   z-index: 2;
