@@ -61,6 +61,14 @@
   aspect-ratio: 1456 / 816;
 }
 
+/**
+ * 1. Reduce the brightness of the images in dark mode to avoid them being a bit
+ *    too bright.
+ */
+[data-app-theme="dark"] .ArchetypeSelector__Image {
+  filter: brightness(0.8); /* 1 */
+}
+
 .ArchetypeSelector__Icon {
   font-size: 2.5em;
   filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.4));
@@ -71,27 +79,26 @@
   position: absolute;
   top: 0.75em;
   right: 0.75em;
-  width: 1.5em;
-  height: 1.5em;
+  width: 1.75em;
+  height: 1.75em;
   background: #2d6a4f;
   color: white;
   border-radius: 50%;
-  font-size: 1em;
+  font-size: 1.2em;
   font-weight: 700;
-  line-height: 1.5em;
+  line-height: 1.75em;
   text-align: center;
   border: 1px solid;
 }
 
 .ArchetypeSelector__Body {
-  padding: 1em 1.25em 1.25em;
+  padding: 1em 1.25em;
 }
 
 .ArchetypeSelector__Name {
   font-size: 1.25em;
   font-weight: 700;
-  margin-bottom: 8px;
-  color: var(--prome-muted);
+  margin-bottom: 0.5em;
 }
 
 .ArchetypeSelector__Card:has(:checked) .ArchetypeSelector__Name {
@@ -103,7 +110,7 @@
   font-style: italic;
   color: var(--prome-muted);
   line-height: 1.5;
-  margin: 0 0 1em;
+  margin: 0 0 1.25em;
   padding-left: 0.75em;
   border-left: 2px solid var(--ant-color-border);
 }
@@ -156,12 +163,11 @@
 }
 
 .ArchetypeSelector__Power {
-  border-radius: 0.5em;
-  padding: 0.5em 0.75em;
+  padding-top: 1em;
   font-size: 0.9em;
   line-height: 1.45;
-  background: rgb(255 255 255 / 0.05);
-  border: 1px solid var(--ant-color-border-secondary);
+  border-top: 1px dotted var(--ant-color-border-secondary);
+  min-height: 5lh;
 }
 
 .ArchetypeSelector__PowerLabel {
