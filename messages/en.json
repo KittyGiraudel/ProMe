@@ -672,7 +672,7 @@
       "eyebrow": "A game companion for “The Protector’s Memories”",
       "title": "ProMe",
       "tagline": "Your journal, map, and toolkit for journeying through a forgotten world.",
-      "cta": "Begin your journey",
+      "cta": "Go on an adventure",
       "sub": "Free · Optional account · Runs offline"
     },
     "features": {
@@ -767,7 +767,7 @@
     "final_cta": {
       "title": "Ready to begin your journey?",
       "sub": "Create your Protector and step into the world.",
-      "cta": "Create your Protector"
+      "cta": "Create a Protector"
     }
   },
   "pwa": {

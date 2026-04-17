@@ -672,7 +672,7 @@
       "eyebrow": "Une aide de jeu pour « *Les Souvenirs du Protecteur* »",
       "title": "ProMe",
       "tagline": "Votre journal, carte et codex pour explorer un monde oublié.",
-      "cta": "Commencez votre voyage",
+      "cta": "Partir à l’aventure",
       "sub": "Gratuit · Compte optionnel · Fonctionne hors-ligne"
     },
     "features": {
@@ -766,8 +766,8 @@
     },
     "final_cta": {
       "title": "Prêt·e à commencer votre voyage ?",
-      "sub": "Créez votre Protecteur et entrez dans le monde.",
-      "cta": "Créez votre Protecteur"
+      "sub": "Créez votre Protecteur et partez à l’aventure.",
+      "cta": "Créer un Protecteur"
     }
   },
   "pwa": {
