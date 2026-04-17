@@ -13,6 +13,10 @@
   margin-bottom: 0.5em;
 }
 
+.FAQ .Layout__content h2:target {
+  scroll-margin-top: 3em;
+}
+
 .FAQ .Layout__content :where(p, li) {
   font-size: 1.25em;
   line-height: 1.5;
