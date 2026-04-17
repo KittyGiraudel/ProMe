@@ -22,9 +22,9 @@ Le jeu est exceptionnel, mais demande de prendre des notes sur papier ; chose qu
 
 ## Est-ce utilisable sur mobile ?
 
-Utilisable ? Oui. Agréable ? Je ne suis pas certaine.
+Utilisable ? Absolument ; le site est entièrement responsive, et peut être installé à l’écran d’accueil comme une application native.
 
-De la même manière que le jeu papier donne une carte et fiche de personnage au format A4, le site est fait pour être utilisé sur un écran d’ordinateur qui offre de la place et visibilité. Le site est techniquement responsive, mais je ne sais pas si l’expérience de jeu sera très agréable sur mobile.
+Agréable ? C’est moins certain. De la même manière que le jeu papier donne une carte et fiche de personnage au format A4, le site est fait pour être utilisé sur un écran d’ordinateur qui offre de la place et visibilité. Le site est responsive, mais je ne sais pas si l’expérience de jeu sera aussi agréable sur mobile.
 
 ## Comment utiliser le site ?
 

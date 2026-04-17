@@ -22,9 +22,9 @@ The game is exceptional but requires taking notes on paper — which I personall
 
 ## Is it usable on mobile?
 
-Usable? Yes. Enjoyable? I’m not so sure.
+Usable? Absolutely. The site is fully responsive and can be installed on the home screen like a native app.
 
-Just as the physical game provides an A4-sized map and character sheet, this site is designed for use on a computer screen, which offers more space and visibility. The site is technically responsive, but I’m not certain how enjoyable the gaming experience will be on mobile.
+Enjoyable? That’s less certain. Just as the physical game provides an A4-sized map and character sheet, the site is designed for use on a computer screen that offers ample space and visibility. The site is responsive, but I don't know if the gaming experience will be as enjoyable on mobile.
 
 ## How do I use the site?
 
