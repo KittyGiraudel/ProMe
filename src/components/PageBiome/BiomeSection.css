@@ -2,6 +2,10 @@
   margin: 4em auto;
 }
 
+.BiomeSection:last-child {
+  margin-bottom: 0;
+}
+
 .BiomeSection__head {
   display: flex;
   align-items: center;
