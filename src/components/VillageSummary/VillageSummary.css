@@ -1,8 +1,9 @@
 .VillageSummary__list {
   padding-left: 2em;
+  margin-bottom: 0;
 }
 
-.VillageSummary__item {
+.VillageSummary__item:not(:last-child) {
   margin-bottom: 1em;
 }
 
