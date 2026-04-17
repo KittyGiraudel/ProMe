@@ -9,12 +9,6 @@ import { VisuallyHidden } from '../VisuallyHidden/VisuallyHidden'
 
 import './ArchetypeSelector.css'
 
-const ARCHETYPE_ICONS: Record<Archetype, string> = {
-  warrior: '⚔️',
-  pilgrim: '🧳',
-  bard: '🎵',
-}
-
 type ArchetypeSelectorProps = {
   value?: Archetype
   onChange?: (value: Archetype) => void
@@ -47,11 +41,12 @@ export function ArchetypeSelector({
               onChange={() => onChange?.(archetype)}
             />
             <div
-              className={`ArchetypeSelector__Image ArchetypeSelector__Image--${archetype}`}>
-              <span className='ArchetypeSelector__Icon'>
-                {ARCHETYPE_ICONS[archetype]}
-              </span>
-            </div>
+              className={`ArchetypeSelector__Image ArchetypeSelector__Image--${archetype}`}
+              style={
+                {
+                  '--archetype-image': `url("/images/archetype-${archetype}.avif")`,
+                } as React.CSSProperties
+              }></div>
             <div className='ArchetypeSelector__Body'>
               <div className='ArchetypeSelector__Name'>
                 {t(`common.archetypes.name.${archetype}`, {
@@ -89,7 +84,7 @@ export function ArchetypeSelector({
               </div>
               <div className='ArchetypeSelector__Power'>
                 <span className='ArchetypeSelector__PowerLabel'>
-                  {t('characters.identity.archetype_power_label')}
+                  {t(`common.archetypes.power.${archetype}_title`)}
                 </span>
                 {t(`common.archetypes.power.${archetype}_description`)}
               </div>

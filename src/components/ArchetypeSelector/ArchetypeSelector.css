@@ -49,23 +49,16 @@
 }
 
 .ArchetypeSelector__Image {
-  height: 6.5em;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-}
-
-.ArchetypeSelector__Image--warrior {
-  background: linear-gradient(160deg, #3d1f1f 0%, #6b2d2d 50%, #8b4a3a 100%);
-}
-
-.ArchetypeSelector__Image--pilgrim {
-  background: linear-gradient(160deg, #1f2d3d 0%, #2d4a6b 50%, #3a6b8b 100%);
-}
-
-.ArchetypeSelector__Image--bard {
-  background: linear-gradient(160deg, #3d3220 0%, #7a5c2a 50%, #a07840 100%);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: var(--archetype-image);
+  width: 100%;
+  aspect-ratio: 1456 / 816;
 }
 
 .ArchetypeSelector__Icon {
