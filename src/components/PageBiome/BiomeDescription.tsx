@@ -18,9 +18,7 @@ export function BiomeDescription({ biome }: Props) {
       className='BiomeDescription'
       id='biome-description'>
       <div className='BiomeDescription__text'>
-        <RichText
-          text={t(`biomes.${biome}.description`).replace(/\n/g, '  \n\n')}
-        />
+        <RichText text={t(`biomes.${biome}.description`)} />
       </div>
     </BiomeSection>
   )

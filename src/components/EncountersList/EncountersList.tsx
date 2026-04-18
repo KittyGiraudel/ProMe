@@ -23,13 +23,13 @@ export function EncountersList({ biome }: { biome: BiomeId }) {
               key={mergedKey}
               className='EncountersList__item'
               data-index={`${face} ${DICE[zeroIndex + 1]}`}>
-              <RichText text={t(mergedKey).replace(/\n/g, '  \n')} />
+              <RichText text={t(mergedKey)} />
             </li>
           )
         } else if (t.has(key)) {
           return (
             <li key={key} className='EncountersList__item' data-index={face}>
-              <RichText text={t(key).replace(/\n/g, '  \n')} />
+              <RichText text={t(key)} />
             </li>
           )
         }

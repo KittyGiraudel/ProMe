@@ -69,9 +69,11 @@ export function renderWithHighlights(
 export function RichText({
   text,
   headingIds,
+  lineBreaks = true,
 }: {
   text: string
   headingIds?: boolean
+  lineBreaks?: boolean
 }) {
   return (
     <ReactMarkdown
@@ -100,7 +102,7 @@ export function RichText({
           )
         },
       }}>
-      {text}
+      {lineBreaks ? text.replace(/\n/g, '  \n') : text}
     </ReactMarkdown>
   )
 }
