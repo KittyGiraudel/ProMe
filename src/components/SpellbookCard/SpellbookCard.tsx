@@ -58,6 +58,7 @@ export function SpellbookCard() {
                 <Spacing
                   key={field.key}
                   orientation='horizontal'
+                  size='small'
                   fullWidth
                   className='SpellbookCard__Row'>
                   <Form.Item
