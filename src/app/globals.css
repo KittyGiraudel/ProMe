@@ -154,9 +154,10 @@ a {
   --biome-light-contrast: var(--biome-mushroomJungle-light-contrast);
   --biome-image: var(--biome-mushroomJungle-image);
   --biome-image-position-banner: 0 90%;
+  --biome-image-position-cover-mobile: 14% 0%;
   --biome-image-position-cover-desktop: center 95%;
   --biome-image-position-cover-desktop-from: 95;
-  --biome-image-position-cover-desktop-to: 45;
+  --biome-image-position-cover-desktop-to: 35;
 }
 
 [data-biome="fieldSea"] {
