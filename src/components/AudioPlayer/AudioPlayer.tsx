@@ -197,9 +197,12 @@ export function AudioPlayer({
             <Tooltip
               title={t('audio_player.previous_track')}
               trigger={['hover', 'focus']}>
-              <Button onClick={onPrev} htmlType='button' size='small'>
-                <StepBackwardOutlined />
-              </Button>
+              <Button
+                onClick={onPrev}
+                htmlType='button'
+                size='small'
+                icon={<StepBackwardOutlined />}
+              />
             </Tooltip>
           )}
           <Tooltip
@@ -209,17 +212,20 @@ export function AudioPlayer({
               onClick={togglePlay}
               htmlType='button'
               size='small'
-              disabled={!url}>
-              {isPlaying ? <PauseOutlined /> : <PlayCircleOutlined />}
-            </Button>
+              disabled={!url}
+              icon={isPlaying ? <PauseOutlined /> : <PlayCircleOutlined />}
+            />
           </Tooltip>
           {onNext && (
             <Tooltip
               title={t('audio_player.next_track')}
               trigger={['hover', 'focus']}>
-              <Button onClick={onNext} htmlType='button' size='small'>
-                <StepForwardOutlined />
-              </Button>
+              <Button
+                onClick={onNext}
+                htmlType='button'
+                size='small'
+                icon={<StepForwardOutlined />}
+              />
             </Tooltip>
           )}
         </div>

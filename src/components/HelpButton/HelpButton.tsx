@@ -26,7 +26,6 @@ export function HelpButton({
     <Button
       {...props}
       type='text'
-      size='small'
       htmlType='button'
       icon={<QuestionCircleOutlined />}
       aria-label={label}

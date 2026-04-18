@@ -2,7 +2,7 @@
 
 import MoonFilled from '@ant-design/icons/lib/icons/MoonFilled'
 import SunFilled from '@ant-design/icons/lib/icons/SunFilled'
-import { Tooltip } from 'antd'
+import { Button, Tooltip } from 'antd'
 import { useTranslations } from 'next-intl'
 
 import './ThemeToggleButton.css'
@@ -30,13 +30,13 @@ export function ThemeToggleButton({
     <Tooltip
       title={disabled ? t('nav.theme.switchDisabled') : label}
       trigger={['hover', 'focus']}>
-      <button
+      <Button
         className={['ThemeToggleButton', className].filter(Boolean).join(' ')}
         onClick={onToggle}
         disabled={disabled}
-        aria-label={label}>
-        {theme === 'dark' ? <SunFilled /> : <MoonFilled />}
-      </button>
+        aria-label={label}
+        icon={theme === 'dark' ? <SunFilled /> : <MoonFilled />}
+      />
     </Tooltip>
   )
 }

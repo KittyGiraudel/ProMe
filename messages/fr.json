@@ -139,6 +139,10 @@
       "random_biome_discovered_title": "Nouveau biome découvert",
       "random_biome": "Biome aléatoire (1D6)",
       "sheet": "Feuille : ({sheetQ}, {sheetR})",
+      "sheet_right": "Feuille à droite",
+      "sheet_left": "Feuille à gauche",
+      "sheet_up": "Feuille en haut",
+      "sheet_down": "Feuille en bas",
       "skip_map": "Passer la carte",
       "title": "Cartographie",
       "unexplored": "Inexploré"

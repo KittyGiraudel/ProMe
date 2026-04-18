@@ -1,5 +1,5 @@
 import { MenuFoldOutlined } from '@ant-design/icons'
-import { Drawer } from 'antd'
+import { Button, Drawer } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { BIOME_IDS } from '@/constants/misc'
@@ -162,12 +162,13 @@ export function Navigation({
           <li
             className='Nav__item Nav__item--break'
             data-presence='narrow-only'>
-            <button
-              type='button'
+            <Button
+              htmlType='button'
               className='Nav__link'
-              onClick={() => setNavDrawerOpen(true)}>
-              <MenuFoldOutlined /> {t('nav.menu')}
-            </button>
+              onClick={() => setNavDrawerOpen(true)}
+              icon={<MenuFoldOutlined />}>
+              {t('nav.menu')}
+            </Button>
           </li>
           <li className='Nav__item' data-presence='any'>
             <ThemeToggleButton
