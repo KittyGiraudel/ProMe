@@ -128,6 +128,11 @@ export function JournalEntry({
     setEditingMode(field.key, true)
   }, [field.key, setFloatingMode, setEditingMode])
 
+  const handleDelete = useCallback(() => {
+    setEditingMode(field.key, false)
+    deleteEntry(field.name)
+  }, [field.key, field.name, deleteEntry, setEditingMode])
+
   return (
     <div id={entryAnchor} className='Journal__entry'>
       {!componentDisabled && !anyEditingActive ? (
@@ -165,7 +170,7 @@ export function JournalEntry({
         onCancel={handleModalCancel}
         onSave={handleModalSave}
         onFloat={handleModalFloat}
-        onDelete={() => deleteEntry(field.name)}
+        onDelete={handleDelete}
       />
     </div>
   )
