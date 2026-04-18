@@ -198,7 +198,7 @@
       "tab_edit": "Édition",
       "title": "Journal",
       "auto_map_move_content": "# De {curr} à {next}\n\n_Narrez les aventures de votre périple ici._",
-      "auto_map_move_content_discovered": "# De {curr} à {next}\n\n- Découverte du biome « {biomeName} »\n\n_Narrez le reste des aventures de votre périple ici._"
+      "auto_map_move_content_discovered": "# De {curr} à {next}\n\n- Découverte du biome {biomeName}\n\n_Narrez le reste des aventures de votre périple ici._"
     },
     "tools": {
       "card_action": "Tirer 1 carte",
