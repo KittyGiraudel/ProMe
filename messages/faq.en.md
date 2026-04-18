@@ -42,7 +42,7 @@ It’s just for syncing your data across multiple devices or browsers.
 
 By default, the site saves your characters locally in your browser. This means that changing browsers, devices, or clearing your cache will result in data loss.
 
-By logging in with your Google account, your characters are saved in the cloud, allowing you to access them from any device without risking data loss.
+By [logging in](/en/login) with your Google account, your characters are saved in the cloud, allowing you to access them from any device without risking data loss.
 
 Alternatively, you can export your characters in JSON format from their profile to reimport them later. This can be useful if you want to keep a save point before a particular gaming session: export your character so you can restore it if needed.
 

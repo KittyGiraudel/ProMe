@@ -781,7 +781,7 @@
   "auth": {
     "title": "Sign in",
     "sign_in_title": "Data backup",
-    "sign_in_prompt": "You can sign in to ProMe with your Google account to back up your data online. This will allow you to retrieve your characters even if you change browsers or devices. It is completely optional, and the site works entirely without a connection. Clicking the button below will redirect you to Google to sign in, then you will be redirected to the home page.",
+    "sign_in_prompt": "You can sign in to ProMe with your Google account to back up your data online. This will allow you to retrieve your characters even if you change browsers or devices. It is completely optional, and the site works entirely without a connection. Clicking the button below will redirect you to Google to sign in, then you will be redirected to the home page.\n\nFor more information, please see the [FAQ](/en/faq#what-is-the-user-account-for-).",
     "sign_in_with_google": "Continue with Google",
     "sign_in_success": "Sign in successful: syncing to cloud.",
     "online_status": "Back online: syncing to cloud.",

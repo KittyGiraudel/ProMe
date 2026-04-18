@@ -42,7 +42,7 @@ Juste à synchroniser vos données entre plusieurs appareils ou navigateurs.
 
 Par défaut, le site sauvegarde vos personnages localement dans votre navigateur. Cela signifie que changer de navigateur, d’appareil, ou vider le cache entraîne la perte des données.
 
-En vous connectant au site avec votre compte Google, vos personnages sont sauvegardés dans le cloud pour pouvoir y accéder depuis n’importe quel appareil, sans risque de perdre vos données.
+En vous [connectant au site](/fr/login) avec votre compte Google, vos personnages sont sauvegardés dans le cloud pour pouvoir y accéder depuis n’importe quel appareil, sans risque de perdre vos données.
 
 Sinon, vous pouvez exporter vos personnages au format JSON depuis leur fiche, pour pouvoir les réimporter. Cela peut être utile si vous voulez garder un point de sauvegarde avant une session de jeu particulière : exportez votre personnage pour pouvoir le restaurer si besoin.
 

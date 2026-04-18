@@ -781,7 +781,7 @@
   "auth": {
     "title": "Connexion",
     "sign_in_title": "Sauvegarde des données",
-    "sign_in_prompt": "Vous pouvez vous connecter à ProMe avec votre compte Google pour sauvegarder vos données en ligne. Cela vous permettra de retrouver vos personnages même si vous changez de navigateur ou d’appareil. C’est entièrement facultatif, et le site fonctionne entièrement sans connexion. Cliquer le bouton ci-dessous vous redigirera vers Google pour vous connecter, puis vous serez redirigé·e vers la page d’accueil.",
+    "sign_in_prompt": "Vous pouvez vous connecter à ProMe avec votre compte Google pour sauvegarder vos données en ligne. Cela vous permettra de retrouver vos personnages même si vous changez de navigateur ou d’appareil. C’est entièrement facultatif, et le site fonctionne entièrement sans connexion. Cliquer le bouton ci-dessous vous redigirera vers Google pour vous connecter, puis vous serez redirigé·e vers la page d’accueil.\n\nPour en savoir plus, veuillez consulter la [FAQ](/fr/faq#à-quoi-sert-le-compte-utilisateur-).",
     "sign_in_with_google": "Continuer avec Google",
     "sign_in_success": "Connexion réussie : synchronisation avec le cloud.",
     "online_status": "En ligne : synchronisation avec le cloud.",
