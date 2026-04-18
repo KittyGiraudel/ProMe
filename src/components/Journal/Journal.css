@@ -60,6 +60,7 @@
 
 .Journal__meta a {
   color: inherit;
+  text-decoration: none;
 }
 
 .Journal__meta a:hover {
