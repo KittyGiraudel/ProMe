@@ -86,7 +86,7 @@ export function ClockCard() {
           onClick={() => setPosition(position - 1)}>
           {t('characters.map.clock_back')}
         </Button>,
-        <span className='ClockCard__Label'>
+        <span className='ClockCard__Label' key='label'>
           <Tag color={isDay ? 'gold' : 'blue'} variant='outlined'>
             {phaseLabel}
           </Tag>

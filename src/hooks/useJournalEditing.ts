@@ -90,7 +90,6 @@ export function useJournalEditing(fields: FormListFieldData[]) {
     function editNewEntry() {
       if (fields.length > previousFieldCountRef.current) {
         const latest = fields[fields.length - 1]
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         if (latest) dispatch({ type: 'open_floating', fieldKey: latest.key })
       }
       previousFieldCountRef.current = fields.length
