@@ -1,5 +1,6 @@
 'use client'
 
+import { useMapScrollerAnchor } from '@/components/MapDisplay/useMapScrollerAnchor'
 import { MapLegendCol } from '@/components/MapLegendCol/MapLegendCol'
 import { MapLegendRow } from '@/components/MapLegendRow/MapLegendRow'
 import { MapRow } from '@/components/MapRow/MapRow'
@@ -13,18 +14,26 @@ export type MapDisplayProps = {
   sheet: SheetCoordinate
   selectedCell: CellCoordinate | null
   selectCell: (coord: CellCoordinate) => void
+  // When set, the map scrollport is scrolled so this cell is centered
+  // (narrow / scrollable layouts).
+  scrollAnchorCell?: CellCoordinate | null
 }
 
 export function MapDisplay({
   sheet,
   selectedCell,
   selectCell,
+  scrollAnchorCell = null,
 }: MapDisplayProps) {
   const { settings } = useSettings()
   const showAxes = settings.map.coordinatesDisplay !== 'cells'
+  const scrollerRef = useMapScrollerAnchor({ sheet, cell: scrollAnchorCell })
 
   return (
-    <div className='MapScroller' data-style={settings.map.style}>
+    <div
+      ref={scrollerRef}
+      className='MapScroller'
+      data-style={settings.map.style}>
       <div className='Map u-contain-layout'>
         {showAxes && (
           <>

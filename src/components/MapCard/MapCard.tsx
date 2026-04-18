@@ -88,6 +88,7 @@ export function MapCard({ isDead }: { isDead: boolean }) {
               sheet={visibleSheet}
               selectedCell={selectedCell}
               selectCell={toggleSelectCell}
+              scrollAnchorCell={isViewingCurrentSheet ? currentPosition : null}
             />
 
             <Form.Item name='map' noStyle>
