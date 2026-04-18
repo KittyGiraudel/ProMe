@@ -40,30 +40,36 @@ export function AudioPlayer({
   // Extracted so both the effect and togglePlay can create a Howl consistently.
   // The `wasPlayingRef` is updated via onplay/onpause so its value survives
   // effect cleanup.
-  const buildHowl = useCallback((src: string) => {
-    const sound = new Howl({
-      src: [src],
-      format: ['mp3'],
-      html5: true,
-      loop: true,
-      volume: volumeRef.current,
-      autoplay: getPWADisplayMode() === 'standalone',
-      onload: () => setDuration(sound.duration()),
-      onplay: () => {
-        setIsPlaying(true)
-        wasPlayingRef.current = true
-      },
-      onpause: () => {
-        setIsPlaying(false)
-        wasPlayingRef.current = false
-      },
-      // It's important not to set `isPlaying` to `false` on sound stop, because
-      // this is invoked automatically when unloading the sound. So as the sound
-      // fades out, Howler calls `stop`, which would turn off the player.
-      // onstop: () => setIsPlaying(false),
-    })
-    return sound
-  }, [])
+  const buildHowl = useCallback(
+    (src: string) => {
+      const sound = new Howl({
+        src: [src],
+        format: ['mp3'],
+        html5: true,
+        volume: volumeRef.current,
+        autoplay: getPWADisplayMode() === 'standalone',
+        onload: () => setDuration(sound.duration()),
+        onplay: () => {
+          setIsPlaying(true)
+          wasPlayingRef.current = true
+        },
+        onpause: () => {
+          setIsPlaying(false)
+          wasPlayingRef.current = false
+        },
+        // When the sound ends, go to the next track. This relies on the fact
+        // that we typically have multiple tracks, otherwise using `loop` would
+        // probably be better.
+        onend: () => onNext?.(),
+        // It's important not to set `isPlaying` to `false` on sound stop, because
+        // this is invoked automatically when unloading the sound. So as the sound
+        // fades out, Howler calls `stop`, which would turn off the player.
+        // onstop: () => setIsPlaying(false),
+      })
+      return sound
+    },
+    [onNext]
+  )
 
   useEffect(
     function handleBiomeChange() {
