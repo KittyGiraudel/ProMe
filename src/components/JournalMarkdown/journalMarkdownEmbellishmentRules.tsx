@@ -272,13 +272,15 @@ function staticJournalEmbellishmentRules(
       'word:success',
       t('common.check_success_word'),
       true,
-      ({ slice, reactKey }) => accentSpan('green', `✓ ${slice}`, reactKey)
+      ({ slice, reactKey }) =>
+        accentSpan('light-dark(green, #0dc90d)', `✓ ${slice}`, reactKey)
     ),
     journalLiteralRule(
       'word:failure',
       t('common.check_failure_word'),
       true,
-      ({ slice, reactKey }) => accentSpan('red', `✗ ${slice}`, reactKey)
+      ({ slice, reactKey }) =>
+        accentSpan('light-dark(red, #ff5c5c)', `✗ ${slice}`, reactKey)
     ),
     journalLiteralRule('symbol:sun', '☼', undefined, ({ slice, reactKey }) =>
       accentSpan('#d4a017', slice, reactKey)
