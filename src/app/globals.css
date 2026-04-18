@@ -364,3 +364,8 @@ a {
   content-visibility: auto;
   contain-intrinsic-size: 1px 160px;
 }
+
+a:not([class]) {
+  color: inherit;
+  text-decoration: underline;
+}

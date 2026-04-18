@@ -20,11 +20,11 @@
   min-width: 0;
 }
 
-.Footer__application a {
-  color: inherit;
+.Footer__revision {
+  font-family: monospace;
   text-decoration: underline;
 }
 
-.Footer__revision {
-  font-family: monospace;
+.Footer__application {
+  margin: 0;
 }
