@@ -10,7 +10,7 @@ import {
   Pagination,
 } from 'antd'
 import { useTranslations } from 'next-intl'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Button } from '@/components/Button/Button'
 import { Journal } from '@/components/Journal/Journal'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
@@ -103,6 +103,16 @@ export function JournalCardInner({
     )
   }, [filteredFields, currentPage, buttonInHeader])
 
+  const handlePageChange = useCallback(
+    (page: number) => {
+      setCurrentPage(page)
+      document.getElementById('journal')?.scrollIntoView({
+        block: 'center',
+      })
+    },
+    [setCurrentPage]
+  )
+
   const addEntryButton = (
     <Button onClick={addEntry} htmlType='button'>
       {t('characters.journal.add_journal_entry')}
@@ -150,7 +160,7 @@ export function JournalCardInner({
                       current={currentPage}
                       total={filteredFields.length}
                       pageSize={PAGE_SIZE}
-                      onChange={setCurrentPage}
+                      onChange={handlePageChange}
                       showSizeChanger={false}
                     />
                   </div>
