@@ -13,8 +13,8 @@ export function filterJournalFields(
   if (searchTerm === '') return fields
   const term = searchTerm.toLowerCase()
 
-  return fields.filter((_, index) =>
-    entries[index]?.content.toLowerCase().includes(term)
+  return fields.filter(field =>
+    entries[field.name]?.content.toLowerCase().includes(term)
   )
 }
 

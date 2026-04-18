@@ -34,7 +34,6 @@ const JOURNAL_MODAL_TEXTAREA_ROWS = {
 } as const
 
 type JournalEntryEditModalProps = {
-  open: boolean
   /** Form.List row index for `journalEntries`. */
   fieldName: number
   draftContent: string | undefined
@@ -48,7 +47,6 @@ type JournalEntryEditModalProps = {
  * Full-width modal: edit tab (bound to form field), live preview tab, cheatsheet column, footer actions.
  */
 export function JournalEntryEditModal({
-  open,
   fieldName,
   draftContent,
   onCancel,
@@ -68,7 +66,7 @@ export function JournalEntryEditModal({
 
   return (
     <Modal
-      open={open}
+      open
       title={t('characters.journal.modal_title')}
       onCancel={onCancel}
       mask={{ closable: false }}
@@ -129,6 +127,7 @@ export function JournalEntryEditModal({
                           className='Journal__modalEditor'
                           label={t('characters.journal.entry_content_label')}>
                           <Input.TextArea
+                            autoFocus
                             autoSize={textareaAutoSize}
                             className='Journal__textarea'
                             placeholder={t(

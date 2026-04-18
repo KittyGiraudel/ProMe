@@ -13,20 +13,12 @@ import './Journal.css'
 
 export function Journal({
   fields,
-  deleteEntry,
-  isEditing,
-  setEditingMode,
-  isFloating,
-  setFloatingMode,
-  anyEditingActive,
+  editEntry,
+  isEditorOpen,
 }: {
   fields: FormListFieldData[]
-  deleteEntry: (entryIndex: number) => void
-  isEditing: (fieldKey: number) => boolean
-  setEditingMode: (fieldKey: number, isEditing: boolean) => void
-  isFloating: (fieldKey: number) => boolean
-  setFloatingMode: (fieldKey: number | null) => void
-  anyEditingActive: boolean
+  editEntry: (fieldKey: number) => void
+  isEditorOpen: boolean
 }) {
   const { settings } = useSettings()
   const { getEntry } = useWatchedJournal()
@@ -47,26 +39,13 @@ export function Journal({
           content: (
             <JournalEntry
               field={field}
-              editing={isEditing(field.key)}
-              setEditingMode={setEditingMode}
-              deleteEntry={deleteEntry}
-              isFloating={isFloating(field.key)}
-              setFloatingMode={setFloatingMode}
-              anyEditingActive={anyEditingActive}
+              editEntry={editEntry}
+              isEditorOpen={isEditorOpen}
             />
           ),
         }
       }),
-    [
-      fields,
-      isEditing,
-      setEditingMode,
-      deleteEntry,
-      isFloating,
-      setFloatingMode,
-      anyEditingActive,
-      getEntry,
-    ]
+    [fields, editEntry, isEditorOpen, getEntry]
   )
 
   return (

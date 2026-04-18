@@ -13,10 +13,12 @@ import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Button } from '@/components/Button/Button'
 import { Journal } from '@/components/Journal/Journal'
+import { JournalEntryEditModal } from '@/components/Journal/JournalEntryEditModal'
+import { JournalEntryFloatingEditor } from '@/components/Journal/JournalEntryFloatingEditor'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { SettingsHint } from '@/components/SettingsHint/SettingsHint'
 import { PAGE_SIZE, useJournalActions } from '@/hooks/useJournalActions'
-import { useJournalEntryViewModes } from '@/hooks/useJournalEntryViewModes'
+import { useJournalEditing } from '@/hooks/useJournalEditing'
 import { useJournalSearch } from '@/hooks/useJournalSearch'
 import { randomId } from '@/lib/character/model'
 
@@ -59,13 +61,8 @@ export function JournalCardInner({
   const [currentPage, setCurrentPage] = useState(1)
   const totalCount = fields.length
 
-  const {
-    isEditing,
-    setEditingMode,
-    isFloating,
-    setFloatingMode,
-    anyEditingActive,
-  } = useJournalEntryViewModes(fields)
+  const { editEntry, isEditorOpen, closeEditor, floating, modal } =
+    useJournalEditing(fields)
   const { addEntry, removeEntry } = useJournalActions({
     count: totalCount,
     setCurrentPage,
@@ -106,12 +103,15 @@ export function JournalCardInner({
   const handlePageChange = useCallback(
     (page: number) => {
       setCurrentPage(page)
-      document.getElementById('journal')?.scrollIntoView({
-        block: 'center',
-      })
+      document.getElementById('journal')?.scrollIntoView({ block: 'center' })
     },
     [setCurrentPage]
   )
+
+  const handleDelete = useCallback(() => {
+    closeEditor()
+    if (modal) removeEntry(modal.fieldName)
+  }, [closeEditor, modal, removeEntry])
 
   const addEntryButton = (
     <Button onClick={addEntry} htmlType='button'>
@@ -146,12 +146,8 @@ export function JournalCardInner({
               <>
                 <Journal
                   fields={pagedFields}
-                  deleteEntry={removeEntry}
-                  isEditing={isEditing}
-                  setEditingMode={setEditingMode}
-                  isFloating={isFloating}
-                  setFloatingMode={setFloatingMode}
-                  anyEditingActive={anyEditingActive}
+                  editEntry={editEntry}
+                  isEditorOpen={isEditorOpen}
                 />
 
                 {filteredFields.length > PAGE_SIZE && (
@@ -170,6 +166,11 @@ export function JournalCardInner({
           </>
         )}
       </Card>
+
+      {floating && <JournalEntryFloatingEditor {...floating} />}
+
+      {modal && <JournalEntryEditModal {...modal} onDelete={handleDelete} />}
+
       {!isDead && <SettingsHint hintId='journal' />}
     </>
   )
