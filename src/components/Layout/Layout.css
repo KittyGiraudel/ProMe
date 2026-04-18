@@ -45,11 +45,11 @@
 }
 
 .Layout__footer {
-  --ant-layout-footer-padding: 2.5em;
+  --ant-layout-footer-padding: 2.5em 2.5em 1.5em;
 }
 
 @media (max-width: 767px) {
   .Layout__footer.Layout__footer {
-    padding: 1em;
+    --ant-layout-footer-padding: 1.5em 1em;
   }
 }
