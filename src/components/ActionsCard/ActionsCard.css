@@ -13,6 +13,10 @@
   padding: 1em 0;
 }
 
+.ActionsCard__item:last-child {
+  border-bottom: none;
+}
+
 .ActionsCard__item-icon > span {
   font-size: 1.5em;
   background-color: var(--prome-surface);
