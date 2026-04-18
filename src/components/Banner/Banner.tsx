@@ -18,7 +18,7 @@ export function Banner({ biome, withBannerImage }: BannerProps) {
         data-pattern={!withBannerImage}
         data-image={withBannerImage}
       />
-      <BannerArt />
+      {!withBannerImage && <BannerArt />}
     </div>
   )
 }
