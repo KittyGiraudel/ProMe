@@ -1,10 +1,21 @@
+/**
+ * 1. Reset the default styles from <fieldset>.
+ * 2. Allow horizontal scrolling on mid-size screens.
+ */
 .ArchetypeSelector {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(300px, 1fr));
   gap: 1em;
-  border: none;
-  margin: 0;
-  padding: 0;
+  border: none; /* 1 */
+  margin: 0; /* 1 */
+  padding: 0; /* 1 */
+  overflow: auto; /* 2 */
+}
+
+@media (max-width: 600px) {
+  .ArchetypeSelector {
+    grid-template-columns: 1fr;
+  }
 }
 
 .ArchetypeSelector__Input {
@@ -18,29 +29,36 @@
   white-space: nowrap;
 }
 
+/**
+ * 1. Align inner rows across cards so they all look similar.
+ * 2. Number of rows: image, name, quote, stats, power.
+ * 3. Gap between rows.
+ * 4. Position context for the checkmark icon.
+ */
 .ArchetypeSelector__Card {
-  display: block;
-  background: var(--ant-color-bg-container);
+  display: grid;
+  grid-template-rows: subgrid; /* 1 */
+  grid-row: span 5; /* 2 */
+  gap: 0.5em; /* 3 */
+  position: relative; /* 4 */
+  background-color: var(--ant-color-bg-container);
   border: 2px solid var(--ant-color-border);
   border-radius: 2em;
   corner-shape: squircle;
-  overflow: hidden;
   cursor: pointer;
-  transition:
-    background-color 0.15s,
-    border-color 0.15s,
-    box-shadow 0.15s;
+  transition: 0.15s;
+  padding: 0 1em 1em;
 }
 
 .ArchetypeSelector__Card:hover {
-  background-color: rgba(45, 106, 79, 0.04);
+  background-color: rgb(45 106 79 / 0.04);
   border-color: #8ab4a0;
-  box-shadow: 0 2px 8px rgba(45, 106, 79, 0.12);
+  box-shadow: 0 2px 8px rgb(45 106 79 / 0.12);
 }
 
-.ArchetypeSelector__Card:has(:checked) {
+.ArchetypeSelector__Card:has(input:checked) {
   border-color: #2d6a4f;
-  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.12);
+  box-shadow: 0 0 0 3px rgb(45 106 79 / 0.12);
 }
 
 .ArchetypeSelector__Card:has(:focus-visible) {
@@ -48,17 +66,23 @@
   outline-offset: 1px;
 }
 
-.ArchetypeSelector__Image {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+/**
+ * 1. Image ratio in pixels (should probably be resized to a more reasonable size).
+ * 2. Negate the inline padding from the card so the image is full-bleed.
+ */
+.ArchetypeSelector__Card::before {
+  content: "";
+  display: block;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   background-image: var(--archetype-image);
-  width: 100%;
-  aspect-ratio: 1456 / 816;
+  aspect-ratio: 1456 / 816; /* 1 */
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  corner-shape: inherit;
+  margin-bottom: 0.5em;
+  margin-inline: -1em; /* 2 */
 }
 
 /**
@@ -69,19 +93,14 @@
   filter: brightness(0.8); /* 1 */
 }
 
-.ArchetypeSelector__Icon {
-  font-size: 2.5em;
-  filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.4));
-}
-
-.ArchetypeSelector__Card:has(:checked) .ArchetypeSelector__Image::after {
+.ArchetypeSelector__Card:has(input:checked)::after {
   content: "✓";
   position: absolute;
   top: 0.75em;
   right: 0.75em;
   width: 1.75em;
   height: 1.75em;
-  background: #2d6a4f;
+  background-color: #2d6a4f;
   color: white;
   border-radius: 50%;
   font-size: 1.2em;
@@ -91,18 +110,9 @@
   border: 1px solid;
 }
 
-.ArchetypeSelector__Body {
-  padding: 1em 1.25em;
-}
-
 .ArchetypeSelector__Name {
   font-size: 1.25em;
   font-weight: 700;
-  margin-bottom: 0.5em;
-}
-
-.ArchetypeSelector__Card:has(:checked) .ArchetypeSelector__Name {
-  color: var(--prome-text);
 }
 
 .ArchetypeSelector__Quote {
@@ -110,19 +120,15 @@
   font-style: italic;
   color: var(--prome-muted);
   line-height: 1.5;
-  margin: 0 0 1.25em;
-  padding-left: 0.75em;
+  margin: 0 0 1em;
+  padding-left: 1em;
   border-left: 2px solid var(--ant-color-border);
-}
-
-.ArchetypeSelector__Card:has(:checked) .ArchetypeSelector__Quote {
-  border-left-color: var(--prome-border);
 }
 
 .ArchetypeSelector__Stats {
   display: flex;
   gap: 0.75em;
-  margin-bottom: 1em;
+  margin-bottom: 0.75em;
 }
 
 .ArchetypeSelector__StatPill {
@@ -167,7 +173,6 @@
   font-size: 0.9em;
   line-height: 1.45;
   border-top: 1px dotted var(--ant-color-border-secondary);
-  min-height: 5lh;
 }
 
 .ArchetypeSelector__PowerLabel {
@@ -178,10 +183,4 @@
   letter-spacing: 0.5px;
   color: #9b8b72;
   margin-bottom: 0.25em;
-}
-
-@media (max-width: 600px) {
-  .ArchetypeSelector {
-    grid-template-columns: 1fr;
-  }
 }
