@@ -93,7 +93,7 @@
 
 .ant-slider .ant-slider-handle::after {
   box-shadow: 0 0 0 var(--ant-slider-handle-line-width)
-    var(--biome-accent, --ant-slider-handle-color);
+    var(--biome-accent, var(--ant-slider-handle-color));
 }
 
 .ant-slider .ant-slider-track {
