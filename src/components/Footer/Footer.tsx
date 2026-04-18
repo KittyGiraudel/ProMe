@@ -10,7 +10,7 @@ export function Footer() {
 
   return (
     <div className='Footer'>
-      <span className='Footer__copyright'>{t('footer.copyright')}</span>
+      <p className='Footer__copyright'>{t('footer.copyright')}</p>
       <p className='Footer__application'>
         {t.rich('footer.application', {
           link_author: chunks => (
