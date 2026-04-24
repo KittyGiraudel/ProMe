@@ -8,6 +8,12 @@
   --serif-font: Georgia, "Times New Roman", serif;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    scroll-behavior: smooth;
+  }
+}
+
 [data-app-theme="light"] {
   color-scheme: light;
 }
