@@ -32,26 +32,56 @@
   flex-direction: row-reverse;
 }
 
+@keyframes parallax {
+  from {
+    transform: perspective(600px) translateY(-1.125em) rotateY(-6.8deg)
+      rotateX(3.2deg);
+  }
+  to {
+    transform: perspective(600px) translateY(1.125em) rotateY(-13.2deg)
+      rotateX(6.8deg);
+  }
+}
+
+@keyframes parallax-reversed {
+  from {
+    transform: perspective(600px) translateY(-1.125em) rotateY(6.8deg)
+      rotateX(3.2deg);
+  }
+  to {
+    transform: perspective(600px) translateY(1.125em) rotateY(13.2deg)
+      rotateX(6.8deg);
+  }
+}
+
 @media (min-width: 1025px) {
   .LandingFeature[data-reversed="true"] .LandingFeature__visual {
-    --feature-visual-rotate-y: 10deg;
-    transform: perspective(600px) translateY(var(--feature-visual-shift-y))
-      rotateY(var(--feature-visual-rotate-y))
-      rotateX(var(--feature-visual-rotate-x));
+    transform: perspective(600px) rotateY(10deg) rotateX(5deg);
     filter: drop-shadow(0 24px 32px rgb(0 0 0 / 0.2));
-    transition: transform 220ms ease-out;
     transform-style: preserve-3d;
     will-change: transform;
   }
 
   .LandingFeature:not([data-reversed="true"]) .LandingFeature__visual {
-    --feature-visual-rotate-y: -10deg;
-    transform: perspective(600px) translateY(var(--feature-visual-shift-y))
-      rotateY(var(--feature-visual-rotate-y))
-      rotateX(var(--feature-visual-rotate-x));
+    transform: perspective(600px) rotateY(-10deg) rotateX(5deg);
     filter: drop-shadow(0 24px 32px rgb(0 0 0 / 0.2));
-    transition: transform 220ms ease-out;
     will-change: transform;
+  }
+}
+
+@media (min-width: 1025px) and (prefers-reduced-motion: no-preference) {
+  .LandingFeature:not([data-reversed="true"]) .LandingFeature__visual {
+    animation: parallax linear both;
+    animation-duration: auto;
+    animation-timeline: view();
+    animation-range: cover 0% cover 100%;
+  }
+
+  .LandingFeature[data-reversed="true"] .LandingFeature__visual {
+    animation: parallax-reversed linear both;
+    animation-duration: auto;
+    animation-timeline: view();
+    animation-range: cover 0% cover 100%;
   }
 }
 
@@ -131,15 +161,11 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  --feature-visual-shift-y: 0px;
-  --feature-visual-rotate-x: 5deg;
-  --feature-visual-rotate-y: -10deg;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .LandingFeature__visual {
-    --feature-visual-shift-y: 0px !important;
-    --feature-visual-rotate-x: 5deg !important;
+    animation: none !important;
   }
 }
 
@@ -253,5 +279,6 @@
    */
   .LandingFeature:has(.DiceVisual) .LandingFeature__visual {
     transform: none; /* 1 */
+    animation: none; /* 1 */
   }
 }
