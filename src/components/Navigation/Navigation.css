@@ -117,6 +117,7 @@ button.Nav__link {
   border: 0;
   background: none;
   font: inherit;
+  height: auto !important;
 }
 
 /** Active state ------------------------------------------------------------ */
