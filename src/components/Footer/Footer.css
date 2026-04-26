@@ -4,7 +4,7 @@
   position: relative;
   overflow: hidden;
   border-top: 1px solid var(--biome-border, var(--prome-border));
-  padding-top: 1em;
+  padding-top: 2.5em;
   color: var(--biome-text-muted, var(--prome-muted));
 }
 

@@ -5,7 +5,6 @@
   color: var(--biome-text);
   display: flex;
   flex-direction: column;
-  gap: 0.5em;
 }
 
 .BiomeDescription__text h3 {

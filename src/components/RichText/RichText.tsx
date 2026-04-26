@@ -102,7 +102,7 @@ export function RichText({
           )
         },
       }}>
-      {lineBreaks ? text.replace(/\n/g, '  \n') : text}
+      {lineBreaks ? text.replace(/\n/g, '  \n\n') : text}
     </ReactMarkdown>
   )
 }
