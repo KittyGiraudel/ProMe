@@ -24,7 +24,7 @@ export function CharacterLibrary() {
   return (
     <Layout
       title={t('characters.title')}
-      bannerBiome='floodedPlains'
+      bannerBiome='sunkenSavanna'
       breadcrumbs={[
         { title: t('nav.home'), path: '/' },
         { title: t('nav.characters'), path: '/characters' },

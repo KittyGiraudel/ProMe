@@ -5,7 +5,7 @@ import type { ReactNode } from 'react'
  * All journal inline highlighting is expressed as an ordered list of these rules.
  */
 export type JournalEmbellishUiRule = {
-  /** Stable id (e.g. `biome:shadowForest`, `journalRef:village`) for tests and debugging. */
+  /** Stable id (e.g. `biome:shadowWoods`, `journalRef:village`) for tests and debugging. */
   id: string
   /**
    * If this rule matches `text` starting at `pos`, return the exclusive end index and matched slice.

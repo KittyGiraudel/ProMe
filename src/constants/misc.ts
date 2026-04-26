@@ -48,12 +48,12 @@ export const FACTIONS: readonly Faction[] = [
 ] as const
 
 export const BIOME_IDS: readonly BiomeId[] = [
-  'shadowForest',
-  'floodedPlains',
+  'shadowWoods',
+  'sunkenSavanna',
   'mushroomJungle',
-  'fieldSea',
-  'silentDesert',
-  'titanGardens',
+  'prairieSea',
+  'silentWastes',
+  'titanGarden',
 ] as const
 
 export const ARCHETYPES: readonly Archetype[] = [

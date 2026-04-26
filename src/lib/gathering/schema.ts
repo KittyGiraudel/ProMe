@@ -1,6 +1,6 @@
 import type { BiomeId } from '@/lib/types'
 
-export type GatherableBiomeId = Exclude<BiomeId, 'floodedPlains'>
+export type GatherableBiomeId = Exclude<BiomeId, 'sunkenSavanna'>
 
 export type GatheringEntry =
   | { type: 'collectible'; regex: RegExp }
@@ -16,8 +16,8 @@ const ITEM_REGEX = /^(\d+)\s+(?:×\s+)?(.+)$/
 const ITEM_REGEX_WITH_COMMA = /^([\d, ]+)\s+(?:×\s+)?(.+)$/
 
 export const GATHERING_SCHEMA: Record<BiomeId, BiomeGathering | null> = {
-  floodedPlains: null,
-  shadowForest: {
+  sunkenSavanna: null,
+  shadowWoods: {
     '1': { type: 'collectible', regex: ITEM_REGEX },
     '2': { type: 'collectible', regex: ITEM_REGEX },
     '3': { type: 'collectible', regex: ITEM_REGEX },
@@ -33,7 +33,7 @@ export const GATHERING_SCHEMA: Record<BiomeId, BiomeGathering | null> = {
     '5': { type: 'collectible', regex: ITEM_REGEX },
     '6': { type: 'choice' },
   },
-  fieldSea: {
+  prairieSea: {
     '1': { type: 'money', regex: ITEM_REGEX },
     '2': { type: 'collectible', regex: ITEM_REGEX },
     '3': { type: 'collectible', regex: ITEM_REGEX },
@@ -41,7 +41,7 @@ export const GATHERING_SCHEMA: Record<BiomeId, BiomeGathering | null> = {
     '5': { type: 'collectible', regex: ITEM_REGEX },
     '6': { type: 'choice' },
   },
-  silentDesert: {
+  silentWastes: {
     '1': { type: 'money', regex: ITEM_REGEX },
     '2': { type: 'collectible', regex: ITEM_REGEX },
     '3': { type: 'collectible', regex: ITEM_REGEX },
@@ -49,7 +49,7 @@ export const GATHERING_SCHEMA: Record<BiomeId, BiomeGathering | null> = {
     '5': { type: 'collectible', regex: ITEM_REGEX },
     '6': { type: 'choice' },
   },
-  titanGardens: {
+  titanGarden: {
     '1': { type: 'none' },
     '2': { type: 'money', regex: ITEM_REGEX },
     '3': { type: 'money', regex: ITEM_REGEX_WITH_COMMA },

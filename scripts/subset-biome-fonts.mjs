@@ -23,10 +23,10 @@ const ROOT = join(__dirname, '..')
 // string of additional CSS declarations applied to the biome's title element.
 const FONTS = [
   {
-    biome: 'shadowForest',
+    biome: 'shadowWoods',
     family: 'Caesar Dressing',
     file: 'caesar-dressing',
-    text: 'La Forêt des OmbresThe Shadow Forest',
+    text: 'La Forêt des OmbresThe Shadow Woods',
   },
   {
     biome: 'mushroomJungle',
@@ -36,28 +36,28 @@ const FONTS = [
     wordSpacing: '-0.5em', // This font has abnormally wide word-spacing
   },
   {
-    biome: 'floodedPlains',
+    biome: 'sunkenSavanna',
     family: 'Rubik Marker Hatch',
     file: 'rubik-marker-hatch',
-    text: 'Les Plaines InondéesThe Flooded Plains',
+    text: 'Les Plaines InondéesThe Sunken Savanna',
   },
   {
-    biome: 'titanGardens',
+    biome: 'titanGarden',
     family: 'Mountains of Christmas',
     file: 'mountains-of-christmas',
-    text: 'Les Jardins TitanesquesThe Titan Gardens',
+    text: 'Les Jardins TitanesquesThe Titan Garden',
   },
   {
-    biome: 'fieldSea',
+    biome: 'prairieSea',
     family: 'Mystery Quest',
     file: 'mystery-quest',
-    text: 'La Mer ChampêtreThe Sea of Fields',
+    text: 'La Mer ChampêtreThe Prairie Sea',
   },
   {
-    biome: 'silentDesert',
+    biome: 'silentWastes',
     family: 'Fredericka the Great',
     file: 'fredericka-the-great',
-    text: 'Le Désert SilencieuxThe Silent Desert',
+    text: 'Le Désert SilencieuxThe Silent Wastes',
   },
 ]
 

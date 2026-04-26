@@ -1,6 +1,6 @@
 {
   "biomes": {
-    "shadowForest": {
+    "shadowWoods": {
       "name": "Forêt des ombres",
       "title": "La Forêt des Ombres",
       "teaser": "Entre les géants veilleurs, l’ombre murmure des légendes et la lumière dessine des clairières : bienvenue dans la forêt qui protège ses secrets comme un sanctuaire.",
@@ -8,7 +8,7 @@
       "magic": "Comment vivez-vous votre amitié avec la nuit ? Comment l’obscurité peut abriter d’autres sentiments que la peur ?",
       "location": "Vous déambulez actuellement dans la <b>forêt des ombres</b>."
     },
-    "floodedPlains": {
+    "sunkenSavanna": {
       "name": "Plaines inondées",
       "title": "Les Plaines Inondées",
       "teaser": "L’horizon avale le sol, puis vos pas s’enfoncent dans une plaine inondée, où l’eau apaisante berce vos chevilles entre des îlots d’arbres géants.",
@@ -24,7 +24,7 @@
       "magic": "Comment ce qui se nourrit de la mort peut-il donner de la force à ce qui est vivant ?",
       "location": "Vous arpentez actuellement une <b>jungle de champignons</b>."
     },
-    "fieldSea": {
+    "prairieSea": {
       "name": "Mer champêtre",
       "title": "La Mer Champêtre",
       "teaser": "Le vent soulève une mélodie d’herbe et de grillons, tandis qu’un tapis d’or infini ondule sous le soleil, révélant une terre d’abondance.",
@@ -32,7 +32,7 @@
       "magic": "Comment pouvez-vous faire une sorte que le vent souffle en votre faveur ? Comment la verdure peut-elle vous aider ?",
       "location": "Vous traversez actuellement une <b>mer champêtre</b>."
     },
-    "silentDesert": {
+    "silentWastes": {
       "name": "Désert silencieux",
       "title": "Le Désert Silencieux",
       "teaser": "Le vent brûlant déforme l’horizon, sculptant des plateaux rouges où les cactus se dressent, gardiens d’un silence absolu.",
@@ -40,7 +40,7 @@
       "magic": "Comment le silence peut-il vous soutenir et le bruit vous protéger ?",
       "location": "Vous errez actuellement dans le <b>désert silencieux</b>."
     },
-    "titanGardens": {
+    "titanGarden": {
       "name": "Jardins titanesques",
       "title": "Les Jardins Titanesques",
       "teaser": "Une avalanche de pétales vous enveloppe : un jardin infini de lys, tournesols et roses s’élève vers le ciel, où flottent des baleines luxuriantes.",
@@ -381,7 +381,7 @@
       "url": "Copier le lien (URL)"
     },
     "encounters": {
-      "floodedPlains": {
+      "sunkenSavanna": {
         "1": "**L’eau qui entoure vos jambes semble guérir votre fatigue et vous encourager à voyager.** Vous avez un bonus de +1 Courage (maximum : 5) jusqu’à ce que vous franchissiez la frontière entre le jour et la nuit sur l’Horloge.",
         "2": "**Un voyageur croise votre chemin.** Allez à la page 57 et [définissez](/fr/generators/npc) qui vous avez rencontré.\n*Si vous revenez ici, le voyageur ne sera plus là.*",
         "5": "**Vous rencontrez un Hérissin.** Pour en savoir plus sur ces créatures, lisez la page 22. **Tirez une carte** pour savoir quel type de Hérisson vous avez trouvé.\n- ♥♦ Un Hérissin **paisible**.\n- ♠♣ Un Hérissin **agressif**.",
@@ -395,26 +395,26 @@
         "6": "**Vous découvrez un Bolet Titan étendu au sol.** Il a péri ou oublié de se réveiller, donnant ainsi vie à des milliers d’autres champignons.\n*Rendez-vous à la page 26 and choisissez un objet dans la table de collecte même si vous n’avez pas d’équipement d’escalade.*",
         "3|4": "**Vous découvrez un groupe de Mousserons.**\nPour déterminer leur nombre, lancez 1D6.\n*Pour en savoir plus sur les Mousserons, reportez-vous page 27.*"
       },
-      "fieldSea": {
+      "prairieSea": {
         "1": "**De forts vents contraires rendent votre voyage laborieux.** Mangez ou réussissez un test de Courage pour leur résister. Si vous échouez, perdez 1 point d’Endurance ou l’objet de votre choix.\n*La prochaine fois que vous passerez à cet endroit, ces vents violents auront cessé.*",
         "2": "**Un voyageur croise votre chemin.** Allez à la page 57 et définissez qui vous avez rencontré.\n*Si vous revenez ici, le voyageur ne sera plus là.*",
         "3": "**Vous découvrez un petit jardin communautaire !** Allez à la *table de collecte* (page 30) et choisissez-y l’objet de votre choix sans avoir besoin de l’outil approprié. Marquez ce jardin comme étant **récolté**. Vous devez **arroser** le jardin pour pouvoir le réutiliser un autre jour.",
         "6": "**Vous rencontrez une créature.** Tirez une carte de la pioche pour savoir quelle créature vous avez trouvée.\n- ♦ Un Sauriflore **rouge** (voir page 30).\n- ♥ Un Sauriflore **jaune** (voir page 30).\n- ♣ Un Sauriflore **blanc** (voir page 30).\n- ♠ Un Pizi (voir page 62).",
         "4|5": "**Vous arrivez dans une ferme Cucurbitus.**\n*Pour en savoir plus sur les Cucurbitus, reportez-vous à la page 30.*\nLorsque vous trouvez une ferme de Cucurbitus, allez à la page 42 et **tirez 5 cartes** pour définir à quoi elle ressemble."
       },
-      "shadowForest": {
+      "shadowWoods": {
         "1": "**Des ombres denses et ancestrales vous étreignent étroitement.** En raison de l’obscurité, tout ce que vous avez trouvé dans ces trois cases de la Forêt des Ombres est effacé de votre journal et de votre carte.\n*Si vous repassez par cette case, tirez d’autres rencontres.*",
         "4": "**Vous trouvez un Essaim de lucioles.** Une fois par jour, si vous passez par cet endroit, vous pouvez récupérer 1 point de n’importe quel Attribut.",
         "2|3": "**Vous arrivez dans un [village Bruja](/fr/generators/village?f=bruja).**\nPour en savoir plus sur les Brujas, voir page 18. Lorsque vous trouvez un village Bruja, allez à la page 43 et **tirez 5 cartes** pour définir le lieu.",
         "5|6": "**Vous rencontrez une créature.** Tirez une carte pour savoir laquelle :\n- ♦ Un groupe de **Yabas** (voir page 19).\n- ♥ Un **Yaba** perdu (voir page 19).\n- ♣ Un **Arbre Guerrier**, ce qui déclenche un combat (voir page 19). \n- ♠ Un **Pizi** (voir page 62)."
       },
-      "silentDesert": {
+      "silentWastes": {
         "1": "**Une Ruine émerge des rochers sablonneux.**\n*Passez à la page 63 si vous voulez l’explorer.*",
         "2": "**Vous découvrez une oasis.** *Pour en savoir plus, reportez-vous à la page 36.*\nTirez une carte pour savoir quel type d’oasis vous avez trouvé.\n- ♥♦ Un paradis de palmiers.\n- ♠♣ Un sanctuaire de cactus.",
         "3|4": "**Vous rencontrez un Kiore.** *Pour en savoir plus, consultez la page 34.\nAllez à la page 57 si vous voulez [définir la personnalité](/fr/generators/npc) du Kiore.\nSi vous revenez ici, le Kiore ne sera plus là.*",
         "5|6": "**Vous rencontrez un Scarabée du désert.** *Pour en savoir plus, lisez la page 37.*\nTirez une carte pour découvrir quel type de Scarabée vous avez rencontré.\n- ♦ Un Scarabée **paisible**.\n- ♥ Un Scarabée **agressif**.\n- ♠♣ Un Scarabée **retourné**."
       },
-      "titanGardens": {
+      "titanGarden": {
         "1": "**Vous faites face à un essaim d’abeilles géantes.** Elles foncent vers vous pour attaquer, et vous devez soit les combattre soit fuir.\n*La prochaine fois que vous passez dans cette case, cet événement se répète.*",
         "4": "**Vous découvrez un champ de pétales d’or.** Tirez une carte de la pioche pour découvrir quel type de fleurs vous avez trouvé. *Dans les deux cas, plus rien ne poussera ici après votre passage.*\n- ♥♦ Des pétales d’or — peuvent être récoltés et vendus pour 100 pièces.\n- ♠♣ Des pousses d’or — peuvent être récoltées comme 1D6 nourriture.",
         "5": "**Vous rencontrez une baleine luxuriante.** *Pour en savoir plus, lisez la page 40.*\nPiochez une carte pour savoir quel type de baleine vous rencontrez.\n- ♥♦ Une baleine luxuriante **paisible**.\n- ♠♣ Une baleine luxuriante **agressive**.",
@@ -423,7 +423,7 @@
       }
     },
     "gathering": {
-      "shadowForest": {
+      "shadowWoods": {
         "1": "1 torche",
         "2": "2 × Racine",
         "3": "3 × Bois",
@@ -441,7 +441,7 @@
         "6": "L’un des choix ci-dessus",
         "warning": "La collecte dans la Jungle de Champignons nécessite de trouver et d’atteindre le sommet d’un Bolet Titan (voir page 26)."
       },
-      "fieldSea": {
+      "prairieSea": {
         "1": "10 pièces",
         "2": "2 × Pomme de terre",
         "3": "2 × Champignon commun",
@@ -450,7 +450,7 @@
         "6": "L’un des choix ci-dessus",
         "hint": "Pour collecter des ressources dans la Mer Champêtre, vous pouvez vous aider de Ciseaux de jardinage. Pour les utiliser, ôtez-leur 1 point de durabilité dans puis choisissez l’objet de votre choix dans la table de collecte ci-dessus. Sinon, effectuez un Test de Courage avec succès pour vous passer de l’équipement nécessaire."
       },
-      "silentDesert": {
+      "silentWastes": {
         "1": "10 pièces",
         "2": "2 × Charbon",
         "3": "2 × Fer",
@@ -459,7 +459,7 @@
         "6": "L’un des choix ci-dessus",
         "hint": "Pour collecter des ressources dans le Désert Silencieux, vous pouvez vous aider d’une Pioche. Pour l’utiliser, ôtez-lui 1 point de durabilité dans puis choisissez l’objet de votre choix dans la table de collecte ci-dessus. Sinon, effectuez un Test de Courage avec succès pour vous passer de l’équipement nécessaire."
       },
-      "titanGardens": {
+      "titanGarden": {
         "1": "Un Jardin de Laréons (page 40)",
         "2": "100 pièces",
         "3": "1 000 pièces",

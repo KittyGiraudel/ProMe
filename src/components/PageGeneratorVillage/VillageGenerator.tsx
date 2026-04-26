@@ -132,7 +132,7 @@ export function VillageGenerator({
   return (
     <Layout
       title={t('village.title')}
-      bannerBiome='titanGardens'
+      bannerBiome='titanGarden'
       breadcrumbs={[
         { title: t('nav.home'), path: '/' },
         { title: t('nav.village_generator'), path: '/generators/village' },

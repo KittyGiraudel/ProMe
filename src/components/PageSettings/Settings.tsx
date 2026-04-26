@@ -150,7 +150,7 @@ export function Settings() {
   return (
     <Layout
       title={t('settings.title')}
-      bannerBiome='silentDesert'
+      bannerBiome='silentWastes'
       breadcrumbs={[
         { title: t('nav.home'), path: '/' },
         { title: t('nav.settings'), path: '/settings' },

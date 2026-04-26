@@ -8,7 +8,7 @@
   --biome-text-muted  Decorative text only (teaser, hints) — 3:1 target
 */
 
-[data-app-theme="dark"]:has(.BiomePage[data-biome="shadowForest"]) {
+[data-app-theme="dark"]:has(.BiomePage[data-biome="shadowWoods"]) {
   --biome-bg: rgb(14 9 25);
   --biome-surface: rgb(26 16 40);
   --biome-border: rgb(167 147 195 / 0.18);
@@ -24,7 +24,7 @@
   );
 }
 
-[data-app-theme="dark"]:has(.BiomePage[data-biome="floodedPlains"]) {
+[data-app-theme="dark"]:has(.BiomePage[data-biome="sunkenSavanna"]) {
   --biome-bg: rgb(6 14 20);
   --biome-surface: rgb(12 26 38);
   --biome-border: rgb(94 196 232 / 0.18);
@@ -56,7 +56,7 @@
   );
 }
 
-[data-app-theme="dark"]:has(.BiomePage[data-biome="fieldSea"]) {
+[data-app-theme="dark"]:has(.BiomePage[data-biome="prairieSea"]) {
   --biome-bg: rgb(9 20 14);
   --biome-surface: rgb(16 32 23);
   --biome-border: rgb(125 200 160 / 0.18);
@@ -72,7 +72,7 @@
   );
 }
 
-[data-app-theme="dark"]:has(.BiomePage[data-biome="silentDesert"]) {
+[data-app-theme="dark"]:has(.BiomePage[data-biome="silentWastes"]) {
   --biome-bg: rgb(23 18 7);
   --biome-surface: rgb(36 28 12);
   --biome-border: rgb(243 213 142 / 0.18);
@@ -88,7 +88,7 @@
   );
 }
 
-[data-app-theme="dark"]:has(.BiomePage[data-biome="titanGardens"]) {
+[data-app-theme="dark"]:has(.BiomePage[data-biome="titanGarden"]) {
   --biome-bg: rgb(22 8 6);
   --biome-surface: rgb(34 16 13);
   --biome-border: rgb(255 179 167 / 0.18);
@@ -120,7 +120,7 @@
 
 /* ── Per-biome light palette tokens ─────────────────────────── */
 
-[data-app-theme="light"]:has(.BiomePage[data-biome="shadowForest"]) {
+[data-app-theme="light"]:has(.BiomePage[data-biome="shadowWoods"]) {
   --biome-bg: #ede8f5;
   --biome-surface: #ddd4f0;
   --biome-border: rgb(106 78 155 / 0.22);
@@ -136,7 +136,7 @@
   );
 }
 
-[data-app-theme="light"]:has(.BiomePage[data-biome="floodedPlains"]) {
+[data-app-theme="light"]:has(.BiomePage[data-biome="sunkenSavanna"]) {
   --biome-bg: #e4f3fb;
   --biome-surface: #d0e8f8;
   --biome-border: rgb(20 120 170 / 0.2);
@@ -168,7 +168,7 @@
   );
 }
 
-[data-app-theme="light"]:has(.BiomePage[data-biome="fieldSea"]) {
+[data-app-theme="light"]:has(.BiomePage[data-biome="prairieSea"]) {
   --biome-bg: #e4f5ec;
   --biome-surface: #cce8d8;
   --biome-border: rgb(30 110 65 / 0.2);
@@ -184,7 +184,7 @@
   );
 }
 
-[data-app-theme="light"]:has(.BiomePage[data-biome="silentDesert"]) {
+[data-app-theme="light"]:has(.BiomePage[data-biome="silentWastes"]) {
   --biome-bg: #f5e8c8;
   --biome-surface: #ead4a0;
   --biome-border: rgb(160 120 20 / 0.2);
@@ -200,7 +200,7 @@
   );
 }
 
-[data-app-theme="light"]:has(.BiomePage[data-biome="titanGardens"]) {
+[data-app-theme="light"]:has(.BiomePage[data-biome="titanGarden"]) {
   --biome-bg: #f5e0dc;
   --biome-surface: #e8cac4;
   --biome-border: rgb(160 50 36 / 0.2);

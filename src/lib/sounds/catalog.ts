@@ -10,7 +10,7 @@ export type TrackEntry = {
 }
 
 const CATALOG: Record<BiomeId, [TrackEntry, TrackEntry]> = {
-  shadowForest: [
+  shadowWoods: [
     {
       file: '344_Yokai_Forest',
       name: 'Yōkai Forest',
@@ -24,7 +24,7 @@ const CATALOG: Record<BiomeId, [TrackEntry, TrackEntry]> = {
       hasAmbiance: true,
     },
   ],
-  floodedPlains: [
+  sunkenSavanna: [
     {
       file: '353_Spirit_of_the_Plains',
       name: 'Spirit of the Plains',
@@ -52,7 +52,7 @@ const CATALOG: Record<BiomeId, [TrackEntry, TrackEntry]> = {
       hasAmbiance: true,
     },
   ],
-  fieldSea: [
+  prairieSea: [
     {
       file: '96_Windswept_Plains',
       name: 'Windswept Plains',
@@ -66,7 +66,7 @@ const CATALOG: Record<BiomeId, [TrackEntry, TrackEntry]> = {
       hasAmbiance: true,
     },
   ],
-  silentDesert: [
+  silentWastes: [
     {
       file: '138_Desert_Winds',
       name: 'Desert Winds',
@@ -80,7 +80,7 @@ const CATALOG: Record<BiomeId, [TrackEntry, TrackEntry]> = {
       hasAmbiance: true,
     },
   ],
-  titanGardens: [
+  titanGarden: [
     {
       file: '423_Magical_Flora',
       name: 'Magical Flora',

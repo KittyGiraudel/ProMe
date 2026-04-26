@@ -66,17 +66,17 @@ a {
   --biome-unexplored-light-contrast: #262626;
   --biome-unexplored-dark-contrast: #262626;
 
-  --biome-fieldSea-light: #7dc8a0;
-  --biome-fieldSea-dark: #4a9f72;
-  --biome-fieldSea-light-contrast: #ffffff;
-  --biome-fieldSea-dark-contrast: #ffffff;
-  --biome-fieldSea-image: url("/images/banner-fieldSea.avif");
+  --biome-prairieSea-light: #7dc8a0;
+  --biome-prairieSea-dark: #4a9f72;
+  --biome-prairieSea-light-contrast: #ffffff;
+  --biome-prairieSea-dark-contrast: #ffffff;
+  --biome-prairieSea-image: url("/images/banner-prairieSea.avif");
 
-  --biome-shadowForest-light: #a793c3;
-  --biome-shadowForest-dark: #57446f;
-  --biome-shadowForest-light-contrast: #ffffff;
-  --biome-shadowForest-dark-contrast: #ffffff;
-  --biome-shadowForest-image: url("/images/banner-shadowForest.avif");
+  --biome-shadowWoods-light: #a793c3;
+  --biome-shadowWoods-dark: #57446f;
+  --biome-shadowWoods-light-contrast: #ffffff;
+  --biome-shadowWoods-dark-contrast: #ffffff;
+  --biome-shadowWoods-image: url("/images/banner-shadowWoods.avif");
 
   --biome-mushroomJungle-light: #ae9178;
   --biome-mushroomJungle-dark: #624838;
@@ -84,23 +84,23 @@ a {
   --biome-mushroomJungle-dark-contrast: #ffffff;
   --biome-mushroomJungle-image: url("/images/banner-mushroomJungle.avif");
 
-  --biome-floodedPlains-light: #5ec4e8;
-  --biome-floodedPlains-dark: #1a6f94;
-  --biome-floodedPlains-light-contrast: #262626;
-  --biome-floodedPlains-dark-contrast: #ffffff;
-  --biome-floodedPlains-image: url("/images/banner-floodedPlains.avif");
+  --biome-sunkenSavanna-light: #5ec4e8;
+  --biome-sunkenSavanna-dark: #1a6f94;
+  --biome-sunkenSavanna-light-contrast: #262626;
+  --biome-sunkenSavanna-dark-contrast: #ffffff;
+  --biome-sunkenSavanna-image: url("/images/banner-sunkenSavanna.avif");
 
-  --biome-silentDesert-light: #f3d58e;
-  --biome-silentDesert-dark: #af8c43;
-  --biome-silentDesert-light-contrast: #262626;
-  --biome-silentDesert-dark-contrast: #ffffff;
-  --biome-silentDesert-image: url("/images/banner-silentDesert.avif");
+  --biome-silentWastes-light: #f3d58e;
+  --biome-silentWastes-dark: #af8c43;
+  --biome-silentWastes-light-contrast: #262626;
+  --biome-silentWastes-dark-contrast: #ffffff;
+  --biome-silentWastes-image: url("/images/banner-silentWastes.avif");
 
-  --biome-titanGardens-light: #ffb3a7;
-  --biome-titanGardens-dark: #a64b3c;
-  --biome-titanGardens-light-contrast: #262626;
-  --biome-titanGardens-dark-contrast: #ffffff;
-  --biome-titanGardens-image: url("/images/banner-titanGardens.avif");
+  --biome-titanGarden-light: #ffb3a7;
+  --biome-titanGarden-dark: #a64b3c;
+  --biome-titanGarden-light-contrast: #262626;
+  --biome-titanGarden-dark-contrast: #ffffff;
+  --biome-titanGarden-image: url("/images/banner-titanGarden.avif");
 }
 
 [data-biome] {
@@ -127,12 +127,12 @@ a {
   --biome-dark-contrast: #b8c9c2;
 }
 
-[data-biome="shadowForest"] {
-  --biome-light: var(--biome-shadowForest-light);
-  --biome-dark: var(--biome-shadowForest-dark);
-  --biome-dark-contrast: var(--biome-shadowForest-dark-contrast);
-  --biome-light-contrast: var(--biome-shadowForest-light-contrast);
-  --biome-image: var(--biome-shadowForest-image);
+[data-biome="shadowWoods"] {
+  --biome-light: var(--biome-shadowWoods-light);
+  --biome-dark: var(--biome-shadowWoods-dark);
+  --biome-dark-contrast: var(--biome-shadowWoods-dark-contrast);
+  --biome-light-contrast: var(--biome-shadowWoods-light-contrast);
+  --biome-image: var(--biome-shadowWoods-image);
   --biome-image-position-banner: 0 10%;
   --biome-image-position-cover-mobile: 20% 0%;
   --biome-image-position-cover-desktop: center 70%;
@@ -140,12 +140,12 @@ a {
   --biome-image-position-cover-desktop-to: 0;
 }
 
-[data-biome="floodedPlains"] {
-  --biome-light: var(--biome-floodedPlains-light);
-  --biome-dark: var(--biome-floodedPlains-dark);
-  --biome-dark-contrast: var(--biome-floodedPlains-dark-contrast);
-  --biome-light-contrast: var(--biome-floodedPlains-light-contrast);
-  --biome-image: var(--biome-floodedPlains-image);
+[data-biome="sunkenSavanna"] {
+  --biome-light: var(--biome-sunkenSavanna-light);
+  --biome-dark: var(--biome-sunkenSavanna-dark);
+  --biome-dark-contrast: var(--biome-sunkenSavanna-dark-contrast);
+  --biome-light-contrast: var(--biome-sunkenSavanna-light-contrast);
+  --biome-image: var(--biome-sunkenSavanna-image);
   --biome-image-position-banner: 0 70%;
   --biome-image-position-cover-mobile: 77% 0%;
   --biome-image-position-cover-desktop: center 100%;
@@ -166,12 +166,12 @@ a {
   --biome-image-position-cover-desktop-to: 35;
 }
 
-[data-biome="fieldSea"] {
-  --biome-light: var(--biome-fieldSea-light);
-  --biome-dark: var(--biome-fieldSea-dark);
-  --biome-dark-contrast: var(--biome-fieldSea-dark-contrast);
-  --biome-light-contrast: var(--biome-fieldSea-light-contrast);
-  --biome-image: var(--biome-fieldSea-image);
+[data-biome="prairieSea"] {
+  --biome-light: var(--biome-prairieSea-light);
+  --biome-dark: var(--biome-prairieSea-dark);
+  --biome-dark-contrast: var(--biome-prairieSea-dark-contrast);
+  --biome-light-contrast: var(--biome-prairieSea-light-contrast);
+  --biome-image: var(--biome-prairieSea-image);
   --biome-image-position-banner: 0 55%;
   --biome-image-position-cover-mobile: 22% 0%;
   --biome-image-position-cover-desktop: center 68%;
@@ -179,24 +179,24 @@ a {
   --biome-image-position-cover-desktop-to: 100;
 }
 
-[data-biome="silentDesert"] {
-  --biome-light: var(--biome-silentDesert-light);
-  --biome-dark: var(--biome-silentDesert-dark);
-  --biome-dark-contrast: var(--biome-silentDesert-dark-contrast);
-  --biome-light-contrast: var(--biome-silentDesert-light-contrast);
-  --biome-image: var(--biome-silentDesert-image);
+[data-biome="silentWastes"] {
+  --biome-light: var(--biome-silentWastes-light);
+  --biome-dark: var(--biome-silentWastes-dark);
+  --biome-dark-contrast: var(--biome-silentWastes-dark-contrast);
+  --biome-light-contrast: var(--biome-silentWastes-light-contrast);
+  --biome-image: var(--biome-silentWastes-image);
   --biome-image-position-banner: 0 65%;
   --biome-image-position-cover-desktop: center 100%;
   --biome-image-position-cover-desktop-from: 50;
   --biome-image-position-cover-desktop-to: 100;
 }
 
-[data-biome="titanGardens"] {
-  --biome-light: var(--biome-titanGardens-light);
-  --biome-dark: var(--biome-titanGardens-dark);
-  --biome-dark-contrast: var(--biome-titanGardens-dark-contrast);
-  --biome-light-contrast: var(--biome-titanGardens-light-contrast);
-  --biome-image: var(--biome-titanGardens-image);
+[data-biome="titanGarden"] {
+  --biome-light: var(--biome-titanGarden-light);
+  --biome-dark: var(--biome-titanGarden-dark);
+  --biome-dark-contrast: var(--biome-titanGarden-dark-contrast);
+  --biome-light-contrast: var(--biome-titanGarden-light-contrast);
+  --biome-image: var(--biome-titanGarden-image);
   --biome-image-position-banner: 0 60%;
   --biome-image-position-cover-mobile: 60% 0%;
   --biome-image-position-cover-desktop: center 100%;
@@ -209,8 +209,8 @@ a {
   font-size: 85%;
 }
 
-[data-biome="fieldSea"] [data-pattern="true"],
-[data-pattern="true"][data-biome="fieldSea"] {
+[data-biome="prairieSea"] [data-pattern="true"],
+[data-pattern="true"][data-biome="prairieSea"] {
   --c1: #7dc892;
   --c2: #63b66e;
 
@@ -225,8 +225,8 @@ a {
     0 0 / var(--pattern-size) var(--pattern-size);
 }
 
-[data-biome="titanGardens"] [data-pattern="true"],
-[data-pattern="true"][data-biome="titanGardens"] {
+[data-biome="titanGarden"] [data-pattern="true"],
+[data-pattern="true"][data-biome="titanGarden"] {
   --c1: rgb(226 162 150);
   --c2: rgb(244 182 170);
 
@@ -255,8 +255,8 @@ a {
   background-size: var(--pattern-size) var(--pattern-size);
 }
 
-[data-biome="shadowForest"] [data-pattern="true"],
-[data-pattern="true"][data-biome="shadowForest"] {
+[data-biome="shadowWoods"] [data-pattern="true"],
+[data-pattern="true"][data-biome="shadowWoods"] {
   --c1: rgb(177 162 203);
   --c2: rgb(159 144 186);
   --_g:
@@ -272,8 +272,8 @@ a {
   background-size: var(--pattern-size) var(--pattern-size);
 }
 
-[data-biome="floodedPlains"] [data-pattern="true"],
-[data-pattern="true"][data-biome="floodedPlains"] {
+[data-biome="sunkenSavanna"] [data-pattern="true"],
+[data-pattern="true"][data-biome="sunkenSavanna"] {
   --c1: rgb(155 204 227);
   --c2: rgb(160 191 211);
 
@@ -301,8 +301,8 @@ a {
   background-size: var(--pattern-size) var(--pattern-size);
 }
 
-[data-biome="silentDesert"] [data-pattern="true"],
-[data-pattern="true"][data-biome="silentDesert"] {
+[data-biome="silentWastes"] [data-pattern="true"],
+[data-pattern="true"][data-biome="silentWastes"] {
   --c1: rgb(238 214 151);
   --c2: rgb(233 209 145);
   --c3: rgb(228 203 140);

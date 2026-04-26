@@ -1,12 +1,12 @@
 import { type useTranslations } from 'next-intl'
 
 export type BiomeId =
-  | 'shadowForest'
-  | 'floodedPlains'
+  | 'shadowWoods'
+  | 'sunkenSavanna'
   | 'mushroomJungle'
-  | 'fieldSea'
-  | 'silentDesert'
-  | 'titanGardens'
+  | 'prairieSea'
+  | 'silentWastes'
+  | 'titanGarden'
 
 export type PossibleBiomeId = BiomeId | 'unexplored'
 

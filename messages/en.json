@@ -1,20 +1,20 @@
 {
   "biomes": {
-    "shadowForest": {
-      "name": "Shadow Forest",
-      "title": "The Shadow Forest",
+    "shadowWoods": {
+      "name": "Shadow Woods",
+      "title": "The Shadow Woods",
       "teaser": "Step into a forest where towering sentinels guard forgotten tales—shadows whisper, golden glades beckon, and the darkness cradles life like a sanctuary.",
       "description": "Colossal trees rise before you, like giant sentinels protecting the heart of the ancient forest. As you enter, you are embraced by deep shadows, yet their darkness inspires neither fear nor insecurity. The singing murmur of the wind among the trees seems to whisper tales of time immemorial. Sunlight, which sometimes filters through the branches and leaves, creates restful, golden clearings. The deeper you venture into the heart of the forest, the more you understand that the starkness of the great trunks surrounding you and the intensity of the enveloping darkness serve no other purpose than to protect the lives that dwell within.",
       "magic": "How do you live your friendship with the night? How can darkness shelter other feelings than fear?",
-      "location": "You are currently wandering in an <b>unexplored place</b>."
+      "location": "You are currently wandering in <b>shadowy woods</b>."
     },
-    "floodedPlains": {
-      "name": "Flooded Plains",
-      "title": "The Flooded Plains",
+    "sunkenSavanna": {
+      "name": "Sunken Savanna",
+      "title": "The Sunken Savanna",
       "teaser": "The horizon swallows the earth, then your steps sink into a vast flooded plain—calm waters soothe your weary feet between islands of ancient, towering trees.",
       "description": "The horizon begins to approach strangely, closer than it should. The sky seems to consume the ground, as if you were reaching the edge of the world. Then you step into the void… and realize you are standing on a vast flooded plain. Except for small islands inhabited by immense trees with massive trunks, it doesn’t seem that you’ll find any dry land anytime soon. Yet the calm water, a cubit deep, caresses your ankles and soothes your muscles, weary from the journey.",
       "magic": "How do you tame the force of the cascades and learn to be fluid like rivers?",
-      "location": "You are currently slogging across a <b>flooded plain</b>."
+      "location": "You are currently slogging across a <b>sunken savanna</b>."
     },
     "mushroomJungle": {
       "name": "Mushroom Jungle",
@@ -24,29 +24,29 @@
       "magic": "How can something that feeds on death give strength to something that is alive?",
       "location": "You are currently trekking through a <b>mushroom jungle</b>."
     },
-    "fieldSea": {
-      "name": "Sea of Fields",
-      "title": "The Sea of Fields",
+    "prairieSea": {
+      "name": "Prairie Sea",
+      "title": "The Prairie Sea",
       "teaser": "The wind stirs a lullaby of grass and crickets, while an endless golden carpet unfolds beneath the sun—a land of boundless fertility.",
       "description": "The wind picks up and begins to blow harder. The soothing rustling of the grass mingles with the chirping of crickets in a calm melody. The sun, reflecting off the vast green field, makes you think for a moment of an endless golden carpet unfolding before you. The verdant trees, bent by the wind, and the numerous patches of wild vegetables reveal a fertile land like few others.",
       "magic": "How can you make the wind blow in your favor? How can the greenery help you?",
-      "location": "You are currently traversing a <b>sea of fields</b>."
+      "location": "You are currently traversing a <b>prairie sea</b>."
     },
-    "silentDesert": {
-      "name": "Silent Desert",
-      "title": "The Silent Desert",
+    "silentWastes": {
+      "name": "Silent Wastes",
+      "title": "The Silent Wastes",
       "teaser": "Scorching winds warp the horizon, carving red plateaus where cacti stand sentinel in absolute, sun-drenched silence.",
       "description": "The air begins to dry and crisp. The wind seems driven by the sun itself. The horizon distorts with the heat, while vast plateaus of reddish earth, dotted with small cylindrical cacti, populate the landscape before your eyes. You are enveloped in absolute silence and calm.",
       "magic": "How can silence support you and noise protect you?",
-      "location": "You are currently straying into a <b>silent desert</b>."
+      "location": "You are currently straying into a <b>silent waste</b>."
     },
-    "titanGardens": {
-      "name": "Titan Gardens",
-      "title": "The Titan Gardens",
+    "titanGarden": {
+      "name": "Titan Garden",
+      "title": "The Titan Garden",
       "teaser": "A blizzard of petals fills the air as colossal blooms line the path—a horizon-wide garden of lilies, sunflowers, and roses, watching over every traveler.",
       "description": "An avalanche of color envelops you. Petals float in the air, and the stems of giant plants line the road. A garden as vast as the horizon unfolds before you. Lilies, sunflowers, roses, daisies, and countless other dazzling blooms reach for the sky, gazing down upon every traveler who passes through their domain.",
       "magic": "How can fragility be strong and colors powerful?",
-      "location": "You are currently meandering through a <b>Titan garden</b>."
+      "location": "You are currently meandering through a <b>titan garden</b>."
     },
     "core": {
       "name": "The Core",
@@ -381,11 +381,11 @@
       "url": "Copy link (URL)"
     },
     "encounters": {
-      "floodedPlains": {
+      "sunkenSavanna": {
         "1": "**The water surrounding your legs seems to heal your fatigue and encourages you to travel.** You gain a +1 Courage bonus (maximum: 5) until you cross the boundary between day and night on the Clock.",
         "2": "**A traveler crosses your path.** Go to page 57 and define who you have met. *If you return here, the traveler will no longer be there.*",
         "5": "**You encounter a Hedgehog.** To learn more about these creatures, read page 22. **Draw a card** to find out what type of Hedgehog you have found.\n- ♥♦ A **peaceful** Hedgehog.\n- ♠♣ An **aggressive** Hedgehog.",
-        "6": "**You encounter a celestial goose,** which can be ridden when fed or if you succeed in a Courage test. It can take you to any already explored cell without advancing your Clock. Afterwards, it leaves you to return to the Flooded Plains.",
+        "6": "**You encounter a celestial goose,** which can be ridden when fed or if you succeed in a Courage test. It can take you to any already explored cell without advancing your Clock. Afterwards, it leaves you to return to the Sunken Savanna.",
         "3|4": "**You discover a Trading Post.**\n*To learn more, refer to page 23.*"
       },
       "mushroomJungle": {
@@ -395,26 +395,26 @@
         "6": "**You discover a Titan Boletus lying on the ground.** It has perished or forgotten to wake up, thus giving life to thousands of other mushrooms. *Go to page 26 and choose an item from the collection table even if you don’t have climbing equipment.*",
         "3|4": "**You discover a group of Mousserons.**\nTo determine their number, roll 1D6.\n*To learn more about Mousserons, refer to page 27.*"
       },
-      "fieldSea": {
+      "prairieSea": {
         "1": "**Strong headwinds make your journey laborious.** Eat or succeed in a Courage test to resist them. If you fail, lose 1 point of Endurance or an item of your choice.\n*The next time you pass through this place, these violent winds will have ceased.*",
         "2": "**A traveler crosses your path.** Go to page 57 and [define](/en/generators/npc) who you have met. *If you return here, the traveler will no longer be there.*",
         "3": "**You discover a small community garden!** Go to the *collection table* (page 30) and choose an item of your choice without needing the appropriate tool. Mark this garden as **harvested**. You must **water** the garden to be able to reuse it another day.",
         "6": "**You encounter a creature.** Draw a card from the deck to find out what creature you have found.\n- ♦ A **red** Sauriflore (see page 30).\n- ♥ A **yellow** Sauriflore (see page 30).\n- ♣ A **white** Sauriflore (see page 30).\n- ♠ A Pizi (see page 62).",
         "4|5": "**You arrive at a Cucurbitus farm.**\n*To learn more about Cucurbitus, refer to page 30.*\nWhen you find a Cucurbitus farm, go to page 42 and **draw 5 cards** to define what it looks like."
       },
-      "shadowForest": {
-        "1": "**Dense and ancestral shadows tightly embrace you.** Due to the darkness, everything you have found in these three cells of the Shadow Forest is erased from your journal and map.\n*If you pass through this cell again, draw other encounters.*",
+      "shadowWoods": {
+        "1": "**Dense and ancestral shadows tightly embrace you.** Due to the darkness, everything you have found in these three cells of the Shadow Woods is erased from your journal and map.\n*If you pass through this cell again, draw other encounters.*",
         "4": "**You find a Swarm of fireflies.**\nOnce a day, if you pass through this place, you can recover 1 point in any Attribute.",
         "2|3": "**You arrive in a [Bruja village](/en/generators/village?f=bruja).**\nTo learn more about Brujas, see page 18.\nWhen you find a Bruja village, go to page 43 and **draw 5 cards** to define the place.",
         "5|6": "**You encounter a creature.** Draw a card to find out which one:\n- ♦ A group of **Yabas** (see page 19).\n- ♥ A **lost Yaba** (see page 19).\n- ♣ A **Warrior Tree**, which triggers a combat (see page 19).\n- ♠ A **Pizi** (see page 62)."
       },
-      "silentDesert": {
+      "silentWastes": {
         "1": "**A Ruin emerges from the sandy rocks.**\n*Go to page 63 if you want to explore it.*",
         "2": "**You discover an oasis.** *To learn more, refer to page 36.* Draw a card to find out what type of oasis you have found.\n- ♥♦ A **palm paradise**.\n- ♠♣ A **cactus sanctuary**.",
         "3|4": "**You encounter a Kiore.**\n*To learn more, consult page 34. Go to page 57 if you want to define the Kiore’s personality.\nIf you return here, the Kiore will no longer be there.*",
         "5|6": "**You encounter a Desert Scarab.** *To learn more, read page 37.* Draw a card to discover what type of Scarab you have encountered.\n- ♦ A **peaceful** Scarab.\n- ♥ An **aggressive** Scarab.\n- ♠♣ A **flipped** Scarab."
       },
-      "titanGardens": {
+      "titanGarden": {
         "1": "**You face a swarm of giant bees.** They rush towards you to attack, and you must either fight or flee.\n*The next time you pass through this cell, this event repeats.*",
         "4": "**You discover a field of golden petals.** Draw a card from the deck to discover what type of flowers you have found.\n*In both cases, nothing will grow here again after your passage.*\n- ♥♦ Golden petals — can be harvested and sold for 100 coins.\n- ♠♣ Golden shoots — can be harvested as 1D6 food.",
         "5": "**You encounter a luxurious whale.** *To learn more, read page 40.* Draw a card to find out what type of whale you have encountered.\n- ♥♦ A **peaceful** luxurious whale.\n- ♠♣ An **aggressive** luxurious whale.",
@@ -423,14 +423,14 @@
       }
     },
     "gathering": {
-      "shadowForest": {
+      "shadowWoods": {
         "1": "1 Torch",
         "2": "2 × Root",
         "3": "3 × Wood",
         "4": "3 × Leaf",
         "5": "2 × Fruit",
         "6": "One of the above choices",
-        "hint": "For collecting resources in the Shadow Forest, you can use an Axe. To use it, remove 1 durability point from it, then choose the item of your choice from the gathering table above. Otherwise, successfully pass a Courage Test to do without the necessary equipment."
+        "hint": "For collecting resources in the Shadow Woods, you can use an Axe. To use it, remove 1 durability point from it, then choose the item of your choice from the gathering table above. Otherwise, successfully pass a Courage Test to do without the necessary equipment."
       },
       "mushroomJungle": {
         "1": "100 coins",
@@ -441,32 +441,32 @@
         "6": "One of the above choices",
         "warning": "Gathering in the Mushroom Jungle requires finding and reaching the top of a Titan Boletus (see page 26)."
       },
-      "fieldSea": {
+      "prairieSea": {
         "1": "10 coins",
         "2": "2 × Potato",
         "3": "2 × Common mushroom",
         "4": "2 × Corn",
         "5": "2 × Rice",
         "6": "One of the above choices",
-        "hint": "For collecting resources in the Field Sea, you can use Gardening Shears. To use them, remove 1 durability point from them, then choose the item of your choice from the gathering table above. Otherwise, successfully pass a Courage Test to do without the necessary equipment."
+        "hint": "For collecting resources in the Prairie Sea, you can use Gardening Shears. To use them, remove 1 durability point from them, then choose the item of your choice from the gathering table above. Otherwise, successfully pass a Courage Test to do without the necessary equipment."
       },
-      "silentDesert": {
+      "silentWastes": {
         "1": "10 coins",
         "2": "2 × Coal",
         "3": "2 × Iron",
         "4": "2 × Copper",
         "5": "1 × Gold",
         "6": "One of the above choices",
-        "hint": "For collecting resources in the Silent Desert, you can use a Pickaxe. To use it, remove 1 durability point from it, then choose the item of your choice from the gathering table above. Otherwise, successfully pass a Courage Test to do without the necessary equipment."
+        "hint": "For collecting resources in the Silent Wastes, you can use a Pickaxe. To use it, remove 1 durability point from it, then choose the item of your choice from the gathering table above. Otherwise, successfully pass a Courage Test to do without the necessary equipment."
       },
-      "titanGardens": {
+      "titanGarden": {
         "1": "A Garden of Lareons",
         "2": "100 coins",
         "3": "1,000 coins",
         "4": "A Residence (page 57)",
         "5": "Ruins (page 63)",
         "6": "Any item",
-        "warning": "Gathering in the Titan Gardens requires finding and reaching the garden on the back of a luxurious whale (see page 40)."
+        "warning": "Gathering in the Titan Garden requires finding and reaching the garden on the back of a luxurious whale (see page 40)."
       }
     }
   },
@@ -721,9 +721,9 @@
           "4": "References"
         },
         "demo": {
-          "title": "Day 12 — Flooded Plains",
+          "title": "Day 12 — Sunken Savanna",
           "content": "The bridge was destroyed by the torrent.",
-          "embed": "Arrived at Flooded Plains"
+          "embed": "Arrived at the Sunken Savanna"
         }
       },
       "dice": {
@@ -739,16 +739,16 @@
       "music": {
         "number": "05 — The Ambiance",
         "title": "Adaptive ambient sound",
-        "body": "Soundtracks for every biome: from Shadow Forest to Flooded Plains, immerse yourself in the game’s atmosphere without leaving the app — powered by [TableTopAudio](https://tabletopaudio.com/).",
+        "body": "Soundtracks for every biome: from the Shadow Woods to the Sunken Savanna, immerse yourself in the game’s atmosphere without leaving the app — powered by [TableTopAudio](https://tabletopaudio.com/).",
         "tags": {
           "1": "Background audio",
           "2": "Ambient music",
           "3": "Biome-aware"
         },
         "demo": {
-          "track_1": "Shadow Forest — Yokai Forest",
-          "track_2": "Flooded Plains — Spirit of the Plains",
-          "track_3": "Silent Desert — Desert Winds",
+          "track_1": "Shadow Woods — Yokai Forest",
+          "track_2": "Sunken Savanna — Spirit of the Plains",
+          "track_3": "Silent Wastes — Desert Winds",
           "source": "TableTopAudio · Atmospheric"
         }
       },

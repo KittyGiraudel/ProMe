@@ -8,7 +8,7 @@ export function NpcGeneratorFallback() {
   return (
     <Layout
       title={t('inhabitant.title')}
-      bannerBiome='shadowForest'
+      bannerBiome='shadowWoods'
       breadcrumbs={[
         { title: t('nav.home'), path: '/' },
         { title: t('nav.inhabitant_generator'), path: '/generators/npc' },

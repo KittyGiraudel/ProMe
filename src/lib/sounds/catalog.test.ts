@@ -67,15 +67,15 @@ describe('getTrackPath', () => {
 })
 
 describe('getTracksForBiome', () => {
-  it('returns [TrackEntry, TrackEntry] for shadowForest', () => {
-    const tracks = getTracksForBiome('shadowForest')
+  it('returns [TrackEntry, TrackEntry] for shadowWoods', () => {
+    const tracks = getTracksForBiome('shadowWoods')
     expect(tracks).toHaveLength(2)
     expect(tracks[0].file).toBe('344_Yokai_Forest')
     expect(tracks[1].file).toBe('313_Dusk_of_the_Dryad')
   })
 
-  it('returns [TrackEntry, TrackEntry] for floodedPlains', () => {
-    const tracks = getTracksForBiome('floodedPlains')
+  it('returns [TrackEntry, TrackEntry] for sunkenSavanna', () => {
+    const tracks = getTracksForBiome('sunkenSavanna')
     expect(tracks).toHaveLength(2)
     expect(tracks[0].file).toBe('353_Spirit_of_the_Plains')
     expect(tracks[1].file).toBe('234_Lush_World')
@@ -88,36 +88,36 @@ describe('getTracksForBiome', () => {
     expect(tracks[1].file).toBe('332_Myconid_Colony')
   })
 
-  it('returns [TrackEntry, TrackEntry] for fieldSea', () => {
-    const tracks = getTracksForBiome('fieldSea')
+  it('returns [TrackEntry, TrackEntry] for prairieSea', () => {
+    const tracks = getTracksForBiome('prairieSea')
     expect(tracks).toHaveLength(2)
     expect(tracks[0].file).toBe('96_Windswept_Plains')
     expect(tracks[1].file).toBe('305_Hidden_Valley')
   })
 
-  it('returns [TrackEntry, TrackEntry] for silentDesert', () => {
-    const tracks = getTracksForBiome('silentDesert')
+  it('returns [TrackEntry, TrackEntry] for silentWastes', () => {
+    const tracks = getTracksForBiome('silentWastes')
     expect(tracks).toHaveLength(2)
     expect(tracks[0].file).toBe('138_Desert_Winds')
     expect(tracks[1].file).toBe('361_Ancient_Beacon')
   })
 
-  it('returns [TrackEntry, TrackEntry] for titanGardens', () => {
-    const tracks = getTracksForBiome('titanGardens')
+  it('returns [TrackEntry, TrackEntry] for titanGarden', () => {
+    const tracks = getTracksForBiome('titanGarden')
     expect(tracks).toHaveLength(2)
     expect(tracks[0].file).toBe('423_Magical_Flora')
     expect(tracks[1].file).toBe('275_Lorekeeper_Grove')
   })
 
-  it('fieldSea first track has no music or ambiance variants', () => {
-    const [first] = getTracksForBiome('fieldSea')
+  it('prairieSea first track has no music or ambiance variants', () => {
+    const [first] = getTracksForBiome('prairieSea')
     expect(first.file).toBe('96_Windswept_Plains')
     expect(first.hasMusic).toBe(false)
     expect(first.hasAmbiance).toBe(false)
   })
 
-  it('silentDesert first track has ambiance but no music variant', () => {
-    const [first] = getTracksForBiome('silentDesert')
+  it('silentWastes first track has ambiance but no music variant', () => {
+    const [first] = getTracksForBiome('silentWastes')
     expect(first.file).toBe('138_Desert_Winds')
     expect(first.hasMusic).toBe(false)
     expect(first.hasAmbiance).toBe(true)
@@ -155,13 +155,13 @@ describe('getAllTrackPaths', () => {
 
 describe('pickRandomTrack', () => {
   it('returns one of the two tracks for a given biome', () => {
-    const tracks = getTracksForBiome('shadowForest')
-    const picked = pickRandomTrack('shadowForest')
+    const tracks = getTracksForBiome('shadowWoods')
+    const picked = pickRandomTrack('shadowWoods')
     expect(tracks).toContainEqual(picked)
   })
 
   it('returns a TrackEntry with required fields', () => {
-    const picked = pickRandomTrack('titanGardens')
+    const picked = pickRandomTrack('titanGarden')
     expect(picked).toHaveProperty('file')
     expect(picked).toHaveProperty('name')
     expect(picked).toHaveProperty('hasMusic')

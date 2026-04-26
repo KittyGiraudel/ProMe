@@ -24,8 +24,8 @@ describe('character/createFromIdentity', () => {
       map: {
         currentPosition: { q: 3, r: -1 },
         cells: [
-          { q: 0, r: 0, biome: 'fieldSea', icon: 'x' },
-          { q: 1, r: 0, biome: 'shadowForest', icon: 'o' },
+          { q: 0, r: 0, biome: 'prairieSea', icon: 'x' },
+          { q: 1, r: 0, biome: 'shadowWoods', icon: 'o' },
         ],
       },
       journalEntries: [

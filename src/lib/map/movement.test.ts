@@ -23,16 +23,16 @@ describe('moveWithAutoBiome', () => {
     expect(result.next.cells).toContainEqual({
       q: 1,
       r: 0,
-      biome: 'floodedPlains',
+      biome: 'sunkenSavanna',
       icon: undefined,
     })
-    expect(result.discoveredBiome?.biome).toBe('floodedPlains')
+    expect(result.discoveredBiome?.biome).toBe('sunkenSavanna')
   })
 
   it('moves without rolling when target already has a biome', () => {
     const current: CharacterMapState = {
       currentPosition: { q: 0, r: 0 },
-      cells: [{ q: 1, r: 0, biome: 'shadowForest' }],
+      cells: [{ q: 1, r: 0, biome: 'shadowWoods' }],
     }
     const result = moveWithAutoBiome(current, { q: 1, r: 0 }, () => 0.99)
     expect(result.next.currentPosition).toEqual({ q: 1, r: 0 })

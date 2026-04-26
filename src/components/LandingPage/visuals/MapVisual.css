@@ -46,19 +46,19 @@
   border-color: rgb(255 255 255 / 0.1);
   box-shadow: none;
 }
-.MapVisual__cell[data-biome="shadowForest"] {
+.MapVisual__cell[data-biome="shadowWoods"] {
   --pattern-size: 25px;
 }
-.MapVisual__cell[data-biome="fieldSea"] {
+.MapVisual__cell[data-biome="prairieSea"] {
   --pattern-size: 30px;
 }
-.MapVisual__cell[data-biome="floodedPlains"] {
+.MapVisual__cell[data-biome="sunkenSavanna"] {
   --pattern-size: 40px;
 }
-.MapVisual__cell[data-biome="silentDesert"] {
+.MapVisual__cell[data-biome="silentWastes"] {
   --pattern-size: 25px;
 }
-.MapVisual__cell[data-biome="titanGardens"] {
+.MapVisual__cell[data-biome="titanGarden"] {
   --pattern-size: 50px;
 }
 .MapVisual__cell[data-biome="mushroomJungle"] {

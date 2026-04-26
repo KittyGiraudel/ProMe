@@ -165,19 +165,19 @@
   transform: scale(1.15);
 } /* 1 */
 
-.MapCell[data-pattern="true"][data-biome="fieldSea"] {
+.MapCell[data-pattern="true"][data-biome="prairieSea"] {
   --pattern-size: 30px;
 }
-.MapCell[data-pattern="true"][data-biome="titanGardens"] {
+.MapCell[data-pattern="true"][data-biome="titanGarden"] {
   --pattern-size: 40px;
 }
-.MapCell[data-pattern="true"][data-biome="shadowForest"] {
+.MapCell[data-pattern="true"][data-biome="shadowWoods"] {
   --pattern-size: 25px;
 }
-.MapCell[data-pattern="true"][data-biome="floodedPlains"] {
+.MapCell[data-pattern="true"][data-biome="sunkenSavanna"] {
   --pattern-size: 20px;
 }
-.MapCell[data-pattern="true"][data-biome="silentDesert"] {
+.MapCell[data-pattern="true"][data-biome="silentWastes"] {
   --pattern-size: 15px;
 }
 .MapCell[data-pattern="true"][data-biome="mushroomJungle"] {

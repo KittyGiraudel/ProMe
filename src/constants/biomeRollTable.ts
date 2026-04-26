@@ -10,10 +10,10 @@ export type BiomeRollEntry = {
  * Order matters and maps directly to dice results 1..6.
  */
 export const BIOME_ROLL_TABLE: readonly BiomeRollEntry[] = [
-  { biome: 'shadowForest', tileCount: 3 },
-  { biome: 'floodedPlains', tileCount: 3 },
+  { biome: 'shadowWoods', tileCount: 3 },
+  { biome: 'sunkenSavanna', tileCount: 3 },
   { biome: 'mushroomJungle', tileCount: 2 },
-  { biome: 'fieldSea', tileCount: 3 },
-  { biome: 'silentDesert', tileCount: 2 },
-  { biome: 'titanGardens', tileCount: 3 },
+  { biome: 'prairieSea', tileCount: 3 },
+  { biome: 'silentWastes', tileCount: 2 },
+  { biome: 'titanGarden', tileCount: 3 },
 ] as const

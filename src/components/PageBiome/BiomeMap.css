@@ -29,19 +29,19 @@
   box-shadow: inset 0 0 1em var(--biome-dark);
 }
 
-.BiomeMap__hex[data-pattern="true"][data-biome="fieldSea"] {
+.BiomeMap__hex[data-pattern="true"][data-biome="prairieSea"] {
   --pattern-size: 35px;
 }
-.BiomeMap__hex[data-pattern="true"][data-biome="titanGardens"] {
+.BiomeMap__hex[data-pattern="true"][data-biome="titanGarden"] {
   --pattern-size: 45px;
 }
-.BiomeMap__hex[data-pattern="true"][data-biome="shadowForest"] {
+.BiomeMap__hex[data-pattern="true"][data-biome="shadowWoods"] {
   --pattern-size: 30px;
 }
-.BiomeMap__hex[data-pattern="true"][data-biome="floodedPlains"] {
+.BiomeMap__hex[data-pattern="true"][data-biome="sunkenSavanna"] {
   --pattern-size: 25px;
 }
-.BiomeMap__hex[data-pattern="true"][data-biome="silentDesert"] {
+.BiomeMap__hex[data-pattern="true"][data-biome="silentWastes"] {
   --pattern-size: 25px;
 }
 .BiomeMap__hex[data-pattern="true"][data-biome="mushroomJungle"] {

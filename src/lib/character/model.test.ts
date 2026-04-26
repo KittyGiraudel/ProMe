@@ -192,11 +192,11 @@ describe('character/model', () => {
       map: {
         currentPosition: { q: 1.9, r: -2.2 },
         cells: [
-          { q: 3.7, r: 4.1, biome: 'shadowForest', icon: '  🌳  ' },
+          { q: 3.7, r: 4.1, biome: 'shadowWoods', icon: '  🌳  ' },
           {
             q: 3,
             r: 4,
-            biome: 'silentDesert',
+            biome: 'silentWastes',
             icon: '😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀',
           },
         ],
@@ -209,7 +209,7 @@ describe('character/model', () => {
     expect(normalized.map.cells[0]).toEqual({
       q: 3,
       r: 4,
-      biome: 'silentDesert',
+      biome: 'silentWastes',
       icon: '😀',
     })
   })
@@ -222,7 +222,7 @@ describe('character/model', () => {
       map: {
         currentPosition: { q: 0, r: 0 },
         cells: [
-          { q: 0, r: 0, biome: 'shadowForest', icon: '🏠' },
+          { q: 0, r: 0, biome: 'shadowWoods', icon: '🏠' },
           { q: 2, r: 1, biome: 'invalidBiome', icon: '🧭' },
         ],
       },
@@ -237,7 +237,7 @@ describe('character/model', () => {
 
   it('validate rejects core biome assignment', () => {
     const pc = createCharacter()
-    pc.map.cells = [{ q: 0, r: 0, biome: 'shadowForest' }]
+    pc.map.cells = [{ q: 0, r: 0, biome: 'shadowWoods' }]
     const result = validateCharacterForPersistence(pc)
     expect(result.ok).toBe(false)
     if (!result.ok) {

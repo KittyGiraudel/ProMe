@@ -9,19 +9,19 @@
   margin-bottom: 0.5em;
 }
 
-.MapLegend li:has([data-biome="fieldSea"]) {
+.MapLegend li:has([data-biome="prairieSea"]) {
   --pattern-size: 20px;
 }
-.MapLegend li:has([data-biome="titanGardens"]) {
+.MapLegend li:has([data-biome="titanGarden"]) {
   --pattern-size: 15px;
 }
-.MapLegend li:has([data-biome="shadowForest"]) {
+.MapLegend li:has([data-biome="shadowWoods"]) {
   --pattern-size: 15px;
 }
-.MapLegend li:has([data-biome="floodedPlains"]) {
+.MapLegend li:has([data-biome="sunkenSavanna"]) {
   --pattern-size: 10px;
 }
-.MapLegend li:has([data-biome="silentDesert"]) {
+.MapLegend li:has([data-biome="silentWastes"]) {
   --pattern-size: 10px;
 }
 .MapLegend li:has([data-biome="mushroomJungle"]) {
