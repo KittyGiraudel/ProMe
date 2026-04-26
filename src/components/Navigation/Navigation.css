@@ -212,8 +212,12 @@ button.Nav__link {
 }
 
 .Nav__link:is(:hover, :focus) {
-  background-color: light-dark(rgb(0 0 0 / 0.15), rgb(255 255 255 / 0.2));
-  color: inherit;
+  background-color: light-dark(
+    rgb(0 0 0 / 0.15),
+    rgb(255 255 255 / 0.2)
+  ) !important;
+  color: inherit !important;
+  border: 0 !important;
 }
 
 /** Mobile layout ----------------------------------------------------------- */
