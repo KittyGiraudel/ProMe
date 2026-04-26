@@ -1,7 +1,6 @@
 'use client'
 
 import type { ReactNode } from 'react'
-import { useFadeIn } from '../../hooks/useFadeIn'
 import { RichText } from '../RichText/RichText'
 
 import './LandingFeature.css'
@@ -33,11 +32,8 @@ export function LandingFeature({
   reversed = false,
   colorScheme,
 }: Props) {
-  const ref = useFadeIn<HTMLElement>()
-
   return (
     <section
-      ref={ref}
       data-color-scheme={colorScheme}
       data-reversed={reversed}
       className='LandingFeature'>

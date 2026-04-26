@@ -1,21 +1,35 @@
+/* Progressive enhancement: show immediately when scroll-driven animations are unavailable */
 .LandingFeature {
-  opacity: 0;
-  transform: translateY(20px);
-  transition:
-    opacity 400ms ease-out,
-    transform 400ms ease-out;
-}
-
-.LandingFeature.FadeIn--visible {
   opacity: 1;
   transform: none;
+}
+
+@keyframes LandingFeature__scrollReveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .LandingFeature {
+      animation: LandingFeature__scrollReveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .LandingFeature {
     opacity: 1;
     transform: none;
-    transition: none;
+    animation: none;
   }
 }
 

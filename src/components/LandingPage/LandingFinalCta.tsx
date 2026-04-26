@@ -1,18 +1,16 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { useFadeIn } from '@/hooks/useFadeIn'
 import { Link } from '@/i18n/navigation'
 
 import './LandingFinalCta.css'
 
 export function LandingFinalCta() {
   const t = useTranslations()
-  const ref = useFadeIn()
 
   return (
     <section className='LandingFinalCta'>
-      <div ref={ref} className='LandingFinalCta__content'>
+      <div className='LandingFinalCta__content'>
         <h2 className='LandingFinalCta__title'>
           {t('landing.final_cta.title')}
         </h2>
