@@ -139,14 +139,6 @@ export function Navigation({
           </li>
           <li
             className='Nav__item Nav__item--break'
-            data-active={pathname.startsWith('/faq')}
-            data-presence='wide-only'>
-            <BlockedLink href='/faq' className='Nav__link'>
-              {t('nav.faq')}
-            </BlockedLink>
-          </li>
-          <li
-            className='Nav__item'
             data-active={pathname.startsWith('/settings')}
             data-presence='wide-only'>
             <BlockedLink href='/settings' className='Nav__link'>

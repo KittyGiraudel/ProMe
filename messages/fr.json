@@ -473,9 +473,13 @@
   "faq": {
     "title": "Foire Aux Questions"
   },
+  "privacy": {
+    "title": "Politique de confidentialité"
+  },
   "footer": {
-    "application": "ProMe par <link_author>Kitty</link_author><version></version> – <link_github>Signaler un problème</link_github>",
-    "copyright": "© Les Souvenirs du Protecteur, par Enzo Salviato"
+    "application": "Créée par <link_author>Kitty</link_author><version></version>",
+    "copyright": "© Les Souvenirs du Protecteur, par Enzo Salviato",
+    "description": "ProMe est une aide de jeu pour « Les Souvenirs du Protecteur », le JDR solo d'Enzo Salviato. Elle n’est pas affiliée à l’œuvre de l’auteur original, et nécessite de posséder le livre de règles officiel pour jouer."
   },
   "inhabitant": {
     "context_by_rank": {
@@ -516,6 +520,7 @@
     "biomes": "Biomes",
     "characters": "Protecteurs",
     "faq": "FAQ",
+    "privacy": "Confidentialité",
     "home": "Accueil",
     "generators": "Générateurs",
     "inhabitant_generator": "Générateur d’habitant",

@@ -473,9 +473,13 @@
   "faq": {
     "title": "Frequently Asked Questions"
   },
+  "privacy": {
+    "title": "Privacy Policy"
+  },
   "footer": {
-    "application": "ProMe by <link_author>Kitty</link_author><version></version> – <link_github>Report an issue</link_github>",
-    "copyright": "© The Protector’s Memories, by Enzo Salviato"
+    "application": "Made by <link_author>Kitty</link_author><version></version>",
+    "copyright": "© The Protector’s Memories, by Enzo Salviato",
+    "description": "ProMe is a companion app for “The Protector’s Memories”, the solo TTRPG by Enzo Salviato. It is not affiliated with the original author’s work, and requires owning the official rulebook to play."
   },
   "inhabitant": {
     "context_by_rank": {
@@ -516,6 +520,7 @@
     "biomes": "Biomes",
     "characters": "Protectors",
     "faq": "FAQ",
+    "privacy": "Privacy Policy",
     "home": "Home",
     "generators": "Generators",
     "inhabitant_generator": "Inhabitant Generator",
