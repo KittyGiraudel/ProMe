@@ -21,7 +21,24 @@ export async function generateMetadata({ params }: Props) {
   if (!biomeId) return {}
 
   const t = await getTranslations({ locale: locale as AppConfig['Locale'] })
-  return { title: t(`biomes.${biomeId}.title`) }
+
+  return {
+    title: t(`biomes.${biomeId}.title`),
+    description: t(`biomes.${biomeId}.description`),
+    alternates: {
+      canonical: `/${locale}/biomes/${slug}`,
+      languages: {
+        en: `/en/biomes/${slug}`,
+        fr: `/fr/biomes/${slug}`,
+        'x-default': `/${routing.defaultLocale}/biomes/${slug}`,
+      },
+    },
+    openGraph: {
+      title: t(`biomes.${biomeId}.title`),
+      description: t(`biomes.${biomeId}.description`),
+      url: `/${locale}/biomes/${slug}`,
+    },
+  }
 }
 
 export default async function BiomePage({ params }: Props) {

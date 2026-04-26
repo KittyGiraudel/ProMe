@@ -10,7 +10,7 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale: locale as AppConfig['Locale'] })
-  return { title: t('characters.title') }
+  return { title: t('characters.title'), robots: { index: false } }
 }
 
 export default async function CharacterIdPage({ params }: Props) {

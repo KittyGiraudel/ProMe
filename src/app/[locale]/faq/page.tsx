@@ -3,6 +3,7 @@ import { join } from 'node:path'
 import type { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { FAQ } from '@/components/PageFAQ/FAQ'
+import { routing } from '@/i18n/routing'
 
 type Props = { params: Promise<{ locale: string }> }
 
@@ -12,6 +13,18 @@ export async function generateMetadata({ params }: Props) {
 
   return {
     title: t('faq.title'),
+    alternates: {
+      canonical: `/${locale}/faq`,
+      languages: {
+        en: '/en/faq',
+        fr: '/fr/faq',
+        'x-default': `/${routing.defaultLocale}/faq`,
+      },
+    },
+    openGraph: {
+      title: t('faq.title'),
+      url: `/${locale}/faq`,
+    },
   }
 }
 

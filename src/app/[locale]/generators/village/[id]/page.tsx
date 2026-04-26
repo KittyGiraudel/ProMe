@@ -13,6 +13,7 @@ export async function generateMetadata({ params }: Props) {
   const t = await getTranslations({ locale: locale as AppConfig['Locale'] })
   return {
     title: t('village.title'),
+    robots: { index: false },
   }
 }
 

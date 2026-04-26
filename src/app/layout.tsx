@@ -19,6 +19,7 @@ export const viewport: Viewport = {
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
+    metadataBase: new URL('https://prome.games'),
     icons: {
       icon: [
         {
