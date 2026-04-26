@@ -13,7 +13,7 @@ function makeChar(id: string, updatedAt: string): Character {
     createdAt: '2026-01-01T00:00:00.000Z',
     updatedAt,
     name: `Character ${id}`,
-    archetype: 'warrior',
+    archetype: 'swordbearer',
     honor: 0,
     inspiration: 0,
     money: 0,

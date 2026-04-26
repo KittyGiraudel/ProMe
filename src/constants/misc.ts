@@ -57,7 +57,7 @@ export const BIOME_IDS: readonly BiomeId[] = [
 ] as const
 
 export const ARCHETYPES: readonly Archetype[] = [
-  'warrior',
-  'pilgrim',
-  'bard',
+  'swordbearer',
+  'wanderer',
+  'troubadour',
 ] as const

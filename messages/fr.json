@@ -299,22 +299,22 @@
     },
     "archetypes": {
       "name": {
-        "warrior": "{gender, select, man {Guerrier} woman {Guerrière} other {Guerrier·e}}",
-        "pilgrim": "{gender, select, man {Pèlerin} woman {Pèlerine} other {Pèlerin·e}}",
-        "bard": "{gender, select, man {Troubadour} woman {Troubadouresse} other {Troubadour·esse}}"
+        "swordbearer": "{gender, select, man {Porte-épée} woman {Porte-épée} other {Porte-épée}}",
+        "wanderer": "{gender, select, man {Errant} woman {Errante} other {Errant·e}}",
+        "troubadour": "{gender, select, man {Troubadour} woman {Troubadouresse} other {Troubadour·esse}}"
       },
       "power": {
-        "warrior_title": "Le pouvoir de l’épée",
-        "warrior_description": "Quand vous le souhaitez, vous pouvez fuir une bataille sans avoir à lancer de dés ni risquer de subir des dégâts.",
-        "pilgrim_title": "Le pouvoir du bâton",
-        "pilgrim_description": "Vous n’avez besoin de vous nourrir qu’une fois par jour, à la fin de chaque nuit.",
-        "bard_title": "Le pouvoir de la mandoline",
-        "bard_description": "Lorsque vous arrivez dans un village pour la première fois, vous pouvez jouer une chanson et gagner 1D6 × 10 pièces."
+        "swordbearer_title": "Le pouvoir de l’épée",
+        "swordbearer_description": "Quand vous le souhaitez, vous pouvez fuir une bataille sans avoir à lancer de dés ni risquer de subir des dégâts.",
+        "wanderer_title": "Le pouvoir du bâton",
+        "wanderer_description": "Vous n’avez besoin de vous nourrir qu’une fois par jour, à la fin de chaque nuit.",
+        "troubadour_title": "Le pouvoir de la mandoline",
+        "troubadour_description": "Lorsque vous arrivez dans un village pour la première fois, vous pouvez jouer une chanson et gagner 1D6 × 10 pièces."
       },
       "lore": {
-        "warrior": "Vos souvenirs peuvent être fragmentaires mais quelque chose vous dit que pour sauver le monde, combat sera inévitable.",
-        "pilgrim": "Le monde vous est inconnu mais vous savez que le périple sera long et parsemé d’embûches. Pour accomplir votre mission, tout dépendra de ce voyage.",
-        "bard": "Pour remplir votre mission, il faudra que votre cœur soit ouvert et votre esprit curieux pour collecter les histoires qui vous attendent en chemin."
+        "swordbearer": "Vos souvenirs peuvent être fragmentaires mais quelque chose vous dit que pour sauver le monde, combat sera inévitable.",
+        "wanderer": "Le monde vous est inconnu mais vous savez que le périple sera long et parsemé d’embûches. Pour accomplir votre mission, tout dépendra de ce voyage.",
+        "troubadour": "Pour remplir votre mission, il faudra que votre cœur soit ouvert et votre esprit curieux pour collecter les histoires qui vous attendent en chemin."
       }
     },
     "factions": {

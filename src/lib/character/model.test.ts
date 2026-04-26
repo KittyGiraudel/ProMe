@@ -10,17 +10,17 @@ import { ValidationError } from './store/localStorageStore'
 
 describe('character/model', () => {
   it('default pools match archetype mapping', () => {
-    expect(getDefaultPoolsForArchetype('warrior')).toEqual({
+    expect(getDefaultPoolsForArchetype('swordbearer')).toEqual({
       health: { current: 2, max: 2 },
       courage: { current: 4, max: 4 },
       stamina: { current: 3, max: 3 },
     })
-    expect(getDefaultPoolsForArchetype('pilgrim')).toEqual({
+    expect(getDefaultPoolsForArchetype('wanderer')).toEqual({
       health: { current: 3, max: 3 },
       courage: { current: 2, max: 2 },
       stamina: { current: 4, max: 4 },
     })
-    expect(getDefaultPoolsForArchetype('bard')).toEqual({
+    expect(getDefaultPoolsForArchetype('troubadour')).toEqual({
       health: { current: 4, max: 4 },
       courage: { current: 3, max: 3 },
       stamina: { current: 2, max: 2 },
@@ -28,7 +28,7 @@ describe('character/model', () => {
   })
 
   it('createDefaultCharacterInput sets money=100 and archetype pools', () => {
-    const input = createDefaultCharacterInput('pilgrim')
+    const input = createDefaultCharacterInput('wanderer')
     expect(input.money).toBe(100)
     expect(input.health).toEqual({ current: 3, max: 3 })
     expect(input.courage).toEqual({ current: 2, max: 2 })
@@ -43,7 +43,7 @@ describe('character/model', () => {
     const normalized = normalizeCharacter({
       id: 'pc-life-status',
       name: 'Status',
-      archetype: 'warrior',
+      archetype: 'swordbearer',
       lifeStatus: 'ghost',
     })
     expect(normalized).not.toBeNull()
@@ -55,7 +55,7 @@ describe('character/model', () => {
     const normalized = normalizeCharacter({
       id: 'pc-legacy-journal',
       name: 'Legacy',
-      archetype: 'warrior',
+      archetype: 'swordbearer',
       notes: 'Souvenir important',
     })
 
@@ -69,7 +69,7 @@ describe('character/model', () => {
     const normalized = normalizeCharacter({
       id: 'pc-journal',
       name: 'Journal',
-      archetype: 'bard',
+      archetype: 'troubadour',
       journalEntries: [
         {
           id: 'e1',
@@ -188,7 +188,7 @@ describe('character/model', () => {
     const normalized = normalizeCharacter({
       id: 'pc-1',
       name: 'Test',
-      archetype: 'warrior',
+      archetype: 'swordbearer',
       map: {
         currentPosition: { q: 1.9, r: -2.2 },
         cells: [
@@ -218,7 +218,7 @@ describe('character/model', () => {
     const normalized = normalizeCharacter({
       id: 'pc-2',
       name: 'Test',
-      archetype: 'pilgrim',
+      archetype: 'wanderer',
       map: {
         currentPosition: { q: 0, r: 0 },
         cells: [
@@ -252,7 +252,7 @@ describe('character/model', () => {
     const normalized = normalizeCharacter({
       id: 'pc-legacy-clock',
       name: 'Legacy',
-      archetype: 'warrior',
+      archetype: 'swordbearer',
       stamina: { current: 3, max: 3 },
       clock: {
         position: 2,

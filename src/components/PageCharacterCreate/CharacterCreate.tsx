@@ -24,7 +24,7 @@ type CharacterCreateFormValues = {
 
 const DEFAULT_VALUES: CharacterCreateFormValues = {
   name: '',
-  archetype: 'warrior',
+  archetype: 'swordbearer',
   gender: undefined,
   inheritFromCharacterId: undefined,
 }

@@ -11,7 +11,7 @@ describe('markdown/protectorLinkSummary', () => {
         createdAt: '',
         updatedAt: '',
         name: 'Asha',
-        archetype: 'bard',
+        archetype: 'troubadour',
         gender: 'woman',
         honor: 0,
         inspiration: 0,

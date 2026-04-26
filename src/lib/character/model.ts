@@ -26,8 +26,18 @@ const DEFAULT_MONEY = 100
 export const DEFAULT_MAP_POSITION: CellCoordinate = { q: 0, r: 0 }
 
 function normalizeArchetype(value: unknown, fallback: Archetype): Archetype {
-  if (value === 'warrior' || value === 'pilgrim' || value === 'bard')
+  if (
+    value === 'swordbearer' ||
+    value === 'wanderer' ||
+    value === 'troubadour'
+  ) {
     return value
+  }
+
+  // Backward compatibility for persisted characters using legacy IDs.
+  if (value === 'warrior') return 'swordbearer'
+  if (value === 'pilgrim') return 'wanderer'
+  if (value === 'bard') return 'troubadour'
   return fallback
 }
 
@@ -211,19 +221,19 @@ function defaultPoolsForArchetype(archetype: Archetype): {
   stamina: StatPool
 } {
   switch (archetype) {
-    case 'warrior':
+    case 'swordbearer':
       return {
         health: { current: 2, max: 2 },
         courage: { current: 4, max: 4 },
         stamina: { current: 3, max: 3 },
       }
-    case 'pilgrim':
+    case 'wanderer':
       return {
         health: { current: 3, max: 3 },
         courage: { current: 2, max: 2 },
         stamina: { current: 4, max: 4 },
       }
-    case 'bard':
+    case 'troubadour':
       return {
         health: { current: 4, max: 4 },
         courage: { current: 3, max: 3 },
@@ -245,7 +255,7 @@ export function getDefaultPoolsForArchetype(archetype: Archetype): {
 }
 
 export function createDefaultCharacterInput(
-  archetype: Archetype = 'warrior'
+  archetype: Archetype = 'swordbearer'
 ): CharacterInput {
   const pools = defaultPoolsForArchetype(archetype)
   return {
@@ -273,7 +283,7 @@ export function createDefaultCharacterInput(
 export function normalizeCharacterInput(
   input: Partial<CharacterInput> | null | undefined
 ): CharacterInput {
-  const fallbackArchetype: Archetype = 'warrior'
+  const fallbackArchetype: Archetype = 'swordbearer'
   const baseArchetype = normalizeArchetype(input?.archetype, fallbackArchetype)
   const base = createDefaultCharacterInput(baseArchetype)
   const source = input ?? {}

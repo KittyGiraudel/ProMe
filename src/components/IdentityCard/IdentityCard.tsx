@@ -39,16 +39,16 @@ export function IdentityCard({
               style={{ width: '100%' }}
               options={[
                 {
-                  value: 'warrior',
-                  label: t('common.archetypes.name.warrior', { gender }),
+                  value: 'swordbearer',
+                  label: t('common.archetypes.name.swordbearer', { gender }),
                 },
                 {
-                  value: 'pilgrim',
-                  label: t('common.archetypes.name.pilgrim', { gender }),
+                  value: 'wanderer',
+                  label: t('common.archetypes.name.wanderer', { gender }),
                 },
                 {
-                  value: 'bard',
-                  label: t('common.archetypes.name.bard', { gender }),
+                  value: 'troubadour',
+                  label: t('common.archetypes.name.troubadour', { gender }),
                 },
               ]}
             />

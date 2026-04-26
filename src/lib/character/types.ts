@@ -2,7 +2,7 @@ import type { BiomeId, Gender } from '@/lib/types'
 
 export const CHARACTER_SCHEMA_VERSION = 1 as const
 
-export type Archetype = 'warrior' | 'pilgrim' | 'bard'
+export type Archetype = 'swordbearer' | 'wanderer' | 'troubadour'
 export type LifeStatus = 'alive' | 'dead'
 
 export type StatPool = {
