@@ -28,19 +28,48 @@ export async function generateMetadata({ params }: Props) {
   }
 }
 
+function buildFaqJsonLd(content: string) {
+  const sections = content.split('\n## ').slice(1)
+  const mainEntity = sections.map(section => {
+    const nl = section.indexOf('\n')
+    const question = section.slice(0, nl).trim()
+    const answer = section
+      .slice(nl)
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      .replace(/\*\*([^*]+)\*\*/g, '$1')
+      .replace(/^[0-9]+\. /gm, '')
+      .replace(/^[-*] /gm, '')
+      .replace(/\n+/g, ' ')
+      .trim()
+    return {
+      '@type': 'Question',
+      name: question,
+      acceptedAnswer: { '@type': 'Answer', text: answer },
+    }
+  })
+  return { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity }
+}
+
 export default async function FAQPage({ params }: Props) {
   const { locale } = await params
   const filePath = join(process.cwd(), 'messages', `faq.${locale}.md`)
   const content = readFileSync(filePath, 'utf-8')
-
   const t = await getTranslations({ locale: locale as AppConfig['Locale'] })
 
   return (
-    <PageMarkdown
-      title={t('faq.title')}
-      breadcrumb={{ title: t('nav.faq'), path: '/faq' }}
-      content={content}
-      bannerBiome='mushroomJungle'
-    />
+    <>
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(buildFaqJsonLd(content)),
+        }}
+      />
+      <PageMarkdown
+        title={t('faq.title')}
+        breadcrumb={{ title: t('nav.faq'), path: '/faq' }}
+        content={content}
+        bannerBiome='mushroomJungle'
+      />
+    </>
   )
 }

@@ -71,6 +71,7 @@ const jsonLd = {
     '@type': 'Person',
     name: 'Kitty Giraudel',
     url: 'https://kittygiraudel.com',
+    sameAs: ['https://github.com/KittyGiraudel'],
   },
 }
 
