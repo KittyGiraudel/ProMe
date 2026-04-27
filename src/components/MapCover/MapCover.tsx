@@ -1,10 +1,10 @@
 import ArrowRightOutlined from '@ant-design/icons/lib/icons/ArrowRightOutlined'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { ViewTransition } from 'react'
 import { CardCover } from '@/components/CardCover/CardCover'
+import { AppLink } from '@/components/Navigation/AppLink'
 import { biomeIdToSlug } from '@/lib/biomes/biomeSlug'
 import { PossibleBiomeId } from '@/lib/types'
-import { BlockedLink } from '../Navigation/BlockedLink'
 
 import './MapCover.css'
 
@@ -16,6 +16,7 @@ export function MapCover({
   isCore: boolean
 }) {
   const t = useTranslations()
+  const locale = useLocale()
 
   if (isCore) {
     return (
@@ -40,11 +41,16 @@ export function MapCover({
         title={t.rich(`biomes.${biome}.location`, {
           b: chunks =>
             biome !== 'unexplored' ? (
-              <BlockedLink
+              <AppLink
                 className='MapCover__link'
-                href={`/biomes/${biomeIdToSlug(biome)}#biome-map`}>
+                to={{
+                  route: 'biome',
+                  params: { biome: biomeIdToSlug(biome, locale) },
+                  hash: 'biome-map',
+                }}
+                block>
                 {chunks}
-              </BlockedLink>
+              </AppLink>
             ) : (
               <strong>{chunks}</strong>
             ),
@@ -54,11 +60,16 @@ export function MapCover({
           biome !== 'unexplored' ? (
             <>
               {t(`biomes.${biome}.teaser`)} ·{' '}
-              <BlockedLink
+              <AppLink
                 className='MapCover__link MapCover__link--in-text'
-                href={`/biomes/${biomeIdToSlug(biome)}#biome-map`}>
+                to={{
+                  route: 'biome',
+                  params: { biome: biomeIdToSlug(biome, locale) },
+                  hash: 'biome-map',
+                }}
+                block>
                 {t('common.actions.explore')} <ArrowRightOutlined />
-              </BlockedLink>
+              </AppLink>
             </>
           ) : undefined
         }

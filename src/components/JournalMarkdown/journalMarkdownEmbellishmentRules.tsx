@@ -54,7 +54,7 @@ function ProtectorJournalRef({
     <JournalReferencePreview
       kind='protector'
       referenceId={id}
-      href={interactive ? `/characters/${id}/identity` : undefined}
+      href={interactive ? { route: 'character', params: { id } } : undefined}
       label={label}
     />
   )
@@ -220,7 +220,15 @@ function staticJournalEmbellishmentRules(
             key={reactKey}
             kind='village'
             referenceId={encodedId}
-            href={ctx.interactive ? `/generators/village/${id}` : undefined}
+            href={
+              ctx.interactive
+                ? {
+                    route: 'village',
+                    params: { id: encodedId },
+                    query: faction ? { f: faction } : undefined,
+                  }
+                : undefined
+            }
             label={summary}
           />
         )
@@ -241,7 +249,9 @@ function staticJournalEmbellishmentRules(
             key={reactKey}
             kind='npc'
             referenceId={id}
-            href={ctx.interactive ? `/generators/npc/${id}` : undefined}
+            href={
+              ctx.interactive ? { route: 'npc', params: { id } } : undefined
+            }
             label={summary}
           />
         )

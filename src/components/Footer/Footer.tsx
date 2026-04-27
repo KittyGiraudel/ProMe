@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 import { Logo } from '@/components/Logo/Logo'
-import { Link } from '@/i18n/navigation'
+import { AppLink } from '@/components/Navigation/AppLink'
 
 import './Footer.css'
 
@@ -15,22 +15,22 @@ export function Footer() {
     <div className='Footer'>
       <div className='Footer__inner'>
         <div className='Footer__brand'>
-          <Link href='/' className='Footer__logo-link'>
+          <AppLink to={{ route: 'home' }} block className='Footer__logo-link'>
             <Logo />
-          </Link>
+          </AppLink>
           <p className='Footer__description'>{t('footer.description')}</p>
         </div>
 
         <nav className='Footer__nav'>
-          <Link href='/about' className='Footer__nav-link'>
+          <AppLink to={{ route: 'about' }} block className='Footer__nav-link'>
             {t('nav.about')}
-          </Link>
-          <Link href='/faq' className='Footer__nav-link'>
+          </AppLink>
+          <AppLink to={{ route: 'faq' }} block className='Footer__nav-link'>
             {t('nav.faq')}
-          </Link>
-          <Link href='/privacy' className='Footer__nav-link'>
+          </AppLink>
+          <AppLink to={{ route: 'privacy' }} block className='Footer__nav-link'>
             {t('nav.privacy')}
-          </Link>
+          </AppLink>
           <a
             href='https://github.com/KittyGiraudel/ProMe/issues'
             target='_blank'

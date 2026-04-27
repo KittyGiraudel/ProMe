@@ -2,7 +2,7 @@
 
 import { Alert } from 'antd'
 import { useTranslations } from 'next-intl'
-import { BlockedLink } from '@/components/Navigation/BlockedLink'
+import { AppLink } from '@/components/Navigation/AppLink'
 import { useDismissed } from '@/hooks/useDismissed'
 
 import './SettingsHint.css'
@@ -21,7 +21,11 @@ export function SettingsHint({ hintId }: { hintId: SettingsHintId }) {
       type='info'
       closable={{ closeIcon: true, onClose: dismiss }}
       title={t.rich(`settings.hints.${hintId}`, {
-        link: content => <BlockedLink href='/settings'>{content}</BlockedLink>,
+        link: content => (
+          <AppLink to={{ route: 'settings' }} block>
+            {content}
+          </AppLink>
+        ),
       })}
     />
   )

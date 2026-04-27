@@ -2,43 +2,39 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import type { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
+import { buildAlternates } from '@/app/metadataRoute'
 import { PageMarkdown } from '@/components/PageMarkdown/PageMarkdown'
-import { routing } from '@/i18n/routing'
 
 type Props = { params: Promise<{ locale: string }> }
 
 export async function generateMetadata({ params }: Props) {
-  const { locale } = await params
-  const t = await getTranslations({ locale: locale as AppConfig['Locale'] })
+  const { locale: localeAsString } = await params
+  const locale = localeAsString as AppConfig['Locale']
+  const t = await getTranslations({ locale })
+  const alternates = buildAlternates('privacy', locale)
 
   return {
     title: t('privacy.title'),
-    alternates: {
-      canonical: `/${locale}/privacy`,
-      languages: {
-        en: '/en/privacy',
-        fr: '/fr/privacy',
-        'x-default': `/${routing.defaultLocale}/privacy`,
-      },
-    },
+    alternates,
     openGraph: {
       title: t('privacy.title'),
-      url: `/${locale}/privacy`,
+      url: alternates.languages[locale],
     },
   }
 }
 
 export default async function PrivacyPage({ params }: Props) {
-  const { locale } = await params
+  const { locale: localeAsString } = await params
+  const locale = localeAsString as AppConfig['Locale']
   const filePath = join(process.cwd(), 'messages', `privacy.${locale}.md`)
   const content = readFileSync(filePath, 'utf-8')
 
-  const t = await getTranslations({ locale: locale as AppConfig['Locale'] })
+  const t = await getTranslations({ locale })
 
   return (
     <PageMarkdown
       title={t('privacy.title')}
-      breadcrumb={{ title: t('nav.privacy'), path: '/privacy' }}
+      breadcrumb={{ title: t('nav.privacy'), to: { route: 'privacy' } }}
       content={content}
       bannerBiome='prairieSea'
     />

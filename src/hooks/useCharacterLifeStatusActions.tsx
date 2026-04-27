@@ -62,7 +62,6 @@ export const useWarnDeath = ({
         actions: (
           <Button
             danger
-            htmlType='button'
             onClick={() => {
               notification.destroy(DEATH_SUGGESTION_KEY)
               onKill()

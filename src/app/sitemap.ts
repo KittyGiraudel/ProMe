@@ -1,12 +1,13 @@
 import type { MetadataRoute } from 'next'
+import { getLocalizedRoutePath, withLocalePrefix } from '@/app/metadataRoute'
 import { BIOME_IDS } from '@/constants/misc'
-import { routing } from '@/i18n/routing'
+import { routes, routing } from '@/i18n/routing'
 import { biomeIdToSlug } from '@/lib/biomes/biomeSlug'
 
 const BASE_URL = 'https://prome.games'
 const locales = routing.locales
 
-function url(path: string): MetadataRoute.Sitemap[number] {
+function generateSitemapEntry(path: string): MetadataRoute.Sitemap[number] {
   return {
     url: `${BASE_URL}${path}`,
     lastModified: new Date(),
@@ -16,23 +17,30 @@ function url(path: string): MetadataRoute.Sitemap[number] {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const homeEntries = locales.map(locale => url(`/${locale}`))
+  const staticRoutes = (
+    Object.keys(routes) as Array<keyof typeof routes>
+  ).filter(name => !routes[name].pathname.includes('['))
 
-  const staticRoutes = [
-    '/about',
-    '/faq',
-    '/privacy',
-    '/generators/npc',
-    '/generators/village',
-    '/settings',
-  ]
   const staticEntries = locales.flatMap(locale =>
-    staticRoutes.map(route => url(`/${locale}${route}`))
+    staticRoutes.map(routeName =>
+      generateSitemapEntry(
+        withLocalePrefix(locale, getLocalizedRoutePath(routeName, locale))
+      )
+    )
   )
 
   const biomeEntries = locales.flatMap(locale =>
-    BIOME_IDS.map(id => url(`/${locale}/biomes/${biomeIdToSlug(id)}`))
+    BIOME_IDS.map(id =>
+      generateSitemapEntry(
+        withLocalePrefix(
+          locale,
+          getLocalizedRoutePath('biome', locale, {
+            biome: biomeIdToSlug(id, locale),
+          })
+        )
+      )
+    )
   )
 
-  return [...homeEntries, ...staticEntries, ...biomeEntries]
+  return [...staticEntries, ...biomeEntries]
 }

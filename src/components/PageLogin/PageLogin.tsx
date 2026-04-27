@@ -15,8 +15,8 @@ export function PageLogin() {
       title={t('auth.title')}
       bannerBiome='mushroomJungle'
       breadcrumbs={[
-        { title: t('nav.home'), path: '/' },
-        { title: t('nav.login'), path: '/login' },
+        { title: t('nav.home'), to: { route: 'home' } },
+        { title: t('nav.login'), to: { route: 'login' } },
       ]}>
       <Card
         title={<h2>{t('auth.sign_in_title')}</h2>}

@@ -3,7 +3,7 @@
 import { Empty, Skeleton } from 'antd'
 import { useTranslations } from 'next-intl'
 import { Layout } from '@/components/Layout/Layout'
-import { Link } from '@/i18n/navigation'
+import { AppLink } from '@/components/Navigation/AppLink'
 
 export function CharacterSheetEmptyState({
   loading = false,
@@ -17,8 +17,8 @@ export function CharacterSheetEmptyState({
       title={t('characters.title')}
       bannerBiome='sunkenSavanna'
       breadcrumbs={[
-        { title: t('nav.home'), path: '/' },
-        { title: t('nav.characters'), path: '/characters' },
+        { title: t('nav.home'), to: { route: 'home' } },
+        { title: t('nav.characters'), to: { route: 'characters' } },
       ]}>
       {loading ? (
         <Skeleton active />
@@ -30,7 +30,9 @@ export function CharacterSheetEmptyState({
               <br /> {t('characters.not_found_description')}
             </>
           }>
-          <Link href='/characters'>{t('characters.back_to_library')}</Link>
+          <AppLink to={{ route: 'characters' }}>
+            {t('characters.back_to_library')}
+          </AppLink>
         </Empty>
       )}
     </Layout>

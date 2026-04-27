@@ -10,7 +10,7 @@ import { useTranslations } from 'next-intl'
 import { useCharacterLifeStatusActions } from '@/hooks/useCharacterLifeStatusActions'
 import { SaveForm } from '@/hooks/useCharacterSheetForm'
 import { useCharacterDelete } from '@/hooks/useMutation'
-import { useRouter } from '@/i18n/navigation'
+import { toRouterHref, useRouter } from '@/i18n/navigation'
 import { useCharacterExport } from './useCharacterExport'
 
 import './ActionsCard.css'
@@ -35,7 +35,7 @@ export function ActionsCard({
   const [deleteCharacter] = useCharacterDelete({
     onCompleted: () => {
       message.success(t('characters.actions.delete_success'))
-      router.push('/characters')
+      router.push(toRouterHref({ route: 'characters' }))
     },
     onError: () => message.error(t('errors.delete_character')),
   })

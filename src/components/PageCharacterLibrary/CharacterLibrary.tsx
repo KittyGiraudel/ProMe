@@ -1,14 +1,14 @@
 'use client'
 
-import { Card, Empty, Skeleton, Typography } from 'antd'
+import { Button, Card, Empty, Skeleton, Typography } from 'antd'
 import { useFormatter, useTranslations } from 'next-intl'
 import { useCallback, useMemo, useRef } from 'react'
-import { Button } from '@/components/Button/Button'
+import { AppLinkButton } from '@/components/AppLinkButton/AppLinkButton'
 import { Layout } from '@/components/Layout/Layout'
+import { AppLink } from '@/components/Navigation/AppLink'
 import { Spacing } from '@/components/Spacing/Spacing'
 import { useCharacterLibraryActions } from '@/hooks/useCharacterLibraryActions'
 import { useCharactersQuery } from '@/hooks/useQuery'
-import { Link } from '@/i18n/navigation'
 import { isCharacterDead } from '@/lib/character/lifeStatus'
 
 export function CharacterLibrary() {
@@ -26,13 +26,13 @@ export function CharacterLibrary() {
       title={t('characters.title')}
       bannerBiome='sunkenSavanna'
       breadcrumbs={[
-        { title: t('nav.home'), path: '/' },
-        { title: t('nav.characters'), path: '/characters' },
+        { title: t('nav.home'), to: { route: 'home' } },
+        { title: t('nav.characters'), to: { route: 'characters' } },
       ]}>
       <Spacing orientation='horizontal' size='small'>
-        <Button type='primary' href='/characters/new'>
+        <AppLinkButton type='primary' to={{ route: 'newCharacter' }}>
           {t('new_character.create')}
-        </Button>
+        </AppLinkButton>
         <Button onClick={handleImportClick}>{t('new_character.import')}</Button>
       </Spacing>
 
@@ -93,9 +93,10 @@ export function CharacterLibrary() {
                   : undefined
               }
               extra={
-                <Link href={`/characters/${character.id}`}>
+                <AppLink
+                  to={{ route: 'character', params: { id: character.id } }}>
                   {t('common.actions.open')}
-                </Link>
+                </AppLink>
               }>
               <Spacing size='small'>
                 <Typography.Text>

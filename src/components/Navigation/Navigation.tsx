@@ -1,15 +1,16 @@
 import { MenuFoldOutlined } from '@ant-design/icons'
 import { Button, Drawer } from 'antd'
-import { useTranslations } from 'next-intl'
+import { useParams } from 'next/navigation'
+import { useLocale, useTranslations } from 'next-intl'
 import { useState } from 'react'
+import { AuthButton } from '@/components/AuthButton/AuthButton'
+import { Logo } from '@/components/Logo/Logo'
+import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { BIOME_IDS } from '@/constants/misc'
 import { useCharactersQuery } from '@/hooks/useQuery'
 import { usePathname } from '@/i18n/navigation'
 import { biomeIdToSlug } from '@/lib/biomes/biomeSlug'
-import { AuthButton } from '../AuthButton/AuthButton'
-import { Logo } from '../Logo/Logo'
-import { useSettings } from '../PageSettings/SettingsContext'
-import { BlockedLink } from './BlockedLink'
+import { AppLink } from './AppLink'
 import { SkipLink } from './SkipLink'
 import { ThemeToggleButton } from './ThemeToggleButton'
 
@@ -21,9 +22,13 @@ export function Navigation({
   disableThemeToggle?: boolean
 }) {
   const t = useTranslations()
+  const locale = useLocale()
   const { settings, updateSettings } = useSettings()
   const { data: characters } = useCharactersQuery()
+  // Note that `pathname` returns the unlocalized pathname, as defined in the
+  // routing configuration (e.g. `/characters/[id]`).
   const pathname = usePathname()
+  const { biome: activeBiomeSlug } = useParams<{ biome?: string }>()
   const [isNavDrawerOpen, setNavDrawerOpen] = useState(false)
   const [isGeneratorsSubmenuExpanded, setIsGeneratorsSubmenuExpanded] =
     useState(false)
@@ -46,9 +51,9 @@ export function Navigation({
             className='Nav__item'
             data-active={pathname === '/'}
             data-presence='any'>
-            <BlockedLink href='/' className='Nav__link'>
+            <AppLink to={{ route: 'home' }} block className='Nav__link'>
               <Logo />
-            </BlockedLink>
+            </AppLink>
           </li>
           <li
             className='Nav__item'
@@ -60,22 +65,29 @@ export function Navigation({
             <ul className='Nav__submenu'>
               {characters?.slice(0, 3).map(character => (
                 <li key={character.id} className='Nav__item'>
-                  <BlockedLink
-                    href={`/characters/${character.id}`}
+                  <AppLink
+                    to={{ route: 'character', params: { id: character.id } }}
+                    block
                     className='Nav__link'>
                     {character.name}
-                  </BlockedLink>
+                  </AppLink>
                 </li>
               ))}
               <li className='Nav__item'>
-                <BlockedLink href='/characters' className='Nav__link'>
+                <AppLink
+                  to={{ route: 'characters' }}
+                  block
+                  className='Nav__link'>
                   {t('nav.all_characters')}
-                </BlockedLink>
+                </AppLink>
               </li>
               <li className='Nav__item'>
-                <BlockedLink href='/characters/new' className='Nav__link'>
+                <AppLink
+                  to={{ route: 'newCharacter' }}
+                  block
+                  className='Nav__link'>
                   {t('nav.new_character')}
-                </BlockedLink>
+                </AppLink>
               </li>
             </ul>
           </li>
@@ -95,16 +107,22 @@ export function Navigation({
               <li
                 className='Nav__item'
                 data-active={pathname.startsWith('/generators/npc')}>
-                <BlockedLink href='/generators/npc' className='Nav__link'>
+                <AppLink
+                  to={{ route: 'npcGenerator' }}
+                  block
+                  className='Nav__link'>
                   {t('nav.inhabitant_generator')}
-                </BlockedLink>
+                </AppLink>
               </li>
               <li
                 className='Nav__item'
                 data-active={pathname.startsWith('/generators/village')}>
-                <BlockedLink href='/generators/village' className='Nav__link'>
+                <AppLink
+                  to={{ route: 'villageGenerator' }}
+                  block
+                  className='Nav__link'>
                   {t('nav.village_generator')}
-                </BlockedLink>
+                </AppLink>
               </li>
             </ul>
           </li>
@@ -123,15 +141,18 @@ export function Navigation({
               onMouseEnter={() => setIsBiomesSubmenuExpanded(true)}
               onMouseLeave={() => setIsBiomesSubmenuExpanded(false)}>
               {BIOME_IDS.map(biome => {
-                const slug = biomeIdToSlug(biome)
+                const slug = biomeIdToSlug(biome, locale)
                 return (
                   <li
                     className='Nav__item'
                     key={biome}
-                    data-active={pathname.startsWith(`/biomes/${slug}`)}>
-                    <BlockedLink href={`/biomes/${slug}`} className='Nav__link'>
+                    data-active={activeBiomeSlug === slug}>
+                    <AppLink
+                      to={{ route: 'biome', params: { biome: slug } }}
+                      block
+                      className='Nav__link'>
                       {t(`biomes.${biome}.name`)}
-                    </BlockedLink>
+                    </AppLink>
                   </li>
                 )
               })}
@@ -141,9 +162,9 @@ export function Navigation({
             className='Nav__item Nav__item--break'
             data-active={pathname.startsWith('/settings')}
             data-presence='wide-only'>
-            <BlockedLink href='/settings' className='Nav__link'>
+            <AppLink to={{ route: 'settings' }} block className='Nav__link'>
               {t('nav.settings')}
-            </BlockedLink>
+            </AppLink>
           </li>
           <li
             className='Nav__item'
@@ -155,7 +176,6 @@ export function Navigation({
             className='Nav__item Nav__item--break'
             data-presence='narrow-only'>
             <Button
-              htmlType='button'
               className='Nav__link'
               onClick={() => setNavDrawerOpen(true)}
               icon={<MenuFoldOutlined />}>
@@ -189,22 +209,29 @@ export function Navigation({
             <ul className='Nav__submenu'>
               {characters?.slice(0, 3).map(character => (
                 <li key={character.id} className='Nav__item'>
-                  <BlockedLink
-                    href={`/characters/${character.id}`}
+                  <AppLink
+                    to={{ route: 'character', params: { id: character.id } }}
+                    block
                     className='Nav__link'>
                     {character.name}
-                  </BlockedLink>
+                  </AppLink>
                 </li>
               ))}
               <li className='Nav__item'>
-                <BlockedLink href='/characters' className='Nav__link'>
+                <AppLink
+                  to={{ route: 'characters' }}
+                  block
+                  className='Nav__link'>
                   {t('nav.all_characters')}
-                </BlockedLink>
+                </AppLink>
               </li>
               <li className='Nav__item'>
-                <BlockedLink href='/characters/new' className='Nav__link'>
+                <AppLink
+                  to={{ route: 'newCharacter' }}
+                  block
+                  className='Nav__link'>
                   {t('nav.new_character')}
-                </BlockedLink>
+                </AppLink>
               </li>
             </ul>
           </li>
@@ -214,16 +241,22 @@ export function Navigation({
               <li
                 className='Nav__item'
                 data-active={pathname.startsWith('/generators/npc')}>
-                <BlockedLink href='/generators/npc' className='Nav__link'>
+                <AppLink
+                  to={{ route: 'npcGenerator' }}
+                  block
+                  className='Nav__link'>
                   {t('nav.inhabitant_generator')}
-                </BlockedLink>
+                </AppLink>
               </li>
               <li
                 className='Nav__item'
                 data-active={pathname.startsWith('/generators/village')}>
-                <BlockedLink href='/generators/village' className='Nav__link'>
+                <AppLink
+                  to={{ route: 'villageGenerator' }}
+                  block
+                  className='Nav__link'>
                   {t('nav.village_generator')}
-                </BlockedLink>
+                </AppLink>
               </li>
             </ul>
           </li>
@@ -231,15 +264,18 @@ export function Navigation({
             <span className='Nav__link'>{t('nav.biomes')}</span>
             <ul className='Nav__submenu'>
               {BIOME_IDS.map(biome => {
-                const slug = biomeIdToSlug(biome)
+                const slug = biomeIdToSlug(biome, locale)
                 return (
                   <li
                     className='Nav__item'
                     key={biome}
-                    data-active={pathname.startsWith(`/biomes/${slug}`)}>
-                    <BlockedLink href={`/biomes/${slug}`} className='Nav__link'>
+                    data-active={activeBiomeSlug === slug}>
+                    <AppLink
+                      to={{ route: 'biome', params: { biome: slug } }}
+                      block
+                      className='Nav__link'>
                       {t(`biomes.${biome}.name`)}
-                    </BlockedLink>
+                    </AppLink>
                   </li>
                 )
               })}
@@ -248,16 +284,16 @@ export function Navigation({
           <li
             className='Nav__item Nav__item--break'
             data-active={pathname.startsWith('/faq')}>
-            <BlockedLink href='/faq' className='Nav__link'>
+            <AppLink to={{ route: 'faq' }} block className='Nav__link'>
               {t('nav.faq')}
-            </BlockedLink>
+            </AppLink>
           </li>
           <li
             className='Nav__item'
             data-active={pathname.startsWith('/settings')}>
-            <BlockedLink href='/settings' className='Nav__link'>
+            <AppLink to={{ route: 'settings' }} block className='Nav__link'>
               {t('nav.settings')}
-            </BlockedLink>
+            </AppLink>
           </li>
           <li className='Nav__item' data-active={pathname.startsWith('/login')}>
             <AuthButton className='Nav__link' />

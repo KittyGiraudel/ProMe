@@ -9,8 +9,11 @@ export function VillageGeneratorFallback() {
       title={t('village.title')}
       bannerBiome='titanGarden'
       breadcrumbs={[
-        { title: t('nav.home'), path: '/' },
-        { title: t('nav.village_generator'), path: '/generators/village' },
+        { title: t('nav.home'), to: { route: 'home' } },
+        {
+          title: t('nav.village_generator'),
+          to: { route: 'villageGenerator' },
+        },
       ]}>
       <Skeleton active />
     </Layout>

@@ -1,25 +1,31 @@
-import { Breadcrumb, BreadcrumbProps } from 'antd'
-import { ItemType } from 'antd/es/breadcrumb/Breadcrumb'
-import { BlockedLink } from '../Navigation/BlockedLink'
+import { Breadcrumb } from 'antd'
+import type { ReactNode } from 'react'
+import type { AppRouteTo } from '@/i18n/navigation'
+import { AppLink } from '../Navigation/AppLink'
 
 import './Breadcrumbs.css'
 
 type BreadcrumbsProps = {
-  breadcrumbs: BreadcrumbProps['items']
+  breadcrumbs: BreadcrumbItem[]
+}
+
+export type BreadcrumbItem = {
+  title: ReactNode
+  to?: AppRouteTo
 }
 
 export function Breadcrumbs({ breadcrumbs }: BreadcrumbsProps) {
   return (
     <Breadcrumb
-      items={breadcrumbs}
-      itemRender={function itemRender(currentRoute: ItemType) {
-        const to = currentRoute.path ?? currentRoute.href
-        return !to ? (
-          <span>{currentRoute.title}</span>
+      items={breadcrumbs.map(({ title, to }) => ({
+        title: to ? (
+          <AppLink to={to} block>
+            {title}
+          </AppLink>
         ) : (
-          <BlockedLink href={to}>{currentRoute.title}</BlockedLink>
-        )
-      }}
+          <span>{title}</span>
+        ),
+      }))}
     />
   )
 }

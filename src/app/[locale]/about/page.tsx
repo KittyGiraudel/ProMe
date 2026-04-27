@@ -2,8 +2,8 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import type { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
+import { buildAlternates } from '@/app/metadataRoute'
 import { PageMarkdown } from '@/components/PageMarkdown/PageMarkdown'
-import { routing } from '@/i18n/routing'
 
 type Props = { params: Promise<{ locale: string }> }
 
@@ -21,31 +21,27 @@ const videoJsonLd = {
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { locale } = await params
-  const t = await getTranslations({ locale: locale as AppConfig['Locale'] })
+  const { locale: localeAsString } = await params
+  const locale = localeAsString as AppConfig['Locale']
+  const t = await getTranslations({ locale })
+  const alternates = buildAlternates('about', locale)
 
   return {
     title: t('about.title'),
-    alternates: {
-      canonical: `/${locale}/about`,
-      languages: {
-        en: '/en/about',
-        fr: '/fr/about',
-        'x-default': `/${routing.defaultLocale}/about`,
-      },
-    },
+    alternates,
     openGraph: {
       title: t('about.title'),
-      url: `/${locale}/about`,
+      url: alternates.languages[locale],
     },
   }
 }
 
 export default async function AboutPage({ params }: Props) {
-  const { locale } = await params
+  const { locale: localeAsString } = await params
+  const locale = localeAsString as AppConfig['Locale']
   const filePath = join(process.cwd(), 'messages', `about.${locale}.md`)
   const content = readFileSync(filePath, 'utf-8')
-  const t = await getTranslations({ locale: locale as AppConfig['Locale'] })
+  const t = await getTranslations({ locale })
   const videoTitle = t('about.video_title')
 
   return (
@@ -56,7 +52,7 @@ export default async function AboutPage({ params }: Props) {
       />
       <PageMarkdown
         title={t('about.title')}
-        breadcrumb={{ title: t('nav.about'), path: '/about' }}
+        breadcrumb={{ title: t('nav.about'), to: { route: 'about' } }}
         content={content}
         bannerBiome='titanGarden'>
         <>

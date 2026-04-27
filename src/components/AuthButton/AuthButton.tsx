@@ -1,6 +1,6 @@
+import { Button } from 'antd'
 import { useTranslations } from 'next-intl'
-import { Button } from '@/components/Button/Button'
-import { BlockedLink } from '@/components/Navigation/BlockedLink'
+import { AppLink } from '@/components/Navigation/AppLink'
 import { useAuth } from '@/lib/auth/context'
 
 export function AuthButton({ className }: { className?: string }) {
@@ -14,8 +14,8 @@ export function AuthButton({ className }: { className?: string }) {
       {t('nav.logout')}
     </Button>
   ) : (
-    <BlockedLink href='/login' className={className}>
+    <AppLink to={{ route: 'login' }} block className={className}>
       {t('nav.login')}
-    </BlockedLink>
+    </AppLink>
   )
 }

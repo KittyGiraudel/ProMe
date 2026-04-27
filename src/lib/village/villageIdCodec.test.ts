@@ -55,4 +55,12 @@ describe('villageIdCodec', () => {
 
     expect(decodeVillageIdParam(id, testLocalize)).toBeNull()
   })
+
+  it('decodes shared village id from URL example', () => {
+    const id =
+      'H2D2C4H7D7.1D4C3H9121-1S5H3H71414-1C6DQC2521-1C4H2SJ645-1D5S5DJ361'
+
+    const decoded = decodeVillageIdParam(id, testLocalize)
+    expect(decoded).not.toBeNull()
+  })
 })

@@ -1,15 +1,15 @@
 'use client'
 
-import { App, Card, Col, Form, Input, Row, Select } from 'antd'
+import { App, Button, Card, Col, Form, Input, Row, Select } from 'antd'
 import { useTranslations } from 'next-intl'
+import { AppLinkButton } from '@/components/AppLinkButton/AppLinkButton'
 import { ArchetypeSelector } from '@/components/ArchetypeSelector/ArchetypeSelector'
-import { Button } from '@/components/Button/Button'
 import { InheritanceCard } from '@/components/InheritanceCard/InheritanceCard'
 import { Layout } from '@/components/Layout/Layout'
 import { Spacing } from '@/components/Spacing/Spacing'
 import { GENDERS } from '@/constants/misc'
 import { useCharacterCreate } from '@/hooks/useMutation'
-import { useRouter } from '@/i18n/navigation'
+import { toRouterHref, useRouter } from '@/i18n/navigation'
 import type { Archetype } from '@/lib/character/types'
 import type { Gender } from '@/lib/types'
 
@@ -37,7 +37,9 @@ export function CharacterCreate() {
   const [create] = useCharacterCreate({
     onCompleted: character => {
       message.success(t('new_character.create_success'))
-      router.push(`/characters/${character.id}`)
+      router.push(
+        toRouterHref({ route: 'character', params: { id: character.id } })
+      )
     },
     onError: () => message.error(t('errors.create')),
   })
@@ -48,9 +50,9 @@ export function CharacterCreate() {
       title={t('new_character.title')}
       bannerBiome='sunkenSavanna'
       breadcrumbs={[
-        { title: t('nav.home'), path: '/' },
-        { title: t('nav.characters'), path: '/characters' },
-        { title: t('nav.new_character'), path: '/characters/new' },
+        { title: t('nav.home'), to: { route: 'home' } },
+        { title: t('nav.characters'), to: { route: 'characters' } },
+        { title: t('nav.new_character'), to: { route: 'newCharacter' } },
       ]}>
       <Form<CharacterCreateFormValues>
         form={form}
@@ -106,9 +108,9 @@ export function CharacterCreate() {
             <Button type='primary' htmlType='submit'>
               {t('new_character.create')}
             </Button>
-            <Button htmlType='button' type='link' href='/characters'>
+            <AppLinkButton type='link' to={{ route: 'characters' }}>
               {t('common.actions.cancel')}
-            </Button>
+            </AppLinkButton>
           </Spacing>
         </Spacing>
       </Form>

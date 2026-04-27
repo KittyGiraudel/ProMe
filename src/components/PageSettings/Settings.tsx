@@ -18,7 +18,7 @@ import { Layout } from '@/components/Layout/Layout'
 import { Spacing } from '@/components/Spacing/Spacing'
 import { useDismissed } from '@/hooks/useDismissed'
 import { useModifierKey } from '@/hooks/useModifierKey'
-import { usePathname, useRouter } from '@/i18n/navigation'
+import { toRouterHref, useRouter } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
 import { useAuth } from '@/lib/auth/context'
 import { DEFAULT_SETTINGS } from '@/lib/settings/model'
@@ -50,12 +50,11 @@ export function Settings() {
   const t = useTranslations()
   const locale = useLocale()
   const router = useRouter()
-  const pathname = usePathname()
   const { dismissed, dismiss } = useDismissed('settings-auth-disclaimer')
 
-  const handleLocaleChange = (locale: string) =>
-    router.replace(pathname, {
-      locale: locale as AppConfig['Locale'],
+  const handleLocaleChange = (nextLocale: string) =>
+    router.replace(toRouterHref({ route: 'settings' }), {
+      locale: nextLocale as AppConfig['Locale'],
       scroll: false,
     })
 
@@ -152,8 +151,8 @@ export function Settings() {
       title={t('settings.title')}
       bannerBiome='silentWastes'
       breadcrumbs={[
-        { title: t('nav.home'), path: '/' },
-        { title: t('nav.settings'), path: '/settings' },
+        { title: t('nav.home'), to: { route: 'home' } },
+        { title: t('nav.settings'), to: { route: 'settings' } },
       ]}
       headerActions={
         <Button onClick={handleReset}>{t('common.actions.reset')}</Button>

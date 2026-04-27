@@ -10,8 +10,8 @@ export function NpcGeneratorFallback() {
       title={t('inhabitant.title')}
       bannerBiome='shadowWoods'
       breadcrumbs={[
-        { title: t('nav.home'), path: '/' },
-        { title: t('nav.inhabitant_generator'), path: '/generators/npc' },
+        { title: t('nav.home'), to: { route: 'home' } },
+        { title: t('nav.inhabitant_generator'), to: { route: 'npcGenerator' } },
       ]}>
       <Skeleton active />
     </Layout>

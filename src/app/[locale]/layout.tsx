@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { AppConfig, hasLocale, NextIntlClientProvider } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { buildAlternates } from '@/app/metadataRoute'
 import { NetworkStatusMonitor } from '@/components/AppProviders/NetworkStatusMonitor'
 import { routing } from '@/i18n/routing'
 import { AuthProvider } from '@/lib/auth/context'
@@ -18,13 +19,14 @@ const OG_IMAGE = {
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { locale } = await params
+  const { locale: localeAsString } = await params
+  const locale = localeAsString as AppConfig['Locale']
 
   if (!hasLocale(routing.locales, locale)) {
     notFound()
   }
 
-  const t = await getTranslations({ locale: locale as AppConfig['Locale'] })
+  const t = await getTranslations({ locale })
   const ogLocale = locale === 'fr' ? 'fr_FR' : 'en_US'
 
   return {
@@ -33,14 +35,7 @@ export async function generateMetadata({ params }: Props) {
       template: `%s — ${t('metadata.tab_brand')}`,
     },
     description: t('metadata.description'),
-    alternates: {
-      canonical: `/${locale}`,
-      languages: {
-        en: '/en',
-        fr: '/fr',
-        'x-default': `/${routing.defaultLocale}`,
-      },
-    },
+    alternates: buildAlternates('home', locale),
     openGraph: {
       siteName: 'ProMe',
       locale: ogLocale,
@@ -76,7 +71,8 @@ const jsonLd = {
 }
 
 export default async function LocaleLayout({ children, params }: Props) {
-  const { locale } = await params
+  const { locale: localeAsString } = await params
+  const locale = localeAsString as AppConfig['Locale']
 
   // Ensure that the incoming `locale` is valid
   if (!hasLocale(routing.locales, locale)) notFound()

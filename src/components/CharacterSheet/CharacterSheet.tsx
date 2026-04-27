@@ -1,10 +1,9 @@
 'use client'
 
-import { App, Col, ConfigProvider, Form, Row } from 'antd'
+import { App, Button, Col, ConfigProvider, Form, Row } from 'antd'
 import { useTranslations } from 'next-intl'
 import { ActionsCard } from '@/components/ActionsCard/ActionsCard'
 import { AudioCard } from '@/components/AudioCard/AudioCard'
-import { Button } from '@/components/Button/Button'
 import { CardDraw } from '@/components/CardDraw/CardDraw'
 import { CharacteristicsCard } from '@/components/CharacteristicsCard/CharacteristicsCard'
 import { CharacterSheetEmptyState } from '@/components/CharacterSheetEmptyState/CharacterSheetEmptyState'
@@ -60,9 +59,9 @@ export function CharacterSheet({ characterId }: { characterId: string }) {
           withBannerImage
           title={character.name || t('characters_list.unnamed')}
           breadcrumbs={[
-            { title: t('nav.home'), path: '/' },
-            { title: t('nav.characters'), path: '/characters' },
-            { title: character.name, path: undefined },
+            { title: t('nav.home'), to: { route: 'home' } },
+            { title: t('nav.characters'), to: { route: 'characters' } },
+            { title: character.name },
           ]}
           headerActions={[
             <CopyDropdown

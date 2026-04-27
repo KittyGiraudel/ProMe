@@ -2,28 +2,23 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import type { AppConfig } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
+import { buildAlternates } from '@/app/metadataRoute'
 import { PageMarkdown } from '@/components/PageMarkdown/PageMarkdown'
-import { routing } from '@/i18n/routing'
 
 type Props = { params: Promise<{ locale: string }> }
 
 export async function generateMetadata({ params }: Props) {
-  const { locale } = await params
-  const t = await getTranslations({ locale: locale as AppConfig['Locale'] })
+  const { locale: localeAsString } = await params
+  const locale = localeAsString as AppConfig['Locale']
+  const t = await getTranslations({ locale })
+  const alternates = buildAlternates('faq', locale)
 
   return {
     title: t('faq.title'),
-    alternates: {
-      canonical: `/${locale}/faq`,
-      languages: {
-        en: '/en/faq',
-        fr: '/fr/faq',
-        'x-default': `/${routing.defaultLocale}/faq`,
-      },
-    },
+    alternates,
     openGraph: {
       title: t('faq.title'),
-      url: `/${locale}/faq`,
+      url: alternates.languages[locale],
     },
   }
 }
@@ -51,10 +46,11 @@ function buildFaqJsonLd(content: string) {
 }
 
 export default async function FAQPage({ params }: Props) {
-  const { locale } = await params
+  const { locale: localeAsString } = await params
+  const locale = localeAsString as AppConfig['Locale']
   const filePath = join(process.cwd(), 'messages', `faq.${locale}.md`)
   const content = readFileSync(filePath, 'utf-8')
-  const t = await getTranslations({ locale: locale as AppConfig['Locale'] })
+  const t = await getTranslations({ locale })
 
   return (
     <>
@@ -66,7 +62,7 @@ export default async function FAQPage({ params }: Props) {
       />
       <PageMarkdown
         title={t('faq.title')}
-        breadcrumb={{ title: t('nav.faq'), path: '/faq' }}
+        breadcrumb={{ title: t('nav.faq'), to: { route: 'faq' } }}
         content={content}
         bannerBiome='mushroomJungle'
       />

@@ -3,7 +3,7 @@
 import { App } from 'antd'
 import { useTranslations } from 'next-intl'
 import { type ChangeEvent, useCallback, useMemo } from 'react'
-import { useRouter } from '@/i18n/navigation'
+import { toRouterHref, useRouter } from '@/i18n/navigation'
 import { useCharacterImport } from './useMutation'
 
 export function useCharacterLibraryActions() {
@@ -14,7 +14,7 @@ export function useCharacterLibraryActions() {
   const [importCharacter] = useCharacterImport({
     onCompleted: ({ id }) => {
       message.success(t('new_character.import_success'))
-      router.push(`/characters/${id}`)
+      router.push(toRouterHref({ route: 'character', params: { id } }))
     },
     onError: () => message.error(t('errors.import')),
   })

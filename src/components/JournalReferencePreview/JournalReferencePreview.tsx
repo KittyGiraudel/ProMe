@@ -3,10 +3,12 @@
 import { Empty, Modal, Typography } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useMemo, useState } from 'react'
-import { Button } from '@/components/Button/Button'
+import { AppLinkButton } from '@/components/AppLinkButton/AppLinkButton'
 import { InhabitantSummary } from '@/components/InhabitantSummary/InhabitantSummary'
+import { AppLink } from '@/components/Navigation/AppLink'
 import { VillageSummary } from '@/components/VillageSummary/VillageSummary'
 import { useCharacterQuery } from '@/hooks/useQuery'
+import type { AppRouteTo } from '@/i18n/navigation'
 import { decodeInhabitantRollParam } from '@/lib/inhabitant/inhabitantUrlCodec'
 import {
   decodeVillageIdParam,
@@ -21,7 +23,7 @@ export type JournalReferencePreviewProps =
       kind: 'village'
       /** Village route `[id]` segment (roll + owners). */
       referenceId: string
-      href?: string
+      href?: AppRouteTo
       label: string
       className?: string
     }
@@ -29,7 +31,7 @@ export type JournalReferencePreviewProps =
       kind: 'npc'
       /** Encoded NPC roll payload (same as generator path segment). */
       referenceId: string
-      href?: string
+      href?: AppRouteTo
       label: string
       className?: string
     }
@@ -37,7 +39,7 @@ export type JournalReferencePreviewProps =
       kind: 'protector'
       /** Character id from the local store (same idea: opaque id string). */
       referenceId: string
-      href?: string
+      href?: AppRouteTo
       label: string
       className?: string
     }
@@ -84,6 +86,7 @@ export function JournalReferencePreview(props: JournalReferencePreviewProps) {
       </span>
     )
   }
+  const href = props.href
 
   const modalTitle =
     props.kind === 'npc'
@@ -94,15 +97,15 @@ export function JournalReferencePreview(props: JournalReferencePreviewProps) {
 
   return (
     <>
-      <a
+      <AppLink
         className={props.className}
-        href={props.href}
+        to={props.href}
         onClick={event => {
           event.preventDefault()
           setOpen(true)
         }}>
         {props.label}
-      </a>
+      </AppLink>
       <Modal
         open={open}
         onCancel={() => setOpen(false)}
@@ -113,13 +116,9 @@ export function JournalReferencePreview(props: JournalReferencePreviewProps) {
         destroyOnHidden
         footer={(_, { OkBtn }) => (
           <>
-            <Button
-              href={props.href}
-              target='_blank'
-              rel='noreferrer'
-              variant='link'>
+            <AppLinkButton to={href} target='_blank' variant='link'>
               {t('common.actions.open_in_new_tab')}
-            </Button>
+            </AppLinkButton>
             <OkBtn />
           </>
         )}>
@@ -145,9 +144,9 @@ export function JournalReferencePreview(props: JournalReferencePreviewProps) {
           </div>
         ) : (
           <Empty description={t('common.could_not_parse_link')}>
-            <a href={props.href} target='_blank' rel='noreferrer'>
+            <AppLinkButton to={href} target='_blank' variant='link'>
               {t('common.actions.open_in_new_tab')}
-            </a>
+            </AppLinkButton>
           </Empty>
         )}
       </Modal>

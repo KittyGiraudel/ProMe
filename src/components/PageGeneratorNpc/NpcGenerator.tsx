@@ -5,7 +5,7 @@ import { useCallback, useMemo } from 'react'
 import { InhabitantSummary } from '@/components/InhabitantSummary/InhabitantSummary'
 import { Layout } from '@/components/Layout/Layout'
 import { RollActions } from '@/components/RollActions/RollActions'
-import { useRouter } from '@/i18n/navigation'
+import { toRouterHref, useRouter } from '@/i18n/navigation'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 import type {
   InhabitantRerollPart,
@@ -29,9 +29,15 @@ export function NpcGenerator({
 
   const pushToRoll = useCallback(
     (roll: InhabitantRoll) =>
-      router.push(`/generators/npc/${encodeInhabitantRoll(roll)}`, {
-        scroll: false,
-      }),
+      router.push(
+        toRouterHref({
+          route: 'npc',
+          params: { id: encodeInhabitantRoll(roll) },
+        }),
+        {
+          scroll: false,
+        }
+      ),
     [router]
   )
 
@@ -76,8 +82,8 @@ export function NpcGenerator({
       title={t('inhabitant.title')}
       bannerBiome='shadowWoods'
       breadcrumbs={[
-        { title: t('nav.home'), path: '/' },
-        { title: t('nav.inhabitant_generator'), path: '/generators/npc' },
+        { title: t('nav.home'), to: { route: 'home' } },
+        { title: t('nav.inhabitant_generator'), to: { route: 'npcGenerator' } },
       ]}
       headerActions={
         <RollActions

@@ -1,8 +1,8 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { AppLink } from '@/components/Navigation/AppLink'
 import { Spiral } from '@/components/Spiral/Spiral'
-import { Link } from '@/i18n/navigation'
 import { RichText } from '../RichText/RichText'
 
 import './LandingHero.css'
@@ -20,9 +20,9 @@ export function LandingHero() {
         <h1 className='LandingHero__title'>{t('landing.hero.title')}</h1>
         <div className='LandingHero__divider' />
         <p className='LandingHero__tagline'>{t('landing.hero.tagline')}</p>
-        <Link href='/characters/new' className='LandingHero__cta'>
+        <AppLink to={{ route: 'newCharacter' }} className='LandingHero__cta'>
           {t('landing.hero.cta')}
-        </Link>
+        </AppLink>
         <span className='LandingHero__sub'>{t('landing.hero.sub')}</span>
       </div>
     </section>

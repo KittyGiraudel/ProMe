@@ -1,9 +1,12 @@
 'use client'
 
-import { Layout as AntLayout, BreadcrumbProps, Typography } from 'antd'
+import { Layout as AntLayout, Typography } from 'antd'
 import { type ReactNode } from 'react'
 import { Banner } from '@/components/Banner/Banner'
-import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
+import {
+  type BreadcrumbItem,
+  Breadcrumbs,
+} from '@/components/Breadcrumbs/Breadcrumbs'
 import { Footer } from '@/components/Footer/Footer'
 import { Navigation } from '@/components/Navigation/Navigation'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
@@ -20,7 +23,7 @@ type LayoutProps = {
   /** Tints the page cover from map palette (character sheet). */
   bannerBiome?: PossibleBiomeId
   withBannerImage?: boolean
-  breadcrumbs: BreadcrumbProps['items']
+  breadcrumbs: BreadcrumbItem[]
   children: ReactNode
   className?: string
   appThemeOverride?: AppTheme

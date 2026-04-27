@@ -9,7 +9,7 @@ import { RollActions } from '@/components/RollActions/RollActions'
 import { SettingsHint } from '@/components/SettingsHint/SettingsHint'
 import { VillageSummary } from '@/components/VillageSummary/VillageSummary'
 import { FACTIONS } from '@/constants/misc'
-import { useRouter } from '@/i18n/navigation'
+import { toRouterHref, useRouter } from '@/i18n/navigation'
 import type { InhabitantRoll } from '@/lib/inhabitant/generate'
 import { generateInhabitantWithFaction } from '@/lib/inhabitant/generate'
 import type { Faction } from '@/lib/types'
@@ -51,9 +51,16 @@ export function VillageGenerator({
       nextFaction: Faction
     ) => {
       const id = encodeVillageId(nextRoll, nextOwners)
-      void router.push(`/generators/village/${id}?f=${nextFaction}`, {
-        scroll: false,
-      })
+      void router.push(
+        toRouterHref({
+          route: 'village',
+          params: { id },
+          query: { f: nextFaction },
+        }),
+        {
+          scroll: false,
+        }
+      )
     },
     [router]
   )
@@ -78,9 +85,15 @@ export function VillageGenerator({
   const handleFactionChange = useCallback(
     (nextFaction: Faction) => {
       if (!roll) {
-        return router.replace(`/generators/village?f=${nextFaction}`, {
-          scroll: false,
-        })
+        return router.replace(
+          toRouterHref({
+            route: 'villageGenerator',
+            query: { f: nextFaction },
+          }),
+          {
+            scroll: false,
+          }
+        )
       }
       pushVillage(
         roll,
@@ -134,8 +147,11 @@ export function VillageGenerator({
       title={t('village.title')}
       bannerBiome='titanGarden'
       breadcrumbs={[
-        { title: t('nav.home'), path: '/' },
-        { title: t('nav.village_generator'), path: '/generators/village' },
+        { title: t('nav.home'), to: { route: 'home' } },
+        {
+          title: t('nav.village_generator'),
+          to: { route: 'villageGenerator' },
+        },
       ]}
       headerActions={
         <RollActions

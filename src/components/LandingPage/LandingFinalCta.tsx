@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { Link } from '@/i18n/navigation'
+import { AppLink } from '@/components/Navigation/AppLink'
 
 import './LandingFinalCta.css'
 
@@ -15,9 +15,11 @@ export function LandingFinalCta() {
           {t('landing.final_cta.title')}
         </h2>
         <p className='LandingFinalCta__sub'>{t('landing.final_cta.sub')}</p>
-        <Link href='/characters/new' className='LandingFinalCta__cta'>
+        <AppLink
+          to={{ route: 'newCharacter' }}
+          className='LandingFinalCta__cta'>
           {t('landing.final_cta.cta')}
-        </Link>
+        </AppLink>
       </div>
     </section>
   )

@@ -1,9 +1,8 @@
 'use client'
 
 import RedoOutlined from '@ant-design/icons/lib/icons/RedoOutlined'
-import { Tooltip, Typography } from 'antd'
+import { Button, Tooltip, Typography } from 'antd'
 import { useTranslations } from 'next-intl'
-import { Button } from '@/components/Button/Button'
 import { JournalReferencePreview } from '@/components/JournalReferencePreview/JournalReferencePreview'
 import { genderCompactSymbol } from '@/lib/inhabitant/genderSymbols'
 import {
@@ -29,7 +28,6 @@ export function VillageEstablishmentOwners({
   const renderRow = (e: OwnerEntry) => {
     const age = getAgeBand(e.roll)
     const personality = getPersonality(e.roll)
-    const inhabitantHref = `/generators/npc/${encodeInhabitantRoll(e.roll)}`
     const gender = e.roll.gender
 
     return (
@@ -41,7 +39,10 @@ export function VillageEstablishmentOwners({
               key='link'
               kind='npc'
               referenceId={encodeInhabitantRoll(e.roll)}
-              href={inhabitantHref}
+              href={{
+                route: 'npc',
+                params: { id: encodeInhabitantRoll(e.roll) },
+              }}
               label={e.roll.name}
             />
           ),
