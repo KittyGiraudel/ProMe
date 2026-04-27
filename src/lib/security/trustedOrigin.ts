@@ -1,3 +1,5 @@
+import { NO_STORE_HEADERS } from '@/lib/security/cacheControl'
+
 const SAFE_METHODS = new Set(['GET', 'HEAD', 'OPTIONS'])
 
 function getRequestOrigin(request: Request): string | null {
@@ -23,12 +25,18 @@ export function enforceTrustedOrigin(request: Request): Response | null {
 
   const sourceOrigin = getRequestOrigin(request)
   if (!sourceOrigin) {
-    return Response.json({ error: 'Forbidden origin' }, { status: 403 })
+    return Response.json(
+      { error: 'Forbidden origin' },
+      { status: 403, headers: NO_STORE_HEADERS }
+    )
   }
 
   const targetOrigin = new URL(request.url).origin
   if (sourceOrigin !== targetOrigin) {
-    return Response.json({ error: 'Forbidden origin' }, { status: 403 })
+    return Response.json(
+      { error: 'Forbidden origin' },
+      { status: 403, headers: NO_STORE_HEADERS }
+    )
   }
 
   return null

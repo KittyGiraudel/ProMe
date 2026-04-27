@@ -6,6 +6,7 @@ import {
 } from '@/lib/character/model'
 import { Character } from '@/lib/character/types'
 import { sql } from '@/lib/db/client'
+import { NO_STORE_HEADERS } from '@/lib/security/cacheControl'
 import { enforceTrustedOrigin } from '@/lib/security/trustedOrigin'
 
 type Params = { params: Promise<{ id: string }> }
@@ -16,7 +17,11 @@ export async function GET(
   { params }: Params
 ): Promise<Response> {
   const user = await getUser()
-  if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!user)
+    return Response.json(
+      { error: 'Unauthorized' },
+      { status: 401, headers: NO_STORE_HEADERS }
+    )
 
   const { id } = await params
   const rows = (await sql`
@@ -26,10 +31,13 @@ export async function GET(
   `) as Array<{ data: Character }>
 
   if (rows.length === 0) {
-    return Response.json({ error: 'Not found' }, { status: 404 })
+    return Response.json(
+      { error: 'Not found' },
+      { status: 404, headers: NO_STORE_HEADERS }
+    )
   }
 
-  return Response.json(rows[0].data)
+  return Response.json(rows[0].data, { headers: NO_STORE_HEADERS })
 }
 
 // PUT /api/characters/[id] — save / update a character
@@ -41,10 +49,17 @@ export async function PUT(
   if (originError) return originError
 
   const user = await getUser()
-  if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!user)
+    return Response.json(
+      { error: 'Unauthorized' },
+      { status: 401, headers: NO_STORE_HEADERS }
+    )
 
   if (!request.headers.get('content-type')?.includes('application/json')) {
-    return Response.json({ error: 'Unsupported Media Type' }, { status: 415 })
+    return Response.json(
+      { error: 'Unsupported Media Type' },
+      { status: 415, headers: NO_STORE_HEADERS }
+    )
   }
 
   const { id } = await params
@@ -54,14 +69,17 @@ export async function PUT(
     body = await request.json()
   } catch (error) {
     console.error(error)
-    return Response.json({ error: 'Invalid JSON' }, { status: 400 })
+    return Response.json(
+      { error: 'Invalid JSON' },
+      { status: 400, headers: NO_STORE_HEADERS }
+    )
   }
 
   const normalized = normalizeCharacter(body)
   if (!normalized || normalized.id !== id) {
     return Response.json(
       { error: 'Invalid character payload' },
-      { status: 422 }
+      { status: 422, headers: NO_STORE_HEADERS }
     )
   }
 
@@ -75,14 +93,17 @@ export async function PUT(
     existingRows.length > 0 ? normalizeCharacter(existingRows[0].data) : null
 
   if (!canPersistCharacterUpdate(existing, normalized)) {
-    return Response.json({ error: 'DEAD_CHARACTER' }, { status: 409 })
+    return Response.json(
+      { error: 'DEAD_CHARACTER' },
+      { status: 409, headers: NO_STORE_HEADERS }
+    )
   }
 
   const validation = validateCharacterForPersistence(normalized)
   if (!validation.ok) {
     return Response.json(
       { error: 'VALIDATION_ERROR', details: validation.errors },
-      { status: 422 }
+      { status: 422, headers: NO_STORE_HEADERS }
     )
   }
 
@@ -94,7 +115,7 @@ export async function PUT(
       WHERE characters.user_id = EXCLUDED.user_id
   `
 
-  return Response.json(normalized)
+  return Response.json(normalized, { headers: NO_STORE_HEADERS })
 }
 
 // DELETE /api/characters/[id]
@@ -106,7 +127,11 @@ export async function DELETE(
   if (originError) return originError
 
   const user = await getUser()
-  if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!user)
+    return Response.json(
+      { error: 'Unauthorized' },
+      { status: 401, headers: NO_STORE_HEADERS }
+    )
 
   const { id } = await params
   const result = (await sql`
@@ -116,8 +141,11 @@ export async function DELETE(
 
   const deleted = result.rowCount ?? 0
   if (deleted === 0) {
-    return Response.json({ error: 'Not found' }, { status: 404 })
+    return Response.json(
+      { error: 'Not found' },
+      { status: 404, headers: NO_STORE_HEADERS }
+    )
   }
 
-  return new Response(null, { status: 204 })
+  return new Response(null, { status: 204, headers: NO_STORE_HEADERS })
 }
