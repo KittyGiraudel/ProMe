@@ -12,10 +12,9 @@ type Props = {
 }
 
 const OG_IMAGE = {
-  url: '/web-app-manifest-512x512.png',
-  width: 512,
-  height: 512,
-  alt: 'ProMe',
+  url: '/favicon.svg',
+  type: 'image/svg+xml',
+  alt: 'ProMe favicon',
 }
 
 export async function generateMetadata({ params }: Props) {

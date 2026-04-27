@@ -26,6 +26,13 @@ export async function generateMetadata({ params }: Props) {
   const alternates = buildAlternates('biome', safeLocale, {
     biome: slug,
   })
+  const biomeOgImage = {
+    url: `/images/banner-${biomeId}.avif`,
+    width: 1024,
+    height: 512,
+    type: 'image/avif',
+    alt: t(`biomes.${biomeId}.title`),
+  }
 
   return {
     title: t(`biomes.${biomeId}.title`),
@@ -35,6 +42,11 @@ export async function generateMetadata({ params }: Props) {
       title: t(`biomes.${biomeId}.title`),
       description: t(`biomes.${biomeId}.teaser`),
       url: alternates.languages[safeLocale],
+      images: [biomeOgImage],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      images: [biomeOgImage.url],
     },
   }
 }

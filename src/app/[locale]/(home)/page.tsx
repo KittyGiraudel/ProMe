@@ -8,6 +8,14 @@ type Props = {
   params: Promise<{ locale: string }>
 }
 
+const HOME_OG_IMAGE = {
+  url: '/images/banner-home.avif',
+  width: 1024,
+  height: 512,
+  type: 'image/avif',
+  alt: 'ProMe home banner',
+}
+
 export async function generateMetadata({ params }: Props) {
   const { locale: localeAsString } = await params
   const locale = localeAsString as AppConfig['Locale']
@@ -22,6 +30,11 @@ export async function generateMetadata({ params }: Props) {
       title: t('metadata.title'),
       description: t('metadata.description'),
       url: alternates.languages[locale],
+      images: [HOME_OG_IMAGE],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      images: [HOME_OG_IMAGE.url],
     },
   }
 }
