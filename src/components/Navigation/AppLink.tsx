@@ -1,14 +1,11 @@
 'use client'
 
+import NextLink from 'next/link'
 import { useRouter as useNextRouter } from 'next/navigation'
 import { useLocale } from 'next-intl'
 import type { ComponentProps } from 'react'
 import { useNavigationBlocker } from '@/components/AppProviders/NavigationBlockerContext'
-import {
-  type AppRouteTo,
-  Link as NextLink,
-  resolveAppToString,
-} from '@/i18n/navigation'
+import { type AppRouteTo, resolveAppToString } from '@/i18n/navigation'
 
 type NextLinkProps = ComponentProps<typeof NextLink>
 
