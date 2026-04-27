@@ -12,7 +12,7 @@
 
 ## How do I use the site?
 
-More or less the same way as the paper version of the game. It’s recommended to have the app open on your screen while playing, as a reference and to track your progress. Each "turn":
+More or less the same way as the paper version of the game. It’s recommended to have the app open on your screen while playing, as a reference and to track your progress. Each “turn”:
 
 1. Move on the map. Depending on your settings, the Clock advances automatically, and a new entry is added to the journal; otherwise, do this manually.
 2. Roll a die and refer to the encounter table to see what event occurs; you’ll need the rulebook for this step.

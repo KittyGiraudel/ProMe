@@ -45,3 +45,18 @@
   display: inline;
   margin: 0;
 }
+
+.PageMarkdown__video-embed {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
+
+.PageMarkdown__video-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
