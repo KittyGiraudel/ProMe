@@ -3,6 +3,7 @@
 import RedoOutlined from '@ant-design/icons/lib/icons/RedoOutlined'
 import {
   App,
+  Button,
   Card,
   Col,
   Divider,
@@ -15,7 +16,6 @@ import {
   Typography,
 } from 'antd'
 import { useTranslations } from 'next-intl'
-import { Button } from '@/components/Button/Button'
 import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { useWarnDeath } from '@/hooks/useCharacterLifeStatusActions'
 import {
@@ -200,7 +200,6 @@ function CourageRollButton() {
       <Button
         type='text'
         size='small'
-        htmlType='button'
         icon={<RedoOutlined />}
         aria-label={t('characters.identity.courage_roll_aria')}
         onClick={handleCourageRoll}

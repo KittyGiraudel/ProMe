@@ -1,8 +1,7 @@
 'use client'
 
-import { Card, Empty } from 'antd'
+import { Button, Card, Empty } from 'antd'
 import { useTranslations } from 'next-intl'
-import { Button } from '@/components/Button/Button'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { useAnimatedValue } from '@/hooks/useAnimatedValue'

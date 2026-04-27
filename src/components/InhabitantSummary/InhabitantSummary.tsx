@@ -1,11 +1,18 @@
 'use client'
 
 import RedoOutlined from '@ant-design/icons/lib/icons/RedoOutlined'
-import { Card, Descriptions, Empty, Select, Tooltip, Typography } from 'antd'
+import {
+  Button,
+  Card,
+  Descriptions,
+  Empty,
+  Select,
+  Tooltip,
+  Typography,
+} from 'antd'
 import { SelectProps } from 'antd/lib/select'
 import { useTranslations } from 'next-intl'
 import { type ReactNode, useMemo } from 'react'
-import { Button } from '@/components/Button/Button'
 import { DiceFaces } from '@/components/DiceFaces/DiceFaces'
 import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'

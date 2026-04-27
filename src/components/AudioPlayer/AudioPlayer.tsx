@@ -2,11 +2,10 @@ import PauseOutlined from '@ant-design/icons/lib/icons/PauseOutlined'
 import PlayCircleOutlined from '@ant-design/icons/lib/icons/PlayCircleOutlined'
 import StepBackwardOutlined from '@ant-design/icons/lib/icons/StepBackwardOutlined'
 import StepForwardOutlined from '@ant-design/icons/lib/icons/StepForwardOutlined'
-import { Slider, Tooltip, Typography } from 'antd'
+import { Button, Slider, Tooltip, Typography } from 'antd'
 import { Howl } from 'howler'
 import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { Button } from '@/components/Button/Button'
 import { getPWADisplayMode } from '@/lib/getPWADisplayMode'
 import { PossibleBiomeId } from '@/lib/types'
 import { useMediaSession } from './useMediaSession'
@@ -205,7 +204,6 @@ export function AudioPlayer({
               trigger={['hover', 'focus']}>
               <Button
                 onClick={onPrev}
-                htmlType='button'
                 size='small'
                 icon={<StepBackwardOutlined />}
               />
@@ -216,7 +214,6 @@ export function AudioPlayer({
             trigger={['hover', 'focus']}>
             <Button
               onClick={togglePlay}
-              htmlType='button'
               size='small'
               disabled={!url}
               icon={isPlaying ? <PauseOutlined /> : <PlayCircleOutlined />}
@@ -228,7 +225,6 @@ export function AudioPlayer({
               trigger={['hover', 'focus']}>
               <Button
                 onClick={onNext}
-                htmlType='button'
                 size='small'
                 icon={<StepForwardOutlined />}
               />

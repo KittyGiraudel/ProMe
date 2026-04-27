@@ -1,6 +1,7 @@
 'use client'
 
 import {
+  Button,
   Card,
   ConfigProvider,
   Empty,
@@ -10,7 +11,6 @@ import {
   Typography,
 } from 'antd'
 import { useTranslations } from 'next-intl'
-import { Button } from '@/components/Button/Button'
 import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { Spacing } from '@/components/Spacing/Spacing'
 import { useWatchedInventory } from '@/hooks/useCharacterSheetDerived'
@@ -61,8 +61,7 @@ export function InventoryCard() {
                     disabled={
                       inventoryLimit <= 0 ||
                       (inventoryLimit > 0 && fields.length >= inventoryLimit)
-                    }
-                    htmlType='button'>
+                    }>
                     {t('characters.inventory.add_item')}
                   </Button>,
                 ]
@@ -107,7 +106,6 @@ export function InventoryCard() {
                     className='InventoryCard__DeleteButton'
                     danger
                     onClick={() => remove(field.name)}
-                    htmlType='button'
                     aria-label={t('common.actions.delete')}
                     icon={<DeleteOutlined />}>
                     <span className='InventoryCard__DeleteButton-label'>

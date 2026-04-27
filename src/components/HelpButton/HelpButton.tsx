@@ -1,5 +1,5 @@
 import QuestionCircleOutlined from '@ant-design/icons/lib/icons/QuestionCircleOutlined'
-import { Button, ButtonProps, Tooltip } from 'antd'
+import { Button, type ButtonProps, Tooltip } from 'antd'
 
 export function HelpButton({
   label,
@@ -13,7 +13,6 @@ export function HelpButton({
           {...props}
           type='text'
           size='small'
-          htmlType='button'
           icon={<QuestionCircleOutlined />}
           aria-label={label}
           disabled={false}
@@ -26,7 +25,6 @@ export function HelpButton({
     <Button
       {...props}
       type='text'
-      htmlType='button'
       icon={<QuestionCircleOutlined />}
       aria-label={label}
       disabled={false}

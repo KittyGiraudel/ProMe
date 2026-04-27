@@ -3,10 +3,9 @@
 import ArrowsAltOutlined from '@ant-design/icons/lib/icons/ArrowsAltOutlined'
 import MinusOutlined from '@ant-design/icons/lib/icons/MinusOutlined'
 import PlusOutlined from '@ant-design/icons/lib/icons/PlusOutlined'
-import { Card, Form, Input, Tooltip } from 'antd'
+import { Button, Card, Form, Input, Tooltip } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCallback, useState } from 'react'
-import { Button } from '@/components/Button/Button'
 
 import './JournalEntryFloatingEditor.css'
 
@@ -51,7 +50,6 @@ export function JournalEntryFloatingEditor({
           <Button
             type='text'
             size='small'
-            htmlType='button'
             aria-label={t('characters.journal.floating_editor_expand')}
             onClick={() => onExpand()}
             icon={<ArrowsAltOutlined />}
@@ -68,7 +66,6 @@ export function JournalEntryFloatingEditor({
           <Button
             type='text'
             size='small'
-            htmlType='button'
             aria-label={
               isCollapsed
                 ? t('common.actions.expand')
@@ -80,10 +77,10 @@ export function JournalEntryFloatingEditor({
         </Tooltip>,
       ]}
       actions={[
-        <Button key='cancel' htmlType='button' type='link' onClick={onCancel}>
+        <Button key='cancel' type='link' onClick={onCancel}>
           {t('common.actions.cancel')}
         </Button>,
-        <Button key='save' type='primary' htmlType='button' onClick={onSave}>
+        <Button key='save' type='primary' onClick={onSave}>
           {t('common.actions.finish')}
         </Button>,
       ]}>

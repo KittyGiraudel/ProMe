@@ -44,7 +44,6 @@ export function MapSheetNavigation({
       <Spacing orientation='horizontal' wrap size='small'>
         <Tooltip title={t('characters.map.sheet_up')}>
           <Button
-            htmlType='button'
             disabled={false}
             aria-label={t('characters.map.sheet_up')}
             onClick={() =>
@@ -58,7 +57,6 @@ export function MapSheetNavigation({
         </Tooltip>
         <Tooltip title={t('characters.map.sheet_down')}>
           <Button
-            htmlType='button'
             disabled={false}
             aria-label={t('characters.map.sheet_down')}
             onClick={() =>
@@ -72,7 +70,6 @@ export function MapSheetNavigation({
         </Tooltip>
         <Tooltip title={t('characters.map.sheet_left')}>
           <Button
-            htmlType='button'
             disabled={false}
             aria-label={t('characters.map.sheet_left')}
             onClick={() =>
@@ -86,7 +83,6 @@ export function MapSheetNavigation({
         </Tooltip>
         <Tooltip title={t('characters.map.sheet_right')}>
           <Button
-            htmlType='button'
             disabled={false}
             aria-label={t('characters.map.sheet_right')}
             onClick={() =>
@@ -100,7 +96,6 @@ export function MapSheetNavigation({
         </Tooltip>
         {!isViewingCurrentSheet ? (
           <Button
-            htmlType='button'
             disabled={false}
             onClick={() =>
               setVisibleSheet(getSheetCoordinate(currentPosition))

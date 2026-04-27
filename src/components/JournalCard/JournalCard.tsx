@@ -1,6 +1,7 @@
 'use client'
 
 import {
+  Button,
   Card,
   ConfigProvider,
   Empty,
@@ -11,7 +12,6 @@ import {
 } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
-import { Button } from '@/components/Button/Button'
 import { Journal } from '@/components/Journal/Journal'
 import { JournalEntryEditModal } from '@/components/Journal/JournalEntryEditModal'
 import { JournalEntryFloatingEditor } from '@/components/Journal/JournalEntryFloatingEditor'
@@ -87,7 +87,7 @@ export function JournalCardInner({
   }, [closeEditor, modal, removeEntry])
 
   const addEntryButton = (
-    <Button onClick={addEntry} htmlType='button'>
+    <Button onClick={addEntry}>
       {t('characters.journal.add_journal_entry')}
     </Button>
   )

@@ -1,8 +1,7 @@
 'use client'
 
-import { Card, Form, Input, Popover, Tag, Typography } from 'antd'
+import { Button, Card, Form, Input, Popover, Tag, Typography } from 'antd'
 import { useTranslations } from 'next-intl'
-import { Button } from '@/components/Button/Button'
 import { ClockDisplay } from '@/components/ClockDisplay/ClockDisplay'
 import { HelpButton } from '@/components/HelpButton/HelpButton'
 import {
@@ -82,7 +81,6 @@ export function ClockCard() {
         <Button
           key='backward'
           type='link'
-          htmlType='button'
           onClick={() => setPosition(position - 1)}>
           {t('characters.map.clock_back')}
         </Button>,
@@ -95,7 +93,6 @@ export function ClockCard() {
         <Button
           key='forward'
           type='primary'
-          htmlType='button'
           onClick={() => setPosition(position + 1)}>
           {t('characters.map.clock_advance')}
         </Button>,

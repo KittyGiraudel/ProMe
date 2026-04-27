@@ -80,7 +80,6 @@ export function GatheringList({ biome }: { biome: GatherableBiomeId }) {
                   type='text'
                   size='small'
                   icon={<PlusOutlined />}
-                  htmlType='button'
                   disabled={isDisabled}
                   onClick={() => handleCollect(roll)}
                 />

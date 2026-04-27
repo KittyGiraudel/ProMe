@@ -2,13 +2,11 @@
 
 import CopyOutlined from '@ant-design/icons/lib/icons/CopyOutlined'
 import DownOutlined from '@ant-design/icons/lib/icons/DownOutlined'
-import type { MenuProps } from 'antd'
-import { App, Dropdown } from 'antd'
+import type { ButtonProps, MenuProps } from 'antd'
+import { App, Button, Dropdown } from 'antd'
 import { useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useCallback, useMemo } from 'react'
-import type { ButtonProps } from '@/components/Button/Button'
-import { Button } from '@/components/Button/Button'
 import { usePathname } from '@/i18n/navigation'
 
 export type SheetCopyDropdownProps = {

@@ -1,9 +1,8 @@
 'use client'
 
-import { Modal, Tabs } from 'antd'
+import { Button, Modal, Tabs } from 'antd'
 import { useTranslations } from 'next-intl'
 import { BiomeBubble } from '@/components/BiomeBubble/BiomeBubble'
-import { Button } from '@/components/Button/Button'
 import { CardDrawResult } from '@/components/CardDrawResult/CardDrawResult'
 import { DiceRollResult } from '@/components/DiceRollResult/DiceRollResult'
 import { Spacing } from '@/components/Spacing/Spacing'
@@ -51,10 +50,10 @@ export default function EncountersDialog({
       title={t('characters.map.encounters_dialog_title')}
       footer={
         <Spacing orientation='horizontal' size='small'>
-          <Button htmlType='button' type='link' onClick={handleDrawCard}>
+          <Button type='link' onClick={handleDrawCard}>
             {t('characters.tools.card_action')}
           </Button>
-          <Button htmlType='button' type='link' onClick={handleRollDie}>
+          <Button type='link' onClick={handleRollDie}>
             {t('characters.tools.die_action')}
           </Button>
         </Spacing>

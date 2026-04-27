@@ -4,10 +4,9 @@ import DeleteOutlined from '@ant-design/icons/lib/icons/DeleteOutlined'
 import DownloadOutlined from '@ant-design/icons/lib/icons/DownloadOutlined'
 import FrownOutlined from '@ant-design/icons/lib/icons/FrownOutlined'
 import HeartOutlined from '@ant-design/icons/lib/icons/HeartOutlined'
-import { App, Card, FormInstance, Popconfirm } from 'antd'
+import { App, Button, Card, FormInstance, Popconfirm } from 'antd'
 import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { Button } from '@/components/Button/Button'
 import { useCharacterLifeStatusActions } from '@/hooks/useCharacterLifeStatusActions'
 import { SaveForm } from '@/hooks/useCharacterSheetForm'
 import { useCharacterDelete } from '@/hooks/useMutation'
@@ -51,7 +50,7 @@ export function ActionsCard({
       title: t('characters.actions.export'),
       description: t('characters.actions.export_help'),
       action: (
-        <Button htmlType='button' onClick={exportCharacter} disabled={false}>
+        <Button onClick={exportCharacter} disabled={false}>
           {t('characters.actions.export')}
         </Button>
       ),
@@ -76,7 +75,7 @@ export function ActionsCard({
                 cancelButtonProps={{ disabled: false }}
                 onConfirm={reviveCharacter}
                 styles={{ container: { maxWidth: 300 } }}>
-                <Button type='primary' htmlType='button' disabled={false}>
+                <Button type='primary' disabled={false}>
                   {t('characters.actions.revive_action')}
                 </Button>
               </Popconfirm>
@@ -102,11 +101,7 @@ export function ActionsCard({
                 cancelText={t('common.actions.cancel')}
                 onConfirm={killCharacter}
                 styles={{ container: { maxWidth: 300 } }}>
-                <Button
-                  danger
-                  type='default'
-                  htmlType='button'
-                  disabled={false}>
+                <Button danger type='default' disabled={false}>
                   {t('characters.actions.mark_dead_action')}
                 </Button>
               </Popconfirm>
@@ -131,7 +126,7 @@ export function ActionsCard({
           okButtonProps={{ disabled: false }}
           cancelButtonProps={{ disabled: false }}
           styles={{ container: { maxWidth: 300 } }}>
-          <Button danger type='primary' htmlType='button' disabled={false}>
+          <Button danger type='primary' disabled={false}>
             {t('common.actions.delete')}
           </Button>
         </Popconfirm>

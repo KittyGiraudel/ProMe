@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@/components/Button/Button'
+import { Button } from 'antd'
 import { CopyDropdown } from '@/components/CopyDropdown/CopyDropdown'
 import { Spacing } from '@/components/Spacing/Spacing'
 

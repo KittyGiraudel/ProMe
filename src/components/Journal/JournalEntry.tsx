@@ -1,10 +1,9 @@
 'use client'
 
 import EditOutlined from '@ant-design/icons/lib/icons/EditOutlined'
-import { ConfigProvider, Form } from 'antd'
+import { Button, ConfigProvider, Form } from 'antd'
 import type { FormListFieldData } from 'antd/es/form'
 import { useTranslations } from 'next-intl'
-import { Button } from '@/components/Button/Button'
 import { JournalEntryBodyPreview } from '@/components/Journal/JournalEntryBodyPreview'
 
 type JournalEntryProps = {
@@ -46,7 +45,6 @@ export function JournalEntry({
     <div id={entryAnchor} className='Journal__entry'>
       <Button
         className='Journal__edit'
-        htmlType='button'
         type='link'
         disabled={componentDisabled || isEditorOpen}
         icon={<EditOutlined />}

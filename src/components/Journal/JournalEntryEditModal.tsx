@@ -1,6 +1,7 @@
 'use client'
 
 import {
+  Button,
   Col,
   ConfigProvider,
   Empty,
@@ -16,7 +17,6 @@ import {
   Timeline,
 } from 'antd'
 import { useTranslations } from 'next-intl'
-import { Button } from '@/components/Button/Button'
 import { JournalEditCheatsheet } from '@/components/Journal/JournalEditCheatsheet'
 import { JournalMarkdown } from '@/components/JournalMarkdown/JournalMarkdown'
 import { useSettings } from '@/components/PageSettings/SettingsContext'
@@ -84,24 +84,17 @@ export function JournalEntryEditModal({
             cancelText={t('common.actions.cancel')}
             onConfirm={onDelete}
             styles={{ container: { maxWidth: 300 } }}>
-            <Button
-              danger
-              type='link'
-              htmlType='button'
-              disabled={componentDisabled}>
+            <Button danger type='link' disabled={componentDisabled}>
               {t('common.actions.delete')}
             </Button>
           </Popconfirm>
           <Spacing orientation='horizontal' size='small'>
-            <Button htmlType='button' type='link' onClick={onFloat}>
+            <Button type='link' onClick={onFloat}>
               {t('characters.journal.floating_editor_dock')}
             </Button>
-            <Button htmlType='button' onClick={onCancel}>
-              {t('common.actions.cancel')}
-            </Button>
+            <Button onClick={onCancel}>{t('common.actions.cancel')}</Button>
             <Button
               type='primary'
-              htmlType='button'
               disabled={componentDisabled}
               onClick={onSave}>
               {t('common.actions.finish')}

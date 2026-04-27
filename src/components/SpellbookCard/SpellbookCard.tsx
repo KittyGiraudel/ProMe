@@ -1,8 +1,15 @@
 'use client'
 
-import { Card, ConfigProvider, Empty, Form, Input, Typography } from 'antd'
+import {
+  Button,
+  Card,
+  ConfigProvider,
+  Empty,
+  Form,
+  Input,
+  Typography,
+} from 'antd'
 import { useTranslations } from 'next-intl'
-import { Button } from '@/components/Button/Button'
 import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { Spacing } from '@/components/Spacing/Spacing'
 import { randomId } from '@/lib/character/model'
@@ -48,8 +55,7 @@ export function SpellbookCard() {
                         note: '',
                       })
                     }
-                    disabled={fields.length >= SPELLBOOK_MAX}
-                    htmlType='button'>
+                    disabled={fields.length >= SPELLBOOK_MAX}>
                     {t('characters.inventory.add_spell')}
                   </Button>,
                 ]
@@ -87,7 +93,6 @@ export function SpellbookCard() {
                     className='SpellbookCard__DeleteButton'
                     danger
                     onClick={() => remove(field.name)}
-                    htmlType='button'
                     aria-label={t('common.actions.delete')}
                     icon={<DeleteOutlined />}>
                     <span className='SpellbookCard__DeleteButton-label'>

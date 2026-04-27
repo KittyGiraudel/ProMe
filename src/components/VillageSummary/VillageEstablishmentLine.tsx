@@ -1,9 +1,8 @@
 'use client'
 
 import RedoOutlined from '@ant-design/icons/lib/icons/RedoOutlined'
-import { Tooltip, Typography } from 'antd'
+import { Button, Tooltip, Typography } from 'antd'
 import { useTranslations } from 'next-intl'
-import { Button } from '@/components/Button/Button'
 import { HelpButton } from '@/components/HelpButton/HelpButton'
 import { PlayingCardLabel } from '@/components/PlayingCardLabel/PlayingCardLabel'
 import { establishmentDetailRulebookPage } from '@/constants/rulebookPages'
