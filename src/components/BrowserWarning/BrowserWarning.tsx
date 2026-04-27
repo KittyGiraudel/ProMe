@@ -1,7 +1,6 @@
 import { Alert } from 'antd'
 import { useTranslations } from 'next-intl'
 import { useDismissed } from '@/hooks/useDismissed'
-import { Link } from '@/i18n/navigation'
 
 import './BrowserWarning.css'
 
@@ -18,12 +17,12 @@ export function BrowserWarning() {
       type='warning'
       title={t.rich('characters.map.browser_warning', {
         link: content => (
-          <Link
+          <a
             href='https://caniuse.com/wf-corner-shape'
             target='_blank'
             rel='noopener noreferrer'>
             {content}
-          </Link>
+          </a>
         ),
       })}
       className='BrowserWarning'

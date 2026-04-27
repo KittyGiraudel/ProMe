@@ -45,24 +45,24 @@ export function Footer() {
         <p className='Footer__credit'>
           {t.rich('footer.application', {
             link_author: chunks => (
-              <Link
+              <a
                 href='https://kittygiraudel.com'
                 target='_blank'
                 rel='noopener noreferrer'>
                 {chunks}
-              </Link>
+              </a>
             ),
             version: () =>
               COMMIT_SHA ? (
                 <>
                   {' ('}
-                  <Link
+                  <a
                     className='Footer__revision'
                     href={`https://github.com/KittyGiraudel/ProMe/commit/${COMMIT_SHA}`}
                     target='_blank'
                     rel='noopener noreferrer'>
                     {COMMIT_SHA}
-                  </Link>
+                  </a>
                   {')'}
                 </>
               ) : (
