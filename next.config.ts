@@ -3,6 +3,8 @@ import { execSync } from 'child_process'
 import type { NextConfig } from 'next'
 import createNextIntlPlugin from 'next-intl/plugin'
 
+const isDev = process.env.NODE_ENV === 'development'
+
 // Use git commit hash as cache version
 const revision = execSync('git rev-parse HEAD', { encoding: 'utf8' })
   .trim()
@@ -49,7 +51,7 @@ const nextConfig: NextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline'",
+              `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob: https:",
               "font-src 'self' data:",
