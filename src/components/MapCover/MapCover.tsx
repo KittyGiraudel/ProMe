@@ -26,7 +26,7 @@ export function MapCover({
         title={t.rich(`biomes.${biome}.location`, {
           b: chunks => <strong>{chunks}</strong>,
         })}
-        titleAs='h2'
+        titleAs='p'
       />
     )
   }
@@ -49,7 +49,7 @@ export function MapCover({
               <strong>{chunks}</strong>
             ),
         })}
-        titleAs='h2'
+        titleAs='p'
         description={
           biome !== 'unexplored' ? (
             <>

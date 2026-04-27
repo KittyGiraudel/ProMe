@@ -75,7 +75,7 @@ export function VillageSummary({
   return (
     <Spacing>
       <Card
-        title={t('village.section_establishments')}
+        title={<h2>{t('village.section_establishments')}</h2>}
         extra={
           <HelpButton
             label={t('rulebook.information')}
@@ -108,7 +108,7 @@ export function VillageSummary({
 
       {display.traits.length > 0 ? (
         <Card
-          title={t('village.section_traits')}
+          title={<h2>{t('village.section_traits')}</h2>}
           extra={
             <HelpButton
               label={t('rulebook.information')}

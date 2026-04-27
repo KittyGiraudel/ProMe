@@ -19,7 +19,7 @@ export function PageLogin() {
         { title: t('nav.login'), path: '/login' },
       ]}>
       <Card
-        title={t('auth.sign_in_title')}
+        title={<h2>{t('auth.sign_in_title')}</h2>}
         actions={
           user
             ? [

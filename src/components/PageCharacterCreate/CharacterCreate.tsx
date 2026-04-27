@@ -61,7 +61,9 @@ export function CharacterCreate() {
           void create(values)
         }}>
         <Spacing size='large'>
-          <Card title={t('characters.identity.identity_section')} id='identity'>
+          <Card
+            title={<h2>{t('characters.identity.identity_section')}</h2>}
+            id='identity'>
             <Row gutter={[16, 16]}>
               <Col xs={24} md={16}>
                 <Form.Item

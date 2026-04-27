@@ -24,7 +24,7 @@ export function DiceRoll() {
   return (
     <Card
       className='DiceRoll__card'
-      title={t('characters.tools.die_title')}
+      title={<h2>{t('characters.tools.die_title')}</h2>}
       actions={[
         <Button
           key='action'

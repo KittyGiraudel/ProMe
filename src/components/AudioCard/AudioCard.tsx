@@ -22,7 +22,7 @@ export function AudioCard({ biome }: { biome: PossibleBiomeId }) {
 
   if (preloadStatus === 'loading') {
     return (
-      <Card title={t('audio_player.title')} id='audio'>
+      <Card title={<h2>{t('audio_player.title')}</h2>} id='audio'>
         <Skeleton active />
       </Card>
     )
@@ -31,7 +31,7 @@ export function AudioCard({ biome }: { biome: PossibleBiomeId }) {
   if (!url) return null
 
   return (
-    <Card title={t('audio_player.title')} id='audio'>
+    <Card title={<h2>{t('audio_player.title')}</h2>} id='audio'>
       <AudioPlayer
         biome={biome}
         name={name}

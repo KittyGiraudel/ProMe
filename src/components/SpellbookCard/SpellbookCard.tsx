@@ -20,12 +20,16 @@ export function SpellbookCard() {
     <Form.List name='spellbook'>
       {(fields, { add, remove }) => (
         <Card
-          title={t.rich('characters.inventory.spellbook_section', {
-            status: content => (
-              <Typography.Text type='secondary'>{content}</Typography.Text>
-            ),
-            count: fields.length,
-          })}
+          title={
+            <h2>
+              {t.rich('characters.inventory.spellbook_section', {
+                status: content => (
+                  <Typography.Text type='secondary'>{content}</Typography.Text>
+                ),
+                count: fields.length,
+              })}
+            </h2>
+          }
           extra={
             <HelpButton
               label={t('rulebook.information')}

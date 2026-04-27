@@ -62,7 +62,7 @@ export function InhabitantSummary({
   return (
     <Card
       className='InhabitantSummary'
-      title={roll.name}
+      title={<h2>{roll.name}</h2>}
       extra={
         <HelpButton
           label={t('rulebook.information')}

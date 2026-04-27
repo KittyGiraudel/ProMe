@@ -25,6 +25,7 @@ import {
 } from '@/lib/map/coordinates'
 
 import './MapCard.css'
+import { VisuallyHidden } from '../VisuallyHidden/VisuallyHidden'
 
 export function MapCard({ isDead }: { isDead: boolean }) {
   const t = useTranslations()
@@ -53,6 +54,7 @@ export function MapCard({ isDead }: { isDead: boolean }) {
 
   return (
     <>
+      <VisuallyHidden as='h2'>{t('characters.map.title')}</VisuallyHidden>
       <MapCover biome={currentBiome} isCore={isCore} />
       <Card
         actions={[

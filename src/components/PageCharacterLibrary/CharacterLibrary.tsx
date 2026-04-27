@@ -66,8 +66,9 @@ export function CharacterLibrary() {
               key={character.id}
               className='u-contain-layout u-cv-auto-card'
               title={
-                dead
-                  ? t.rich('characters_list.dead_character_name', {
+                dead ? (
+                  <h2>
+                    {t.rich('characters_list.dead_character_name', {
                       name,
                       separator: parts => (
                         <Typography.Text type='secondary'>
@@ -77,8 +78,11 @@ export function CharacterLibrary() {
                       status: parts => (
                         <Typography.Text type='danger'>{parts}</Typography.Text>
                       ),
-                    })
-                  : name
+                    })}
+                  </h2>
+                ) : (
+                  name
+                )
               }
               styles={
                 dead

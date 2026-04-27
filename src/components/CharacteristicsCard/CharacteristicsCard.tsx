@@ -87,7 +87,7 @@ export function CharacteristicsCard({
   return (
     <>
       <Card
-        title={t('characters.identity.characteristics_section')}
+        title={<h2>{t('characters.identity.characteristics_section')}</h2>}
         extra={
           <HelpButton
             label={t('rulebook.information')}

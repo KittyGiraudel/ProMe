@@ -6,6 +6,11 @@
   ) !important;
 }
 
+.ant-card .ant-card-head :where(h2, h3) {
+  font-size: 1em;
+  margin-bottom: 0;
+}
+
 /* Alert: info → sage green (matches forest palette) */
 .ant-alert-info {
   --ant-color-info-bg: light-dark(#eef5f1, #1c2c24) !important;

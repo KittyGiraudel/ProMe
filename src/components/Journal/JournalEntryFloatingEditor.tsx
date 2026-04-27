@@ -38,7 +38,7 @@ export function JournalEntryFloatingEditor({
 
   return (
     <Card
-      title={t('characters.journal.floating_editor_title')}
+      title={<h2>{t('characters.journal.floating_editor_title')}</h2>}
       className='JournalFloatingEditor'
       role='region'
       data-collapsed={isCollapsed}

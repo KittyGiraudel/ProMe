@@ -24,7 +24,7 @@ export function CardDraw() {
   return (
     <Card
       className='CardDraw__card'
-      title={t('characters.tools.card_title')}
+      title={<h2>{t('characters.tools.card_title')}</h2>}
       actions={[
         <Button
           key='action'

@@ -173,7 +173,7 @@ export function Settings() {
           )}
           <Row gutter={[16, 16]}>
             <Col xs={24} md={12}>
-              <Card title={t('settings.section_appearance')}>
+              <Card title={<h2>{t('settings.section_appearance')}</h2>}>
                 <Form.Item
                   name='appTheme'
                   label={t('settings.app_theme_label')}
@@ -196,7 +196,7 @@ export function Settings() {
             </Col>
             <Col xs={24} md={12}>
               <Card
-                title={t('settings.section_language')}
+                title={<h2>{t('settings.section_language')}</h2>}
                 extra={
                   <Popover
                     styles={{ root: { maxWidth: 'min(360px, 90vw)' } }}
@@ -218,7 +218,7 @@ export function Settings() {
               </Card>
             </Col>
           </Row>
-          <Card title={t('settings.section_sheet')}>
+          <Card title={<h2>{t('settings.section_sheet')}</h2>}>
             <Form.Item
               name='adaptiveAppearanceTheme'
               valuePropName='checked'
@@ -228,7 +228,7 @@ export function Settings() {
               </Checkbox>
             </Form.Item>
           </Card>
-          <Card title={t('settings.section_map')}>
+          <Card title={<h2>{t('settings.section_map')}</h2>}>
             <Row gutter={[64, 16]}>
               <Col xs={24} md={12}>
                 <Form.Item
@@ -297,7 +297,7 @@ export function Settings() {
               </Col>
             </Row>
           </Card>
-          <Card title={t('settings.section_journal')}>
+          <Card title={<h2>{t('settings.section_journal')}</h2>}>
             <Row gutter={[64, 16]}>
               <Col xs={24} md={12}>
                 <Form.Item
@@ -323,7 +323,7 @@ export function Settings() {
               </Col>
             </Row>
           </Card>
-          <Card title={t('settings.section_sound')}>
+          <Card title={<h2>{t('settings.section_sound')}</h2>}>
             <Row gutter={[64, 16]}>
               <Col xs={24} md={12}>
                 <Form.Item
@@ -360,7 +360,7 @@ export function Settings() {
               </Col>
             </Row>
           </Card>
-          <Card title={t('settings.section_village')}>
+          <Card title={<h2>{t('settings.section_village')}</h2>}>
             <Form.Item
               name='villageMergeDuplicateEstablishments'
               valuePropName='checked'
@@ -370,7 +370,7 @@ export function Settings() {
               </Checkbox>
             </Form.Item>
           </Card>
-          <Card title={t('settings.section_advanced')}>
+          <Card title={<h2>{t('settings.section_advanced')}</h2>}>
             <Row gutter={[64, 16]}>
               <Col xs={24} md={12}>
                 <Form.Item

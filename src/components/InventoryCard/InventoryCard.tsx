@@ -28,13 +28,17 @@ export function InventoryCard() {
     <Form.List name='inventory'>
       {(fields, { add, remove }) => (
         <Card
-          title={t.rich('characters.inventory.inventory_section', {
-            status: content => (
-              <Typography.Text type='secondary'>{content}</Typography.Text>
-            ),
-            limit: inventoryLimit,
-            count: fields.length,
-          })}
+          title={
+            <h2>
+              {t.rich('characters.inventory.inventory_section', {
+                status: content => (
+                  <Typography.Text type='secondary'>{content}</Typography.Text>
+                ),
+                limit: inventoryLimit,
+                count: fields.length,
+              })}
+            </h2>
+          }
           extra={
             <HelpButton
               label={t('rulebook.information')}

@@ -140,7 +140,7 @@ export function ActionsCard({
   ]
 
   return (
-    <Card title={t('characters.actions.title')} id='actions'>
+    <Card title={<h2>{t('characters.actions.title')}</h2>} id='actions'>
       <ul className='ActionsCard__list'>
         {items.map(item => (
           <li

@@ -45,7 +45,7 @@ export function ClockCard() {
 
   return (
     <Card
-      title={t('characters.map.clock_section')}
+      title={<h2>{t('characters.map.clock_section')}</h2>}
       extra={
         <Popover
           title={t('characters.map.clock_section')}
