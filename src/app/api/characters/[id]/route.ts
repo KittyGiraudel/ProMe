@@ -6,6 +6,7 @@ import {
 } from '@/lib/character/model'
 import { Character } from '@/lib/character/types'
 import { sql } from '@/lib/db/client'
+import { enforceTrustedOrigin } from '@/lib/security/trustedOrigin'
 
 type Params = { params: Promise<{ id: string }> }
 
@@ -36,6 +37,9 @@ export async function PUT(
   request: Request,
   { params }: Params
 ): Promise<Response> {
+  const originError = enforceTrustedOrigin(request)
+  if (originError) return originError
+
   const user = await getUser()
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
@@ -95,9 +99,12 @@ export async function PUT(
 
 // DELETE /api/characters/[id]
 export async function DELETE(
-  _request: Request,
+  request: Request,
   { params }: Params
 ): Promise<Response> {
+  const originError = enforceTrustedOrigin(request)
+  if (originError) return originError
+
   const user = await getUser()
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 

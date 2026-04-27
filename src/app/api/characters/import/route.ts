@@ -2,10 +2,14 @@ import { getUser } from '@netlify/identity'
 import { validateCharacterForPersistence } from '@/lib/character/model'
 import { parseCharacter } from '@/lib/character/store/migrations'
 import { sql } from '@/lib/db/client'
+import { enforceTrustedOrigin } from '@/lib/security/trustedOrigin'
 
 // POST /api/characters/import
 // Body: { json: string }  — the raw JSON string of a single exported character
 export async function POST(request: Request): Promise<Response> {
+  const originError = enforceTrustedOrigin(request)
+  if (originError) return originError
+
   const user = await getUser()
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 

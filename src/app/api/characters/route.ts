@@ -2,6 +2,7 @@ import { getUser } from '@netlify/identity'
 import { normalizeCharacter } from '@/lib/character/model'
 import type { Character } from '@/lib/character/types'
 import { sql } from '@/lib/db/client'
+import { enforceTrustedOrigin } from '@/lib/security/trustedOrigin'
 
 // GET /api/characters — list all characters for the authenticated user
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -24,6 +25,9 @@ export async function GET(_: Request): Promise<Response> {
 
 // POST /api/characters — create a new character
 export async function POST(request: Request): Promise<Response> {
+  const originError = enforceTrustedOrigin(request)
+  if (originError) return originError
+
   const user = await getUser()
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
