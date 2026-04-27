@@ -87,6 +87,7 @@ export async function PUT(
     VALUES (${normalized.id}, ${user.id}, ${JSON.stringify(normalized)})
     ON CONFLICT (id) DO UPDATE
       SET data = EXCLUDED.data
+      WHERE characters.user_id = EXCLUDED.user_id
   `
 
   return Response.json(normalized)
