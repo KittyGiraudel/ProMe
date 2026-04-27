@@ -19,7 +19,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const homeEntries = locales.map(locale => url(`/${locale}`))
 
   const staticRoutes = [
+    '/about',
     '/faq',
+    '/privacy',
     '/generators/npc',
     '/generators/village',
     '/settings',

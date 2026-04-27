@@ -12,35 +12,35 @@ export async function generateMetadata({ params }: Props) {
   const t = await getTranslations({ locale: locale as AppConfig['Locale'] })
 
   return {
-    title: t('faq.title'),
+    title: t('about.title'),
     alternates: {
-      canonical: `/${locale}/faq`,
+      canonical: `/${locale}/about`,
       languages: {
-        en: '/en/faq',
-        fr: '/fr/faq',
-        'x-default': `/${routing.defaultLocale}/faq`,
+        en: '/en/about',
+        fr: '/fr/about',
+        'x-default': `/${routing.defaultLocale}/about`,
       },
     },
     openGraph: {
-      title: t('faq.title'),
-      url: `/${locale}/faq`,
+      title: t('about.title'),
+      url: `/${locale}/about`,
     },
   }
 }
 
-export default async function FAQPage({ params }: Props) {
+export default async function AboutPage({ params }: Props) {
   const { locale } = await params
-  const filePath = join(process.cwd(), 'messages', `faq.${locale}.md`)
+  const filePath = join(process.cwd(), 'messages', `about.${locale}.md`)
   const content = readFileSync(filePath, 'utf-8')
 
   const t = await getTranslations({ locale: locale as AppConfig['Locale'] })
 
   return (
     <PageMarkdown
-      title={t('faq.title')}
-      breadcrumb={{ title: t('nav.faq'), path: '/faq' }}
+      title={t('about.title')}
+      breadcrumb={{ title: t('nav.about'), path: '/about' }}
       content={content}
-      bannerBiome='mushroomJungle'
+      bannerBiome='titanGarden'
     />
   )
 }

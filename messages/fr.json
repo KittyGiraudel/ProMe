@@ -473,6 +473,9 @@
   "faq": {
     "title": "Foire Aux Questions"
   },
+  "about": {
+    "title": "À propos"
+  },
   "privacy": {
     "title": "Politique de confidentialité"
   },
@@ -517,6 +520,7 @@
     "title": "ProMe — Companion de jeu"
   },
   "nav": {
+    "about": "À propos",
     "biomes": "Biomes",
     "characters": "Protecteurs",
     "faq": "FAQ",

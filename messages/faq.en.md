@@ -1,6 +1,5 @@
-- [What is this site?](#what-is-this-site)
-- [Is it usable on mobile?](#is-it-usable-on-mobile)
 - [How do I use the site?](#how-do-i-use-the-site)
+- [Is it usable on mobile?](#is-it-usable-on-mobile)
 - [What is the user account for?](#what-is-the-user-account-for)
 - [How do I play offline?](#how-do-i-play-offline)
 - [What are the biome pages for?](#what-are-the-biome-pages-for)
@@ -8,23 +7,8 @@
 - [What’s the “inheritance” thing?](#whats-the-inheritance-thing)
 - [Why isn’t the map hexagonal?](#why-isnt-the-map-hexagonal)
 - [Why is there a gender system?](#why-is-there-a-gender-system)
-- [Where do the images come from?](#where-do-the-images-come-from)
-- [Where does the music come from?](#where-does-the-music-come-from)
-- [Who’s behind this site?](#whos-behind-this-site)
 
-## What is this site?
-
-**ProMe** (pronounced pɹəˈmɛ), short for “**Pro**tector” and “**Me**mories”, is a game companion for _The Protector’s Memories_, a solo role-playing game by Enzo Salviato.
-
-**This site is not a complete digital version of the game: you need the official rulebook to play.** It is merely a digital aid for your adventure. All rights belong to the original author, Enzo Salviato, and the official publisher, [Critical Kit](https://www.criticalkit.co.uk/products/the-protectors-memories). The game can be purchased from [CriticalKit.co.uk](https://www.criticalkit.co.uk/products/the-protectors-memories) and other retailers.
-
-The game is exceptional but requires taking notes on paper — which I personally find tedious. That’s why I developed this digital version, to move note-taking and map annotation to a computer (or mobile device). Some may prefer playing on paper; to each their own.
-
-## Is it usable on mobile?
-
-Usable? Absolutely. The site is fully responsive and can be installed on the home screen like a native app.
-
-Enjoyable? That’s less certain. Just as the physical game provides an A4-sized map and character sheet, the site is designed for use on a computer screen that offers ample space and visibility. The site is responsive, but I don't know if the gaming experience will be as enjoyable on mobile.
+**→ To discover ProMe, please visit the [About](/en/about) page.**
 
 ## How do I use the site?
 
@@ -35,6 +19,12 @@ More or less the same way as the paper version of the game. It’s recommended t
 3. If you can and want to collect or mine resources, refer to the gathering table and roll a die to determine what you find.
 4. Record your day’s adventure in the journal to make your journey canonical.
 5. Save your progress at any time.
+
+## Is it usable on mobile?
+
+Usable? Absolutely. The site is fully responsive and can be installed on the home screen like a native app.
+
+Enjoyable? That’s less certain. Just as the physical game provides an A4-sized map and character sheet, the site is designed for use on a computer screen that offers ample space and visibility. The site is responsive, but I don't know if the gaming experience will be as enjoyable on mobile.
 
 ## What is the user account for?
 
@@ -75,19 +65,3 @@ It’s best to use the Chrome browser, as that’s what I use for development.
 ## Why is there a gender system?
 
 Like it or not, the official game has no concept of gender, so all characters — playable or not — are genderless. I found it interesting and more immersive to be able to define characters’ genders. It’s completely optional, and I’ve made it permissive with multiple options.
-
-## Where do the images come from?
-
-The images used on the site were generated using MidJourney by my dear sister, who followed her creative instincts, along with original illustrations by Enzo Salviato and Natalia Mancio, and content from the rulebook to bring the game’s environments to life.
-
-## Where does the music come from?
-
-The music comes from [TableTopAudio](https://tabletopaudio.com/), a site dedicated to soundscapes for role-playing games. The rulebook recommends certain tracks from this site, which you can listen to directly from ProMe. It’s completely optional, of course, but it makes sessions much more immersive, so it’s encouraged!
-
-You can also choose a variant in the [settings](/fr/settings): music + ambiance, music only, or ambiance only—whatever you prefer. These variations are also provided by TableTopAudio, which I support financially via Patreon.
-
-## Who’s behind this site?
-
-I’m [Kitty](https://kittygiraudel.com/). I’m a web developer and a tabletop RPG enthusiast.
-
-I discovered _The Protector’s Memories_ thanks to my sisters, who gifted me the game. I was charmed by the mysterious and enchanting world Enzo Salviato created and started developing small tools to simplify tasks like character and village creation. One thing led to another, and I built this more or less complete site for the game, just for fun.

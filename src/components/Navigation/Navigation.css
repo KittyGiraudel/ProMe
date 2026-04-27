@@ -107,7 +107,7 @@
    * 1. Make the links a bit taller on narrow screens to match the height of the
    *    header from the <Drawer> component.
    */
-  .Nav__link {
+  .Nav:not([popover]) .Nav__link {
     padding: 1.22em 1em; /* 1 */
   }
 }
@@ -207,8 +207,8 @@ button.Nav__link {
   padding-block: 0.5em; /* 1 */
 }
 
-.Nav__item:is(:hover, :focus-within) .Nav__submenu,
-.Nav__link:is(:active, :focus) + .Nav__submenu {
+.Nav:not([popover]) .Nav__item:is(:hover, :focus-within) .Nav__submenu,
+.Nav:not([popover]) .Nav__link:is(:active, :focus) + .Nav__submenu {
   display: flex;
 }
 

@@ -1,0 +1,47 @@
+.PageMarkdown .Layout__content ul:first-child {
+  columns: 20em;
+  margin-bottom: 3em;
+}
+
+.PageMarkdown .Layout__content {
+  max-width: 100ch;
+}
+
+.PageMarkdown .Layout__content h2 {
+  font-size: 1.5em;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+.PageMarkdown .Layout__content h2:target {
+  scroll-margin-top: 3em;
+}
+
+.PageMarkdown .Layout__content h3 {
+  font-size: 1em;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  margin-top: 1.5em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.PageMarkdown .Layout__content :where(p, li) {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  hyphens: auto;
+  margin-bottom: 0.5em;
+}
+
+.PageMarkdown .Layout__content li {
+  margin-bottom: 0.5em;
+}
+
+.PageMarkdown .Layout__content :where(ol, ul) {
+  padding-left: 1.25em;
+}
+
+.PageMarkdown .Layout__content li > p {
+  display: inline;
+  margin: 0;
+}

@@ -22,6 +22,9 @@ export function Footer() {
         </div>
 
         <nav className='Footer__nav'>
+          <Link href='/about' className='Footer__nav-link'>
+            {t('nav.about')}
+          </Link>
           <Link href='/faq' className='Footer__nav-link'>
             {t('nav.faq')}
           </Link>

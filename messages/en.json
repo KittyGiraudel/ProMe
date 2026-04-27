@@ -473,6 +473,9 @@
   "faq": {
     "title": "Frequently Asked Questions"
   },
+  "about": {
+    "title": "About"
+  },
   "privacy": {
     "title": "Privacy Policy"
   },
@@ -517,6 +520,7 @@
     "title": "ProMe — Game Companion"
   },
   "nav": {
+    "about": "About",
     "biomes": "Biomes",
     "characters": "Protectors",
     "faq": "FAQ",
