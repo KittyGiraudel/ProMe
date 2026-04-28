@@ -58,9 +58,41 @@ const jsonLd = {
   name: 'ProMe',
   url: 'https://prome.games',
   description:
-    "Game companion for The Protector's Memories: managers, Protector generators, villages, and more.",
+    'Free digital companion app for The Protector’s Memories, a solo tabletop RPG. Offers a digital character sheet, an interactive map, a customizable journal, and NPCs and villages generators.',
   applicationCategory: 'GameApplication',
   operatingSystem: 'Any',
+  browserRequirements: 'Requires a modern browser with JavaScript enabled',
+  inLanguage: ['en', 'fr'],
+  isAccessibleForFree: true,
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  featureList: [
+    'Character sheet with key stats, inventory, and spellbook',
+    'Hex-based interactive map with color-coded biomes',
+    'Markdown journal with embellishment formatting',
+    'Built-in dice roller and card drawing tools',
+    'NPC generator according to official rules',
+    'Village generator according to official rules',
+    'Offline-first PWA with optional cloud sync with Google',
+    'Available in English and French',
+  ],
+  isBasedOn: {
+    '@type': 'Game',
+    name: 'The Protector’s Memories',
+    url: 'https://www.criticalkit.co.uk/products/the-protectors-memories',
+    author: {
+      '@type': 'Person',
+      name: 'Enzo Salviato',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Critical Kit',
+      url: 'https://criticalkit.co.uk',
+    },
+  },
   author: {
     '@type': 'Person',
     name: 'Kitty Giraudel',
