@@ -112,14 +112,16 @@ export default async function LocaleLayout({ children, params }: Props) {
   setRequestLocale(locale)
 
   return (
-    <NextIntlClientProvider>
+    <>
       <script
         type='application/ld+json'
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <NetworkStatusMonitor />
-      <AuthProvider>{children}</AuthProvider>
-    </NextIntlClientProvider>
+      <NextIntlClientProvider>
+        <NetworkStatusMonitor />
+        <AuthProvider>{children}</AuthProvider>
+      </NextIntlClientProvider>
+    </>
   )
 }
 
