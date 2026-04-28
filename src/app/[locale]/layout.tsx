@@ -86,6 +86,7 @@ const jsonLd = {
     author: {
       '@type': 'Person',
       name: 'Enzo Salviato',
+      url: 'https://bsky.app/profile/desesperenzo.bsky.social',
     },
     publisher: {
       '@type': 'Organization',

@@ -41,7 +41,18 @@ export function Footer() {
         </nav>
       </div>
       <div className='Footer__colophon'>
-        <p className='Footer__copyright'>{t('footer.copyright')}</p>
+        <p className='Footer__copyright'>
+          {t.rich('footer.copyright', {
+            link: chunks => (
+              <a
+                href='https://bsky.app/profile/desesperenzo.bsky.social'
+                target='_blank'
+                rel='noopener noreferrer'>
+                {chunks}
+              </a>
+            ),
+          })}
+        </p>
         <p className='Footer__credit'>
           {t.rich('footer.application', {
             link_author: chunks => (

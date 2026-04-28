@@ -48,4 +48,4 @@ Adding a new language should be trivial:
 
 ## Acknowledgements
 
-The game itself was created and designed by Enzo Salviato — all credits go to him. This application is nothing more than a gaming companion, mostly to allow playing the game digitally (although not in full — owning and using the rulebook remains required).
+The game itself was created and designed by [Enzo Salviato](https://bsky.app/profile/desesperenzo.bsky.social) — all credits go to him. This application is nothing more than a gaming companion, mostly to allow playing the game digitally (although not in full — owning and using the rulebook remains required).

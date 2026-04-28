@@ -112,6 +112,7 @@
 .Footer a:hover {
   color: var(--prome-text);
   text-decoration: underline;
+  cursor: pointer;
 }
 
 /** Credit ------------------------------------------------------------------ */
