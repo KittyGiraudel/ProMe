@@ -9,7 +9,7 @@ import { type AppRouteTo, resolveAppToString } from '@/i18n/navigation'
 
 type NextLinkProps = ComponentProps<typeof NextLink>
 
-type AppLinkProps = Omit<NextLinkProps, 'href'> & {
+export type AppLinkProps = Omit<NextLinkProps, 'href'> & {
   to: AppRouteTo
   block?: boolean
 }
