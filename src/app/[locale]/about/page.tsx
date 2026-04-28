@@ -56,7 +56,6 @@ export default async function AboutPage({ params }: Props) {
         content={content}
         bannerBiome='titanGarden'>
         <>
-          <hr />
           <h2>{videoTitle}</h2>
           <div className='PageMarkdown__video-embed'>
             <iframe
