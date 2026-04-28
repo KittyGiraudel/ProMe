@@ -49,7 +49,7 @@ export default function Home({ params }: Props) {
       <link
         rel='preload'
         as='image'
-        href='/images/home-cover.avif'
+        href='/images/banner-home.avif'
         type='image/avif'
         fetchPriority='high'
       />
