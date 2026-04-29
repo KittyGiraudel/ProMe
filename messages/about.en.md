@@ -28,7 +28,7 @@ I discovered _The Protector’s Memories_ thanks to my sisters, who gifted me th
 
 ### Images
 
-The images used on the site were generated using MidJourney by my dear sister, who followed her creative instincts, along with original illustrations by [Enzo Salviato](https://bsky.app/profile/desesperenzo.bsky.social) and Natalia Mancio, and content from the rulebook to bring the game’s environments to life.
+The images used on the site were generated using MidJourney by my dear sister, who followed her creative instincts, along with original illustrations by [Enzo Salviato](https://bsky.app/profile/desesperenzo.bsky.social) and [Natalia Mancio](https://www.instagram.com/nat.mancio), and content from the rulebook to bring the game’s environments to life.
 
 ### Music
 

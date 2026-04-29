@@ -28,7 +28,7 @@ J’ai découvert les Souvenirs du Protecteur grâce à mes sœurs qui m’ont o
 
 ### Images
 
-Les images utilisées sur le site sont générées avec MidJourney par ma chère sœur qui a suivi son instinct créatif, les illustrations originales de [Enzo Salviato](https://bsky.app/profile/desesperenzo.bsky.social) et Natalia Mancio, et les contenus du livre de règles pour donner vie aux environnements du jeu.
+Les images utilisées sur le site sont générées avec MidJourney par ma chère sœur qui a suivi son instinct créatif, les illustrations originales de [Enzo Salviato](https://bsky.app/profile/desesperenzo.bsky.social) et [Natalia Mancio](https://www.instagram.com/nat.mancio), et les contenus du livre de règles pour donner vie aux environnements du jeu.
 
 ### Musiques
 
