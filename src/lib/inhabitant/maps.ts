@@ -11,7 +11,7 @@ export function factionFromD6(value: number): Faction {
   if (value <= 2) return 'bruja'
   if (value <= 4) return 'cucurbits'
   if (value === 5) return 'kiore'
-  return 'mousseron'
+  return 'mycelian'
 }
 
 /** D6 value that maps to `faction` via `factionFromD6` (stable encoding for URLs). */
@@ -23,7 +23,7 @@ export function canonicalFactionDie(faction: Faction): number {
       return 3
     case 'kiore':
       return 5
-    case 'mousseron':
+    case 'mycelian':
       return 6
   }
 }

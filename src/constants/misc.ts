@@ -44,7 +44,7 @@ export const FACTIONS: readonly Faction[] = [
   'bruja',
   'cucurbits',
   'kiore',
-  'mousseron',
+  'mycelian',
 ] as const
 
 export const BIOME_IDS: readonly BiomeId[] = [

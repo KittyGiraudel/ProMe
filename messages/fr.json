@@ -321,7 +321,7 @@
       "bruja": "Bruja",
       "cucurbits": "Cucurbitus",
       "kiore": "Kiore",
-      "mousseron": "Mousseron"
+      "mycelian": "Mousseron"
     },
     "ages": {
       "child": "Enfant",
@@ -337,12 +337,12 @@
       "grumpy": "{gender, select, man {Grincheux} woman {Grincheuse} other {Grincheux·se}}",
       "curious": "{gender, select, man {Curieux} woman {Curieuse} other {Curieux·se}}",
       "friendly": "{gender, select, man {Amical} woman {Amicale} other {Amical·e}}",
-      "embarrassed": "{gender, select, man {Gêné} woman {Gênée} other {Gêné·e}}",
+      "shy": "Timide",
       "hasty": "{gender, select, man {Pressé} woman {Pressée} other {Pressé·e}}",
       "dreamy": "{gender, select, man {Rêveur} woman {Rêveuse} other {Rêveur·se}}",
-      "calm": "Calme",
-      "joyful": "{gender, select, man {Joyeux} woman {Joyeuse} other {Joyeux·se}}",
-      "sad": "Triste"
+      "quiet": "Calme",
+      "playful": "{gender, select, man {Joueur} woman {Joueuse} other {Joueur·se}}",
+      "sorrowful": "Triste"
     },
     "genders": {
       "man": "Homme",

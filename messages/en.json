@@ -4,7 +4,7 @@
       "name": "Shadow Woods",
       "title": "The Shadow Woods",
       "teaser": "Step into a forest where towering sentinels guard forgotten tales—shadows whisper, golden glades beckon, and the darkness cradles life like a sanctuary.",
-      "description": "Colossal trees stand before you, like giant sentinels guarding this ancient forest. Entering the woods is to be mbraced by deep shadows. However, the darkness here brings no fear or insecurity. The melodic whisper of the wind among the trees seems to want to tell stories of times immemorial. The sunlight, which occasionally sneaks between the branches and leaves, creates the golden and friendly clearings. The further you advance towards the heart of the forest, the clearer it becomes that the enormous trunks that surround you, and the intensity of the daarkness, have the sole purpose of sheltering and protecting the lives within them.",
+      "description": "Colossal trees stand before you, like giant sentinels guarding this ancient forest. Entering the woods is to be embraced by deep shadows. However, the darkness here brings no fear or insecurity. The melodic whisper of the wind among the trees seems to want to tell stories of times immemorial. The sunlight, which occasionally sneaks between the branches and leaves, creates the golden and friendly clearings. The further you advance towards the heart of the forest, the clearer it becomes that the enormous trunks that surround you, and the intensity of the darkness, have the sole purpose of sheltering and protecting the lives within them.",
       "magic": "What is it like to be friends with the night? How can darkness harbour feelings other than fear?",
       "location": "You are currently wandering in <b>shadowy woods</b>."
     },
@@ -20,7 +20,7 @@
       "name": "Mushroom Jungle",
       "title": "The Mushroom Jungle",
       "teaser": "The air thickens with choking spores among giant mushrooms. Here, even death is gentle, promising rebirth in the cycle of life.",
-      "description": "A pungent smell settles in. The air begins to thicken around you, then dozens, hundreds, thousands of spores begin to appear as enormous mushrooms take over the environment. It is difficult to breathe. This is an impossible place to navigate for unprepared travellers. It is a place to encounter death, albeit a mild kind of death as, here, all death nourishes new lives.\nThis Biome is full of harmful spores that spread throughout the iar. If you enter a hex of this Biome without using something to protect yourself, leave immediately or perform a Test of Courage to explore — a Miss will cost you 1 Soul.\n### Colossus Mushrooms\nGiant mushrooms that have gained a small sense of self now wander aimlessly through the Mushroom Jungles. Some individuals are extremely poisonous, but none display aggressive behavior. The small mushrooms that grow on their caps are very different from the others found in the Jungles, as they are edible and have special properties.",
+      "description": "A pungent smell settles in. The air begins to thicken around you, then dozens, hundreds, thousands of spores begin to appear as enormous mushrooms take over the environment. It is difficult to breathe. This is an impossible place to navigate for unprepared travellers. It is a place to encounter death, albeit a mild kind of death as, here, all death nourishes new lives.\nThis Biome is full of harmful spores that spread throughout the air. If you enter a hex of this Biome without using something to protect yourself, leave immediately or perform a Test of Courage to explore — a Miss will cost you 1 Soul.\n### Colossus Mushrooms\nGiant mushrooms that have gained a small sense of self now wander aimlessly through the Mushroom Jungles. Some individuals are extremely poisonous, but none display aggressive behaviour. The small mushrooms that grow on their caps are very different from the others found in the Jungles, as they are edible and have special properties.",
       "magic": "How can that which feeds on death strengthen that which is alive?",
       "location": "You are currently trekking through a <b>mushroom jungle</b>."
     },
@@ -28,7 +28,7 @@
       "name": "Prairie Sea",
       "title": "The Prairie Sea",
       "teaser": "The wind stirs a lullaby of grass and crickets, while an endless golden carpet unfolds beneath the sun—a land of boundless fertility.",
-      "description": "The wind increases its song and blows more intensely. The serene whispers of the long grass joins the chirping of the crickets in a calm melody. The sun shining upon the immense green-golden fields convinces you, for a moment, that an infinite carpet of gold unfolds beneath your feet. The verdant trees, bent by the wind, and the numerous wild gardens reveal a fertile land.",
+      "description": "The wind increases its song and blows more intensely. The serene whispers of the long grass join the chirping of the crickets in a calm melody. The sun shining upon the immense green-golden fields convinces you, for a moment, that an infinite carpet of gold unfolds beneath your feet. The verdant trees, bent by the wind, and the numerous wild gardens reveal a fertile land.",
       "magic": "What answer does the wind blow? What hope does the greenery hold?",
       "location": "You are currently traversing a <b>prairie sea</b>."
     },
@@ -36,22 +36,22 @@
       "name": "Silent Wastes",
       "title": "The Silent Wastes",
       "teaser": "Scorching winds warp the horizon, carving red plateaus where cacti stand sentinel in absolute, sun-drenched silence.",
-      "description": "The air becomes dry and sharp. The wind carries the warmth of the sun and the horizon distorts from reflected heat. Great plateaus of reddish earth, dotted with small cylindrical cacti, occupy the land before you. Absolute silence sets in.\nDuring the day, due to the high temperatures, you will lose 1 point of any Attribute in each hex of the Silent Wastes you explore. To avoid this damage, leave immediately and return at night or use something to protect you from the heat.\n### Oases\nAmidst the arid Silent Wastes, you may find small areas that seem like portals to another world. These places are special and can greatly aid you on your journey. There are two types of oases in the Silent Wastes, and you cannot take heat damage while in either of them:\n- Palm Paradise: Rising through the turbulent, heat shimmering sky and surrounding a small lake, enormous palm trees cast cool shade across the ground.\n- Cactus Sanctuary: Sturdy, cylindrical cacti, green and yellow, take over the deserrt in small islands of undergrowth.\n### Heatbugs\nHeatbugs are large, cactus-like insects. They have an exoskeleton of rigid thorns and covered in a thick layer of hairs that burn when touched without protection. Heatbugs thorns are highly sought after for makings tools such as heatbugs pliers and water cans.",
+      "description": "The air becomes dry and sharp. The wind carries the warmth of the sun and the horizon distorts from reflected heat. Great plateaus of reddish earth, dotted with small cylindrical cacti, occupy the land before you. Absolute silence sets in.\nDuring the day, due to the high temperatures, you will lose 1 point of any Attribute in each hex of the Silent Wastes you explore. To avoid this damage, leave immediately and return at night or use something to protect you from the heat.\n### Oases\nAmidst the arid Silent Wastes, you may find small areas that seem like portals to another world. These places are special and can greatly aid you on your journey. There are two types of oases in the Silent Wastes, and you cannot take heat damage while in either of them:\n- Palm Paradise: Rising through the turbulent, heat shimmering sky and surrounding a small lake, enormous palm trees cast cool shade across the ground.\n- Cactus Sanctuary: Sturdy, cylindrical cacti, green and yellow, take over the desert in small islands of undergrowth.\n### Heatbugs\nHeatbugs are large, cactus-like insects. They have an exoskeleton of rigid thorns and are covered in a thick layer of hairs that burn when touched without protection. Heatbug thorns are highly sought after for making tools such as heatbug pliers and water cans.",
       "magic": "How can silence support? How can noise protect?",
       "location": "You are currently straying into a <b>silent waste</b>."
     },
     "titanGarden": {
       "name": "Titan Garden",
       "title": "The Titan Garden",
-      "teaser": "A blizzard of petals fills the air as colossal blooms line the path—a horizon-wide garden of lilies, sunflowers, and roses, watching over every traveler.",
-      "description": "An explosion of colours takes over the world. Petals float everywhere, and giant stems line the road. A garden as vast as the horizon itself rises before you. Lilies, sunflowers, roses, daisies, and countless other dazzling flowers touch the sky at they witness, from above, the journeys that cross their domain.\n### Garden Whales\nThese great whales never leave the confines of the Titan Gardens, yet they fly as if weightless. A lush landscape thrives on their backs. Songs tell of pirates from ancient times hiding their most precious treasures upon these cetaceans.\n### Leon Flower Gardens\nLeon Flowers have a mesmerising scent and a delicious flavour. Their voluminous petals point towards the sky, and they can be found in two colours: red and yellow. They are highly valued ingredients in the preparation of dishes and potions and, on top of that, they are the favourite food of Flowerlions. The only difference between Leon Flowers of different colours is which types of Flowerlions can eat them.",
+      "teaser": "A blizzard of petals fills the air as colossal blooms line the path—a horizon-wide garden of lilies, sunflowers, and roses, watching over every traveller.",
+      "description": "An explosion of colours takes over the world. Petals float everywhere, and giant stems line the road. A garden as vast as the horizon itself rises before you. Lilies, sunflowers, roses, daisies, and countless other dazzling flowers touch the sky as they witness, from above, the journeys that cross their domain.\n### Garden Whales\nThese great whales never leave the confines of the Titan Gardens, yet they fly as if weightless. A lush landscape thrives on their backs. Songs tell of pirates from ancient times hiding their most precious treasures upon these cetaceans.\n### Leon Flower Gardens\nLeon Flowers have a mesmerising scent and a delicious flavour. Their voluminous petals point towards the sky, and they can be found in two colours: red and yellow. They are highly valued ingredients in the preparation of dishes and potions and, on top of that, they are the favourite food of Flowerlions. The only difference between Leon Flowers of different colours is which types of Flowerlions can eat them.",
       "magic": "What is the power of fragility? How do you blossom under the storm?",
       "location": "You are currently meandering through a <b>titan garden</b>."
     },
     "core": {
       "name": "Deep Heart",
       "title": "Deep Heart",
-      "location": "You are currently resting within the <b>Core</b>."
+      "location": "You are currently resting within the <b>Deep Heart</b>."
     },
     "unexplored": {
       "name": "Unexplored",
@@ -80,17 +80,17 @@
       "characteristics_section": "Characteristics",
       "courage_label": "Courage",
       "courage_label_short": "Courage",
-      "courage_roll_aria": "Roll a Courage test",
-      "courage_roll_result": "The Courage Test has {status, select, success {succeeded} failure {failed} other {been cancelled}}.\nDie result: {roll}. Current Courage: {target}.",
-      "courage_roll_title": "Courage Test",
-      "courage_roll_tooltip": "Roll a Courage Test",
+      "courage_roll_aria": "Roll a Test of Courage",
+      "courage_roll_result": "The Test of Courage has {status, select, success {succeeded} failure {failed} other {been cancelled}}.\nDie result: {roll}. Current Courage: {target}.",
+      "courage_roll_title": "Test of Courage",
+      "courage_roll_tooltip": "Roll a Test of Courage",
       "courage_tooltip": "These points represent your ability to accomplish what you want. Whenever you need to do something that is not guaranteed to succeed — whether it’s running, jumping, hiding, distracting, escaping, attacking, etc. — you will need to use your Courage points.",
       "gender_label": "Gender",
       "health_label": "Soul Points",
       "health_label_short": "Soul",
-      "health_tooltip": "These points represent your life force. Whenever you encounter a hamrful environment or hostile creature, these points are put at risk. If your Soul points ever reach zero, you die.",
-      "honor_label": "Honor",
-      "honor_tooltip": "The wind, rivers, people, creatures, the darkness: everything feels the Honour of everything around it. The greater the Honour, the greater the respect shown.\nYou can earn Honour by helping those in need, protecting your memories, or filfilling your mission, and this will bring you benefits throughout your journey. However, giving in to violence or causing harm to any ceature will cause you to lose Honour. If your Honour points drop below zero, your freedom to buy items or enter certain places will be limited.",
+      "health_tooltip": "These points represent your life force. Whenever you encounter a harmful environment or hostile creature, these points are put at risk. If your Soul points ever reach zero, you die.",
+      "honor_label": "Honour",
+      "honor_tooltip": "The wind, rivers, people, creatures, the darkness: everything feels the Honour of everything around it. The greater the Honour, the greater the respect shown.\nYou can earn Honour by helping those in need, protecting your memories, or fulfilling your mission, and this will bring you benefits throughout your journey. However, giving in to violence or causing harm to any creature will cause you to lose Honour. If your Honour points drop below zero, your freedom to buy items or enter certain places will be limited.",
       "identity_section": "Identity",
       "inspiration_label": "Inspiration",
       "inspiration_tooltip": "Inspiration is your connection to the world around you. Whenever you feel like you’ve contributed to this world in a creative way, helped someone, or been happy with something you’ve invented or found, you can give yourself an Inspiration point. Always be kind and reward yourself for taking part in creating this world.",
@@ -99,16 +99,16 @@
       "name_label": "Name",
       "stamina_label": "Vigour Points",
       "stamina_label_short": "Vigour",
-      "stamina_tooltip": "These points represent your ability to keep on going. Vigour points define things like how many items you can carry or how long does your Clock takes to tick.",
+      "stamina_tooltip": "These points represent your ability to keep on going. Vigour points define things like how many items you can carry or how long does your Clock take to tick.",
       "title": "Identity & Stats"
     },
     "map": {
       "biome_label": "Biome",
       "browser_warning": "The map module uses <link>modern features</link> that are not supported in all browsers. It is recommended to use the Chrome browser for the best experience.",
       "cell": "{coord}: {biome}{status, select, current { (current)} selected { (selected)} reachable { (reachable)} other {}}",
-      "center_on_current": "Center on my position",
+      "center_on_current": "Centre on my position",
       "character_position": "Position: {position}",
-      "clear_cell": "Clear cell",
+      "clear_cell": "Clear hex",
       "clear_icon": "Remove icon",
       "clock_advance": "Advance",
       "clock_back": "Go back",
@@ -118,7 +118,7 @@
       "clock_phase_shift_description": "Remember to consume food to avoid hunger.",
       "clock_section": "Clock",
       "clock_slice": "Slice: {position} / {total}",
-      "clock_tooltip": "The Clock tracks time and hunger. It is divided according to your current Stamina.",
+      "clock_tooltip": "The Clock tracks time and hunger. It is divided according to your current Vigour.",
       "emoji_search_placeholder": "Search for an icon…",
       "icon_label": "Icon",
       "journal_links_label": "Journal",
@@ -133,16 +133,16 @@
       "menu_actions_group": "Actions",
       "menu_marking_group": "Scouting",
       "move_here": "Move here",
-      "move_neighbor_only": "Only to an adjacent cell",
+      "move_neighbor_only": "Only to an adjacent hex",
       "pick_emoji": "Choose an icon…",
-      "random_biome_discovered_description": "You discover {biomeName}. Mark {additionalTilesToMark, plural, =1 {one adjacent cell} other {# adjacent cells}} of the same biome ({biomeName}).",
+      "random_biome_discovered_description": "You discover {biomeName}. Mark {additionalTilesToMark, plural, =1 {one adjacent hex} other {# adjacent hexes}} of the same biome ({biomeName}).",
       "random_biome_discovered_title": "New biome discovered",
       "random_biome": "Random biome (1D6)",
       "sheet": "Sheet: ({sheetQ}, {sheetR})",
       "sheet_right": "Sheet to the right",
       "sheet_left": "Sheet to the left",
-      "sheet_up": "Sheet to the up",
-      "sheet_down": "Sheet to the down",
+      "sheet_up": "Sheet above",
+      "sheet_down": "Sheet below",
       "skip_map": "Skip map",
       "title": "Cartography",
       "unexplored": "Unexplored"
@@ -165,12 +165,12 @@
     "journal": {
       "add_journal_entry": "Add entry",
       "cheatsheet": {
-        "embellishment_biome": "Color formatting for biome names (e.g., {example})",
+        "embellishment_biome": "Colour formatting for biome names (e.g., {example})",
         "embellishment_cards": "Highlight playing cards (♠, ♥, ♦, ♣)",
-        "embellishment_cells": "Links to cells (e.g., <e13></e13>, <b07></b07>)",
-        "embellishment_checks": "Color formatting for “{success}” and “{failure}”",
+        "embellishment_cells": "Links to hexes (e.g., <e13></e13>, <b07></b07>)",
+        "embellishment_checks": "Colour formatting for “{success}” and “{failure}”",
         "embellishment_dice": "Highlight dice (⚀, ⚁, ⚂, ⚃, ⚄, ⚅)",
-        "embellishment_stars": "Color formatting for celestial bodies (☼, ☾)",
+        "embellishment_stars": "Colour formatting for celestial bodies (☼, ☾)",
         "embellishment_title": "Auto-formatting",
         "markdown_intro": "Text accepts <guide>Markdown</guide> (headings, lists, emphasis, links, etc.).",
         "markdown_title": "Markdown",
@@ -242,13 +242,13 @@
         "invalid_spellbook": "The spellbook must contain between 0 and {max} items ({current}).",
         "invalid_health": "The soul points must be between 0 and {max} ({current}).",
         "invalid_courage": "The courage points must be between 0 and {max} ({current}).",
-        "invalid_stamina": "The stamina points must be between 0 and {max} ({current}).",
+        "invalid_stamina": "The vigour points must be between 0 and {max} ({current}).",
         "invalid_clock": "The clock must be between 1 and {max} ({current}).",
         "invalid_map_position": "The position {cell} on the map is invalid.",
-        "invalid_map_cell": "The cell {cell} on the map is invalid.",
-        "invalid_map_cell_core": "The Deep Heart cell is invalid.",
-        "invalid_map_cell_biome": "The biome defined on the cell {cell} is invalid ({current}).",
-        "invalid_map_cell_icon": "The icon defined on the cell {cell} is invalid ({current}).",
+        "invalid_map_cell": "The hex {cell} on the map is invalid.",
+        "invalid_map_cell_core": "The Deep Heart hex is invalid.",
+        "invalid_map_cell_biome": "The biome defined on the hex {cell} is invalid ({current}).",
+        "invalid_map_cell_icon": "The icon defined on the hex {cell} is invalid ({current}).",
         "invalid_inventory_item": "The item at position #{index} must have a name.",
         "invalid_spellbook_item": "The spell at position #{index} must have a name."
       },
@@ -321,7 +321,7 @@
       "bruja": "Bruja",
       "cucurbits": "Cucurbits",
       "kiore": "Kiore",
-      "mousseron": "Mousseron"
+      "mycelian": "Mycelian"
     },
     "ages": {
       "child": "Child",
@@ -337,12 +337,12 @@
       "grumpy": "Grumpy",
       "curious": "Curious",
       "friendly": "Friendly",
-      "embarrassed": "Embarrassed",
+      "shy": "Shy",
       "hasty": "Hasty",
       "dreamy": "Dreamy",
-      "calm": "Calm",
-      "joyful": "Joyful",
-      "sad": "Sad"
+      "quiet": "Quiet",
+      "playful": "Playful",
+      "sorrowful": "Sorrowful"
     },
     "genders": {
       "man": "Man",
@@ -384,36 +384,36 @@
       "sunkenSavannah": {
         "1": "The water embracing your legs seems to heal your fatigue and encourage you on your journey. You have +1 Courage bonus (max 5) until you cross the line between day and night on your Clock.",
         "2": "A **traveller** crosses your path. Turn to page 56 to define who you meet. The traveller will not be here when you return.",
-        "5": "You come across a **Hedgebog**. Learn more about them on page 22. Draw a card to find out what type of Hedgebog you have encoutered.\n- ♥♦ A docile Hedgebog.\n- ♠♣ An aggressive Hedgebog.",
-        "6": "You meet a **Saddle-Duck**. What does it look like? You can ride them if you feed them or succeed in a Test of Courage. They can  take you to any previously explored hex without moving your Clock, returning to their original hex immediately after.",
+        "5": "You come across a **Hedgebog**. Learn more about them on page 22. Draw a card to find out what type of Hedgebog you have encountered.\n- ♥♦ A Docile Hedgebog.\n- ♠♣ A Hostile Hedgebog.",
+        "6": "You meet a **Saddle-Duck**. What does it look like? You can ride them if you feed them or succeed in a Test of Courage. They can take you to any previously explored hex without moving your Clock, returning to their original hex immediately after.",
         "3|4": "You find an **outpost**. Learn more on page 23."
       },
       "mushroomJungle": {
-        "1": "A **spore storm** envelops you. No protection si enough in this situation. Lose 1 point of any Attribute.",
+        "1": "A **spore storm** envelops you. No protection is enough in this situation. Lose 1 point of any Attribute.",
         "2": "A **ruin** appears amidst the mass of fungus that spreads out on all sides. Turn to page 63 if you want to enter.",
-        "5": "You come across a **Colossus Mushroom**. Draw a card to find out which type you have found. Learn more about them on page 26.\n- ♦ A Stationary Colossus Mushroom.\n- ♥ A Wanderer Colossus Mushroom.\n- ♣ A Poisonous Stationary Colossus Mushroom.\n- ♠ An Poisonous Wanderer Colossus Mushroom.",
-        "6": "You discover a **Dead Garden**: a Colossus Mushroom that has perished or forgotten to awake, giving life of thousands of other fungi. Go to page 26 and choose 1 item from the Gathering Table, no equipment required.",
+        "5": "You come across a **Colossus Mushroom**. Draw a card to find out which type you have found. Learn more about them on page 26.\n- ♦ A Stationary Colossus Mushroom.\n- ♥ A Wanderer Colossus Mushroom.\n- ♣ A Poisonous Stationary Colossus Mushroom.\n- ♠ A Poisonous Wanderer Colossus Mushroom.",
+        "6": "You discover a **Dead Garden**: a Colossus Mushroom that has perished or forgotten to awaken, giving life to thousands of other fungi. Go to page 26 and choose 1 item from the Gathering Table, no equipment required.",
         "3|4": "You find a group of 1d6 **Mylians**. Learn more about them on page 27."
       },
       "prairieSea": {
-        "1": "Strong winds blow against your path. Have a meal or roll a successful Test of Courage to stand firm against the gale. Otherwise, choose between losing & item or 1 Vigour point. If you return to this hex, the wind will still be blowing.",
+        "1": "Strong winds blow against your path. Have a meal or roll a successful Test of Courage to stand firm against the gale. Otherwise, choose between losing 1 item or 1 Vigour point. If you return to this hex, the wind will still be blowing.",
         "2": "A **traveller** crosses your path. Turn to page 57 to define who you met. The traveller will not be here when you return.",
         "3": "You find a small **Community Garden**! Go to the Gathering Table on page 30 and choose any item without the need for equipment. Mark this garden as used. You must have a watering can to tend to the garden in order to reuse it.",
         "6": "You find a **creature**. Draw a card from the deck to find out which creature you have found.\n- ♦ A Red Flowerlion — turn to page 30.\n- ♥ A Yellow Flowerlion — turn to page 30.\n- ♣ A White Flowerlion — turn to page 30.\n- ♠ A Peezee. Learn more on page 62.",
-        "4|5": "You arrive at a **Cucurbit farm**.Learn more about Cucurbits on page 30. When you find a Cucubirt farm, turn to page 42 and draw 5 cards to [define this town](/en/generators/village?f=cucurbits)."
+        "4|5": "You arrive at a **Cucurbit farm**. Learn more about Cucurbits on page 30. When you find a Cucurbit farm, turn to page 42 and draw 5 cards to [define this town](/en/generators/village?f=cucurbits)."
       },
       "shadowWoods": {
         "1": "Dense shadows embrace you tightly. Because of the darkness, everything you encounter in this area of Shadow Woods will be erased from your journal and map. When you pass through these hexes again, roll for new encounters.",
         "4": "You encounter **Fireflies**. Once per day, if you pass through this location, you can recover 1 point of any Attribute.",
-        "2|3": "You arrive at a **[Bruja village](/en/generators/village?f=bruja).**\nLearn more about Brujas on page 18. When you find a Bruka village, turn to page 42 and draw 5 cards to define it.",
+        "2|3": "You arrive at a **[Bruja village](/en/generators/village?f=bruja).**\nLearn more about Brujas on page 18. When you find a Bruja village, turn to page 42 and draw 5 cards to define it.",
         "5|6": "You encounter a **creature**. Draw a card from the deck to find out what it is:\n- ♦ A flock of **Yabas** — turn to page 19.\n- ♥ A lone Yaba — turn to page 19.\n- ♣ A Warrior Tree, which starts a battle. Learn more on page 19.\n- ♠ A **Peezee**. Learn more on page 62."
       },
       "silentWastes": {
         "1": "Deep sand makes the path even more tiring. Have a meal or roll a successful Test of Courage to overcome this challenge. Otherwise, choose between losing 1 item or 1 Vigour point. If you return to this hex, the sand will have the same effect.",
         "2": "A **ruin** appears among the sandy rocks. Turn to page 63 if you want to enter.",
         "3": "You discover an **oasis**. Learn more on page 36. Draw a card to find out what type of Oasis you have found.\n- ♥♦ A Palm Paradise.\n- ♠♣ A Cactus Sanctuary.",
-        "4": "You meet a **Kiore**. Learn more about them on page 34. Go to page 57 if you want to define  the Kiore’s personality. The Kiore will not be here when you return.",
-        "5|6": "You come across a **Heatbug**. Learn more about them on page 37. Draw a card to find out what type of Heatbug you have encountered.\n- ♦ A Docile Heatbug.\n- ♥ An Hostile Heatbug.\n- ♠♣ A Fallen Heatbug."
+        "4": "You meet a **Kiore**. Learn more about them on page 34. Go to page 57 if you want to define the Kiore’s personality. The Kiore will not be here when you return.",
+        "5|6": "You come across a **Heatbug**. Learn more about them on page 37. Draw a card to find out what type of Heatbug you have encountered.\n- ♦ A Docile Heatbug.\n- ♥ A Hostile Heatbug.\n- ♠♣ A Fallen Heatbug."
       },
       "titanGarden": {
         "1": "You stumble upon a pasture of **Titan Bees**. They start a battle, and you must make a Test of Courage to fight or flee. The next time you pass through this hex, the Titan Bees will still be here, guarding their pasture.",
@@ -449,7 +449,7 @@
         "4": "2 × Corn",
         "5": "2 × Rice",
         "6": "Any of the above",
-        "hint": "For collecting resources in the Prairie Sea, you can use Gardening Shears. To use them, remove 1 durability point from them, then choose the item of your choice from the gathering table above. Otherwise, successfully pass a Courage Test to do without the necessary equipment."
+        "hint": "For collecting resources in the Prairie Sea, you can use Gardening Shears. To use them, remove 1 durability point from them, then choose the item of your choice from the gathering table above. Otherwise, successfully pass a Test of Courage to do without the required equipment."
       },
       "silentWastes": {
         "1": "10 coins",
@@ -488,24 +488,24 @@
   },
   "inhabitant": {
     "context_by_rank": {
-      "2": "**{name} is looking for something.** Maybe something not sold in this village, or something only found far from here? But beyond that, {gender, select, man {he} woman {she} other {they}} seems afraid of the unknown. Maybe there’s a story behind it.",
-      "3": "**{name} dreams of traveling to another village.** Maybe you could accompany them and learn more about their motivations and desires!",
-      "4": "**{name} is very ill and doesn’t have much time left.** {gender, select, man {He} woman {She} other {They}} is {gender, select, man {alone} woman {alone} other {alone}} and no one to support them in these difficult moments. Maybe a conversation would bring some comfort? *Next time you visit this place, you’ll need to succeed a Courage test to find {gender, select, man {him} woman {her} other {them}}.*",
-      "5": "**{name} is seeking friendship—or maybe love?** You’re not sure, but {gender, select, man {he} woman {she} other {they}} seems to feel {gender, select, man {lonely} woman {lonely} other {lonely}}. You can help them find someone who seeks something similar.",
-      "6": "**{name} longs for a loved one.** Maybe it’s someone who lives elsewhere or has just left. But {gender, select, man {he} woman {she} other {they}} is also looking for a very special object that reminds them of this person. What is this object?",
-      "7": "{name} is a **cartographer**. You meet {gender, select, man {him} woman {her} other {them}} as {gender, select, man {he} woman {she} other {they}} is about to leave the village and recognizes you as a traveler. {gender, select, man {He} woman {She} other {They}} offers you one of their maps. Roll a D6: *Location Map (1-3)* or *Biome Map (4-6)* (see page 49).",
-      "8": "{name} is **painting a picture**. Realizing you’re a traveler, {gender, select, man {he} woman {she} other {they}} asks if you have a sketch of an unknown place, or if you can describe a panorama you’ve seen on your travels! {gender, select, man {He} woman {She} other {They}} has never ventured far from their village and is seeking inspiration!",
-      "9": "There are rumors of mysterious Ruins scattered across the world, and **{name} is curious to learn more**. Seeing you’re a traveler, {gender, select, man {he} woman {she} other {they}} approaches you to see if you have any information to share!",
-      "10": "**{name} speaks a name while wandering the village.** Who is it? Why are they saying this name? What happened? *If you need to create a name, consult the table on page 60.*",
-      "A": "**{name} is mourning a recent loss.** {gender, select, man {He} woman {She} other {They}} may have lost a pet or a close friend. Maybe a conversation would be welcome? Or perhaps {gender, select, man {he} woman {she} other {they}} just needs someone to listen?",
-      "J": "**{name} buys objects from other parts of the world and offers 100 coins for each item of interest.** Talk to them! Maybe you have something {gender, select, man {he} woman {she} other {they}} would like to acquire.",
-      "Q": "**{name} looks like someone you’ve met before.** Is it just an impression? You can always ask to be sure. {gender, select, man {He} woman {She} other {They}} may have crossed your path before, or maybe it’s a stranger with new stories to tell!",
-      "K": "**{name} is a builder.** {gender, select, man {He} woman {She} other {They}} tells you that with 3 wood and 3 iron, or 1,000 coins, {gender, select, man {he} woman {she} other {they}} can build the establishment of your choice in the village."
+      "A": "{name} is grieving a recent loss. Perhaps {gender, select, man {he} woman {she} other {they}} lost a companion, a partner, or a close friend. Maybe {gender, select, man {he} woman {she} other {they}} could use a conversation — or simply someone willing to listen — to help {gender, select, man {him} woman {her} other {them}} feel better.",
+      "2": "{name} is looking for something. Perhaps an item that is not sold in this town, or something that can only be found far from here. But beyond that, {gender, select, man {he seems} woman {she seems} other {they seem}} afraid to search for what {gender, select, man {he wants} woman {she wants} other {they want}}. Maybe there is a story behind it.",
+      "3": "{name} dreams of going to another town. Perhaps you can join {gender, select, man {him} woman {her} other {them}} on this journey and learn more about {gender, select, man {his} woman {her} other {their}} reasons and desires.",
+      "4": "{name} is very old and has little time left. Would a conversation be welcome? If you encountered {name} in a town, the next time you visit this place you must make a successful Test of Courage to encounter {gender, select, man {him} woman {her} other {them}} again.",
+      "5": "{name} is looking for friendship — or maybe love. You’re not sure, but {gender, select, man {he seems} woman {she seems} other {they seem}} lonely. You can help {gender, select, man {him} woman {her} other {them}} find someone who’s looking for something similar.",
+      "6": "{name} is missing someone dear to {gender, select, man {him} woman {her} other {them}}. Maybe someone who lives somewhere else. Maybe someone who has already passed away. {gender, select, man {He is} woman {She is} other {They are}} also looking for a very special item that reminds {gender, select, man {him} woman {her} other {them}} of that person. What is that item?",
+      "7": "{name} is a cartographer. {gender, select, man {He is} woman {She is} other {They are}} leaving town but realise that you are a traveller. Roll 1d6 and determine which map {gender, select, man {he gives} woman {she gives} other {they give}} you: Location Map (1–3) or Biome Map (4–6) (page 49).",
+      "8": "{name} is painting a picture. Realising that you are a traveller, {gender, select, man {he asks} woman {she asks} other {they ask}} if you have any drawings, or if you could describe a place you passed through on your journey. {gender, select, man {He has} woman {She has} other {They have}} never ventured far from {gender, select, man {his} woman {her} other {their}} town and {gender, select, man {is} woman {is} other {are}} looking for inspiration.",
+      "9": "{name} is calling out a name and walking around the town. Whose name is this? Why are {gender, select, man {he} woman {she} other {they}} calling out this name? What happened? You could use the table on page 60 to generate a name.",
+      "10": "Rumours about mysterious Ruins are spreading, and {name} is curious about them. Seeing that you are a traveller, {gender, select, man {he approaches} woman {she approaches} other {they approach}} you to ask if you have any information or stories about these places.",
+      "J": "{name} looks like someone you’ve met before. Is it just an impression? You can always ask and clear up this doubt. Maybe it’s a friend who has crossed your path, or maybe a stranger with new stories.",
+      "Q": "{name} buys curious items from other places. {gender, select, man {He offers} woman {She offers} other {They offer}} 100 coins if you can prove that you have an interesting item.",
+      "K": "{name} is a builder. {gender, select, man {He says} woman {She says} other {They say}} that with 3 Wood and 3 Iron, or 1,000 coins, you can build an establishment of your choice together in a town."
     },
     "context_card_note": "Only the card’s rank matters for context; the suit is ignored.",
     "context_seven_followup": "Map offered (page 49): {value, select, 1 {Location Map} 2 {Location Map} 3 {Location Map} 4 {Biome Map} 5 {Biome Map} 6 {Biome Map} other {Map offered}}",
     "context_spoken_name_label": "Spoken name (2D6, page 60)",
-    "empty_summary": "Click “{button}” to generate an inhabitant.",
+    "empty_summary": "Click “{button}” to generate a dweller.",
     "one_liner_rich": "{gender} <name></name>, {personality} {faction} {age}",
     "one_liner": "{gender} {name}, {personality} {faction} {age}",
     "section_age": "Age",
@@ -514,7 +514,7 @@
     "section_gender": "Gender",
     "section_name": "Name",
     "section_personality": "Personality",
-    "title": "Inhabitant Generator"
+    "title": "Dweller Generator"
   },
   "metadata": {
     "description": "Game companion for The Protector’s Memories: managers, Protector generators, villages, and more.",
@@ -529,7 +529,7 @@
     "privacy": "Privacy Policy",
     "home": "Home",
     "generators": "Generators",
-    "inhabitant_generator": "Inhabitant Generator",
+    "inhabitant_generator": "Dweller Generator",
     "login": "Login",
     "logout": "Logout",
     "menu": "Menu",
@@ -557,8 +557,8 @@
     "inheritance_list_not_inherited_label": "Not inherited",
     "inheritance_inherited_map": "Map exploration and discovered biomes",
     "inheritance_inherited_journal": "Journal entries and memories",
-    "inheritance_not_soul_courage_stamina": "Soul, Courage & Stamina points",
-    "inheritance_not_honor_inspiration": "Honor and Inspiration",
+    "inheritance_not_soul_courage_stamina": "Soul, Courage & Vigour points",
+    "inheritance_not_honor_inspiration": "Honour and Inspiration",
     "inheritance_not_gold": "Gold and money",
     "inheritance_not_inventory": "Inventory items",
     "inheritance_not_spellbook": "Spellbook entries",
@@ -567,14 +567,14 @@
     "title": "New Protector"
   },
   "rulebook": {
-    "characteristics_footnote": "Rulebook — Your Protector’s Attributes: page 7–8.",
-    "clock_footnote": "Rulebook — Your Protector’s Attributes: page 7–8.",
+    "characteristics_footnote": "Rulebook — Attribute Points: page 7–8.",
+    "clock_footnote": "Rulebook — The Clock: page 10.",
     "information": "Information in the rulebook",
-    "inhabitant_footnote": "Rulebook — Inhabitants: page 56–58. Name table: page 60.",
-    "inventory_footnote": "Rulebook — Other game values → Inventory: page 8.",
+    "inhabitant_footnote": "Rulebook — Dwellers: page 56–58. Name table: page 60.",
+    "inventory_footnote": "Rulebook — Inventory: page 8.",
     "page_citation": "page {page}",
     "spellbook_footnote": "Rulebook — Magic: page 14.",
-    "village_footnote": "Rulebook — Villages: page 42. “Establishment” table: page 43."
+    "village_footnote": "Rulebook — Towns: page 42. “Establishment” table: page 43."
   },
   "settings": {
     "app_theme_dark": "Dark",
@@ -585,17 +585,17 @@
     "adaptive_appearance_theme_label": "Adaptive theme",
     "journal_timeline_reverse_chronological_help": "By default, the journal is chronological; uncheck to display entries from newest to oldest.",
     "journal_timeline_reverse_chronological_label": "Reverse chronological journal",
-    "journal_create_entry_on_map_move_help": "When you move to an adjacent map cell, a new journal entry is added with the next clock slice and a starter heading. Separate from automatically advancing the clock.",
+    "journal_create_entry_on_map_move_help": "When you move to an adjacent map hex, a new journal entry is added with the next clock slice and a starter heading. Separate from automatically advancing the clock.",
     "journal_create_entry_on_map_move_label": "Create a journal entry when moving on the map",
-    "map_tick_clock_on_move_help": "When you move to an adjacent cell, the clock position advances as if you had used the “Advance” button.",
+    "map_tick_clock_on_move_help": "When you move to an adjacent hex, the clock position advances as if you had used the “Advance” button.",
     "map_tick_clock_on_move_label": "Auto-advancing clock",
-    "map_show_biome_background_help": "Show patterned backgrounds inside each cell based on its biome. Useful for distinguishing biomes without relying on color alone.",
+    "map_show_biome_background_help": "Show patterned backgrounds inside each hex based on its biome. Useful for distinguishing biomes without relying on colour alone.",
     "map_show_biome_background_label": "Biome backgrounds",
-    "map_coordinates_display_help": "Choose where cell coordinates are shown: on the axes around the map, inside each cell, or both.",
+    "map_coordinates_display_help": "Choose where hex coordinates are shown: on the axes around the map, inside each hex, or both.",
     "map_coordinates_display_label": "Coordinates display",
     "map_coordinates_display_axes": "Axes only",
-    "map_coordinates_display_cells": "Cells only",
-    "map_coordinates_display_both": "Axes and cells",
+    "map_coordinates_display_cells": "Hexes only",
+    "map_coordinates_display_both": "Axes and hexes",
     "map_style_label": "Map style",
     "map_style_help": "Choose the visual style of the map: flat, always tilted in perspective, or tilting dynamically when hovering a row.",
     "map_style_flat": "Flat",
@@ -615,23 +615,23 @@
     "sound_enabled_label": "Background music",
     "sound_enabled_help": "Plays ambient music matching the current biome. Enabling this will preload approximately 180 MB of audio files the first time.",
     "sound_variant_label": "Soundtrack variant",
-    "sound_variant_help": "Choose between full soundtracks (music + ambiance), music-only, or ambiance-only. Changing this variant will reload the relevant files.",
+    "sound_variant_help": "Choose between full soundtracks (music + ambience), music-only, or ambience-only. Changing this variant will reload the relevant files.",
     "sound_variant_mix": "Full soundtrack",
     "sound_variant_music": "Music only",
-    "sound_variant_ambiance": "Ambiance only",
+    "sound_variant_ambiance": "Ambience only",
     "title": "Settings",
     "village_merge_duplicate_establishments_help": "Merges duplicate village establishments into larger ones (small + small → large, etc.).",
     "village_merge_duplicate_establishments_label": "Merged duplicate establishments",
     "shortcuts_enabled_label": "Enable keyboard shortcuts",
-    "shortcuts_enabled_help": "Enables global keyboard shortcuts: {modifier}+S (save), {modifier}+D (card draw & dice roll), {modifier}+M (toggle music), {modifier}+C/V (copy/paste map cell).",
+    "shortcuts_enabled_help": "Enables global keyboard shortcuts: {modifier}+S (save), {modifier}+D (card draw & dice roll), {modifier}+M (toggle music), {modifier}+C/V (copy/paste map hex).",
     "section_advanced": "Advanced",
     "clear_cache_label": "Clear app cache",
     "clear_cache_help": "Removes all cached assets without impacting your saved data. Useful when the app is stuck on an outdated version.",
     "clear_cache_success": "Cache cleared — reloading…",
     "hints": {
-      "map": "You can customize certain map features in <link>Settings</link>.",
-      "journal": "You can customize certain journal features in <link>Settings</link>.",
-      "village": "You can customize certain village generator features in <link>Settings</link>."
+      "map": "You can customise certain map features in <link>Settings</link>.",
+      "journal": "You can customise certain journal features in <link>Settings</link>.",
+      "village": "You can customise certain village generator features in <link>Settings</link>."
     }
   },
   "village": {
@@ -642,31 +642,31 @@
       "3": "{size, select, 0 {Small Equipment Shop} 1 {Large Equipment Shop} 2 {Huge Equipment Shop} other {Equipment Shop}}",
       "4": "{size, select, 0 {Small Clothing Shop} 1 {Large Clothing Shop} 2 {Huge Clothing Shop} other {Clothing Shop}}",
       "5": "{size, select, 0 {Small Tavern} 1 {Large Tavern} 2 {Huge Tavern} other {Tavern}}",
-      "6": "{size, select, 0 {Small Cartography Office} 1 {Large Cartography Office} 2 {Huge Cartography Office} other {Cartography Office}}",
+      "6": "{size, select, 0 {Small Cartographer} 1 {Large Cartographer} 2 {Huge Cartographer} other {Cartographer}}",
       "7": "{size, select, 0 {Small Inn} 1 {Large Inn} 2 {Huge Inn} other {Inn}}",
-      "8": "{size, select, 0 {Small Mission Agency} 1 {Large Mission Agency} 2 {Huge Mission Agency} other {Mission Agency}}",
-      "9": "{color, select, red {Active Station} black {Abandoned Station} other {Station}}",
+      "8": "{size, select, 0 {Small Mission Stall} 1 {Large Mission Stall} 2 {Huge Mission Stall} other {Mission Stall}}",
+      "9": "{color, select, red {Active Train Station} black {Inactive Train Station} other {Train Station}}",
       "10": "Ruins",
-      "A": "{color, select, red {Permanent Oratory} black {Ephemeral Oratory} other {Oratory}}"
+      "A": "{color, select, red {Permanent Worship Idol} black {Ephemeral Worship Idol} other {Worship Idol}}"
     },
     "link_summary": "{has_faction_label, select, yes {Village ({factionLabel}), {establishmentCount} {establishmentCount, plural, =1 {establishment} other {establishments}}} other {Village, {establishmentCount} {establishmentCount, plural, =1 {establishment} other {establishments}}}}",
     "owner_label": "Owner:",
-    "reroll_owner": "Regenerate this inhabitant",
+    "reroll_owner": "Regenerate this dweller",
     "section_establishments": "Establishments",
     "section_traits": "Village Traits",
     "title": "Village Generator",
     "traits": {
       "J": {
-        "red": "**City.** It is a **large colony**. Draw **3 additional establishment cards**; if you draw a **face card** (Jack, Queen, King), **ignore it** and draw again until you get a **numbered card**.",
-        "black": "**Wonder.** The village is **exceptionally beautiful**. Describe it. You gain **2 Inspiration Points**."
+        "red": "**City.** This is a big town, maybe a city! Draw another 3 cards for this place (if you draw a J, Q or K, discard and draw another card).",
+        "black": "**Wondrous.** This town is built in a gorgeous location and is a sight to behold. Describe what this place looks like to earn 2 Inspiration Points."
       },
       "Q": {
-        "red": "**Fortified.** The village is **surrounded by walls** with a **guarded entrance**. You must have **at least 1 Honor Point** to enter.",
-        "black": "**Lush.** It features a **body of water** (river, lake, etc.) and a **garden**. You can use the **biome collection table** **without special equipment**."
+        "red": "**Fortified.** Fortifications surround and protect this town. Its entrance is guarded. You must have at least 1 Honour point to enter.",
+        "black": "**Verdant.** In this location you find a body of water (river, stream, lake, etc.) and a garden where you can use the Biome Gathering Table without the need of equipment."
       },
       "K": {
-        "red": "**Abandoned.** The buildings seem **uninhabited**. The **establishments are inoperable** until someone decides to **rebuild the village**.",
-        "black": "**Nomadic.** The village **moves**. When you return to this **map cell**, you must succeed a **Courage test**. On **failure**, the village **is no longer there**."
+        "red": "**Forsaken.** The town is abandoned, its homes unoccupied and its establishments remain inoperative until a Dweller decides to rebuild it.",
+        "black": "**Temporary.** When you return to this hex you will need to perform a Test of Courage. On a Miss, this place will be empty or inaccessible."
       }
     },
     "village_faction_label": "Faction"
@@ -694,7 +694,7 @@
       "character": {
         "number": "01 — Your Protector",
         "title": "An up-to-date character sheet",
-        "body": "Track everything that matters — health, stamina, resources, inventory, spells — on a persistent sheet that remembers your Protector between sessions. No spreadsheets, no paper.",
+        "body": "Track everything that matters — health, vigour, resources, inventory, spells — on a persistent sheet that remembers your Protector between sessions. No spreadsheets, no paper.",
         "tags": {
           "1": "Stats",
           "2": "Inventory & Spellbook",
@@ -748,7 +748,7 @@
         }
       },
       "music": {
-        "number": "05 — The Ambiance",
+        "number": "05 — The Ambience",
         "title": "Adaptive ambient sound",
         "body": "Soundtracks for every biome: from the Shadow Woods to the Sunken Savannah, immerse yourself in the game’s atmosphere without leaving the app — powered by [TableTopAudio](https://tabletopaudio.com/).",
         "tags": {
@@ -765,11 +765,11 @@
       },
       "generators": {
         "number": "06 — The World’s People",
-        "title": "Village and inhabitant generators",
+        "title": "Town and dweller generators",
         "body": "Populate your world instantly — generate villages and their inhabitants without flipping through the rulebook. Save them to find them easily later.",
         "tags": {
           "1": "NPC Generator",
-          "2": "Village Generator",
+          "2": "Town Generator",
           "3": "Rules built-in"
         },
         "demo": {
@@ -815,6 +815,6 @@
     "save_dead": "Cannot save a deceased character.",
     "save_validation": "There are errors that prevent the character from being saved.",
     "server": "A server error occurred (HTTP status {status}).",
-    "unauthorized": "You are not authorized to access this resource."
+    "unauthorized": "You are not authorised to access this resource."
   }
 }

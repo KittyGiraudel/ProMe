@@ -10,7 +10,7 @@ export type BiomeId =
 
 export type PossibleBiomeId = BiomeId | 'unexplored'
 
-export type Faction = 'bruja' | 'cucurbits' | 'kiore' | 'mousseron'
+export type Faction = 'bruja' | 'cucurbits' | 'kiore' | 'mycelian'
 
 export type Gender = 'man' | 'woman' | 'nonBinary' | 'indeterminate'
 

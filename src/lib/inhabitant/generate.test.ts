@@ -82,8 +82,8 @@ describe('inhabitant/generate', () => {
       () => 0.999
     )
     expect(next.factionDie).toBe(6)
-    expect(next.faction).toBe('mousseron')
-    expect(next.name).toBe(lookupName('mousseron', 1, 1))
+    expect(next.faction).toBe('mycelian')
+    expect(next.name).toBe(lookupName('mycelian', 1, 1))
   })
 
   it('rerollInhabitantPart contextSevenDie is a no-op when context is not 7', () => {

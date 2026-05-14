@@ -29,7 +29,7 @@ export const namesByFaction: Record<Faction, string[][]> = {
     ['Yutiku', 'Tabby', 'Qiussay', 'Yaffa', 'Callisty', 'Qyadir'],
     ['Myaiar', 'Javvony', 'Ellysse', 'Ozylla', 'Eujy', 'Hiiyr'],
   ],
-  mousseron: [
+  mycelian: [
     ['Cremoníum', 'Pahlandii', 'Asconmta', 'Armihllí', 'Sodlpe', 'Bavorhum'],
     ['Auhdur', 'Ckaero', 'Ahmenidis', 'Isetno', 'Mektre', 'Anmetus'],
     ['Teplome', 'Nimtri', 'Siobhan', 'Rhiyrnm', 'Lrhemuin', 'Sqverno'],

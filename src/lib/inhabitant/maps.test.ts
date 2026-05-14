@@ -19,11 +19,11 @@ describe('inhabitant/maps', () => {
       expect(factionFromD6(3)).toBe('cucurbits')
       expect(factionFromD6(4)).toBe('cucurbits')
       expect(factionFromD6(5)).toBe('kiore')
-      expect(factionFromD6(6)).toBe('mousseron')
+      expect(factionFromD6(6)).toBe('mycelian')
     })
 
     it('canonicalFactionDie round-trips through factionFromD6', () => {
-      const factions = ['bruja', 'cucurbits', 'kiore', 'mousseron'] as const
+      const factions = ['bruja', 'cucurbits', 'kiore', 'mycelian'] as const
       for (const r of factions) {
         expect(factionFromD6(canonicalFactionDie(r))).toBe(r)
       }
