@@ -179,7 +179,7 @@
         "shortcuts_protector": "Link to a Protector",
         "shortcuts_suits": "Playing cards: <braceS></braceS>, <braceH></braceH>, <braceD></braceD>, <braceC></braceC>",
         "shortcuts_title": "Shortcuts",
-        "shortcuts_village": "Link to a village"
+        "shortcuts_village": "Link to a town"
       },
       "delete_confirm_description": "This entry contains content. This deletion is irreversible.",
       "delete_confirm_title": "Delete this entry?",
@@ -405,7 +405,7 @@
       "shadowWoods": {
         "1": "Dense shadows embrace you tightly. Because of the darkness, everything you encounter in this area of Shadow Woods will be erased from your journal and map. When you pass through these hexes again, roll for new encounters.",
         "4": "You encounter **Fireflies**. Once per day, if you pass through this location, you can recover 1 point of any Attribute.",
-        "2|3": "You arrive at a **[Bruja village](/en/generators/village?f=bruja).**\nLearn more about Brujas on page 18. When you find a Bruja village, turn to page 42 and draw 5 cards to define it.",
+        "2|3": "You arrive at a **[Bruja village](/en/generators/village?f=bruja).**\nLearn more about Brujas on page 18. When you find a Bruja village, turn to page 42 and draw 5 cards to [define it](/en/generators/village?f=bruja).",
         "5|6": "You encounter a **creature**. Draw a card from the deck to find out what it is:\n- ♦ A flock of **Yabas** — turn to page 19.\n- ♥ A lone Yaba — turn to page 19.\n- ♣ A Warrior Tree, which starts a battle. Learn more on page 19.\n- ♠ A **Peezee**. Learn more on page 62."
       },
       "silentWastes": {
@@ -517,7 +517,7 @@
     "title": "Dweller Generator"
   },
   "metadata": {
-    "description": "Game companion for The Protector’s Memories: managers, Protector generators, villages, and more.",
+    "description": "Game companion for The Protector’s Memories: managers, Protector generators, towns, and more.",
     "tab_brand": "ProMe",
     "title": "ProMe — Game Companion"
   },
@@ -537,7 +537,7 @@
     "all_characters": "All Protectors",
     "settings": "Settings",
     "skip_to_content": "Skip to content",
-    "village_generator": "Village Generator",
+    "village_generator": "Town Generator",
     "theme": {
       "switchToLight": "Switch to light mode",
       "switchToDark": "Switch to dark mode",
@@ -610,7 +610,7 @@
     "section_language": "Language",
     "section_map": "Map",
     "section_sheet": "Protector Sheet",
-    "section_village": "Village Generator",
+    "section_village": "Town Generator",
     "section_sound": "Sound",
     "sound_enabled_label": "Background music",
     "sound_enabled_help": "Plays ambient music matching the current biome. Enabling this will preload approximately 180 MB of audio files the first time.",
@@ -620,7 +620,7 @@
     "sound_variant_music": "Music only",
     "sound_variant_ambiance": "Ambience only",
     "title": "Settings",
-    "village_merge_duplicate_establishments_help": "Merges duplicate village establishments into larger ones (small + small → large, etc.).",
+    "village_merge_duplicate_establishments_help": "Merges duplicate town establishments into larger ones (small + small → large, etc.).",
     "village_merge_duplicate_establishments_label": "Merged duplicate establishments",
     "shortcuts_enabled_label": "Enable keyboard shortcuts",
     "shortcuts_enabled_help": "Enables global keyboard shortcuts: {modifier}+S (save), {modifier}+D (card draw & dice roll), {modifier}+M (toggle music), {modifier}+C/V (copy/paste map hex).",
@@ -631,12 +631,12 @@
     "hints": {
       "map": "You can customise certain map features in <link>Settings</link>.",
       "journal": "You can customise certain journal features in <link>Settings</link>.",
-      "village": "You can customise certain village generator features in <link>Settings</link>."
+      "village": "You can customise certain town generator features in <link>Settings</link>."
     }
   },
   "village": {
     "co_owners_label": "Co-owners:",
-    "empty_summary": "Click “{button}” to generate a village.",
+    "empty_summary": "Click “{button}” to generate a town.",
     "establishments": {
       "2": "{size, select, 0 {Small Potion Shop} 1 {Large Potion Shop} 2 {Huge Potion Shop} other {Potion Shop}}",
       "3": "{size, select, 0 {Small Equipment Shop} 1 {Large Equipment Shop} 2 {Huge Equipment Shop} other {Equipment Shop}}",
@@ -649,12 +649,12 @@
       "10": "Ruins",
       "A": "{color, select, red {Permanent Worship Idol} black {Ephemeral Worship Idol} other {Worship Idol}}"
     },
-    "link_summary": "{has_faction_label, select, yes {Village ({factionLabel}), {establishmentCount} {establishmentCount, plural, =1 {establishment} other {establishments}}} other {Village, {establishmentCount} {establishmentCount, plural, =1 {establishment} other {establishments}}}}",
+    "link_summary": "{has_faction_label, select, yes {Town ({factionLabel}), {establishmentCount} {establishmentCount, plural, =1 {establishment} other {establishments}}} other {Town, {establishmentCount} {establishmentCount, plural, =1 {establishment} other {establishments}}}}",
     "owner_label": "Owner:",
     "reroll_owner": "Regenerate this dweller",
     "section_establishments": "Establishments",
-    "section_traits": "Village Traits",
-    "title": "Village Generator",
+    "section_traits": "Town Traits",
+    "title": "Town Generator",
     "traits": {
       "J": {
         "red": "**City.** This is a big town, maybe a city! Draw another 3 cards for this place (if you draw a J, Q or K, discard and draw another card).",
@@ -766,7 +766,7 @@
       "generators": {
         "number": "06 — The World’s People",
         "title": "Town and dweller generators",
-        "body": "Populate your world instantly — generate villages and their inhabitants without flipping through the rulebook. Save them to find them easily later.",
+        "body": "Populate your world instantly — generate towns and their inhabitants without flipping through the rulebook. Save them to find them easily later.",
         "tags": {
           "1": "NPC Generator",
           "2": "Town Generator",
