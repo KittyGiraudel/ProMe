@@ -31,13 +31,21 @@
  * 1. Apply the blurred background with a pseudo-element in order to circumvent
  *    an issue with nested backdrop filters on Chrome. This makes it possible to
  *    also have the blurred background on the dropdown menus.
+ * 2. See: https://www.joshwcomeau.com/css/backdrop-filter/
  */
 .Nav::before {
   content: ""; /* 1 */
   position: absolute;
-  inset: 0;
+  inset: 0 0 auto 0;
+  height: 200%;
   background-color: var(--background-color);
   backdrop-filter: blur(var(--blur));
+  pointer-events: none;
+  mask-image: linear-gradient(
+    to bottom,
+    black 0% 50%,
+    transparent 50% 100%
+  ); /* 2 */
 }
 
 /** List -------------------------------------------------------------------- */

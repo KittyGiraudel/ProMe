@@ -9,7 +9,6 @@
   background-image: var(--biome-image);
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
 }
 
 @media (max-width: 767px) {
