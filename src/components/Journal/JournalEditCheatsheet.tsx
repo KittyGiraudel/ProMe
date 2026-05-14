@@ -19,12 +19,9 @@ export function JournalEditCheatsheet() {
       <p className='Journal__cheatsheetBlock'>
         {t.rich('characters.journal.cheatsheet.markdown_intro', {
           guide: chunks => (
-            <Typography.Link
-              href={MARKDOWN_GUIDE_URL}
-              target='_blank'
-              rel='noreferrer'>
+            <a href={MARKDOWN_GUIDE_URL} target='_blank' rel='noreferrer'>
               {chunks}
-            </Typography.Link>
+            </a>
           ),
         })}
       </p>
