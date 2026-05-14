@@ -3,7 +3,7 @@
 import { Button as AntdButton, type ButtonProps as AntdButtonProps } from 'antd'
 import { AppLink, AppLinkProps } from '../Navigation/AppLink'
 
-export type AppLinkButtonProps = Omit<AntdButtonProps, 'href'> &
+export type AppLinkButtonProps = Omit<AntdButtonProps, 'href' | 'htmlType'> &
   Pick<AppLinkProps, 'to' | 'block' | 'onNavigate'>
 
 export function AppLinkButton({
