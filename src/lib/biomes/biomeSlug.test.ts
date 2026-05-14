@@ -4,7 +4,7 @@ import { biomeIdToSlug, slugToBiomeId } from './biomeSlug'
 describe('biomeIdToSlug', () => {
   it('returns English slugs by default', () => {
     expect(biomeIdToSlug('shadowWoods')).toBe('shadow-woods')
-    expect(biomeIdToSlug('sunkenSavanna')).toBe('sunken-savanna')
+    expect(biomeIdToSlug('sunkenSavannah')).toBe('sunken-savanna')
     expect(biomeIdToSlug('mushroomJungle')).toBe('mushroom-jungle')
     expect(biomeIdToSlug('prairieSea')).toBe('prairie-sea')
     expect(biomeIdToSlug('silentWastes')).toBe('silent-wastes')
@@ -13,7 +13,7 @@ describe('biomeIdToSlug', () => {
 
   it('returns localized French slugs', () => {
     expect(biomeIdToSlug('shadowWoods', 'fr')).toBe('foret-des-ombres')
-    expect(biomeIdToSlug('sunkenSavanna', 'fr')).toBe('plaines-inondees')
+    expect(biomeIdToSlug('sunkenSavannah', 'fr')).toBe('plaines-inondees')
     expect(biomeIdToSlug('mushroomJungle', 'fr')).toBe('jungle-de-champignons')
     expect(biomeIdToSlug('prairieSea', 'fr')).toBe('mer-champetre')
     expect(biomeIdToSlug('silentWastes', 'fr')).toBe('desert-silencieux')

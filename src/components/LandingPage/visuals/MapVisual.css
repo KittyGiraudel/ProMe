@@ -52,7 +52,7 @@
 .MapVisual__cell[data-biome="prairieSea"] {
   --pattern-size: 30px;
 }
-.MapVisual__cell[data-biome="sunkenSavanna"] {
+.MapVisual__cell[data-biome="sunkenSavannah"] {
   --pattern-size: 40px;
 }
 .MapVisual__cell[data-biome="silentWastes"] {

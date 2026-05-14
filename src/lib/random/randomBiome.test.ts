@@ -6,7 +6,7 @@ describe('getRandomBiomeResult', () => {
 
   it('maps each 1d6 bucket to the expected biome', () => {
     expect(fromValue(0.0).biome).toBe('shadowWoods')
-    expect(fromValue(0.2).biome).toBe('sunkenSavanna')
+    expect(fromValue(0.2).biome).toBe('sunkenSavannah')
     expect(fromValue(0.4).biome).toBe('mushroomJungle')
     expect(fromValue(0.6).biome).toBe('prairieSea')
     expect(fromValue(0.8).biome).toBe('silentWastes')

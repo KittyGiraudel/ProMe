@@ -15,7 +15,7 @@ export function CharacterSheetEmptyState({
   return (
     <Layout
       title={t('characters.title')}
-      bannerBiome='sunkenSavanna'
+      bannerBiome='sunkenSavannah'
       breadcrumbs={[
         { title: t('nav.home'), to: { route: 'home' } },
         { title: t('nav.characters'), to: { route: 'characters' } },

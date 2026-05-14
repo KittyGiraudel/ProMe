@@ -24,7 +24,7 @@ const CATALOG: Record<BiomeId, [TrackEntry, TrackEntry]> = {
       hasAmbiance: true,
     },
   ],
-  sunkenSavanna: [
+  sunkenSavannah: [
     {
       file: '353_Spirit_of_the_Plains',
       name: 'Spirit of the Plains',

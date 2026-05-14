@@ -18,7 +18,7 @@
 .MapLegend li:has([data-biome="shadowWoods"]) {
   --pattern-size: 15px;
 }
-.MapLegend li:has([data-biome="sunkenSavanna"]) {
+.MapLegend li:has([data-biome="sunkenSavannah"]) {
   --pattern-size: 10px;
 }
 .MapLegend li:has([data-biome="silentWastes"]) {

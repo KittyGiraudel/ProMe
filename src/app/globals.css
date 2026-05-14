@@ -84,11 +84,11 @@ a {
   --biome-mushroomJungle-dark-contrast: #ffffff;
   --biome-mushroomJungle-image: url("/images/banner-mushroomJungle.avif");
 
-  --biome-sunkenSavanna-light: #5ec4e8;
-  --biome-sunkenSavanna-dark: #1a6f94;
-  --biome-sunkenSavanna-light-contrast: #262626;
-  --biome-sunkenSavanna-dark-contrast: #ffffff;
-  --biome-sunkenSavanna-image: url("/images/banner-sunkenSavanna.avif");
+  --biome-sunkenSavannah-light: #5ec4e8;
+  --biome-sunkenSavannah-dark: #1a6f94;
+  --biome-sunkenSavannah-light-contrast: #262626;
+  --biome-sunkenSavannah-dark-contrast: #ffffff;
+  --biome-sunkenSavannah-image: url("/images/banner-sunkenSavannah.avif");
 
   --biome-silentWastes-light: #f3d58e;
   --biome-silentWastes-dark: #af8c43;
@@ -140,12 +140,12 @@ a {
   --biome-image-position-cover-desktop-to: 0;
 }
 
-[data-biome="sunkenSavanna"] {
-  --biome-light: var(--biome-sunkenSavanna-light);
-  --biome-dark: var(--biome-sunkenSavanna-dark);
-  --biome-dark-contrast: var(--biome-sunkenSavanna-dark-contrast);
-  --biome-light-contrast: var(--biome-sunkenSavanna-light-contrast);
-  --biome-image: var(--biome-sunkenSavanna-image);
+[data-biome="sunkenSavannah"] {
+  --biome-light: var(--biome-sunkenSavannah-light);
+  --biome-dark: var(--biome-sunkenSavannah-dark);
+  --biome-dark-contrast: var(--biome-sunkenSavannah-dark-contrast);
+  --biome-light-contrast: var(--biome-sunkenSavannah-light-contrast);
+  --biome-image: var(--biome-sunkenSavannah-image);
   --biome-image-position-banner: 0 70%;
   --biome-image-position-cover-mobile: 77% 0%;
   --biome-image-position-cover-desktop: center 100%;
@@ -272,8 +272,8 @@ a {
   background-size: var(--pattern-size) var(--pattern-size);
 }
 
-[data-biome="sunkenSavanna"] [data-pattern="true"],
-[data-pattern="true"][data-biome="sunkenSavanna"] {
+[data-biome="sunkenSavannah"] [data-pattern="true"],
+[data-pattern="true"][data-biome="sunkenSavannah"] {
   --c1: rgb(155 204 227);
   --c2: rgb(160 191 211);
 

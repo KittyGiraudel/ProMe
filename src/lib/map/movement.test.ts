@@ -23,10 +23,10 @@ describe('moveWithAutoBiome', () => {
     expect(result.next.cells).toContainEqual({
       q: 1,
       r: 0,
-      biome: 'sunkenSavanna',
+      biome: 'sunkenSavannah',
       icon: undefined,
     })
-    expect(result.discoveredBiome?.biome).toBe('sunkenSavanna')
+    expect(result.discoveredBiome?.biome).toBe('sunkenSavannah')
   })
 
   it('moves without rolling when target already has a biome', () => {

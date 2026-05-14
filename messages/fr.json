@@ -8,7 +8,7 @@
       "magic": "Comment vivez-vous votre amitié avec la nuit ? Comment l’obscurité peut abriter d’autres sentiments que la peur ?",
       "location": "Vous déambulez actuellement dans la <b>forêt des ombres</b>."
     },
-    "sunkenSavanna": {
+    "sunkenSavannah": {
       "name": "Plaines inondées",
       "title": "Les Plaines Inondées",
       "teaser": "L’horizon avale le sol, puis vos pas s’enfoncent dans une plaine inondée, où l’eau apaisante berce vos chevilles entre des îlots d’arbres géants.",
@@ -381,7 +381,7 @@
       "url": "Copier le lien (URL)"
     },
     "encounters": {
-      "sunkenSavanna": {
+      "sunkenSavannah": {
         "1": "**L’eau qui entoure vos jambes semble guérir votre fatigue et vous encourager à voyager.** Vous avez un bonus de +1 Courage (maximum : 5) jusqu’à ce que vous franchissiez la frontière entre le jour et la nuit sur l’Horloge.",
         "2": "**Un voyageur croise votre chemin.** Allez à la page 57 et [définissez](/fr/generators/npc) qui vous avez rencontré.\n*Si vous revenez ici, le voyageur ne sera plus là.*",
         "5": "**Vous rencontrez un Hérissin.** Pour en savoir plus sur ces créatures, lisez la page 22. **Tirez une carte** pour savoir quel type de Hérisson vous avez trouvé.\n- ♥♦ Un Hérissin **paisible**.\n- ♠♣ Un Hérissin **agressif**.",

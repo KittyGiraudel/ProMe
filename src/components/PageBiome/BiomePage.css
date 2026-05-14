@@ -24,7 +24,7 @@
   );
 }
 
-[data-app-theme="dark"]:has(.BiomePage[data-biome="sunkenSavanna"]) {
+[data-app-theme="dark"]:has(.BiomePage[data-biome="sunkenSavannah"]) {
   --biome-bg: rgb(6 14 20);
   --biome-surface: rgb(12 26 38);
   --biome-border: rgb(94 196 232 / 0.18);
@@ -136,7 +136,7 @@
   );
 }
 
-[data-app-theme="light"]:has(.BiomePage[data-biome="sunkenSavanna"]) {
+[data-app-theme="light"]:has(.BiomePage[data-biome="sunkenSavannah"]) {
   --biome-bg: #e4f3fb;
   --biome-surface: #d0e8f8;
   --biome-border: rgb(20 120 170 / 0.2);

@@ -36,7 +36,7 @@ const FONTS = [
     wordSpacing: '-0.5em', // This font has abnormally wide word-spacing
   },
   {
-    biome: 'sunkenSavanna',
+    biome: 'sunkenSavannah',
     family: 'Rubik Marker Hatch',
     file: 'rubik-marker-hatch',
     text: 'Les Plaines InondéesThe Sunken Savanna',

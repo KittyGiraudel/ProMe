@@ -71,7 +71,7 @@
 .Banner[data-biome="titanGarden"] .Banner__background {
   --pattern-size: 80px;
 }
-.Banner[data-biome="sunkenSavanna"] .Banner__background {
+.Banner[data-biome="sunkenSavannah"] .Banner__background {
   --pattern-size: 60px;
 }
 .Banner[data-biome="silentWastes"] .Banner__background {

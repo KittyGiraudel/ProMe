@@ -49,7 +49,7 @@ export const FACTIONS: readonly Faction[] = [
 
 export const BIOME_IDS: readonly BiomeId[] = [
   'shadowWoods',
-  'sunkenSavanna',
+  'sunkenSavannah',
   'mushroomJungle',
   'prairieSea',
   'silentWastes',

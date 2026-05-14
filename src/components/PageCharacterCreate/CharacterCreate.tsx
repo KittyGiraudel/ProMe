@@ -48,7 +48,7 @@ export function CharacterCreate() {
   return (
     <Layout
       title={t('new_character.title')}
-      bannerBiome='sunkenSavanna'
+      bannerBiome='sunkenSavannah'
       breadcrumbs={[
         { title: t('nav.home'), to: { route: 'home' } },
         { title: t('nav.characters'), to: { route: 'characters' } },

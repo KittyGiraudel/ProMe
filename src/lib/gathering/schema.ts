@@ -1,6 +1,6 @@
 import type { BiomeId } from '@/lib/types'
 
-export type GatherableBiomeId = Exclude<BiomeId, 'sunkenSavanna'>
+export type GatherableBiomeId = Exclude<BiomeId, 'sunkenSavannah'>
 
 export type GatheringEntry =
   | { type: 'collectible'; regex: RegExp }
@@ -16,7 +16,7 @@ const ITEM_REGEX = /^(\d+)\s+(?:×\s+)?(.+)$/
 const ITEM_REGEX_WITH_COMMA = /^([\d, ]+)\s+(?:×\s+)?(.+)$/
 
 export const GATHERING_SCHEMA: Record<BiomeId, BiomeGathering | null> = {
-  sunkenSavanna: null,
+  sunkenSavannah: null,
   shadowWoods: {
     '1': { type: 'collectible', regex: ITEM_REGEX },
     '2': { type: 'collectible', regex: ITEM_REGEX },

@@ -2,7 +2,7 @@ import { type useTranslations } from 'next-intl'
 
 export type BiomeId =
   | 'shadowWoods'
-  | 'sunkenSavanna'
+  | 'sunkenSavannah'
   | 'mushroomJungle'
   | 'prairieSea'
   | 'silentWastes'

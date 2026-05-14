@@ -58,7 +58,7 @@
   --biome-font: "Shizuru";
   --biome-title-word-spacing: -0.5em;
 }
-[data-biome="sunkenSavanna"] {
+[data-biome="sunkenSavannah"] {
   --biome-font: "Rubik Marker Hatch";
 }
 [data-biome="titanGarden"] {

@@ -8,7 +8,7 @@
       "magic": "What is it like to be friends with the night? How can darkness harbour feelings other than fear?",
       "location": "You are currently wandering in <b>shadowy woods</b>."
     },
-    "sunkenSavanna": {
+    "sunkenSavannah": {
       "name": "Sunken Savannah",
       "title": "The Sunken Savannah",
       "teaser": "The horizon swallows the earth, then your steps sink into a vast flooded plain—calm waters soothe your weary feet between islands of ancient, towering trees.",
@@ -381,7 +381,7 @@
       "url": "Copy link (URL)"
     },
     "encounters": {
-      "sunkenSavanna": {
+      "sunkenSavannah": {
         "1": "The water embracing your legs seems to heal your fatigue and encourage you on your journey. You have +1 Courage bonus (max 5) until you cross the line between day and night on your Clock.",
         "2": "A **traveller** crosses your path. Turn to page 56 to define who you meet. The traveller will not be here when you return.",
         "5": "You come across a **Hedgebog**. Learn more about them on page 22. Draw a card to find out what type of Hedgebog you have encoutered.\n- ♥♦ A docile Hedgebog.\n- ♠♣ An aggressive Hedgebog.",

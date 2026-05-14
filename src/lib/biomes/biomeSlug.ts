@@ -6,7 +6,7 @@ type Locale = 'en' | 'fr'
 const BIOME_SLUGS: Record<Locale, Record<BiomeId, string>> = {
   en: {
     shadowWoods: 'shadow-woods',
-    sunkenSavanna: 'sunken-savanna',
+    sunkenSavannah: 'sunken-savannah',
     mushroomJungle: 'mushroom-jungle',
     prairieSea: 'prairie-sea',
     silentWastes: 'silent-wastes',
@@ -14,7 +14,7 @@ const BIOME_SLUGS: Record<Locale, Record<BiomeId, string>> = {
   },
   fr: {
     shadowWoods: 'foret-des-ombres',
-    sunkenSavanna: 'plaines-inondees',
+    sunkenSavannah: 'plaines-inondees',
     mushroomJungle: 'jungle-de-champignons',
     prairieSea: 'mer-champetre',
     silentWastes: 'desert-silencieux',

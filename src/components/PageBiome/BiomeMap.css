@@ -38,7 +38,7 @@
 .BiomeMap__hex[data-pattern="true"][data-biome="shadowWoods"] {
   --pattern-size: 30px;
 }
-.BiomeMap__hex[data-pattern="true"][data-biome="sunkenSavanna"] {
+.BiomeMap__hex[data-pattern="true"][data-biome="sunkenSavannah"] {
   --pattern-size: 25px;
 }
 .BiomeMap__hex[data-pattern="true"][data-biome="silentWastes"] {

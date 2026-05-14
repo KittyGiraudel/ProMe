@@ -11,7 +11,7 @@ export type BiomeRollEntry = {
  */
 export const BIOME_ROLL_TABLE: readonly BiomeRollEntry[] = [
   { biome: 'shadowWoods', tileCount: 3 },
-  { biome: 'sunkenSavanna', tileCount: 3 },
+  { biome: 'sunkenSavannah', tileCount: 3 },
   { biome: 'mushroomJungle', tileCount: 2 },
   { biome: 'prairieSea', tileCount: 3 },
   { biome: 'silentWastes', tileCount: 2 },

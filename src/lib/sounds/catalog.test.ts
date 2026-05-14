@@ -74,8 +74,8 @@ describe('getTracksForBiome', () => {
     expect(tracks[1].file).toBe('313_Dusk_of_the_Dryad')
   })
 
-  it('returns [TrackEntry, TrackEntry] for sunkenSavanna', () => {
-    const tracks = getTracksForBiome('sunkenSavanna')
+  it('returns [TrackEntry, TrackEntry] for sunkenSavannah', () => {
+    const tracks = getTracksForBiome('sunkenSavannah')
     expect(tracks).toHaveLength(2)
     expect(tracks[0].file).toBe('353_Spirit_of_the_Plains')
     expect(tracks[1].file).toBe('234_Lush_World')
