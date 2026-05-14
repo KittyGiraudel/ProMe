@@ -194,15 +194,7 @@ export function Settings() {
               </Card>
             </Col>
             <Col xs={24} md={12}>
-              <Card
-                title={<h2>{t('settings.section_language')}</h2>}
-                extra={
-                  <Popover
-                    styles={{ root: { maxWidth: 'min(360px, 90vw)' } }}
-                    content={t('settings.language_warning')}>
-                    <HelpButton label={t('common.tip')} />
-                  </Popover>
-                }>
+              <Card title={<h2>{t('settings.section_language')}</h2>}>
                 <Form.Item label={t(`settings.language_label`)} noStyle>
                   <Segmented
                     block

@@ -4,7 +4,7 @@
       "name": "Shadow Woods",
       "title": "The Shadow Woods",
       "teaser": "Step into a forest where towering sentinels guard forgotten tales—shadows whisper, golden glades beckon, and the darkness cradles life like a sanctuary.",
-      "description": "Colossal trees stand before you, like giant sentinels guarding this ancient forest. Entering the woods is to be embraced by deep shadows. However, the darkness here brings no fear or insecurity. The melodic whisper of the wind among the trees seems to want to tell stories of times immemorial. The sunlight, which occasionally sneaks between the branches and leaves, creates the golden and friendly clearings. The further you advance towards the heart of the forest, the clearer it becomes that the enormous trunks that surround you, and the intensity of the darkness, have the sole purpose of sheltering and protecting the lives within them.",
+      "description": "Colossal trees stand before you, like giant sentinels guarding this ancient forest.\nEntering the woods is to be embraced by deep shadows. However, the darkness here brings no fear or insecurity. The melodic whisper of the wind among the trees seems to want to tell stories of times immemorial. The sunlight, which occasionally sneaks between the branches and leaves, creates the golden and friendly clearings.\nThe further you advance towards the heart of the forest, the clearer it becomes that the enormous trunks that surround you, and the intensity of the darkness, have the sole purpose of sheltering and protecting the lives within them.\n### Bruja villages\nBruja villages are born in glades under theblessing of the sun and the protection of the Shadow Woods’ trees. Consisteng of simple houses made of dark timber, these villages are marked by the delicious aroma of homemade potions filling the air. The foundation of every Bruja village is respect for the forest that surrounds it and the enjoyment of what it has to offer.",
       "magic": "What is it like to be friends with the night? How can darkness harbour feelings other than fear?",
       "location": "You are currently wandering in <b>shadowy woods</b>."
     },
@@ -603,7 +603,6 @@
     "map_style_tilting_on_hover": "Tilting on hover",
     "language_en": "English",
     "language_fr": "Français",
-    "language_warning": "Please note that only the French language is canonical, as it is the language in which my game version is written. The English version is automatically translated without support from an English rulebook.",
     "language_label": "Language",
     "section_appearance": "Appearance",
     "section_journal": "Journal",
