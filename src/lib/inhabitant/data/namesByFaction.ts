@@ -13,7 +13,7 @@ export const namesByFaction: Record<Faction, string[][]> = {
     ['Dália', 'Monarda', 'Énice', 'Avenca', 'Gaudi', 'Abil'],
     ['Dolores', 'Zolernia', 'Minerva', 'Alascavar', 'Glivina', 'Adoniran'],
   ],
-  cucurbitus: [
+  cucurbits: [
     ['Brubru', 'Pepo', 'Yana', 'Morei', 'Nobo', 'Silo'],
     ['Lineu', 'Bunga', 'Largo', 'Mungo', 'Bodo', 'Tingo'],
     ['Mimil', 'Gogum', 'Bosor', 'Dido', 'Nabo', 'Nilso'],

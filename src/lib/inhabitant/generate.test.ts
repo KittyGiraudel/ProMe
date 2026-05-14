@@ -41,8 +41,8 @@ describe('inhabitant/generate', () => {
 
   it('generateInhabitantWithFaction uses canonical faction die', () => {
     const rng = () => 0.0001
-    const roll = generateInhabitantWithFaction('cucurbitus', testLocalize, rng)
-    expect(roll.faction).toBe('cucurbitus')
+    const roll = generateInhabitantWithFaction('cucurbits', testLocalize, rng)
+    expect(roll.faction).toBe('cucurbits')
     expect(roll.factionDie).toBe(3)
   })
 

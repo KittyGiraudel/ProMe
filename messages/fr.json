@@ -319,7 +319,7 @@
     },
     "factions": {
       "bruja": "Bruja",
-      "cucurbitus": "Cucurbitus",
+      "cucurbits": "Cucurbitus",
       "kiore": "Kiore",
       "mousseron": "Mousseron"
     },
@@ -400,7 +400,7 @@
         "2": "**Un voyageur croise votre chemin.** Allez à la page 57 et définissez qui vous avez rencontré.\n*Si vous revenez ici, le voyageur ne sera plus là.*",
         "3": "**Vous découvrez un petit jardin communautaire !** Allez à la *table de collecte* (page 30) et choisissez-y l’objet de votre choix sans avoir besoin de l’outil approprié. Marquez ce jardin comme étant **récolté**. Vous devez **arroser** le jardin pour pouvoir le réutiliser un autre jour.",
         "6": "**Vous rencontrez une créature.** Tirez une carte de la pioche pour savoir quelle créature vous avez trouvée.\n- ♦ Un Sauriflore **rouge** (voir page 30).\n- ♥ Un Sauriflore **jaune** (voir page 30).\n- ♣ Un Sauriflore **blanc** (voir page 30).\n- ♠ Un Pizi (voir page 62).",
-        "4|5": "**Vous arrivez dans une ferme Cucurbitus.**\n*Pour en savoir plus sur les Cucurbitus, reportez-vous à la page 30.*\nLorsque vous trouvez une ferme de Cucurbitus, allez à la page 42 et **tirez 5 cartes** pour définir à quoi elle ressemble."
+        "4|5": "**Vous arrivez dans une ferme Cucurbitus.**\n*Pour en savoir plus sur les Cucurbitus, reportez-vous à la page 30.*\nLorsque vous trouvez une ferme de Cucurbitus, allez à la page 42 et **tirez 5 cartes** pour [définir à quoi elle ressemble](/fr/generators/village?f=cucurbits)."
       },
       "shadowWoods": {
         "1": "**Des ombres denses et ancestrales vous étreignent étroitement.** En raison de l’obscurité, tout ce que vous avez trouvé dans ces trois cases de la Forêt des Ombres est effacé de votre journal et de votre carte.\n*Si vous repassez par cette case, tirez d’autres rencontres.*",

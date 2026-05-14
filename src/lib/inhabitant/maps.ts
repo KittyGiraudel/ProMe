@@ -9,7 +9,7 @@ import type {
 
 export function factionFromD6(value: number): Faction {
   if (value <= 2) return 'bruja'
-  if (value <= 4) return 'cucurbitus'
+  if (value <= 4) return 'cucurbits'
   if (value === 5) return 'kiore'
   return 'mousseron'
 }
@@ -19,7 +19,7 @@ export function canonicalFactionDie(faction: Faction): number {
   switch (faction) {
     case 'bruja':
       return 1
-    case 'cucurbitus':
+    case 'cucurbits':
       return 3
     case 'kiore':
       return 5

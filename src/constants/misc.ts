@@ -42,7 +42,7 @@ export const GENDERS: readonly Gender[] = [
 
 export const FACTIONS: readonly Faction[] = [
   'bruja',
-  'cucurbitus',
+  'cucurbits',
   'kiore',
   'mousseron',
 ] as const
