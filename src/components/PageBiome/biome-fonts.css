@@ -2,48 +2,48 @@
    Re-run the script whenever biome titles or font choices change. */
 
 @font-face {
-  font-family: "Caesar Dressing";
-  src: url("/fonts/biomes/caesar-dressing.woff2") format("woff2");
+  font-family: 'Caesar Dressing';
+  src: url('/fonts/biomes/caesar-dressing.woff2') format('woff2');
   font-display: swap;
   font-style: normal;
   font-weight: 400;
 }
 
 @font-face {
-  font-family: "Shizuru";
-  src: url("/fonts/biomes/shizuru.woff2") format("woff2");
+  font-family: 'Shizuru';
+  src: url('/fonts/biomes/shizuru.woff2') format('woff2');
   font-display: swap;
   font-style: normal;
   font-weight: 400;
 }
 
 @font-face {
-  font-family: "Rubik Marker Hatch";
-  src: url("/fonts/biomes/rubik-marker-hatch.woff2") format("woff2");
+  font-family: 'Rubik Marker Hatch';
+  src: url('/fonts/biomes/rubik-marker-hatch.woff2') format('woff2');
   font-display: swap;
   font-style: normal;
   font-weight: 400;
 }
 
 @font-face {
-  font-family: "Mountains of Christmas";
-  src: url("/fonts/biomes/mountains-of-christmas.woff2") format("woff2");
+  font-family: 'Mountains of Christmas';
+  src: url('/fonts/biomes/mountains-of-christmas.woff2') format('woff2');
   font-display: swap;
   font-style: normal;
   font-weight: 400;
 }
 
 @font-face {
-  font-family: "Mystery Quest";
-  src: url("/fonts/biomes/mystery-quest.woff2") format("woff2");
+  font-family: 'Mystery Quest';
+  src: url('/fonts/biomes/mystery-quest.woff2') format('woff2');
   font-display: swap;
   font-style: normal;
   font-weight: 400;
 }
 
 @font-face {
-  font-family: "Fredericka the Great";
-  src: url("/fonts/biomes/fredericka-the-great.woff2") format("woff2");
+  font-family: 'Fredericka the Great';
+  src: url('/fonts/biomes/fredericka-the-great.woff2') format('woff2');
   font-display: swap;
   font-style: normal;
   font-weight: 400;
@@ -51,22 +51,9 @@
 
 /* ── Per-biome font tokens ───────────────────────────────────── */
 
-[data-biome="shadowWoods"] {
-  --biome-font: "Caesar Dressing";
-}
-[data-biome="mushroomJungle"] {
-  --biome-font: "Shizuru";
-  --biome-title-word-spacing: -0.5em;
-}
-[data-biome="sunkenSavannah"] {
-  --biome-font: "Rubik Marker Hatch";
-}
-[data-biome="titanGarden"] {
-  --biome-font: "Mountains of Christmas";
-}
-[data-biome="prairieSea"] {
-  --biome-font: "Mystery Quest";
-}
-[data-biome="silentWastes"] {
-  --biome-font: "Fredericka the Great";
-}
+[data-biome='shadowWoods'] { --biome-font: 'Caesar Dressing'; }
+[data-biome='mushroomJungle'] { --biome-font: 'Shizuru'; --biome-title-word-spacing: -0.5em; }
+[data-biome='sunkenSavannah'] { --biome-font: 'Rubik Marker Hatch'; }
+[data-biome='titanGarden'] { --biome-font: 'Mountains of Christmas'; }
+[data-biome='prairieSea'] { --biome-font: 'Mystery Quest'; }
+[data-biome='silentWastes'] { --biome-font: 'Fredericka the Great'; }

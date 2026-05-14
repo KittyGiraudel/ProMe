@@ -22,7 +22,7 @@ The core of ProMe is the character sheet, a personal dashboard for a Protector c
 Six explorable environments from the rulebook, each with distinct mechanics and atmosphere:
 
 - [Shadow Woods](https://prome.games/en/biomes/shadow-woods)
-- [Sunken Savanna](https://prome.games/en/biomes/sunken-savanna)
+- [Sunken Savannah](https://prome.games/en/biomes/sunken-savannah)
 - [Mushroom Jungle](https://prome.games/en/biomes/mushroom-jungle)
 - [Prairie Sea](https://prome.games/en/biomes/prairie-sea)
 - [Silent Wastes](https://prome.games/en/biomes/silent-wastes)

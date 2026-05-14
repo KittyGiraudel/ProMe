@@ -4,7 +4,7 @@ import { biomeIdToSlug, slugToBiomeId } from './biomeSlug'
 describe('biomeIdToSlug', () => {
   it('returns English slugs by default', () => {
     expect(biomeIdToSlug('shadowWoods')).toBe('shadow-woods')
-    expect(biomeIdToSlug('sunkenSavannah')).toBe('sunken-savanna')
+    expect(biomeIdToSlug('sunkenSavannah')).toBe('sunken-savannah')
     expect(biomeIdToSlug('mushroomJungle')).toBe('mushroom-jungle')
     expect(biomeIdToSlug('prairieSea')).toBe('prairie-sea')
     expect(biomeIdToSlug('silentWastes')).toBe('silent-wastes')

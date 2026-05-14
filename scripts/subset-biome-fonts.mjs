@@ -39,7 +39,7 @@ const FONTS = [
     biome: 'sunkenSavannah',
     family: 'Rubik Marker Hatch',
     file: 'rubik-marker-hatch',
-    text: 'Les Plaines InondéesThe Sunken Savanna',
+    text: 'Les Plaines InondéesThe Sunken Savannah',
   },
   {
     biome: 'titanGarden',
