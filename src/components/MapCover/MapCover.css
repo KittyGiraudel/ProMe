@@ -24,9 +24,9 @@
   animation-direction: alternate;
 
   /**
-   * 1. Hacky fix for cells with an unexplored biome (i.e. the Core), because
-   *    the “dark” background is actually a light color, which means the text
-   *    ends up dark on dark.
+   * 1. Hacky fix for cells with an unexplored biome (i.e. the Deep Heart),
+   *    because the “dark” background is actually a light color, which means
+   *    the text ends up dark on dark.
    */
   &[data-biome="unexplored"] {
     color: var(--biome-unexplored-light); /* 1 */

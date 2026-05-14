@@ -49,8 +49,8 @@
       "location": "You are currently meandering through a <b>titan garden</b>."
     },
     "core": {
-      "name": "The Core",
-      "title": "The Core",
+      "name": "Deep Heart",
+      "title": "Deep Heart",
       "location": "You are currently resting within the <b>Core</b>."
     },
     "unexplored": {
@@ -246,7 +246,7 @@
         "invalid_clock": "The clock must be between 1 and {max} ({current}).",
         "invalid_map_position": "The position {cell} on the map is invalid.",
         "invalid_map_cell": "The cell {cell} on the map is invalid.",
-        "invalid_map_cell_core": "The core cell is invalid.",
+        "invalid_map_cell_core": "The Deep Heart cell is invalid.",
         "invalid_map_cell_biome": "The biome defined on the cell {cell} is invalid ({current}).",
         "invalid_map_cell_icon": "The icon defined on the cell {cell} is invalid ({current}).",
         "invalid_inventory_item": "The item at position #{index} must have a name.",
@@ -562,7 +562,7 @@
     "inheritance_not_inventory": "Inventory items",
     "inheritance_not_spellbook": "Spellbook entries",
     "inheritance_same_archetype_description": "Same archetype: {nameNew} will appear at the location where {nameOld} died, but with only one Soul point. Map exploration and journal integrity remain unchanged.",
-    "inheritance_different_archetype_description": "Different archetypes: {nameNew} will appear at the Core with all their Soul points. Map exploration and journal integrity remain unchanged.",
+    "inheritance_different_archetype_description": "Different archetypes: {nameNew} will appear at the Deep Heart with all their Soul points. Map exploration and journal integrity remain unchanged.",
     "title": "New Protector"
   },
   "rulebook": {

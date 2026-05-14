@@ -82,7 +82,7 @@ export function AudioPlayer({
       }
 
       // If there is no URL, stop the player and reset the state (which can happen
-      // when moving into the Core cell, which has no biome and thus no audio).
+      // when moving into the core cell, which has no biome and thus no audio).
       if (!url) {
         setIsPlaying(false)
         setCurrentTime(0)

@@ -40,7 +40,7 @@ describe('moveWithAutoBiome', () => {
     expect(result.discoveredBiome).toBeUndefined()
   })
 
-  it('moves to the Core without auto-assigning biome', () => {
+  it('moves to the Deep Heart without auto-assigning biome', () => {
     const current: CharacterMapState = {
       currentPosition: { q: 0, r: -1 },
       cells: [],
