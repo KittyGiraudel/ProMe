@@ -50,7 +50,7 @@ Mostly for exposition. They’re not necessary for gameplay and are there to gat
 
 Encounters are not fully implemented. Each biome’s encounter table is available near the map and on the biome pages, but you’ll need to refer to the rulebook for most encounters. This likely won’t change, as I’m not authorized (and do not want) to make the game fully playable without owning the rulebook.
 
-Additionally, shop inventories are not implemented. This means that when creating a village, you need to manually define the offers and then note them in the journal to revisit later.
+Additionally, shop inventories are not implemented. This means that when creating a town, you need to manually define the offers and then note them in the journal to revisit later.
 
 ## What’s the “inheritance” thing?
 

@@ -7,7 +7,7 @@ This application is a companion app for the game “The Protector’s Memories�
 Here are the features:
 
 - A NPC generator, following the rules from the rulebook.
-- A village generator, following the rules from the rulebook.
+- A town generator, following the rules from the rulebook.
 - A Protector manager, to create, update and delete playable characters.
 - A character sheet manager for each protector, divided into sections:
   - An identity & stats section for the main values (health, stamina…)

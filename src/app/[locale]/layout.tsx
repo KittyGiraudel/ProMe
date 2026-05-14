@@ -58,7 +58,7 @@ const jsonLd = {
   name: 'ProMe',
   url: 'https://prome.games',
   description:
-    'Free digital companion app for The Protector’s Memories, a solo tabletop RPG. Offers a digital character sheet, an interactive map, a customizable journal, and NPCs and villages generators.',
+    'Free digital companion app for The Protector’s Memories, a solo tabletop RPG. Offers a digital character sheet, an interactive map, a customizable journal, and NPCs and towns generators.',
   applicationCategory: 'GameApplication',
   operatingSystem: 'Any',
   browserRequirements: 'Requires a modern browser with JavaScript enabled',
@@ -75,7 +75,7 @@ const jsonLd = {
     'Markdown journal with embellishment formatting',
     'Built-in dice roller and card drawing tools',
     'NPC generator according to official rules',
-    'Village generator according to official rules',
+    'Town generator according to official rules',
     'Offline-first PWA with optional cloud sync with Google',
     'Available in English and French',
   ],

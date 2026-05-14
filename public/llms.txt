@@ -15,7 +15,7 @@ The core of ProMe is the character sheet, a personal dashboard for a Protector c
 ## Generators
 
 - [NPC Generator](https://prome.games/en/generators/npc) — Procedurally generate non-player characters with traits, faction, and roleplay hooks
-- [Village Generator](https://prome.games/en/generators/village) — Procedurally generate villages with inhabitants, layout, and points of interest
+- [Town Generator](https://prome.games/en/generators/village) — Procedurally generate towns with inhabitants, layout, and points of interest
 
 ## Biomes
 

@@ -14,7 +14,7 @@ ProMe offers the following features:
 - An interactive map to navigate, which can be annotated with different colored biomes and emojis.
 - A travel journal for your adventures, which uses Markdown formatting and is automatically enhanced for improved layout.
 - Game tools such as the ability to roll a die or draw a card.
-- A village generator and an inhabitant generator based on the official rules.
+- A town generator and an inhabitant generator based on the official rules.
 
 Find more information about how to use ProMe in the [FAQ](/en/faq).
 
@@ -24,7 +24,7 @@ Find more information about how to use ProMe in the [FAQ](/en/faq).
 
 I’m [Kitty](https://kittygiraudel.com/). I’m a web developer and a tabletop RPG enthusiast.
 
-I discovered _The Protector’s Memories_ thanks to my sisters, who gifted me the game. I was charmed by the mysterious and enchanting world [Enzo Salviato](https://bsky.app/profile/desesperenzo.bsky.social) created and started developing small tools to simplify tasks like character and village creation. One thing led to another, and I built this more or less complete site for the game, just for fun.
+I discovered _The Protector’s Memories_ thanks to my sisters, who gifted me the game. I was charmed by the mysterious and enchanting world [Enzo Salviato](https://bsky.app/profile/desesperenzo.bsky.social) created and started developing small tools to simplify tasks like character and town creation. One thing led to another, and I built this more or less complete site for the game, just for fun.
 
 ### Images
 
