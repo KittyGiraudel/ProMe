@@ -52,7 +52,7 @@ describe('inhabitant/generate', () => {
       personalityCard: { suit: 'hearts', rank: 'Q' },
     })
     expect(getAgeBand(roll)).toBe('elderly')
-    expect(getPersonality(roll)).toBe('joyful')
+    expect(getPersonality(roll)).toBe('playful')
   })
 
   it('rerollInhabitantPart ageCard and personalityCard are independent', () => {
@@ -136,9 +136,9 @@ describe('inhabitant/generate', () => {
     const roll = makeRoll({
       personalityCard: { suit: 'diamonds', rank: '2' },
     })
-    const next = setInhabitantPersonality(roll, 'sad')
+    const next = setInhabitantPersonality(roll, 'sorrowful')
     expect(next.personalityCard).toEqual({ suit: 'diamonds', rank: 'K' })
-    expect(getPersonality(next)).toBe('sad')
+    expect(getPersonality(next)).toBe('sorrowful')
   })
 
   it('setInhabitantGender uses canonical die', () => {

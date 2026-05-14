@@ -56,8 +56,8 @@ describe('inhabitant/maps', () => {
   it('personalityFromRank maps A–K', () => {
     expect(personalityFromRank('A')).toBe('enthusiast')
     expect(personalityFromRank('10')).toBe('dreamy')
-    expect(personalityFromRank('J')).toBe('calm')
-    expect(personalityFromRank('K')).toBe('sad')
+    expect(personalityFromRank('J')).toBe('quiet')
+    expect(personalityFromRank('K')).toBe('sorrowful')
   })
 
   it('suitFromAgeBand inverts ageBandFromSuit', () => {

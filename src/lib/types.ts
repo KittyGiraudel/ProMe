@@ -41,12 +41,12 @@ export type Personality =
   | 'grumpy'
   | 'curious'
   | 'friendly'
-  | 'embarrassed'
+  | 'shy'
   | 'hasty'
   | 'dreamy'
-  | 'calm'
-  | 'joyful'
-  | 'sad'
+  | 'quiet'
+  | 'playful'
+  | 'sorrowful'
 
 export type PlayingCard = {
   suit: Suit

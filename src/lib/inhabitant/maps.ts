@@ -93,17 +93,17 @@ export function personalityFromRank(rank: Rank): Personality {
     case '7':
       return 'friendly'
     case '8':
-      return 'embarrassed'
+      return 'shy'
     case '9':
       return 'hasty'
     case '10':
       return 'dreamy'
     case 'J':
-      return 'calm'
+      return 'quiet'
     case 'Q':
-      return 'joyful'
+      return 'playful'
     case 'K':
-      return 'sad'
+      return 'sorrowful'
     default: {
       const _exhaustive: never = rank
       return _exhaustive
@@ -127,17 +127,17 @@ export function rankFromPersonality(personality: Personality): Rank {
       return '6'
     case 'friendly':
       return '7'
-    case 'embarrassed':
+    case 'shy':
       return '8'
     case 'hasty':
       return '9'
     case 'dreamy':
       return '10'
-    case 'calm':
+    case 'quiet':
       return 'J'
-    case 'joyful':
+    case 'playful':
       return 'Q'
-    case 'sad':
+    case 'sorrowful':
       return 'K'
     default: {
       const _exhaustive: never = personality
